@@ -15,36 +15,46 @@
 	<!--Metaumwandlungsdatei für Bibliotheksdaten. In diesem Format kann die Darstellung
 	in VuFind besser angepasst werden. Verlinkungen zwischen Datensätzen können einfacher hergestellt werden.-->
 	
-	<xsl:template match="katalog">
+	<xsl:template match="catalog">
 	
 	<add>
 	
-		<xsl:for-each select="datensatz">
+		<xsl:for-each select="record">
 		
 		<doc>
 		
 	
 	
-		<field name="id"><xsl:value-of select="id" /></field>
+		<field name="id"><xsl:value-of select="vufind/id" /></field>
 		
-		<field name="recordtype"><xsl:value-of select="recordType" /></field>
+		<field name="recordtype"><xsl:value-of select="vufind/recordType" /></field>
 		
-		<field name="institution"><xsl:value-of select="institution" /></field>
+		<field name="institution"><xsl:value-of select="institution/institutionShortname" /></field>
 			
-		<field name="collection"><xsl:value-of select="collection" /></field>
+		<field name="collection"><xsl:value-of select="institution/collection" /></field>
 		
-		<field name="recordContentSource"><xsl:value-of select="recordContentSource" /></field>
+		<field name="recordContentSource"><xsl:value-of select="institution/isil" /></field>
 		
-		<field name="recordCreationDate"><xsl:value-of select="recordCreationDate" /></field>
+		<field name="recordCreationDate"><xsl:value-of select="vufind/recordCreationDate" /></field>
 
-		<field name="recordChangeDate"><xsl:value-of select="recordChangeDate" /></field>
+		<field name="recordChangeDate"><xsl:value-of select="vufind/recordChangeDate" /></field>
 		
-		<field name="typeOfRessource"><xsl:value-of select="typeOfRessource" /></field>
+		<field name="typeOfRessource"><xsl:value-of select="dataset/typeOfRessource" /></field>
 		
 	<!-- ALLFIELDS alle Inhalte werden in ein Feld geschrieben -->
                 	<field name="allfields">
                     		<xsl:value-of select="normalize-space(string(.))"/>
                 	</field>
+                	
+           <!--LANGUAGE-->	
+           
+                	<xsl:if test="dataset/language">
+                    		<xsl:for-each select="dataset/language">
+                            		<field name="language">
+                            			<xsl:value-of select="."/>
+                            		</field>
+                    		</xsl:for-each>
+                	</xsl:if>
                 	
 	<!-- LANGUAGE CODE -->                     
                	<xsl:if test="language_code">
@@ -96,35 +106,35 @@
                 	</xsl:if>
 	
 	<!-- FORMAT -->
-		<xsl:if test="objektart">              
+		<xsl:if test="format">              
 			<field name="format">
-				<xsl:value-of select="objektart"/>
+				<xsl:value-of select="format"/>
 			</field>
 		</xsl:if>	
 
 	<!-- AUTHOR --> 
-		<!--<xsl:if test="autorin">
-			<xsl:for-each select="autorin">
+		<!--<xsl:if test="author">
+			<xsl:for-each select="author">
 				<field name="author"><xsl:value-of select="." /></field>
 			</xsl:for-each>
 		</xsl:if>-->
 		
-		<xsl:if test="autorin[1]">
-			<field name="author"><xsl:value-of select="autorin[1]" /></field>
+		<xsl:if test="dataset/author[1]">
+			<field name="author"><xsl:value-of select="dataset/author[1]" /></field>
 		</xsl:if>
-		<xsl:if test="autorin[2]">
-			<field name="author_additional"><xsl:value-of select="autorin[2]" /></field>
+		<xsl:if test="dataset/author[2]">
+			<field name="author_additional"><xsl:value-of select="dataset/author[2]" /></field>
 		</xsl:if>
-		<xsl:if test="autorin[3]">
-			<field name="author_additional"><xsl:value-of select="autorin[3]" /></field>
+		<xsl:if test="dataset/author[3]">
+			<field name="author_additional"><xsl:value-of select="dataset/author[3]" /></field>
 		</xsl:if>
-		<xsl:if test="autorin[4]">
-			<field name="author_additional"><xsl:value-of select="autorin[4]" /></field>
+		<xsl:if test="dataset/author[4]">
+			<field name="author_additional"><xsl:value-of select="dataset/author[4]" /></field>
 		</xsl:if>
 
 	<!-- Editors -->
-		<xsl:if test="hrsg[normalize-space()]">
-                    		<xsl:for-each select="hrsg">
+		<xsl:if test="dataset/editor[normalize-space()]">
+                    		<xsl:for-each select="dataset/editor">
 	                    		<field name="editor">
            	             		<xsl:value-of select="."/>
                     			</field>
@@ -132,8 +142,8 @@
                 	</xsl:if>
 	
 	<!--Person-->
-		<xsl:if test="person">
-			<xsl:for-each select="person">
+		<xsl:if test="dataset/person">
+			<xsl:for-each select="dataset/person">
 				<field name="person">
 					<xsl:value-of select="." />
 				</field>
@@ -141,33 +151,33 @@
 		</xsl:if>
 	
 	<!-- TITLE -->
-		<xsl:if test="titel[normalize-space()]">
+		<xsl:if test="dataset/title[normalize-space()]">
 			<field name="title">
-                        		<xsl:value-of select="titel[normalize-space()]"/>
+                        		<xsl:value-of select="dataset/title[normalize-space()]"/>
                     		</field>
                     	</xsl:if>
-                    	<xsl:if test="titel_sub">
+                    	<xsl:if test="dataset/title_sub">
 			<field name="title_sub">
-                        		<xsl:value-of select="titel_sub[normalize-space()]"/>
+                        		<xsl:value-of select="dataset/title_sub[normalize-space()]"/>
                     		</field>
                     	</xsl:if>
-                    	<xsl:if test="titel_short">
+                    	<xsl:if test="dataset/title_short">
 		      	<field name="title_short">
-                        		<xsl:value-of select="titel_short[normalize-space()]"/>
+                        		<xsl:value-of select="dataset/title_short[normalize-space()]"/>
                     		</field>
 		</xsl:if>
 	
 	<!-- PUBLISHER -->
-		<xsl:if test="verlag[normalize-space()]">
+		<xsl:if test="dataset/publisher[normalize-space()]">
                     		<field name="publisher">
-                        		<xsl:value-of select="verlag"/>
+                        		<xsl:value-of select="dataset/publisher"/>
                     		</field>
                 	</xsl:if>
                 	
 	<!-- PUBLISHDATE -->
-                	<xsl:if test="jahr">
+                	<xsl:if test="dataset/publishDate">
                     		<field name="publishDate">
-                        		<xsl:value-of select="jahr"/>
+                        		<xsl:value-of select="dataset/publishDate"/>
                     		</field>
                 	</xsl:if>
                 	
@@ -186,15 +196,15 @@
                 	</xsl:if>
 	
 	<!-- PlaceOfPublication -->
-		<xsl:if test="ort[normalize-space()]">
+		<xsl:if test="dataset/placeOfPublication[normalize-space()]">
                     		<field name="placeOfPublication">
-                        		<xsl:value-of select="ort"/>
+                        		<xsl:value-of select="dataset/placeOfPublication"/>
                     		</field>
                 	</xsl:if>
 
 	<!-- Topic -->
-                	<xsl:if test="topic">
-                		<xsl:for-each select="topic">
+                	<xsl:if test="dataset/topic">
+                		<xsl:for-each select="dataset/topic">
                     			<field name="topic">
 					<xsl:value-of select="."/>
                     			</field>
@@ -302,16 +312,16 @@
 		</xsl:if>	-->
 		
 	<!--ISBN / ISSN-->
-		<xsl:if test="isbn">
+		<xsl:if test="dataset/isbn">
 			<field name="isbn">
-				<xsl:value-of select="isbn" />
+				<xsl:value-of select="dataset/isbn" />
 			</field>
 		</xsl:if>
 		
 	<!--ISSN-->	
-		<xsl:if test="issn">
+		<xsl:if test="dataset/issn">
 			<field name="issn">
-				<xsl:value-of select="issn" />
+				<xsl:value-of select="dataset/issn" />
 			</field>
 		</xsl:if>
 		
@@ -325,9 +335,9 @@
 			</xsl:if>
 		
 	<!--Seitenangabe-->
-		<xsl:if test="seitenangabe">
+		<xsl:if test="dataset/physical">
 			<field name="physical">
-				<xsl:value-of select="seitenangabe" />
+				<xsl:value-of select="dataset/physical" />
 			</field>
 		</xsl:if>
 		
@@ -345,37 +355,39 @@
 				<xsl:value-of select="reihe" />
 			</field>
 		</xsl:if>
-		<!--Format-->
+	
+	<!--Format-->
 	<xsl:if test="physical">
 			<field name="physical">
 				<xsl:value-of select="physical" />
 			</field>
 		</xsl:if>
+	
 	<!--Signatur-->
-		<xsl:if test="signatur">
+		<xsl:if test="dataset/shelfMark">
 			<field name="signatur">
-				<xsl:value-of select="signatur" />
+				<xsl:value-of select="dataset/shelfMark" />
 			</field>
 		</xsl:if>
 		
 	<!--Hierarchie-->
-		<xsl:if test="hierarchy_top_id">
-			<field name="hierarchy_top_id"><xsl:value-of select="hierarchy_top_id" /></field>
+		<xsl:if test="functions/hierarchyFields/hierarchy_top_id">
+			<field name="hierarchy_top_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_id" /></field>
 		</xsl:if>			
-		<xsl:if test="hierarchy_top_title">
-			<field name="hierarchy_top_title"><xsl:value-of select="hierarchy_top_title"/></field>
+		<xsl:if test="functions/hierarchyFields/hierarchy_top_title">
+			<field name="hierarchy_top_title"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_title"/></field>
 		</xsl:if>
-		 <xsl:if test="hierarchy_parent_id">
-		 	 <field name="hierarchy_parent_id"><xsl:value-of select="hierarchy_parent_id"/></field>
+		 <xsl:if test="functions/hierarchyFields/hierarchy_parent_id">
+		 	 <field name="hierarchy_parent_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_parent_id"/></field>
 		 </xsl:if>
-		<xsl:if test="hierarchy_parent_title">
-			<field name="hierarchy_parent_title"><xsl:value-of select="hierarchy_parent_title"/></field>
+		<xsl:if test="functions/hierarchyFields/hierarchy_parent_title">
+			<field name="hierarchy_parent_title"><xsl:value-of select="functions/hierarchyFields/hierarchy_parent_title"/></field>
 		</xsl:if>
-		<xsl:if test="is_hierarchy_id">
-			 <field name="is_hierarchy_id"><xsl:value-of select="is_hierarchy_id"/></field>
+		<xsl:if test="functions/hierarchyFields/is_hierarchy_id">
+			 <field name="is_hierarchy_id"><xsl:value-of select="functions/hierarchyFields/is_hierarchy_id"/></field>
 		</xsl:if>
-		<xsl:if test="is_hierarchy_title">
-			<field name="is_hierarchy_title"><xsl:value-of select="is_hierarchy_title"/></field>
+		<xsl:if test="functions/hierarchyFields/is_hierarchy_title">
+			<field name="is_hierarchy_title"><xsl:value-of select="functions/hierarchyFields/is_hierarchy_title"/></field>
 		</xsl:if>
 
 	</doc>
