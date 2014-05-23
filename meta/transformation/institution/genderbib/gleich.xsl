@@ -163,7 +163,7 @@
 <!--dataset_______________________________dataset_______________________________dataset-->
 
 
-	<xsl:element name="dataset">
+	
 
 
 		
@@ -192,7 +192,7 @@
 
 <!--
 	0. Erklärung_ TypeOfRessource muss angegeben werden. Die Schreibweise könnte mit der or Anweisung kürzer sein-->
-				<typeOfRessource>
+<!--				<typeOfRessource>
 					<xsl:choose>
 						<xsl:when test="objektart[text()='Buch']">
 							<xsl:text>text</xsl:text>
@@ -210,7 +210,7 @@
 							<xsl:text>text</xsl:text>
 						</xsl:when>
 					</xsl:choose>
-				</typeOfRessource>
+				</typeOfRessource>-->
 		
 				
 <!--Buch________________Buch___________________________Buch-->
@@ -218,61 +218,68 @@
 <!--Buch________________Buch___________________________Buch-->
 				
 
+
 <xsl:if test="objektart[text()='Buch']">
+
+<xsl:element name="dataset">
+
+				<typeOfRessource>
+						<xsl:text>text</xsl:text>
+				</typeOfRessource>
 
 <!--Titelinformationen-->
 					<xsl:choose>
 						<xsl:when test="contains(Sachtitel[1], ':')">
-							<titel>
+							<title>
 								<xsl:value-of select="Sachtitel"/>
-							</titel>
-							<titel_short>
+							</title>
+							<title_short>
 								<xsl:value-of select="normalize-space(substring-before(Sachtitel[1], ':'))"/>
-							</titel_short>
+							</title_short>
 							<title_sub>
 								<xsl:value-of select="normalize-space(substring-after(Sachtitel[1], ':'))"/>
 							</title_sub>
 						</xsl:when>
 						<xsl:otherwise>
-							<titel>
+							<titlel>
 								<xsl:value-of select="Sachtitel"/>
-							</titel>
-							<titel_short>
+							</titlel>
+							<titlel_short>
 								<xsl:value-of select="Sachtitel"/>
-							</titel_short>
+							</titlel_short>
 						</xsl:otherwise>
 					</xsl:choose>
 
 <!--authorneninformation-->
-					<xsl:if test="author !=''">
+					<xsl:if test="Autorin !=''">
 						<xsl:choose>
-							<xsl:when test="contains(author[1], ';')">
-								<xsl:for-each select="tokenize(author[1], ';')">
+							<xsl:when test="contains(Autorin[1], ';')">
+								<xsl:for-each select="tokenize(Autorin[1], ';')">
 									<author>
 										<xsl:value-of select="normalize-space(.)"/>
 									</author>
 								</xsl:for-each>
 							</xsl:when>
-							<xsl:when test="author[1]">
+							<xsl:when test="Autorin[1]">
 								<author>
-									<xsl:value-of select="author"/>
+									<xsl:value-of select="Autorin"/>
 								</author>
 							</xsl:when>
 						</xsl:choose>
 					</xsl:if>
 
 <!--Herausgeberinneninformationen-->
-					<xsl:if test="editor_ !=''">
+					<xsl:if test="Hrsg_ !=''">
 						<xsl:choose>
-							<xsl:when test="contains(editor_[1], ';')">
-								<xsl:for-each select="tokenize(editor_, ';')">
+							<xsl:when test="contains(Hrsg_[1], ';')">
+								<xsl:for-each select="tokenize(Hrsg_, ';')">
 									<editor>
 										<xsl:value-of select="normalize-space(.)"/>
 									</editor>
 								</xsl:for-each>
 							</xsl:when>
-							<xsl:when test="editor_">
-								<xsl:for-each select="editor_">
+							<xsl:when test="Hrsg_">
+								<xsl:for-each select="Hrsg_">
 									<editor>
 										<xsl:value-of select="."/>
 									</editor>
@@ -406,14 +413,39 @@
 					<xsl:otherwise/>
 				</xsl:choose>
 				
+<!--Signatur-->
+
+				<shelfMark>
+					<xsl:value-of select="Sign_[1]"/>
+				</shelfMark>
+				
+
+</xsl:element>
+
+	<xsl:element name="functions">
+		
+		<xsl:element name="hierarchyFields">
+		
+			<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+			<hierarchy_top_title><xsl:value-of select="Sachtitel"/></hierarchy_top_title>
+			
+			<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+			<is_hierarchy_title><xsl:value-of select="Sachtitel"/></is_hierarchy_title>
+		
+		</xsl:element>
+	
+	</xsl:element>
+			
 <!--Die Angaben im Feld S__Aufsatz werden umgeschrieben und mit einem Attribut versehen-->
-				<xsl:if test="s__Aufsatz != ''">
+				<!--<xsl:if test="s__Aufsatz != ''">
 					<xsl:for-each select="s__Aufsatz">
 						<xsl:element name="artikel">
 							<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')"/>
 						</xsl:element>
 					</xsl:for-each>
-				</xsl:if>
+				</xsl:if>-->
+				
+				
 				
 </xsl:if>
 				
@@ -423,42 +455,49 @@
 				
 <xsl:if test="(objektart[text()='Buch/Einzeltitel']) and (//genderbib/datensatz[id=$s_sachtitel]/objektart='Buch')">
 
+<xsl:element name="dataset">
+
+				<typeOfRessource>
+						<xsl:text>text</xsl:text>
+				</typeOfRessource>
+
+
 <!--Titelinformationen-->
 					<xsl:choose>
 						<xsl:when test="contains(Einzeltitel[1], ':')">
-							<titel>
+							<title>
 								<xsl:value-of select="Einzeltitel"/>
-							</titel>
-							<titel_short>
+							</title>
+							<title_short>
 								<xsl:value-of select="normalize-space(substring-before(Einzeltitel[1], ':'))"/>
-							</titel_short>
+							</title_short>
 							<title_sub>
 								<xsl:value-of select="normalize-space(substring-after(Einzeltitel[1], ':'))"/>
 							</title_sub>
 						</xsl:when>
 						<xsl:otherwise>
-							<titel>
+							<title>
 								<xsl:value-of select="Einzeltitel[1]"/>
-							</titel>
-							<titel_short>
+							</title>
+							<title_short>
 								<xsl:value-of select="Einzeltitel[1]"/>
-							</titel_short>
+							</title_short>
 						</xsl:otherwise>
 					</xsl:choose>
 					
 <!--authorneninformation-->
-					<xsl:if test="author !=''">
+					<xsl:if test="Autorin !=''">
 						<xsl:choose>
-							<xsl:when test="contains(author[1], ';')">
-								<xsl:for-each select="tokenize(author[1], ';')">
+							<xsl:when test="contains(Autorin[1], ';')">
+								<xsl:for-each select="tokenize(Autorin[1], ';')">
 									<author>
 										<xsl:value-of select="normalize-space(.)"/>
 									</author>
 								</xsl:for-each>
 							</xsl:when>
-							<xsl:when test="author[1]">
+							<xsl:when test="Autorin[1]">
 								<author>
-									<xsl:value-of select="author"/>
+									<xsl:value-of select="Autorin"/>
 								</author>
 							</xsl:when>
 						</xsl:choose>
@@ -579,12 +618,31 @@
 						<xsl:otherwise/>
 					</xsl:choose>
 
+</xsl:element>
+
+	<xsl:element name="functions">
+		
+		<xsl:element name="hierarchyFields">
+		
+			<hierarchy_top_id><xsl:value-of select="$s_sachtitel"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+			<hierarchy_top_title><xsl:value-of select="//datensatz[id=$s_sachtitel]/Sachtitel"/></hierarchy_top_title>
+			
+			<hierarchy_parent_id><xsl:value-of select="$s_sachtitel"/><xsl:text>genderbib</xsl:text></hierarchy_parent_id>
+			<hierarchy_parent_title><xsl:value-of select="//datensatz[id=$s_sachtitel]/Sachtitel"/></hierarchy_parent_title>
+		
+			<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+			<is_hierarchy_title><xsl:value-of select="Einzeltitel"/></is_hierarchy_title>
+			
+		</xsl:element>
+	
+	</xsl:element>
+
 <!--Relation herstellen-->
-				<xsl:if test="s__Sachtitel">
+				<!--<xsl:if test="s__Sachtitel">
 						<relatedItem>
 							<xsl:value-of select="$s_sachtitel"/>
 						</relatedItem>
-					</xsl:if>
+					</xsl:if>-->
 				</xsl:if>
 
 <!--Zeitschrift_____________________Zeitschrift______________________Zeitschrift-->
@@ -1268,7 +1326,7 @@
 					</xsl:if>
 
 			</xsl:if>
-</xsl:element>
+
 
 		</xsl:element>
 		</xsl:if>
