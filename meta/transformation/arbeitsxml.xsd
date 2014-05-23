@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="catalog">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="record"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="record">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="vufind"/>
+				<xs:element type="xs:string" name="institution"/>
+				<xs:element type="xs:string" name="dataset"/>
+				<xs:element type="xs:string" name="functions"/>
+			</xs:all>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="functions">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="hierarchyFields"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="hierarchyFields">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="hierarchy_top_id"/>
+				<xs:element type="xs:string" name="hierarchy_top_title"/>
+				<xs:element type="xs:string" name="hierarchy_parent_id"/>
+				<xs:element type="xs:string" name="hierarchy_parent_title"/>
+				<xs:element type="xs:string" name="is_hierarchy_id"/>
+				<xs:element type="xs:string" name="is_hierarchy_title"/>
+				<xs:element type="xs:string" name="hierarchy_sequence"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dataset">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="typeOfRessource"/>
+				<xs:element type="xs:string" name="title"/>
+				<xs:element type="xs:string" name="title_short"/>
+				<xs:element type="xs:string" name="title_sub"/>
+				<xs:element type="xs:string" name="author"/>
+				<xs:element type="xs:string" name="editor"/>
+				<xs:element type="xs:string" name="series"/>
+				<xs:element type="xs:string" name="format"/>
+				<xs:element type="xs:string" name="isbn"/>
+				<xs:element type="xs:string" name="issn"/>
+				<xs:element type="xs:string" name="publisher"/>
+				<xs:element type="xs:string" name="publishDate"/>
+				<xs:element type="xs:string" name="placeOfPublication"/>
+				<xs:element type="xs:string" name="timespan"/>
+				<xs:element type="xs:string" name="physical"/>
+				<xs:element type="xs:string" name="languageCode"/>
+				<xs:element type="xs:string" name="language"/>
+				<xs:element type="xs:string" name="topic"/>
+				<xs:element type="xs:string" name="entity"/>
+				<xs:element type="xs:string" name="person"/>
+				<xs:element type="xs:string" name="issues"/>
+				<xs:element type="xs:string" name="description"/>
+				<xs:element type="xs:string" name="dimension"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="institution">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="institutionShortname"/>
+				<xs:element type="xs:string" name="institutionFullname"/>
+				<xs:element type="xs:string" name="collection"/>
+				<xs:element type="xs:string" name="isil"/>
+				<xs:element type="xs:string" name="link"/>
+				<xs:element type="xs:string" name="location"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="vufind">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="id"/>
+				<xs:element type="xs:string" name="recordCreationDate"/>
+				<xs:element type="xs:string" name="recordChangeDate"/>
+				<xs:element type="xs:string" name="recordType"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

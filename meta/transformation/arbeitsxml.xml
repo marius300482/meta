@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- New XML document created with EditiX XML Editor (http://www.editix.com) at Thu May 22 14:09:45 CEST 2014 -->
+<catalog>
+	<record id="1">
+		<vufind>
+			<id/>
+			<recordCreationDate>2014-05-21</recordCreationDate>
+			<recordChangeDate>2014-05-21</recordChangeDate>
+		</vufind>
+		<institution>
+			<institutionShortname>GenderBib</institutionShortname>
+			<institutionFullname>GenderBib</institutionFullname>
+			<collection>Bibliothekskatalog</collection>
+			<isil>ISIL</isil>
+			<link>http://gendervu.de</link>
+			<geoLocation>
+				<latitude>52.520326</latitude>
+				<longitude>13.394218799999976</longitude>
+			</geoLocation>
+		</institution>
+		<dataset>
+			<typeOfRessource/>
+			<title>Titel</title>
+			<title_short/>
+			<title_sub/>
+			<author/>
+			<editor/>
+			<series/>
+			<format><!-- Objektart -->
+			</format>
+			<isbn/>
+			<issn/>
+			<publisher/>
+			<publishDate/>
+			<placeOfPublication/>
+			<timespan/>
+			<physical/>
+			<languageCode/>
+			<language/>
+			<topic/>
+			<entity/>
+			<person/>
+			<issues/>
+			<description/>
+			<dimension/>
+		</dataset>
+		<functions>
+			<hierarchyFields>
+				<hierarchy_top_id/>
+				<hierarchy_top_title/>
+				<hierarchy_parent_id/>
+				<hierarchy_parent_title/>
+				<is_hierarchy_id/>
+				<is_hierarchy_title/>
+				<hierarchy_sequence/>
+			</hierarchyFields>
+		</functions>
+	</record>
+</catalog>
