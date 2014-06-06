@@ -45,23 +45,6 @@
 			</author>
 		</xsl:for-each>
 	</xsl:template>
-	
-	<!--<xsl:template match="Autorin[1]">
-		<xsl:choose>
-			<xsl:when test="contains(.[1], ';')">
-				<xsl:for-each select="tokenize(.[1], ';')">
-					<author>
-						<xsl:value-of select="normalize-space(.)"/>
-					</author>
-				</xsl:for-each>
-			</xsl:when>
-			<xsl:when test=".[1]">
-				<author>
-					<xsl:value-of select="."/>
-				</author>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>-->
 
 <!--Template Herausgeberinnen-->
 	<xsl:template match="Hrsg_[1]">
@@ -71,24 +54,7 @@
 			</editor>
 		</xsl:for-each>
 	</xsl:template>
-	<!--
-	<xsl:template match="Hrsg_[1]">
-		<xsl:choose>
-			<xsl:when test="contains(.[1], ';')">
-				<xsl:for-each select="tokenize(.[1], ';')">
-					<editor>
-						<xsl:value-of select="normalize-space(.)"/>
-					</editor>
-				</xsl:for-each>
-			</xsl:when>
-			<xsl:otherwise>
-				<editor>
-					<xsl:value-of select="."/>
-				</editor>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>-->
-
+	
 <!--Template Titel-->
 	<xsl:template match="Titel">
 		<xsl:choose>
@@ -346,13 +312,6 @@
 				
 				<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
             			<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
-				<!--
-				<hierarchy_top_id>
-					<xsl:value-of select="document('classification.xml')//record[@id=$shelfMark1]/vufind/id" />
-				</hierarchy_top_id>
-				<hierarchy_top_title>
-					<xsl:value-of select="document('classification.xml')//record[@id=$shelfMark1]/dataset/title"/>	
-				</hierarchy_top_title>-->
 				
 				<hierarchy_parent_id>
 					<xsl:value-of select="document('classification.xml')//record[@id=$shelfMark2]/vufind/id" />
@@ -369,8 +328,8 @@
 				<is_hierarchy_title>
 					<xsl:choose>
 						<xsl:when test="../Sachtitel[1]"><xsl:value-of select="../Sachtitel[1]"/></xsl:when>
-						<xsl:when test="../Sachtitel[1]"><xsl:value-of select="../Titel[1]"/></xsl:when>
-						<xsl:when test="../Sachtitel[1]"><xsl:value-of select="../Einzeltitel[1]"/></xsl:when>
+						<xsl:when test="../Titel[1]"><xsl:value-of select="../Titel[1]"/></xsl:when>
+						<xsl:when test="../Einzeltitel[1]"><xsl:value-of select="../Einzeltitel[1]"/></xsl:when>
 						<xsl:when test="../Sammeltitel[1]"><xsl:value-of select="../Sammeltitel[1]"/></xsl:when>
 					</xsl:choose>
 					
@@ -379,8 +338,8 @@
 				<hierarchy_sequence>
 					<xsl:choose>
 						<xsl:when test="../Sachtitel[1]"><xsl:value-of select="substring(../Sachtitel[1], 1,10)"/></xsl:when>
-						<xsl:when test="../Sachtitel[1]"><xsl:value-of select="substring(../Titel[1],1,10)"/></xsl:when>
-						<xsl:when test="../Sachtitel[1]"><xsl:value-of select="substring(../Einzeltitel[1],1,10)"/></xsl:when>
+						<xsl:when test="../Titel[1]"><xsl:value-of select="substring(../Titel[1],1,10)"/></xsl:when>
+						<xsl:when test="../Einzeltitel[1]"><xsl:value-of select="substring(../Einzeltitel[1],1,10)"/></xsl:when>
 						<xsl:when test="../Sammeltitel[1]"><xsl:value-of select="substring(../Sammeltitel[1],1,10)"/></xsl:when>
 					</xsl:choose>
 				</hierarchy_sequence>
@@ -394,7 +353,8 @@
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 	<!--Umwandlungen werden nur bei diesem Objektarten durchgeführt-->
 		<!--<xsl:if test="(objektart[text()='Buch/Einzeltitel']) or (objektart[text()='Zeitschrift/Einzeltitel']) or (objektart[text()='Zeitschrift/Heftitel']) or (objektart[text()='Buch']) or (objektart[text()='Zeitschrift'])">-->
-		<xsl:if test="objektart[text()='Buch']">
+		<!--<xsl:if test="objektart[text()='Buch']">-->
+		<xsl:if test="(objektart[text()='Magistra/Magister Gender Studies']) or (objektart[text()='Abschlussarbeit'])">
 		<!--<xsl:if test="objektart[text()='Zeitschrift/Heftitel']">-->
 		<!--<xsl:if test="contains(objektart, 'Einzeltitel')">-->
 		<xsl:variable name="id" select="id"/><!--Umwandlungen werden nur bei diesem Objektarten durchgeführt-->
@@ -772,9 +732,10 @@
 				</xsl:if>
 
 <!--language Sprachangaben-->
-				<xsl:if test="Sprache[1]">
-					<xsl:apply-templates select="Sprache[1]" />
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]" /></xsl:when>
+					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+				</xsl:choose>
 				
 <!--subjectTopic Deskriptoren-->
 				<xsl:if test="Deskriptoren1[1]">
@@ -806,7 +767,45 @@
 						<xsl:value-of select="Sign_[1]"/>
 					</shelfMark>
 				</xsl:if>
+
+<!--projectMark-->	
+			<project>
+				<xsl:for-each select="tokenize(Deskriptoren1[1], ';')">
+					<xsl:variable name="topic" select="normalize-space(.)" />
+						<xsl:if test="document('keywords.xml')/root/systemstelle/keyword=$topic">
+						<!--	<projekt>-->
+								<xsl:value-of select="document('keywords.xml')/root/systemstelle[keyword=$topic]/@id" />
+								<xsl:text>;</xsl:text>
+							<!--</projekt>	-->					
+						</xsl:if>
+				</xsl:for-each>
+			</project>
+				
 </xsl:element>
+
+	<xsl:element name="functions">
+		
+	<xsl:choose>
+		<xsl:when test="Sign_[1]">
+			<xsl:element name="hierarchyFields"><xsl:apply-templates select="Sign_[1]" /></xsl:element>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:element name="hierarchyFields">
+			<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
+            		<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
+            		<hierarchy_parent_id>OZOhneZuordngenderbib</hierarchy_parent_id>
+			<hierarchy_parent_title>OZ Ohne Zuordnung</hierarchy_parent_title>
+			<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+			<is_hierarchy_title><xsl:value-of select="Titel[1]"/></is_hierarchy_title>
+			<hierarchy_sequence><xsl:value-of select="normalize-space(substring(Titel[1],1,10))"/></hierarchy_sequence>
+			</xsl:element>
+		</xsl:otherwise>
+	</xsl:choose>
+	
+	
+	</xsl:element>	
+
+	
 
 </xsl:if>
 

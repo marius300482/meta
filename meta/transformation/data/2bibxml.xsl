@@ -148,9 +148,11 @@
 				<field name="seriesNr"><xsl:value-of select="dataset/seriesNr" /></field>
 			</xsl:if>
 			
-			<xsl:if test="dataset/projekt">
-				<xsl:for-each select="distinct-values(dataset/projekt/text())">
-					<field name="projekt"><xsl:value-of select="." /></field>
+			<xsl:if test="dataset/project">
+				<xsl:for-each select="distinct-values(tokenize(dataset/project, ';'))">
+					<xsl:if test=".!=''">
+						<field name="project"><xsl:value-of select="." /></field>
+					</xsl:if>
 				</xsl:for-each>
 			</xsl:if>
 	
