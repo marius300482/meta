@@ -144,8 +144,15 @@
 				<field name="signatur"><xsl:value-of select="dataset/shelfMark" /></field>
 			</xsl:if>
 	
-	
-	
+			<xsl:if test="dataset/seriesNr">
+				<field name="seriesNr"><xsl:value-of select="dataset/seriesNr" /></field>
+			</xsl:if>
+			
+			<xsl:if test="dataset/projekt">
+				<xsl:for-each select="distinct-values(dataset/projekt/text())">
+					<field name="projekt"><xsl:value-of select="." /></field>
+				</xsl:for-each>
+			</xsl:if>
 	
 	<!--Person-->
 		<xsl:if test="dataset/person">
@@ -320,6 +327,10 @@
 		<xsl:if test="functions/hierarchyFields/is_hierarchy_title">
 			<field name="is_hierarchy_title"><xsl:value-of select="functions/hierarchyFields/is_hierarchy_title"/></field>
 		</xsl:if>
+		<xsl:if test="functions/hierarchyFields/hierarchy_sequence">
+			<field name="hierarchy_sequence"><xsl:value-of select="functions/hierarchyFields/hierarchy_sequence"/></field>
+		</xsl:if>
+		
 
 	</doc>
 	

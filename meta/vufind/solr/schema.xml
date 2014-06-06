@@ -223,6 +223,11 @@
     <field name="zdbid" type="string" indexed="true" stored="true"
     multiValued="true"/>
    <field name="circa-jahr" type="string" indexed="true" stored="true"/>
+   <field name="displayPublishDate" type="string" indexed="true" stored="true"/>
+   <field name="subjectGeographic" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="subjectPerson" type="string" indexed="true" stored="true" multiValued="true"/>
+    <field name="shelfMark" type="string" indexed="true" stored="true"/>
+    <field name="seriesNr" type="text" indexed="true" stored="true" multiValued="true"/>
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
