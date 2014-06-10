@@ -173,7 +173,8 @@
    <field name="topic_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_browse" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="author_browse" type="string" indexed="true" stored="false" multiValued="true"/>
-   <field name="genre" type="text" indexed="true" stored="true" multiValued="true"/>
+     <field name="editor_browse" type="string" indexed="true" stored="false" multiValued="true"/>
+     <field name="genre" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="genre_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="geographic" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="geographic_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
@@ -215,7 +216,8 @@
    <field name="language_code" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="placeOfPublication" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="editor" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="recordContentSource" type="string" indexed="true" stored="true" multiValued="true"/>
+     <field name="editorStr" type="textFacet" indexed="true" stored="false" multiValued="true"/>
+     <field name="recordContentSource" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="recordCreationDate" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="recordChangeDate" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="typeOfRessource" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -227,8 +229,8 @@
    <field name="subjectGeographic" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="subjectPerson" type="string" indexed="true" stored="true" multiValued="true"/>
     <field name="shelfMark" type="string" indexed="true" stored="true"/>
-    <field name="seriesNr" type="text" indexed="true" stored="true" multiValued="true"/>
-    <field name="project" type="text" indexed="true" stored="true" multiValued="true"/>
+     <field name="seriesNr" type="text" indexed="true" stored="true"/>
+     <field name="project" type="text" indexed="true" stored="true" multiValued="true"/>
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
@@ -250,7 +252,8 @@
  <copyField source="allfields" dest="spelling"/>
  <!-- ** Complex, Shingle spelling -->
  <copyField source="author"   dest="spellingShingle"/>
- <copyField source="title"    dest="spellingShingle"/>
+    <copyField source="editor" dest="spellingShingle"/>
+    <copyField source="title"    dest="spellingShingle"/>
  <copyField source="contents" dest="spellingShingle"/>
  <copyField source="series"   dest="spellingShingle"/>
  <copyField source="topic"    dest="spellingShingle"/>
@@ -260,7 +263,8 @@
  <copyField source="author" dest="authorStr"/>
  <copyField source="author2" dest="author2Str"/>
  <copyField source="author_additional" dest="author_additionalStr"/>
- <copyField source="publisher" dest="publisherStr"/>
+    <copyField source="editor" dest="editorStr"/>
+    <copyField source="publisher" dest="publisherStr"/>
  <copyField source="topic" dest="topic_unstemmed"/>
  <copyField source="allfields" dest="allfields_unstemmed"/>
  <copyField source="fulltext" dest="fulltext_unstemmed"/>
@@ -268,7 +272,8 @@
  <copyField source="topic"    dest="topic_browse"/>
  <copyField source="author"    dest="author_browse"/>
  <copyField source="author2"    dest="author_browse"/>
- <!-- CopyFields for All Fields -->
+    <copyField source="editor" dest="editor_browse"/>
+    <!-- CopyFields for All Fields -->
  <copyField source="format"    dest="allfields"/>
  <copyField source="format"    dest="allfields_unstemmed"/>
  <!-- Default Boolean Operator -->
