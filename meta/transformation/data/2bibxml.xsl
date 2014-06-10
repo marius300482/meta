@@ -88,12 +88,20 @@
                     			</xsl:for-each>
                 		</xsl:if>
     			
-    			<xsl:if test="series">
-				<field name="series"><xsl:value-of select="series" /></field>
+    			<xsl:if test="dataset/series">
+				<field name="series"><xsl:value-of select="dataset/series" /></field>
 			</xsl:if>
     			
     			<xsl:if test="dataset/isbn">
 				<field name="isbn">	<xsl:value-of select="dataset/isbn" /></field>
+			</xsl:if>
+			
+			<xsl:if test="dataset/issn">
+				<field name="issn">	<xsl:value-of select="dataset/issn" /></field>
+			</xsl:if>
+			
+			<xsl:if test="dataset/zdbId">
+				<field name="zdbid"><xsl:value-of select="dataset/zdbId" /></field>
 			</xsl:if>
     			
     			<xsl:if test="dataset/displayPublishDate">
@@ -102,6 +110,11 @@
     			
     			<xsl:if test="dataset/publishDate">
                     			<field name="publishDate"><xsl:value-of select="dataset/publishDate"/></field>
+                		</xsl:if>
+                		
+                		<xsl:if test="dataset/timeSpan">
+                    			<field name="timeSpanStart"><xsl:value-of select="dataset/timeSpan/timeSpanStart"/></field>
+                    			<field name="timeSpanEnd"><xsl:value-of select="dataset/timeSpan/timeSpanEnd"/></field>
                 		</xsl:if>
     			
     			<xsl:if test="dataset/placeOfPublication">
@@ -149,14 +162,41 @@
 			</xsl:if>
 			
 			<xsl:if test="dataset/project">
-				<xsl:for-each select="distinct-values(tokenize(dataset/project, ';'))">
+				<xsl:for-each select="distinct-values(tokenize(dataset/project, ' '))">
 					<xsl:if test=".!=''">
 						<field name="project"><xsl:value-of select="." /></field>
 					</xsl:if>
 				</xsl:for-each>
 			</xsl:if>
 	
-	<!--Person-->
+		
+		
+<!--functions-->
+
+		<xsl:if test="functions/hierarchyFields/hierarchy_top_id">
+			<field name="hierarchy_top_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_id" /></field>
+		</xsl:if>			
+		<xsl:if test="functions/hierarchyFields/hierarchy_top_title">
+			<field name="hierarchy_top_title"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_title"/></field>
+		</xsl:if>
+		 <xsl:if test="functions/hierarchyFields/hierarchy_parent_id">
+		 	 <field name="hierarchy_parent_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_parent_id"/></field>
+		 </xsl:if>
+		<xsl:if test="functions/hierarchyFields/hierarchy_parent_title">
+			<field name="hierarchy_parent_title"><xsl:value-of select="functions/hierarchyFields/hierarchy_parent_title"/></field>
+		</xsl:if>
+		<xsl:if test="functions/hierarchyFields/is_hierarchy_id">
+			 <field name="is_hierarchy_id"><xsl:value-of select="functions/hierarchyFields/is_hierarchy_id"/></field>
+		</xsl:if>
+		<xsl:if test="functions/hierarchyFields/is_hierarchy_title">
+			<field name="is_hierarchy_title"><xsl:value-of select="functions/hierarchyFields/is_hierarchy_title"/></field>
+		</xsl:if>
+		<xsl:if test="functions/hierarchyFields/hierarchy_sequence">
+			<field name="hierarchy_sequence"><xsl:value-of select="functions/hierarchyFields/hierarchy_sequence"/></field>
+		</xsl:if>
+
+
+<!--Person-->
 		<xsl:if test="dataset/person">
 			<xsl:for-each select="dataset/person">
 				<field name="person">
@@ -188,9 +228,9 @@
 		</xsl:if>
 
 	<!--Enthält-->
-		<xsl:if test="url">
+		<xsl:if test="dataset/url">
 			<field name="url">
-				<xsl:value-of select="url" />
+				<xsl:value-of select="dataset/url" />
 			</field>
 		</xsl:if>
 	
@@ -283,22 +323,7 @@
 	<!--ISBN / ISSN-->
 		
 		
-	<!--ISSN-->	
-		<xsl:if test="dataset/issn">
-			<field name="issn">
-				<xsl:value-of select="dataset/issn" />
-			</field>
-		</xsl:if>
-		
-	<!--ZDBID-->	
-		<xsl:if test="zdbid">
-			<xsl:for-each select="zdbid">
-				<field name="zdbid">
-					<xsl:value-of select="." />
-				</field>
-			</xsl:for-each>
-			</xsl:if>
-		
+			
 	<!--Ausgabe-->
 		<xsl:if test="heft">
 			<field name="edition">
@@ -306,33 +331,6 @@
 			</field>
 		</xsl:if>
 	
-	
-		
-		
-<!--functions-->
-
-		<xsl:if test="functions/hierarchyFields/hierarchy_top_id">
-			<field name="hierarchy_top_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_id" /></field>
-		</xsl:if>			
-		<xsl:if test="functions/hierarchyFields/hierarchy_top_title">
-			<field name="hierarchy_top_title"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_title"/></field>
-		</xsl:if>
-		 <xsl:if test="functions/hierarchyFields/hierarchy_parent_id">
-		 	 <field name="hierarchy_parent_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_parent_id"/></field>
-		 </xsl:if>
-		<xsl:if test="functions/hierarchyFields/hierarchy_parent_title">
-			<field name="hierarchy_parent_title"><xsl:value-of select="functions/hierarchyFields/hierarchy_parent_title"/></field>
-		</xsl:if>
-		<xsl:if test="functions/hierarchyFields/is_hierarchy_id">
-			 <field name="is_hierarchy_id"><xsl:value-of select="functions/hierarchyFields/is_hierarchy_id"/></field>
-		</xsl:if>
-		<xsl:if test="functions/hierarchyFields/is_hierarchy_title">
-			<field name="is_hierarchy_title"><xsl:value-of select="functions/hierarchyFields/is_hierarchy_title"/></field>
-		</xsl:if>
-		<xsl:if test="functions/hierarchyFields/hierarchy_sequence">
-			<field name="hierarchy_sequence"><xsl:value-of select="functions/hierarchyFields/hierarchy_sequence"/></field>
-		</xsl:if>
-		
 
 	</doc>
 	

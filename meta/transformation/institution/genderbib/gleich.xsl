@@ -105,6 +105,31 @@
 		</xsl:choose>
 	</xsl:template>
 
+<!--Template Einzeltitel-->
+	<xsl:template match="Zeitschr_-Titel[1]">
+		<xsl:choose>
+			<xsl:when test="contains(.[1], ':')">
+				<title>
+					<xsl:value-of select=".[1]"/>
+				</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(substring-before(.[1], ':'))"/>
+				</title_short>
+				<title_sub>
+					<xsl:value-of select="normalize-space(substring-after(.[1], ':'))"/>
+				</title_sub>
+			</xsl:when>
+			<xsl:otherwise>
+				<title>
+					<xsl:value-of select=".[1]"/>
+				</title>
+				<title_short>
+					<xsl:value-of select=".[1]"/>
+				</title_short>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
 <!--Template Sachtitel-->
 	<xsl:template match="Sachtitel[1]">
 		<xsl:choose>
@@ -282,12 +307,24 @@
 		</xsl:choose>
 	</xsl:template>
 
+<!--Template Geografika-->
+	<xsl:template match="Geografika">
+		<xsl:for-each select="tokenize(.[1], ';')">
+			<subjectGeographic>
+				<xsl:value-of select="normalize-space(.)" />
+			</subjectGeographic>
+		</xsl:for-each>
+	</xsl:template>
+
 <!--Template Hierarchy-->
 	<xsl:template match="Sign_[1]">
 			<xsl:variable name="shelfMark1">
 				<xsl:choose>
 					<xsl:when test="substring(.[1],1,3)='III'">
 						<xsl:text>III</xsl:text>
+					</xsl:when>
+					<xsl:when test="substring(.[1],1,2)='XX'">
+						<xsl:text>XX</xsl:text>
 					</xsl:when>
 					<xsl:when test="(substring(.[1],1,4)='XVII') and (not(substring(.[1],1,5)='XVIII'))">
 						<xsl:text>XVII</xsl:text>
@@ -309,6 +346,13 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
+				
+				<shelfmark1><xsl:value-of select="$shelfMark1"/>
+				
+				</shelfmark1>
+				<shelfmark2>
+				<xsl:value-of select="$shelfMark2"/>
+				</shelfmark2>
 				
 				<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
             			<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
@@ -354,7 +398,9 @@
 	<!--Umwandlungen werden nur bei diesem Objektarten durchgeführt-->
 		<!--<xsl:if test="(objektart[text()='Buch/Einzeltitel']) or (objektart[text()='Zeitschrift/Einzeltitel']) or (objektart[text()='Zeitschrift/Heftitel']) or (objektart[text()='Buch']) or (objektart[text()='Zeitschrift'])">-->
 		<!--<xsl:if test="objektart[text()='Buch']">-->
-		<xsl:if test="(objektart[text()='Magistra/Magister Gender Studies']) or (objektart[text()='Abschlussarbeit'])">
+		<!--<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">-->
+		<xsl:if test="objektart[text()='Zeitschrift']">
+		<!--<xsl:if test="(objektart[text()='Artikel']) or (objektart[text()='Buch']) or (objektart[text()='Buch']) or (objektart[text()='Magistra/Magister Gender Studies']) or (objektart[text()='Abschlussarbeit']) or (objektart[text()='Online-Artikel'])">-->
 		<!--<xsl:if test="objektart[text()='Zeitschrift/Heftitel']">-->
 		<!--<xsl:if test="contains(objektart, 'Einzeltitel')">-->
 		<xsl:variable name="id" select="id"/><!--Umwandlungen werden nur bei diesem Objektarten durchgeführt-->
@@ -605,9 +651,10 @@
 					</xsl:if>
 				
 <!--language Sprachangaben-->
-				<xsl:if test="Sprache[1]">
-					<xsl:apply-templates select="Sprache[1]" />
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]" /></xsl:when>
+					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+				</xsl:choose>
 				
 <!--subjectTopic Deskriptoren-->
 				<xsl:if test="Deskriptoren1[1]">
@@ -640,21 +687,35 @@
 				</xsl:if>
 				
 <!--projectMark-->	
+			<project>
 				<xsl:for-each select="tokenize(Deskriptoren1[1], ';')">
 					<xsl:variable name="topic" select="normalize-space(.)" />
 						<xsl:if test="document('keywords.xml')/root/systemstelle/keyword=$topic">
-							<projekt>
 								<xsl:value-of select="document('keywords.xml')/root/systemstelle[keyword=$topic]/@id" />
-							</projekt>						
+								<xsl:text> </xsl:text>			
 						</xsl:if>
 				</xsl:for-each>
+			</project>
 </xsl:element>
 
-	<xsl:element name="functions">
-		<xsl:element name="hierarchyFields">			
-			<xsl:apply-templates select="Sign_[1]" />
-		</xsl:element>
-	</xsl:element>	
+<xsl:element name="functions">
+	<xsl:choose>
+		<xsl:when test="Sign_[1]">
+			<xsl:element name="hierarchyFields"><xsl:apply-templates select="Sign_[1]" /></xsl:element>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:element name="hierarchyFields">
+			<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
+            		<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
+            		<hierarchy_parent_id>OZOhneZuordngenderbib</hierarchy_parent_id>
+			<hierarchy_parent_title>OZ Ohne Zuordnung</hierarchy_parent_title>
+			<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+			<is_hierarchy_title><xsl:value-of select="Titel[1]"/></is_hierarchy_title>
+			<hierarchy_sequence><xsl:value-of select="normalize-space(substring(Titel[1],1,10))"/></hierarchy_sequence>
+			</xsl:element>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:element>	
 				
 </xsl:if>
 
@@ -773,18 +834,15 @@
 				<xsl:for-each select="tokenize(Deskriptoren1[1], ';')">
 					<xsl:variable name="topic" select="normalize-space(.)" />
 						<xsl:if test="document('keywords.xml')/root/systemstelle/keyword=$topic">
-						<!--	<projekt>-->
 								<xsl:value-of select="document('keywords.xml')/root/systemstelle[keyword=$topic]/@id" />
-								<xsl:text>;</xsl:text>
-							<!--</projekt>	-->					
+								<xsl:text> </xsl:text>			
 						</xsl:if>
 				</xsl:for-each>
 			</project>
 				
 </xsl:element>
 
-	<xsl:element name="functions">
-		
+<xsl:element name="functions">
 	<xsl:choose>
 		<xsl:when test="Sign_[1]">
 			<xsl:element name="hierarchyFields"><xsl:apply-templates select="Sign_[1]" /></xsl:element>
@@ -801,9 +859,7 @@
 			</xsl:element>
 		</xsl:otherwise>
 	</xsl:choose>
-	
-	
-	</xsl:element>	
+</xsl:element>	
 
 	
 
@@ -887,9 +943,10 @@
 					</xsl:if>
 
 <!--language Sprachangaben-->
-				<xsl:if test="Sprache[1]">
-					<xsl:apply-templates select="Sprache[1]" />
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]" /></xsl:when>
+					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+				</xsl:choose>
 				
 <!--subjectTopic Deskriptoren-->
 				<xsl:if test="Deskriptoren1[1]">
@@ -922,7 +979,36 @@
 					</shelfMark>
 				</xsl:if>
 
+<!--projectMark-->	
+			<project>
+				<xsl:for-each select="tokenize(Deskriptoren1[1], ';')">
+					<xsl:variable name="topic" select="normalize-space(.)" />
+						<xsl:if test="document('keywords.xml')/root/systemstelle/keyword=$topic">
+								<xsl:value-of select="document('keywords.xml')/root/systemstelle[keyword=$topic]/@id" />
+								<xsl:text> </xsl:text>			
+						</xsl:if>
+				</xsl:for-each>
+			</project>
 </xsl:element>
+
+<xsl:element name="functions">
+	<xsl:choose>
+		<xsl:when test="Sign_[1]">
+			<xsl:element name="hierarchyFields"><xsl:apply-templates select="Sign_[1]" /></xsl:element>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:element name="hierarchyFields">
+			<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
+            		<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
+            		<hierarchy_parent_id>OZOhneZuordngenderbib</hierarchy_parent_id>
+			<hierarchy_parent_title>OZ Ohne Zuordnung</hierarchy_parent_title>
+			<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+			<is_hierarchy_title><xsl:value-of select="Titel[1]"/></is_hierarchy_title>
+			<hierarchy_sequence><xsl:value-of select="normalize-space(substring(Titel[1],1,10))"/></hierarchy_sequence>
+			</xsl:element>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:element>	
 
 </xsl:if>
 
@@ -1023,7 +1109,142 @@
 					</physical>
 				</xsl:if>
 
+<!--language Sprachangaben-->
+				<xsl:choose>
+					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]" /></xsl:when>
+					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+				</xsl:choose>
+				
+<!--subjectTopic Deskriptoren-->
+				<xsl:if test="Deskriptoren1[1]">
+					<xsl:apply-templates select="Deskriptoren1[1]" />
+				</xsl:if>
+
+<!--subjectGeographic Ortsangaben-->
+				
+				<xsl:if test="Geografika">
+					<xsl:apply-templates select="Geografika[1]" />
+				</xsl:if>
+				
+				<xsl:if test="Land">
+					<subjectGeographic>
+						<xsl:value-of select="Land" />
+					</subjectGeographic>
+				</xsl:if>
+			
+<!--subjectPerson Personenangaben-->
+				<xsl:if test="Personen">
+					<xsl:apply-templates select="Personen" />
+				</xsl:if>
+
+<!--shelfMark Signatur-->
+				<xsl:if test="Sign_[1]">
+					<shelfMark>
+						<xsl:value-of select="Sign_[1]"/>
+					</shelfMark>
+				</xsl:if>
+
+<!--url Link zum Dokument-->
+				<xsl:if test="Digitale_Dokumente">
+					<url>
+						<xsl:value-of select="Digitale_Dokumente" />
+					</url>
+				</xsl:if>
+
+<!--projectMark-->	
+			<project>
+				<xsl:for-each select="tokenize(Deskriptoren1[1], ';')">
+					<xsl:variable name="topic" select="normalize-space(.)" />
+						<xsl:if test="document('keywords.xml')/root/systemstelle/keyword=$topic">
+								<xsl:value-of select="document('keywords.xml')/root/systemstelle[keyword=$topic]/@id" />
+								<xsl:text> </xsl:text>			
+						</xsl:if>
+				</xsl:for-each>
+			</project>
+</xsl:element>
+
+	<xsl:element name="functions">
+		<xsl:choose>
+			<xsl:when test="Sign_[1]">
+				<xsl:element name="hierarchyFields"><xsl:apply-templates select="Sign_[1]" /></xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="hierarchyFields">
+				<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
+	            		<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
+           	 		<hierarchy_parent_id>OAOnlineArtigenderbib</hierarchy_parent_id>
+				<hierarchy_parent_title>Online-Artikel</hierarchy_parent_title>
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title><xsl:value-of select="Titel[1]"/></is_hierarchy_title>
+				<hierarchy_sequence><xsl:value-of select="normalize-space(substring(Titel[1],1,10))"/></hierarchy_sequence>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:element>	
+
+</xsl:if>
+
+<!--Video/DVD____________________Video/DVD______________________________Video/DVD-->
+<!--Video/DVD____________________Video/DVD______________________________Video/DVD-->
+<!--Video/DVD____________________Video/DVD______________________________Video/DVD-->
+
+<xsl:if test="objektart[text()='Video/DVD']">
+
+<xsl:element name="dataset">
+
+<!--typeOfRessource-->
+				<typeOfRessource>
+					<xsl:text>Video</xsl:text>
+				</typeOfRessource>
+
+<!--title Titelinformationen-->
+				<xsl:if test="Titel[1]">
+					<xsl:apply-templates select="Titel[1]" />
+				</xsl:if>
+
+<!--author Autorinneninformation-->
+				<xsl:if test="Autorin[1]">
+					<xsl:apply-templates select="Autorin[1]" />
+				</xsl:if>
+
+<!--editor Herausgeberinneninformationen-->
+				<xsl:if test="Hrsg[1]">
+					<xsl:apply-templates select="Hrsg[1]" />
+				</xsl:if>
+
+<!--format Objektartinformationen-->
+				<format>
+					<xsl:text>Video / DVD</xsl:text>
+				</format>
+
+<!--displayDate-->
+				<xsl:if test="Jahr">
+					<displayPublishDate>
+						<xsl:value-of select="Jahr" />
+					</displayPublishDate>
+				</xsl:if>	
+
+<!--publishDate Jahresangabe-->
+				<xsl:if test="Jahr[1]">
+					<xsl:apply-templates select="Jahr[1]" />
+				</xsl:if>
+
+<!--placeOfPublication Ortsangabe-->						
+				<xsl:if test="Ort[1]">
+					<xsl:apply-templates select="Ort" />
+				</xsl:if>
+
+<!--publisher Verlagsangabe-->
+				<xsl:if test="Verlag[1]">
+					<xsl:apply-templates select="Verlag[1]" />
+				</xsl:if>
+
 <!--runTime Laufzeit DVD-->
+				<xsl:if test="Laufzeit !=''">
+					<runTime>
+						<xsl:value-of select="Laufzeit"/>
+					</runTime>
+				</xsl:if>
 
 <!--language Sprachangaben-->
 				<xsl:if test="Sprache[1]">
@@ -1052,6 +1273,7 @@
 				<xsl:if test="Personen">
 					<xsl:apply-templates select="Personen" />
 				</xsl:if>
+			
 
 <!--shelfMark Signatur-->
 				<xsl:if test="Sign_[1]">
@@ -1060,16 +1282,10 @@
 					</shelfMark>
 				</xsl:if>
 
-<!--url Link zum Dokument-->
-				<xsl:if test="Digitale_Dokumente">
-					<url>
-						<xsl:value-of select="Digitale_Dokumente" />
-					</url>
-				</xsl:if>
-
 </xsl:element>
 
 </xsl:if>
+
 
 <!--Online-Zeitschrift_________________________Online-Zeitschrift_______________________Online-Zeitschrift-->
 <!--Online-Zeitschrift_________________________Online-Zeitschrift_______________________Online-Zeitschrift-->
@@ -1085,6 +1301,13 @@
 				</typeOfRessource>
 
 <!--title Titelinformationen-->
+					
+					<!--Titelinformationen-->
+				<xsl:choose>
+					<xsl:when test="Sachtitel!=''"><xsl:apply-templates select="Sachtitel[1]" /></xsl:when>
+						<xsl:otherwise><xsl:apply-templates select="Zeitschr_-Titel[1]" /></xsl:otherwise>
+				</xsl:choose>
+					<!--
 					<xsl:choose>
 						<xsl:when test="contains(Sachtitel[1], ':')">
 							<title>
@@ -1105,7 +1328,7 @@
 								<xsl:value-of select="Sachtitel[1]"/>
 							</title_short>
 						</xsl:otherwise>
-					</xsl:choose>
+					</xsl:choose>-->
 
 <!--author Autorinneninformation-->
 				<xsl:if test="Autorin[1]">
@@ -1243,107 +1466,36 @@
 
 </xsl:element>
 
-</xsl:if>
 
-<!--Video/DVD____________________Video/DVD______________________________Video/DVD-->
-<!--Video/DVD____________________Video/DVD______________________________Video/DVD-->
-<!--Video/DVD____________________Video/DVD______________________________Video/DVD-->
-
-<xsl:if test="objektart[text()='Video/DVD']">
-
-<xsl:element name="dataset">
-
-<!--typeOfRessource-->
-				<typeOfRessource>
-					<xsl:text>Video</xsl:text>
-				</typeOfRessource>
-
-<!--title Titelinformationen-->
-				<xsl:if test="Titel[1]">
-					<xsl:apply-templates select="Titel[1]" />
-				</xsl:if>
-
-<!--author Autorinneninformation-->
-				<xsl:if test="Autorin[1]">
-					<xsl:apply-templates select="Autorin[1]" />
-				</xsl:if>
-
-<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="Hrsg[1]">
-					<xsl:apply-templates select="Hrsg[1]" />
-				</xsl:if>
-
-<!--format Objektartinformationen-->
-				<format>
-					<xsl:text>Video / DVD</xsl:text>
-				</format>
-
-<!--displayDate-->
-				<xsl:if test="Jahr">
-					<displayPublishDate>
-						<xsl:value-of select="Jahr" />
-					</displayPublishDate>
-				</xsl:if>	
-
-<!--publishDate Jahresangabe-->
-				<xsl:if test="Jahr[1]">
-					<xsl:apply-templates select="Jahr[1]" />
-				</xsl:if>
-
-<!--placeOfPublication Ortsangabe-->						
-				<xsl:if test="Ort[1]">
-					<xsl:apply-templates select="Ort" />
-				</xsl:if>
-
-<!--publisher Verlagsangabe-->
-				<xsl:if test="Verlag[1]">
-					<xsl:apply-templates select="Verlag[1]" />
-				</xsl:if>
-
-<!--runTime Laufzeit DVD-->
-				<xsl:if test="Laufzeit !=''">
-					<runTime>
-						<xsl:value-of select="Laufzeit"/>
-					</runTime>
-				</xsl:if>
-
-<!--language Sprachangaben-->
-				<xsl:if test="Sprache[1]">
-					<xsl:apply-templates select="Sprache[1]" />
-				</xsl:if>
+	<xsl:element name="functions">
+		<xsl:choose>
+			<xsl:when test="Sign_[1]">
+				<xsl:element name="hierarchyFields"><xsl:apply-templates select="Sign_[1]" /></xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="hierarchyFields">
+				<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
+	            		<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
+           	 		<hierarchy_parent_id>ZZeitschrifgenderbib</hierarchy_parent_id>
+				<hierarchy_parent_title>Zeitschriften</hierarchy_parent_title>
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title>
+					<xsl:choose>
+						<xsl:when test="Sachtitel!=''"><xsl:value-of select="Sachtitel[1]" /></xsl:when>
+							<xsl:otherwise><xsl:value-of select="Zeitschr_-Titel[1]" /></xsl:otherwise>
+					</xsl:choose>
+				</is_hierarchy_title>
+				<hierarchy_sequence>
+					<xsl:choose>
+						<xsl:when test="Sachtitel!=''"><xsl:value-of select="normalize-space(substring(Sachtitel[1],1,10))" /></xsl:when>
+							<xsl:otherwise><xsl:value-of select="normalize-space(substring(Zeitschr_-Titel[1],1,10))" /></xsl:otherwise>
+					</xsl:choose>
 				
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Deskriptoren1[1]">
-					<xsl:apply-templates select="Deskriptoren1[1]" />
-				</xsl:if>
-
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Geografika">
-					<subjectGeographic>
-						<xsl:value-of select="Geografika" />
-					</subjectGeographic>
-				</xsl:if>
-				
-				<xsl:if test="Land">
-					<subjectGeographic>
-						<xsl:value-of select="Land" />
-					</subjectGeographic>
-				</xsl:if>
-			
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen">
-					<xsl:apply-templates select="Personen" />
-				</xsl:if>
-			
-
-<!--shelfMark Signatur-->
-				<xsl:if test="Sign_[1]">
-					<shelfMark>
-						<xsl:value-of select="Sign_[1]"/>
-					</shelfMark>
-				</xsl:if>
-
-</xsl:element>
+				<xsl:value-of select="normalize-space(substring(Titel[1],1,10))"/></hierarchy_sequence>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:element>	
 
 </xsl:if>
 
@@ -1361,9 +1513,10 @@
 				</typeOfRessource>
 
 <!--title Titelinformationen-->
-					<titel>
-						<xsl:value-of select="Zeitschr_-Titel" />
-					</titel>
+					<xsl:if test="Zeitschr_-Titel">
+						<xsl:apply-templates select="Zeitschr_-Titel" />
+					</xsl:if>
+					
 
 <!--format Objektartinformationen-->
 					<format>
@@ -1443,21 +1596,39 @@
 				<xsl:if test="Verlag[1]">
 					<xsl:apply-templates select="Verlag[1]" />
 				</xsl:if>
-
-<!--Relation herstellen-->
-				<!--	<xsl:if test="s__Ausgabe!=''">
-						<xsl:for-each select="s__Ausgabe">
-							<xsl:element name="ausgabe">
-								
-								<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')"/>
-							</xsl:element>
-						</xsl:for-each>
-					</xsl:if>	-->
-					
-
 				
 </xsl:element>
-					
+		
+<xsl:element name="functions">
+		<xsl:choose>
+			<xsl:when test="Sign_[1]">
+				<xsl:element name="hierarchyFields"><xsl:apply-templates select="Sign_[1]" /></xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="hierarchyFields">
+				<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
+	            		<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
+           	 		<hierarchy_parent_id>ZZeitschrifgenderbib</hierarchy_parent_id>
+				<hierarchy_parent_title>Zeitschriften</hierarchy_parent_title>
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title>
+					<xsl:choose>
+						<xsl:when test="Sachtitel!=''"><xsl:value-of select="Sachtitel[1]" /></xsl:when>
+							<xsl:otherwise><xsl:value-of select="Zeitschr_-Titel[1]" /></xsl:otherwise>
+					</xsl:choose>
+				</is_hierarchy_title>
+				<hierarchy_sequence>
+					<xsl:choose>
+						<xsl:when test="Sachtitel!=''"><xsl:value-of select="normalize-space(substring(Sachtitel[1],1,10))" /></xsl:when>
+							<xsl:otherwise><xsl:value-of select="normalize-space(substring(Zeitschr_-Titel[1],1,10))" /></xsl:otherwise>
+					</xsl:choose>
+				
+				<xsl:value-of select="normalize-space(substring(Titel[1],1,10))"/></hierarchy_sequence>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:element>			
+			
 </xsl:if>
 
 <!--Zeitschrift/Heftitel_____________________Zeitschrift/Heftitel______________________Zeitschrift/Heftitel-->
