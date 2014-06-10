@@ -148,12 +148,6 @@
         <tr valign="top">
             <th><?= $this->transEsc('Subjects') ?>:</th>
             <td>
-                <? if (count($subjects) > 5): ?>
-                <span style="float:right;">
-                    <a id="showAllTopics" title="More" class="add" onclick="$('.subjectLine.more, #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">More</a>
-                    <a id="hideTooManyTopics" title="Less" class="add hide" onclick="$('.subjectLine.more,  #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">Less</a>
-                </span>
-                <? endif; ?>
                 <? $line = 0;
                 foreach ($subjects as $field): ?>
                     <div class="subjectLine <?= ++$line > 5 ? 'hide more' : '' ?>" property="keywords">
@@ -168,6 +162,12 @@
                         <? endforeach; ?>
                     </div>
                 <? endforeach; ?>
+                <? if (count($subjects) > 5): ?>
+                <div>
+                    <a id="showAllTopics" title="More" class="add" onclick="$('.subjectLine.more, #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">More</a>
+                    <a id="hideTooManyTopics" title="Less" class="add hide" onclick="$('.subjectLine.more,  #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">Less</a>
+                </div>
+                <? endif; ?>
             </td>
         </tr>
     <? endif; ?>
