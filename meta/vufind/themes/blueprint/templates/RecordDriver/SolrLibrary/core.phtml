@@ -69,6 +69,8 @@
                 <? endforeach; ?>
             </td>
         </tr>
+    <? else: ?>
+        <!-- No Editors -->
     <? endif; ?>
 
     <!-- Veroeffentlicht -->
@@ -146,8 +148,15 @@
         <tr valign="top">
             <th><?= $this->transEsc('Subjects') ?>:</th>
             <td>
-                <? foreach ($subjects as $field): ?>
-                    <div class="subjectLine" property="keywords">
+                <? if (count($subjects) > 5): ?>
+                <span style="float:right;">
+                    <a id="showAllTopics" title="More" class="add" onclick="$('.subjectLine.more, #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">More</a>
+                    <a id="hideTooManyTopics" title="Less" class="add hide" onclick="$('.subjectLine.more,  #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">Less</a>
+                </span>
+                <? endif; ?>
+                <? $line = 0;
+                foreach ($subjects as $field): ?>
+                    <div class="subjectLine <?= ++$line > 5 ? 'hide more' : '' ?>" property="keywords">
                         <? $subject = ''; ?>
                         <? $i = 0;
                         foreach ($field as $subfield): ?>
