@@ -5,7 +5,8 @@ $this->headTitle($this->translate('VuFind Topics - Cloud'));
 <div class="tag_cloud">
     <? foreach ($topics as $topic): ?>
         <span style="font-size: <?= $topic['weight'] ?>px">
-            <a href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+            <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>"
+                href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
         </span>
     <? endforeach; ?>
 </div>
