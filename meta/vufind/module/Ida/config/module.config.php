@@ -13,6 +13,25 @@ $config = array(
             ),
         ),
     ),
+    'controllers' => array(
+        'factories' => array(
+            'topics' => array('Ida\Factory', 'getTopicsController'),
+        ),
+    ),
+    'router' => array(
+        'routes' => array(
+            'topics' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/Topics',
+                    'defaults' => array(
+                        'controller' => 'Topics',
+                        'action'     => 'Cloud',
+                    )
+                ),
+            ),
+        ),
+    ),
 );
 
 return $config;

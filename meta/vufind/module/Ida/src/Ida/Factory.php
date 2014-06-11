@@ -2,11 +2,17 @@
 
 namespace Ida;
 
+use Ida\Controller\TopicsController;
 use Zend\ServiceManager\ServiceManager;
 
 class Factory
 {
-
+    public static function getTopicsController(ServiceManager $sm)
+    {
+        return new TopicsController(
+            $sm->getServiceLocator()->get('VuFind\Config')->get('config')
+        );
+    }
 
     /**
      * Factory for SolrLibrary record driver.
