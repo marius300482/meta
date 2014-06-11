@@ -17,10 +17,12 @@ class Factory
      */
     public static function getSolrLibrary(ServiceManager $sm)
     {
+        $serviceLocator = $sm->getServiceLocator();
+
         return new RecordDriver\SolrLibrary(
-            $sm->getServiceLocator()->get('VuFind\Config')->get('config'),
+            $serviceLocator->get('VuFind\Config')->get('config'),
             null,
-            $sm->getServiceLocator()->get('VuFind\Config')->get('searches')
+            $serviceLocator->get('VuFind\Config')->get('searches')
         );
     }
 }
