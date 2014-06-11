@@ -13,9 +13,12 @@ use VuFind\XSLT\Import\VuFind;
 class SolrLibrary extends SolrDefault
 {
 
+    private $formats = array();
+
     function __construct($mainConfig = null, $recordConfig = null,
                          $searchSettings = null)
     {
+        $this->formats = $mainConfig->Format2Thumbs->formats;
         parent::__construct($mainConfig, $recordConfig, $searchSettings);
     }
 
@@ -55,5 +58,42 @@ class SolrLibrary extends SolrDefault
     public function getTopics()
     {
         return isset($this->fields['topic']) ? $this->fields['topic'] : array();
+    }
+
+
+    /**
+     * Returns one of three things: a full URL to a thumbnail preview of the record
+     * if an image is available in an external system; an array of parameters to
+     * send to VuFind's internal cover generator if no fixed URL exists; or false
+     * if no thumbnail can be generated.
+     *
+     * @param string $size Size of thumbnail (small, medium or large -- small is
+     * default).
+     *
+     * @return string|array|bool
+     */
+    public function getThumbnail($size = 'small')
+    {
+        $thumbnail = array('size' => $size, 'contenttype' => $this->getFormatForThumb());
+        if ($isbn = $this->getCleanISBN()) {
+            $thumbnail['isn'] = $isbn;
+            //return array('isn' => $isbn, 'size' => $size, 'contenttype' => $this->getFormatForThumb());
+        }
+        return $thumbnail;
+    }
+
+    /**
+     * @return string
+     */
+    private function getFormatForThumb()
+    {
+        $formats = $this->getFormats();
+        $format = null;
+
+        if (!empty($formats))
+        {
+            $format = $this->formats->get($formats[0]);
+        }
+        return $format;
     }
 }
