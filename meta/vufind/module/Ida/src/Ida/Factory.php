@@ -9,7 +9,7 @@ class Factory
 
 
     /**
-     * Factory for SolrLibary record driver.
+     * Factory for SolrLibrary record driver.
      *
      * @param ServiceManager $sm Service manager.
      *
@@ -20,6 +20,28 @@ class Factory
         $serviceLocator = $sm->getServiceLocator();
 
         return new RecordDriver\SolrLibrary(
+            $serviceLocator->get('VuFind\Config')->get('config'),
+            null,
+            $serviceLocator->get('VuFind\Config')->get('searches')
+        );
+    }
+
+    public static function getSolrArchive(ServiceManager $sm)
+    {
+        $serviceLocator = $sm->getServiceLocator();
+
+        return new RecordDriver\SolrArchive(
+            $serviceLocator->get('VuFind\Config')->get('config'),
+            null,
+            $serviceLocator->get('VuFind\Config')->get('searches')
+        );
+    }
+
+    public static function getSolrSystematik(ServiceManager $sm)
+    {
+        $serviceLocator = $sm->getServiceLocator();
+
+        return new RecordDriver\SolrSystematik(
             $serviceLocator->get('VuFind\Config')->get('config'),
             null,
             $serviceLocator->get('VuFind\Config')->get('searches')

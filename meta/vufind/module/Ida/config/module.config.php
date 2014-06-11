@@ -7,6 +7,8 @@ $config = array(
             'recorddriver' => array(
                 'factories' => array(
                     'solrlibrary' => array('Ida\Factory', 'getSolrLibrary'),
+                    'solrarchive' => array('Ida\Factory', 'getSolrArchive'),
+                    'solrsystematik' => array('Ida\Factory', 'getSolrSystematik'),
                 ),
             ),
         ),
