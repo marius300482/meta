@@ -38,9 +38,13 @@ class TopicsController extends BrowseController
             $topic['weight'] = round($topic['count'] * $keyword_weight_ratio);
         }
 
-        usort($topics, function($a, $b) {
-            return $a['displayText'] > $b['displayText'];
-        });
+        $alpha = $this->config->TopicsCloud->alpha;
+        if (!isset($alpha) || $alpha)
+        {
+            usort($topics, function($a, $b) {
+                return $a['displayText'] > $b['displayText'];
+            });
+        }
 
         $view = $this->createViewModel();
         $view->topics = $topics;
