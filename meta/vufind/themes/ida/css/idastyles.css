@@ -1,0 +1,7 @@
+.fav {
+    background-image:url(../images/icons/bookmarks.png);
+    background-repeat:no-repeat;
+    background-position: left;
+    padding:.5em .5em .5em 20px;
+    margin-right:1em;
+}
