@@ -77,7 +77,6 @@ class SolrLibrary extends SolrDefault
         $thumbnail = array('size' => $size, 'contenttype' => $this->getFormatForThumb());
         if ($isbn = $this->getCleanISBN()) {
             $thumbnail['isn'] = $isbn;
-            //return array('isn' => $isbn, 'size' => $size, 'contenttype' => $this->getFormatForThumb());
         }
         return $thumbnail;
     }
