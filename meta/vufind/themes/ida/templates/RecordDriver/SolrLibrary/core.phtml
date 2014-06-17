@@ -178,7 +178,7 @@
         <tr valign="top">
             <th><?= $this->transEsc('Belongs to') ?>:</th>
             <td>
-                <a href="<?= $belongsTo[0] ?>"><?= $belongsTo[1] ?></a>
+                <a href="<?= $this->url('record') . $belongsTo[0] ?>"><?= $belongsTo[1] ?></a>
             </td>
         </tr>
     <? endif; ?>
@@ -188,7 +188,7 @@
         <tr valign="top">
             <th><?= $this->transEsc('Belongs to') ?>:</th>
             <td>
-                <a href="<?= $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
+                <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
             </td>
         </tr>
     <? endif; ?>
