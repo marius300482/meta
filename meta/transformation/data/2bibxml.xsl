@@ -168,17 +168,57 @@
 					</xsl:if>
 				</xsl:for-each>
 			</xsl:if>
-	
+			
+			
+			<xsl:if test="dataset/format='Artikel'">
+			<xsl:variable name="test" select="functions/hierarchyFields/hierarchy_parent_id" />
+				<xsl:if test="//record[@id=$test]/dataset/displayPublishDate">
+					<field name="displayPublishDate"><xsl:value-of select="//record[@id=$test]/dataset/displayPublishDate"/></field>
+				</xsl:if>
+
+				<xsl:if test="//record[@id=$test]/dataset/placeOfPublication">
+					<field name="placeOfPublication"><xsl:value-of select="//record[@id=$test]/dataset/placeOfPublication"/></field>
+				</xsl:if>
+				
+				<xsl:if test="//record[@id=$test]/dataset/publisher">
+					<field name="publisher"><xsl:value-of select="//record[@id=$test]/dataset/publisher"/></field>
+				</xsl:if>
+				<xsl:if test="//record[@id=$test]/functions/systematikFields/systematik_parent_id">
+					<field name="systematik_parent_id"><xsl:value-of select="//record[@id=$test]/functions/systematikFields/systematik_parent_id"/></field>
+				</xsl:if>
+				<xsl:if test="//record[@id=$test]/functions/systematikFields/systematik_parent_title">
+					<field name="systematik_parent_title"><xsl:value-of select="//record[@id=$test]/functions/systematikFields/systematik_parent_title"/></field>
+				</xsl:if>
+			</xsl:if>
 		
 		
 <!--functions-->
 
-		<xsl:if test="functions/hierarchyFields/hierarchy_top_id">
-			<field name="hierarchy_top_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_id" /></field>
-		</xsl:if>			
-		<xsl:if test="functions/hierarchyFields/hierarchy_top_title">
-			<field name="hierarchy_top_title"><xsl:value-of select="functions/hierarchyFields/hierarchy_top_title"/></field>
+		
+		<xsl:if test="functions/systematikFields/systematik_parent_id">
+			<xsl:for-each select="functions/systematikFields/systematik_parent_id">
+				<field name="systematik_parent_id"><xsl:value-of select="." /></field>
+			</xsl:for-each>
 		</xsl:if>
+		
+		<xsl:if test="functions/systematikFields/systematik_parent_title">
+			<xsl:for-each select="functions/systematikFields/systematik_parent_title">
+				<field name="systematik_parent_title"><xsl:value-of select="." /></field>
+			</xsl:for-each>
+		</xsl:if>
+		
+		<xsl:if test="functions/hierarchyFields/hierarchy_top_id">
+			<xsl:for-each select="functions/hierarchyFields/hierarchy_top_id">
+				<field name="hierarchy_top_id"><xsl:value-of select="." /></field>
+			</xsl:for-each>
+		</xsl:if>		
+			
+		<xsl:if test="functions/hierarchyFields/hierarchy_top_title">
+			<xsl:for-each select="functions/hierarchyFields/hierarchy_top_title">
+				<field name="hierarchy_top_title"><xsl:value-of select="."/></field>
+			</xsl:for-each>
+		</xsl:if>
+		
 		 <xsl:if test="functions/hierarchyFields/hierarchy_parent_id">
 		 	 <field name="hierarchy_parent_id"><xsl:value-of select="functions/hierarchyFields/hierarchy_parent_id"/></field>
 		 </xsl:if>

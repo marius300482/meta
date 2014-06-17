@@ -233,6 +233,8 @@
      <field name="project" type="text" indexed="true" stored="true" multiValued="true"/>
      <field name="timeSpanStart" type="string" indexed="true" stored="true"/>
      <field name="timeSpanEnd" type="string" indexed="true" stored="true"/>
+      <field name="systematik_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
+       <field name="systematik_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
