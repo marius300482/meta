@@ -60,6 +60,34 @@ class SolrLibrary extends SolrDefault
         return isset($this->fields['topic']) ? $this->fields['topic'] : array();
     }
 
+    /**
+     * Expects one entry for systematik_parent_id and systematik_parent_title
+     * @return array [id, tittle]
+     */
+    public function getBelongsTo()
+    {
+        if (isset($this->fields['systematik_parent_id']) && isset($this->fields['systematik_parent_title']))
+        {
+            return array($this->fields['systematik_parent_id'][0], $this->fields['systematik_parent_title'][0]);
+        }
+        return  array();
+    }
+
+    /**
+     * Expects one entry for hierarchy_top_id and hierarchy_top_title
+     * @return array [id, tittle]
+     */
+    public function getBelongsToTop()
+    {
+        if(in_array('Artikel', $this->getFormats()))
+        {
+            if (isset($this->fields['hierarchy_top_id']) && isset($this->fields['hierarchy_top_title']))
+            {
+                return array($this->fields['hierarchy_top_id'][0], $this->fields['hierarchy_top_title'][0]);
+            }
+        }
+        return array();
+    }
 
     /**
      * Returns one of three things: a full URL to a thumbnail preview of the record

@@ -172,6 +172,28 @@
         </tr>
     <? endif; ?>
 
+    <!-- Mini Kontext -->
+    <? $belongsTo = $this->driver->getBelongsTo();
+    if (!empty($belongsTo)): ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Belongs to') ?>:</th>
+            <td>
+                <a href="<?= $belongsTo[0] ?>"><?= $belongsTo[1] ?></a>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $belongsToTop = $this->driver->getBelongsToTop();
+    if (!empty($belongsToTop)): ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Belongs to') ?>:</th>
+            <td>
+                <a href="<?= $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
+            </td>
+        </tr>
+    <? endif; ?>
+
+
     <!-- tags -->
     <? $tagList = $this->driver->getTags(); ?>
     <tr valign="top">
