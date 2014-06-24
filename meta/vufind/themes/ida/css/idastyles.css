@@ -5,3 +5,8 @@
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
+.topicslist {
+    column-count: 3;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+}

@@ -27,7 +27,24 @@ $config = array(
                     'defaults' => array(
                         'controller' => 'Topics',
                         'action'     => 'Cloud',
-                    )
+                    ),
+                    /*'list' => array(
+                       'controller' => 'Topics',
+                        'action'     => 'List',
+                    ),*/
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'list' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route'    => '/List',
+                            'defaults' => array(
+                                'controller' => 'Topics',
+                                'action'     => 'List',
+                            )
+                        )
+                    ),
                 ),
             ),
         ),

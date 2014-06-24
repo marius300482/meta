@@ -10,6 +10,8 @@ namespace Ida\Controller;
 
 use VuFind\Controller\BrowseController;
 use VuFind\RecordDriver\SolrDefault;
+use Zend\Config\Config;
+use Zend\Stdlib\Parameters;
 use Zend\View\Model\ViewModel;
 
 class TopicsController extends BrowseController
@@ -24,6 +26,24 @@ class TopicsController extends BrowseController
     public function __construct(\Zend\Config\Config $config)
     {
         $this->config = $config;
+    }
+
+    public function listAction()
+    {
+        $prefix = $this->getRequest()->getQuery()->get('facet_prefix');
+        // Default to 'A' in case no prefix is given
+        if ( !$prefix && prefix != 0)
+        {
+           $this->getRequest()->setQuery(new Parameters(['facet_prefix' => 'A']));
+        }
+        $topics = $this->getFacetList('topic_facet', 'topic_facet', 'alphabetical', $this->getRequest()->getQuery()->get('facet_prefix') . '*');
+
+        $view = $this->createViewModel('topics/list');
+        $view->topics = $topics;
+        $view->paginationChars = $this->getAlphabetList();
+        $view->char = $this->getRequest()->getQuery()->get('facet_prefix');
+        $view->driver = new SolrDefault();
+        return $view;
     }
 
     public function cloudAction()
@@ -46,16 +66,16 @@ class TopicsController extends BrowseController
             });
         }
 
-        $view = $this->createViewModel();
+        $view = $this->createViewModel('topics/cloud');
         $view->topics = $topics;
         $view->driver = new SolrDefault();
         return $view;
     }
 
-    protected function createViewModel($params = null)
+    protected function createViewModel($template = null, $params = null)
     {
         $view = new ViewModel();
-        $view->setTemplate('topics/cloud');
+        $view->setTemplate($template);
 
         return $view;
     }
