@@ -59,6 +59,11 @@ class SolrLibrary extends SolrDefault
     {
         return isset($this->fields['topic']) ? $this->fields['topic'] : array();
     }
+    
+    public function getTranslatedTerms()
+    {
+        return isset($this->fields['translatedTerms']) ? $this->fields['translatedTerms'] : array();
+    }
 
     /**
      * Expects one entry for systematik_parent_id and systematik_parent_title

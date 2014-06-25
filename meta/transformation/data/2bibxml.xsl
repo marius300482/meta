@@ -147,6 +147,21 @@
                     			</xsl:for-each>
                 		</xsl:if>
                 		
+                		<xsl:variable name="topic" select="dataset/subjectTopic" />
+                		<xsl:if test="document('../anreicherung/thesaurus.xml')/root/term/usedTerm=$topic">
+                			<xsl:for-each select="document('../anreicherung/thesaurus.xml')/root/term[usedTerm=$topic]/translatedTerm">
+                				<field name="translatedTerm">
+                					<xsl:value-of select="@lang"/>
+                					<xsl:text>: </xsl:text>
+                					<xsl:value-of select="."/>
+                					<xsl:text> (</xsl:text>
+                					<xsl:value-of select="../usedTerm"/>		
+                					<xsl:text>)</xsl:text>
+                				</field>
+                			</xsl:for-each>
+                		</xsl:if>
+                		
+                		
                 		<xsl:if test="dataset/subjectGeographic">
                 			<xsl:for-each select="dataset/subjectGeographic[text()!='']">
                     				<field name="subjectGeographic"><xsl:value-of select="."/></field>
@@ -193,7 +208,15 @@
 		
 		
 <!--functions-->
-
+		
+		<xsl:if test="functions/loan/loanStatus">
+			<field name="loanStatus"><xsl:text>true</xsl:text></field>
+		</xsl:if>
+		
+		<xsl:if test="functions/loan/loanReturn">
+			<field name="loanReturn"><xsl:value-of select="functions/loan/loanReturn"/></field>
+		</xsl:if>
+		
 		
 		<xsl:if test="functions/systematikFields/systematik_parent_id">
 			<xsl:for-each select="functions/systematikFields/systematik_parent_id">
