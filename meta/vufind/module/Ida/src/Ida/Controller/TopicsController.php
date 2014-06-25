@@ -15,25 +15,12 @@ use Zend\View\Model\ViewModel;
 
 class TopicsController extends BrowseController
 {
-    /**
-     * VuFind configuration
-     *
-     * @var \Zend\Config\Config
-     */
-    protected $config;
-
-    public function __construct(\Zend\Config\Config $config)
-    {
-        $this->config = $config;
-    }
-
     public function listAction()
     {
         $prefix = $this->getRequest()->getQuery()->get('facet_prefix');
         // Default to 'A' in case no prefix is given
-        if (!$prefix && $prefix != 0)
-        {
-           $this->getRequest()->setQuery(new Parameters(['facet_prefix' => 'A']));
+        if (!$prefix && $prefix != 0) {
+            $this->getRequest()->setQuery(new Parameters(['facet_prefix' => 'A']));
         }
         $topics = $this->getFacetList('topic_facet', 'topic_facet', 'alphabetical', $this->getRequest()->getQuery()->get('facet_prefix') . '*');
 
@@ -50,17 +37,15 @@ class TopicsController extends BrowseController
         $topics = $this->getTopics();
 
         $max_font = $this->config->TopicsCloud->fontsize != null ? $this->config->TopicsCloud->fontsize : 50;
-        $keyword_weight_ratio = (float) ($max_font / (float) reset($topics)['count']);
+        $keyword_weight_ratio = (float)($max_font / (float)reset($topics)['count']);
 
-        foreach($topics as &$topic)
-        {
+        foreach ($topics as &$topic) {
             $topic['weight'] = round($topic['count'] * $keyword_weight_ratio);
         }
 
         $alpha = $this->config->TopicsCloud->alpha;
-        if (!isset($alpha) || $alpha)
-        {
-            usort($topics, function($a, $b) {
+        if (!isset($alpha) || $alpha) {
+            usort($topics, function ($a, $b) {
                 return $a['displayText'] > $b['displayText'];
             });
         }
