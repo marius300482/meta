@@ -10,7 +10,6 @@ namespace Ida\Controller;
 
 use VuFind\Controller\BrowseController;
 use VuFind\RecordDriver\SolrDefault;
-use Zend\Config\Config;
 use Zend\Stdlib\Parameters;
 use Zend\View\Model\ViewModel;
 
@@ -32,7 +31,7 @@ class TopicsController extends BrowseController
     {
         $prefix = $this->getRequest()->getQuery()->get('facet_prefix');
         // Default to 'A' in case no prefix is given
-        if ( !$prefix && prefix != 0)
+        if (!$prefix && $prefix != 0)
         {
            $this->getRequest()->setQuery(new Parameters(['facet_prefix' => 'A']));
         }
