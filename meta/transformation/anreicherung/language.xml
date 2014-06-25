@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- New document created with EditiX at Mon May 26 09:30:07 CEST 2014 -->
+
+<root>
+	<language name="o.A." code="none" use="o.A." />
+	<language name="Deutsch" code="ger" use="deutsch" />
+	<language name="Englisch" code="eng" use="englisch" />
+	<language name="Chinesisch" code="zho" use="chinesisch" />
+	<language name="Französisch" code="fra" use="französisch" />
+	<language name="Italienisch" code="ita" use="italienisch" />
+	<language name="Latein" code="lat" use="latein" />
+	<language name="Luxemburgisch" code="ltz" use="luxemburgisch" />
+	<language name="Polnisch" code="pol" use="polnisch" />
+	<language name="Russisch" code="rus" use="russisch" />
+	<language name="Slowakisch" code="slo" use="slowakisch" />
+	<language name="Dänisch" code="dan" use="dänisch" />
+	<language name="Ungarisch" code="hun" use="ungarisch" />
+	<language name="Serbisch" code="srp" use="serbisch" />
+	<language name="Tschechisch" code="cze" use="tschechisch" />
+	<language name="Slowenisch" code="slv" use="slowenisch" />
+	<language name="Griechisch" code="gre" use="griechisch" />
+	<language name="Katalanisch" code="cat" use="katalanisch" />
+	<language name="Koreanisch" code="kor" use="koreanisch" />
+	<language name="Kroatisch" code="hrv" use="kroatisch" />
+	<language name="Niederländisch" code="nld" use="niederländisch" />
+	<language name="Norwegisch" code="nno" use="norwegisch" />
+	<language name="Schwedisch" code="swe" use="schwedisch" />
+	<language name="Spanisch" code="spa" use="spanisch" />
+	<language name="Türkisch" code="tur" use="türkisch" />
+	
+
+</root>
