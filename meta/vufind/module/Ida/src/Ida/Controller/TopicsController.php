@@ -19,7 +19,7 @@ class TopicsController extends BrowseController
     {
         $prefix = $this->getRequest()->getQuery()->get('facet_prefix');
         // Default to 'A' in case no prefix is given
-        if (!$prefix && $prefix != 0) {
+        if ($prefix == null || $prefix == '') {
             $this->getRequest()->setQuery(new Parameters(['facet_prefix' => 'A']));
         }
         $topics = $this->getFacetList('topic_facet', 'topic_facet', 'alphabetical', $this->getRequest()->getQuery()->get('facet_prefix') . '*');
