@@ -88,6 +88,10 @@
                     			</xsl:for-each>
                 		</xsl:if>
     			
+    			<xsl:if test="dataset/reviewer">
+    				<field name="reviewer"><xsl:value-of select="dataset/reviewer"/></field>
+    				</xsl:if>
+    			
     			<xsl:if test="dataset/series">
 				<field name="series"><xsl:value-of select="dataset/series" /></field>
 			</xsl:if>
@@ -141,6 +145,8 @@
 					</field>
 			</xsl:for-each>
 			
+			
+			
 			<xsl:if test="dataset/subjectTopic">
                 			<xsl:for-each select="dataset/subjectTopic[text()!='']">
                     				<field name="topic"><xsl:value-of select="."/></field>
@@ -187,25 +193,45 @@
 			
 			<xsl:if test="dataset/format='Artikel'">
 			<xsl:variable name="test" select="functions/hierarchyFields/hierarchy_parent_id" />
+			
 				<xsl:if test="//record[@id=$test]/dataset/displayPublishDate">
 					<field name="displayPublishDate"><xsl:value-of select="//record[@id=$test]/dataset/displayPublishDate"/></field>
-				</xsl:if>
-
+					</xsl:if>
 				<xsl:if test="//record[@id=$test]/dataset/placeOfPublication">
 					<field name="placeOfPublication"><xsl:value-of select="//record[@id=$test]/dataset/placeOfPublication"/></field>
-				</xsl:if>
-				
+					</xsl:if>
 				<xsl:if test="//record[@id=$test]/dataset/publisher">
 					<field name="publisher"><xsl:value-of select="//record[@id=$test]/dataset/publisher"/></field>
-				</xsl:if>
+					</xsl:if>
 				<xsl:if test="//record[@id=$test]/functions/systematikFields/systematik_parent_id">
 					<field name="systematik_parent_id"><xsl:value-of select="//record[@id=$test]/functions/systematikFields/systematik_parent_id"/></field>
-				</xsl:if>
+					</xsl:if>
 				<xsl:if test="//record[@id=$test]/functions/systematikFields/systematik_parent_title">
 					<field name="systematik_parent_title"><xsl:value-of select="//record[@id=$test]/functions/systematikFields/systematik_parent_title"/></field>
-				</xsl:if>
+					</xsl:if>
+				<xsl:choose>
+					<xsl:when test="//record[@id=$test]/dataset/language">
+						<xsl:for-each select="//record[@id=$test]/dataset/language">
+						<xsl:variable name="language" select="." />
+							<xsl:choose>
+								<xsl:when test="$language">
+									<field name="language">
+									<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@use=$language]/@name"/>
+										</field>
+									<field name="language_code">
+									<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@use=$language]/@code"/>
+										</field>
+									</xsl:when>
+								</xsl:choose>					
+							</xsl:for-each>
+						</xsl:when>
+					<xsl:otherwise>
+						<field name="language">
+							<xsl:text>o.A.</xsl:text>
+							</field>
+						</xsl:otherwise>	
+						</xsl:choose>
 			</xsl:if>
-		
 		
 <!--functions-->
 		
