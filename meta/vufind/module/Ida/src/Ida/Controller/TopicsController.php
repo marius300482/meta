@@ -58,7 +58,7 @@ class TopicsController extends BrowseController
         $view = $this->createViewModel('topics/list');
         $view->topics = $topics;
         $view->paginationChars = $this->getAlphabetList();
-        $view->char = $parameters->get('facet_prefix');
+        $view->currentChar = $parameters->get('facet_prefix');
         $view->driver = new SolrDefault();
         return $view;
     }
