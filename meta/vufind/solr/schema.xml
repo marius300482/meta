@@ -222,7 +222,7 @@
    <field name="recordChangeDate" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="typeOfRessource" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="hostItem" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="zdbid" type="string" indexed="true" stored="true"
+    <field name="zdbId" type="string" indexed="true" stored="true"
     multiValued="true"/>
    <field name="circa-jahr" type="string" indexed="true" stored="true"/>
    <field name="displayPublishDate" type="string" indexed="true" stored="true"/>
@@ -239,6 +239,10 @@
 	<field name="loanStatus" type="string" indexed="true" stored="true"/>
 	<field name="loanReturn" type="string" indexed="true" stored="true"/>
 	<field name="reviewer" type="text" indexed="true" stored="true"/>
+	<field name="documentType" type="text" indexed="true" stored="true"/>
+	<field name="issue" type="string" indexed="true" stored="true" multiValued="true"/>
+	<field name="volume" type="string" indexed="true" stored="true" multiValued="true"/>
+	<field name="dimension" type="string" indexed="true" stored="true" multiValued="true"/>
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>

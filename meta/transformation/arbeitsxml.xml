@@ -7,6 +7,7 @@
 			<id/>
 			<recordCreationDate>2014-05-21</recordCreationDate>
 			<recordChangeDate>2014-05-21</recordChangeDate>
+			<recordType/>
 		</vufind>
 		<institution>
 			<institutionShortname>GenderBib</institutionShortname>
@@ -21,31 +22,51 @@
 		</institution>
 		<dataset>
 			<typeOfRessource/>
+			<format/><!-- Objektart -->
+			<documentTyp/>
 			<title>Titel</title>
 			<title_short/>
 			<title_sub/>
 			<author/>
 			<editor/>
+			<entity/><!--Körperschaft-->
+			<reviewer/>
 			<series/>
-			<format><!-- Objektart -->
-			</format>
+			<seriesNr/>
 			<isbn/>
 			<issn/>
-			<publisher/>
-			<publishDate/>
+			<zdbid/>
+			<displayPublishDate /><!--Zeit wie in den Datensätzen angegeben-->
+			<publishDate/><!--Aufgerarbeitete Zeitangaben-->
+			<timeSpan>
+				<timeSpanStart/>
+				<timeSpanEnd/>
+				</timeSpan>
 			<placeOfPublication/>
-			<timespan/>
-			<physical/>
+			<publisher/>
+			<physical/><!--Seiten/Umfang-->
+			<dimension/><!--Angabe der Ausmaße eines Dokumentes / Kiste-->
+			<runTime/><!--Laufzeit Video-->
 			<languageCode/>
 			<language/>
-			<topic/>
-			<entity/>
-			<person/>
-			<issues/>
+			<subjectTopic/><!--Schlagworte-->
+			<subjectPerson/>
+			<subjectGeographic/>
+			<shelfMark/><!--Signatur-->
+			<issue/><!--Heft-->
+			<volume/><!--Jahrgang-->
 			<description/>
-			<dimension/>
+			<project/>
 		</dataset>
 		<functions>
+			<loan>
+				<loanStatus />
+				<loanReturn />
+			</loan>
+			<systematikFields>
+				<systematik_parent_id />
+				<systematik_parent_title />
+			</systematikFields>
 			<hierarchyFields>
 				<hierarchy_top_id/>
 				<hierarchy_top_title/>

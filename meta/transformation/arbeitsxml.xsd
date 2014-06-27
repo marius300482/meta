@@ -18,10 +18,97 @@
 			<xs:attribute name="id" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="vufind">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="id"/>
+				<xs:element type="xs:string" name="recordCreationDate"/>
+				<xs:element type="xs:string" name="recordChangeDate"/>
+				<xs:element type="xs:string" name="recordType"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="institution">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="institutionShortname"/>
+				<xs:element type="xs:string" name="institutionFullname"/>
+				<xs:element type="xs:string" name="collection"/>
+				<xs:element type="xs:string" name="isil"/>
+				<xs:element type="xs:string" name="link"/>
+				<xs:element type="xs:string" name="location"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+		<xs:element name="dataset">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="typeOfRessource"/>
+				<xs:element type="xs:string" name="title"/>
+				<xs:element type="xs:string" name="title_short"/>
+				<xs:element type="xs:string" name="title_sub"/>
+				<xs:element type="xs:string" name="author"/>
+				<xs:element type="xs:string" name="editor"/>
+				<xs:element type="xs:string" name="reviewer"/>
+				<xs:element type="xs:string" name="series"/>
+				<xs:element type="xs:string" name="seriesNr"/>
+				<xs:element type="xs:string" name="format"/>
+				<xs:element type="xs:string" name="documenType"/>
+				<xs:element type="xs:string" name="isbn"/>
+				<xs:element type="xs:string" name="issn"/>
+				<xs:element type="xs:string" name="zdbid"/>
+				<xs:element type="xs:string" name="displayPublishDate"/>
+				<xs:element type="xs:string" name="publishDate"/>
+				<xs:element type="xs:string" name="placeOfPublication"/>
+				<xs:element type="xs:string" name="publisher"/>
+				<xs:element type="xs:string" name="timespan"/>
+				<xs:element type="xs:string" name="physical"/>
+				<xs:element type="xs:string" name="runTime"/>
+				<xs:element type="xs:string" name="languageCode"/>
+				<xs:element type="xs:string" name="language"/>
+				<xs:element type="xs:string" name="subjectTopic"/>
+				<xs:element type="xs:string" name="subjectPerson"/>
+				<xs:element type="xs:string" name="subjectGeographic"/>
+				<xs:element type="xs:string" name="shelfMark"/>
+				<xs:element type="xs:string" name="entity"/>
+				<xs:element type="xs:string" name="issue"/>
+				<xs:element type="xs:string" name="volume"/>
+				<xs:element type="xs:string" name="description"/>
+				<xs:element type="xs:string" name="dimension"/>
+				<xs:element type="xs:string" name="project"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="timeSpan">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="timeSpanStart"/>
+				<xs:element type="xs:string" name="timeSpanEnd"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="functions">
 		<xs:complexType>
 			<xs:all>
+				<xs:element type="xs:string" name="loan"/>
+				<xs:element type="xs:string" name="systematikFields"/>
 				<xs:element type="xs:string" name="hierarchyFields"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="loan">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="loanStatus"/>
+				<xs:element type="xs:string" name="loanReturn"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="systematikFields">
+		<xs:complexType>
+			<xs:all>
+				<xs:element type="xs:string" name="systematik_top_id"/>
+				<xs:element type="xs:string" name="systematik_top_title"/>
 			</xs:all>
 		</xs:complexType>
 	</xs:element>
@@ -38,55 +125,7 @@
 			</xs:all>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="dataset">
-		<xs:complexType>
-			<xs:all>
-				<xs:element type="xs:string" name="typeOfRessource"/>
-				<xs:element type="xs:string" name="title"/>
-				<xs:element type="xs:string" name="title_short"/>
-				<xs:element type="xs:string" name="title_sub"/>
-				<xs:element type="xs:string" name="author"/>
-				<xs:element type="xs:string" name="editor"/>
-				<xs:element type="xs:string" name="series"/>
-				<xs:element type="xs:string" name="format"/>
-				<xs:element type="xs:string" name="isbn"/>
-				<xs:element type="xs:string" name="issn"/>
-				<xs:element type="xs:string" name="publisher"/>
-				<xs:element type="xs:string" name="publishDate"/>
-				<xs:element type="xs:string" name="placeOfPublication"/>
-				<xs:element type="xs:string" name="timespan"/>
-				<xs:element type="xs:string" name="physical"/>
-				<xs:element type="xs:string" name="languageCode"/>
-				<xs:element type="xs:string" name="language"/>
-				<xs:element type="xs:string" name="topic"/>
-				<xs:element type="xs:string" name="entity"/>
-				<xs:element type="xs:string" name="person"/>
-				<xs:element type="xs:string" name="issues"/>
-				<xs:element type="xs:string" name="description"/>
-				<xs:element type="xs:string" name="dimension"/>
-			</xs:all>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="institution">
-		<xs:complexType>
-			<xs:all>
-				<xs:element type="xs:string" name="institutionShortname"/>
-				<xs:element type="xs:string" name="institutionFullname"/>
-				<xs:element type="xs:string" name="collection"/>
-				<xs:element type="xs:string" name="isil"/>
-				<xs:element type="xs:string" name="link"/>
-				<xs:element type="xs:string" name="location"/>
-			</xs:all>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="vufind">
-		<xs:complexType>
-			<xs:all>
-				<xs:element type="xs:string" name="id"/>
-				<xs:element type="xs:string" name="recordCreationDate"/>
-				<xs:element type="xs:string" name="recordChangeDate"/>
-				<xs:element type="xs:string" name="recordType"/>
-			</xs:all>
-		</xs:complexType>
-	</xs:element>
+
+	
+	
 </xs:schema>
