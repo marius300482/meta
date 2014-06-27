@@ -1,0 +1,19 @@
+<?
+// Set page title.
+$this->headTitle('VuFind ' . $this->translate('Topics - List'));
+?>
+    <h1><?= $this->translate('Topics - List'); ?></h1>
+<? include('paginationalpha.phtml'); ?>
+<? if (count($topics) > 0): ?>
+    <div class="topicslist">
+        <? foreach ($topics as $topic): ?>
+            <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>"
+               href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $this->escapeHtml($topic['displayText']) ?>
+                (<?= $topic['count'] ?>)</a>
+            <br/>
+        <? endforeach; ?>
+    </div>
+<? else: ?>
+    <div style="text-align: center"><?= $this->translate('nohit_heading'); ?></div>
+<? endif; ?>
+<? include('paginationalpha.phtml'); ?>

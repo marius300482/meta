@@ -8,26 +8,57 @@
 namespace Ida\Controller;
 
 
-use VuFind\Controller\BrowseController;
-use VuFind\RecordDriver\SolrDefault;
-use Zend\Stdlib\Parameters;
-use Zend\View\Model\ViewModel;
+use VuFind\Controller\BrowseController;use VuFind\RecordDriver\SolrDefault;use Zend\Config\Config;use Zend\View\Model\ViewModel;
 
 class TopicsController extends BrowseController
 {
+    /**
+     * VuFind configuration
+     *
+     * @var Config
+     */
+    protected $config;
+    private $limit;
+    private $alpha;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+        $this->config = new Config($config->toArray(), true);
+        $this->limit = $this->config->Browse->result_limit;
+        $this->alpha = $this->config->Browse->alphabetical_order;
+    }
+
+    private function changeConfigForList()
+    {
+        $this->config->Browse->result_limit = -1;
+        $this->config->Browse->alphabetical_order = true;
+    }
+
+    private function restoreConfig()
+    {
+        $this->config->Browse->result_limit = $this->limit;
+        $this->config->Browse->alphabetical_order = $this->alpha;
+    }
+
     public function listAction()
     {
         $prefix = $this->getRequest()->getQuery()->get('facet_prefix');
+        $parameters = $this->getRequest()->getQuery();
+
         // Default to 'A' in case no prefix is given
         if ($prefix == null || $prefix == '') {
-            $this->getRequest()->setQuery(new Parameters(['facet_prefix' => 'A']));
+            $parameters->set('facet_prefix', 'A');
+            $this->getRequest()->setQuery($parameters);
         }
-        $topics = $this->getFacetList('topic_facet', 'topic_facet', 'alphabetical', $this->getRequest()->getQuery()->get('facet_prefix') . '*');
+        $this->changeConfigForList();
+        $topics = $this->getFacetList('topic_facet', 'topic_facet', 'alphabetical', $parameters->get('facet_prefix') . '*');
+        $this->restoreConfig();
 
         $view = $this->createViewModel('topics/list');
         $view->topics = $topics;
         $view->paginationChars = $this->getAlphabetList();
-        $view->char = $this->getRequest()->getQuery()->get('facet_prefix');
+        $view->currentChar = $parameters->get('facet_prefix');
         $view->driver = new SolrDefault();
         return $view;
     }
@@ -37,7 +68,8 @@ class TopicsController extends BrowseController
         $topics = $this->getTopics();
 
         $max_font = $this->config->TopicsCloud->fontsize != null ? $this->config->TopicsCloud->fontsize : 50;
-        $keyword_weight_ratio = (float)($max_font / (float)reset($topics)['count']);
+        $maxcount=reset($topics);
+        $keyword_weight_ratio = (float)($max_font / (float)$maxcount['count']);
 
         foreach ($topics as &$topic) {
             $topic['weight'] = round($topic['count'] * $keyword_weight_ratio);

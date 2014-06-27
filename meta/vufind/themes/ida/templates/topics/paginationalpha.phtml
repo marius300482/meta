@@ -1,10 +1,10 @@
 <div class="pagination">
     <? $chars = $this->paginationChars;
-    foreach($chars as $char):
-        if ($char['displayText'] == $this->char): ?>
-            <span><?= $char['displayText'] ?></span>
+    foreach($chars as $c):
+        if ($c['displayText'] == $this->currentChar): ?>
+            <span><?= $c['displayText'] ?></span>
         <? else: ?>
-            <a href="?facet_prefix=<?= $char['displayText'] ?>"><?= $char['displayText'] ?></a>
+            <a href="?facet_prefix=<?= $c['displayText'] ?>"><?= $c['displayText'] ?></a>
         <? endif; ?>
     <? endforeach; ?>
 </div>
