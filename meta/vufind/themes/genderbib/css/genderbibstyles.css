@@ -1,0 +1,180 @@
+/** ***********************************
+ * Global
+ ************************************ */
+
+body {
+    background: #F0F0F0 none;
+    margin: 0;
+    font-family: Verdana,Helvetica,Arial,sans-serif !important;
+    font-size: 80%;
+}
+
+a, a:visited {
+    color: #036;
+    text-decoration: none;
+}
+
+/** ***********************************
+ * Content
+ ************************************ */
+
+.main {
+    border-top: 0 none;
+    padding: 0.8em 0;
+}
+
+.container {
+    box-shadow: none;
+    border: 0 none;
+    border-radius: 0;
+    background-color: #FFF;
+    margin: 0;
+}
+
+.container .contentLeft {
+    width: 19%;
+    float: left;
+    min-height: 300px;
+}
+
+.container .contentRight {
+    width: 81%;
+    display: inline-block;
+    float: left;
+}
+
+/** ***********************************
+ * Header
+ ************************************ */
+
+.header {
+    padding: 0;
+}
+
+#headerLeft {
+    height: 110px;
+    display: block;
+    width: 19%;
+    float: left;
+    position: relative;
+}
+
+#headerLeft .link {
+
+}
+
+#headerLeft .link a {
+    background-color: rgb(204, 204, 153);
+    line-height: 1.2em;
+    padding: 0.25em 1em 0.25em 2em;
+    display: block;
+}
+
+#headerRight {
+    height: 110px;
+    display: block;
+    width: 81%;
+    float: left;
+    position: relative;
+}
+
+#logo {
+    background: none repeat scroll 0 0 transparent;
+    display: block;
+    float: none;
+    font-weight: bold;
+    line-height: 1em;
+    padding-left: 20px;
+    text-decoration: none;
+    width: auto;
+    height: 120px;
+}
+
+
+/** ***********************************
+ * Footer
+ ************************************ */
+
+.footer {
+    background-color: #E1E1E1;
+    border: 0 none;
+    padding: 17px 20px;
+    min-height: 250px;
+    position: relative;
+}
+
+.footer ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer .span-5 {
+    width: 160px;
+}
+
+.footer .span-5 p {
+    color: #036;
+    font-weight: bold;
+}
+
+.footer .span-5 li {
+    padding: 2px 0;
+}
+
+.footer ul a {
+    color: #036;
+    text-decoration: none;
+}
+
+.footer .copyright {
+    position: absolute;
+    bottom: 20px;
+}
+
+.footer .copyright li {
+    display: inline-block;
+}
+
+.footer .copyright li,
+.footer .copyright li a,
+.footer .copyright li a:hover {
+    color: #76797c;
+    padding-right: 15px;
+}
+
+.footer .share {
+    position: absolute;
+    bottom: 18px;
+    right: 10px;
+}
+
+.footer .share li {
+    display: inline-block;
+}
+
+.footer .share li {
+    margin-right: 5px;
+}
+
+.footer .share .separate {
+    margin-right: 20PX
+}
+
+
+/** ***********************************
+ * Page: home
+ ************************************ */
+
+.searchHomeContent {
+    width: auto;
+}
+
+.searchHomeForm {
+    border-radius: 0;
+    border: 0 none;
+    background-color: #e1e1e1;
+}
+
+div.searchHomeForm div.searchform  {
+    width: auto;
+}
