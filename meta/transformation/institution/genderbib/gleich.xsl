@@ -54,21 +54,27 @@
 				<xsl:choose>
 					<xsl:when test="erfaßt_am- !=''">
 						<recordCreationDate>
-							<xsl:value-of select="substring(erfaßt_am-[1],9,2)"/><!--jahr-->
+							<xsl:value-of select="substring(erfaßt_am-[1],7,4)"/><!--jahr-->
+							<xsl:text>-</xsl:text>
 							<xsl:value-of select="substring(erfaßt_am-[1],4,2)"/><!--monat-->
+							<xsl:text>-</xsl:text>
 							<xsl:value-of select="substring(erfaßt_am-[1],1,2)"/><!--tag-->
+							<xsl:text>T</xsl:text>
+							<xsl:value-of select="current-time()"/>
 							</recordCreationDate>
 						</xsl:when>
 					<xsl:otherwise>
 						<recordCreationDate>
-							<xsl:value-of select="format-date($currentDate, '[Y01][M01][D01]')"/>
+							<!--<xsl:value-of select="format-date($currentDate, '[Y01][M01][D01]')"/>-->
+							<xsl:value-of select="current-dateTime()"/>
 							</recordCreationDate>
 						</xsl:otherwise>
 					</xsl:choose>
 					
 	<!--recordChangeDate-->
 				<recordChangeDate>
-					<xsl:value-of select="format-date($currentDate, '[Y01][M01][D01]')"/>
+					<!--<xsl:value-of select="format-date($currentDate, '[Y0001][M01][D01]')"/>
+				-->	<xsl:value-of select="current-dateTime()"/>
 					</recordChangeDate>
 	
 	<!--recordType-->
