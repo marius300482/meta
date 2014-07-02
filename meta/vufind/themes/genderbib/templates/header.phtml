@@ -6,12 +6,15 @@
         transdisziplin&auml;re<br />
         Geschlechterstudien
     </a>
-    <div class="link">
-        <a href="#">ZtG-Webseite &gt;</a>
-    </div>
+    <a href="#" class="link"><?=$this->transEsc("ZtG-Webseite"); ?>&raquo;</a>
 </div>
 <? if (!isset($this->layout()->renderingError)): ?>
   <div id="headerRight">
+      <div id="banner">
+        <img id="bannerImg" src="<?=$this->imageLink('icons/placeholder_20x20.png')?>" />
+        <a href="" id="bannerLink"><?=$this->transEsc("Weblog der Genderbibliothek"); ?>&raquo;</a>
+      </div>
+
     <? $cart = $this->cart(); if ($cart->isActive()): ?>
       <div id="cartSummary" class="cartSummary">
         <a id="cartItems" title="<?=$this->transEsc('View Book Bag')?>" class="bookbag" href="<?=$this->url('cart-home')?>"><strong><span><?=count($cart->getItems())?></span></strong> <?=$this->transEsc('items')?> <?=$cart->isFull() ? '(' .  $this->transEsc('bookbag_full') . ')' : ''?></a>
