@@ -52,7 +52,7 @@ a, a:visited, a:focus, a:hover {
 }
 
 #headerLeft {
-    height: 142px;
+    height: 140px;
     display: block;
     width: 19%;
     float: left;
@@ -62,28 +62,30 @@ a, a:visited, a:focus, a:hover {
 #headerLeft a.link {
     background-color: rgb(204, 204, 153);
     line-height: 1.2em;
-    padding: 0.25em 1em 0.25em 2em;
+    padding: 2px 1em 2px 2em;
     display: block;
 }
 
 #headerRight {
-    height: 142px;
+    background: url("../images/small/humboldt_universitaet_logo.jpg") no-repeat scroll 650px 6px transparent;
     display: block;
-    width: 81%;
     float: left;
+    height: 140px;
     position: relative;
+    width: 81%;
 }
 
 #banner {
     position: relative;
-    width: 600px;
-    height: 142px;
+    width: 568px;
+    height: 140px;
 }
 
 #bannerImg {
     display: block;
-    width: 100%;
-    height: 120px;
+    width: 568px;
+    height: 110px;
+    margin-top: 10px;
 }
 
 #bannerLink {
@@ -91,7 +93,7 @@ a, a:visited, a:focus, a:hover {
     background-color: #036;
     display: block;
     line-height: 1.2em;
-    padding: 0.25em 1em 0.25em 2em;
+    padding: 2px 1em 2px 2em;
     text-align: left;
 }
 
@@ -107,6 +109,34 @@ a, a:visited, a:focus, a:hover {
     height: 120px;
 }
 
+#headerMenu {
+    background-color: #e1e1e1;
+    border-top-left-radius: 5px;
+    padding: 0 15px 0 10px;
+    position: absolute;
+    right: 0;
+    top: 96px;
+    z-index: 1;
+}
+
+#loginOptions,
+#headerMenu form {
+    display: inline;
+    margin: 0;
+}
+
+#loginOptions .login {
+    background: transparent none;
+    padding: 0 5px;
+    border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+}
+
+#headerMenu form select {
+    height: 24px;
+    margin: 0;
+    width: 100px;
+}
 
 /** ***********************************
  * Footer
@@ -177,7 +207,6 @@ a, a:visited, a:focus, a:hover {
     margin-right: 20PX
 }
 
-
 /** ***********************************
  * Page: home
  ************************************ */
@@ -187,9 +216,11 @@ a, a:visited, a:focus, a:hover {
 }
 
 .searchHomeForm {
-    border-radius: 0;
-    border: 0 none;
     background-color: #e1e1e1;
+    border: 0 none;
+    border-radius: 0;
+    padding: 20px;
+    width: 530px;
 }
 
 div.searchHomeForm div.searchform  {
