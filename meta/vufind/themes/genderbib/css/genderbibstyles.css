@@ -9,7 +9,7 @@ body {
     font-size: 80%;
 }
 
-a, a:visited {
+a, a:visited, a:focus, a:hover {
     color: #036;
     text-decoration: none;
 }
@@ -52,18 +52,14 @@ a, a:visited {
 }
 
 #headerLeft {
-    height: 110px;
+    height: 142px;
     display: block;
     width: 19%;
     float: left;
     position: relative;
 }
 
-#headerLeft .link {
-
-}
-
-#headerLeft .link a {
+#headerLeft a.link {
     background-color: rgb(204, 204, 153);
     line-height: 1.2em;
     padding: 0.25em 1em 0.25em 2em;
@@ -71,11 +67,32 @@ a, a:visited {
 }
 
 #headerRight {
-    height: 110px;
+    height: 142px;
     display: block;
     width: 81%;
     float: left;
     position: relative;
+}
+
+#banner {
+    position: relative;
+    width: 600px;
+    height: 142px;
+}
+
+#bannerImg {
+    display: block;
+    width: 100%;
+    height: 120px;
+}
+
+#bannerLink {
+    color: #FFFFFF;
+    background-color: #036;
+    display: block;
+    line-height: 1.2em;
+    padding: 0.25em 1em 0.25em 2em;
+    text-align: left;
 }
 
 #logo {
