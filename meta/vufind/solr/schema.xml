@@ -290,6 +290,8 @@
     <!-- CopyFields for All Fields -->
  <copyField source="format"    dest="allfields"/>
  <copyField source="format"    dest="allfields_unstemmed"/>
+ <copyField source="recordCreationDate"    dest="first_indexed"/>
+    <copyField source="recordChangeDate"    dest="last_indexed"/>
  <!-- Default Boolean Operator -->
  <solrQueryParser defaultOperator="AND"/>
 </schema>
