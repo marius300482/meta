@@ -1,6 +1,11 @@
 #! /bin/bash
 
+echo "Go to git directory"
 pushd `dirname $0`
+
+echo "git pull"
+git pull
+
 echo "Delete theme ida"
 rm -r /usr/local/vufind2/themes/ida
 echo "Delete theme genderbib"
