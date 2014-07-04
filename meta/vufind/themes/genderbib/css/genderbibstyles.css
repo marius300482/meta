@@ -46,8 +46,14 @@ h1, h2, h3, h4, h5, h6 {
     color: #036;
 }
 
-label {
+strong,
+label,
+legend {
     font-weight: normal;
+}
+
+fieldset {
+    border: 0;
 }
 
 /** ***********************************
@@ -101,6 +107,18 @@ div.sidegroup h4 {
 .add {
     background: transparent none;
     padding: 0;
+}
+
+.delete {
+    margin-left: 5px;
+}
+
+.add:after {
+    content: " +";
+}
+
+.delete:after {
+    content: " -";
 }
 
 /** ***********************************
@@ -348,7 +366,7 @@ div.sidegroup h4 {
 
 .searchHomeContent {
     width: auto;
-    padding: 2em 0;
+    padding: 2em 0 0 0;
 }
 
 .searchHomeForm {
@@ -458,4 +476,12 @@ div.searchHomeForm div.searchform  {
 
 #advSearchForm input[type="submit"] {
     margin-left: 80px;
+}
+
+#advSearchForm .searchGroups {
+    font-size: 1em;
+}
+
+#advSearchForm #groupJoin {
+    margin-top: 10px;
 }
