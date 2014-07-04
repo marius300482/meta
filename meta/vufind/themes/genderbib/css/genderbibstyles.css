@@ -14,6 +14,12 @@ a, a:visited, a:focus, a:hover {
     text-decoration: none;
 }
 
+input,
+textarea,
+select {
+    font-size: 1em;
+}
+
 /** ***********************************
  * Content
  ************************************ */
@@ -61,9 +67,9 @@ a, a:visited, a:focus, a:hover {
 
 #headerLeft a.link {
     background-color: rgb(204, 204, 153);
-    line-height: 1.2em;
-    padding: 2px 1em 2px 2em;
     display: block;
+    line-height: 1.2em;
+    padding: 3px 1em 3px 20px;
 }
 
 #headerRight {
@@ -93,7 +99,7 @@ a, a:visited, a:focus, a:hover {
     background-color: #036;
     display: block;
     line-height: 1.2em;
-    padding: 2px 1em 2px 2em;
+    padding: 3px 1em 3px 2em;
     text-align: left;
 }
 
@@ -103,7 +109,6 @@ a, a:visited, a:focus, a:hover {
     float: none;
     font-weight: bold;
     line-height: 1em;
-    padding-left: 20px;
     text-decoration: none;
     width: auto;
     height: 120px;
@@ -115,27 +120,39 @@ a, a:visited, a:focus, a:hover {
     padding: 0 15px 0 10px;
     position: absolute;
     right: 0;
-    top: 96px;
+    top: 100px;
     z-index: 1;
 }
 
-#loginOptions,
 #headerMenu form {
-    display: inline;
+    display: inline-block;
     margin: 0;
+}
+
+#loginOptions {
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px;
+    vertical-align: top;
+}
+
+#langForm label {
+    font-weight: normal;
 }
 
 #loginOptions .login {
     background: transparent none;
-    padding: 0 5px;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
+    padding: 0;
 }
 
 #headerMenu form select {
-    height: 24px;
-    margin: 0;
+    height: 18px;
+    margin: 1px 0 0;
     width: 100px;
+    font-size: 0.8em;
 }
 
 /** ***********************************
@@ -145,7 +162,7 @@ a, a:visited, a:focus, a:hover {
 .footer {
     background-color: #E1E1E1;
     border: 0 none;
-    padding: 17px 20px;
+    padding: 16px 20px;
     min-height: 250px;
     position: relative;
 }
@@ -175,7 +192,7 @@ a, a:visited, a:focus, a:hover {
 
 .footer .copyright {
     position: absolute;
-    bottom: 20px;
+    bottom: 16px;
 }
 
 .footer .copyright li {
@@ -190,21 +207,71 @@ a, a:visited, a:focus, a:hover {
 }
 
 .footer .share {
+    bottom: 14px;
     position: absolute;
-    bottom: 18px;
-    right: 10px;
+    right: 0;
 }
 
 .footer .share li {
     display: inline-block;
+    margin-right: 5px;
+    overflow: hidden;
 }
 
-.footer .share li {
-    margin-right: 5px;
+.footer .share li a {
+    display: block;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    background-image: url("../images/icons/share_sprite.png");
+}
+
+.footer .share .fb {
+    background-position: 0 -16px;
+}
+
+.footer .share .fb:hover {
+    background-position: 0 0;
+}
+
+.footer .share .tw {
+    background-position: -16px -16px;
+}
+
+.footer .share .tw:hover {
+    background-position: -16px 0;
+}
+
+.footer .share .yt {
+    background-position: -32px -16px;
+}
+
+.footer .share .yt:hover {
+    background-position: -32px 0;
+}
+
+.footer .share .it {
+    background-position: -48px -16px;
+}
+
+.footer .share .it:hover {
+    background-position: -48px 0;
+}
+
+.footer .share .rss {
+    background-position: -64px -16px;
+}
+
+.footer .share .rss:hover {
+    background-position: -64px 0;
 }
 
 .footer .share .separate {
     margin-right: 20PX
+}
+
+.footer .share .hiddenStructure {
+    visibility: hidden;
 }
 
 /** ***********************************

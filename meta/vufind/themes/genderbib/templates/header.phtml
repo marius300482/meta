@@ -1,17 +1,14 @@
 <? $account = $this->auth()->getManager(); ?>
 <div id="headerLeft">
     <a id="logo" href="<?=$this->url('home')?>">
-        <img src="<?=$this->imageLink('small/zentrum_fuer_transdisziplinare_geschlechterstudien.jpg')?>" /><br />
-        Zentrum f&uuml;r<br />
-        transdisziplin&auml;re<br />
-        Geschlechterstudien
+        <img src="<?=$this->imageLink('small/zentrum_fuer_transdisziplinare_geschlechterstudien.jpg')?>" alt="Zentrum für transdisziplinäre Geschlechterstudien" title="Home" />
     </a>
     <a href="#" class="link"><?=$this->transEsc("ZtG-Webseite"); ?>&raquo;</a>
 </div>
 <? if (!isset($this->layout()->renderingError)): ?>
   <div id="headerRight">
       <div id="banner">
-        <img id="bannerImg" src="<?=$this->imageLink('icons/placeholder_20x20.png')?>" />
+        <img id="bannerImg" src="<?=$this->imageLink('medium/main_banner.jpg')?>" />
         <a href="" id="bannerLink"><?=$this->transEsc("Weblog der Genderbibliothek"); ?>&raquo;</a>
       </div>
 
