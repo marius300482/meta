@@ -361,6 +361,59 @@ div.sidegroup h4 {
 }
 
 /** ***********************************
+ * Page element: Year selector
+ ************************************ */
+
+#publishDate {
+    width: 250px;
+}
+
+#publishDate .yearbox {
+    text-align: center;
+    width: 82px;
+}
+
+#publishDate legend {
+    margin-bottom: 10px;
+}
+
+#publishDate legend:after {
+    content: ":";
+}
+
+#publishDate {
+    margin-left: 80px;
+    padding: 0;
+}
+
+#publishDate #publishDateSlider {
+    display: none;
+}
+
+/** ***********************************
+ * Page element: Breadcrump
+ ************************************ */
+
+div.breadcrumbs {
+    border-top: 0 none;
+}
+
+div.breadcrumbs,
+div.breadcrumbs a {
+    color: #76797c;
+}
+
+div.breadcrumbs span {
+    background: transparent none;
+    padding: 0;
+    width: 10px;
+    vertical-align: top;
+    font-size: inherit;
+    line-height: inherit;
+    opacity: 1;
+}
+
+/** ***********************************
  * Page: home
  ************************************ */
 
@@ -416,6 +469,12 @@ div.searchHomeForm div.searchform  {
     width: 528px;
 }
 
+#advSearchForm h2 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+}
+
 #advSearchForm .group {
     background: 0 none;
     border: 0 none;
@@ -469,7 +528,6 @@ div.searchHomeForm div.searchform  {
     padding: 0;
 }
 
-#addGroupLink,
 #advSearchForm .addSearch {
     padding: 0 0 0 80px;
 }
@@ -484,4 +542,16 @@ div.searchHomeForm div.searchform  {
 
 #advSearchForm #groupJoin {
     margin-top: 10px;
+}
+
+#advSearchForm fieldset {
+    margin-bottom: 0;
+}
+
+#advSearchForm #addGroupLink {
+    border-bottom: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+    display: block;
+    margin: 10px -20px;
+    padding: 10px 0 10px 100px;
 }

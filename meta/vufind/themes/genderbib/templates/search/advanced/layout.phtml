@@ -29,7 +29,7 @@
   <div class="<?=$this->layoutClass('mainbody')?>">
     <h1>GReTA</h1>
     <div class="advSearchContent">
-      <strong><?=$this->transEsc('Advanced Search in the Online-Catalogue')?></strong>
+      <h2><?=$this->transEsc('Advanced Search in the Online-Catalogue')?></h2>
       <?=$this->flashmessages()?>
       <div id="groupJoin" class="searchGroups">
         <div class="searchGroupDetails">
@@ -117,8 +117,6 @@
       <input type="submit" name="submit" value="<?=$this->transEsc("Find")?>"/>&raquo;<br />
 
       <a id="addGroupLink" href="#" class="add offscreen" onclick="addGroup(); return false;"><?=$this->transEsc("add_search_group")?></a>
-
-      <br/><br/>
 
       <? $lastSort = $this->options->getLastSort(); if (!empty($lastSort)): ?>
         <input type="hidden" name="sort" value="<?=$this->escapeHtml($lastSort)?>" />
