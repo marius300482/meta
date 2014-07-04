@@ -8,7 +8,6 @@
 namespace Ida\RecordDriver;
 
 use VuFind\RecordDriver\SolrDefault;
-use VuFind\XSLT\Import\VuFind;
 
 class SolrLibrary extends SolrDefault
 {
@@ -22,21 +21,63 @@ class SolrLibrary extends SolrDefault
         parent::__construct($mainConfig, $recordConfig, $searchSettings);
     }
 
+       /**
+     * Deduplicate author information into associative array with main/corporate/
+     * secondary keys.
+     *
+     * @return array
+     */
+    public function getDeduplicatedAuthors()
+    {
+        $authors = array(
+            'main' => $this->getPrimaryAuthor(),
+            'additional' => $this->getAdditionalAuthors(),
+        );
+
+        // The additional author array may contain a primary author;
+        // let's be sure we filter out duplicate values.
+        $duplicates = array();
+        if (!empty($authors['main'])) {
+            $duplicates[] = $authors['main'];
+        }
+        if (!empty($authors['additional'])) {
+            $authors['additional'] = array_diff($authors['additional'], $duplicates);
+        }
+
+        return $authors;
+    }
+
+    public function getAdditionalAuthors()
+    {
+        return $this->getMulitvaluedField("author_additional");
+    }
+
     public function getEditors()
     {
-        return isset($this->fields['editor']) && is_array($this->fields['editor']) ?
-            $this->fields['editor'] : array();
+        return $this->getMulitvaluedField("editor");
+    }
+
+    public function getEntities()
+    {
+        return $this->getMulitvaluedField("entity");
+    }
+
+    public function getPlacesOfPublication()
+    {
+        return $this->getMulitvaluedField("placeOfPublication");
     }
 
     public function getPublishers()
     {
-        return isset($this->fields['publisher']) && is_array($this->fields['publisher']) ?
-            $this->fields['publisher'] : array();
+        return $this->getMulitvaluedField("publisher");
     }
 
+    /**
+    * Single valued
+    */
     public function getDisplayPublicationDate()
     {
-        return $this->fields['displayPublisheddate'];
+        return $this->fields['displayPublishDate'];
     }
 
     public function getDisplayTitle()
@@ -57,12 +98,17 @@ class SolrLibrary extends SolrDefault
 
     public function getTopics()
     {
-        return isset($this->fields['topic']) ? $this->fields['topic'] : array();
+        return $this->getMulitvaluedField("topic");
     }
-    
+
     public function getTranslatedTerms()
     {
-        return isset($this->fields['translatedTerms']) ? $this->fields['translatedTerms'] : array();
+        return $this->getMulitvaluedField("translatedTerms");
+    }
+
+    public function getMulitvaluedField($fieldName)
+    {
+        return isset($this->fields[$fieldName]) && is_array($this->fields[$fieldName]) ? $this->fields[$fieldName] : array();
     }
 
     /**
