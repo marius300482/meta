@@ -12,6 +12,6 @@ cp -R meta/vufind/* /usr/local/vufind2/
 
 echo "Restart Solr"
 pushd $VUFIND_HOME
-#./vufind.sh restart
+./vufind.sh restart
 popd
 popd
