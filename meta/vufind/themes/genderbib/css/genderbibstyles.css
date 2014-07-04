@@ -7,11 +7,47 @@ body {
     margin: 0;
     font-family: Verdana,Helvetica,Arial,sans-serif !important;
     font-size: 80%;
+    color: #036;
 }
 
 a, a:visited, a:focus, a:hover {
     color: #036;
     text-decoration: none;
+}
+
+input,
+textarea,
+select {
+    font-size: 1em;
+    color: #036;
+}
+
+input[type="submit"] {
+    border: 0 none;
+    background-color: transparent;
+    padding: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="submit"]::-moz-focus-inner {
+    padding: 0;
+    border: 0
+}
+
+input[type="text"] {
+    box-shadow: 0 1px 2px #999 inset;
+    border: 0 none;
+    background-color: #FFFFFF;
+    padding: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #036;
+}
+
+label {
+    font-weight: normal;
 }
 
 /** ***********************************
@@ -43,6 +79,30 @@ a, a:visited, a:focus, a:hover {
     float: left;
 }
 
+.sidegroup {
+    margin-top: 50px;
+}
+
+div.sidegroup h4 {
+    border-bottom: 0 none;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.span-5 {
+    width: 170px;
+}
+
+.span-18 {
+    width: 568px;
+}
+
+.delete,
+.add {
+    background: transparent none;
+    padding: 0;
+}
+
 /** ***********************************
  * Header
  ************************************ */
@@ -61,9 +121,9 @@ a, a:visited, a:focus, a:hover {
 
 #headerLeft a.link {
     background-color: rgb(204, 204, 153);
-    line-height: 1.2em;
-    padding: 2px 1em 2px 2em;
     display: block;
+    line-height: 1.2em;
+    padding: 3px 1em 3px 20px;
 }
 
 #headerRight {
@@ -93,7 +153,7 @@ a, a:visited, a:focus, a:hover {
     background-color: #036;
     display: block;
     line-height: 1.2em;
-    padding: 2px 1em 2px 2em;
+    padding: 3px 1em 3px 2em;
     text-align: left;
 }
 
@@ -103,7 +163,6 @@ a, a:visited, a:focus, a:hover {
     float: none;
     font-weight: bold;
     line-height: 1em;
-    padding-left: 20px;
     text-decoration: none;
     width: auto;
     height: 120px;
@@ -115,27 +174,41 @@ a, a:visited, a:focus, a:hover {
     padding: 0 15px 0 10px;
     position: absolute;
     right: 0;
-    top: 96px;
+    top: 100px;
     z-index: 1;
 }
 
-#loginOptions,
+#headerMenu .divider {
+    width: 1px;
+    height: 12px;
+    margin: 8px 8px 0 8px;
+    display: inline-block;
+    background-color: #FFFFFF;
+    vertical-align: top;
+}
+
 #headerMenu form {
-    display: inline;
+    display: inline-block;
     margin: 0;
+}
+
+#loginOptions {
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: top;
 }
 
 #loginOptions .login {
     background: transparent none;
-    padding: 0 5px;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
+    padding: 0;
 }
 
 #headerMenu form select {
-    height: 24px;
-    margin: 0;
+    height: 18px;
+    margin: 1px 0 0;
     width: 100px;
+    font-size: 0.8em;
 }
 
 /** ***********************************
@@ -145,18 +218,15 @@ a, a:visited, a:focus, a:hover {
 .footer {
     background-color: #E1E1E1;
     border: 0 none;
-    padding: 17px 20px;
+    padding: 16px 20px;
     min-height: 250px;
     position: relative;
+    margin-top: 40px;
 }
 
 .footer ul {
     list-style: none;
     padding-left: 0;
-}
-
-.footer .span-5 {
-    width: 160px;
 }
 
 .footer .span-5 p {
@@ -175,7 +245,7 @@ a, a:visited, a:focus, a:hover {
 
 .footer .copyright {
     position: absolute;
-    bottom: 20px;
+    bottom: 16px;
 }
 
 .footer .copyright li {
@@ -190,21 +260,86 @@ a, a:visited, a:focus, a:hover {
 }
 
 .footer .share {
+    bottom: 14px;
     position: absolute;
-    bottom: 18px;
-    right: 10px;
+    right: 0;
 }
 
 .footer .share li {
     display: inline-block;
+    margin-right: 5px;
+    overflow: hidden;
 }
 
-.footer .share li {
-    margin-right: 5px;
+.footer .share li a {
+    display: block;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    background-image: url("../images/icons/share_sprite.png");
+}
+
+.footer .share .fb {
+    background-position: 0 -16px;
+}
+
+.footer .share .fb:hover {
+    background-position: 0 0;
+}
+
+.footer .share .tw {
+    background-position: -16px -16px;
+}
+
+.footer .share .tw:hover {
+    background-position: -16px 0;
+}
+
+.footer .share .yt {
+    background-position: -32px -16px;
+}
+
+.footer .share .yt:hover {
+    background-position: -32px 0;
+}
+
+.footer .share .it {
+    background-position: -48px -16px;
+}
+
+.footer .share .it:hover {
+    background-position: -48px 0;
+}
+
+.footer .share .rss {
+    background-position: -64px -16px;
+}
+
+.footer .share .rss:hover {
+    background-position: -64px 0;
 }
 
 .footer .share .separate {
     margin-right: 20PX
+}
+
+.footer .share .hiddenStructure {
+    visibility: hidden;
+}
+
+/** ***********************************
+ * Overwrite jquery UI styles
+ ************************************ */
+
+.ui-corner-all {
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important; /* We don't have round corners */
+}
+
+.ui-state-hover,
+.ui-state-cover {
+    background: #EEEEEE none !important; /* We don't use gradient images on focus */
 }
 
 /** ***********************************
@@ -213,6 +348,7 @@ a, a:visited, a:focus, a:hover {
 
 .searchHomeContent {
     width: auto;
+    padding: 2em 0;
 }
 
 .searchHomeForm {
@@ -220,9 +356,106 @@ a, a:visited, a:focus, a:hover {
     border: 0 none;
     border-radius: 0;
     padding: 20px;
-    width: 530px;
+    width: 528px;
+}
+
+.searchHomeForm #searchForm_lookfor {
+    border: 0 none;
+    display: block;
+    padding: 5px;
+    width: 99%;
+    width: calc(100% - 10px); /* Border and padding */
 }
 
 div.searchHomeForm div.searchform  {
     width: auto;
+}
+
+.searchHomeForm .submit {
+    display: block;
+    margin: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.searchHomeForm a.advancedSearch {
+    display: block;
+    margin: 5px 0 0 0;
+    line-height: 1em;
+}
+
+/** ***********************************
+ * Page: Advanced search
+ ************************************ */
+
+#advSearchForm .advSearchContent {
+    padding: 20px;
+    background-color: #e1e1e1;
+    width: 528px;
+}
+
+#advSearchForm .group {
+    background: 0 none;
+    border: 0 none;
+}
+
+#group2SearchHolder,
+#group1SearchHolder,
+#group0SearchHolder {
+    padding: 10px 0;
+}
+
+
+#advSearchForm .groupSearchDetails {
+    border: 0 none;
+    padding: 10px 0 0 0;
+}
+
+#advSearchForm .groupSearchDetails .join {
+    padding: 0;
+}
+
+#advSearchForm .groupSearchDetails select {
+    width: 200px;
+}
+
+#advSearchForm .advRow {
+    padding: 3px 0;
+}
+
+#advSearchForm .advRow .label {
+    width: 75px;
+    text-align: left;
+    padding: 0;
+}
+
+#advSearchForm .advRow .terms {
+    width: 220px;
+}
+
+#advSearchForm .advRow .field {
+    padding: 0 0 0 6px;
+    position: relative;
+    width: 216px;
+}
+
+#advSearchForm .advRow .field select {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 90%;
+    padding: 0;
+}
+
+#addGroupLink,
+#advSearchForm .addSearch {
+    padding: 0 0 0 80px;
+}
+
+#advSearchForm input[type="submit"] {
+    margin-left: 80px;
 }
