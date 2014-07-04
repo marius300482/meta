@@ -25,6 +25,8 @@
               </form>
           <? endif; ?>
 
+          <div class="divider"></div>
+
           <? if (is_object($account) && $account->loginEnabled()): // hide login/logout if unavailable ?>
               <div id="logoutOptions"<?=!$account->isLoggedIn() ? ' class="hide"' : ''?>>
                 <a class="account" href="<?=$this->url('myresearch-home')?>"><?=$this->transEsc("Your Account")?></a> |
@@ -38,6 +40,8 @@
               <? endif; ?>
               </div>
           <? endif; ?>
+
+          <div class="divider"></div>
 
           <? $cart = $this->cart(); if ($cart->isActive()): ?>
               <div id="cartSummary" class="cartSummary">
