@@ -46,6 +46,10 @@ h1, h2, h3, h4, h5, h6 {
     color: #036;
 }
 
+h1 {
+    margin: 0.5em 0.6em;
+}
+
 strong,
 label,
 legend {
@@ -100,6 +104,7 @@ div.sidegroup h4 {
 }
 
 .span-18 {
+    margin-right: 22px;
     width: 568px;
 }
 
@@ -107,10 +112,6 @@ div.sidegroup h4 {
 .add {
     background: transparent none;
     padding: 0;
-}
-
-.delete {
-    margin-left: 5px;
 }
 
 .add:after {
@@ -490,6 +491,10 @@ div.searchHomeForm div.searchform  {
 #advSearchForm .groupSearchDetails {
     border: 0 none;
     padding: 10px 0 0 0;
+}
+
+#advSearchForm .delete {
+    padding-left: 5px;
 }
 
 #advSearchForm .groupSearchDetails .join {
