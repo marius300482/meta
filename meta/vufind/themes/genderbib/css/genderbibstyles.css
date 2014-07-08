@@ -97,7 +97,7 @@ fieldset {
     color: #000000;
 }
 
-.sidegroup .artikel a {
+.sidegroup .similar a {
     text-decoration: underline;
 }
 
@@ -724,6 +724,7 @@ ul.recordSet li.alt {
 #record .citation th {
     text-align: right;
     font-weight: normal;
+    width: 100px;
 }
 
 #record .citation td,
