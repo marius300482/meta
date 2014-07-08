@@ -136,6 +136,7 @@ div.sidegroup h4 {
     content: " -";
 }
 
+.logout,
 .account,
 .new_account,
 .feed,
@@ -247,11 +248,18 @@ tbody tr:nth-child(2n) td, tbody tr.even td {
     margin: 0;
 }
 
+#logoutOptions,
 #loginOptions {
     display: inline-block;
     height: 20px;
     line-height: 20px;
     vertical-align: top;
+}
+
+
+#logoutOptions.hide,
+#loginOptions.hide {
+    display: none;
 }
 
 #loginOptions .login {
