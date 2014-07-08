@@ -762,7 +762,7 @@ ul.recordSet li.alt {
 }
 
 #record .thumbnail img {
-    margin: 0
+    margin: 0 20px 0 0;
 }
 
 #record .citation th {
