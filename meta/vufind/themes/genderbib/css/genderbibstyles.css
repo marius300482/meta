@@ -35,6 +35,7 @@ input[type="submit"]::-moz-focus-inner {
     border: 0
 }
 
+textarea,
 input[type="text"],
 input[type="password"]{
     box-shadow: 0 1px 2px #999 inset;
@@ -48,7 +49,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    margin: 0 20px 20px;
+    margin: 20px;
 }
 
 strong,
@@ -136,7 +137,10 @@ div.sidegroup h4 {
     content: " -";
 }
 
+/* Remove a lot of default background icons */
+.fav,
 .logout,
+.list,
 .account,
 .new_account,
 .feed,
@@ -209,7 +213,7 @@ tbody tr:nth-child(2n) td, tbody tr.even td {
     background-color: #036;
     display: block;
     line-height: 1.2em;
-    padding: 3px 1em 3px 2em;
+    padding: 3px 20px;
     text-align: left;
 }
 
@@ -517,6 +521,7 @@ div.breadcrumbs em {
 #tabnav {
     border: 0 none;
     background: none #e1e1e1;
+    font-size: inherit;
 }
 
 #tabnav li {
@@ -570,7 +575,7 @@ div.breadcrumbs em {
 
 .searchHomeContent {
     width: auto;
-    padding: 50px 0 60px;
+    padding: 30px 0 60px;
 }
 
 .searchHomeBrowse {
@@ -622,6 +627,10 @@ div.searchHomeForm div.searchform  {
     padding: 20px 20px 15px;
     background-color: #e1e1e1;
     width: 528px;
+}
+
+#advSearchForm h1 {
+    margin-top: 0;
 }
 
 #advSearchForm h2 {
@@ -763,6 +772,12 @@ ul.recordSet li.alt {
 
 #record .thumbnail img {
     margin: 0 20px 0 0;
+}
+
+
+#record .iconlabel,
+#record .citation {
+    font-size: inherit;
 }
 
 #record .citation th {
