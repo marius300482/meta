@@ -8,7 +8,10 @@
         <div><?= $this->record($this->driver)->getFormatList() ?></div>
     <? endif; ?>
     <!-- Title -->
-    <h1 property="name"><?= $this->escapeHtml($this->driver->getDisplayTitle()); ?></h1>
+    <? $shortTitle = $this->driver->getShortTitle(); ?>
+    <? $titleSub = $this->driver->getTitleSub(); ?>
+    <h1 property="name"><b><?= $this->escapeHtml($shortTitle); ?></b>
+        <?= isset($titleSub) ?  " : " . $this->escapeHtml($titleSub) : ""; ?></h1>
 
     <!-- First line below title -->
     <div>
@@ -24,7 +27,7 @@
 
 
         <? if (isset($authors['additional']) && !empty($authors['additional'])): ?>
-            <a href="Description#tabnav"><?= $this->transEsc('more') ?></a>
+            <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?></a>
         <? endif; ?>
 
         <!-- Herausgeber -->
@@ -35,9 +38,9 @@
                 |
             <? endif;
             $firstLineNotEmpty = true; ?>
-            <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> <?= $this->transEsc('Ed.') ?></a>
+            <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Ed.') ?>)</a>
             <? if(!empty($editors)): ?>
-                <a href="Description#tabnav"><?= $this->transEsc('more') ?></a>
+                <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?></a>
             <? endif; ?>
         <? endif; ?>
 
@@ -51,7 +54,7 @@
             $firstLineNotEmpty = true; ?>
             <span><?= $this->escapeHtml($mainEntity) ?></span>
             <? if(!empty($entities)): ?>
-                <a href="Description#tabnav"><?= $this->transEsc('more') ?></a>
+                <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?></a>
             <? endif; ?>
         <? endif; ?>
     </div>
@@ -64,7 +67,7 @@
         <? if (!empty($placesOfPublication)):
             $placeOfPublicationSet = true;
             foreach($placesOfPublication as $placeOfPublication): ?>
-                <span property="location"><?= $this->escapeHtml($placeOfPublication) ?></span><? if (next($placeOfPublication) == true) : ?>, <? endif; ?>
+                <span property="location"><?= $this->escapeHtml($placeOfPublication) ?></span><? if (next($placesOfPublication) == true) : ?>, <? endif; ?>
             <? endforeach; ?>
         <? endif; ?>
 
@@ -75,7 +78,7 @@
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($publishers as $publisher): ?>
-                <span property="publisher" typeof="Organization"><?= $this->escapeHtml($publisher) ?></span><? if (next($publisher) == true) : ?>, <? endif; ?>
+                <span property="publisher" typeof="Organization"><?= $this->escapeHtml($publisher) ?></span><? if (next($publishers) == true) : ?>, <? endif; ?>
             <? endforeach; ?>
         <? endif; ?>
 
@@ -99,74 +102,50 @@
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($physicals as $physical): ?>
-                <span property="physical"><?= $this->escapeHtml($physical) ?></span><? if (next($physical) == true) : ?>, <? endif; ?>
+                <span property="physical"><?= $this->escapeHtml($physical) ?></span><? if (next($physicals) == true) : ?>, <? endif; ?>
             <? endforeach; ?>
         <? endif; ?>
     </div>
+
+    <br/>
 
 <? /* Display Main Details */ ?>
 <table cellpadding="2" cellspacing="0" border="0" class="citation"
        summary="<?= $this->transEsc('Bibliographic Details') ?>">
 
     <!-- Schlagworte -->
-    <? $subjects = $this->driver->getAllSubjectHeadings();
-    if (!empty($subjects)): ?>
-        <tr valign="top">
-            <th><?= $this->transEsc('Subjects') ?>:</th>
-            <td>
-                <? $line = 0;
-                foreach ($subjects as $field): ?>
-                    <div class="subjectLine <?= ++$line > 5 ? 'hide more' : '' ?>" property="keywords">
-                        <? $subject = ''; ?>
-                        <? $i = 0;
-                        foreach ($field as $subfield): ?>
-                            <?= ($i++ == 0) ? '' : ' &gt; ' ?>
-                            <? $subject = trim($subject . ' ' . $subfield); ?>
-                            <a title="<?= $this->escapeHtml($subject) ?>"
-                               href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"
-                               class="subjectHeading"><?= $this->escapeHtml($subfield) ?></a>
+    <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
+    <? if (!empty($subjects)): ?>
+        <? foreach(array("Topic", "Geo", "Person") as $type): ?>
+            <tr valign="top">
+                <? if (isset($subjects[strtolower($type)])): ?>
+                    <th><?= $this->transEsc('Subjects ' . $type) ?>:</th>
+                    <td>
+                        <? $line = 0;
+                        $fields = $subjects[strtolower($type)]; ?>
+                        <? foreach ($fields as $subject): ?>
+                            <div class="subject<?= $type ?>Line <?= ++$line > 5 ? 'hide more' : '' ?>" property="keywords">
+                                <a title="<?= $this->escapeHtml($subject) ?>"
+                                   href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"
+                                   class="subjectHeading"><?= $this->escapeHtml($subject) ?></a>
+                               <br/>
+                          </div>
                         <? endforeach; ?>
-                    </div>
-                <? endforeach; ?>
-                <? if (count($subjects) > 5): ?>
-                <div>
-                    <a id="showAllTopics" title="More" class="add" onclick="$('.subjectLine.more, #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">More</a>
-                    <a id="hideTooManyTopics" title="Less" class="add hide" onclick="$('.subjectLine.more,  #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">Less</a>
-                </div>
+                        <? if (count($fields) > 5): ?>
+                            <div>
+                                <a id="showAll<?= $type ?>Topics" title="More" class="add"
+                                    onclick="$('.subject<?= $type ?>Line.more, #showAll<?= $type ?>Topics, #hideTooMany<?= $type ?>Topics').toggle(); return false;"
+                                    href="#">More</a>
+                                <a id="hideTooMany<?= $type ?>Topics" title="Less" class="hide delete"
+                                    onclick="$('.subject<?= $type ?>Line.more,  #showAll<?= $type ?>Topics, #hideTooMany<?= $type ?>Topics').toggle(); return false;"
+                                    href="#">Less</a>
+                            </div>
+                        <? endif; ?>
+                    </td>
                 <? endif; ?>
-            </td>
-        </tr>
+            </tr>
+        <? endforeach; ?>
     <? endif; ?>
-
-    <!-- TranslatedTerms -->
-    <? /* $subjects = $this->driver->getAllSubjectHeadings();
-    if (!empty($subjects)): ?>
-        <tr valign="top">
-            <th><?= $this->transEsc('TranslatedTerms') ?>:</th>
-            <td>
-                <? $line = 0;
-                foreach ($subjects as $field): ?>
-                    <div class="subjectLine <?= ++$line > 5 ? 'hide more' : '' ?>" property="keywords">
-                        <? $subject = ''; ?>
-                        <? $i = 0;
-                        foreach ($field as $subfield): ?>
-                            <?= ($i++ == 0) ? '' : ' &gt; ' ?>
-                            <? $subject = trim($subject . ' ' . $subfield); ?>
-                            <a title="<?= $this->escapeHtml($subject) ?>"
-                               href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"
-                               class="subjectHeading"><?= $this->escapeHtml($subfield) ?></a>
-                        <? endforeach; ?>
-                    </div>
-                <? endforeach; ?>
-                <? if (count($subjects) > 5): ?>
-                <div>
-                    <a id="showAllTopics" title="More" class="add" onclick="$('.subjectLine.more, #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">More</a>
-                    <a id="hideTooManyTopics" title="Less" class="add hide" onclick="$('.subjectLine.more,  #showAllTopics, #hideTooManyTopics').toggle(); return false;" href="#">Less</a>
-                </div>
-                <? endif; ?>
-            </td>
-        </tr>
-    <? endif; */ ?>
 
     <!-- Mini Kontext -->
     <? $belongsTo = $this->driver->getBelongsTo();
@@ -182,13 +161,23 @@
     <? $belongsToTop = $this->driver->getBelongsToTop();
     if (!empty($belongsToTop)): ?>
         <tr valign="top">
-            <th><?= $this->transEsc('Belongs to') ?>:</th>
+            <th><?= $this->transEsc('Belongs to Top') ?>:</th>
             <td>
                 <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
             </td>
         </tr>
     <? endif; ?>
 
+    <!-- Ausgabe -->
+    <? $seriesNr = $this->driver->getSeriesNr();
+    if ($seriesNr): ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Series Number') ?>:</th>
+            <td>
+                <span property="seriesNumber"><?= $this->escapeHtml($seriesNr) ?></span>
+            </td>
+        </tr>
+    <? endif; ?>
 
     <!-- tags -->
     <? $tagList = $this->driver->getTags(); ?>
@@ -213,7 +202,6 @@
             </div>
         </td>
     </tr>
-
 
     <? $recordLinks = $this->driver->getAllRecordLinks();
     if (!empty($recordLinks)): ?>

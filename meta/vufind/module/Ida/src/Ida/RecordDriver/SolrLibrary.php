@@ -91,6 +91,31 @@ class SolrLibrary extends SolrDefault
         return $this->fields['title_sub'];
     }
 
+    public function getAllSubjectHeadings()
+    {
+
+        $topic = isset($this->fields['topic']) ? $this->fields['topic'] : array();
+        $geo = isset($this->fields['subjectGeographic']) ?
+            $this->fields['subjectGeographic'] : array();
+        $person = isset($this->fields['subjectPerson']) ? $this->fields['subjectPerson'] : array();
+
+        $retval = array();
+        if (!empty($topic))
+        {
+            $retval["topic"] = $topic;
+        }
+        if (!empty($geo))
+        {
+            $retval["geo"] = $geo;
+        }
+        if (!empty($person))
+        {
+            $retval["person"] = $person;
+        }
+
+        return $retval;
+    }
+
     public function getSeriesNr()
     {
         return $this->fields['seriesNr'];
