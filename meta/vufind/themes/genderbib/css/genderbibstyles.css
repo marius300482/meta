@@ -8,11 +8,13 @@ body {
     font-family: Verdana,Helvetica,Arial,sans-serif !important;
     font-size: 80%;
     color: #036;
+    line-height: 1.5em;
 }
 
 a, a:visited, a:focus, a:hover {
     color: #036;
     text-decoration: none;
+    line-height: 1.2em;
 }
 
 input,
@@ -114,6 +116,10 @@ div.sidegroup h4 {
     width: 160px;
 }
 
+.sidegroup .navmenu dt {
+    background-color: #F0F0F0;
+}
+
 .span-5 {
     width: 170px;
 }
@@ -161,6 +167,12 @@ table.datagrid th {
 
 tbody tr:nth-child(2n) td, tbody tr.even td {
     background-color: #FFFFFF;
+}
+
+.error,
+.alert,
+.info {
+    background-color: transparent;
 }
 
 /** ***********************************
@@ -798,6 +810,11 @@ ul.recordSet li.alt {
 
 .recordsubcontent .citation div {
     width: auto !important; /* Overwrite style attribute */
+}
+
+.sidegroup .searchHelp,
+.sidegroup .advsearchHelp {
+    line-height: 2em;
 }
 
 /** ***********************************
