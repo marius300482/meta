@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    margin: 20px;
+    margin: 0 20px 20px;
 }
 
 strong,
@@ -120,6 +120,17 @@ div.sidegroup h4 {
 
 .delete:after {
     content: " -";
+}
+
+.feed,
+.mailSearch,
+.citeRecord,
+.smsRecord,
+.mailRecord,
+.exportMenu,
+.saveRecord {
+    padding: 0;
+    background: none transparent;
 }
 
 /** ***********************************
@@ -397,8 +408,7 @@ div.sidegroup h4 {
 
 div.breadcrumbs {
     border-top: 0 none;
-    margin-bottom: -7px;
-    margin-top: 20px;
+    margin: 20px 0;
     padding-left: 5px;
 }
 
@@ -426,14 +436,52 @@ div.breadcrumbs em {
 }
 
 /** ***********************************
+ * Page element: Top search box
+ ************************************ */
+
+.topSearchBox {
+    background-color: #e1e1e1;
+    border: 0 none;
+    padding: 15px 15px 12px 15px;
+    position: relative;
+}
+
+.topSearchBox #searchForm_type {
+    margin: 0 15px;
+    padding: 0;
+    width: 190px;
+}
+
+.topSearchBox #searchForm_lookfor {
+    width: 250px;
+}
+
+.topSearchBox input[type="submit"]:after {
+    content: "gfzuf&raquo;";
+}
+
+.topSearchBox .advancedSearch {
+    position: absolute;
+    font-size: 1em;
+    height: 53px;
+    line-height: 53px;
+    padding-left: 20px;
+    border-left: 1px solid #FFFFFF;
+    width: 170px;
+    right: 10px;
+    top: 0;
+    z-index: 1;
+}
+
+
+/** ***********************************
  * Page: home
  ************************************ */
 
 .searchHomeContent {
     width: auto;
-    padding: 0 0 60px 0;
+    padding: 50px 0 60px;
 }
-
 
 .searchHomeBrowse {
     padding: 0;
@@ -579,4 +627,36 @@ div.searchHomeForm div.searchform  {
     display: block;
     margin: 10px -20px;
     padding: 10px 0 10px 100px;
+}
+
+/** ***********************************
+ * Page: Search view
+ ************************************ */
+
+.sidegroup #publishDate {
+    margin: 20px 0;
+    width: 160px;
+}
+
+ul.recordSet .recordNumber {
+    text-align: left;
+}
+
+ul.recordSet li.alt {
+    background-color: #f0f0f0;
+}
+
+/** ***********************************
+ * Page: Search item detail view
+ ************************************ */
+
+.authorbox {
+    margin: 20px 0;
+    background: 0 none;
+    border: 0 none;
+}
+
+.toolbar {
+    padding: 20px 0 10px 0;
+    border: 0 none;
 }

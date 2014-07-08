@@ -99,7 +99,7 @@
       <? endif; ?>
       <input type="submit" name="submit" value="<?=$this->transEsc("Find")?>"/>
       <? if ($advSearch): ?>
-        <a href="<?=$this->url($advSearch)?>" class="small"><?=$this->transEsc("Advanced")?></a>
+        <a href="<?=$this->url($advSearch)?>" class="small advancedSearch"><?=$this->transEsc("Advanced")?> &raquo;</a>
       <? endif; ?>
 
       <? $shards = $options->getShards(); if ($options->showShardCheckboxes() && !empty($shards)): ?>
