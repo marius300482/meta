@@ -553,6 +553,18 @@ div.breadcrumbs em {
 }
 
 /** ***********************************
+ * Page element: Login form
+ ************************************ */
+
+#loginForm label.span-2 {
+    width: 100px;
+}
+
+#loginForm input.push-2 {
+    margin: 10px 110px;
+}
+
+/** ***********************************
  * Page: home
  ************************************ */
 
