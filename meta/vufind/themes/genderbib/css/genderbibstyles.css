@@ -135,6 +135,7 @@ div.sidegroup h4 {
     content: " -";
 }
 
+.new_account,
 .feed,
 .mailSearch,
 .citeRecord,
@@ -385,6 +386,10 @@ div.sidegroup h4 {
     background: #EEEEEE none !important; /* We don't use gradient images on focus */
 }
 
+.ui-widget-header {
+    background: none #e1e1e1;
+}
+
 /** ***********************************
  * Page element: Year selector
  ************************************ */
@@ -513,6 +518,19 @@ div.breadcrumbs em {
 
 #tabnav .active a {
     background: none #f0f0f0;
+}
+
+/** ***********************************
+ * Page element: Toolbar
+ ************************************ */
+
+.toolbar {
+    padding: 20px 0 10px 0;
+    border: 0 none;
+}
+
+.toolbar ul.menu {
+    z-index: 999;
 }
 
 /** ***********************************
@@ -689,11 +707,6 @@ ul.recordSet li.alt {
 .authorbox {
     margin: 20px 0;
     background: 0 none;
-    border: 0 none;
-}
-
-.toolbar {
-    padding: 20px 0 10px 0;
     border: 0 none;
 }
 
