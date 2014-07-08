@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    margin: 0.5em 0.6em;
+    margin: 20px;
 }
 
 strong,
@@ -66,7 +66,7 @@ fieldset {
 
 .main {
     border-top: 0 none;
-    padding: 0.8em 0;
+    padding: 0;
 }
 
 .container {
@@ -90,7 +90,7 @@ fieldset {
 }
 
 .sidegroup {
-    margin-top: 50px;
+    margin-top: 60px;
 }
 
 div.sidegroup h4 {
@@ -240,7 +240,7 @@ div.sidegroup h4 {
     padding: 16px 20px;
     min-height: 250px;
     position: relative;
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
 .footer ul {
@@ -397,11 +397,15 @@ div.sidegroup h4 {
 
 div.breadcrumbs {
     border-top: 0 none;
+    margin-bottom: -7px;
+    margin-top: 20px;
+    padding-left: 5px;
 }
 
 div.breadcrumbs,
 div.breadcrumbs a {
     color: #76797c;
+    height: auto;
 }
 
 div.breadcrumbs span {
@@ -414,13 +418,25 @@ div.breadcrumbs span {
     opacity: 1;
 }
 
+div.breadcrumbs span,
+div.breadcrumbs a,
+div.breadcrumbs em {
+    height: 15px;
+    line-height: 15px;
+}
+
 /** ***********************************
  * Page: home
  ************************************ */
 
 .searchHomeContent {
     width: auto;
-    padding: 2em 0 0 0;
+    padding: 0 0 60px 0;
+}
+
+
+.searchHomeBrowse {
+    padding: 0;
 }
 
 .searchHomeForm {
@@ -465,7 +481,7 @@ div.searchHomeForm div.searchform  {
  ************************************ */
 
 #advSearchForm .advSearchContent {
-    padding: 20px;
+    padding: 20px 20px 15px;
     background-color: #e1e1e1;
     width: 528px;
 }
@@ -535,6 +551,10 @@ div.searchHomeForm div.searchform  {
 
 #advSearchForm .addSearch {
     padding: 0 0 0 80px;
+}
+
+#advSearchForm .firstSubmit {
+    margin-bottom: 8px;
 }
 
 #advSearchForm input[type="submit"] {
