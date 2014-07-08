@@ -77,10 +77,7 @@
       <div class="header">
         <?=$this->render('header.phtml')?>
       </div>
-      <div class="contentLeft">
 
-      </div>
-      <div class="contentRight">
           <? // Set up the search box -- there are three possible cases:
              // 1. No search box was set; we should default to the normal box
              // 2. It was set to false; we should display nothing
@@ -114,15 +111,20 @@
             </div>
           </div>
           <? endif; ?>
+
           <div class="main">
             <?=$this->layout()->content?>
           </div>
-          <div class="footer">
-            <?=$this->render('footer.phtml')?>
-            <?=$this->layout()->poweredBy?>
+
+          <div class="footerWrapper">
+              <div class="footer">
+                <?=$this->render('footer.phtml')?>
+                <?=$this->layout()->poweredBy?>
+              </div>
           </div>
+
         </div>
-    </div>
+
     <?=$this->googleanalytics()?>
   </body>
 </html>
