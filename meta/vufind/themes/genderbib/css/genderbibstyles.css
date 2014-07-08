@@ -697,6 +697,41 @@ ul.recordSet li.alt {
     border: 0 none;
 }
 
+#record {
+    padding: 0;
+}
+
+#record .title {
+    position: relative;
+    padding-right: 80px;
+}
+
+#record .title h1 {
+    font-size: 1em;
+    margin: 0;
+}
+
+#record .thumbnail {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#record .thumbnail img {
+    margin: 0
+}
+
+#record .citation th {
+    text-align: right;
+    font-weight: normal;
+}
+
+#record .citation td,
+#record .citation th {
+    border: 0 none;
+    color: #003366;
+}
+
 .recordsubcontent {
     background: none #f0f0f0;
 }
