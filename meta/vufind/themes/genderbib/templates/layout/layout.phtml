@@ -92,11 +92,6 @@
             $this->layout()->searchbox = $this->render('search/searchbox.phtml');
         }
         ?>
-        <? if ($this->layout()->searchbox !== false): ?>
-            <div class="searchbox">
-                <?=$this->layout()->searchbox?>
-            </div>
-        <? endif; ?>
         <?
         // Set up the feedback tab -- the same possible cases exist as the search box
         if ($feedback && !isset($this->layout()->feedbacktab)) {
@@ -112,6 +107,11 @@
                     <a href="<?=$this->url('home')?>"><?=$this->transEsc('Home')?></a> <span>&gt;</span>
                     <?=$this->layout()->breadcrumbs?>
                 </div>
+            </div>
+        <? endif; ?>
+        <? if ($this->layout()->searchbox !== false): ?>
+            <div class="searchbox topSearchBox">
+                <?=$this->layout()->searchbox?>
             </div>
         <? endif; ?>
         <div class="main">
