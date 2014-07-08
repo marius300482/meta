@@ -77,6 +77,18 @@ fieldset {
     margin: 0;
 }
 
+.container .contentLeft {
+    width: 19%;
+    float: left;
+    min-height: 300px;
+}
+
+.container .contentRight {
+    width: 81%;
+    display: inline-block;
+    float: left;
+}
+
 .sidegroup {
     margin-top: 60px;
 }
@@ -221,11 +233,6 @@ div.sidegroup h4 {
 /** ***********************************
  * Footer
  ************************************ */
-
-.footerWrapper {
-    width: 81%;
-    padding-left: 19%;
-}
 
 .footer {
     background-color: #E1E1E1;
@@ -390,7 +397,8 @@ div.sidegroup h4 {
 
 div.breadcrumbs {
     border-top: 0 none;
-    margin: 20px 0 -7px 19%;
+    margin-bottom: -7px;
+    margin-top: 20px;
     padding-left: 5px;
 }
 
@@ -422,8 +430,8 @@ div.breadcrumbs em {
  ************************************ */
 
 .searchHomeContent {
-    width: 81%;
-    padding: 0 0 60px 19%;
+    width: auto;
+    padding: 0 0 60px 0;
 }
 
 
@@ -471,11 +479,6 @@ div.searchHomeForm div.searchform  {
 /** ***********************************
  * Page: Advanced search
  ************************************ */
-
-#advSearchForm {
-    width: 81%;
-    padding-left: 19%;
-}
 
 #advSearchForm .advSearchContent {
     padding: 20px 20px 15px;
