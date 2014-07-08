@@ -93,10 +93,23 @@ fieldset {
     margin-top: 60px;
 }
 
+.sidegroup li {
+    color: #000000;
+}
+
+.sidegroup .artikel a {
+    text-decoration: underline;
+}
+
 div.sidegroup h4 {
     border-bottom: 0 none;
     font-size: 1em;
     font-weight: bold;
+}
+
+.sidegroup #publishDate {
+    margin: 20px 0;
+    width: 160px;
 }
 
 .span-5 {
@@ -473,6 +486,34 @@ div.breadcrumbs em {
     z-index: 1;
 }
 
+/** ***********************************
+ * Page element: Top search box
+ ************************************ */
+
+#tabnav {
+    border: 0 none;
+    background: none #e1e1e1;
+}
+
+#tabnav li {
+   padding: 8px 0 0;
+}
+
+#tabnav .active a,
+#tabnav li a,
+#tabnav .active a:hover,
+#tabnav li a:hover {
+    padding: 8px 20px 14px;
+    color: #036;
+}
+
+#tabnav .active {
+    background: transparent none;
+}
+
+#tabnav .active a {
+    background: none #f0f0f0;
+}
 
 /** ***********************************
  * Page: home
@@ -633,11 +674,6 @@ div.searchHomeForm div.searchform  {
  * Page: Search view
  ************************************ */
 
-.sidegroup #publishDate {
-    margin: 20px 0;
-    width: 160px;
-}
-
 ul.recordSet .recordNumber {
     text-align: left;
 }
@@ -659,4 +695,12 @@ ul.recordSet li.alt {
 .toolbar {
     padding: 20px 0 10px 0;
     border: 0 none;
+}
+
+.recordsubcontent {
+    background: none #f0f0f0;
+}
+
+.recordsubcontent .citation div {
+    width: auto !important; /* Overwrite style attribute */
 }
