@@ -105,7 +105,7 @@
 							<xsl:text>Genderbibliothek/Information/Dokumentation am Zentrum für transdisziplinäre Geschlechterstudien an der Humboldt-Universität zu Berlin</xsl:text>
 							</institutionsFullname>
 			
-<!--collection-->				<collection><xsl:text>Bibliografie</xsl:text></collection>
+<!--collection-->				<collection><xsl:text>Bibliografie "Paula"</xsl:text></collection>
 	
 <!--isil-->					<isil><xsl:text>DE-B1542</xsl:text></isil>
 	
@@ -161,13 +161,13 @@
 <!--format-->
 				<xsl:choose>
 					<xsl:when test="ISSN">
-						<format>Zeitschriftenheft (Bibliografie)</format>
+						<format>Zeitschriftenheft</format>
 						</xsl:when>
 					<xsl:when test="Einzeltitel">
-						<format>Artikel (Bibliografie)</format>
+						<format>Artikel</format>
 						</xsl:when>
 					<xsl:otherwise>
-						<format>Monographie (Bibliografie)</format>
+						<format>Monographie</format>
 						</xsl:otherwise>
 					</xsl:choose>
 
