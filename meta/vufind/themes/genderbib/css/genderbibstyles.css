@@ -191,6 +191,21 @@ tbody tr:nth-child(2n) td, tbody tr.even td {
 .alert,
 .info {
     background-color: transparent;
+    margin: 20px 0;
+}
+
+div.unavailable,
+div.fatalError {
+    border-radius: 0;
+    font-size: inherit;
+    margin: 20px 0;
+    padding: 20px;
+    width: 72.9%;
+}
+
+div.unavailable h1,
+div.fatalError h1 {
+    margin: 0 0 20px 0;
 }
 
 div.bulkActionButtons input.button {
@@ -440,6 +455,22 @@ div.bulkActionButtons input.button {
  * Overwrite jquery UI styles
  ************************************ */
 
+.ui-dialog {
+    padding: 0;
+    border: 1px solid #CCCCCC;
+}
+
+.ui-dialog-titlebar {
+    border: 0 none;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 6px 20px !important; /* Important is used to overwrite the jQuery style */
+    color: #003366;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding: 20px;
+}
+
 .ui-corner-all {
     -moz-border-radius: 0 !important;
     -webkit-border-radius: 0 !important;
@@ -453,6 +484,14 @@ div.bulkActionButtons input.button {
 
 .ui-widget-header {
     background: none #e1e1e1;
+}
+
+/** ***********************************
+ * Page element: Filters
+ ************************************ */
+
+ul.filters {
+    background-color: #AAAAAA;
 }
 
 /** ***********************************
@@ -543,6 +582,10 @@ div.jstree a {
 /** ***********************************
  * Page element: Top search box
  ************************************ */
+
+.contentRight div.topSearchBox:first-child {
+    margin-top: 20px;
+}
 
 .topSearchBox {
     background-color: #e1e1e1;
@@ -974,7 +1017,8 @@ div.recordsubcontent table.citation {
  ************************************ */
 
 .tag_cloud {
-    padding: 20px 20px 0 0;
+    padding: 20px 0 0 0;
+    width: 77%;
 }
 
 /** ***********************************
@@ -983,5 +1027,20 @@ div.recordsubcontent table.citation {
 
 .topicslist,
 .pagination {
-    padding-right: 20px;
+    width: 77%;
+}
+
+/** ***********************************
+ * Page: Topics
+ ************************************ */
+
+.resulthead {
+    border : 0;
+    padding: 0;
+}
+
+#alphaBrowseForm {
+    padding: 15px;
+    background-color: #e1e1e1;
+    margin: 60px 0;
 }
