@@ -893,8 +893,13 @@ div.recordsubcontent table.citation {
     width: 190px;
 }
 
-#treeSelector a {
+#treeSelector .tree {
     display: block;
+    padding: 3px;
+}
+
+#treeSelector .tree:before {
+    content: "[+] ";
 }
 
 #hierarchyTree a ins.jstree-icon {
