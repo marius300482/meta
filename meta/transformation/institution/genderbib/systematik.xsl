@@ -64,7 +64,7 @@
 			
 			<xsl:choose>
 				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Bibliografie</xsl:text></collection>
+						<collection><xsl:text>Bibliografie "Paula"</xsl:text></collection>
 					</xsl:when>
 				<xsl:otherwise>
 						<collection><xsl:text>Bibliothekskatalog</xsl:text></collection>
@@ -269,7 +269,7 @@
 			
 			<xsl:choose>
 				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Bibliografie</xsl:text></collection>
+						<collection><xsl:text>Bibliografie "Paula"</xsl:text></collection>
 					</xsl:when>
 				<xsl:otherwise>
 						<collection><xsl:text>Bibliothekskatalog</xsl:text></collection>
