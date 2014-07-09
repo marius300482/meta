@@ -158,6 +158,10 @@ div.sidegroup h4 {
 .currentTree,
 .hierarchyTreeLinkText,
 .tree,
+.mail,
+.edit,
+.export,
+.print,
 .saveRecord {
     padding: 0;
     background: none transparent;
@@ -176,6 +180,15 @@ tbody tr:nth-child(2n) td, tbody tr.even td {
 .alert,
 .info {
     background-color: transparent;
+}
+
+div.bulkActionButtons input.button {
+    padding: 0;
+    color: #003366;
+    font-weight: normal;
+    text-decoration: none;
+    font-family: Verdana,Helvetica,Arial,sans-serif;
+    line-height: 20px;
 }
 
 /** ***********************************
