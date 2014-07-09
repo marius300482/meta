@@ -118,8 +118,17 @@
 		<xsl:element name="vufind">
 			<id>
 				<xsl:value-of select="@id" />
-				<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
 				<xsl:choose>
+					<xsl:when test="//root[@id='paula']">
+						<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				<!--<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
+-->				<xsl:choose>
 					<xsl:when test="//root[@id='paula']">
 						<xsl:text>paulabiblio</xsl:text>
 						</xsl:when>
@@ -242,7 +251,17 @@
 				<xsl:if test="//root[@id='genderbib']">
 					<xsl:value-of select="translate(@id,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ')"/>
 					</xsl:if>
-				<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
+				
+				<xsl:choose>
+					<xsl:when test="//root[@id='paula']">
+						<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
+						</xsl:otherwise>
+					</xsl:choose>
+					
+				<!--<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>-->
 				<xsl:choose>
 					<xsl:when test="//root[@id='paula']">
 						<xsl:text>paulabiblio</xsl:text>
