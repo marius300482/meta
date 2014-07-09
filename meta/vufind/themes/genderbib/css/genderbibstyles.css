@@ -74,6 +74,8 @@ fieldset {
 }
 
 /* Select all main headlines on a page, which are not marked as H1 */
+.main > h2,
+.main > h3,
 .main > div:first-child > h2,
 .main > div:first-child > h3 {
     margin: 20px 0;
