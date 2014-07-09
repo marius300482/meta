@@ -23,7 +23,9 @@ return array(
         'lightbox.js',
         'common.js',
     ),
-    'favicon' => 'vufind-favicon.ico',
+    */
+    'favicon' => '/vufind/themes/genderbib/images/icons/favicon.ico',
+    /*
     'helpers' => array(
         'factories' => array(
             'layoutclass' => array('VuFind\View\Helper\Blueprint\Factory', 'getLayoutClass'),

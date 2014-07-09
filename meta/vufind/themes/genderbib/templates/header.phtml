@@ -8,9 +8,9 @@
 <? if (!isset($this->layout()->renderingError)): ?>
   <div id="headerRight">
       <div id="banner">
-        <img id="bannerImg" src="<?=$this->imageLink('medium/main_banner.jpg')?>" />
         <a href="" id="bannerLink"><?=$this->transEsc("Weblog der Genderbibliothek"); ?>&raquo;</a>
       </div>
+      <img id="humboldImg" src="<?=$this->imageLink('small/humboldt_universitaet_logo.jpg')?>" />
 
       <div id="headerMenu">
           <? if (isset($this->layout()->allLangs) && count($this->layout()->allLangs) > 1): ?>

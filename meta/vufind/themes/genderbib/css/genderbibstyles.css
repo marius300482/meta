@@ -3,7 +3,7 @@
  ************************************ */
 
 body {
-    background: #F0F0F0 none;
+    background: #F0F0E8 none;
     margin: 0;
     font-family: Verdana,Helvetica,Arial,sans-serif !important;
     font-size: 80%;
@@ -76,9 +76,14 @@ fieldset {
 .container {
     box-shadow: none;
     border: 0 none;
+    border-left: 1px solid #ccccb2;
+    border-right: 1px solid #ccccb2;
     border-radius: 0;
     background-color: #FFF;
     margin: 0 auto;
+    max-width: 100em;
+    min-width: 82em;
+    width: auto;
 }
 
 .container .contentLeft {
@@ -117,16 +122,16 @@ div.sidegroup h4 {
 }
 
 .sidegroup .navmenu dt {
-    background-color: #F0F0F0;
+    background-color: #F0F0E8;
 }
 
 .span-5 {
-    width: 170px;
+    width: 20%;
 }
 
 .span-18 {
-    margin-right: 22px;
-    width: 568px;
+    margin-right: 2%;
+    width: 77%;
 }
 
 .delete,
@@ -200,7 +205,7 @@ div.bulkActionButtons input.button {
 }
 
 #headerLeft {
-    height: 140px;
+    height: 160px;
     display: block;
     width: 19%;
     float: left;
@@ -210,38 +215,36 @@ div.bulkActionButtons input.button {
 #headerLeft a.link {
     background-color: rgb(204, 204, 153);
     display: block;
-    line-height: 1.2em;
-    padding: 3px 1em 3px 20px;
+    padding: 4px 1em 4px 20px;
 }
 
 #headerRight {
-    background: url("../images/small/humboldt_universitaet_logo.jpg") no-repeat scroll 650px 6px transparent;
     display: block;
     float: left;
-    height: 140px;
+    height: 160px;
     position: relative;
     width: 81%;
 }
 
 #banner {
+    background: url("../images/medium/main_banner.jpg") no-repeat scroll 0 26px transparent;
+    padding-top: 137px;
     position: relative;
-    width: 568px;
-    height: 140px;
+    width: 77%;
 }
 
-#bannerImg {
-    display: block;
-    width: 568px;
-    height: 110px;
-    margin-top: 10px;
+#humboldImg {
+    position: absolute;
+    left: 84%;
+    top: 22px;
 }
 
 #bannerLink {
-    color: #FFFFFF;
     background-color: #036;
+    color: #ffffff;
     display: block;
     line-height: 1.2em;
-    padding: 3px 20px;
+    padding: 4px 20px;
     text-align: left;
 }
 
@@ -253,16 +256,21 @@ div.bulkActionButtons input.button {
     line-height: 1em;
     text-decoration: none;
     width: auto;
-    height: 120px;
+    height: 137px;
+}
+
+#logo img {
+    margin-top: 22px;
 }
 
 #headerMenu {
-    background-color: #e1e1e1;
+    background-color: #ccd6e0;
     border-top-left-radius: 5px;
-    padding: 0 15px 0 10px;
+    min-width: 28%;
+    padding: 1px 15px 2px 10px;
     position: absolute;
     right: 0;
-    top: 100px;
+    top: 114px;
     z-index: 1;
 }
 
@@ -311,7 +319,7 @@ div.bulkActionButtons input.button {
  ************************************ */
 
 .footer {
-    background-color: #E1E1E1;
+    background-color: #e1e1e1;
     border: 0 none;
     padding: 16px 20px;
     min-height: 250px;
@@ -519,7 +527,7 @@ div.jstree a {
 }
 
 .jstree-default a.jstree-hovered {
-    background-color: #F0F0F0;
+    background-color: #F0F0E8;
 }
 
 .jstree-default a.jstree-clicked {
@@ -558,7 +566,7 @@ div.jstree a {
     line-height: 53px;
     padding-left: 20px;
     border-left: 1px solid #FFFFFF;
-    width: 170px;
+    width: 20%;
     right: 10px;
     top: 0;
     z-index: 1;
@@ -591,7 +599,7 @@ div.jstree a {
 }
 
 #tabnav .active a {
-    background: none #f0f0f0;
+    background: none #F0F0E8;
 }
 
 /** ***********************************
@@ -624,8 +632,9 @@ div.jstree a {
  ************************************ */
 
 .searchHomeContent {
-    width: auto;
+    margin: 0 0 0 11%;
     padding: 30px 0 60px;
+    width: 66%;
 }
 
 .searchHomeBrowse {
@@ -676,7 +685,7 @@ div.searchHomeForm div.searchform  {
 #advSearchForm .advSearchContent {
     padding: 20px 20px 15px;
     background-color: #e1e1e1;
-    width: 528px;
+    width: auto;
 }
 
 #advSearchForm h1 {
@@ -703,15 +712,17 @@ div.searchHomeForm div.searchform  {
 
 #advSearchForm .groupSearchDetails {
     border: 0 none;
-    padding: 10px 0 0 0;
+    float: none;
+    padding: 10px 0 0;
 }
 
 #advSearchForm .delete {
     padding-left: 5px;
 }
 
-#advSearchForm .groupSearchDetails .join {
-    padding: 0;
+#advSearchForm .groupSearchDetails .join label {
+   width: 75px;
+   display: inline-block;
 }
 
 #advSearchForm .groupSearchDetails select {
@@ -729,7 +740,7 @@ div.searchHomeForm div.searchform  {
 }
 
 #advSearchForm .advRow .terms {
-    width: 220px;
+    width: 45%;
 }
 
 #advSearchForm .advRow .field {
@@ -787,7 +798,7 @@ ul.recordSet .recordNumber {
 }
 
 ul.recordSet li.alt {
-    background-color: #f0f0f0;
+    background-color: #F0F0E8;
 }
 
 /** ***********************************
@@ -856,7 +867,7 @@ ul.recordSet li.alt {
 }
 
 .recordsubcontent {
-    background: none #f0f0f0;
+    background: none #F0F0E8;
 }
 
 .recordsubcontent .citation div {
@@ -875,7 +886,7 @@ div.recordsubcontent table.citation {
 #treeSearch {
     border: 0 none;
     padding: 10px 0;
-    background-color: #F0F0F0;
+    background-color: #F0F0E8;
 }
 
 #treeSearch input[id="search"] {
