@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<root id="genderbib">
+	<institution>
+		<systemstelle id="0" regex="Genderbibliothek Aufstellung"/>
+	</institution>
+	<systematik>
+		<systemstelle id="I" nr="1" regex="Nachschlagewerke">
+			<unterpunkt id="I/0">Lexika, Jahrbücher, Statistik</unterpunkt>
+			<unterpunkt id="I/1">Informationsmaterial über Frauenzentren</unterpunkt>
+			<unterpunkt id="I/2">Allgemeine Schriften</unterpunkt>
+			<unterpunkt id="I/3">Methodologie Studium/Wissenschaft</unterpunkt>
+			<unterpunkt id="I/4">Forschungsprojekte / Sammlungen</unterpunkt>
+			<unterpunkt id="I/5">Vorlesungsverzeichnisse</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="II"  nr="2"  regex="Frauen- und Geschlechterforschung in einzelnen Disziplinen">
+			<unterpunkt id="II/0">Sammelbände</unterpunkt>
+			<unterpunkt id="II/1">Ethnologie</unterpunkt>
+			<unterpunkt id="II/2">Philosophie</unterpunkt>
+			<unterpunkt id="II/3">Sozialwissenschaften/Soziologie</unterpunkt>
+			<unterpunkt id="II/4">Mathematik / Naturwissenschaften</unterpunkt>
+			<unterpunkt id="II/5">Medizin</unterpunkt>
+			<unterpunkt id="II/6">Geographie</unterpunkt>
+			<unterpunkt id="II/7">Politikwissenschaft</unterpunkt>
+			<unterpunkt id="II/8">Pädagogik / Erziehungswissenschaft</unterpunkt>
+			<unterpunkt id="II/9">Rechtswissenschaft</unterpunkt>
+			<unterpunkt id="II/10">Psychologie</unterpunkt>
+			<unterpunkt id="II/11">Bibliothekswissenschaft / Information- Dokumentation / Archiv</unterpunkt>
+			<unterpunkt id="II/12">Women’s -/Gender Studies weltweit</unterpunkt>
+			<unterpunkt id="II/13">Ökonomie</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="III" nr="3" regex="Bibliographien (nach Einzelthemen und Wissenschaften)"/>
+	</systematik>
+	<systematik>
+		<systemstelle id="IV" nr="4" regex="Frauen in Wissenschaft u. Forschung, Frauenstudium">
+			<unterpunkt id="IV/0">Allgemeines</unterpunkt>
+			<unterpunkt id="IV/1">Wissenschaftstheorie, Methoden</unterpunkt>
+			<unterpunkt id="IV/2">Einzelne Hochschulen</unterpunkt>
+			<unterpunkt id="IV/3">Studentinnen, Wissenschaftlerinnen an Hochschulen</unterpunkt>
+			<unterpunkt id="IV/4">Frauenbildungsarbeit, Weiterbildung, Erwachsenenbildung</unterpunkt>
+			<unterpunkt id="IV/5">Frauenhochschule, Frauenuniversität</unterpunkt>
+			<unterpunkt id="IV/6">Männer an Hochschulen</unterpunkt>
+			<unterpunkt id="IV/7">Förderung der Frauen- und Geschlechterforschungforschung / Gleichstellung an Hochschulen</unterpunkt>
+			<unterpunkt id="IV/8">Frauen als Forscherinnen und Entdeckerinnen</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="V" nr="5" regex="Theorien zur Weiblichkeit / Männlichkeit">
+			<unterpunkt id="V/0">Allgemeines / Androgynie, Weiblichkeit</unterpunkt>
+			<unterpunkt id="V/1">Matriarchat / Patriarchat</unterpunkt>
+			<unterpunkt id="V/2">Spiritualität</unterpunkt>
+			<unterpunkt id="V/3">Feministische Theologie/Religionen</unterpunkt>
+			<unterpunkt id="V/4">Feministische Ethik</unterpunkt>
+			<unterpunkt id="V/5">Männlichkeit / Männlichkeitsforschung</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="VI" nr="6" regex="Soziale Bewegungen / Frauenbewegung">
+			<unterpunkt id="VI/0">Allgemeines</unterpunkt>
+			<unterpunkt id="VI/1">Deutsche Frauenbewegung</unterpunkt>
+			<unterpunkt id="VI/2">Frauenbewegung im Ausland</unterpunkt>
+			<unterpunkt id="VI/3">Frauenhäuser, Initiativen, Zentren</unterpunkt>
+			<unterpunkt id="VI/4">Friedensbewegung / Frauen im Militär / Krieg</unterpunkt>
+			<unterpunkt id="VI/5">Pornographie</unterpunkt>
+			<unterpunkt id="VI/6">Frauenbeziehungen / Konkurrenz</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="VII" nr="7" regex="Hist. Frauen- und Geschlechter-forschung / Frauengeschichte">
+			<unterpunkt id="VII/0">Allgemeines</unterpunkt>
+			<unterpunkt id="VII/1">Vor- und Frühgeschichte, Antike</unterpunkt>
+			<unterpunkt id="VII/2">Mittelalter, Hexenforschung</unterpunkt>
+			<unterpunkt id="VII/3">Neuzeit</unterpunkt>
+			<unterpunkt id="VII/4">19./20. Jahrhundert</unterpunkt>
+			<unterpunkt id="VII/5">Faschismus, Nationalsozialismus</unterpunkt>
+			<unterpunkt id="VII/6">BRD bis 1990</unterpunkt>
+			<unterpunkt id="VII/7">DDR / Neue Bundesländer</unterpunkt>
+			<unterpunkt id="VII/8">BRD ab 1990</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="VIII" nr="8" regex="Arbeit">
+			<unterpunkt id="VIII/0">Allgemeines</unterpunkt>
+			<unterpunkt id="VIII/1">Einzelne Berufe</unterpunkt>
+			<unterpunkt id="VIII/2">Hausarbeit</unterpunkt>
+			<unterpunkt id="VIII/3">Erwerbslosigkeit</unterpunkt>
+			<unterpunkt id="VIII/4">Lohndiskriminierung / Geld</unterpunkt>
+			<unterpunkt id="VIII/5">Neue Technologien</unterpunkt>
+			<unterpunkt id="VIII/6">Prostitution</unterpunkt>
+			<unterpunkt id="VIII/7">Gesundh. Belastung am Arbeitsplatz</unterpunkt>
+			<unterpunkt id="VIII/8">Frauenarbeit im Ausland</unterpunkt>
+			<unterpunkt id="VIII/9">Migrant_innen</unterpunkt>
+			<unterpunkt id="VIII/10">Arbeitszeit, Teilzeit, Vereinbarkeit Beruf-Familie</unterpunkt>
+			<unterpunkt id="VIII/11">Sozialarbeit</unterpunkt>
+			<unterpunkt id="VIII/12">Frauen in der Landwirtschaft / Ökologie</unterpunkt>
+			<unterpunkt id="VIII/13">Ehrenamtliche Arbeit</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="IX" nr="9" regex="Berufsausbildung / Berufseinstieg">
+			<unterpunkt id="IX/0">Allgemeines/Berufswahl/-ausbildung</unterpunkt>
+			<unterpunkt id="IX/1">Berufsrückkehr, Professionalisierung</unterpunkt>
+			<unterpunkt id="IX/2">Karriere, Management, Frauen in Führungspositionen</unterpunkt>
+			<unterpunkt id="IX/3">Existenzgründer_innen</unterpunkt>
+			<unterpunkt id="IX/4">Geschlecht in Organisationen</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="X" nr="10" regex="Frauen- und Geschlechterpolitik">
+			<unterpunkt id="X/0">Allgemeines</unterpunkt>
+			<unterpunkt id="X/1">Parteien, Verbände, polit. Bewegungen</unterpunkt>
+			<unterpunkt id="X/2">Staatliche Sozialpolitik, Rente</unterpunkt>
+			<unterpunkt id="X/3">Familienpolitik</unterpunkt>
+			<unterpunkt id="X/4">Gesundheitspolitik</unterpunkt>
+			<unterpunkt id="X/5">Staatliche Gesetzgebung</unterpunkt>
+			<unterpunkt id="X/6">Gleichstellungspolitik / Geschlechterdemokratie</unterpunkt>
+			<unterpunkt id="X/7">Gewerkschaftliche Frauenpolitik / Frauen in Gewerkschaften</unterpunkt>
+			<unterpunkt id="X/8">Gender Mainstreaming</unterpunkt>
+			<unterpunkt id="X/9">GenderKompetenzZentrum</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="XI" nr="11" regex="Geschlechtsspezifische Sozialisation">
+			<unterpunkt id="XI/0">Allgemeines</unterpunkt>
+			<unterpunkt id="XI/1">Primäre Sozialisation</unterpunkt>
+			<unterpunkt id="XI/2">Familienerziehung</unterpunkt>
+			<unterpunkt id="XI/3">Jungen / Jungenarbeit</unterpunkt>
+			<unterpunkt id="XI/4">Schulische Sozialisation</unterpunkt>
+			<unterpunkt id="XI/5">Erziehungseinrichtungen (Krippe, Kita, Hort, Heim)</unterpunkt>
+			<unterpunkt id="XI/6">Mädchenarbeit / Mädchen</unterpunkt>
+			<unterpunkt id="XI/7">Nichtnormative Kinderbücher</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="XII" nr="12" regex="Recht und Justiz / Kampf gegen Extremismus">
+			<unterpunkt id="XII/0">Allgemeines</unterpunkt>
+			<unterpunkt id="XII/1">Theorie, einzelne Gebiete</unterpunkt>
+			<unterpunkt id="XII/2">Rechtsextremismus, Linksextremismus, polit. Gewalt</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="XIII" nr="13" regex="Schwangerschaft - Mutterschaft - Vaterschaft">
+			<unterpunkt id="XIII/0">Allgemeines</unterpunkt>
+			<unterpunkt id="XIII/1">Schwangerschaftsabbruch</unterpunkt>
+			<unterpunkt id="XIII/2">Bevölkerungspolitik</unterpunkt>
+			<unterpunkt id="XIII/3">Familie, Ehe, Partnerschaft</unterpunkt>
+			<unterpunkt id="XIII/4">Gen- und Reproduktionstechnologie</unterpunkt>
+			<unterpunkt id="XIII/5">Alleinerziehende, Mütter, Väter</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="XIV" nr="14" regex="Körper, Leib und Seele">
+			<unterpunkt id="XIV/0">Allgemeines</unterpunkt>
+			<unterpunkt id="XIV/1">Alter / Altern</unterpunkt>
+			<unterpunkt id="XIV/2">Gewalt gegen Frauen und Mädchen</unterpunkt>
+			<unterpunkt id="XIV/3">Gesundheitsforschung, Krankheit und Therapie</unterpunkt>
+			<unterpunkt id="XIV/4">Suchterkrankungen (Alkohol, Drogen, Ess- und Brechsucht, Körperdiktat)</unterpunkt>
+			<unterpunkt id="XIV/5">Behinderte / Disability Studies</unterpunkt>
+			<unterpunkt id="XIV/6">Sport</unterpunkt>
+			<unterpunkt id="XIV/7">Sexualität / Äußerungsformen, Befindlichkeiten</unterpunkt>
+			<unterpunkt id="XIV/8">Schönheit</unterpunkt>
+			<unterpunkt id="XIV/9">Liebe / Freundschaft</unterpunkt>
+			<unterpunkt id="XIV/10">Gewalt gegen Männer und Jungen</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="XV" nr="15" regex="Queer">
+			<unterpunkt id="XV/0">Allgemeines</unterpunkt>
+			<unterpunkt id="XV/1">Theorie</unterpunkt>
+			<unterpunkt id="XV/2">Geschichte</unterpunkt>
+			<unterpunkt id="XV/3">Bewegungen / Politik / Kultur</unterpunkt>
+			<unterpunkt id="XV/4">Lebensformen / Psyche / Gesundheit</unterpunkt>
+			<unterpunkt id="XV/5">Darstellung in den Medien</unterpunkt>
+			<unterpunkt id="XV/6">Lesbische Sexualität</unterpunkt>
+			<unterpunkt id="XV/7">Schwule Sexualität</unterpunkt>
+			<unterpunkt id="XV/8">Bisexualität</unterpunkt>
+			<unterpunkt id="XV/9">Transsexualität / Transgender / Intersexualität</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="XVI" nr="16" regex="Kunst, Architektur, Literatur und Medien">
+			<unterpunkt id="XVI/0">Allgemeines</unterpunkt>
+			<unterpunkt id="XVI/1">Kunst, Bildende Kunst, Musik, Fotografie, Tanz, Theater</unterpunkt>
+			<unterpunkt id="XVI/2">Literatur</unterpunkt>
+			<unterpunkt id="XVI/3">Medien (Zeitschriften, TV, Film, Internet, Werbung, Mode)</unterpunkt>
+			<unterpunkt id="XVI/4">Architektur, Stadt- und Regionalplanung</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="XVII" nr="17" regex="Frauensprache - Männersprache (gendersensibler Sprachgebrauch)"/>
+	</systematik>
+	<systematik>
+		<systemstelle id="XVIII" nr="18" regex="Ausland / Internationales">
+			<unterpunkt id="XVIII/0">Allgemeines / UNO- und EU-Dokumente</unterpunkt>
+			<unterpunkt id="XVIII/1">Europa</unterpunkt>
+			<unterpunkt id="XVIII/2">Außereuropäische Länder</unterpunkt>
+			<unterpunkt id="XVIII/3">Entwicklungspolitik</unterpunkt>
+			<unterpunkt id="XVIII/4">Fremdsein / Rassismus / Kolonialismus</unterpunkt>
+			<unterpunkt id="XVIII/5">Globalisierung</unterpunkt>
+			<unterpunkt id="XVIII/6">Transnationale Forschung</unterpunkt>
+		</systemstelle>
+	</systematik>
+	<systematik>
+		<systemstelle id="Z" nr="19" regex="Zeitschriften"/>
+	</systematik>
+	<systematik>
+		<systemstelle id="OZ" nr="20" regex="Ohne Zuordnung"/>
+	</systematik>
+	<systematik>
+		<systemstelle id="XX" nr="21" regex="Aktenschrank"/>
+	</systematik>
+	<systematik>
+		<systemstelle id="OA" nr="22" regex="Online Artikel"/>
+	</systematik>
+</root>
