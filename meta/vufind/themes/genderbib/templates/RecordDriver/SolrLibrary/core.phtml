@@ -14,6 +14,8 @@
         <img src="<?= $this->url('cover-unavailable') ?>" class="recordcover"
              alt="<?= $this->transEsc('No Cover Image') ?>"/>
     <? endif; ?>
+
+    <a href="<?=$this->recordLink()->getActionUrl($this->driver, 'Save')?>" class="saveRecord fav controllerRecord" id="saveRecord" title="<?=$this->transEsc('Add to favorites')?>"><?=$this->transEsc('Add to favorites')?></a>
 </div>
 
 <!-- Format -->
@@ -85,7 +87,7 @@ if (!empty($formats)): ?>
     <!-- Second line below title -->
     <tr valign="top">
         <th><?=$this->transEsc("Published")?>:</th>
-        <td>
+        <td property="published">
             <!-- Veroeffentlicht -->
             <? $placeOfPublicationSet = false; ?>
             <? $secondLineNotEmpty = false; ?>

@@ -801,13 +801,13 @@ ul.recordSet li.alt {
 }
 
 #record {
-    padding: 0;
+    padding: 20px 0 0 0;
     position: relative;
 }
 
 #record .title {
     position: relative;
-    padding-right: 80px;
+    padding-right: 120px;
 }
 
 #record .title h1 {
@@ -818,13 +818,20 @@ ul.recordSet li.alt {
 #record .thumbnail {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 30px;
+    z-index: 1;
+    text-align: right;
 }
 
 #record .thumbnail img {
-    margin: 0 20px 0 0;
+    margin: 0 0 0 0;
+    display: inline;
 }
 
+#record .thumbnail .saveRecord {
+    display: block;
+    margin-right: 0;
+}
 
 #record .iconlabel,
 #record .citation {
@@ -841,6 +848,11 @@ ul.recordSet li.alt {
 #record .citation th {
     border: 0 none;
     color: #003366;
+}
+
+#record td[property="author"],
+#record td[property="published"] {
+    padding-right: 120px;
 }
 
 .recordsubcontent {
@@ -928,4 +940,21 @@ div.recordsubcontent table.citation {
     margin: 0;
     padding: 0 8px;
     display: block;
+}
+
+/** ***********************************
+ * Page: Tag cloud
+ ************************************ */
+
+.tag_cloud {
+    padding: 20px 20px 0 0;
+}
+
+/** ***********************************
+ * Page: Topics
+ ************************************ */
+
+.topicslist,
+.pagination {
+    padding-right: 20px;
 }

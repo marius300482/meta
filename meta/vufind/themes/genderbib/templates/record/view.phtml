@@ -20,7 +20,10 @@
     };
 ?>
 <div class="<?=$this->layoutClass('mainbody')?>">
-  <?=$this->record($this->driver)->getToolbar()?>
+
+  <?php /* Hidden [PHE 2014/07/09]
+    <?=$this->record($this->driver)->getToolbar()?>
+  */ ?>
 
   <div class="record recordId source<?=$this->escapeHtml($this->driver->getResourceSource())?>" id="record">
     <input type="hidden" value="<?=$this->escapeHtml($this->driver->getUniqueId())?>" class="hiddenId" id="record_id" />
