@@ -99,7 +99,7 @@ fieldset {
 }
 
 .sidegroup {
-    margin-top: 60px;
+    margin-top: 20px;
 }
 
 .sidegroup li {
@@ -924,6 +924,10 @@ div.recordsubcontent table.citation {
 
 #hierarchyTree {
     max-height: 600px;
+}
+
+#advSearchForm .sidegroup {
+    margin-top: 60px;
 }
 
 .sidegroup .searchHelp,
