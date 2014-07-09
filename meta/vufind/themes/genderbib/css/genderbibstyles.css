@@ -136,11 +136,11 @@ div.sidegroup h4 {
 }
 
 .add:after {
-    content: " +";
+    content: " [+]";
 }
 
 .delete:after {
-    content: " -";
+    content: " [-]";
 }
 
 /* Remove a lot of default background icons */
@@ -764,6 +764,7 @@ ul.recordSet li.alt {
 
 #record {
     padding: 0;
+    position: relative;
 }
 
 #record .title {
@@ -772,8 +773,8 @@ ul.recordSet li.alt {
 }
 
 #record .title h1 {
-    font-size: 1em;
-    margin: 0;
+    font-size: 1.4em;
+    margin: 0.3em 0 0.7em 0;
 }
 
 #record .thumbnail {
