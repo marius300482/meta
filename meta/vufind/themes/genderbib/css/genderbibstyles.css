@@ -73,6 +73,12 @@ fieldset {
     padding: 0;
 }
 
+/* Select all main headlines on a page, which are not marked as H1 */
+.main > div:first-child > h2,
+.main > div:first-child > h3 {
+    margin: 20px 0;
+}
+
 .container {
     box-shadow: none;
     border: 0 none;
@@ -486,7 +492,7 @@ div.bulkActionButtons input.button {
 div.breadcrumbs {
     border-top: 0 none;
     margin: 20px 0;
-    padding-left: 5px;
+    padding-left: 7px;
 }
 
 div.breadcrumbs,
