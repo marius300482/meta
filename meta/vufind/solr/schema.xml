@@ -246,6 +246,7 @@
 	<field name="runTime" type="string" indexed="true" stored="true" multiValued="true"/>
 	<field name="leader" type="string" indexed="false" stored="true"/>
 	<field name="controlfield" type="string" indexed="false" stored="true"/>
+	<field name="relatedTo" type="string" indexed="true" stored="true" />
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
