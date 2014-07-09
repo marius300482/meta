@@ -329,6 +329,12 @@
 					</field>
 				</xsl:if>
 			
+			<xsl:if test="dataset/relatedTo">
+				<field name="relatedTo">
+					<xsl:value-of select="dataset/relatedTo"/>
+					</field>
+				</xsl:if>
+			
 	<!--Anreicherung Artikel-->
 			<xsl:if test="dataset/format='Artikel'">
 			<xsl:variable name="test" select="functions/hierarchyFields/hierarchy_parent_id" />
