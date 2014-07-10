@@ -13,18 +13,20 @@ return array(
         'styles.css:screen, projection',
         'print.css:print',
         'ie.css:screen, projection:lt IE 8',
-    ),
+    ), */
     'js' => array(
-        'jquery.min.js',
+        'genderbib.js'
+        /*
+        ,'jquery.min.js',
         'jquery.form.js',
         'jquery.metadata.js',
         'jquery.validate.min.js',
         'jquery-ui/js/jquery-ui.js',
         'lightbox.js',
         'common.js',
+        */
     ),
-    */
-    'favicon' => '/vufind/themes/genderbib/images/icons/favicon.ico',
+    'favicon' => 'favicon.ico',
     /*
     'helpers' => array(
         'factories' => array(
