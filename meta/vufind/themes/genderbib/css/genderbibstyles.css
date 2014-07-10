@@ -194,6 +194,7 @@ tbody tr:nth-child(2n) td, tbody tr.even td {
 .info {
     background-color: transparent;
     margin: 20px 0;
+    text-align: left;
 }
 
 div.unavailable,
@@ -217,6 +218,13 @@ div.bulkActionButtons input.button {
     text-decoration: none;
     font-family: Verdana,Helvetica,Arial,sans-serif;
     line-height: 20px;
+}
+
+a.smallButton {
+    border: 0 none;
+    background-color: transparent;
+    color: #003366;
+    padding: 0;
 }
 
 /** ***********************************
