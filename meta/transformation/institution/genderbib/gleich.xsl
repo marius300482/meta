@@ -1948,6 +1948,16 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 						</xsl:when>
 					</xsl:choose>
 		</is_hierarchy_title>
+		
+		<hierarchy_sequence>
+			<xsl:choose>
+				<xsl:when test="../Titel[1]"><xsl:value-of select="normalize-space(substring(../Titel[1],1,10))"/></xsl:when>
+				<xsl:when test="../Sachtitel[1]"><xsl:value-of select="normalize-space(substring(../Sachtitel[1],1,10))"/></xsl:when>
+				<xsl:when test="../Einzeltitel[1]"><xsl:value-of select="normalize-space(substring(../Einzeltitel[1],1,10))"/></xsl:when>
+				<xsl:when test="../Sammeltitel[1]"><xsl:value-of select="normalize-space(substring(../Sammeltitel[1],1,10))"/></xsl:when>
+				<xsl:when test="../Zeitschr_-Titel[1]"><xsl:value-of select="normalize-space(substring(../Zeitschr_-Titel[1],1,10))"/></xsl:when>
+				</xsl:choose>
+			</hierarchy_sequence>
 	
 	</xsl:element>	
 
