@@ -380,7 +380,7 @@ a.smallButton {
     padding: 16px 20px;
     min-height: 250px;
     position: relative;
-    margin-left: 19%;
+    margin-left: 21%;
 }
 
 .footer ul {
@@ -654,7 +654,7 @@ div.jstree a {
     position: absolute;
     right: 10px;
     top: 0;
-    width: 21.5%;
+    width: 20.5%;
     z-index: 1;
 }
 
