@@ -3,14 +3,14 @@
     <a id="logo" href="<?=$this->url('home')?>">
         <img src="<?=$this->imageLink('small/zentrum_fuer_transdisziplinare_geschlechterstudien.jpg')?>" alt="Zentrum für transdisziplinäre Geschlechterstudien" title="Home" />
     </a>
-    <a href="https://www.gender.hu-berlin.de/" class="link">
-        <?=$this->transEsc("ZtG-Webseite"); ?> &raquo;
+    <a id="menuNavOpenerLink" href="#" class="link">
+        <?=$this->transEsc("Navigation"); ?> &raquo;
     </a>
 </div>
 <? if (!isset($this->layout()->renderingError)): ?>
   <div id="headerRight">
       <div id="banner">
-        <a href="" id="bannerLink">&nbsp;</a>
+        <a href="" id="bannerLink"><b>GReTA</b> - Onlinekatalog der Genderbibliothek (Berlin)</a>
       </div>
       <img id="humboldImg" src="<?=$this->imageLink('small/humboldt_universitaet_logo.jpg')?>" />
 

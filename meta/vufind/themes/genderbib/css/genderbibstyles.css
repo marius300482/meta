@@ -212,7 +212,7 @@ div.fatalError {
     font-size: inherit;
     margin: 20px 0;
     padding: 20px;
-    width: 72.9%;
+    width: 72.2%;
 }
 
 div.unavailable h1,
@@ -236,17 +236,26 @@ a.smallButton {
     padding: 0;
 }
 
-.mainNav {
+#mainNav {
     list-style: none;
     padding-left: 0;
     margin: 0;
+    display: none;
 }
 
-.mainNav li {
+#mainNav li {
     background-color: rgb(204, 204, 153);
     border-top: 1px solid #ffffff;
     display: block;
     padding: 2px 1em 2px 20px;
+}
+
+#mainNavOpener {
+    background: url("../images/icons/menu_button.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 40px;
+    margin: 1px 0 0 17px;
+    width: 42px;
 }
 
 /** ***********************************
