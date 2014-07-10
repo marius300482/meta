@@ -20,8 +20,8 @@ abstract class SolrIDA extends SolrDefault
     }
 
      /**
-     * Deduplicate author information into associative array with main/corporate/
-     * secondary keys.
+     * Deduplicate author information into associative array with main/
+     * additional keys.
      *
      * @return array [main] and [additional] authors
      */
@@ -191,6 +191,11 @@ abstract class SolrIDA extends SolrDefault
     public function getLanguageCodes()
     {
         return $this->getMulitValuedField("language_code");
+    }
+
+    public function getDocumentType()
+    {
+        return $this->getSingleValuedField("documentType");
     }
 
     protected function getSingleValuedField($fieldName)
