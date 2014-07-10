@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
+ * RecordDriver for Archive Items.
  * User: boehm
  * Date: 6/11/14
  * Time: 11:46 AM
@@ -9,7 +9,7 @@
 namespace Ida\RecordDriver;
 
 
-class SolrArchive extends SolrLibrary{
+class SolrArchive extends SolrIDA {
 
     function __construct($mainConfig = null, $recordConfig = null,
                          $searchSettings = null)
