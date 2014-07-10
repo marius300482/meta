@@ -1099,6 +1099,11 @@ div.recordsubcontent table.citation {
     width: 76.3%;
 }
 
+.pagination a,
+.pagination a:hover {
+    border: 1px solid transparent;
+}
+
 /** ***********************************
  * Page: Topics
  ************************************ */
