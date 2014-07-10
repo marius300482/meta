@@ -986,6 +986,11 @@ ul.recordSet li.alt {
     padding-right: 120px;
 }
 
+#record #hideTooManyTopicTopics,
+#record #showAllTopicTopics {
+    line-height: 2.5em;
+}
+
 .recordsubcontent {
     background: none #F0F0E8;
 }
