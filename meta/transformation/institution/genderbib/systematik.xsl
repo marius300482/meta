@@ -64,10 +64,10 @@
 			
 			<xsl:choose>
 				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Bibliografie "Paula"</xsl:text></collection>
+						<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
 					</xsl:when>
 				<xsl:otherwise>
-						<collection><xsl:text>Bibliothekskatalog</xsl:text></collection>
+						<collection><xsl:text>GReTA | Katalog</xsl:text></collection>
 					</xsl:otherwise>
 				</xsl:choose>
 	
@@ -154,10 +154,10 @@
 			
 			<xsl:choose>
 				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Bibliografie "Paula"</xsl:text></collection>
+						<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
 					</xsl:when>
 				<xsl:otherwise>
-						<collection><xsl:text>Bibliothekskatalog</xsl:text></collection>
+						<collection><xsl:text>GReTA | Katalog</xsl:text></collection>
 					</xsl:otherwise>
 				</xsl:choose>
 	
@@ -288,10 +288,10 @@
 			
 			<xsl:choose>
 				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Bibliografie "Paula"</xsl:text></collection>
+						<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
 					</xsl:when>
 				<xsl:otherwise>
-						<collection><xsl:text>Bibliothekskatalog</xsl:text></collection>
+						<collection><xsl:text>GReTA | Katalog</xsl:text></collection>
 					</xsl:otherwise>
 				</xsl:choose>
 	
