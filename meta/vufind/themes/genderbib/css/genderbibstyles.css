@@ -74,6 +74,8 @@ fieldset {
 }
 
 /* Select all main headlines on a page, which are not marked as H1 */
+.resulthead h2,
+.resulthead h3,
 .main > h2,
 .main > h3,
 .main > div:first-child > h2,
@@ -618,7 +620,7 @@ div.jstree a {
 .topSearchBox {
     background-color: #e1e1e1;
     border: 0 none;
-    padding: 15px 15px 12px 15px;
+    padding: 15px 15px 10px 15px;
     position: relative;
 }
 
@@ -629,7 +631,9 @@ div.jstree a {
 }
 
 .topSearchBox #searchForm_lookfor {
-    width: 250px;
+    font-size: 1.25em;
+    padding: 5px;
+    width: 470px;
 }
 
 .topSearchBox input[type="submit"]:after {
@@ -637,16 +641,25 @@ div.jstree a {
 }
 
 .topSearchBox .advancedSearch {
-    position: absolute;
+    border-left: 1px solid #ffffff;
     font-size: 1em;
-    height: 53px;
-    line-height: 53px;
+    height: 60px;
+    line-height: 60px;
     padding-left: 20px;
-    border-left: 1px solid #FFFFFF;
-    width: 21.5%;
+    position: absolute;
     right: 10px;
     top: 0;
+    width: 21.5%;
     z-index: 1;
+}
+
+.topSearchBox input[type="submit"] {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 5px 20px;
+    cursor: pointer;
 }
 
 /** ***********************************
