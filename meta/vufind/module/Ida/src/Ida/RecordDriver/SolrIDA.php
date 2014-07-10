@@ -94,7 +94,7 @@ abstract class SolrIDA extends SolrDefault
 
     public function getDisplayTitle()
     {
-        return isset($this->fields['title_sub']) ?
+        return !empty($this->getTitleSub()) ?
             $this->getShortTitle() . " : " . $this->getTitleSub() : $this->getTitle();
     }
 
@@ -195,7 +195,7 @@ abstract class SolrIDA extends SolrDefault
 
     protected function getSingleValuedField($fieldName)
     {
-        return isset($this->fields['$fieldName']) ? $this->fields['$fieldName'] : '';
+        return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : '';
     }
 
     protected function getMulitValuedField($fieldName)

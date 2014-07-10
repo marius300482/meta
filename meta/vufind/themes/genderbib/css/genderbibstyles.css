@@ -909,9 +909,24 @@ ul.recordSet li.alt {
  ************************************ */
 
 .authorbox {
-    margin: 20px 0;
     background: 0 none;
-    border: 0 none;
+    margin: 20px 0;
+    padding: 0 0 5px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.authorbox strong {
+    font-weight: bold;
+}
+
+.authorbox .span-5 {
+    width: 31%;
+}
+
+.authorbox  #showLessFacettes,
+.authorbox  #moretopic_facet {
+    margin: 15px 0;
+    display: block;
 }
 
 #record {
@@ -1091,6 +1106,10 @@ div.recordsubcontent table.citation {
 .resulthead {
     border : 0;
     padding: 0;
+}
+
+.resulthead .floatleft {
+    font-weight: bold;
 }
 
 #alphaBrowseForm {
