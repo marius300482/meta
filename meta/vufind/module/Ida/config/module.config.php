@@ -17,6 +17,9 @@ $config = array(
         'factories' => array(
             'topics' => array('Ida\Factory', 'getTopicsController'),
         ),
+        'invokables' => array(
+            'idaoai' => 'Ida\Controller\IdaOaiController',
+        ),
     ),
     'router' => array(
         'routes' => array(
@@ -28,10 +31,6 @@ $config = array(
                         'controller' => 'Topics',
                         'action'     => 'Cloud',
                     ),
-                    /*'list' => array(
-                       'controller' => 'Topics',
-                        'action'     => 'List',
-                    ),*/
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
@@ -44,6 +43,16 @@ $config = array(
                                 'action'     => 'List',
                             )
                         )
+                    ),
+                ),
+            ),
+            'idaoai' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/OAI/IDA',
+                    'defaults' => array(
+                        'controller' => 'idaoai',
+                        'action'     => 'Server',
                     ),
                 ),
             ),

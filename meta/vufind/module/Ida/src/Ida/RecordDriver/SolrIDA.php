@@ -195,7 +195,7 @@ abstract class SolrIDA extends SolrDefault
 
     protected function getSingleValuedField($fieldName)
     {
-        return isset($this->fields['$fieldName']) ? $this->fields['$fieldName'] : '';
+        return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : '';
     }
 
     protected function getMulitValuedField($fieldName)
