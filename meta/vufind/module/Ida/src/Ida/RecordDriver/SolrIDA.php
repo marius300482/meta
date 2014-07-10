@@ -427,6 +427,16 @@ abstract class SolrIDA extends SolrDefault
             $xml->addChild('type', htmlspecialchars($current), $dc);
         }
 
+        $formats=$this->getFormats();
+        if (!empty($formats) && $formats[0] == "Artikel" && null !== $baseUrl && null !== $recordLink)
+        {
+            foreach ($this->getHierarchyTopID() as $current)
+            {
+
+                $url = $baseUrl . $recordLink->getUrl($current);
+                $xml->addChild('source', $url, $dc);
+            }
+        }
         return $xml->asXml();
     }
 
