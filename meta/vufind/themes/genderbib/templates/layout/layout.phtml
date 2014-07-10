@@ -78,7 +78,58 @@
         <?=$this->render('header.phtml')?>
     </div>
     <div class="contentLeft">
-
+        <ul class="mainNav">
+            <li class="section-zentrum">
+                <a title="" href="https://www.gender.hu-berlin.de/zentrum">
+                    <span><?=$this->transEsc("Zentrum")?></span>
+                </a>
+            </li>
+            <li class="section-veranstaltungen">
+                <a title="" href="https://www.gender.hu-berlin.de/veranstaltungen">
+                    <span><?=$this->transEsc("Veranstaltungen")?></span>
+                </a>
+            </li>
+            <li class="section-studium">
+                <a title="" href="https://www.gender.hu-berlin.de/studium">
+                    <span><?=$this->transEsc("Studium")?></span>
+                </a>
+            </li>
+            <li class="section-forschung">
+                <a title="" href="https://www.gender.hu-berlin.de/forschung">
+                    <span><?=$this->transEsc("Forschung")?></span>
+                </a>
+            </li>
+            <li class="section-publikationen">
+                <a title="" href="https://www.gender.hu-berlin.de/publikationen">
+                    <span><?=$this->transEsc("Publikationen")?></span>
+                </a>
+            </li>
+            <li class="section-internationales">
+                <a title="" href="https://www.gender.hu-berlin.de/internationales">
+                    <span><?=$this->transEsc("InterNationales")?></span>
+                </a>
+            </li>
+            <li class="section-bibliothek">
+                <a title="" href="https://www.gender.hu-berlin.de/bibliothek">
+                    <span><?=$this->transEsc("Genderbibliothek")?></span>
+                </a>
+            </li>
+            <li class="section-pcundinternet">
+                <a title="" href="https://www.gender.hu-berlin.de/pcundinternet">
+                    <span><?=$this->transEsc("PC und Internet")?></span>
+                </a>
+            </li>
+            <li class="section-ztg-blog">
+                <a title="" href="http://www2.gender.hu-berlin.de/ztg-blog/">
+                    <span><?=$this->transEsc("ZtG-Blog")?></span>
+                </a>
+            </li>
+            <li class="section-links">
+                <a title="" href="https://www.gender.hu-berlin.de/links">
+                    <span><?=$this->transEsc("Gender_Studies_Links")?></span>
+                </a>
+            </li>
+        </ul>
     </div>
     <div class="contentRight">
         <? // Set up the search box -- there are three possible cases:
@@ -117,10 +168,11 @@
         <div class="main">
             <?=$this->layout()->content?>
         </div>
-        <div class="footer">
-            <?=$this->render('footer.phtml')?>
-            <?=$this->layout()->poweredBy?>
-        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="footer">
+        <?=$this->render('footer.phtml')?>
+        <?=$this->layout()->poweredBy?>
     </div>
 </div>
 <?=$this->googleanalytics()?>
