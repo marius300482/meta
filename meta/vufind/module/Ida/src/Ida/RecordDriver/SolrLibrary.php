@@ -21,11 +21,11 @@ class SolrLibrary extends SolrDefault
         parent::__construct($mainConfig, $recordConfig, $searchSettings);
     }
 
-       /**
+     /**
      * Deduplicate author information into associative array with main/corporate/
      * secondary keys.
      *
-     * @return array
+     * @return array [main] and [additional] authors
      */
     public function getDeduplicatedAuthors()
     {
@@ -52,52 +52,15 @@ class SolrLibrary extends SolrDefault
         return $this->getMulitvaluedField("author_additional");
     }
 
-    public function getEditors()
-    {
-        return $this->getMulitvaluedField("editor");
-    }
-
-    public function getEntities()
-    {
-        return $this->getMulitvaluedField("entity");
-    }
-
-    public function getPlacesOfPublication()
-    {
-        return $this->getMulitvaluedField("placeOfPublication");
-    }
-
-    public function getPublishers()
-    {
-        return $this->getMulitvaluedField("publisher");
-    }
-
     /**
-    * Single valued
+    * return array [[topic], [geo], [person]]
     */
-    public function getDisplayPublicationDate()
-    {
-        return $this->fields['displayPublishDate'];
-    }
-
-    public function getDisplayTitle()
-    {
-        return isset($this->fields['title_sub']) ?
-            $this->getShortTitle() . " : " . $this->getTitleSub() : $this->getTitle();
-    }
-
-    public function  getTitleSub()
-    {
-        return $this->fields['title_sub'];
-    }
-
     public function getAllSubjectHeadings()
     {
 
-        $topic = isset($this->fields['topic']) ? $this->fields['topic'] : array();
-        $geo = isset($this->fields['subjectGeographic']) ?
-            $this->fields['subjectGeographic'] : array();
-        $person = isset($this->fields['subjectPerson']) ? $this->fields['subjectPerson'] : array();
+        $topic = $this->getTopics();
+        $geo = $this->getGeographicTopics();
+        $person = $this->getPersonTopics();
 
         $retval = array();
         if (!empty($topic))
@@ -116,19 +79,115 @@ class SolrLibrary extends SolrDefault
         return $retval;
     }
 
+    public function getPlacesOfPublication()
+    {
+        return $this->getMulitvaluedField("placeOfPublication");
+    }
+
     public function getSeriesNr()
     {
         return $this->fields['seriesNr'];
     }
 
+    public function getTranslatedTerms()
+    {
+        return $this->getMulitvaluedField("translatedTerms");
+    }
+
+    public function getDisplayTitle()
+    {
+        return isset($this->fields['title_sub']) ?
+            $this->getShortTitle() . " : " . $this->getTitleSub() : $this->getTitle();
+    }
+
+    public function getTitleSub()
+    {
+        return $this->fields['title_sub'];
+    }
+
+    public function getEditors()
+    {
+        return $this->getMulitvaluedField("editor");
+    }
+
+    public function getEntities()
+    {
+        return $this->getMulitvaluedField("entity");
+    }
+
+    public function getPublishers()
+    {
+        return $this->getMulitvaluedField("publisher");
+    }
+
+    /**
+    * Single valued
+    */
+    public function getDisplayPublicationDate()
+    {
+        return $this->fields['displayPublishDate'];
+    }
+
+    public function getDimensions()
+    {
+        return $this->getMulitvaluedField("dimension");
+    }
+
+    public function getRunTimes()
+    {
+        return $this->getMulitvaluedField("runtTime");
+    }
+
+    /**
+    * @return array
+    */
     public function getTopics()
     {
         return $this->getMulitvaluedField("topic");
     }
 
-    public function getTranslatedTerms()
+    /**
+     * @return array
+    */
+    public function getGeographicTopics()
     {
-        return $this->getMulitvaluedField("translatedTerms");
+        return $this->getMulitvaluedField("subjectGeographic");
+    }
+
+    /**
+     * @return array
+    */
+    public function getPersonTopics()
+    {
+        return $this->getMulitvaluedField("subjectPerson");
+    }
+
+    /**
+    * @return array
+    */
+    public function getZDBIDs()
+    {
+        return $this->getMulitvaluedField("zdbId");
+    }
+
+    public function getShelfMark()
+    {
+        return $this->fields['shelfMark'];
+    }
+
+    public function getDescription()
+    {
+        return $this->fields['description'];
+    }
+
+    public function getProjects()
+    {
+        $this->getMulitvaluedField("project");
+    }
+
+    public function getTypeOfRessource()
+    {
+        $this->getMulitvaluedField("typeOfRessource");
     }
 
     public function getMulitvaluedField($fieldName)
@@ -198,5 +257,156 @@ class SolrLibrary extends SolrDefault
             $format = $this->formats->get($formats[0]);
         }
         return $format;
+    }
+
+    /**
+     * Return an XML representation of the record using the specified format.
+     * Return false if the format is unsupported.
+     *
+     * @param string     $format     Name of format to use (corresponds with OAI-PMH
+     * metadataPrefix parameter).
+     * @param string     $baseUrl    Base URL of host containing VuFind (optional;
+     * may be used to inject record URLs into XML when appropriate).
+     * @param RecordLink $recordLink Record link helper (optional; may be used to
+     * inject record URLs into XML when appropriate).
+     *
+     * @return mixed         XML, or false if format unsupported.
+     */
+    public function getXML($format, $baseUrl = null, $recordLink = null)
+    {
+        if ($format != 'oai_dc')
+        {
+            // Unsupported format
+           return false;
+        }
+
+        // For OAI-PMH Dublin Core, produce the necessary XML:
+        $dc = 'http://purl.org/dc/elements/1.1/';
+        $xml = new \SimpleXMLElement(
+            '<oai_dc:dc '
+            . 'xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" '
+            . 'xmlns:dc="' . $dc . '" '
+            . 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            . 'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ '
+            . 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd" />'
+        );
+
+        $xml->addChild('title', htmlspecialchars($this->getDisplayTitle()), $dc);
+        // Authors
+        $primary = $this->getPrimaryAuthor();
+        if (!empty($primary))
+        {
+            $xml->addChild('creator', htmlspecialchars($primary), $dc);
+        }
+        foreach ($this->getAdditionalAuthors() as $current)
+        {
+            $xml->addChild('creator', htmlspecialchars($current), $dc);
+        }
+        // Editors
+        foreach ($this->getEditors() as $current)
+        {
+            $xml->addChild('creator', htmlspecialchars($current), $dc);
+        }
+
+        // Entity (Körperschaft)
+        foreach ($this->getEntities() as $current)
+        {
+            $xml->addChild('creator', htmlspecialchars($current), $dc);
+        }
+
+        // Language
+        foreach ($this->getLanguages() as $lang)
+        {
+            $xml->addChild('language', htmlspecialchars($lang), $dc);
+        }
+
+        // Publisher
+        foreach ($this->getPublishers() as $pub)
+        {
+            $xml->addChild('publisher', htmlspecialchars($pub), $dc);
+        }
+
+        // Date
+        $date = $this->getDisplayPublicationDate();
+        if (!empty($date))
+        {
+            $xml->addChild('date', htmlspecialchars($date), $dc);
+        }
+
+        // format: physical
+        foreach ($this->getPhysicalDescriptions() as $current)
+        {
+            $xml->addChild('format', htmlspecialchars($current), $dc);
+        }
+
+        // format: dimension
+        foreach ($this->getDimensions() as $current)
+        {
+            $xml->addChild('format', htmlspecialchars($current), $dc);
+        }
+
+        // format: runTime
+        foreach ($this->getRunTimes() as $current)
+        {
+            $xml->addChild('format', htmlspecialchars($current), $dc);
+        }
+
+        // subjects
+        foreach ($this->getTopics() as $subj)
+        {
+            $xml->addChild('subject', htmlspecialchars($subj), $dc);
+        }
+        foreach ($this->getPersonTopics() as $subj)
+        {
+            $xml->addChild('subject', htmlspecialchars($subj), $dc);
+        }
+        foreach ($this->getGeographicTopics() as $subj)
+        {
+            $xml->addChild('coverage', htmlspecialchars($subj), $dc);
+        }
+
+        // identifier
+        foreach ($this->getISBNs() as $identifier)
+        {
+            $xml->addChild('identifier', htmlspecialchars($identifier), $dc);
+        }
+        foreach ($this->getISSNs() as $identifier)
+        {
+            $xml->addChild('identifier', htmlspecialchars($identifier), $dc);
+        }
+        foreach ($this->getZDBIDs() as $identifier)
+        {
+            $xml->addChild('identifier', htmlspecialchars($identifier), $dc);
+        }
+        $xml->addChild('identifier', htmlspecialchars($this->getUniqueID()), $dc);
+        if (null !== $baseUrl && null !== $recordLink)
+        {
+            $url = $baseUrl . $recordLink->getUrl($this);
+            $xml->addChild('identifier', $url, $dc);
+        }
+        $shelfMark = $this->getShelfMark();
+        if (!empty($shelfMark))
+        {
+            $xml->addChild('identifier', htmlspecialchars($shelfMark), $dc);
+        }
+
+        // description
+        foreach ($this->getProjects() as $current)
+        {
+            $xml->addChild('description', htmlspecialchars($current), $dc);
+        }
+        $desc = $this->getDescription();
+        if (!empty($desc))
+        {
+            $xml->addChild('description', htmlspecialchars($desc), $dc);
+        }
+
+        // type of ressource
+        foreach ($this->getTypeOfRessource() as $current)
+        {
+            $xml->addChild('type', htmlspecialchars($current), $dc);
+        }
+
+        return $xml->asXml();
     }
 }
