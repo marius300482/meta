@@ -934,33 +934,34 @@ ul.recordSet li.alt {
     position: relative;
 }
 
-#record .title {
-    position: relative;
-    padding-right: 120px;
+#record > .span-13 {
+    width: 100%;
+    margin: 0;
 }
 
-#record .title h1 {
-    font-size: 1.4em;
-    margin: 0.3em 0 0.7em 0;
-    line-height: 1.2em;
-}
-
-#record .thumbnail {
+#record > .span-4 {
     position: absolute;
     right: 0;
-    top: 30px;
-    z-index: 1;
+    top: 20px;
     text-align: right;
 }
 
-#record .thumbnail img {
-    margin: 0 0 0 0;
+#record > .span-4 img {
     display: inline;
 }
 
-#record .thumbnail .saveRecord {
-    display: block;
-    margin-right: 0;
+#record h1 {
+    position: relative;
+    padding-right: 120px;
+    font-size: 1.3em;
+    line-height: 1.2em;
+    margin: 10px 0;
+}
+
+#record #saveRecord {
+    display: block !important;
+    margin: 0;
+    text-align: right;
 }
 
 #record .iconlabel,
@@ -983,6 +984,11 @@ ul.recordSet li.alt {
 #record td[property="author"],
 #record td[property="published"] {
     padding-right: 120px;
+}
+
+#record #hideTooManyTopicTopics,
+#record #showAllTopicTopics {
+    line-height: 2.5em;
 }
 
 .recordsubcontent {

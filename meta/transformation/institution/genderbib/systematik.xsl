@@ -199,7 +199,7 @@
 				
 				<is_hierarchy_id>
 					<xsl:value-of select="@id" />
-					<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
+					<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
 					<xsl:text>genderbib</xsl:text>
 					</is_hierarchy_id>
 				<is_hierarchy_title>
