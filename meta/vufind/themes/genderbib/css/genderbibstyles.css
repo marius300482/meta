@@ -297,6 +297,10 @@ div.bulkActionButtons input.button {
     z-index: 1;
 }
 
+#headerMenu a {
+    line-height: 20px;
+}
+
 #headerMenu .divider {
     width: 1px;
     height: 12px;
