@@ -64,6 +64,11 @@ fieldset {
     border: 0;
 }
 
+ul {
+    list-style: none;
+    padding: 0;
+}
+
 /** ***********************************
  * Content
  ************************************ */
@@ -143,7 +148,7 @@ div.sidegroup h4 {
 
 .span-18 {
     margin-right: 2%;
-    width: 76%;
+    width: 76.3%;
 }
 
 .delete,
@@ -278,7 +283,7 @@ a.smallButton {
     background: url("../images/medium/main_banner.jpg") no-repeat scroll 0 28px transparent;
     padding-top: 137px;
     position: relative;
-    width: 76%;
+    width: 77%;
 }
 
 #humboldImg {
@@ -1058,7 +1063,7 @@ div.recordsubcontent table.citation {
 
 .tag_cloud {
     padding: 20px 0 0 0;
-    width: 76%;
+    width: 76.3%;
 }
 
 /** ***********************************
@@ -1067,7 +1072,7 @@ div.recordsubcontent table.citation {
 
 .topicslist,
 .pagination {
-    width: 76%;
+    width: 76.3%;
 }
 
 /** ***********************************
