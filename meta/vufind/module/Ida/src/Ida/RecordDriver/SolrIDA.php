@@ -47,7 +47,7 @@ abstract class SolrIDA extends SolrDefault
 
     public function getAdditionalAuthors()
     {
-        return $this->getMulitvaluedField("author_additional");
+        return $this->getMulitValuedField("author_additional");
     }
 
     /**
@@ -79,17 +79,17 @@ abstract class SolrIDA extends SolrDefault
 
     public function getPlacesOfPublication()
     {
-        return $this->getMulitvaluedField("placeOfPublication");
+        return $this->getMulitValuedField("placeOfPublication");
     }
 
     public function getSeriesNr()
     {
-        return $this->fields['seriesNr'];
+        return $this->getSingleValuedField('seriesNr');
     }
 
     public function getTranslatedTerms()
     {
-        return $this->getMulitvaluedField("translatedTerms");
+        return $this->getMulitValuedField("translatedTerms");
     }
 
     public function getDisplayTitle()
@@ -100,22 +100,22 @@ abstract class SolrIDA extends SolrDefault
 
     public function getTitleSub()
     {
-        return $this->fields['title_sub'];
+        return $this->getSingleValuedField('title_sub');
     }
 
     public function getEditors()
     {
-        return $this->getMulitvaluedField("editor");
+        return $this->getMulitValuedField("editor");
     }
 
     public function getEntities()
     {
-        return $this->getMulitvaluedField("entity");
+        return $this->getMulitValuedField("entity");
     }
 
     public function getPublishers()
     {
-        return $this->getMulitvaluedField("publisher");
+        return $this->getMulitValuedField("publisher");
     }
 
     /**
@@ -123,17 +123,17 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getDisplayPublicationDate()
     {
-        return $this->fields['displayPublishDate'];
+        return $this->getSingleValuedField('displayPublishDate');
     }
 
     public function getDimensions()
     {
-        return $this->getMulitvaluedField("dimension");
+        return $this->getMulitValuedField("dimension");
     }
 
     public function getRunTimes()
     {
-        return $this->getMulitvaluedField("runtTime");
+        return $this->getMulitValuedField("runtTime");
     }
 
     /**
@@ -141,7 +141,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getTopics()
     {
-        return $this->getMulitvaluedField("topic");
+        return $this->getMulitValuedField("topic");
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getGeographicTopics()
     {
-        return $this->getMulitvaluedField("subjectGeographic");
+        return $this->getMulitValuedField("subjectGeographic");
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getPersonTopics()
     {
-        return $this->getMulitvaluedField("subjectPerson");
+        return $this->getMulitValuedField("subjectPerson");
     }
 
     /**
@@ -165,30 +165,40 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getZDBIDs()
     {
-        return $this->getMulitvaluedField("zdbId");
+        return $this->getMulitValuedField("zdbId");
     }
 
     public function getShelfMark()
     {
-        return $this->fields['shelfMark'];
+        return $this->getSingleValuedField('shelfMark');
     }
 
     public function getDescription()
     {
-        return $this->fields['description'];
+        return $this->getSingleValuedField('description');
     }
 
     public function getProjects()
     {
-        $this->getMulitvaluedField("project");
+        return $this->getMulitValuedField("project");
     }
 
     public function getTypeOfRessource()
     {
-        $this->getMulitvaluedField("typeOfRessource");
+        return $this->getMulitValuedField("typeOfRessource");
     }
 
-    public function getMulitvaluedField($fieldName)
+    public function getLanguageCodes()
+    {
+        return $this->getMulitValuedField("language_code");
+    }
+
+    protected function getSingleValuedField($fieldName)
+    {
+        return isset($this->fields['$fieldName']) ? $this->fields['$fieldName'] : '';
+    }
+
+    protected function getMulitValuedField($fieldName)
     {
         return isset($this->fields[$fieldName]) && is_array($this->fields[$fieldName]) ? $this->fields[$fieldName] : array();
     }
@@ -280,11 +290,12 @@ abstract class SolrIDA extends SolrDefault
 
         // For OAI-PMH Dublin Core, produce the necessary XML:
         $dc = 'http://purl.org/dc/elements/1.1/';
+        $xsi='http://www.w3.org/2001/XMLSchema-instance';
         $xml = new \SimpleXMLElement(
             '<oai_dc:dc '
             . 'xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" '
             . 'xmlns:dc="' . $dc . '" '
-            . 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            . 'xmlns:xsi="'.$xsi.'" '
             . 'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ '
             . 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd" />'
         );
@@ -316,6 +327,15 @@ abstract class SolrIDA extends SolrDefault
         foreach ($this->getLanguages() as $lang)
         {
             $xml->addChild('language', htmlspecialchars($lang), $dc);
+        }
+
+        foreach ($this->getLanguageCodes() as $lang)
+        {
+            if ($lang != "none")
+            {
+                $child = $xml->addChild('language', htmlspecialchars($lang), $dc);
+                $child->addAttribute('xsi:type', 'dcterms:ISO639-3', $xsi);
+            }
         }
 
         // Publisher
@@ -389,7 +409,8 @@ abstract class SolrIDA extends SolrDefault
         }
 
         // description
-        foreach ($this->getProjects() as $current)
+        $projects = $this->getProjects();
+        foreach ($projects as $current)
         {
             $xml->addChild('description', htmlspecialchars($current), $dc);
         }
@@ -400,11 +421,13 @@ abstract class SolrIDA extends SolrDefault
         }
 
         // type of ressource
-        foreach ($this->getTypeOfRessource() as $current)
+        $typeOfRessource = $this->getTypeOfRessource();
+        foreach ($typeOfRessource as $current)
         {
             $xml->addChild('type', htmlspecialchars($current), $dc);
         }
 
         return $xml->asXml();
     }
+
 }
