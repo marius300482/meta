@@ -1,7 +1,6 @@
 <?php
 /**
- * Super class for Record Drivers for IDA Items.
- * Not used directly.
+ * Abstract super class for Record Drivers for IDA Items.
  * User: boehm
  * Date: 6/4/14
  * Time: 3:21 PM
@@ -10,10 +9,8 @@ namespace Ida\RecordDriver;
 
 use VuFind\RecordDriver\SolrDefault;
 
-class SolrIDA extends SolrDefault
+abstract class SolrIDA extends SolrDefault
 {
-
-    private $formats = array();
 
     function __construct($mainConfig = null, $recordConfig = null,
                          $searchSettings = null)
