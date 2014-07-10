@@ -65,10 +65,7 @@
 						</xsl:when>
 					<xsl:otherwise>
 						<recordCreationDate>
-							<!--<xsl:value-of select="format-date($currentDate, '[Y01][M01][D01]')"/>-->
 							<xsl:value-of select="current-dateTime()"/>
-							<xsl:text>T</xsl:text>
-							<xsl:text>00:00:00Z</xsl:text>
 							</recordCreationDate>
 						</xsl:otherwise>
 					</xsl:choose>
@@ -1322,9 +1319,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 <!--volume Jahrgang-->
 				
 <!--placeOfPublication Ortsangabe-->	
-		
-
-					<xsl:choose>
+					<!--<xsl:choose>
 						<xsl:when test="Ersch_-ort!=''">
 							<placeOfPublication>
 								<xsl:value-of select="Ersch_-ort[1]"/>
@@ -1335,10 +1330,10 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 								<xsl:value-of select="//genderbib/datensatz[id=$zTitel]/Ersch_-ort[1]"/>
 								</placeOfPublication>
 							</xsl:otherwise>
-						</xsl:choose>
+						</xsl:choose>-->
 
 <!--publisher Verlagsangabe-->
-					<xsl:choose>
+					<!--<xsl:choose>
 						<xsl:when test="Verlag">
 							<publisher>
 								<xsl:value-of select="Verlag[1]"/>
@@ -1349,7 +1344,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 								<xsl:value-of select="//genderbib/datensatz[id=$zTitel]/Verlag[1]"/>
 								</publisher>
 							</xsl:otherwise>
-						</xsl:choose>
+						</xsl:choose>-->
 
 
 </xsl:element>
