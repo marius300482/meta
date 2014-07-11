@@ -11,7 +11,7 @@
     <? $shortTitle = $this->driver->getShortTitle(); ?>
     <? $titleSub = $this->driver->getTitleSub(); ?>
     <h1 property="name"><b><?= $this->escapeHtml($shortTitle); ?></b>
-        <?= isset($titleSub) ?  " : " . $this->escapeHtml($titleSub) : ""; ?></h1>
+        <?= isset($titleSub) && $titleSub != '' ?  " : " . $this->escapeHtml($titleSub) : ""; ?></h1>
 
     <!-- First line below title -->
     <div>
