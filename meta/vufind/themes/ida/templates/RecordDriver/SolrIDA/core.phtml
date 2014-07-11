@@ -54,7 +54,7 @@
             $firstLineNotEmpty = true; ?>
             <span><?= $this->escapeHtml($mainEntity) ?></span>
             <? if(!empty($entities)): ?>
-                <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?></a>
+                <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?> [+]</a>
             <? endif; ?>
         <? endif; ?>
     </div>
