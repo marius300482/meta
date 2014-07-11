@@ -38,14 +38,7 @@
 			<id>
 				<xsl:value-of select="@id" />
 				<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
-				<xsl:choose>
-					<xsl:when test="//root[@id='paula']">
-						<xsl:text>paulabiblio</xsl:text>
-						</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>genderbib</xsl:text>
-						</xsl:otherwise>
-					</xsl:choose>
+				<xsl:text>paulabiblio</xsl:text>
 					</id>
 			<recordCreationDate><xsl:value-of select="current-dateTime()"/></recordCreationDate>
 			<recordChangeDate><xsl:value-of select="current-dateTime()"/></recordChangeDate>
@@ -62,15 +55,8 @@
 					<xsl:text>Genderbibliothek/Information/Dokumentation am Zentrum für transdisziplinäre Geschlechterstudien an der Humboldt-Universität zu Berlin</xsl:text>
 				</institutionsFullname>
 			
-			<xsl:choose>
-				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
-					</xsl:when>
-				<xsl:otherwise>
-						<collection><xsl:text>GReTA | Katalog</xsl:text></collection>
-					</xsl:otherwise>
-				</xsl:choose>
-	
+			<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
+			
 			<isil><xsl:text>DE-B1542</xsl:text></isil>
 			
 			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/genderbibliothek-hub/</xsl:text></link>
@@ -89,17 +75,10 @@
 		<xsl:element name="functions">
 		<xsl:variable name="systematik" select="substring-before(@id, '/')" />
 			<xsl:element name="hierarchyFields">
-				
-				<xsl:choose>
-					<xsl:when test="//root[@id='paula']">
-						<hierarchy_top_id>0Bibliografpaulabiblio</hierarchy_top_id>
-           		 			<hierarchy_top_title>Bibliographie “Frauen und Geschlechterverhältnisse in der DDR und in den neuen Bundesländern</hierarchy_top_title>
-						</xsl:when>
-					<xsl:otherwise>
-						<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
-            					<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
-						</xsl:otherwise>
-					</xsl:choose>
+			
+				<hierarchy_top_id>0Bibliografpaulabiblio</hierarchy_top_id>
+           			<hierarchy_top_title>Bibliographie “Frauen und Geschlechterverhältnisse in der DDR und in den neuen Bundesländern</hierarchy_top_title>
+			
 				</xsl:element>
 		</xsl:element>
 		
@@ -118,24 +97,9 @@
 		<xsl:element name="vufind">
 			<id>
 				<xsl:value-of select="@id" />
-				<xsl:choose>
-					<xsl:when test="//root[@id='paula']">
-						<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
-						</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
-						</xsl:otherwise>
-					</xsl:choose>
+				<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
+				<xsl:text>paulabiblio</xsl:text>
 				
-				<!--<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
--->				<xsl:choose>
-					<xsl:when test="//root[@id='paula']">
-						<xsl:text>paulabiblio</xsl:text>
-						</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>genderbib</xsl:text>
-						</xsl:otherwise>
-					</xsl:choose>
 			</id>
 			<recordCreationDate><xsl:value-of select="current-dateTime()"/></recordCreationDate>
 			<recordChangeDate><xsl:value-of select="current-dateTime()"/></recordChangeDate>
@@ -152,15 +116,8 @@
 					<xsl:text>Genderbibliothek/Information/Dokumentation am Zentrum für transdisziplinäre Geschlechterstudien an der Humboldt-Universität zu Berlin</xsl:text>
 			</institutionsFullname>
 			
-			<xsl:choose>
-				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
-					</xsl:when>
-				<xsl:otherwise>
-						<collection><xsl:text>GReTA | Katalog</xsl:text></collection>
-					</xsl:otherwise>
-				</xsl:choose>
-	
+			<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
+			
 			<isil><xsl:text>DE-B1542</xsl:text></isil>
 			
 			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/genderbibliothek-hub/</xsl:text></link>
@@ -172,47 +129,14 @@
 			</xsl:element>
 		
 		<xsl:element name="dataset">
-			<xsl:choose>
-				<xsl:when test="//root[@id='paula']">
-					<title><xsl:value-of select="@id" /><xsl:text>. </xsl:text><xsl:value-of select="@regex"/></title>
-					</xsl:when>
-				<xsl:when test="//root[@id='genderbib']">
-					<title><xsl:value-of select="@id" /><xsl:text> </xsl:text><xsl:value-of select="@regex"/></title>
-					</xsl:when>
-				</xsl:choose>
-			
+			<title><xsl:value-of select="@id" /><xsl:text>. </xsl:text><xsl:value-of select="@regex"/></title>
 			<format><xsl:text>Systematik</xsl:text></format>
 			</xsl:element>
 		
 		<xsl:element name="functions">
 		<xsl:variable name="systematik" select="substring-before(@id, '/')" />
 			<xsl:element name="hierarchyFields">
-				
-		<!--Aufstellungssystematik-->
-				<xsl:if test="//root[@id!='paula']">
-				
-				<hierarchy_top_id>0Genderbiblgenderbib</hierarchy_top_id>
-            			<hierarchy_top_title>0 Genderbibliothek Aufstellung</hierarchy_top_title>
-				
-				<hierarchy_parent_id>0Genderbiblgenderbib</hierarchy_parent_id>
-            			<hierarchy_parent_title>0 Genderbibliothek Aufstellung</hierarchy_parent_title>
-				
-				<is_hierarchy_id>
-					<xsl:value-of select="@id" />
-					<xsl:value-of select="substring(translate(@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
-					<xsl:text>genderbib</xsl:text>
-					</is_hierarchy_id>
-				<is_hierarchy_title>
-					<xsl:value-of select="@id" /><xsl:text> </xsl:text><xsl:value-of select="@regex"/>
-					</is_hierarchy_title>
-				
-				<hierarchy_sequence><xsl:value-of select="@nr" /></hierarchy_sequence>
-				
-				</xsl:if>
-			
-		<!--Bibliografie-->	
-				<xsl:if test="//root[@id='paula']">
-				
+					
 				<hierarchy_top_id>0Bibliografpaulabiblio</hierarchy_top_id>
            		 	<hierarchy_top_title>Bibliografie “Frauen und Geschlechterverhältnisse in der DDR und in den neuen Bundesländern</hierarchy_top_title>
 				
@@ -230,11 +154,6 @@
 				
 				<hierarchy_sequence><xsl:value-of select="@id" /></hierarchy_sequence>
 				
-				</xsl:if>
-				
-				
-				
-				
 			</xsl:element>
 		</xsl:element>
 		
@@ -248,28 +167,8 @@
 		<xsl:attribute name="id" select="translate(@id,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ')"></xsl:attribute>
 		<xsl:element name="vufind">
 			<id>
-				<xsl:if test="//root[@id='genderbib']">
-					<xsl:value-of select="translate(@id,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ')"/>
-					</xsl:if>
-				
-				<xsl:choose>
-					<xsl:when test="//root[@id='paula']">
-						<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
-						</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
-						</xsl:otherwise>
-					</xsl:choose>
-					
-				<!--<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>-->
-				<xsl:choose>
-					<xsl:when test="//root[@id='paula']">
-						<xsl:text>paulabiblio</xsl:text>
-						</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>genderbib</xsl:text>
-						</xsl:otherwise>
-					</xsl:choose>
+				<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)"></xsl:value-of>
+				<xsl:text>paulabiblio</xsl:text>
 				</id>
 			<recordCreationDate><xsl:value-of select="current-dateTime()"/></recordCreationDate>
 			<recordChangeDate><xsl:value-of select="current-dateTime()"/></recordChangeDate>
@@ -286,15 +185,8 @@
 					<xsl:text>Genderbibliothek/Information/Dokumentation am Zentrum für transdisziplinäre Geschlechterstudien an der Humboldt-Universität zu Berlin</xsl:text>
 			</institutionsFullname>
 			
-			<xsl:choose>
-				<xsl:when test="//root[@id='paula']">
-						<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
-					</xsl:when>
-				<xsl:otherwise>
-						<collection><xsl:text>GReTA | Katalog</xsl:text></collection>
-					</xsl:otherwise>
-				</xsl:choose>
-	
+			<collection><xsl:text>Paula | Bibliografie</xsl:text></collection>
+			
 			<isil><xsl:text>DE-B1542</xsl:text></isil>
 			
 			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/genderbibliothek-hub/</xsl:text></link>
@@ -306,74 +198,14 @@
 		</xsl:element>
 		
 		<xsl:element name="dataset">
-			<xsl:choose>
-				<xsl:when test="//root[@id='paula']">
-					<title><xsl:value-of select="."/></title>
-					</xsl:when>
-				<xsl:when test="//root[@id='genderbib']">
-					<title><xsl:value-of select="@id" /><xsl:text> </xsl:text><xsl:value-of select="."/></title>
-					</xsl:when>
-				</xsl:choose>
-			
-			<format>
-				<xsl:text>Systematik</xsl:text>
-				</format>
+			<title><xsl:value-of select="."/></title>
+			<format><xsl:text>Systematik</xsl:text></format>
 			</xsl:element>
 		
 		<xsl:element name="functions">
 		<xsl:variable name="systematik" select="substring-before(@id, '/')" />
 			<xsl:element name="hierarchyFields">
-		
-		<!--Aufstellungssystematik-->	
-			<xsl:if test="//root[@id!='paula']">
-				<hierarchy_top_id>
-					<xsl:value-of select="$systematik" />
-					<xsl:value-of select="substring(translate(../@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)" />
-					<xsl:text>genderbib</xsl:text>
-					</hierarchy_top_id>
-				<hierarchy_top_title>
-					<xsl:value-of select="../@id" />
-					<xsl:text> </xsl:text>
-					<xsl:value-of select="../@regex" />
-					</hierarchy_top_title>
-					
-				<hierarchy_top_id>
-					<xsl:value-of select="translate(@id,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ')"/>
-					<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
-					<xsl:text>genderbib</xsl:text>
-					</hierarchy_top_id>
-				<hierarchy_top_title>
-					<xsl:value-of select="@id" /><xsl:text> </xsl:text><xsl:value-of select="."/>
-					</hierarchy_top_title>
-					
-					
-				<hierarchy_parent_id>
-					<xsl:value-of select="$systematik" />
-					<xsl:value-of select="substring(translate(../@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)" />
-					<xsl:text>genderbib</xsl:text>
-					</hierarchy_parent_id>
 				
-				<hierarchy_parent_title>
-					<xsl:value-of select="../@id" />
-					<xsl:text> </xsl:text>
-					<xsl:value-of select="../@regex" />
-					</hierarchy_parent_title>
-				
-				<is_hierarchy_id>
-					<xsl:value-of select="translate(@id,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ')"/>
-					<xsl:value-of select="substring(translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)"></xsl:value-of>
-					<xsl:text>genderbib</xsl:text>
-					</is_hierarchy_id>
-				
-				<is_hierarchy_title>
-					<xsl:value-of select="@id" /><xsl:text> </xsl:text><xsl:value-of select="."/>
-					</is_hierarchy_title>
-				
-				<hierarchy_sequence><xsl:value-of select="substring-after(@id, '/')" /></hierarchy_sequence>
-				</xsl:if>
-				
-		<!--Bibliografie-->			
-				<xsl:if test="//root[@id='paula']">
 				<xsl:variable name="idtitle" select="translate(../@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ')"></xsl:variable>
 				
 				<hierarchy_top_id>
@@ -416,7 +248,6 @@
 					<xsl:value-of select="@id"/>
 					</hierarchy_sequence>
 				
-				</xsl:if>
 				
 			</xsl:element>
 		</xsl:element>
