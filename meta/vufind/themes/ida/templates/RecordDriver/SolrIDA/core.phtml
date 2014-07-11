@@ -27,7 +27,7 @@
 
 
         <? if (isset($authors['additional']) && !empty($authors['additional'])): ?>
-            <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?></a>
+            <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?> [+]</a>
         <? endif; ?>
 
         <!-- Herausgeber -->
@@ -40,7 +40,7 @@
             $firstLineNotEmpty = true; ?>
             <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Ed.') ?>)</a>
             <? if(!empty($editors)): ?>
-                <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?></a>
+                <a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("more")?> [+]</a>
             <? endif; ?>
         <? endif; ?>
 
