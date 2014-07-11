@@ -328,7 +328,7 @@
 			<xsl:if test="//root[@id!='paula']">
 				<hierarchy_top_id>
 					<xsl:value-of select="$systematik" />
-					<xsl:value-of select="substring(translate(../@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,10)" />
+					<xsl:value-of select="substring(translate(../@regex,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHJKLMNOPQRSTUVWYZ'),1,20)" />
 					<xsl:text>genderbib</xsl:text>
 					</hierarchy_top_id>
 				<hierarchy_top_title>
