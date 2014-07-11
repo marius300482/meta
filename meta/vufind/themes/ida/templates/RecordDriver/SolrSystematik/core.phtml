@@ -1,0 +1,14 @@
+<div class="span-13" vocab="http://schema.org/" resource="#record"
+     typeof="<?= $this->driver->getSchemaOrgFormats() ?> Product">
+
+    <!-- Format -->
+    <? $formats = $this->driver->getFormats();
+    if (!empty($formats)): ?>
+        <div><?= $this->record($this->driver)->getFormatList() ?></div>
+    <? endif; ?>
+    <!-- Title -->
+    <? $title = $this->driver->getTitle(); ?>
+    <h1 property="name"><b><?= $this->escapeHtml($title); ?></b></h1>
+</div>
+
+<div class="clear"></div>
