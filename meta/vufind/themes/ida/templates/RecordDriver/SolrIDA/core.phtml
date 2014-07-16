@@ -93,7 +93,7 @@
             <span property="publicationDate"><?= $this->escapeHtml($publicationDate) ?></span>
         <? endif; ?>
 
-        <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
+        <? $physicals = $this->driver->getPhysicals(); ?>
         <? if (!empty($physicals)): ?>
             <? if ($secondLineNotEmpty): ?>
                 ;

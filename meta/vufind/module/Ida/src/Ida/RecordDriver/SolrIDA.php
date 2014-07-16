@@ -163,6 +163,22 @@ abstract class SolrIDA extends SolrDefault
     /**
     * @return array
     */
+    public function getIssues()
+    {
+        return $this->getMulitValuedField("issue");
+    }
+
+      /**
+    * @return array
+    */
+    public function getVolumes()
+    {
+        return $this->getMulitValuedField("volume");
+    }
+
+    /**
+    * @return array
+    */
     public function getZDBIDs()
     {
         return $this->getMulitValuedField("zdbId");
@@ -171,6 +187,16 @@ abstract class SolrIDA extends SolrDefault
     public function getShelfMark()
     {
         return $this->getSingleValuedField('shelfMark');
+    }
+
+    public function getTimeSpanStart()
+    {
+        return $this->getSingleValuedField('timeSpanStart');
+    }
+
+    public function getTimeSpanEnd()
+    {
+        return $this->getSingleValuedField('timeSpanEnd');
     }
 
     public function getDescription()
@@ -200,7 +226,7 @@ abstract class SolrIDA extends SolrDefault
 
     protected function getSingleValuedField($fieldName)
     {
-        return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : '';
+        return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : null;
     }
 
     protected function getMulitValuedField($fieldName)
@@ -357,7 +383,7 @@ abstract class SolrIDA extends SolrDefault
         }
 
         // format: physical
-        foreach ($this->getPhysicalDescriptions() as $current)
+        foreach ($this->getPhysicals() as $current)
         {
             $xml->addChild('format', htmlspecialchars($current), $dc);
         }

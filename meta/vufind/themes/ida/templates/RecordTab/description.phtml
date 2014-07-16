@@ -12,76 +12,129 @@
 ?>
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="<?=$this->transEsc('Description')?>">
 
-    <? $formats = $this->driver->getFormats(); if (!empty($formats)): ?>
-      <tr valign="top">
-        <th><?=$this->transEsc('Format')?>: </th>
-        <td><?=$this->record($this->driver)->getFormatList()?></td>
-      </tr>
+    <? $formats = $this->driver->getFormats(); ?>
+    <? if (!empty($formats)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Format')?>: </th>
+            <td property="format"><?=$this->record($this->driver)->getFormatList()?></td>
+        </tr>
     <? endif; ?>
 
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
-    <tr valign="top">
-      <th><?=$this->transEsc('Document Type')?>: </th>
-      <td><?= $this->escapeHtml($documentType); ?></td>
-    </tr>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Document Type')?>: </th>
+            <td property="type"><?= $this->escapeHtml($documentType); ?></td>
+        </tr>
     <? endif; ?>
 
-    <tr valign="top">
-        <th><?=$this->transEsc('Title')?>: </th>
-        <td><?= $this->escapeHtml($this->driver->getDisplayTitle()); ?></td>
-    </tr>
+    <? $displayTitle = $this->driver->getdisplayTitle(); ?>
+    <? if (isset($displayTitle)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Title')?>: </th>
+            <td property="title"><?= $this->escapeHtml($displayTitle); ?></td>
+        </tr>
+    <? endif; ?>
 
-    <tr valign="top">
-        <th><?=$this->transEsc('Title Short')?>: </th>
-        <td><?= $this->escapeHtml($this->driver->getShortTitle()); ?></td>
-    </tr>
+    <? $titleShort = $this->driver->getShortTitle(); ?>
+    <? if (isset($titleShort)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Title Short')?>: </th>
+            <td property="shorttitle"><?= $this->escapeHtml($titleShort); ?></td>
+        </tr>
+    <? endif; ?>
 
     <? $titleSub = $this->driver->getTitleSub(); ?>
-    <? if (isset($titleSub) && "" != $titleSub): ?>
-    <tr valign="top">
-        <th><?=$this->transEsc('Title Sub')?>: </th>
-        <td><?= $this->escapeHtml($titleSub); ?></td>
-    </tr>
+    <? if (isset($titleSub)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Title Sub')?>: </th>
+            <td property="titlesub"><?= $this->escapeHtml($titleSub); ?></td>
+        </tr>
     <? endif; ?>
 
     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
     <? if (!empty($authors['main']) || !empty($authors['additional'])):  ?>
-    <tr valign="top">
-      <th><?=$this->transEsc('Authors')?>: </th>
-      <td property="author"><a href="<?=$this->record($this->driver)->getLink('author', $authors['main'])?>"><?=$this->escapeHtml($authors['main'])?></a></td>
-      <? foreach ($authors['additional'] as $field): ?>
-        ; <span property="contributor"><a href="<?=$this->record($this->driver)->getLink('author', $field)?>"><?=$this->escapeHtml($field)?></a></span>
-      <? endforeach; ?>
-    </tr>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Authors')?>: </th>
+            <td property="author"><a href="<?=$this->record($this->driver)->getLink('author', $authors['main'])?>"><?=$this->escapeHtml($authors['main'])?></a></td>
+            <? foreach ($authors['additional'] as $field): ?>
+                 ; <span property="contributor"><a href="<?=$this->record($this->driver)->getLink('author', $field)?>"><?=$this->escapeHtml($field)?></a></span>
+            <? endforeach; ?>
+        </tr>
     <? endif; ?>
 
      <!-- Herausgeber -->
     <? $editors = $this->driver->getEditors(); ?>
     <? if (!empty($editors)): ?>
-    <tr valign="top">
-      <th><?=$this->transEsc('Editors')?>: </th>
-       <td property="editor">
-      <? foreach ($editors as $editor): ?>
-       <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= next($editors) == true ? "; " : "" ?>
-      <? endforeach; ?>
-      </td>
-    </tr>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Editors')?>: </th>
+            <td property="editor">
+            <? foreach ($editors as $editor): ?>
+                <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= next($editors) == true ? "; " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $entities = $this->driver->getEntities(); ?>
+    <? if (!empty($entities)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+          <th><?=$this->transEsc('Entities')?>: </th>
+            <td property="entity">
+            <? foreach ($entities as $entity): ?>
+            <a href="<?= $this->record($this->driver)->getLink('editor', $entity) ?>"><?= $this->escapeHtml($entity) ?></a><?= next($entities) == true ? "; " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
     <? endif; ?>
 
 
     <? $langs = $this->driver->getLanguages();
     if (!empty($langs)): ?>
+        <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?= $this->transEsc('Language') ?>:</th>
-            <td><? foreach ($langs as $lang): ?><?= $this->escapeHtml($lang) ?><br/><? endforeach; ?></td>
+            <td><? foreach ($langs as $lang): ?><?= $this->escapeHtml($lang) ?><?= next($langs) == true ? ", " : "" ?><? endforeach; ?></td>
         </tr>
     <? endif; ?>
+
+    <!-- Mini Kontext -->
+    <? $belongsTo = $this->driver->getBelongsTo();
+    if (!empty($belongsTo)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Belongs to') ?>:</th>
+            <td>
+                <a href="<?= $this->url('record') . $belongsTo[0] ?>"><?= $belongsTo[1] ?></a>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $belongsToTop = $this->driver->getBelongsToTop();
+    if (!empty($belongsToTop)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Belongs to Top') ?>:</th>
+            <td>
+                <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
+            </td>
+        </tr>
+    <? endif; ?>
+
 
     <!-- Schriftenreihe -->
     <? /* Display series section if at least one series exists. */ ?>
     <? $series = $this->driver->getSeries();
     if (!empty($series)): ?>
+        <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?= $this->transEsc('Series') ?>:</th>
             <td>
@@ -107,49 +160,209 @@
         </tr>
     <? endif; ?>
 
+    <? $placesOfPublication = $this->driver->getPlacesOfPublication(); ?>
+    <? if (!empty($placesOfPublication)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Place of publication')?>: </th>
+            <td property=location">
+            <? foreach($placesOfPublication as $placeOfPublication): ?>
+                <?= $this->escapeHtml($placeOfPublication) ?><?= next($placesOfPublication) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
 
-  <? $physical = $this->driver->getPhysicalDescriptions(); if (!empty($physical)): ?>
-    <? $contentDisplayed = true; ?>
-    <tr valign="top">
-      <th><?=$this->transEsc('Physical Description')?>: </th>
-      <td>
-        <? foreach ($physical as $field): ?>
-          <?=$this->escapeHtml($field)?><br/>
+    <? $publishers = $this->driver->getPublishers(); ?>
+    <? if (!empty($publishers)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Publisher')?>: </th>
+            <td property=publisher">
+            <? foreach($publishers as $publisher): ?>
+                <?= $this->escapeHtml($publisher) ?><?= next($publishers) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
+    <? if (isset($publicationDate)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Date of publication')?>: </th>
+            <td property=publicationDate"><?= $this->escapeHtml($publicationDate) ?></td>
+        </tr>
+    <? endif; ?>
+
+    <? $issues = $this->driver->getIssues(); ?>
+    <? if (!empty($issues)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Issue')?>: </th>
+            <td property=issue">
+            <? foreach($issues as $issue): ?>
+                <?= $this->escapeHtml($issue) ?><?= next($issues) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $volumes = $this->driver->getVolumes(); ?>
+    <? if (!empty($volumes)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Volume')?>: </th>
+            <td property=volume">
+            <? foreach($volumes as $volume): ?>
+                <?= $this->escapeHtml($volume) ?><?= next($volumes) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
+    <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
+    <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Time span')?>: </th>
+            <td property="time">
+            <? if (isset($timeSpanStart)): ?>
+                <?= $this->escapeHtml($timeSpanStart) ?>
+                <? if (isset($timeSpanEnd)): ?>
+                    -
+                    <?= $this->escapeHtml($timeSpanEnd) ?>
+                <? endif ?>
+             <? elseif (isset($timeSpanEnd)): ?>
+                <?= $this->escapeHtml($timeSpanEnd) ?>
+            <? endif; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $physicals = $this->driver->getPhysicals(); ?>
+    <? if (!empty($physicals)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Pages')?>: </th>
+            <td property="page">
+            <? foreach ($physicals as $physical): ?>
+                <?=$this->escapeHtml($physical)?><?= next($physicals) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $dimensions = $this->driver->getDimensions(); ?>
+    <? if (!empty($dimensions)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Dimension')?>: </th>
+            <td property="dimension">
+            <? foreach ($dimensions as $dimension): ?>
+                <?=$this->escapeHtml($dimension)?><?= next($dimensions) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+    
+    <? $runTimes = $this->driver->getRunTimes(); ?>
+    <? if (!empty($runTimes)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Run Time')?>: </th>
+            <td property="runTime">
+            <? foreach ($runTimes as $runTime): ?>
+                <?=$this->escapeHtml($runTime)?><?= next($runTimes) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <!-- Schlagworte -->
+    <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
+    <? if (!empty($subjects)): ?>
+        <? $contentDisplayed = true; ?>
+        <? foreach(array("Topic", "Geo", "Person") as $type): ?>
+            <tr valign="top">
+                <? if (isset($subjects[strtolower($type)])): ?>
+                    <th><?= $this->transEsc('Subjects ' . $type) ?>:</th>
+                    <td property="keywords <?= strtolower($type) ?>">
+                        <? $fields = $subjects[strtolower($type)]; ?>
+                        <? foreach ($fields as $subject): ?>
+                            <a title="<?= $this->escapeHtml($subject) ?>"
+                               href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"
+                               class="subjectHeading"><?= $this->escapeHtml($subject) ?></a>
+                               <?= next($fields) == true ? ", " : "" ?>
+                        <? endforeach; ?>
+                    </td>
+                <? endif; ?>
+            </tr>
         <? endforeach; ?>
-      </td>
-    </tr>
-  <? endif; ?>
+    <? endif; ?>
 
 
-  <? $isbns = $this->driver->getISBNs(); if (!empty($isbns)): ?>
-    <? $contentDisplayed = true; ?>
-    <tr valign="top">
-      <th><?=$this->transEsc('ISBN')?>: </th>
-      <td>
-        <? foreach ($isbns as $field): ?>
-          <?=$this->escapeHtml($field)?><br/>
-        <? endforeach; ?>
-      </td>
-    </tr>
-  <? endif; ?>
+    <? $isbns = $this->driver->getISBNs(); ?>
+    <? if (!empty($isbns)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('ISBN')?>: </th>
+            <td property="isbn">
+            <? foreach ($isbns as $field): ?>
+                <?=$this->escapeHtml($field)?><?= next($isbns) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
 
-  <? $issns = $this->driver->getISSNs(); if (!empty($issns)): ?>
-    <? $contentDisplayed = true; ?>
-    <tr valign="top">
-      <th><?=$this->transEsc('ISSN')?>: </th>
-      <td>
-        <? foreach ($issns as $field): ?>
-          <?=$this->escapeHtml($field)?><br/>
-        <? endforeach; ?>
-      </td>
-    </tr>
-  <? endif; ?>
+    <? $issns = $this->driver->getISSNs(); ?>
+    <? if (!empty($issns)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('ISSN')?>: </th>
+            <td property="issn">
+            <? foreach ($issns as $field): ?>
+                <?=$this->escapeHtml($field)?><?= next($issns) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+    
+    <? $zdbids = $this->driver->getZDBIDs(); ?>
+    <? if (!empty($zdbids)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('ZDBID')?>: </th>
+            <td property="zdbid">
+            <? foreach ($zdbids as $field): ?>
+                <?=$this->escapeHtml($field)?><?= next($zdbids) == true ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+    <? $shelfMark = $this->driver->getShelfMark(); ?>
+    <? if (isset($shelfMark)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Shelf Mark')?>: </th>
+            <td property=shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
+        </tr>
+    <? endif; ?>
+    
+    <? $description = $this->driver->getdescription(); ?>
+    <? if (isset($description)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Description')?>: </th>
+            <td property=description"><?= $this->escapeHtml($description) ?></td>
+        </tr>
+    <? endif; ?>
 
 
 
-
-
-  <? if (!isset($contentDisplayed) || !$contentDisplayed): // Avoid errors if there were no rows above ?>
-    <tr><td><?=$this->transEsc('no_description')?></td></tr>
-  <? endif; ?>
+    <? if (!isset($contentDisplayed) || !$contentDisplayed): // Avoid errors if there were no rows above ?>
+        <tr><td><?=$this->transEsc('no_description')?></td></tr>
+    <? endif; ?>
 </table>
