@@ -67,7 +67,7 @@
         <? if (!empty($placesOfPublication)):
             $placeOfPublicationSet = true;
             foreach($placesOfPublication as $placeOfPublication): ?>
-                <span property="location"><?= $this->escapeHtml($placeOfPublication) ?></span><?= next($placesOfPublication) !== false ? ", " : "" ?>
+                <span property="location"><?= $this->escapeHtml($placeOfPublication) ?></span><?= $placeOfPublication !== end($placesOfPublication) ? ", " : "" ?>
             <? endforeach; ?>
         <? endif; ?>
 
@@ -78,7 +78,7 @@
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($publishers as $publisher): ?>
-                <span property="publisher" typeof="Organization"><?= $this->escapeHtml($publisher) ?></span><?= next($publishers) !== false ? ", " : "" ?>
+                <span property="publisher" typeof="Organization"><?= $this->escapeHtml($publisher) ?></span><?= $publisher !== end($publishers) ? ", " : "" ?>
             <? endforeach; ?>
         <? endif; ?>
 
@@ -102,7 +102,7 @@
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($physicals as $physical): ?>
-                <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= next($physicals) !== false ? ", " : ""; ?>
+                <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physicals !== end($physicals) ? ", " : ""; ?>
             <? endforeach; ?>
         <? endif; ?>
     </div>
