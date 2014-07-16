@@ -77,7 +77,7 @@
             <th><?=$this->transEsc('Editors')?>: </th>
             <td property="editor">
             <? foreach ($editors as $editor): ?>
-                <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= next($editors) == true ? "; " : "" ?>
+                <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= next($editors) ? "; " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -90,7 +90,7 @@
           <th><?=$this->transEsc('Entities')?>: </th>
             <td property="entity">
             <? foreach ($entities as $entity): ?>
-            <a href="<?= $this->record($this->driver)->getLink('editor', $entity) ?>"><?= $this->escapeHtml($entity) ?></a><?= next($entities) == true ? "; " : "" ?>
+            <a href="<?= $this->record($this->driver)->getLink('editor', $entity) ?>"><?= $this->escapeHtml($entity) ?></a><?= next($entities) ? "; " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -102,7 +102,7 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?= $this->transEsc('Language') ?>:</th>
-            <td><? foreach ($langs as $lang): ?><?= $this->escapeHtml($lang) ?><?= next($langs) == true ? ", " : "" ?><? endforeach; ?></td>
+            <td><? foreach ($langs as $lang): ?><?= $this->escapeHtml($lang) ?><?= next($langs) ? ", " : "" ?><? endforeach; ?></td>
         </tr>
     <? endif; ?>
 
@@ -167,7 +167,7 @@
             <th><?=$this->transEsc('Place of publication')?>: </th>
             <td property=location">
             <? foreach($placesOfPublication as $placeOfPublication): ?>
-                <?= $this->escapeHtml($placeOfPublication) ?><?= next($placesOfPublication) == true ? ", " : "" ?>
+                <?= $this->escapeHtml($placeOfPublication) ?><?= next($placesOfPublication) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -180,7 +180,7 @@
             <th><?=$this->transEsc('Publisher')?>: </th>
             <td property=publisher">
             <? foreach($publishers as $publisher): ?>
-                <?= $this->escapeHtml($publisher) ?><?= next($publishers) == true ? ", " : "" ?>
+                <?= $this->escapeHtml($publisher) ?><?= next($publishers) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -202,7 +202,7 @@
             <th><?=$this->transEsc('Issue')?>: </th>
             <td property=issue">
             <? foreach($issues as $issue): ?>
-                <?= $this->escapeHtml($issue) ?><?= next($issues) == true ? ", " : "" ?>
+                <?= $this->escapeHtml($issue) ?><?= next($issues) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -215,7 +215,7 @@
             <th><?=$this->transEsc('Volume')?>: </th>
             <td property=volume">
             <? foreach($volumes as $volume): ?>
-                <?= $this->escapeHtml($volume) ?><?= next($volumes) == true ? ", " : "" ?>
+                <?= $this->escapeHtml($volume) ?><?= next($volumes) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -248,7 +248,7 @@
             <th><?=$this->transEsc('Pages')?>: </th>
             <td property="page">
             <? foreach ($physicals as $physical): ?>
-                <?=$this->escapeHtml($physical)?><?= next($physicals) == true ? ", " : "" ?>
+                <?=$this->escapeHtml($physical)?><?= next($physicals) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -261,7 +261,7 @@
             <th><?=$this->transEsc('Dimension')?>: </th>
             <td property="dimension">
             <? foreach ($dimensions as $dimension): ?>
-                <?=$this->escapeHtml($dimension)?><?= next($dimensions) == true ? ", " : "" ?>
+                <?=$this->escapeHtml($dimension)?><?= next($dimensions) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -274,7 +274,7 @@
             <th><?=$this->transEsc('Run Time')?>: </th>
             <td property="runTime">
             <? foreach ($runTimes as $runTime): ?>
-                <?=$this->escapeHtml($runTime)?><?= next($runTimes) == true ? ", " : "" ?>
+                <?=$this->escapeHtml($runTime)?><?= next($runTimes) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -294,7 +294,7 @@
                             <a title="<?= $this->escapeHtml($subject) ?>"
                                href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"
                                class="subjectHeading"><?= $this->escapeHtml($subject) ?></a>
-                               <?= next($fields) == true ? ", " : "" ?>
+                               <?= next($fields) ? ", " : "" ?>
                         <? endforeach; ?>
                     </td>
                 <? endif; ?>
@@ -310,7 +310,7 @@
             <th><?=$this->transEsc('ISBN')?>: </th>
             <td property="isbn">
             <? foreach ($isbns as $field): ?>
-                <?=$this->escapeHtml($field)?><?= next($isbns) == true ? ", " : "" ?>
+                <?=$this->escapeHtml($field)?><?= next($isbns) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -323,7 +323,7 @@
             <th><?=$this->transEsc('ISSN')?>: </th>
             <td property="issn">
             <? foreach ($issns as $field): ?>
-                <?=$this->escapeHtml($field)?><?= next($issns) == true ? ", " : "" ?>
+                <?=$this->escapeHtml($field)?><?= next($issns) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -336,7 +336,7 @@
             <th><?=$this->transEsc('ZDBID')?>: </th>
             <td property="zdbid">
             <? foreach ($zdbids as $field): ?>
-                <?=$this->escapeHtml($field)?><?= next($zdbids) == true ? ", " : "" ?>
+                <?=$this->escapeHtml($field)?><?= next($zdbids) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
