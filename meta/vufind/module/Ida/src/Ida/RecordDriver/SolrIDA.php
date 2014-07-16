@@ -383,7 +383,7 @@ abstract class SolrIDA extends SolrDefault
         }
 
         // format: physical
-        foreach ($this->getPhysicals() as $current)
+        foreach ($this->getPhysicalDescriptions() as $current)
         {
             $xml->addChild('format', htmlspecialchars($current), $dc);
         }
