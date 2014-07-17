@@ -155,7 +155,7 @@
     			<field name="format"><xsl:value-of select="dataset/format"/></field>
     			
     			<xsl:if test="dataset/documentType">
-    				<field name="documentType"></field>
+    				<field name="documentType"><xsl:value-of select="dataset/documentType" /></field>
     				</xsl:if>
     			
 			<field name="title"><xsl:value-of select="dataset/title[normalize-space()]"/></field>
