@@ -311,8 +311,8 @@
                         <? $fields = $subjects[strtolower($type)]; ?>
                         <? foreach ($fields as $subject): ?>
                             <a title="<?= $this->escapeHtml($subject) ?>"
-                               href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"
-                               class="subjectHeading"><?= $this->escapeHtml($subject) ?></a><?= $subject !== end($fields) ? ", " : "" ?>
+                               href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>">
+                               <?= $this->escapeHtml($subject) ?></a><?= $subject !== end($fields) ? ", " : "" ?>
                                <? // Keep above in one line to avoid unwanted whitespace ?>
                         <? endforeach; ?>
                     </td>
