@@ -17,6 +17,10 @@ a, a:visited, a:focus, a:hover {
     line-height: 1.2em;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 input,
 textarea,
 select {
@@ -125,6 +129,9 @@ ul {
 
 .sidegroup .similar a {
     text-decoration: none;
+}
+.sidegroup .similar a:hover {
+    text-decoration: underline;
 }
 
 div.sidegroup h4 {
