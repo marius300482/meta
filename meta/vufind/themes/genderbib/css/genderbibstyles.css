@@ -7,7 +7,7 @@ body {
     margin: 0;
     font-family: Verdana,Helvetica,Arial,sans-serif !important;
     font-size: 80%;
-    color: #036;
+    color: #333333;
     line-height: 1.5em;
 }
 
@@ -47,7 +47,7 @@ input[type="password"]{
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #036;
+    color: #1a1a1a;
 }
 
 h1 {
@@ -124,7 +124,7 @@ ul {
 }
 
 .sidegroup .similar a {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 div.sidegroup h4 {
@@ -978,7 +978,7 @@ ul.recordSet li.alt {
 #record .citation td,
 #record .citation th {
     border: 0 none;
-    color: #003366;
+    color: #333333;
 }
 
 #record td[property="author"],
