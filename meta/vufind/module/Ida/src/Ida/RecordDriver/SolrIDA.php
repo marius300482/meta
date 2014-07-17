@@ -47,7 +47,7 @@ abstract class SolrIDA extends SolrDefault
 
     public function getAdditionalAuthors()
     {
-        return $this->getMulitValuedField("author_additional");
+        return $this->getMultiValuedField("author_additional");
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class SolrIDA extends SolrDefault
 
     public function getPlacesOfPublication()
     {
-        return $this->getMulitValuedField("placeOfPublication");
+        return $this->getMultiValuedField("placeOfPublication");
     }
 
     public function getSeriesNr()
@@ -89,7 +89,7 @@ abstract class SolrIDA extends SolrDefault
 
     public function getTranslatedTerms()
     {
-        return $this->getMulitValuedField("translatedTerms");
+        return $this->getMultiValuedField("translatedTerms");
     }
 
     public function getDisplayTitle()
@@ -105,17 +105,17 @@ abstract class SolrIDA extends SolrDefault
 
     public function getEditors()
     {
-        return $this->getMulitValuedField("editor");
+        return $this->getMultiValuedField("editor");
     }
 
     public function getEntities()
     {
-        return $this->getMulitValuedField("entity");
+        return $this->getMultiValuedField("entity");
     }
 
     public function getPublishers()
     {
-        return $this->getMulitValuedField("publisher");
+        return $this->getMultiValuedField("publisher");
     }
 
     /**
@@ -128,12 +128,12 @@ abstract class SolrIDA extends SolrDefault
 
     public function getDimensions()
     {
-        return $this->getMulitValuedField("dimension");
+        return $this->getMultiValuedField("dimension");
     }
 
     public function getRunTimes()
     {
-        return $this->getMulitValuedField("runtTime");
+        return $this->getMultiValuedField("runTime");
     }
 
     /**
@@ -141,7 +141,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getTopics()
     {
-        return $this->getMulitValuedField("topic");
+        return $this->getMultiValuedField("topic");
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getGeographicTopics()
     {
-        return $this->getMulitValuedField("subjectGeographic");
+        return $this->getMultiValuedField("subjectGeographic");
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getPersonTopics()
     {
-        return $this->getMulitValuedField("subjectPerson");
+        return $this->getMultiValuedField("subjectPerson");
     }
 
     /**
@@ -165,7 +165,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getIssues()
     {
-        return $this->getMulitValuedField("issue");
+        return $this->getMultiValuedField("issue");
     }
 
       /**
@@ -173,7 +173,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getVolumes()
     {
-        return $this->getMulitValuedField("volume");
+        return $this->getMultiValuedField("volume");
     }
 
     /**
@@ -181,7 +181,7 @@ abstract class SolrIDA extends SolrDefault
     */
     public function getZDBIDs()
     {
-        return $this->getMulitValuedField("zdbId");
+        return $this->getMultiValuedField("zdbId");
     }
 
     public function getShelfMark()
@@ -206,17 +206,17 @@ abstract class SolrIDA extends SolrDefault
 
     public function getProjects()
     {
-        return $this->getMulitValuedField("project");
+        return $this->getMultiValuedField("project");
     }
 
     public function getTypeOfRessource()
     {
-        return $this->getMulitValuedField("typeOfRessource");
+        return $this->getMultiValuedField("typeOfRessource");
     }
 
     public function getLanguageCodes()
     {
-        return $this->getMulitValuedField("language_code");
+        return $this->getMultiValuedField("language_code");
     }
 
     public function getDocumentType()
@@ -224,12 +224,17 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField("documentType");
     }
 
+    public function getReviewer()
+    {
+        return $this->getSingleValuedField("reviewer");
+    }
+
     protected function getSingleValuedField($fieldName)
     {
         return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : null;
     }
 
-    protected function getMulitValuedField($fieldName)
+    protected function getMultiValuedField($fieldName)
     {
         return isset($this->fields[$fieldName]) && is_array($this->fields[$fieldName]) ? $this->fields[$fieldName] : array();
     }

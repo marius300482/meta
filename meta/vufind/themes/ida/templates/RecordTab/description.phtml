@@ -62,10 +62,12 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Authors')?>: </th>
-            <td property="author"><a href="<?=$this->record($this->driver)->getLink('author', $authors['main'])?>"><?=$this->escapeHtml($authors['main'])?></a></td>
+            <? // Funny  &gt; to avoid unwanted whitespace ?>
+            <td><span property="author"><a href="<?=$this->record($this->driver)->getLink('author', $authors['main'])?>"><?=$this->escapeHtml($authors['main'])?></a></span
             <? foreach ($authors['additional'] as $field): ?>
-                 ; <span property="contributor"><a href="<?=$this->record($this->driver)->getLink('author', $field)?>"><?=$this->escapeHtml($field)?></a></span>
+                >; <span property="contributor"><a href="<?=$this->record($this->driver)->getLink('author', $field)?>"><?=$this->escapeHtml($field)?></a></span
             <? endforeach; ?>
+            ></td>
         </tr>
     <? endif; ?>
 
@@ -96,6 +98,14 @@
         </tr>
     <? endif; ?>
 
+    <? $reviewer = $this->driver->getReviewer(); ?>
+    <? if (isset($reviewer)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Reviewer')?>: </th>
+            <td property="reviewer"><?= $this->escapeHtml($reviewer); ?></td>
+        </tr>
+    <? endif; ?>
 
     <? $langs = $this->driver->getLanguages();
     if (!empty($langs)): ?>
@@ -293,8 +303,8 @@
                         <? foreach ($fields as $subject): ?>
                             <a title="<?= $this->escapeHtml($subject) ?>"
                                href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"
-                               class="subjectHeading"><?= $this->escapeHtml($subject) ?></a>
-                               <?= $subject !== end($fields) ? ", " : "" ?>
+                               class="subjectHeading"><?= $this->escapeHtml($subject) ?></a><?= $subject !== end($fields) ? ", " : "" ?>
+                               <? // Keep above in one line to avoid unwanted whitespace ?>
                         <? endforeach; ?>
                     </td>
                 <? endif; ?>
