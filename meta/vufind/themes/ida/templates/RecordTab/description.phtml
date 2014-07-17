@@ -107,6 +107,15 @@
         </tr>
     <? endif; ?>
 
+    <? $shelfMark = $this->driver->getShelfMark(); ?>
+    <? if (isset($shelfMark)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Shelf Mark')?>: </th>
+            <td property=shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
+        </tr>
+    <? endif; ?>
+
     <? $langs = $this->driver->getLanguages();
     if (!empty($langs)): ?>
         <? $contentDisplayed = true; ?>
@@ -352,15 +361,6 @@
         </tr>
     <? endif; ?>
 
-    <? $shelfMark = $this->driver->getShelfMark(); ?>
-    <? if (isset($shelfMark)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Shelf Mark')?>: </th>
-            <td property=shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
-        </tr>
-    <? endif; ?>
-    
     <? $description = $this->driver->getdescription(); ?>
     <? if (isset($description)): ?>
         <? $contentDisplayed = true; ?>
