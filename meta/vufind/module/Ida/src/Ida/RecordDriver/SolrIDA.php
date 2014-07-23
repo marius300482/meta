@@ -229,6 +229,21 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField("reviewer");
     }
 
+    public function getLeader()
+    {
+        return $this->getSingleValuedField('leader');
+    }
+
+    public function getControlField()
+    {
+        return $this->getSingleValuedField('controlfield');
+    }
+
+    public function getRecordContentSource()
+    {
+        return $this->getMultiValuedField("recordContentSource");
+    }
+
     protected function getSingleValuedField($fieldName)
     {
         return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : null;
@@ -318,12 +333,144 @@ abstract class SolrIDA extends SolrDefault
      */
     public function getXML($format, $baseUrl = null, $recordLink = null)
     {
-        if ($format != 'oai_dc')
+        if ($format == 'oai_dc')
         {
-            // Unsupported format
-           return false;
+            return $this->getDublinCoreXML($format, $baseUrl, $recordLink);
+        }
+        if ($format == "marc21")
+        {
+            return $this->getMarcXML($format, $baseUrl, $recordLink);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private function getMarcXML($format, $baseUrl, $recordLink)
+    {
+        $xml = new \SimpleXMLElement(
+            '<OAI-PMH '
+            . 'xmlns="http://www.openarchives.org/OAI/2.0/" '
+            . 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
+            . 'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ '
+            . 'http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd" />'
+        );
+
+        $record = $xml->addChild('record');
+        $marc21="http://www.loc.gov/MARC21/slim";
+        $record->addAttribute('xmlns', $marc21);
+        $record->addAttribute(
+            'xsi:schemaLocation',
+            'http://www.loc.gov/MARC21/slim ' .
+            'http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd',
+            'http://www.w3.org/2001/XMLSchema-instance'
+        );
+        $record->addAttribute('type', 'Bibliographic');
+
+        $leader=$this->getLeader();
+        if (!empty($leader))
+        {
+            $record->addChild('leader', htmlspecialchars($leader), $marc21);
         }
 
+        $id = $this->getUniqueID();
+        if (!empty($id))
+        {
+            $record->addChild('controlfield', htmlspecialchars($id), $marc21)->addAttribute("tag", "001");
+        }
+
+        $controlField=$this->getControlField();
+        $record->addChild('controlfield', htmlspecialchars($controlField), $marc21)->addAttribute("tag", "008");
+
+        $recordContentSource = $this->getRecordContentSource();
+        $map = array();
+        $this->mapChar($map, $recordContentSource);
+        $this->addDataField($map, "040", " ", " ", $record, $marc21);
+
+        $map = array();
+        $shortTitle=$this->getShortTitle();
+        $this->mapChar($map, $shortTitle);
+        $titleSub = $this->getTitleSub();
+        $this->mapChar($map, $titleSub, "b");
+        $this->addDataField($map, "245", "1", "0", $record, $marc21);
+
+        $editors=$this->getEditors();
+        foreach ($editors as $editor)
+        {
+            $map = array($editor => "a", "editor" => "e");
+            $this->addDataField($map, "700", "1", " ", $record, $marc21);
+        }
+
+        $map = array();
+        $physicals=$this->getPhysicalDescriptions();
+        $this->mapChar($map, $physicals);
+        $this->addDataField($map, "300", " ", " ", $record, $marc21);
+
+        $map = array();
+        $institutions=$this->getInstitutions();
+        $this->mapChar($map, $institutions);
+        $this->addDataField($map, "852", " ", " ", $record, $marc21);
+
+        $map = array();
+        $isbns=$this->getISBNs();
+        $this->mapChar($map, $isbns);
+        $this->addDataField($map, "020", " ", " ", $record, $marc21);
+
+        $map = array();
+        $placesOfPublication=$this->getPlacesOfPublication();
+        $this->mapChar($map, $placesOfPublication);
+        $publishers=$this->getPublishers();
+        $this->mapChar($map, $publishers, "b");
+        $displayPublicationDate=$this->getDisplayPublicationDate();
+        $this->mapChar($map, $displayPublicationDate, "c");
+        $this->addDataField($map, "852", " ", " ", $record, $marc21);
+
+        $map = array();
+        $this->getTopics();
+
+        $formats=$this->getFormats();
+        foreach ($formats as $format)
+        {
+            $map = array($format => "a", "local" => "2");
+            $this->addDataField($map, "655", " ", "7", $record, $marc21);
+        }
+
+        return $record->asXML();
+    }
+
+    private function addDataField($map, $tag, $ind1, $ind2, $record, $ns)
+    {
+        if (!empty($map))
+        {
+            $child = $record->addChild("datafield");
+            $child->addAttribute("tag", $tag);
+            $child->addAttribute("ind1", $ind1);
+            $child->addAttribute("ind2", $ind2);
+            foreach ($map as $subfield => $code)
+            {
+                $child->addChild("subfield", htmlspecialchars($subfield), $ns)->addAttribute("code", $code);
+            }
+        }
+    }
+
+    private function mapChar(&$map, $elements, $char = "a")
+    {
+        if(is_array($elements))
+        {
+            foreach ($elements as $el)
+            {
+                $map[$el] = $char;
+            }
+        }
+        else if (!empty($elements))
+        {
+            $map[$elements] = $char;
+        }
+    }
+
+    private function getDublinCoreXML($format, $baseUrl, $recordLink)
+    {
         // For OAI-PMH Dublin Core, produce the necessary XML:
         $dc = 'http://purl.org/dc/elements/1.1/';
         $xsi='http://www.w3.org/2001/XMLSchema-instance';
