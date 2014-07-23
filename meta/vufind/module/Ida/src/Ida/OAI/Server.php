@@ -29,7 +29,7 @@ class Server extends \VuFind\OAI\Server
         $results = parent::listRecordsGetNonDeleted($from, $until, $offset, $limit, $set = '');
         $params = $results->getParams();
         $params->addFilter(
-            '-' . $this->setField . ':Systemaktik');
+            '-format:Systemaktik');
         return $results;
     }
 } 
