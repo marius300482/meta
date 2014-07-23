@@ -386,7 +386,6 @@ abstract class SolrIDA extends SolrDefault
         $record->addChild('controlfield', htmlspecialchars($controlField), $marc21)->addAttribute("tag", "008");
 
         $recordContentSource = $this->getRecordContentSource();
-
         $this->mapChar($map, $recordContentSource);
         $this->addDataField($map, "040", " ", " ", $record, $marc21);
 
@@ -479,8 +478,6 @@ abstract class SolrIDA extends SolrDefault
         $displayPublicationDate=$this->getDisplayPublicationDate();
         $this->mapChar($map, $displayPublicationDate, "c");
         $this->addDataField($map, "852", " ", " ", $record, $marc21);
-
-        $this->getTopics();
 
         $formats=$this->getFormats();
         foreach ($formats as $format)
