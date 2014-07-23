@@ -358,7 +358,6 @@ abstract class SolrIDA extends SolrDefault
             . 'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ '
             . 'http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd" />'
         );
-
         $record = $xml->addChild('record');
         $marc21="http://www.loc.gov/MARC21/slim";
         $record->addAttribute('xmlns', $marc21);
@@ -385,9 +384,32 @@ abstract class SolrIDA extends SolrDefault
         $controlField=$this->getControlField();
         $record->addChild('controlfield', htmlspecialchars($controlField), $marc21)->addAttribute("tag", "008");
 
+        $isbns=$this->getISBNs();
+        $this->mapChar($map, $isbns);
+        $this->addDataField($map, "020", " ", " ", $record, $marc21);
+
+        $ISSNs=$this->getISSNs();
+        $this->mapChar($map, $ISSNs);
+        $this->addDataField($map, "022", " ", " ", $record, $marc21);
+
         $recordContentSource = $this->getRecordContentSource();
         $this->mapChar($map, $recordContentSource);
         $this->addDataField($map, "040", " ", " ", $record, $marc21);
+
+        $languageCodes=$this->getLanguageCodes();
+        foreach ($languageCodes as $languageCode)
+        {
+            $map = array($languageCode => "a", "iso639-3" => "2");
+            $this->addDataField($map, "041", " ", " ", $record, $marc21);
+        }
+
+        $primary = $this->getPrimaryAuthor();
+        $this->mapChar($map, $primary);
+        $this->addDataField($map, "100", "1", " ", $record, $marc21);
+
+        $entities=$this->getEntities();
+        $this->mapChar($map, $entities);
+        $this->addDataField($map, "110", "2", " ", $record, $marc21);
 
         $shortTitle=$this->getShortTitle();
         $this->mapChar($map, $shortTitle);
@@ -395,9 +417,56 @@ abstract class SolrIDA extends SolrDefault
         $this->mapChar($map, $titleSub, "b");
         $this->addDataField($map, "245", "1", "0", $record, $marc21);
 
-        $primary = $this->getPrimaryAuthor();
-        $this->mapChar($map, $primary);
-        $this->addDataField($map, "100", "1", " ", $record, $marc21);
+        $issues=$this->getIssues();
+        $this->mapChar($map, $issues);
+        $volumes=$this->getVolumes();
+        $this->mapChar($map, $volumes, "n");
+        $this->addDataField($map, "245", " ", " ", $record, $marc21);
+
+        $placesOfPublication=$this->getPlacesOfPublication();
+        $this->mapChar($map, $placesOfPublication);
+        $publishers=$this->getPublishers();
+        $this->mapChar($map, $publishers, "b");
+        $publicationDates=$this->getPublicationDates();
+        $this->mapChar($map, $publicationDates, "c");
+        //$timeSpanStart=$this->getTimeSpanStart();
+        //$this->mapChar($map, $timeSpanStart, "c");
+        $this->addDataField($map, "260", " ", " ", $record, $marc21);
+
+        $physicals=$this->getPhysicalDescriptions();
+        $this->mapChar($map, $physicals);
+        $this->addDataField($map, "300", " ", " ", $record, $marc21);
+
+        $runTimes=$this->getRunTimes();
+        $this->mapChar($map, $runTimes);
+        $this->addDataField($map, "306", " ", " ", $record, $marc21);
+
+        $series=$this->getSeries();
+        $this->mapChar($map, $series);
+        $this->addDataField($map, "490", "0", " ", $record, $marc21);
+
+        $description=$this->getDescription();
+        $this->mapChar($map, $description);
+        $this->addDataField($map, "500", " ", " ", $record, $marc21);
+
+        $personTopics=$this->getPersonTopics();
+        $this->mapChar($map, $personTopics);
+        $this->addDataField($map, "600", "1", "0", $record, $marc21);
+
+        $topics=$this->getTopics();
+        $this->mapChar($map, $topics);
+        $this->addDataField($map, "650", "1", "4", $record, $marc21);
+
+        $geographicTopics=$this->getGeographicTopics();
+        $this->mapChar($map, $geographicTopics);
+        $this->addDataField($map, "651", " ", "4", $record, $marc21);
+
+        $formats=$this->getFormats();
+        foreach ($formats as $format)
+        {
+            $map = array($format => "a", "local" => "2");
+            $this->addDataField($map, "655", " ", "7", $record, $marc21);
+        }
 
         $additionalAuthors=$this->getAdditionalAuthors();
         $this->mapChar($map, $additionalAuthors);
@@ -410,83 +479,11 @@ abstract class SolrIDA extends SolrDefault
             $this->addDataField($map, "700", "1", " ", $record, $marc21);
         }
 
-        $entities=$this->getEntities();
-        $this->mapChar($map, $entities);
-        $this->addDataField($map, "110", "2", " ", $record, $marc21);
-
-        $series=$this->getSeries();
-        $this->mapChar($map, $series);
-        $this->addDataField($map, "490", "0", " ", $record, $marc21);
-
-        $ISSNs=$this->getISSNs();
-        $this->mapChar($map, $ISSNs);
-        $this->addDataField($map, "022", " ", " ", $record, $marc21);
-
-        $timeSpanStart=$this->getTimeSpanStart();
-        $this->mapChar($map, $timeSpanStart, "c");
-        $this->addDataField($map, "260", " ", " ", $record, $marc21);
-
-        $runTimes=$this->getRunTimes();
-        $this->mapChar($map, $runTimes);
-        $this->addDataField($map, "306", " ", " ", $record, $marc21);
-
-        $languageCodes=$this->getLanguageCodes();
-        foreach ($languageCodes as $languageCode)
-        {
-            $map = array($languageCode => "a", "iso639-3" => "2");
-            $this->addDataField($map, "041", " ", " ", $record, $marc21);
-        }
-
-        $topics=$this->getTopics();
-        $this->mapChar($map, $topics);
-        $this->addDataField($map, "650", "1", "4", $record, $marc21);
-
-        $personTopics=$this->getPersonTopics();
-        $this->mapChar($map, $personTopics);
-        $this->addDataField($map, "600", "1", "0", $record, $marc21);
-
-        $geographicTopics=$this->getGeographicTopics();
-        $this->mapChar($map, $geographicTopics);
-        $this->addDataField($map, "651", " ", "4", $record, $marc21);
-
-        $issues=$this->getIssues();
-        $this->mapChar($map, $issues);
-        $volumes=$this->getVolumes();
-        $this->mapChar($map, $volumes, "n");
-        $this->addDataField($map, "245", " ", " ", $record, $marc21);
-
-        $description=$this->getDescription();
-        $this->mapChar($map, $description);
-        $this->addDataField($map, "500", " ", " ", $record, $marc21);
-
-        $physicals=$this->getPhysicalDescriptions();
-        $this->mapChar($map, $physicals);
-        $this->addDataField($map, "300", " ", " ", $record, $marc21);
-
         $institutions=$this->getInstitutions();
         $this->mapChar($map, $institutions);
         $this->addDataField($map, "852", " ", " ", $record, $marc21);
 
-        $isbns=$this->getISBNs();
-        $this->mapChar($map, $isbns);
-        $this->addDataField($map, "020", " ", " ", $record, $marc21);
-
-        $placesOfPublication=$this->getPlacesOfPublication();
-        $this->mapChar($map, $placesOfPublication);
-        $publishers=$this->getPublishers();
-        $this->mapChar($map, $publishers, "b");
-        $displayPublicationDate=$this->getDisplayPublicationDate();
-        $this->mapChar($map, $displayPublicationDate, "c");
-        $this->addDataField($map, "852", " ", " ", $record, $marc21);
-
-        $formats=$this->getFormats();
-        foreach ($formats as $format)
-        {
-            $map = array($format => "a", "local" => "2");
-            $this->addDataField($map, "655", " ", "7", $record, $marc21);
-        }
-
-        return $record->asXML();
+        return $xml->asXML();
     }
 
     /**
@@ -496,7 +493,7 @@ abstract class SolrIDA extends SolrDefault
     {
         if (!empty($map))
         {
-            $child = $record->addChild("datafield");
+            $child = $record->addChild("datafield", null, $ns);
             $child->addAttribute("tag", $tag);
             $child->addAttribute("ind1", $ind1);
             $child->addAttribute("ind2", $ind2);
@@ -505,6 +502,7 @@ abstract class SolrIDA extends SolrDefault
                 $child->addChild("subfield", htmlspecialchars($subfield), $ns)->addAttribute("code", $code);
             }
         }
+        // reset map
         $map = array();
     }
 
