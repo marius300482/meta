@@ -56,7 +56,7 @@
               <a href="<?=$this->url($advSearch)?>" class="small advancedSearch"><?=$this->transEsc("Advanced")?> [+]</a>
           <? endif; ?>
 
-          <input type="submit" name="submit" value="<?=$this->transEsc("Find")?>" class="submit"/>
+          <input type="submit" name="submitBtn" value="<?=$this->transEsc("Find")?>" class="submit"/>
 
           <div class="advanced">
 
@@ -98,7 +98,7 @@
       <? elseif ($handlerCount == 1): ?>
         <input type="hidden" name="type" value="<?=$this->escapeHtml($handlers[0]['value'])?>" />
       <? endif; ?>
-      <input type="submit" name="submit" value="<?=$this->transEsc("Find")?>"/>
+      <input type="submit" name="submitBtn" value="<?=$this->transEsc("Find")?>"/>
       <? if ($advSearch): ?>
         <a href="<?=$this->url($advSearch)?>" class="small advancedSearch"><?=$this->transEsc("Advanced")?> &raquo;</a>
       <? endif; ?>

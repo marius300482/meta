@@ -3,8 +3,7 @@ return array(
     'extends' => 'blueprint',
     'css' => array(
         'idastyles.css:screen, projection',
-    ),
-    /*'css' => array(
+/*
         'blueprint/screen.css:screen, projection',
         'blueprint/print.css:print',
         'blueprint/ie.css:screen, projection:lt IE 8',
@@ -12,16 +11,12 @@ return array(
         'styles.css:screen, projection',
         'print.css:print',
         'ie.css:screen, projection:lt IE 8',
+*/
     ),
     'js' => array(
-        'jquery.min.js',
-        'jquery.form.js',
-        'jquery.metadata.js',
-        'jquery.validate.min.js',
-        'jquery-ui/js/jquery-ui.js',
-        'lightbox.js',
-        'common.js',
+        'ida.js'
     ),
+/*
     'favicon' => 'vufind-favicon.ico',
     'helpers' => array(
         'factories' => array(
@@ -30,5 +25,6 @@ return array(
         'invokables' => array(
             'search' => 'VuFind\View\Helper\Blueprint\Search',
         )
-    )*/
+    )
+*/
 );
