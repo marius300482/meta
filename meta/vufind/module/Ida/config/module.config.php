@@ -12,6 +12,18 @@ $config = array(
                 ),
             ),
         ),
+        'recorddriver_tabs' => array(
+            // Disable Staff View
+            'Ida\RecordDriver\SolrIDA' => array(
+                'tabs' => array (
+                    'Holdings' => 'HoldingsILS', 'Description' => 'Description',
+                    'TOC' => 'TOC', 'UserComments' => 'UserComments',
+                    'Reviews' => 'Reviews', 'Excerpt' => 'Excerpt',
+                    'HierarchyTree' => 'HierarchyTree', 'Map' => 'Map',
+                ),
+                'defaultTab' => null,
+            ),
+        ),
     ),
     'controllers' => array(
         'factories' => array(
