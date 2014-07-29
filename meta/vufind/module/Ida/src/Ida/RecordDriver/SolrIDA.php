@@ -7,7 +7,7 @@
  */
 namespace Ida\RecordDriver;
 
-use VuFind\RecordDriver\SolrDefault;
+use VuFind\RecordDriver\SolrDefault;use VuFind\View\Helper\Root\RecordLink;
 
 abstract class SolrIDA extends SolrDefault
 {
@@ -481,8 +481,6 @@ abstract class SolrIDA extends SolrDefault
 
         $hierarchyTopIDs=$this->getHierarchyTopID();
         $this->mapChar($map, $hierarchyTopIDs, "w");
-        $this->addDataField($map, "773", "0", " ", $record, $marc21);
-
         $hierarchyTopTitles=$this->getHierarchyTopTitle();
         $this->mapChar($map, $hierarchyTopTitles, "t");
         $this->addDataField($map, "773", "0", " ", $record, $marc21);
