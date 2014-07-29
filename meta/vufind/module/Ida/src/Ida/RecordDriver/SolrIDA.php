@@ -479,6 +479,14 @@ abstract class SolrIDA extends SolrDefault
             $this->addDataField($map, "700", "1", " ", $record, $marc21);
         }
 
+        $hierarchyTopIDs=$this->getHierarchyTopID();
+        $this->mapChar($map, $hierarchyTopIDs, "w");
+        $this->addDataField($map, "773", "0", " ", $record, $marc21);
+
+        $hierarchyTopTitles=$this->getHierarchyTopTitle();
+        $this->mapChar($map, $hierarchyTopTitles, "t");
+        $this->addDataField($map, "773", "0", " ", $record, $marc21);
+
         $institutions=$this->getInstitutions();
         $this->mapChar($map, $institutions);
         $this->addDataField($map, "852", " ", " ", $record, $marc21);
