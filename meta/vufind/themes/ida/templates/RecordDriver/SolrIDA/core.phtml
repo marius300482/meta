@@ -102,7 +102,7 @@
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($physicals as $physical): ?>
-                <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physicals !== end($physicals) ? ", " : ""; ?>
+                <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physical !== end($physicals) ? ", " : ""; ?>
             <? endforeach; ?>
         <? endif; ?>
     </div>
