@@ -64,6 +64,11 @@ legend {
     font-weight: normal;
 }
 
+footer,
+strong {
+    font-weight: bold;
+}
+
 fieldset {
     border: 0;
 }
@@ -451,47 +456,49 @@ a.smallButton {
     font-size: 16px;
     height: 16px;
     width: 16px;
+    background-image: url("../images/icons/share_sprite-inactive.png");
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
+.footer .share li a:hover {
     background-image: url("../images/icons/share_sprite.png");
 }
 
 .footer .share .fb {
-    background-position: 0 -16px;
-}
-
-.footer .share .fb:hover {
-    background-position: 0 0;
+    background-position: 0px -30px;
+    width: 20px;
+    height: 20px;
 }
 
 .footer .share .tw {
-    background-position: -16px -16px;
+    background-position: 0px 0px;
+    width: 20px;
+    height: 20px;
 }
 
-.footer .share .tw:hover {
-    background-position: -16px 0;
+.footer .share .netvibes {
+    background-position: 0px -120px;
+    width: 20px;
+    height: 20px;
 }
 
-.footer .share .yt {
-    background-position: -32px -16px;
+.footer .share .flickr {
+    background-position: 0px -60px;
+    width: 20px;
+    height: 20px;
 }
 
-.footer .share .yt:hover {
-    background-position: -32px 0;
-}
-
-.footer .share .it {
-    background-position: -48px -16px;
-}
-
-.footer .share .it:hover {
-    background-position: -48px 0;
+.footer .share .librarything {
+    background-position: 0px -90px;
+    width: 22px;
+    height: 20px;
 }
 
 .footer .share .rss {
-    background-position: -64px -16px;
-}
-
-.footer .share .rss:hover {
-    background-position: -64px 0;
+    background-position: 0px -150px;
+    width: 20px;
+    height: 20px;
 }
 
 .footer .share .separate {
