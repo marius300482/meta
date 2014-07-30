@@ -19,6 +19,15 @@ abstract class SolrIDA extends SolrDefault
         parent::__construct($mainConfig, $recordConfig, $searchSettings);
     }
 
+    public function getAmazonAffiliateId()
+    {
+        $amazonassociate = false;
+        if (isset($this->mainConfig->Content->amazonassociate)) {
+            $amazonassociate = $this->mainConfig->Content->amazonassociate;;
+        }
+        return $amazonassociate;
+    }
+
      /**
      * Deduplicate author information into associative array with main/
      * additional keys.

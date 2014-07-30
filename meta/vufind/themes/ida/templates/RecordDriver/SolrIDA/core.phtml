@@ -249,7 +249,27 @@
              alt="<?= $this->transEsc('No Cover Image') ?>"/>
     <? endif; ?>
 
+    <div>
+        <? $loanStatus = $this->driver->tryMethod("getLoanStatus") ?>
+        <? if ($loanStatus !== null): ?>
+            <? if ($loanStatus): ?>
+                <img src="<?= $this->imageLink('icons/borrowed.png') ?>" alt="<?=$this->transEsc('Borrowed')?>" />
+            <? else: ?>
+                <span><img src="<?= $this->imageLink('icons/lendable.png') ?>" alt="<?=$this->transEsc('Available')?>" /> <?= $this->transEsc('Available') ?></span>
+            <? endif; ?>
+        <? endif; ?>
+        <? $loanReturn = $this->driver->tryMethod("getLoanReturn") ?>
+        <? if ($loanStatus && $loanReturn !== null): ?>
+            <span><?= $this->transEsc('until') ." " . $loanReturn ?></span>
+        <? endif; ?>
+    </div>
+
     <a href="<?=$this->recordLink()->getActionUrl($this->driver, 'Save')?>" class="hide saveRecord fav controllerRecord" id="saveRecord" title="<?=$this->transEsc('Add to favorites')?>"><?=$this->transEsc('Add to favorites')?></a>
+    <? $isbn = $this->driver->getCleanISBN() ?>
+    <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
+    <? if ($isbn && $amazonassociate): ?>
+        <a href="http://www.amazon.de/dp/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy at Amazon') ?>"><?= $this->transEsc('Buy at Amazon') ?></a>
+    <? endif; ?>
 
     <? /* Display qrcode if appropriate: */ ?>
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
