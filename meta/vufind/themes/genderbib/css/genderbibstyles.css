@@ -456,13 +456,13 @@ a.smallButton {
     font-size: 16px;
     height: 16px;
     width: 16px;
-    background-image: url("../images/icons/share_sprite-inactive.png");
+    background-image: url("../images/icons/share_sprite.png");
     background-repeat: no-repeat;
     background-position: top left;
 }
 
 .footer .share li a:hover {
-    background-image: url("../images/icons/share_sprite.png");
+    background-image: url("../images/icons/share_sprite_hover.png");
 }
 
 .footer .share .fb {
