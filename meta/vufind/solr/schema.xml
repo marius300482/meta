@@ -236,7 +236,7 @@
       <field name="systematik_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
        <field name="systematik_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
         <field name="translatedTerm" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="loanStatus" type="string" indexed="true" stored="true"/>
+	<field name="loanStatus" type="boolean" indexed="true" stored="true"/>
 	<field name="loanReturn" type="string" indexed="true" stored="true"/>
 	<field name="reviewer" type="text" indexed="true" stored="true"/>
 	<field name="documentType" type="text" indexed="true" stored="true"/>
