@@ -268,7 +268,7 @@
     <? $isbn = $this->driver->getCleanISBN() ?>
     <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
     <? if ($isbn && $amazonassociate): ?>
-        <a href="http://www.amazon.de/dp/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy at Amazon') ?>"><?= $this->transEsc('Buy at Amazon') ?></a>
+        <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy at Amazon') ?>"><img src="<?= $this->imageLink('icons/buy-from-tan.gif') ?>"/></a>
     <? endif; ?>
 
     <? /* Display the lists that this record is saved to */ ?>
