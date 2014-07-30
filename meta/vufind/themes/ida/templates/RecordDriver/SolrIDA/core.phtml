@@ -253,13 +253,13 @@
         <? $loanStatus = $this->driver->tryMethod("getLoanStatus") ?>
         <? if ($loanStatus !== null): ?>
             <? if ($loanStatus): ?>
-                <img src="<?= $this->imageLink('icons/borrowed.png') ?>" alt="<?=$this->transEsc('Borrowed')?>" />
-            <? else: ?>
                 <span><img src="<?= $this->imageLink('icons/lendable.png') ?>" alt="<?=$this->transEsc('Available')?>" /> <?= $this->transEsc('Available') ?></span>
+            <? else: ?>
+                <img src="<?= $this->imageLink('icons/borrowed.png') ?>" alt="<?=$this->transEsc('Borrowed')?>" />
             <? endif; ?>
         <? endif; ?>
         <? $loanReturn = $this->driver->tryMethod("getLoanReturn") ?>
-        <? if ($loanStatus && $loanReturn !== null): ?>
+        <? if (!$loanStatus && $loanReturn !== null): ?>
             <span><?= $this->transEsc('until') ." " . $loanReturn ?></span>
         <? endif; ?>
     </div>
@@ -269,12 +269,6 @@
     <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
     <? if ($isbn && $amazonassociate): ?>
         <a href="http://www.amazon.de/dp/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy at Amazon') ?>"><?= $this->transEsc('Buy at Amazon') ?></a>
-    <? endif; ?>
-
-    <? /* Display qrcode if appropriate: */ ?>
-    <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
-    <? if ($QRCode): ?>
-        <img alt="<?= $this->transEsc('QR Code') ?>" class="qrcode" src="<?= $this->escapeHtml($QRCode); ?>"/>
     <? endif; ?>
 
     <? /* Display the lists that this record is saved to */ ?>

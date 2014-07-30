@@ -370,7 +370,14 @@
         </tr>
     <? endif; ?>
 
-
+    <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
+    <? if ($QRCode): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('QRCode')?>: </th>
+            <td style="padding: 0px;"><img alt="<?= $this->transEsc('QR Code') ?>" class="qrcode" src="<?= $this->escapeHtml($QRCode); ?>"/></td>
+        </tr>
+    <? endif; ?>
 
     <? if (!isset($contentDisplayed) || !$contentDisplayed): // Avoid errors if there were no rows above ?>
         <tr><td><?=$this->transEsc('no_description')?></td></tr>
