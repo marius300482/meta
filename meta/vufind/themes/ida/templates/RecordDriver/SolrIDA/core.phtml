@@ -253,14 +253,14 @@
         <? $loanStatus = $this->driver->tryMethod("getLoanStatus") ?>
         <? if ($loanStatus !== null): ?>
             <? if ($loanStatus): ?>
-                <span><img src="<?= $this->imageLink('icons/lendable.png') ?>" alt="<?=$this->transEsc('Available')?>" /> <?= $this->transEsc('Available') ?></span>
+                <span><img src="<?= $this->imageLink('icons/lendable.png') ?>" alt="<?=$this->transEsc('Available')?>" title="<?=$this->transEsc('Available')?>" /> <?= $this->transEsc('Available') ?></span>
             <? else: ?>
-                <img src="<?= $this->imageLink('icons/borrowed.png') ?>" alt="<?=$this->transEsc('Borrowed')?>" />
+                <img src="<?= $this->imageLink('icons/borrowed.png') ?>" alt="<?=$this->transEsc('Checked Out')?>" title="<?=$this->transEsc('Checked Out')?>" />
             <? endif; ?>
         <? endif; ?>
         <? $loanReturn = $this->driver->tryMethod("getLoanReturn") ?>
         <? if (!$loanStatus && $loanReturn !== null): ?>
-            <span><?= $this->transEsc('until') ." " . $loanReturn ?></span>
+            <?= $this->transEsc('Due') ." " . $loanReturn ?>
         <? endif; ?>
     </div>
 
