@@ -12,6 +12,7 @@ $config = array(
                 ),
             ),
         ),
+        /*
         'recorddriver_tabs' => array(
             // Disable Staff View
             'Ida\RecordDriver\SolrIDA' => array(
@@ -24,6 +25,7 @@ $config = array(
                 'defaultTab' => null,
             ),
         ),
+        */
     ),
     'controllers' => array(
         'factories' => array(
@@ -61,7 +63,7 @@ $config = array(
             'idaoai' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/OAI/IDA',
+                    'route'    => '/OAI/Server',
                     'defaults' => array(
                         'controller' => 'idaoai',
                         'action'     => 'Server',
