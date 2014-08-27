@@ -459,16 +459,25 @@ abstract class SolrIDA extends SolrDefault
         $this->addDataField($map, "500", " ", " ", $record, $marc21);
 
         $personTopics=$this->getPersonTopics();
-        $this->mapChar($map, $personTopics);
-        $this->addDataField($map, "600", "1", "0", $record, $marc21);
+        foreach($personTopics as $personTopic)
+        {
+            $this->mapChar($map, array($personTopic));
+            $this->addDataField($map, "600", "1", "0", $record, $marc21);
+        }
 
         $topics=$this->getTopics();
-        $this->mapChar($map, $topics);
-        $this->addDataField($map, "650", "1", "4", $record, $marc21);
+        foreach($topics as $topic)
+        {
+            $this->mapChar($map, array($topic));
+            $this->addDataField($map, "650", "1", "4", $record, $marc21);
+        }
 
         $geographicTopics=$this->getGeographicTopics();
-        $this->mapChar($map, $geographicTopics);
-        $this->addDataField($map, "651", " ", "4", $record, $marc21);
+        foreach($geographicTopics as $geographicTopic)
+        {
+            $this->mapChar($map, array($geographicTopic));
+            $this->addDataField($map, "651", " ", "4", $record, $marc21);
+        }
 
         $formats=$this->getFormats();
         foreach ($formats as $format)
