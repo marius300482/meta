@@ -235,7 +235,16 @@
 
         $(function () {
 
-            // Advanced search
+            // Perform advanced search
+            $('#advSearchForm')
+                .find('input[type="submit"]')
+                .click(function (e) {
+//                    e.preventDefault();//test
+
+//                    track('Erweiterte Suche abgeschickt');
+                });
+
+            // Open advanced search form
             $('.searchform a.advancedSearch').click(function (e) {
 //                e.preventDefault();//test
 
