@@ -240,12 +240,19 @@
                 // "Similar tags"
                 .find('.span-5 a')
                 .click(function (e) {
-                    e.preventDefault();//test
+//                    e.preventDefault();//test
 
-                    var tag = $(this).text();
+                    var tag = $(this).text(),
+                        tagsAdditional = 1 === $(this).parents('#narrowGroupHidden_topic_facet').length;
 
                     if ('string' === typeof tag) {
-                        track('Suchergebnisliste', 'Einschränkung mittels Schlagwort "' + tag + '"');
+
+                        if (true === tagsAdditional) {
+                            track('Suchergebnisliste', 'Einschränkung mittels zusätzlichem Schlagwort "' + tag + '"');
+                        }
+                        else {
+                            track('Suchergebnisliste', 'Einschränkung mittels Schlagwort "' + tag + '"');
+                        }
                     }
                 })
                 .end()
