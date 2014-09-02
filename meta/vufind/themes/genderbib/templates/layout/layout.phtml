@@ -311,7 +311,7 @@
                     track('Suchergebnisliste', 'Wechsel zu Seite ' + pageId);
                 });
 
-            // List item
+            // Search result list items
             $('ul.recordSet div[class^=span-] a').click(function (e) {
 
                 var listItem = $(this).parents('li.result'),
@@ -319,7 +319,7 @@
 //                e.preventDefault();//test
 
                 if (null !== resultId && 0 < resultId.length) {
-                    track('Suchergebnisliste', 'Auswahl Treffer #' + resultId);
+                    track('Suchergebnisliste', 'Auswahl Treffer #' + (resultId * 1 + 1));
                 }
             });
         });
