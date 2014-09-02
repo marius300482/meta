@@ -235,17 +235,24 @@
 
         $(function () {
 
-            // Keywords
+            // Tags
             $('.authorbox')
+                // "Similar tags"
                 .find('.span-5 a')
                 .click(function (e) {
-//                    e.preventDefault();//test
+                    e.preventDefault();//test
 
                     var tag = $(this).text();
 
                     if ('string' === typeof tag) {
                         track('Suchergebnisliste', 'Einschränkung mittels Schlagwort "' + tag + '"');
                     }
+                })
+                .end()
+                // "More tags"
+                .find('#moretopic_facet')
+                .click(function (e) {
+                    track('Suchergebnisliste', 'Anzeige weiterer Schlagwörter');
                 });
 
             // Facets
@@ -256,7 +263,6 @@
 
                     var query = $(this).text(),
                         facet = $(this).parents('dl').find('dt').text();
-//                    console.log('q=',query,'f=',facet);
 
                     if ('string' === typeof facet && 'string' === typeof query) {
                         track('Suchergebnisliste', 'Einschränkung mittels Facette "' + facet + '"');
