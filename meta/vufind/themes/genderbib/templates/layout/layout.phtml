@@ -315,12 +315,16 @@
             $('ul.recordSet div[class^=span-] a').click(function (e) {
 
                 var listItem = $(this).parents('li.result'),
-                    resultId = (1 === listItem.length && 'string' === typeof listItem.attr('id')) ? listItem.attr('id').replace(/[^0-9]/g ,'') : null;
+                    resultId = listItem.find('.recordNumber').text();
+//                    resultId = (1 === listItem.length && 'string' === typeof listItem.attr('id')) ? listItem.attr('id').replace(/[^0-9]/g ,'') : null;
 //                e.preventDefault();//test
 
-                if (null !== resultId && 0 < resultId.length) {
-                    track('Suchergebnisliste', 'Auswahl Treffer #' + (resultId * 1 + 1));
+                if (0 < resultId.length) {
+                     track('Suchergebnisliste', 'Auswahl Treffer #' + resultId);
                 }
+//                if (null !== resultId && 0 < resultId.length) {
+//                    track('Suchergebnisliste', 'Auswahl Treffer #' + (resultId * 1 + 1));
+//                }
             });
         });
     }) (jQuery);
