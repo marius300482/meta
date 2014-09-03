@@ -196,9 +196,10 @@
     // IDA search event tracking
     (function ($) {
 
-        function track(c, a) {
+        function track(c, a, n) {
             console.log('track:',arguments);
-            _paq.push(['trackEvent', c, a]);
+
+            _paq.push(['trackEvent', c, a, n]);
         }
 
         /**
@@ -283,14 +284,12 @@
             $('.sidegroup')
                 .find('dl.navmenu a[class^=facet]')
                 .click(function (e) {
-//                    e.preventDefault();//test
 
                     var query = $(this).text(),
                         facet = $(this).parents('dl').find('dt').text();
 
                     if ('string' === typeof facet && 'string' === typeof query) {
-                        track('Suchergebnisliste', 'Einschränkung mittels Facette "' + facet + '"');
-//                        track('Suchergebnisliste', 'Einschränkung mittels Facette "' + facet + '"', 'Kriterium "' + query + '"');
+                        track('Facette', 'Facette: ' + facet, 'Wert: ' + query);
                     }
                 });
 
