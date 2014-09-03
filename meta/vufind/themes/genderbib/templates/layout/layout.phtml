@@ -258,7 +258,6 @@
                 // "Similar tags"
                 .find('.span-5 a')
                 .click(function (e) {
-//                    e.preventDefault();//test
 
                     var tag = $(this).text(),
                         tagsAdditional = 1 === $(this).parents('#narrowGroupHidden_topic_facet').length;
@@ -266,10 +265,10 @@
                     if ('string' === typeof tag) {
 
                         if (true === tagsAdditional) {
-                            track('Suchergebnisliste', 'Einschränkung mittels zusätzlichem Schlagwort "' + tag + '"');
+                            track('Facette', 'Facette: Schlagwort (weitere)', 'Wert: ' + tag);
                         }
                         else {
-                            track('Suchergebnisliste', 'Einschränkung mittels Schlagwort "' + tag + '"');
+                            track('Facette', 'Facette: Schlagwort', 'Wert: ' + tag);
                         }
                     }
                 })
@@ -277,7 +276,7 @@
                 // "More tags"
                 .find('#moretopic_facet')
                 .click(function (e) {
-                    track('Suchergebnisliste', 'Anzeige weiterer Schlagwörter');
+                    track('Weitere Schlagwörter anzeigen', 'Auf');
                 });
 
             // Facets
@@ -319,7 +318,7 @@
                         resultId = listItem.find('.recordNumber').text();
 
                     if (0 < resultId.length) {
-                         track('Suchergebnis Klick', 'Position ' + resultId);
+                         track('Suchergebnis klicken', 'Position ' + resultId);
                     }
                 });
         });
