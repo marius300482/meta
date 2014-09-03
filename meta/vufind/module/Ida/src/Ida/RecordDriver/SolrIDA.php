@@ -360,22 +360,12 @@ abstract class SolrIDA extends SolrDefault
     {
         $map = array();
 
-        $xml = new \SimpleXMLElement(
-            '<OAI-PMH '
-            . 'xmlns="http://www.openarchives.org/OAI/2.0/" '
-            . 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-            . 'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ '
-            . 'http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd" />'
-        );
-        $record = $xml->addChild('record');
+        $record = new \SimpleXMLElement('<record/>');
         $marc21="http://www.loc.gov/MARC21/slim";
         $record->addAttribute('xmlns', $marc21);
-        $record->addAttribute(
-            'xsi:schemaLocation',
-            'http://www.loc.gov/MARC21/slim ' .
-            'http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd',
-            'http://www.w3.org/2001/XMLSchema-instance'
-        );
+        $record->addAttribute('xmlns', 'http://www.w3.org/2001/XMLSchema-instance');
+        $record->addAttribute('xsi:schemaLocation',
+            'http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd');
         $record->addAttribute('type', 'Bibliographic');
 
         $leader=$this->getLeader();
@@ -507,7 +497,7 @@ abstract class SolrIDA extends SolrDefault
         $this->mapChar($map, $institutions);
         $this->addDataField($map, "852", " ", " ", $record, $marc21);
 
-        return $xml->asXML();
+        return $record->asXML();
     }
 
     /**
