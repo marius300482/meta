@@ -196,29 +196,14 @@
     // IDA search event tracking
     (function ($) {
 
-        function trackSearch(keywrd, c) {
+        function trackSearch(keywrd, c, results) {
             console.log('trackSearch:',arguments);
 
-            var categories = [],
-                results = false,
-                k = 0;
-
             if (!$.isArray(c)) {
-                c = [];
+                c = ('string' === typeof c) ? [c] : [];
             }
 
-            for (; k < c.length; k++) {
-
-                if ('string' === typeof c[k].title) {
-
-                    categories.push(c[k].title);
-
-                    // TODO: sum results
-                }
-            }
-
-//            console.log('c='+categories.sort().join(' '));
-           _paq.push(['trackSiteSearch', keywrd, categories.sort().join(' '), results]);
+           _paq.push(['trackSiteSearch', keywrd, c.sort().join(' '), results]);
         }
 
         function trackEvent(c, a, n) {
@@ -261,6 +246,31 @@
         }
 
         $(function () {
+
+            // Track site search
+            var url = _parse(window.location);
+
+            if (-1 !== url.path.indexOf('Search/Results')) {
+
+                var query = decodeURIComponent(url.params.lookfor),
+                    category = [],
+                    resultsStr = $('.resulthead .floatleft').text(),
+                    results = false;
+
+                // Collect facets
+                $('.sidegroup')
+                    .find('.narrowList dd.applied')
+                    .each(function (idx, elem) {
+                        category.push($(elem).prev().text());
+                    });
+
+                // Results count
+                if ('string' === typeof resultsStr && resultsStr.match(/von ([0-9]+)/)) {
+                    results = 1 * RegExp.$1;
+                }
+
+                trackSearch(query, category, results);
+            }
 
             // Perform advanced search
             $('#advSearchForm')
@@ -307,25 +317,10 @@
 //                    e.preventDefault();//test
 
                     var facet = $(this).parents('dl').find('dt').text(),
-                        facetValue = $(this).text(),
-                        // Track site search
-                        query = decodeURIComponent(_parse($(this).attr('href')).params.lookfor),
-                        srch = [{title: facet, results: 1337}];
-//                        href = _parse($(this).attr('href'));
-                    console.log('q=',query);
-                    $(this)
-                        .parents('.sidegroup')
-                        .find('.narrowList dd.applied')
-                        .each(function (idx, elem) {
-                            console.log('fac appl=',$(elem).prev().text());
-                            srch.push({title: $(elem).prev().text(), result: 1337});
-                        });
-                    console.log('fac search:',srch);
-
+                        facetValue = $(this).text();
 
                     if ('string' === typeof facet && 'string' === typeof facetValue) {
                         trackEvent('Facette', 'Facette: ' + facet, 'Wert: ' + facetValue);
-                        trackSearch(query, srch);
                     }
                 });
 
