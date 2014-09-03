@@ -308,24 +308,21 @@
                         pageId = '1';
                     }
 
-                    track('Suchergebnisliste', 'Wechsel zu Seite ' + pageId);
+                    track('Suchseite blättern', 'Seite ' + pageId);
                 });
 
             // Search result list items
-            $('ul.recordSet div[class^=span-] a').click(function (e) {
+            $('ul.recordSet')
+                .find('.span-2 a, .span-9 .resultItemLine1 a')
+                .click(function (e) {
 
-                var listItem = $(this).parents('li.result'),
-                    resultId = listItem.find('.recordNumber').text();
-//                    resultId = (1 === listItem.length && 'string' === typeof listItem.attr('id')) ? listItem.attr('id').replace(/[^0-9]/g ,'') : null;
-//                e.preventDefault();//test
+                    var listItem = $(this).parents('li.result'),
+                        resultId = listItem.find('.recordNumber').text();
 
-                if (0 < resultId.length) {
-                     track('Suchergebnisliste', 'Auswahl Treffer #' + resultId);
-                }
-//                if (null !== resultId && 0 < resultId.length) {
-//                    track('Suchergebnisliste', 'Auswahl Treffer #' + (resultId * 1 + 1));
-//                }
-            });
+                    if (0 < resultId.length) {
+                         track('Suchergebnis Klick', 'Position ' + resultId);
+                    }
+                });
         });
     }) (jQuery);
 </script>
