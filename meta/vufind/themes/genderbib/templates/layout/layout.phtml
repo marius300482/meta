@@ -196,8 +196,33 @@
     // IDA search event tracking
     (function ($) {
 
-        function track(c, a, n) {
-            console.log('track:',arguments);
+        function trackSearch(keywrd, c) {
+            console.log('trackSearch:',arguments);
+
+            var categories = [],
+                results = false,
+                k = 0;
+
+            if (!$.isArray(c)) {
+                c = [];
+            }
+
+            for (; k < c.length; k++) {
+
+                if ('string' === typeof c[k].title) {
+
+                    categories.push(c[k].title);
+
+                    // TODO: sum results
+                }
+            }
+
+//            console.log('c='+categories.sort().join(' '));
+           _paq.push(['trackSiteSearch', keywrd, categories.sort().join(' '), results]);
+        }
+
+        function trackEvent(c, a, n) {
+            console.log('trackEvent:',arguments);
 
             _paq.push(['trackEvent', c, a, n]);
         }
@@ -241,12 +266,12 @@
             $('#advSearchForm')
                 .find('input[type="submit"]')
                 .click(function (e) {
-                    track('Erweiterte Suche', 'Formular abgeschickt');
+                    trackEvent('Erweiterte Suche', 'Formular abgeschickt');
                 });
 
             // Open advanced search form
             $('.searchform a.advancedSearch, .footer > .span-5 ul li:last-child a').click(function (e) {
-                track('Erweiterte Suche');
+                trackEvent('Erweiterte Suche');
             });
 
             // Tags
@@ -261,10 +286,10 @@
                     if ('string' === typeof tag) {
 
                         if (true === tagsAdditional) {
-                            track('Facette', 'Facette: Schlagwort (weitere)', 'Wert: ' + tag);
+                            trackEvent('Facette', 'Facette: Schlagwort (weitere)', 'Wert: ' + tag);
                         }
                         else {
-                            track('Facette', 'Facette: Schlagwort', 'Wert: ' + tag);
+                            trackEvent('Facette', 'Facette: Schlagwort', 'Wert: ' + tag);
                         }
                     }
                 })
@@ -272,19 +297,35 @@
                 // "More tags"
                 .find('#moretopic_facet')
                 .click(function (e) {
-                    track('Weitere Schlagwörter anzeigen', 'Auf');
+                    trackEvent('Weitere Schlagwörter anzeigen', 'Auf');
                 });
 
             // Facets
             $('.sidegroup')
                 .find('dl.navmenu a[class^=facet]')
                 .click(function (e) {
+//                    e.preventDefault();//test
 
-                    var query = $(this).text(),
-                        facet = $(this).parents('dl').find('dt').text();
+                    var facet = $(this).parents('dl').find('dt').text(),
+                        facetValue = $(this).text(),
+                        // Track site search
+                        query = decodeURIComponent(_parse($(this).attr('href')).params.lookfor),
+                        srch = [{title: facet, results: 1337}];
+//                        href = _parse($(this).attr('href'));
+                    console.log('q=',query);
+                    $(this)
+                        .parents('.sidegroup')
+                        .find('.narrowList dd.applied')
+                        .each(function (idx, elem) {
+                            console.log('fac appl=',$(elem).prev().text());
+                            srch.push({title: $(elem).prev().text(), result: 1337});
+                        });
+                    console.log('fac search:',srch);
 
-                    if ('string' === typeof facet && 'string' === typeof query) {
-                        track('Facette', 'Facette: ' + facet, 'Wert: ' + query);
+
+                    if ('string' === typeof facet && 'string' === typeof facetValue) {
+                        trackEvent('Facette', 'Facette: ' + facet, 'Wert: ' + facetValue);
+                        trackSearch(query, srch);
                     }
                 });
 
@@ -302,7 +343,7 @@
                         pageId = '1';
                     }
 
-                    track('Suchseite blättern', 'Seite ' + pageId);
+                    trackEvent('Suchseite blättern', 'Seite ' + pageId);
                 });
 
             // Search result list items
@@ -314,7 +355,7 @@
                         resultId = listItem.find('.recordNumber').text();
 
                     if (0 < resultId.length) {
-                         track('Suchergebnis klicken', 'Position ' + resultId);
+                         trackEvent('Suchergebnis klicken', 'Position ' + resultId);
                     }
                 });
         });
