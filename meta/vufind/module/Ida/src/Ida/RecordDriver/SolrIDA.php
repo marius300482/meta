@@ -360,12 +360,15 @@ abstract class SolrIDA extends SolrDefault
     {
         $map = array();
 
-        $record = new \SimpleXMLElement('<record/>');
         $marc21="http://www.loc.gov/MARC21/slim";
+        $xsi = "http://www.w3.org/2001/XMLSchema-instance";
+
+        $record = new \SimpleXMLElement('<record/>');
+        $record->addAttribute('xmlns:xsi', $xsi);
         $record->addAttribute('xmlns', $marc21);
-        $record->addAttribute('xmlns', 'http://www.w3.org/2001/XMLSchema-instance');
         $record->addAttribute('xsi:schemaLocation',
-            'http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd');
+            'http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd',
+            $xsi);
         $record->addAttribute('type', 'Bibliographic');
 
         $leader=$this->getLeader();
