@@ -241,16 +241,12 @@
             $('#advSearchForm')
                 .find('input[type="submit"]')
                 .click(function (e) {
-//                    e.preventDefault();//test
-
-//                    track('Erweiterte Suche abgeschickt');
+                    track('Erweiterte Suche', 'Formular abgeschickt');
                 });
 
             // Open advanced search form
-            $('.searchform a.advancedSearch').click(function (e) {
-//                e.preventDefault();//test
-
-//                track('Erweiterte Suche ausgewählt')
+            $('.searchform a.advancedSearch, .footer > .span-5 ul li:last-child a').click(function (e) {
+                track('Erweiterte Suche');
             });
 
             // Tags
