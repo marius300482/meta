@@ -146,7 +146,6 @@ NOSCRIPT;
 
             var query = decodeURIComponent(url.params.lookfor),
                 category = [],
-                resultsStr = $('.resulthead .floatleft').text(),
                 results = false;
 
             // Collect facets
@@ -157,10 +156,11 @@ NOSCRIPT;
                 });
 
             // Results count
-            if ('string' === typeof resultsStr && resultsStr.match(/von ([0-9]+)/)) {
-                results = 1 * RegExp.$1;
+            if (1 === $('.resulthead').length && undefined !== $('.resulthead').data('num-results')) {
+                results = 1 * $('.resulthead').data('num-results');
             }
 
+            console.log('trcksrch',query,category,results);
             trackSearch(query, category, results);
         }
 
