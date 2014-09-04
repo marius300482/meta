@@ -1,6 +1,25 @@
 <?
     // Set up page title:
     $lookfor = $this->params->getDisplayQuery();
+
+    // Query string to be used for tracking purposes
+    $lookforTracking = $lookfor;
+
+    // Advanced search?
+//    if (1 === preg_match('/^\(.+:.+\)$/', $lookforTracking)) {
+//
+//        $queryWords = array();
+//        $lookforTracking = explode(' UND ', str_replace(')', '', str_replace('(', '', $lookforTracking)));
+//
+//        foreach ($lookforTracking as $queryPart) {
+//            if (false !== ($pos = strpos($queryPart, ':'))) {
+//                $queryWords[] = substr($queryPart, $pos + 1);
+//            }
+//        }
+//
+//        $lookforTracking = implode(' ', $queryWords);
+//    }
+
     if (isset($this->overrideTitle)) {
         $this->headTitle($this->overrideTitle);
     } else {
@@ -41,7 +60,7 @@
     <? endforeach; ?>
   <? endif; ?>
   <?=$this->flashmessages()?>
-  <div class="resulthead" data-query="<?= $lookfor; ?>" data-num-results="<?= $recordTotal; ?>">
+  <div class="resulthead" data-query="<?= $lookforTracking; ?>" data-num-results="<?= $recordTotal; ?>">
     <div class="floatleft">
       <? if ($recordTotal > 0): ?>
         <?=$this->transEsc("Showing")?>

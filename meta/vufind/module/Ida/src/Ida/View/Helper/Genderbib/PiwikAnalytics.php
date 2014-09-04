@@ -144,9 +144,19 @@ NOSCRIPT;
 
         if (-1 !== url.path.indexOf('Search/Results')) {
 
-            var query = decodeURIComponent(url.params.lookfor),
+            var query = '',
                 category = [],
                 results = false;
+
+            // Query and results count
+            if (1 === $('.resulthead').length) {
+
+                query = $('.resulthead').data('query');
+
+                if (undefined !== $('.resulthead').data('num-results')) {
+                    results = 1 * $('.resulthead').data('num-results');
+                }
+            }
 
             // Collect facets
             $('.sidegroup')
@@ -155,12 +165,6 @@ NOSCRIPT;
                     category.push($(elem).prev().text());
                 });
 
-            // Results count
-            if (1 === $('.resulthead').length && undefined !== $('.resulthead').data('num-results')) {
-                results = 1 * $('.resulthead').data('num-results');
-            }
-
-            console.log('trcksrch',query,category,results);
             trackSearch(query, category, results);
         }
 
