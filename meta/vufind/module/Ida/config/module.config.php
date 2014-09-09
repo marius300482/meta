@@ -12,24 +12,26 @@ $config = array(
                 ),
             ),
         ),
-        /*
         'recorddriver_tabs' => array(
-            // Disable Staff View
+            // Disable Holdings and  Staff View
             'Ida\RecordDriver\SolrIDA' => array(
                 'tabs' => array (
-                    'Holdings' => 'HoldingsILS', 'Description' => 'Description',
-                    'TOC' => 'TOC', 'UserComments' => 'UserComments',
-                    'Reviews' => 'Reviews', 'Excerpt' => 'Excerpt',
-                    'HierarchyTree' => 'HierarchyTree', 'Map' => 'Map',
+                    'Description' => 'Description',
+                    'TOC' => 'TOC',
+                    'UserComments' => 'UserComments',
+                    'Reviews' => 'Reviews',
+                    'Excerpt' => 'Excerpt',
+                    'HierarchyTree' => 'HierarchyTree',
+                    'Map' => 'Map',
                 ),
                 'defaultTab' => null,
             ),
         ),
-        */
     ),
     'controllers' => array(
         'factories' => array(
             'topics' => array('Ida\Factory', 'getTopicsController'),
+            'mycollection' => array('VuFind\Controller\Factory', 'getRecordController'),
         ),
         'invokables' => array(
             'idaoai' => 'Ida\Controller\IdaOaiController',
