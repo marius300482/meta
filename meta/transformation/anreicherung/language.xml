@@ -29,6 +29,12 @@
 	<language name="Schwedisch" code="swe" use="schwedisch" />
 	<language name="Spanisch" code="spa" use="spanisch" />
 	<language name="Türkisch" code="tur" use="türkisch" />
+	<language name="Japanisch" code="jpn" use="japanisch" />
+	<language name="Rumänisch" code="ron" use="rumänisch" />
+	<language name="Hebräisch" code="hbe" use="hebräisch" />
+	<language name="Serbokroatisch" code="hbs" use="serbokroatisch" />
+	<language name="Arabisch" code="ara" use="arabisch" />
+	<language name="Persisch" code="fas" use="persisch" />
 	
 
 </root>
