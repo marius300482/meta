@@ -31,7 +31,6 @@ $config = array(
     'controllers' => array(
         'factories' => array(
             'topics' => array('Ida\Factory', 'getTopicsController'),
-            'mycollection' => array('VuFind\Controller\Factory', 'getRecordController'),
         ),
         'invokables' => array(
             'idaoai' => 'Ida\Controller\IdaOaiController',
