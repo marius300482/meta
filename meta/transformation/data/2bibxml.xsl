@@ -157,7 +157,9 @@
     			<xsl:if test="dataset/documentType">
     				<field name="documentType"><xsl:value-of select="dataset/documentType" /></field>
     				</xsl:if>
-    			
+    	
+    	<!--Titelangaben-->
+    	
 			<field name="title"><xsl:value-of select="dataset/title[normalize-space()]"/></field>
                    	 	
             		<xsl:if test="dataset/title_sub">
@@ -168,6 +170,31 @@
 				<field name="title_short"><xsl:value-of select="dataset/title_short[normalize-space()]"/></field>
 				</xsl:if>
     			
+    			<xsl:if test="dataset/formerTitle">
+                   	 		<xsl:for-each select="dataset/formerTitle">
+                   	 			<field name="formerTitle">
+           					<xsl:value-of select="." />
+	                   	 			</field>
+                   	 			</xsl:for-each>
+                   	 		</xsl:if>
+                   	 		
+                   	 	<xsl:if test="dataset/upcomingTitle">
+                   	 		<xsl:for-each select="dataset/upcomingTitle">
+                   	 			<field name="upcomingTitle">
+           					<xsl:value-of select="." />
+	                   	 			</field>
+                   	 			</xsl:for-each>
+                   	 		</xsl:if>
+                   	 	
+                   	 	<xsl:if test="dataset/alternativeTitle">
+                   	 		<xsl:for-each select="dataset/alternativeTitle">
+                   	 			<field name="alternativeTitle">
+                   	 				<xsl:value-of select="." />
+                   	 				</field>
+                   	 			</xsl:for-each>
+                   	 		</xsl:if>
+    			
+    	<!--beteiligte Personen-->	
     			<xsl:if test="dataset/author[1]">
 				<field name="author"><xsl:value-of select="dataset/author[1]" /></field>
 				</xsl:if>
@@ -321,6 +348,12 @@
 						<field name="project"><xsl:value-of select="." /></field>
 						</xsl:if>
 					</xsl:for-each>
+				</xsl:if>
+			
+			<xsl:if test="dataset/edition">
+				<field name="edition">
+					<xsl:value-of select="dataset/edition" />
+					</field>
 				</xsl:if>
 			
 			<xsl:if test="dataset/url">
