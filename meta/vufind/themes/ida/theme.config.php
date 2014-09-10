@@ -14,7 +14,8 @@ return array(
 */
     ),
     'js' => array(
-        'ida.js'
+        'ZeroClipboard.min.js',
+        'ida.js',
     ),
 /*
     'favicon' => 'vufind-favicon.ico',
