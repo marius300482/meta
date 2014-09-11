@@ -54,7 +54,7 @@ class PiwikAnalytics extends \Zend\View\Helper\AbstractHelper {
     public function __invoke() {
 
         if (null === $this->_trackerURL || null === $this->_siteId) {
-            return 'NOPE';
+            return '';
         }
 
         $html = '';
