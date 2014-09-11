@@ -29,7 +29,7 @@ return array(
     'favicon' => 'favicon.ico',
     'helpers' => array(
         'factories' => array(
-            'piwikanalytics' => array('Ida\View\Helper\Genderbib\Factory', 'getPiwikAnalytics'),
+            'piwikanalytics' => array('Ida\View\Helper\Factory', 'getPiwikAnalytics'),
 //            'layoutclass' => array('VuFind\View\Helper\Blueprint\Factory', 'getLayoutClass'),
         ),
 //        'invokables' => array(

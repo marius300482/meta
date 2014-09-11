@@ -1,11 +1,11 @@
 <?php
 /**
- * Factory for Genderbib view helpers.
+ * Factory for view helpers.
  *
  * @package  View_Helpers
  * @author   dkuom <dku@outermedia.de>
  */
-namespace Ida\View\Helper\Genderbib;
+namespace Ida\View\Helper;
 use Zend\ServiceManager\ServiceManager;
 
 /**

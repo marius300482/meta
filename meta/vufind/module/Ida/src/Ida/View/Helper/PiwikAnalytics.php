@@ -5,7 +5,7 @@
  * @package  View_Helpers
  * @author   dkuom <dku@outermedia.de>
  */
-namespace Ida\View\Helper\Genderbib;
+namespace Ida\View\Helper;
 
 /**
  * Piwik Analytics view helper
