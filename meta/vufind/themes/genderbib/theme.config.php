@@ -27,13 +27,12 @@ return array(
         */
     ),
     'favicon' => 'favicon.ico',
-    'helpers' => array(
-        'factories' => array(
-            'piwikanalytics' => array('Ida\View\Helper\Factory', 'getPiwikAnalytics'),
+//    'helpers' => array(
+//        'factories' => array(
 //            'layoutclass' => array('VuFind\View\Helper\Blueprint\Factory', 'getLayoutClass'),
-        ),
+//        ),
 //        'invokables' => array(
 //            'search' => 'VuFind\View\Helper\Blueprint\Search',
 //        )
-    )
+//    )
 );
