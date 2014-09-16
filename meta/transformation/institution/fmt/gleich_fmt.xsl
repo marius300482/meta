@@ -32,7 +32,7 @@
 
 <xsl:template match="Datensatz" name="tokenize">	
 	
-<xsl:if test="Objektart_x058x_[text()='Zeitschrift']">
+<!--<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">-->
 	
 		<xsl:variable name="id" select="Objektnummer_x058x_" />
 		<xsl:element name="record">
@@ -90,9 +90,9 @@
 							<xsl:text>FMT</xsl:text>
 							</institutionShortname>
 	
-<!--institutionFullname-->			<institutionsFullname>
+<!--institutionFullname-->			<institutionFull>
 							<xsl:text>FrauenMediaTurm, Das Archiv und Dokumentationszentrum</xsl:text>
-							</institutionsFullname>
+							</institutionFull>
 			
 <!--collection-->				<collection><xsl:text>FMT</xsl:text></collection>
 	
@@ -670,6 +670,15 @@
 							<xsl:text>)</xsl:text>
 							<xsl:value-of select="Heft_x058x_" />
 							</title>
+						<title_short>
+							<xsl:value-of select="Titel_x058x_" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="Jg_x046x__x047x_Vol_x046x__x058x_"/>
+							<xsl:text>(</xsl:text>
+							<xsl:value-of select="Jahr_x058x_" />
+							<xsl:text>)</xsl:text>
+							<xsl:value-of select="Heft_x058x_" />
+							</title_short>
 						</xsl:when>
 					<xsl:when test="Zeitschrift_x032x__x040x_Link_x041x__x058x_">
 						<title>
@@ -681,6 +690,15 @@
 							<xsl:text>)</xsl:text>
 							<xsl:value-of select="Heft_x058x_" />
 							</title>
+						<title_short>
+							<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_" />
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="Jg_x046x__x047x_Vol_x046x__x058x_"/>
+							<xsl:text>(</xsl:text>
+							<xsl:value-of select="Jahr_x058x_" />
+							<xsl:text>)</xsl:text>
+							<xsl:value-of select="Heft_x058x_" />
+							</title_short>
 						</xsl:when>
 					<xsl:otherwise>
 						<title>
@@ -711,13 +729,15 @@
 						</format>
 
 <!--ISBN / ISSN-->
+				<xsl:if test="//Datensatz[Signatur_x058x_=$rel]/ISSN_x058x_">
 					<issn>
 						<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/ISSN_x058x_"/>
 						</issn>
+					</xsl:if>
 
 <!--ZDBID-->
 				<xsl:if test="//Datensatz[Signatur_x058x_=$rel]/ZDB-ID_x058x_">
-					<xsl:for-each select="ZDB-ID_x058x_">
+					<xsl:for-each select="//Datensatz[Signatur_x058x_=$rel]/ZDB-ID_x058x_">
 						<zdbId>
 							<xsl:value-of select="substring-before(.,';')"/>
 							</zdbId>
@@ -797,17 +817,18 @@
 					</xsl:if>
 					
 <!--description-->
-				<xsl:if test="Inhaltsverzeichnis_x058x_">
-					<description>
-						<xsl:value-of select="Inhaltsverzeichnis_x058x_" />
-						</description>
+				<xsl:if test="Inhaltsverzeichnis_x058x_[1]">
+					<xsl:for-each select="tokenize(Inhaltsverzeichnis_x058x_[1], '&lt;p/&gt;')">
+						<listOfContents>
+							<xsl:value-of select="normalize-space(.)"/>
+							</listOfContents>
+						</xsl:for-each>
 					</xsl:if>
-
 
 </xsl:element>
 
 <xsl:element name="functions">
-	<xsl:variable name="rel" select="substring-before(Artikel_x032x__x040x_Link_x041x__x058x_,':')" />
+	<xsl:variable name="rel" select="substring-before(Signatur_x058x_,':')" />
 		<hierarchyFields>
 				<hierarchyFields>
 				<hierarchy_top_id><xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Objektnummer_x058x_" /><xsl:text>fmt</xsl:text></hierarchy_top_id>
@@ -859,6 +880,12 @@
 				<typeOfRessource>
 						<xsl:text>text</xsl:text>
 					</typeOfRessource>
+
+
+<!--format Objektartinformationen-->
+					<format>
+						<xsl:text>Artikel</xsl:text>
+						</format>
 
 <!--documentType-->
 				<xsl:if test="Formen_x058x_">
@@ -966,15 +993,15 @@
 				<hierarchy_top_id><xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Objektnummer_x058x_" /><xsl:text>fmt</xsl:text></hierarchy_top_id>
 				<hierarchy_top_title>
 					<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Zeitschrift_x032x__x040x_Link_x041x__x058x_" />
-					<xsl:text> </xsl:text><xsl:value-of select="Heft_x058x_" />
-					<xsl:text>/</xsl:text><xsl:value-of select="Jahr_x058x_" />
+					<xsl:text>(</xsl:text><xsl:value-of select="Jahr_x058x_" /><xsl:text>)</xsl:text>
+					<xsl:value-of select="Heft_x058x_" />
 					</hierarchy_top_title>
 				
 				<hierarchy_parent_id><xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Objektnummer_x058x_" /><xsl:text>fmt</xsl:text></hierarchy_parent_id>
 				<hierarchy_parent_title>
 					<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Zeitschrift_x032x__x040x_Link_x041x__x058x_" />
-					<xsl:text> </xsl:text><xsl:value-of select="Heft_x058x_" />
-					<xsl:text>/</xsl:text><xsl:value-of select="Jahr_x058x_" />
+					<xsl:text>(</xsl:text><xsl:value-of select="Jahr_x058x_" /><xsl:text>)</xsl:text>
+					<xsl:value-of select="Heft_x058x_" />
 					</hierarchy_parent_title>
 				
 				<is_hierarchy_id><xsl:value-of select="Objektnummer_x058x_" /><xsl:text>fmt</xsl:text></is_hierarchy_id>
@@ -1008,7 +1035,12 @@
 				<typeOfRessource>
 						<xsl:text>text</xsl:text>
 					</typeOfRessource>
-					
+
+<!--format Objektartinformationen-->
+					<format>
+						<xsl:text>Artikel</xsl:text>
+						</format>
+			
 <!--documentType-->
 				<xsl:if test="Formen_x058x_">
 					<documentType>
@@ -1106,7 +1138,16 @@
 							</subjectPerson>
 						</xsl:for-each>
 					</xsl:if>					
-				
+
+<!--sourceInfo-->	
+				<xsl:if test="In_x032x_Zeitschrift_x058x_">
+					<xsl:for-each select="In_x032x_Zeitschrift_x058x_">
+						<sourceInfo>
+							<xsl:value-of select="." />
+							</sourceInfo>	
+						</xsl:for-each>
+					</xsl:if>				
+			
 	</xsl:element>
 
 <xsl:if test="Heft_x032x__x040x_Link_x041x__x058x_">
@@ -1141,7 +1182,7 @@
 
 </xsl:element>
 
-</xsl:if>
+<!--</xsl:if>-->
 
 </xsl:template>
 
