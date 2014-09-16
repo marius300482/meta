@@ -96,6 +96,11 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('seriesNr');
     }
 
+    public function getInstitutionFull()
+    {
+        return $this->getMultiValuedField("institutionFull");
+    }
+    
     public function getTranslatedTerms()
     {
         return $this->getMultiValuedField("translatedTerms");
@@ -112,6 +117,21 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('title_sub');
     }
 
+    public function getFormerTitles()
+    {
+      return $this->getMultiValuedField("formerTitle");
+    }
+
+    public function getUpcomingTitles()
+    {
+      return $this->getMultiValuedField("upcomingTitle");
+    }
+    
+    public function getAlternativeTitles()
+    {
+      return $this->getMultiValuedField("alternativeTitle");
+    }
+    
     public function getEditors()
     {
         return $this->getMultiValuedField("editor");
@@ -193,6 +213,11 @@ abstract class SolrIDA extends SolrDefault
         return $this->getMultiValuedField("zdbId");
     }
 
+    public function getSourceInfos()
+    {
+        return $this->getMultiValuedField("sourceInfo");
+    }
+
     public function getShelfMark()
     {
         return $this->getSingleValuedField('shelfMark');
@@ -252,7 +277,12 @@ abstract class SolrIDA extends SolrDefault
     {
         return $this->getMultiValuedField("recordContentSource");
     }
-
+    
+    public function getListOfContents()
+    {
+        return $this->getMultiValuedField("listOfContents");
+    }
+    
     protected function getSingleValuedField($fieldName)
     {
         return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : null;
