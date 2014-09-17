@@ -30,7 +30,7 @@
 
 <!--Der Objektknoten-->
 
-<xsl:template match="Datensatz" name="tokenize">	
+	<xsl:template match="Datensatz" name="tokenize">	
 	
 <!--<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">-->
 	
