@@ -20,43 +20,60 @@
 				<longitude>13.394218799999976</longitude>
 			</geoLocation>
 		</institution>
+		
 		<dataset>
 			<typeOfRessource/>
-			<format/><!-- Objektart -->
-			<documentTyp/>
-			<title>Titel</title>
-			<title_short/>
-			<title_sub/>
-			<author/>
-			<editor/>
-			<entity/><!--Körperschaft-->
-			<reviewer/>
+			<format/>		<!--Objektart-->
+			<documentTyp/>		<!--Dokumententyp wenn angegeben -->
+			
+		<!--Titelangaben-->
+			<title>Titel</title>	<!--Titel wie angesetzt-->
+			<title_short/>		<!--Hauptsachtitel-->
+			<title_sub/>		<!--Zusatz zum Sachtitel-->
+			<upcomingTitle/>	<!--Späterer Titel-->
+			<formerTitle/>		<!--Früherer Titel-->
+			<alternativeTitle/>	<!--Alternativer Titel z.b. Origignaltitel-->
+			
+		<!--Angaben über beteiligte Personen am Werk-->
+			<author/>		<!--Autorinneen-->
+			<editor/>		<!--Herausgeber_innen oder Herausgegeben von-->
+			<entity/>		<!--Körperschaft-->
+			<contributor>		<!--beiligte Personen z.B. Vorwort, Übersetzerin-->
+			<reviewer/>		<!--Gutachter_in bei z.B. Hochschularbeiten-->
+			
+			
 			<series/>
 			<seriesNr/>
+		
+		<!--Identnummern-->
 			<isbn/>
 			<issn/>
 			<zdbid/>
-			<displayPublishDate /><!--Zeit wie in den Datensätzen angegeben-->
-			<publishDate/><!--Aufgerarbeitete Zeitangaben-->
+		
+		<!--Zeitangaben-->
+			<displayPublishDate />	<!--Zeit wie angesetzt-->
+			<publishDate/>		<!--Aufgerarbeitete Zeitangaben-->
 			<timeSpan>
 				<timeSpanStart/>
 				<timeSpanEnd/>
 				</timeSpan>
+			
 			<placeOfPublication/>
 			<publisher/>
-			<physical/><!--Seiten/Umfang-->
-			<dimension/><!--Angabe der Ausmaße eines Dokumentes / Kiste-->
-			<runTime/><!--Laufzeit Video-->
+			<physical/>		<!--Seiten oder Umfang-->
+			<dimension/>		<!--Angabe der physischen Ausmaße eines Dokumentes / Kiste-->
+			<runTime/>		<!--Laufzeit Video zb. 60min-->
 			<languageCode/>
 			<language/>
-			<subjectTopic/><!--Schlagworte-->
-			<subjectPerson/>
-			<subjectGeographic/>
-			<shelfMark/><!--Signatur-->
-			<issue/><!--Heft-->
-			<volume/><!--Jahrgang-->
+			<subjectTopic/>		<!--Schlagworte-->
+			<subjectPerson/>	<!--Personenschlagworte z.B. um wen geht es im Werk-->
+			<subjectGeographic/>	<!--geografische Schlagworte z.B. Land oder Region-->
+			<shelfMark/>		<!--Signatur wie angesetzt-->
+			<issue/>		<!--Heft-->
+			<volume/>		<!--Jahrgang-->
 			<description/>
 			<project/>
+
 		</dataset>
 		<functions>
 			<loan>
