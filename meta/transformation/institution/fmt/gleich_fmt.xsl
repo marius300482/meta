@@ -177,6 +177,11 @@
 							<xsl:text>Sammelband</xsl:text>
 							</format>
 						</xsl:when>
+					<xsl:when test="contains(Formen_x058x_,'Hochschulschrift')">
+						<format>
+							<xsl:text>Hochschulschrift</xsl:text>
+							</format>
+						</xsl:when>
 					<xsl:otherwise>
 						<format>
 							<xsl:text>Monographie</xsl:text>
@@ -1270,9 +1275,9 @@
 							</contributor>
 						</xsl:when>
 					<xsl:when test="contains(.,'[Hrsg.]')">
-						<hrsg>
+						<editor>
 							<xsl:value-of select="normalize-space(substring-before(.,'['))"></xsl:value-of>
-							</hrsg>
+							</editor>
 						</xsl:when>
 					</xsl:choose>
 					</xsl:for-each>
@@ -1283,9 +1288,9 @@
 		<xsl:for-each select=".">
 			<xsl:choose>
 				<xsl:when test="contains(.,'[Hrsg.]')">
-					<hrsg>
+					<editor>
 						<xsl:value-of select="normalize-space(substring-before(.,'['))"></xsl:value-of>
-						</hrsg>
+						</editor>
 					<entity>
 						<xsl:value-of select="normalize-space(substring-before(.,'['))"></xsl:value-of>
 					</entity>
