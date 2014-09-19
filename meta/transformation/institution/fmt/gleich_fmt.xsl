@@ -177,7 +177,7 @@
 							<xsl:text>Sammelband</xsl:text>
 							</format>
 						</xsl:when>
-					<xsl:when test="contains(Formen_x058x_,'Hochschulschrift')">
+					<xsl:when test="*[.='Hochschulschrift']">
 						<format>
 							<xsl:text>Hochschulschrift</xsl:text>
 							</format>
