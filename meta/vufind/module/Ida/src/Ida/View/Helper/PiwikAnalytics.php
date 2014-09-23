@@ -5,7 +5,7 @@
  * @package  View_Helpers
  * @author   dkuom <dku@outermedia.de>
  */
-namespace Ida\View\Helper\Genderbib;
+namespace Ida\View\Helper;
 
 /**
  * Piwik Analytics view helper
@@ -54,7 +54,7 @@ class PiwikAnalytics extends \Zend\View\Helper\AbstractHelper {
     public function __invoke() {
 
         if (null === $this->_trackerURL || null === $this->_siteId) {
-            return 'NOPE';
+            return '';
         }
 
         $html = '';
