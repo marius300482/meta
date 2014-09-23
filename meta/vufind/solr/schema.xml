@@ -112,6 +112,7 @@
    <field name="spellingShingle" type="textSpellShingle" indexed="true" stored="true" multiValued="true"/>
    <!-- Institutional Fields -->
    <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="institutionFull" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="collection" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="building" type="string" indexed="true" stored="true" multiValued="true"/>
    <!-- Generic Fields -->
@@ -127,9 +128,6 @@
    <field name="title_full" type="text" indexed="true" stored="true"/>
    <field name="title_full_unstemmed" type="textProper" indexed="true" stored="true"/>
    <field name="title_fullStr" type="string" indexed="true" stored="true"/>
-   <field name="upcomingTitle" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="formerTitle" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="alternativeTitle" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="title_auth" type="text" indexed="true" stored="true"/>
    <field name="physical" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="publisher" type="textProper" indexed="true" stored="true" multiValued="true"/>
@@ -221,37 +219,41 @@
    <field name="language_code" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="placeOfPublication" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="editor" type="string" indexed="true" stored="true" multiValued="true"/>
-     <field name="editorStr" type="textFacet" indexed="true" stored="false" multiValued="true"/>
-     <field name="recordContentSource" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="editorStr" type="textFacet" indexed="true" stored="false" multiValued="true"/>
+   <field name="recordContentSource" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="recordCreationDate" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="recordChangeDate" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="typeOfRessource" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="hostItem" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="zdbId" type="string" indexed="true" stored="true"
-    multiValued="true"/>
+   <field name="zdbId" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="circa-jahr" type="string" indexed="true" stored="true"/>
    <field name="displayPublishDate" type="string" indexed="true" stored="true"/>
    <field name="subjectGeographic" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="subjectPerson" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="shelfMark" type="string" indexed="true" stored="true"/>
-     <field name="seriesNr" type="text" indexed="true" stored="true"/>
-     <field name="project" type="text" indexed="true" stored="true" multiValued="true"/>
-     <field name="timeSpanStart" type="string" indexed="true" stored="true"/>
-     <field name="timeSpanEnd" type="string" indexed="true" stored="true"/>
-      <field name="systematik_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
-       <field name="systematik_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
-        <field name="translatedTerm" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="loanStatus" type="boolean" indexed="true" stored="true"/>
-	<field name="loanReturn" type="string" indexed="true" stored="true"/>
-	<field name="reviewer" type="text" indexed="true" stored="true"/>
-	<field name="documentType" type="text" indexed="true" stored="true"/>
-	<field name="issue" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="volume" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="dimension" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="runTime" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="leader" type="string" indexed="false" stored="true"/>
-	<field name="controlfield" type="string" indexed="false" stored="true"/>
-	<field name="relatedTo" type="string" indexed="true" stored="true" />
+   <field name="shelfMark" type="string" indexed="true" stored="true"/>
+   <field name="seriesNr" type="text" indexed="true" stored="true"/>
+   <field name="project" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="timeSpanStart" type="string" indexed="true" stored="true"/>
+   <field name="timeSpanEnd" type="string" indexed="true" stored="true"/>
+   <field name="systematik_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="systematik_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="translatedTerm" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="loanStatus" type="boolean" indexed="true" stored="true"/>
+   <field name="loanReturn" type="string" indexed="true" stored="true"/>
+   <field name="reviewer" type="text" indexed="true" stored="true"/>
+   <field name="documentType" type="text" indexed="true" stored="true"/>
+   <field name="issue" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="volume" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="dimension" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="runTime" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="leader" type="string" indexed="false" stored="true"/>
+   <field name="controlfield" type="string" indexed="false" stored="true"/>
+   <field name="relatedTo" type="string" indexed="true" stored="true" />
+   <field name="upcomingTitle" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="formerTitle" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="alternativeTitle" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="sourceInfo" type="text" indexed="true" stored="true" multiValued="true" />
+   <field name="listOfContents" type="text" indexed="true" stored="true" multiValued="true" />
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
