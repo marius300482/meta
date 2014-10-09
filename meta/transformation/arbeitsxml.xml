@@ -22,59 +22,69 @@
 		</institution>
 		
 		<dataset>
-			<typeOfRessource/>
-			<format/>		<!--Objektart-->
+			<typeOfRessource/>	<!--Pflicht : welche Dokumentenart z.b. text-->
+			<format/>		<!--Pflicht : Objektart-->
 			<documentTyp/>		<!--Dokumententyp wenn angegeben -->
 			
 		<!--Titelangaben-->
-			<title>Titel</title>	<!--Titel wie angesetzt-->
-			<title_short/>		<!--Hauptsachtitel-->
+			<title>Titel</title>	<!--Pflicht: Titel wie angesetzt-->
+			<title_short/>		<!--Pflicht: Hauptsachtitel-->
 			<title_sub/>		<!--Zusatz zum Sachtitel-->
 			<upcomingTitle/>	<!--Späterer Titel-->
 			<formerTitle/>		<!--Früherer Titel-->
 			<alternativeTitle/>	<!--Alternativer Titel z.b. Origignaltitel-->
 			
 		<!--Angaben über beteiligte Personen am Werk-->
-			<author/>		<!--Autorinneen-->
-			<editor/>		<!--Herausgeber_innen oder Herausgegeben von-->
+			<author/>		<!--Pflicht: Autorinneen-->
+			<editor/>		<!--Pflicht: Herausgeber_innen oder Herausgegeben von-->
 			<entity/>		<!--Körperschaft-->
 			<contributor>		<!--beiligte Personen z.B. Vorwort, Übersetzerin-->
 			<reviewer/>		<!--Gutachter_in bei z.B. Hochschularbeiten-->
 			
 			
-			<series/>
-			<seriesNr/>
+			<series/>		<!--Reiheninformation-->
+			<seriesNr/>		<!--Reihennummer-->
 		
 		<!--Identnummern-->
 			<isbn/>
 			<issn/>
 			<zdbid/>
 		
-		<!--Zeitangaben-->
-			<displayPublishDate />	<!--Zeit wie angesetzt-->
+		<!--Veröffentlichungsangaben-->
+			<displayPublishDate />	<!--Pflicht: Zeit wie angesetzt-->
 			<publishDate/>		<!--Aufgerarbeitete Zeitangaben-->
 			<timeSpan>
 				<timeSpanStart/>
 				<timeSpanEnd/>
 				</timeSpan>
-			
-			<placeOfPublication/>
-			<publisher/>
+			<placeOfPublication/>	<!--Pflicht: Ortsangabe-->
+			<publisher/>		<!--Pflicht: Verlagsangabe-->
+			<sourceInfo/>		<!--Quellenangabe-->
+
+		<!--Physische Eigentschaften-->
 			<physical/>		<!--Seiten oder Umfang-->
 			<dimension/>		<!--Angabe der physischen Ausmaße eines Dokumentes / Kiste-->
 			<runTime/>		<!--Laufzeit Video zb. 60min-->
-			<languageCode/>
-			<language/>
-			<subjectTopic/>		<!--Schlagworte-->
+
+		<!--Inhaltliche Erschließung-->
+			<language/>		<!--Sprachangabe in vorgebener Form z.b. deutsch-->
+			<subjectTopic/>		<!--Inhaltsschlagworte-->
 			<subjectPerson/>	<!--Personenschlagworte z.B. um wen geht es im Werk-->
 			<subjectGeographic/>	<!--geografische Schlagworte z.B. Land oder Region-->
-			<shelfMark/>		<!--Signatur wie angesetzt-->
+			<description/>		<!--Beschreibungen Annotationen-->
+			<listOfContents/>	<!--Inhaltsangaben-->
+			<annotation/>		<!--weitere Anmerkungen-->
+			
+			<!--Zeitschriftenangaben-->
 			<issue/>		<!--Heft-->
 			<volume/>		<!--Jahrgang-->
-			<description/>
-			<project/>
-
+		 
+		<!--Sonstiges-->
+			<project/>		<!--Teil eines inhaltlichen Projektes-->
+			<shelfMark/>		<!--Signatur wie angesetzt-->
+			
 		</dataset>
+
 		<functions>
 			<loan>
 				<loanStatus />
