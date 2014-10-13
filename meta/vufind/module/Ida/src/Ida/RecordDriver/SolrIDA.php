@@ -147,6 +147,11 @@ abstract class SolrIDA extends SolrDefault
         return $this->getMultiValuedField("publisher");
     }
 
+    public function getSignatory()
+    {
+        return $this->getSingleValuedField('signatur');
+    }
+
     /**
     * Single valued
     */

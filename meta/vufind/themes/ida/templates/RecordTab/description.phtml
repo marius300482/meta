@@ -361,12 +361,21 @@
         </tr>
     <? endif; ?>
 
-    <? $description = $this->driver->getdescription(); ?>
+    <? $description = $this->driver->getDescription(); ?>
     <? if (isset($description)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Description')?>: </th>
             <td property=description"><?= $this->escapeHtml($description) ?></td>
+        </tr>
+    <? endif; ?>
+
+    <? $signatory = $this->driver->getSignatory(); ?>
+    <? if (isset($signatory)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Signatory')?>: </th>
+            <td property=signatory"><?= $this->escapeHtml($signatory) ?></td>
         </tr>
     <? endif; ?>
 
