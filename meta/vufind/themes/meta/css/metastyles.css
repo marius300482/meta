@@ -1,0 +1,22 @@
+body {
+    background: #447591;
+}
+.searchHomeForm {
+    background-color: #447591;
+    border-color: #447591;
+}
+.searchHomeBrowse h2 {
+    border-bottom: 1px solid #447591;
+}
+.searchHomeForm a, .searchHomeForm a:hover {
+    color: white;
+}
+.searchbox {
+    border-top: 0px;
+    padding: 0em;
+}
+.title {
+    float: left;
+    padding-right: 0.8em;
+    margin-top: 0px;
+}

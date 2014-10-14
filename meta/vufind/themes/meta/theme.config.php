@@ -1,7 +1,9 @@
 <?php
 return array(
     'extends' => 'ida',
-    /*'css' => array(
+    'css' => array(
+        'metastyles.css:screen, projection',
+        /*
         'blueprint/screen.css:screen, projection',
         'blueprint/print.css:print',
         'blueprint/ie.css:screen, projection:lt IE 8',
@@ -9,7 +11,8 @@ return array(
         'styles.css:screen, projection',
         'print.css:print',
         'ie.css:screen, projection:lt IE 8',
-    ),
+        */
+    ),/*
     'js' => array(
         ,'jquery.min.js',
         'jquery.form.js',
