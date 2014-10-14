@@ -21,14 +21,14 @@
 
     <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="<?=$this->transEsc('Description')?>">
 
-     <? $institutionFull = $this->driver->getInstitutionFull(); ?>
-    <? if (!empty($institutionFull)): ?>
+     <? $institutionsFull = $this->driver->getInstitutionsFull(); ?>
+    <? if (!empty($institutionsFull)): ?>
       <? $contentDisplayed = true; ?>
       <tr valign="top">
 	<th><?=$this->transEsc('Institution')?>: </th>
 	<td>
-	<? foreach($institutionFull as $institutionFull): ?>
-                <?= $this->escapeHtml($institutionFull) ?><?= $institutionFull !== end($institutionFull) ? "<br /> " : "" ?>
+	<? foreach($institutionsFull as $institutionFull): ?>
+                <?= $this->escapeHtml($institutionFull) ?><?= $institutionFull !== end($institutionsFull) ? "<br /> " : "" ?>
             <? endforeach; ?>
 	</td>
       </tr>

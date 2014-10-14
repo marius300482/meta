@@ -96,7 +96,7 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('seriesNr');
     }
 
-    public function getInstitutionFull()
+    public function getInstitutionsFull()
     {
         return $this->getMultiValuedField("institutionFull");
     }
