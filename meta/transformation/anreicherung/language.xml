@@ -35,6 +35,10 @@
 	<language name="Serbokroatisch" code="hbs" use="serbokroatisch" />
 	<language name="Arabisch" code="ara" use="arabisch" />
 	<language name="Persisch" code="fas" use="persisch" />
+	<language name="Mittelhochdeutsch" code="gmh" use="mittelhochdeutsch" />
+	<language name="Finnisch" code="fin" use="finnisch" />
+	<language name="Baskisch" code="eus" use="baskisch" />
+	
 	
 
 </root>

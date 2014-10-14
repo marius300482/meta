@@ -43,7 +43,7 @@
 			
 			<field name="leader">
 				<!--<xsl:text>     </xsl:text>--><!--0-4-->
-				<xsl:text>03008</xsl:text><!--0-4-->
+				<xsl:text>     </xsl:text><!--0-4-->
 					<xsl:text>n</xsl:text><!--5-->
 					<xsl:choose><!--6-->
 						<xsl:when test="dataset/format[text()='Video/DVD']">
@@ -60,7 +60,7 @@
 					<xsl:text>2</xsl:text><!--10-->
 					<xsl:text>2</xsl:text><!--11-->
 					<!--<xsl:text>     </xsl:text>--><!--12-16-->
-					<xsl:text>00181</xsl:text><!--12-16-->
+					<xsl:text>     </xsl:text><!--12-16-->
 					<xsl:text>u</xsl:text><!--17-->
 					<xsl:text>u</xsl:text><!--18-->
 					<xsl:text> </xsl:text><!--19-->
@@ -142,6 +142,8 @@
 		
 			<field name="institution"><xsl:value-of select="institution/institutionShortname" /></field>
 			
+			<field name="institutionFull"><xsl:value-of select="institution/institutionFull" /></field>
+			
 			<field name="collection"><xsl:value-of select="institution/collection" /></field>
 			
 			<field name="recordContentSource"><xsl:value-of select="institution/isil" /></field>
@@ -172,7 +174,8 @@
     			
     			<xsl:if test="dataset/formerTitle">
                    	 		<xsl:for-each select="dataset/formerTitle">
-                   	 			<field name="formerTitle">
+                   	 			<!--<field name="formerTitle">--><!--geändert 18.09.14 MZ-->
+                   	 			<field name="title_old">
            					<xsl:value-of select="." />
 	                   	 			</field>
                    	 			</xsl:for-each>
@@ -180,7 +183,8 @@
                    	 		
                    	 	<xsl:if test="dataset/upcomingTitle">
                    	 		<xsl:for-each select="dataset/upcomingTitle">
-                   	 			<field name="upcomingTitle">
+                   	 			<!--<field name="upcomingTitle">--><!--18.09.14 geändert MZ-->
+                   	 			<field name="title_new">
            					<xsl:value-of select="." />
 	                   	 			</field>
                    	 			</xsl:for-each>
@@ -188,7 +192,8 @@
                    	 	
                    	 	<xsl:if test="dataset/alternativeTitle">
                    	 		<xsl:for-each select="dataset/alternativeTitle">
-                   	 			<field name="alternativeTitle">
+                   	 			<!--<field name="alternativeTitle">--><!--18.09.14 geändert MZ-->
+                   	 			<field name="title_alt">
                    	 				<xsl:value-of select="." />
                    	 				</field>
                    	 			</xsl:for-each>
@@ -320,6 +325,12 @@
                     				</xsl:for-each>
                 			</xsl:if>
                 		
+                		<xsl:if test="dataset/description">
+                			<field name="description">
+                				<xsl:value-of select="dataset/description" />
+                				</field>
+                			</xsl:if>
+                		
                 		<xsl:if test="dataset/shelfMark">
 				<field name="signatur"><xsl:value-of select="dataset/shelfMark" /></field>
 				</xsl:if>
@@ -336,11 +347,11 @@
 					</xsl:for-each>
 				</xsl:if>
 				
-			<xsl:if test="dataset/description">
+			<!--<xsl:if test="dataset/description">
 				<xsl:for-each select="dataset/description">
 					<field name="description"><xsl:value-of select="." /></field>
 					</xsl:for-each>
-				</xsl:if>
+				</xsl:if>-->
 			
 			<xsl:if test="dataset/project">
 				<xsl:for-each select="distinct-values(tokenize(dataset/project, ' '))">
@@ -368,6 +379,23 @@
 					</field>
 				</xsl:if>
 			
+			<xsl:if test="dataset/sourceInfo">
+				<xsl:for-each select="dataset/sourceInfo">
+					<field name="sourceInfo">
+						<xsl:value-of select="." />
+						</field>
+					</xsl:for-each>
+				</xsl:if>
+			
+			<xsl:if test="dataset/listOfContents">
+				<xsl:for-each select="dataset/listOfContents">
+				<field name="listOfContents">
+					<xsl:value-of select="." />
+					</field>
+					</xsl:for-each>
+				</xsl:if>
+				
+			
 	<!--Anreicherung Artikel-->
 			<xsl:if test="dataset/format='Artikel'">
 			<xsl:variable name="test" select="functions/hierarchyFields/hierarchy_parent_id" />
@@ -387,6 +415,7 @@
 				<xsl:if test="//record[@id=$test]/functions/systematikFields/systematik_parent_title">
 					<field name="systematik_parent_title"><xsl:value-of select="//record[@id=$test]/functions/systematikFields/systematik_parent_title"/></field>
 					</xsl:if>
+				<xsl:if test="not(dataset/language)">
 				<xsl:choose>
 					<xsl:when test="//record[@id=$test]/dataset/language">
 						<xsl:for-each select="//record[@id=$test]/dataset/language">
@@ -409,8 +438,9 @@
 							</field>
 						</xsl:otherwise>	
 						</xsl:choose>
+						</xsl:if>
 				</xsl:if>
-	
+				
 	
 	
 		
