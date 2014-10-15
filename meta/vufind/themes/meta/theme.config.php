@@ -12,16 +12,18 @@ return array(
         'print.css:print',
         'ie.css:screen, projection:lt IE 8',
         */
-    ),/*
+    ),
     'js' => array(
+        'meta.js',
+    /*
         ,'jquery.min.js',
         'jquery.form.js',
         'jquery.metadata.js',
         'jquery.validate.min.js',
         'jquery-ui/js/jquery-ui.js',
         'lightbox.js',
-        'common.js',
-    ),
+        'common.js',*/
+    ),/*
     'favicon' => 'favicon.ico',
     'helpers' => array(
         'factories' => array(
