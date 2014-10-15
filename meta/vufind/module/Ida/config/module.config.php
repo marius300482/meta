@@ -8,7 +8,7 @@ $config = array(
                 'factories' => array(
                     'solrlibrary' => array('Ida\Factory', 'getSolrLibrary'),
                     'solrarchive' => array('Ida\Factory', 'getSolrArchive'),
-                    'solrsystematik' => array('Ida\Factory', 'getSolrSystematik'),
+                    'solrsystematics' => array('Ida\Factory', 'getSolrSystematics'),
                 ),
             ),
         ),
@@ -17,14 +17,14 @@ $config = array(
             'Ida\RecordDriver\SolrIDA' => array(
                 'tabs' => array (
                     //'Holdings' => 'HoldingsILS',
-                    'Description' => 'Description',
+                    //'Description' => 'Description',
                     'TOC' => 'TOC',
                     //'UserComments' => 'UserComments',
                     'Reviews' => 'Reviews',
                     'Excerpt' => 'Excerpt',
                     'HierarchyTree' => 'HierarchyTree',
                     'Map' => 'Map',
-                    //'Details' => 'StaffViewArray',
+                    'Details' => 'StaffViewArray',
                 ),
                 'defaultTab' => null,
             ),
