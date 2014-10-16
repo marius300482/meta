@@ -26,7 +26,9 @@
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
         <filter class="solr.ICUFoldingFilterFactory"/>
         <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.SnowballPorterFilterFactory" language="English"/>
+          <filter class="solr.EdgeNGramFilterFactory" minGramSize="5" maxGramSize="20" side="front"/>
+          <filter class="solr.EdgeNGramFilterFactory" minGramSize="5" maxGramSize="20" side="back"/>
+        <filter class="solr.SnowballPorterFilterFactory" language="German2"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
       <analyzer type="query">
@@ -36,7 +38,7 @@
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
         <filter class="solr.ICUFoldingFilterFactory"/>
         <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.SnowballPorterFilterFactory" language="English"/>
+        <filter class="solr.SnowballPorterFilterFactory" language="German2"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -113,6 +115,7 @@
    <field name="spellingShingle" type="textSpellShingle" indexed="true" stored="true" multiValued="true"/>
    <!-- Institutional Fields -->
    <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="institution_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="institutionFull" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="collection" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="building" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -204,7 +207,8 @@
    <field name="title_in_hierarchy" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="hierarchy_browse" type="textFacetRaw" indexed="true" stored="false" multiValued="true"/>
    <!-- Used for loading correct record driver -->
-   <field name="recordtype" type="string" indexed="false" stored="true"/>
+   <field name="recordtype" type="string" indexed="true" stored="true"/>
+    <field name="recordtype_facet" type="textFacet" indexed="true" stored="true"/>
    <!-- Tracking fields to keep track of oldest and most recent index times -->
    <field name="first_indexed" type="date" indexed="true" stored="true"/>
    <field name="last_indexed" type="date" indexed="true" stored="true"/>
@@ -287,6 +291,8 @@
  <copyField source="series"   dest="spellingShingle"/>
  <copyField source="topic"    dest="spellingShingle"/>
  <!-- CopyFields for Faceting on Text -->
+    <copyField source="recordtype" dest="recordtype_facet"/>
+ <copyField source="institution" dest="institution_facet"/>
  <copyField source="title_full" dest="title_fullStr"/>
  <copyField source="title_full" dest="title_full_unstemmed"/>
  <copyField source="author" dest="authorStr"/>
