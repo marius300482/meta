@@ -15,8 +15,26 @@ body {
     border-top: 0px;
     padding: 0em;
 }
-.title {
+h2.title {
     float: left;
     padding-right: 0.8em;
     margin-top: 0px;
+}
+.title {
+    font-size: 120%;
+}
+.span-9 {
+    width: 560px;
+}
+.resultListDetails td {
+    vertical-align: top;
+    padding: 0px;
+    background-color: transparent !important;
+}
+.resultListDetails td:first-child {
+    text-align: right;
+    padding-right: 5px;
+}
+.span-2 {
+    text-align: center;
 }

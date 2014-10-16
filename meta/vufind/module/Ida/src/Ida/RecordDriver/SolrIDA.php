@@ -112,6 +112,11 @@ abstract class SolrIDA extends SolrDefault
             $this->getShortTitle() . " : " . $this->getTitleSub() : $this->getTitle();
     }
 
+    public function getRecordType()
+    {
+        return $this->getSingleValuedField('recordtype');
+    }
+
     public function getTitleSub()
     {
         return $this->getSingleValuedField('title_sub');
