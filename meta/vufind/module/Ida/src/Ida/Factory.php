@@ -2,8 +2,7 @@
 
 namespace Ida;
 
-use Ida\Controller\TopicsController;
-use Zend\ServiceManager\ServiceManager;
+use Ida\Controller\TopicsController;use Zend\ServiceManager\ServiceManager;
 
 class Factory
 {
@@ -43,11 +42,11 @@ class Factory
         );
     }
 
-    public static function getSolrSystematik(ServiceManager $sm)
+    public static function getSolrSystematics(ServiceManager $sm)
     {
         $serviceLocator = $sm->getServiceLocator();
 
-        return new RecordDriver\SolrSystematik(
+        return new RecordDriver\SolrSystematics(
             $serviceLocator->get('VuFind\Config')->get('config'),
             null,
             $serviceLocator->get('VuFind\Config')->get('searches')

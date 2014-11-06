@@ -96,7 +96,7 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('seriesNr');
     }
 
-    public function getInstitutionFull()
+    public function getInstitutionsFull()
     {
         return $this->getMultiValuedField("institutionFull");
     }
@@ -110,6 +110,11 @@ abstract class SolrIDA extends SolrDefault
     {
         return isset($this->fields['title_sub']) ?
             $this->getShortTitle() . " : " . $this->getTitleSub() : $this->getTitle();
+    }
+
+    public function getRecordType()
+    {
+        return $this->getSingleValuedField('recordtype');
     }
 
     public function getTitleSub()
