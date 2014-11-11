@@ -15,13 +15,14 @@ import java.util.Map;
  */
 public class HashedFileNameFileVisitor extends SimpleFileVisitor<Path>
 {
-    private final HashedFileService hashedFileService;
+    private final HashService hashService;
+
     @Getter
     private final Map<String, Path> fileMap = new HashMap<>();
 
-    public HashedFileNameFileVisitor(HashedFileService hashedFileService)
+    public HashedFileNameFileVisitor(HashService hashService)
     {
-        this.hashedFileService = hashedFileService;
+        this.hashService = hashService;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class HashedFileNameFileVisitor extends SimpleFileVisitor<Path>
     {
         if (Files.isRegularFile(file))
         {
-            fileMap.put(hashedFileService.getHashedFileName(file.toFile()), file);
+            fileMap.put(hashService.getHashedFileName(file.toFile()), file);
         }
         return FileVisitResult.CONTINUE;
     }

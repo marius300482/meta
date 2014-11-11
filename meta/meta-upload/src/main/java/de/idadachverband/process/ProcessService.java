@@ -1,10 +1,10 @@
 package de.idadachverband.process;
 
-import de.idadachverband.archive.ZipService;
+import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.solr.SolrService;
 import de.idadachverband.transform.TransformationBean;
 import de.idadachverband.transform.TransformationProgressService;
-import de.idadachverband.upload.IdaInstitutionBean;
+import de.idadachverband.utils.ZipService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;

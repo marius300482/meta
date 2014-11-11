@@ -1,6 +1,6 @@
 package de.idadachverband.upload;
 
-import de.idadachverband.archive.HashedFileService;
+import de.idadachverband.archive.HashService;
 import de.idadachverband.result.ResultStateController;
 import de.idadachverband.transform.TransformationProgressService;
 import org.hamcrest.Matchers;
@@ -28,7 +28,7 @@ public class ResultStateControllerTest
     private TransformationProgressService processService;
 
     @Mock
-    private HashedFileService fileService;
+    private HashService hashService;
 
     @InjectMocks
     private ResultStateController cut;
@@ -73,7 +73,7 @@ public class ResultStateControllerTest
         when(processService.getFile(key)).thenReturn(new File(""));
 
         String filename = "hashedFilename";
-        when(fileService.getHashedFileName(any(File.class))).thenReturn(filename);
+        when(hashService.getHashedFileName(any(File.class))).thenReturn(filename);
 
         String actual = cut.getResult(key);
 

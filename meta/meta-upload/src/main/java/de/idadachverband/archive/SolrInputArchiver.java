@@ -1,5 +1,6 @@
 package de.idadachverband.archive;
 
+import de.idadachverband.utils.ZipService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -98,9 +99,7 @@ public class SolrInputArchiver
     private Path getFilename(File file, String solrServiceName, String institutionName)
     {
         final String date = simpleDateFormat.format(new Date());
-        final Path path = archivePath.resolve(solrServiceName).resolve(institutionName).resolve(date + "-" + file.getName());
-
-        return path;
+        return archivePath.resolve(solrServiceName).resolve(institutionName).resolve(date + "-" + file.getName());
     }
 
 }

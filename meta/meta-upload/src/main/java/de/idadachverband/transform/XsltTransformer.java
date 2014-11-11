@@ -86,7 +86,6 @@ public class XsltTransformer
     {
         TransformerFactory factory = TransformerFactory.newInstance();
         Source xslt = new StreamSource(institutionXslt);
-        Transformer transformer = factory.newTransformer(xslt);
-        return transformer;
+        return factory.newTransformer(xslt);
     }
 }

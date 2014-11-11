@@ -1,4 +1,4 @@
-package de.idadachverband.archive;
+package de.idadachverband.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +57,7 @@ public class ZipService
         long byteCount = 0;
 
         try (FileInputStream in = new FileInputStream(infile);
-             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFile));)
+             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFile)))
         {
             out.putNextEntry(new ZipEntry(infile.getName()));
             byte[] buf = new byte[16000];

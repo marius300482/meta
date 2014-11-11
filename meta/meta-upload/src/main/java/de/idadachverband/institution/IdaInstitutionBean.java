@@ -1,4 +1,4 @@
-package de.idadachverband.upload;
+package de.idadachverband.institution;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

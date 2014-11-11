@@ -1,38 +1,29 @@
-package de.idadachverband.process;
+package de.idadachverband.archive;
 
-import de.idadachverband.archive.HashedFileService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
 import java.io.File;
 
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doReturn;
 
 public class HashedFileServiceTest
 {
+    @Mock
+    private HashService hashService;
+
     @Spy
-    private HashedFileService cut = new HashedFileService(null);
+    private HashedFileService cut = new HashedFileService(null, hashService);
 
     @Before
     public void setUp() throws Exception
     {
         MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void testGetHashedString() throws Exception
-    {
-        String name = "name";
-        File file = new File(name);
-        String first = cut.getHashedFileName(file);
-        String second = cut.getHashedFileName(file);
-        assertThat(first, equalTo(second));
-        assertThat(name, not(equalTo(first)));
     }
 
     @Test

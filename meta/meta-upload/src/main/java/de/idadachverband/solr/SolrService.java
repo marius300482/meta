@@ -1,6 +1,6 @@
 package de.idadachverband.solr;
 
-import de.idadachverband.archive.ZipService;
+import de.idadachverband.utils.ZipService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.solr.client.solrj.SolrServer;
@@ -76,7 +76,7 @@ public class SolrService
         for (Path path : files)
         {
             final Path tmpPath = tempDirectory.resolve(path.getFileName());
-            try (InputStream unzipStream = zipService.unzip(path.toFile());)
+            try (InputStream unzipStream = zipService.unzip(path.toFile()))
             {
                 Files.copy(unzipStream, tmpPath);
                 update(tmpPath.toFile());
@@ -102,15 +102,9 @@ public class SolrService
      */
     public void deleteAll() throws IOException, SolrServerException
     {
-        try
-        {
-            log.info("Delete all documents on core {}", name);
-            final UpdateResponse updateResponse = server.deleteByQuery("*:*");
-            log.info("Delete all documents {}", updateResponse);
-        } catch (SolrServerException e)
-        {
-            throw e;
-        }
+        log.info("Delete all documents on core {}", name);
+        final UpdateResponse updateResponse = server.deleteByQuery("*:*");
+        log.info("Delete all documents {}", updateResponse);
     }
 
     @Override

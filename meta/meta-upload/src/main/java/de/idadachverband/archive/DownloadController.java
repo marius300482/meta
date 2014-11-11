@@ -46,7 +46,6 @@ public class DownloadController
         response.setContentType("application/zip");
         response.setHeader("content-Disposition", "attachment; filename=" + path.getName());
 
-        final FileSystemResource fileSystemResource = new FileSystemResource(path);
-        return fileSystemResource;
+        return new FileSystemResource(path);
     }
 }

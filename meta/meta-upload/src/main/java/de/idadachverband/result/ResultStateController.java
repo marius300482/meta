@@ -1,6 +1,6 @@
 package de.idadachverband.result;
 
-import de.idadachverband.archive.HashedFileService;
+import de.idadachverband.archive.HashService;
 import de.idadachverband.transform.TransformationProgressService;
 import de.idadachverband.transform.TransformationProgressState;
 import de.idadachverband.transform.TransformedFileException;
@@ -28,7 +28,7 @@ import static de.idadachverband.transform.TransformationProgressState.FAILURE;
 public class ResultStateController
 {
     @Inject
-    private HashedFileService uploadHashedFileService;
+    private HashService hashService;
 
     @Inject
     private TransformationProgressService transformationProgressService;
@@ -42,14 +42,14 @@ public class ResultStateController
         TransformationProgressState state = transformationProgressService.getState(key);
 
         JsonObjectBuilder result = Json.createObjectBuilder();
-        result.add("key", key.toString());
+        result.add("key", key);
 
         if (state == DONE)
         {
             try
             {
                 File file = transformationProgressService.getFile(key);
-                String hashedFileName = uploadHashedFileService.getHashedFileName(file);
+                String hashedFileName = hashService.getHashedFileName(file);
                 result.add("filename", hashedFileName);
             } catch (TransformedFileException e)
             {

@@ -33,7 +33,7 @@
 
 <div id="filelink" style="display: none;">
     <h2>Fertig</h2>
-    <a id="filelink" href="${fileUrl}" target="_blank">Transformiertes XML-File</a>
+    <a href="${fileUrl}" target="_blank">Transformiertes XML-File</a>
 </div>
 <div id="failure" style="display: none;">
     <h2>Fehler!</h2>

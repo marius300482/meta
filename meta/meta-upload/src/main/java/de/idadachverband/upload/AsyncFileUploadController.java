@@ -1,5 +1,7 @@
 package de.idadachverband.upload;
 
+import de.idadachverband.institution.IdaInstitutionBean;
+import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.process.ProcessService;
 import de.idadachverband.solr.SolrService;
 import de.idadachverband.transform.TransformationBean;

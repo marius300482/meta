@@ -1,4 +1,4 @@
-package de.idadachverband.upload;
+package de.idadachverband.institution;
 
 import org.springframework.core.convert.converter.Converter;
 

@@ -27,22 +27,22 @@
 
     <!-- XSLT -->
 
-    <bean id="genderbib" class="de.idadachverband.upload.IdaInstitutionBean">
+    <bean id="genderbib" class="de.idadachverband.institution.IdaInstitutionBean">
         <constructor-arg index="0" value="genderbib"/>
         <constructor-arg index="1" value="${xslt.basePath}/institution/genderbib/gleich.xsl"/>
     </bean>
-    <bean id="frauenmediaturm" class="de.idadachverband.upload.IdaInstitutionBean">
+    <bean id="frauenmediaturm" class="de.idadachverband.institution.IdaInstitutionBean">
         <constructor-arg index="0" value="frauenmediaturm"/>
         <constructor-arg index="1" value="${xslt.basePath}/institution/fmt/gleich_fmt.xsl"/>
     </bean>
 
     <util:set id="institutionsSet" set-class="java.util.HashSet"
-              value-type="de.idadachverband.upload.IdaInstitutionBean">
+              value-type="de.idadachverband.institution.IdaInstitutionBean">
         <ref bean="genderbib"/>
         <ref bean="frauenmediaturm"/>
     </util:set>
 
-    <!--bean id="idaInstitutionConverter" class="de.idadachverband.upload.IdaInstitutionConverter">
+    <!--bean id="idaInstitutionConverter" class="de.idadachverband.institution.IdaInstitutionConverter">
         <constructor-arg index="0" ref="institutionsSet" />
     </bean-->
 

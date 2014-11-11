@@ -1,7 +1,6 @@
 package de.idadachverband.archive;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.DigestUtils;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,27 +19,16 @@ import java.util.Map;
 public class HashedFileService
 {
     private final Path archivePath;
-
-    private final String suffix = ".zip";
+    private final HashService hashService;
 
     /**
      * @param archivePath Root of archive
      */
     @Inject
-    public HashedFileService(Path archivePath)
+    public HashedFileService(Path archivePath, HashService hashService)
     {
         this.archivePath = archivePath;
-    }
-
-    /**
-     * Hashed filename is based on original filename.
-     *
-     * @param file to get hashed filename for
-     * @return the hashed filename as input for {@code findFile}
-     */
-    public String getHashedFileName(File file)
-    {
-        return DigestUtils.md5DigestAsHex(file.getName().getBytes()) + suffix;
+        this.hashService = hashService;
     }
 
     /**
@@ -68,7 +56,7 @@ public class HashedFileService
 
     protected Map<String, Path> getFiles() throws IOException
     {
-        final HashedFileNameFileVisitor hashedFileNameFileVisitor = new HashedFileNameFileVisitor(this);
+        final HashedFileNameFileVisitor hashedFileNameFileVisitor = new HashedFileNameFileVisitor(hashService);
         Files.walkFileTree(archivePath, hashedFileNameFileVisitor);
         return hashedFileNameFileVisitor.getFileMap();
     }

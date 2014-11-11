@@ -1,12 +1,12 @@
 package de.idadachverband.process;
 
 import de.idadachverband.archive.SolrInputArchiver;
+import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.result.NotificationException;
 import de.idadachverband.result.ResultNotifier;
 import de.idadachverband.solr.SolrService;
 import de.idadachverband.transform.TransformationBean;
 import de.idadachverband.transform.XsltTransformer;
-import de.idadachverband.upload.IdaInstitutionBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.scheduling.annotation.Async;

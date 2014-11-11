@@ -1,7 +1,7 @@
 package de.idadachverband.user;
 
+import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.solr.SolrService;
-import de.idadachverband.upload.IdaInstitutionBean;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;

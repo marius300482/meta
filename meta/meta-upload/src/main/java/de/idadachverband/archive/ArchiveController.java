@@ -24,15 +24,15 @@ public class ArchiveController
 {
     private final Path archivePath;
 
-    private final HashedFileService archiveHashedFileService;
+    private final HashService hashService;
 
     private final Set<SolrService> solrServiceSet;
 
     @Inject
-    public ArchiveController(Path archivePath, HashedFileService archiveHashedFileService, Set<SolrService> solrServiceSet)
+    public ArchiveController(Path archivePath, HashService hashService, Set<SolrService> solrServiceSet)
     {
         this.archivePath = archivePath;
-        this.archiveHashedFileService = archiveHashedFileService;
+        this.hashService = hashService;
         this.solrServiceSet = solrServiceSet;
     }
 
@@ -40,7 +40,7 @@ public class ArchiveController
     public ModelAndView list(ModelAndView mav) throws IOException
     {
         mav.setViewName("archiveList");
-        final HashedFileNameFileVisitor hashedFileNameFileVisitor = new HashedFileNameFileVisitor(archiveHashedFileService);
+        final HashedFileNameFileVisitor hashedFileNameFileVisitor = new HashedFileNameFileVisitor(hashService);
         Files.createDirectories(archivePath);
         Files.walkFileTree(archivePath, hashedFileNameFileVisitor);
         final Map<String, Path> fileMap = hashedFileNameFileVisitor.getFileMap();
