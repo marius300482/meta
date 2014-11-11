@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <context:property-placeholder location="file:/var/local/ida/upload.properties"/>
+
+    <!-- Solr -->
+    <bean id="defaultSolrUpdater" class="de.idadachverband.solr.SolrService">
+        <constructor-arg index="0" value="Metadev"/>
+        <constructor-arg index="1" value="${solr.url}"/>
+    </bean>
+    <bean id="genderbibSolrUpdater" class="de.idadachverband.solr.SolrService">
+        <constructor-arg index="0" value="Genderbib"/>
+        <constructor-arg index="1" value="${solr.url.genderbib}"/>
+    </bean>
+
+    <util:set id="solrServiceSet" set-class="java.util.HashSet" value-type="de.idadachverband.solr.SolrService">
+        <ref bean="defaultSolrUpdater"/>
+        <ref bean="genderbibSolrUpdater"/>
+    </util:set>
+
+    <!-- XSLT -->
+
+    <bean id="genderbib" class="de.idadachverband.upload.IdaInstitutionBean">
+        <constructor-arg index="0" value="genderbib"/>
+        <constructor-arg index="1" value="${xslt.basePath}/institution/genderbib/gleich.xsl"/>
+    </bean>
+    <bean id="frauenmediaturm" class="de.idadachverband.upload.IdaInstitutionBean">
+        <constructor-arg index="0" value="frauenmediaturm"/>
+        <constructor-arg index="1" value="${xslt.basePath}/institution/fmt/gleich_fmt.xsl"/>
+    </bean>
+
+    <util:set id="institutionsSet" set-class="java.util.HashSet"
+              value-type="de.idadachverband.upload.IdaInstitutionBean">
+        <ref bean="genderbib"/>
+        <ref bean="frauenmediaturm"/>
+    </util:set>
+
+    <!--bean id="idaInstitutionConverter" class="de.idadachverband.upload.IdaInstitutionConverter">
+        <constructor-arg index="0" ref="institutionsSet" />
+    </bean-->
+
+    <bean id="xsltTransformer" class="de.idadachverband.transform.XsltTransformer">
+        <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <!-- SMTP settings -->
+        <property name="host" value="remask.innermedia.de"/>
+        <property name="port" value="25"/>
+        <!--property name="username" value="USER_NAME" />
+        <property name="password" value="PASSWORD" /-->
+
+        <property name="javaMailProperties">
+            <!-- additional properties specific to JavaMail -->
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <!--prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop-->
+            </props>
+        </property>
+    </bean>
+
+    <bean id="archivePath" class="java.nio.file.Paths" factory-method="get">
+        <constructor-arg value="file:/tmp/ida/archive"/>
+    </bean>
+
+    <!--bean id="archiver" class="de.idadachverband.archive.SolrInputArchiver">
+        <constructor-arg index="0" ref="archivePath" />
+    </bean-->
+
+    <bean id="uploadPath" class="java.nio.file.Paths" factory-method="get">
+        <constructor-arg value="file:/tmp/ida/tmp"/>
+    </bean>
+</beans>
