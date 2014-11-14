@@ -18,6 +18,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -31,7 +32,7 @@ public class XsltTransformer implements IdaTransformer
     final private String gleichXsl;
 
     @Getter
-    final private ArrayList<StaticError> errorList = new ArrayList<>();
+    final private List<StaticError> errorList = new ArrayList<>();
 
     /**
      * Implementation class for TransformerFactory is defined in:
@@ -115,7 +116,6 @@ public class XsltTransformer implements IdaTransformer
     public String getTransformationMessages()
     {
         StringBuilder sb = new StringBuilder();
-        final ArrayList<StaticError> errorList = getErrorList();
         for (StaticError e : errorList)
         {
             sb.append(ExceptionUtils.getFullStackTrace(e.getUnderlyingException()));
