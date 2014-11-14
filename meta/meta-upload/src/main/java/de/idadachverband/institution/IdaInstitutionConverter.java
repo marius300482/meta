@@ -14,7 +14,7 @@ import java.util.Set;
 final public class IdaInstitutionConverter implements Converter<String, IdaInstitutionBean>
 {
     @Inject
-    Set<IdaInstitutionBean> institutionSet;
+    private Set<IdaInstitutionBean> institutionSet;
 
     @Override
     public IdaInstitutionBean convert(String name)
