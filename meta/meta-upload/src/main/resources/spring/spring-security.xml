@@ -5,7 +5,7 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <!--debug/-->
+    <debug/>
     <global-method-security pre-post-annotations="enabled"/>
 
     <http pattern="/logout" security="none"/>
@@ -22,4 +22,16 @@
             <user-service id="userDetailsService" properties="classpath:users.properties"/>
         </authentication-provider>
     </authentication-manager>
+
+    <!-- Required to have SecurityContext in @Async -->
+    <beans:bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <beans:property name="targetClass"
+                        value="org.springframework.security.core.context.SecurityContextHolder"/>
+        <beans:property name="targetMethod" value="setStrategyName"/>
+        <beans:property name="arguments">
+            <beans:list>
+                <beans:value>MODE_INHERITABLETHREADLOCAL</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
 </beans:beans>

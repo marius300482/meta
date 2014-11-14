@@ -30,10 +30,12 @@
     <bean id="genderbib" class="de.idadachverband.institution.IdaInstitutionBean">
         <constructor-arg index="0" value="genderbib"/>
         <constructor-arg index="1" value="${xslt.basePath}/institution/genderbib/gleich.xsl"/>
+        <constructor-arg index="2" ref="xsltTransformer"/>
     </bean>
     <bean id="frauenmediaturm" class="de.idadachverband.institution.IdaInstitutionBean">
         <constructor-arg index="0" value="frauenmediaturm"/>
         <constructor-arg index="1" value="${xslt.basePath}/institution/fmt/gleich_fmt.xsl"/>
+        <constructor-arg index="2" ref="xsltTransformer"/>
     </bean>
 
     <util:set id="institutionsSet" set-class="java.util.HashSet"
@@ -42,12 +44,8 @@
         <ref bean="frauenmediaturm"/>
     </util:set>
 
-    <!--bean id="idaInstitutionConverter" class="de.idadachverband.institution.IdaInstitutionConverter">
-        <constructor-arg index="0" ref="institutionsSet" />
-    </bean-->
-
-    <bean id="xsltTransformer" class="de.idadachverband.transform.XsltTransformer">
-        <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
+    <bean id="xsltTransformer" class="de.idadachverband.transform.xslt.XsltTransformer">
+    <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -70,10 +68,6 @@
     <bean id="archivePath" class="java.nio.file.Paths" factory-method="get">
         <constructor-arg value="file:/tmp/ida/archive"/>
     </bean>
-
-    <!--bean id="archiver" class="de.idadachverband.archive.SolrInputArchiver">
-        <constructor-arg index="0" ref="archivePath" />
-    </bean-->
 
     <bean id="uploadPath" class="java.nio.file.Paths" factory-method="get">
         <constructor-arg value="file:/tmp/ida/tmp"/>

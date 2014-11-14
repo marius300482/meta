@@ -23,6 +23,7 @@ import static de.idadachverband.transform.TransformationProgressState.FAILURE;
 /**
  * Created by boehm on 11.11.14.
  */
+@RequestMapping("/result")
 @Controller
 @Slf4j
 public class ResultStateController

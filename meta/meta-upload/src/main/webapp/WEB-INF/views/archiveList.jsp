@@ -23,16 +23,14 @@
 </ul>
 <br/>
 
+<h2>Re-Index</h2>
 <ul>
-    <spring:url value="/archive/reindex" var="reindexLink"/>
+    <spring:url value="/solr/reindex" var="reindexLink"/>
     <c:forEach var="entry" items="${solrSet}">
         <li>
             <a href="${reindexLink}/${entry}" target="_blank">${entry}</a>
         </li>
     </c:forEach>
 </ul>
-
-<spring:url value="/archive/reindex" var="reindex"/>
-<a href="${reindex}">Re-index</a>
 </body>
 </html>

@@ -1,15 +1,15 @@
 package de.idadachverband.archive;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.io.File;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doReturn;
 
 public class HashedFileServiceTest
@@ -20,7 +20,7 @@ public class HashedFileServiceTest
     @Spy
     private HashedFileService cut = new HashedFileService(null, hashService);
 
-    @Before
+    @BeforeMethod
     public void setUp() throws Exception
     {
         MockitoAnnotations.initMocks(this);

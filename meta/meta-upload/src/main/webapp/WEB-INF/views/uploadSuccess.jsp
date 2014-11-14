@@ -20,7 +20,7 @@
 <spring:url value="/upload" var="url"/>
 <spring:url value="/files/" var="fileUrl"/>
 <spring:url value="/j_spring_security_logout" var="logoutUrl"/>
-<spring:url value="/upload/getResult" var="stateUrl"/>
+<spring:url value="/result/getResult" var="stateUrl"/>
 <spring:url value="/resources/images/waiting.gif" var="waiting"/>
 
 <h2>Job Id: ${result}</h2>

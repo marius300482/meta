@@ -4,11 +4,11 @@ import de.idadachverband.archive.HashService;
 import de.idadachverband.result.ResultStateController;
 import de.idadachverband.transform.TransformationProgressService;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -17,7 +17,7 @@ import java.io.StringReader;
 import java.util.UUID;
 
 import static de.idadachverband.transform.TransformationProgressState.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
@@ -35,7 +35,7 @@ public class ResultStateControllerTest
 
     private String key;
 
-    @Before
+    @BeforeMethod
     public void setUp() throws Exception
     {
         MockitoAnnotations.initMocks(this);

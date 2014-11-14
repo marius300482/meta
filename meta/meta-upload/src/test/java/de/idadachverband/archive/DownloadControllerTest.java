@@ -1,11 +1,11 @@
 package de.idadachverband.archive;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.core.io.FileSystemResource;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -27,13 +27,13 @@ public class DownloadControllerTest
     @Mock
     private HttpServletResponse response;
 
-    @Before
+    @BeforeMethod
     public void setUp() throws Exception
     {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test(expected = FileNotFoundException.class)
+    @Test(expectedExceptions = FileNotFoundException.class)
     public void downloadEmptyFilename() throws Exception
     {
         cut.download(" ", response);
@@ -48,7 +48,7 @@ public class DownloadControllerTest
         assertThat(actual, notNullValue());
     }
 
-    @Test(expected = FileNotFoundException.class)
+    @Test(expectedExceptions = FileNotFoundException.class)
     public void downloadFailure() throws Exception
     {
         when(hashedFileService.findFile("name")).thenThrow(FileNotFoundException.class);

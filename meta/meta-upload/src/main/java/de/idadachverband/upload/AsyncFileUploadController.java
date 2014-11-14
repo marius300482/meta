@@ -33,7 +33,6 @@ import java.util.concurrent.Callable;
 @Slf4j
 public class AsyncFileUploadController
 {
-
     @Inject
     private IdaInstitutionConverter idaInstitutionConverter;
 
@@ -112,7 +111,6 @@ public class AsyncFileUploadController
                 } catch (IOException e)
                 {
                     log.warn("Transformation of file {} failed", file, e);
-                    e.printStackTrace();
                     map.addFlashAttribute("cause", e.getCause());
                     map.addFlashAttribute("message", e.getMessage());
                     map.addFlashAttribute("stacktrace", e.getStackTrace());

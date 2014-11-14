@@ -1,5 +1,6 @@
 package de.idadachverband.transform;
 
+import de.idadachverband.institution.IdaInstitutionBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,13 +17,16 @@ import java.util.concurrent.Future;
 public class TransformationBean
 {
     private final String key;
+    private final IdaInstitutionBean institutionBean;
     private File transformedFile;
     private Future<?> future;
     private String solrResponse;
     private Exception exception;
+    private String transformationMessages;
 
-    public TransformationBean()
+    public TransformationBean(IdaInstitutionBean institutionBean)
     {
         this.key = UUID.randomUUID().toString();
+        this.institutionBean = institutionBean;
     }
 }

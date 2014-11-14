@@ -55,5 +55,10 @@
     <!-- Imports user-defined @Controller beans that process client requests -->
     <beans:import resource="ida-beans.xml"/>
 
+    <beans:bean id="freemarkerMailConfiguration"
+                class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <beans:property name="templateLoaderPath" value="classpath:templates"/>
+    </beans:bean>
+
     <task:annotation-driven/>
 </beans:beans>

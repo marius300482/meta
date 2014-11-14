@@ -1,9 +1,7 @@
 package de.idadachverband.archive;
 
 import de.idadachverband.solr.SolrService;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,17 +44,6 @@ public class ArchiveController
         final Map<String, Path> fileMap = hashedFileNameFileVisitor.getFileMap();
         mav.addObject("fileMap", fileMap);
         mav.addObject("solrSet", solrServiceSet);
-        return mav;
-    }
-
-    @RequestMapping(value = "/reindex/{solrService}", method = RequestMethod.GET)
-    public ModelAndView reindex(@PathVariable SolrService solrService, ModelAndView mav) throws IOException, SolrServerException
-    {
-        final Path solrPath = archivePath.resolve(solrService.getName());
-        final ArchiveFileVisitor archiveFileVisitor = new ArchiveFileVisitor();
-        Files.walkFileTree(solrPath, archiveFileVisitor);
-        solrService.reindex(archiveFileVisitor.getPaths());
-
         return mav;
     }
 }

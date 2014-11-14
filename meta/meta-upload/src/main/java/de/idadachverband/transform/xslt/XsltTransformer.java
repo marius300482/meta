@@ -1,7 +1,15 @@
-package de.idadachverband.transform;
+package de.idadachverband.transform.xslt;
 
+import de.idadachverband.transform.IdaTransformer;
+import de.idadachverband.transform.TransformationBean;
 import lombok.Cleanup;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.saxon.lib.ErrorGatherer;
+import net.sf.saxon.s9api.StaticError;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
@@ -9,6 +17,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.TimeZone;
 
 /**
@@ -16,9 +25,13 @@ import java.util.TimeZone;
  * Created by boehm on 17.07.14.
  */
 @Slf4j
-public class XsltTransformer
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+public class XsltTransformer implements IdaTransformer
 {
     final private String gleichXsl;
+
+    @Getter
+    final private ArrayList<StaticError> errorList = new ArrayList<>();
 
     /**
      * Implementation class for TransformerFactory is defined in:
@@ -34,6 +47,12 @@ public class XsltTransformer
         this.gleichXsl = gleichXsl;
     }
 
+    @Override
+    public File transform(InputStream input, TransformationBean transformationBean) throws TransformerException, IOException
+    {
+        return transform(input, transformationBean.getInstitutionBean().getXslFile());
+    }
+
     /**
      * Transforms input to to Ida standard format, only stored in temporary file, and then to Solr input xml.
      *
@@ -43,7 +62,7 @@ public class XsltTransformer
      * @throws TransformerException
      * @throws IOException
      */
-    public File transform(final InputStream inputStream, File institutionXsl) throws TransformerException, IOException
+    private File transform(final InputStream inputStream, File institutionXsl) throws TransformerException, IOException
     {
         Path tempFile = Files.createTempFile("work-", ".xml");
         log.info("Create temp file {}", tempFile);
@@ -85,7 +104,22 @@ public class XsltTransformer
     private Transformer getTransformerInstance(File institutionXslt) throws TransformerConfigurationException
     {
         TransformerFactory factory = TransformerFactory.newInstance();
+        factory.setErrorListener(new ErrorGatherer(errorList));
         Source xslt = new StreamSource(institutionXslt);
         return factory.newTransformer(xslt);
+    }
+
+    /**
+     * @return readable presentation of all errors
+     */
+    public String getTransformationMessages()
+    {
+        StringBuilder sb = new StringBuilder();
+        final ArrayList<StaticError> errorList = getErrorList();
+        for (StaticError e : errorList)
+        {
+            sb.append(ExceptionUtils.getFullStackTrace(e.getUnderlyingException()));
+        }
+        return sb.toString();
     }
 }

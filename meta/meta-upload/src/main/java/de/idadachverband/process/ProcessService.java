@@ -1,6 +1,7 @@
 package de.idadachverband.process;
 
 import de.idadachverband.institution.IdaInstitutionBean;
+import de.idadachverband.result.NotificationException;
 import de.idadachverband.solr.SolrService;
 import de.idadachverband.transform.TransformationBean;
 import de.idadachverband.transform.TransformationProgressService;
@@ -37,10 +38,17 @@ public class ProcessService
 
     private TransformationBean processFile(InputStream input, IdaInstitutionBean institution, SolrService solr)
     {
-        TransformationBean transformationBean = new TransformationBean();
+        TransformationBean transformationBean = new TransformationBean(institution);
         transformationProgressService.add(transformationBean);
         log.debug("====================== Call async method");
-        Future<?> voidFuture = asyncProcessService.processAsynchronous(input, institution, solr, transformationBean);
+        Future<?> voidFuture = null;
+        try
+        {
+            voidFuture = asyncProcessService.processAsynchronous(input, institution, solr, transformationBean);
+        } catch (NotificationException e)
+        {
+            log.error("Failed to notify result of transformation {}", transformationBean, e);
+        }
         transformationBean.setFuture(voidFuture);
         log.debug("====================== Async method returned");
         return transformationBean;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Created by boehm on 02.10.14.
  */
-@RequestMapping("result")
+@RequestMapping("/result")
 @Controller
 public class ResultPageController
 {

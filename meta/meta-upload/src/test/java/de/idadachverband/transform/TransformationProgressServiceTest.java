@@ -1,29 +1,32 @@
 package de.idadachverband.transform;
 
 
-import org.junit.Before;
-import org.junit.Test;
+import de.idadachverband.institution.IdaInstitutionBean;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import static de.idadachverband.transform.TransformationProgressState.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 public class TransformationProgressServiceTest
 {
 
-    TransformationBean transformationBean = new TransformationBean();
+    @Mock
+    private IdaInstitutionBean institutionBean;
+    private TransformationBean transformationBean = new TransformationBean(institutionBean);
     private TransformationProgressService cut = new TransformationProgressService();
     @Mock
     private Future<File> future;
 
-    @Before
+    @BeforeMethod
     public void setUp() throws Exception
     {
         MockitoAnnotations.initMocks(this);
@@ -33,7 +36,7 @@ public class TransformationProgressServiceTest
     @Test
     public void getResultNotFound() throws Exception
     {
-        TransformationProgressState actual = cut.getState(new TransformationBean());
+        TransformationProgressState actual = cut.getState(new TransformationBean(institutionBean));
 
         assertThat(actual, is(TransformationProgressState.NOTFOUND));
     }
@@ -86,7 +89,7 @@ public class TransformationProgressServiceTest
         assertThat(actual, is(expected));
     }
 
-    @Test(expected = TransformedFileException.class)
+    @Test(expectedExceptions = TransformedFileException.class)
     public void getFileFailure() throws Exception
     {
         when(future.get()).thenThrow(new ExecutionException(new Throwable()));

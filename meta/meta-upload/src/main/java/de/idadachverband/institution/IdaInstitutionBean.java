@@ -1,5 +1,6 @@
 package de.idadachverband.institution;
 
+import de.idadachverband.transform.IdaTransformer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,6 +15,8 @@ public class IdaInstitutionBean
 {
     private String name;
     private File xslFile;
+
+    private IdaTransformer transformationStrategy;
 
     @Override
     public String toString()

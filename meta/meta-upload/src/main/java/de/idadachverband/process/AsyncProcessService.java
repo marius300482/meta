@@ -5,8 +5,8 @@ import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.result.NotificationException;
 import de.idadachverband.result.ResultNotifier;
 import de.idadachverband.solr.SolrService;
+import de.idadachverband.transform.IdaTransformer;
 import de.idadachverband.transform.TransformationBean;
-import de.idadachverband.transform.XsltTransformer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.scheduling.annotation.Async;
@@ -27,40 +27,46 @@ import java.util.concurrent.Future;
 @Slf4j
 public class AsyncProcessService
 {
-    final private XsltTransformer xsltTransformer;
+    final private IdaTransformer transformationStrategy;
 
     final private ResultNotifier resultMailSender;
 
     final private SolrInputArchiver solrInputArchiver;
 
     @Inject
-    public AsyncProcessService(XsltTransformer xsltTransformer, ResultNotifier resultMailSender, SolrInputArchiver solrInputArchiver)
+    public AsyncProcessService(IdaTransformer transformationStrategy, ResultNotifier resultMailSender, SolrInputArchiver solrInputArchiver)
     {
-        this.xsltTransformer = xsltTransformer;
+        this.transformationStrategy = transformationStrategy;
         this.resultMailSender = resultMailSender;
         this.solrInputArchiver = solrInputArchiver;
     }
 
     @Async
-    public Future<Void> processAsynchronous(InputStream input, IdaInstitutionBean institution, SolrService solr, TransformationBean transformationBean)
+    public Future<Void> processAsynchronous(InputStream input, IdaInstitutionBean institution, SolrService solr, TransformationBean transformationBean) throws NotificationException
     {
         log.debug("**************** In async method");
         AsyncResult<Void> asyncResult = new AsyncResult<>(null);
         try
         {
-            File transformedFile = xsltTransformer.transform(input, institution.getXslFile());
+            File transformedFile = transformationStrategy.transform(input, transformationBean);
             final File archivedFile = solrInputArchiver.saveSolrFile(transformedFile, solr.getName(), institution.getName());
             transformationBean.setTransformedFile(archivedFile);
             String solrResult = solr.update(transformedFile);
             transformationBean.setSolrResponse(solrResult);
             log.debug("Solr result {}", solrResult);
-            resultMailSender.notify(transformationBean);
-        } catch (TransformerException | IOException | SolrServerException | NotificationException e)
+
+        } catch (TransformerException | IOException | SolrServerException e)
         {
             log.warn("Transformation failed: ", e);
             transformationBean.setException(e);
+        } finally
+        {
+            transformationBean.setTransformationMessages(transformationStrategy.getTransformationMessages());
+            resultMailSender.notify(transformationBean);
         }
+
         log.debug("**************** End of async method");
         return asyncResult;
     }
+
 }
