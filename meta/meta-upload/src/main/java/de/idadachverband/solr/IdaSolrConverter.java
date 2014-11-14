@@ -16,7 +16,7 @@ final public class IdaSolrConverter implements Converter<String, SolrService>
 {
 
     @Inject
-    Set<SolrService> solrServiceSet;
+    private Set<SolrService> solrServiceSet;
 
     @Override
     public SolrService convert(String name)
