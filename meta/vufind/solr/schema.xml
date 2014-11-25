@@ -216,7 +216,7 @@
    <field name="signatur" type="string" indexed="true" stored="true"/>
    <field name="coverage" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="laufzeit" type="string" indexed="true" multiValued="true" stored="true"/>
-   <field name="contributor" type="string" indexed="true" stored="true"/>
+   <field name="contributor" type="string" indexed="true" stored="true"  multiValued="true"/>
    <field name="rel" type="string" indexed="true" stored="true"
    multiValued="true"/>
    <field name="toHost" type="text" indexed="true" stored="true" multiValued="true"/>
@@ -263,6 +263,7 @@
    <field name="details" type="text" indexed="true" stored="true" multiValued="true" />
    <field name="blockingYear" type="text" indexed="true" stored="true" multiValued="true" />
    <field name="classification" type="text" indexed="true" stored="true" multiValued="true" />
+    <field name="specificMaterialDesignation" type="text" indexed="true" stored="true" multiValued="true" />
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
