@@ -22,6 +22,13 @@
 
 
 <!--root knoten-->
+	<!--<xsl:template match="FrauenMediaTurm (FMT)">
+		<xsl:element name="catalog">
+			<xsl:apply-templates/>
+			</xsl:element>
+		</xsl:template>-->
+		
+<!--root knoten-->
 	<xsl:template match="FMT">
 		<xsl:element name="catalog">
 			<xsl:apply-templates/>
@@ -30,10 +37,10 @@
 
 <!--Der Objektknoten-->
 
-	<xsl:template match="Datensatz" name="tokenize">	
+	<xsl:template match="Datensatz">	
 	
-<!--<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">-->
-	
+	<!--<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">-->
+		
 		<xsl:variable name="id" select="Objektnummer_x058x_" />
 		<xsl:element name="record">
 			<xsl:attribute name="id"><xsl:value-of select="$id"></xsl:value-of></xsl:attribute>	
@@ -42,6 +49,12 @@
 <!--Variablen_______________________________________________________Variablen-->
 <!--Variablen_______________________________________________________Variablen-->
 <!--Variablen_______________________________________________________Variablen-->
+
+
+
+
+
+
 
 
 
@@ -77,6 +90,13 @@
 </xsl:element>
 
 
+
+
+
+
+
+
+
 <!--institution_______________________________institution_______________________________institution-->
 <!--institution_______________________________institution_______________________________institution-->
 <!--institution_______________________________institution_______________________________institution-->
@@ -107,6 +127,15 @@
 			
 </xsl:element>
 
+
+
+
+
+
+
+
+
+
 <!--dataset_______________________________dataset_______________________________dataset-->
 <!--dataset_______________________________dataset_______________________________dataset-->
 <!--dataset_______________________________dataset_______________________________dataset-->
@@ -134,6 +163,11 @@
 						<xsl:text>text</xsl:text>
 					</typeOfRessource>
 
+<!--format Objektartinformationen-->
+				<format>
+					<xsl:text>Buch</xsl:text>
+					</format>
+
 <!--documentType-->
 				<xsl:if test="Formen_x058x_">
 					<documentType>
@@ -159,33 +193,31 @@
 					</xsl:if>
 
 <!--entity Körperschaftsangaben-->
-				<xsl:if test="K_x148x_rpersch_x046x_Hrsg_x046x__x058x_">
 					<xsl:apply-templates select="K_x148x_rpersch_x046x_Hrsg_x046x__x058x_"/>
-					</xsl:if>
-
+					
 <!--series Reiheninformation-->
 				<xsl:if test="Zeitschr_x046x__x047x_Reihentitel_x058x_">
 					<series>
 						<xsl:value-of select="Zeitschr_x046x__x047x_Reihentitel_x058x_"/>
 						 </series>
 						</xsl:if>
-
-<!--format Objektartinformationen-->
+				
+<!--documentType-->
 				<xsl:choose>
 					<xsl:when test="Aufs_x132x_tze_x032x__x040x_Link_x041x__x058x_">
-						<format>
+						<documentType>
 							<xsl:text>Sammelband</xsl:text>
-							</format>
+							</documentType>
 						</xsl:when>
 					<xsl:when test="*[.='Hochschulschrift']">
-						<format>
+						<documentType>
 							<xsl:text>Hochschulschrift</xsl:text>
-							</format>
+							</documentType>
 						</xsl:when>
 					<xsl:otherwise>
-						<format>
-							<xsl:text>Monographie</xsl:text>
-							</format>
+						<documentType>
+							<xsl:text>Monografie</xsl:text>
+							</documentType>
 						</xsl:otherwise>
 				</xsl:choose>
 
@@ -226,31 +258,22 @@
 						<xsl:value-of select="Seiten_x058x_" />
 						</physical>
 					</xsl:if>
+					
+<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Beigaben_x058x_" />
 
 <!--language Sprachangaben-->
 				<xsl:if test="Sprache_x058x_">
 					<xsl:apply-templates select="Sprache_x058x_" />
 					</xsl:if>
 
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Hauptschlagworte_x058x_">
-					<xsl:for-each select="Hauptschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				
-				<xsl:if test="Nebenschlagworte_x058x_">
-					<xsl:for-each select="Nebenschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Regionen_x058x_">
-					<xsl:for-each select="Regionen_x058x_">
-						<subjectGeographic><xsl:value-of select="." /></subjectGeographic>
-						</xsl:for-each>
-					</xsl:if>
+<!--subjects-->
+				<xsl:apply-templates select="Hauptschlagworte_x058x_" />
+				<xsl:apply-templates select="Nebenschlagworte_x058x_" />
+				<xsl:apply-templates select="Regionen_x058x_" />
+				<xsl:apply-templates select="Personen_x058x_" />
+				<xsl:apply-templates select="Weitere_x032x_Personen_x058x_" />
+				<xsl:apply-templates select="Freie_x032x_Schlagworte_x058x_" />
 
 <!--shelfMark Signatur-->
 				<xsl:if test="Signatur_x058x_">
@@ -311,6 +334,11 @@
 						<xsl:text>text</xsl:text>
 					</typeOfRessource>
 
+<!--format Objektartinformationen-->
+					<format>
+						<xsl:text>Artikel</xsl:text>
+						</format>
+
 <!--documentType-->
 				<xsl:if test="Formen_x058x_">
 					<documentType>
@@ -346,12 +374,6 @@
 						<xsl:value-of select="Zeitschr_x046x__x047x_Reihentitel_x058x_"/>
 						 </series>
 						</xsl:if>
-
-<!--format Objektartinformationen-->
-					<format>
-						<xsl:text>Artikel</xsl:text>
-						</format>
-
 
 <!--ISBN / ISSN-->
 				<xsl:if test="ISBN_x058x_">
@@ -391,30 +413,21 @@
 						</physical>
 					</xsl:if>
 
+<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Beigaben_x058x_" />
+
 <!--language Sprachangaben-->
 				<xsl:if test="Sprache_x058x_">
 					<xsl:apply-templates select="Sprache_x058x_" />
 					</xsl:if>
 
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Hauptschlagworte_x058x_">
-					<xsl:for-each select="Hauptschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				
-				<xsl:if test="Nebenschlagworte_x058x_">
-					<xsl:for-each select="Nebenschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Regionen_x058x_">
-					<xsl:for-each select="Regionen_x058x_">
-						<subjectGeographic><xsl:value-of select="." /></subjectGeographic>
-						</xsl:for-each>
-					</xsl:if>
+<!--subjects-->
+				<xsl:apply-templates select="Hauptschlagworte_x058x_" />
+				<xsl:apply-templates select="Nebenschlagworte_x058x_" />
+				<xsl:apply-templates select="Regionen_x058x_" />
+				<xsl:apply-templates select="Personen_x058x_" />
+				<xsl:apply-templates select="Weitere_x032x_Personen_x058x_" />
+				<xsl:apply-templates select="Freie_x032x_Schlagworte_x058x_" />
 
 <!--shelfMark Signatur-->
 				<xsl:if test="Signatur_x058x_">
@@ -422,6 +435,19 @@
 						<xsl:value-of select="Signatur_x058x_"></xsl:value-of>
 						</shelfMark>
 					</xsl:if>
+
+<!--sourceInfo-->	
+				<sourceInfo>
+				<xsl:variable name="rel" select="substring-before(Signatur_x058x_,'-')" />
+				<xsl:variable name="title" select="//Datensatz[Signatur_x058x_=$rel]/Titel_x058x_" />
+					<xsl:value-of select="$title" />
+					<xsl:text> (</xsl:text>
+					<xsl:value-of select="Jahr_x058x_" />
+					<xsl:text>)</xsl:text>
+					<xsl:text>, </xsl:text>
+					<xsl:value-of select="Seiten_x058x_" />
+					</sourceInfo>
+
 </xsl:element>
 
 
@@ -471,12 +497,14 @@
 						<xsl:text>text</xsl:text>
 					</typeOfRessource>
 
+<!--format Objektartinformationen-->
+					<format>
+						<xsl:text>Zeitschrift</xsl:text>
+						</format>
+
 <!--documentType-->
-				<xsl:if test="Formen_x058x_">
-					<documentType>
-						<xsl:value-of select="Formen_x058x_" />
-						</documentType>
-					</xsl:if>
+				<xsl:apply-templates select="Zeitschriftentyp_x058x_" />
+				<xsl:apply-templates select="Formen_x058x_" />
 
 <!--title Titelinformationen-->
 				<xsl:if test="Zeitschriftentitel_x058x_[1]">
@@ -526,16 +554,11 @@
 						</publisher>
 					</xsl:if>
 
-<!--format Objektartinformationen-->
-					<format>
-						<xsl:text>Zeitschrift</xsl:text>
-						</format>
-
 <!--ISBN / ISSN-->
 				<xsl:if test="ISSN_x058x_">
-					<isbn>
+					<issn>
 						<xsl:value-of select="ISSN_x058x_"/>
-						</isbn>
+						</issn>
 					</xsl:if>
 
 <!--ZDBID-->
@@ -547,58 +570,26 @@
 						</xsl:for-each>
 					</xsl:if>
 
+<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Beigaben_x058x_" />
+
+<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Begleitmaterial_x058x_" />
+
 <!--language Sprachangaben-->
 				<xsl:if test="Sprache_x058x_">
 					<xsl:apply-templates select="Sprache_x058x_" />
 					</xsl:if>
 
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Themen_x058x_">
-					<xsl:for-each select="Themen_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
+<!--subjects-->
+				<xsl:apply-templates select="Hauptschlagworte_x058x_" />
+				<xsl:apply-templates select="Nebenschlagworte_x058x_" />
+				<xsl:apply-templates select="Regionen_x058x_" />
+				<xsl:apply-templates select="Personen_x058x_" />
+				<xsl:apply-templates select="Weitere_x032x_Personen_x058x_" />
+				<xsl:apply-templates select="Freie_x032x_Schlagworte_x058x_" />
+				<xsl:apply-templates select="Themen_x058x_" />
 				
-				<xsl:if test="Zeitschriftentyp_x058x_">
-					<xsl:for-each select="Zeitschriftentyp_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-					
-				<xsl:if test="Hauptschlagworte_x058x_">
-					<xsl:for-each select="Hauptschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				
-				<xsl:if test="Nebenschlagworte_x058x_">
-					<xsl:for-each select="Nebenschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				<xsl:if test="Freie_x032x_Schlagworte_x058x_">
-					<xsl:for-each select="Freie_x032x_Schlagworte_x058x_">
-						<subjectTopic>
-							<xsl:value-of select="." />
-							</subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Regionen_x058x_">
-					<xsl:for-each select="Regionen_x058x_">
-						<subjectGeographic><xsl:value-of select="." /></subjectGeographic>
-						</xsl:for-each>
-					</xsl:if>
-					
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen_x058x_">
-					<xsl:for-each select="Personen_x058x_">
-						<subjectPerson>
-							<xsl:value-of select="." />
-							</subjectPerson>
-						</xsl:for-each>
-					</xsl:if>
 
 <!--shelfMark Signatur-->
 				<xsl:if test="Signatur_x058x_">
@@ -648,6 +639,7 @@
 <xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">
 
 <xsl:variable name="rel" select="substring-before(Signatur_x058x_,':')" />
+<xsl:variable name="top" select="substring-before(Heft_x032x__x040x_Link_x041x__x058x_,':')" />
 
 <xsl:element name="dataset">
 
@@ -656,13 +648,18 @@
 						<xsl:text>text</xsl:text>
 					</typeOfRessource>
 
-<!--documentType-->
-				<xsl:if test="Formen_x058x_">
-					<documentType>
-						<xsl:value-of select="Formen_x058x_" />
-						</documentType>
-					</xsl:if>
+<!--format Objektartinformationen-->
+				<format>
+					<xsl:text>Zeitschrift</xsl:text>
+					</format>
 
+<!--documentType-->
+				<documentType>
+					<xsl:text>Zeitschriftenheft</xsl:text>
+					</documentType>
+			
+				<xsl:apply-templates select="Formen_x058x_" />
+				
 <!--title Titelinformationen-->
 				<xsl:choose>
 					<xsl:when test="Titel_x058x_">
@@ -728,16 +725,15 @@
 					<xsl:apply-templates select="K_x148x_rpersch_x046x_Hrsg_x046x__x058x_"/>
 					</xsl:if>
 
-<!--format Objektartinformationen-->
-					<format>
-						<xsl:text>Zeitschriftenheft</xsl:text>
-						</format>
+
 
 <!--ISBN / ISSN-->
 				<xsl:if test="//Datensatz[Signatur_x058x_=$rel]/ISSN_x058x_">
-					<issn>
-						<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/ISSN_x058x_"/>
-						</issn>
+					<xsl:for-each select="//Datensatz[Signatur_x058x_=$rel]/ISSN_x058x_">
+						<issn>
+							<xsl:value-of select="."/>
+							</issn>
+						</xsl:for-each>
 					</xsl:if>
 
 <!--ZDBID-->
@@ -765,6 +761,15 @@
 						<xsl:value-of select="Jahr_x058x_" />
 						</publishDate>
 					</xsl:if>
+<!--publisher-->
+				<publisher>	
+					<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Verlag_x058x_" />
+					</publisher>
+
+<!--placeOfPublication-->
+				<placeOfPublication>	
+					<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Ort_x058x_" />
+					</placeOfPublication>
 
 <!--issue Heft-->
 				<xsl:if test="Heft_x058x_">
@@ -780,62 +785,53 @@
 						</physical>
 					</xsl:if>
 
-<!--language Sprachangaben-->
-				<xsl:if test="Sprache_x058x_">
-					<xsl:apply-templates select="Sprache_x058x_" />
-					</xsl:if>
-		
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Hauptschlagworte_x058x_">
-					<xsl:for-each select="Hauptschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				
-				<xsl:if test="Nebenschlagworte_x058x_">
-					<xsl:for-each select="Nebenschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				<xsl:if test="Freie_x032x_Schlagworte_x058x_">
-					<xsl:for-each select="Freie_x032x_Schlagworte_x058x_">
-						<subjectTopic>
-							<xsl:value-of select="." />
-							</subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Regionen_x058x_">
-					<xsl:for-each select="Regionen_x058x_">
-						<subjectGeographic><xsl:value-of select="." /></subjectGeographic>
-						</xsl:for-each>
-					</xsl:if>
+<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Beigaben_x058x_" />
 
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen_x058x_">
-					<xsl:for-each select="Personen_x058x_">
-						<subjectPerson>
-							<xsl:value-of select="." />
-							</subjectPerson>
-						</xsl:for-each>
-					</xsl:if>
+<!--language Sprachangaben-->
+				<xsl:apply-templates select="Sprache_x058x_" />
 					
-<!--description-->
-				<xsl:if test="Inhaltsverzeichnis_x058x_[1]">
+<!--subjects-->
+				<xsl:apply-templates select="Hauptschlagworte_x058x_" />
+				<xsl:apply-templates select="Nebenschlagworte_x058x_" />
+				<xsl:apply-templates select="Regionen_x058x_" />
+				<xsl:apply-templates select="Personen_x058x_" />
+				<xsl:apply-templates select="Weitere_x032x_Personen_x058x_" />
+				<xsl:apply-templates select="Freie_x032x_Schlagworte_x058x_" />
+					
+<!--listOfContents-->
+				<!--<xsl:if test="Inhaltsverzeichnis_x058x_[1]">
 					<xsl:for-each select="tokenize(Inhaltsverzeichnis_x058x_[1], '&lt;p/&gt;')">
+						<listOfContents>
+							<xsl:value-of select="normalize-space(.)"/>
+							</listOfContents>
+						</xsl:for-each>
+					</xsl:if>-->
+					
+				<xsl:if test="Inhaltsverzeichnis_x058x_[1]">
+					<xsl:for-each select="Inhaltsverzeichnis_x058x_[1]">
 						<listOfContents>
 							<xsl:value-of select="normalize-space(.)"/>
 							</listOfContents>
 						</xsl:for-each>
 					</xsl:if>
 
+<!--sourceInfo-->	
+				<sourceInfo>
+					<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_" />
+					<xsl:text> (</xsl:text>
+					<xsl:value-of select="Jahr_x058x_" />
+					<xsl:text>)</xsl:text>
+					<xsl:value-of select="Heft_x058x_" />
+					<xsl:text>, </xsl:text>
+					<xsl:value-of select="Seiten_x058x_" />
+					</sourceInfo>
+
 </xsl:element>
 
 <xsl:element name="functions">
 	<xsl:variable name="rel" select="substring-before(Signatur_x058x_,':')" />
 		<hierarchyFields>
-				<hierarchyFields>
 				<hierarchy_top_id><xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Objektnummer_x058x_" /><xsl:text>fmt</xsl:text></hierarchy_top_id>
 				<hierarchy_top_title><xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Zeitschriftentitel_x058x_" /></hierarchy_top_title>
 				
@@ -859,7 +855,6 @@
 				
 				<!--<hierarchy_sequence><xsl:value-of select="normalize-space(substring-before(Seiten_x058x_[1],'-'))"></xsl:value-of></hierarchy_sequence>-->
 			</hierarchyFields>
-			</hierarchyFields>
 	
 	</xsl:element>	
 
@@ -880,6 +875,9 @@
 <xsl:if test="Objektart_x058x_[text()='Artikel aus EMMA']">
 
 <xsl:element name="dataset">
+
+<xsl:variable name="rel" select="Heft_x032x__x040x_Link_x041x__x058x_" />
+<xsl:variable name="top" select="substring-before(Heft_x032x__x040x_Link_x041x__x058x_,':')" />
 
 <!--typeOfRessource-->
 				<typeOfRessource>
@@ -921,6 +919,17 @@
 						</publishDate>
 					</xsl:if>
 
+<!--publisher-->
+				<publisher>	
+					<xsl:value-of select="//Datensatz[Signatur_x058x_=$top]/Verlag_x058x_" />
+					</publisher>
+
+
+<!--placeOfPublication-->
+				<placeOfPublication>	
+					<xsl:value-of select="//Datensatz[Signatur_x058x_=$top]/Ort_x058x_" />
+					</placeOfPublication>
+
 <!--issue Heft-->
 				<xsl:if test="Heft_x058x_">
 					<issue>
@@ -943,46 +952,22 @@
 						</physical>
 					</xsl:if>	
 
+<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Beigaben_x058x_" />
+
 <!--language Sprachangaben-->
 				<xsl:if test="Sprache_x058x_">
 					<xsl:apply-templates select="Sprache_x058x_" />
 					</xsl:if>
 
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Hauptschlagworte_x058x_">
-					<xsl:for-each select="Hauptschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
+<!--subjects-->
+				<xsl:apply-templates select="Hauptschlagworte_x058x_" />
+				<xsl:apply-templates select="Nebenschlagworte_x058x_" />
+				<xsl:apply-templates select="Regionen_x058x_" />
+				<xsl:apply-templates select="Personen_x058x_" />
+				<xsl:apply-templates select="Weitere_x032x_Personen_x058x_" />
+				<xsl:apply-templates select="Freie_x032x_Schlagworte_x058x_" />
 				
-				<xsl:if test="Nebenschlagworte_x058x_">
-					<xsl:for-each select="Nebenschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				<xsl:if test="Freie_x032x_Schlagworte_x058x_">
-					<xsl:for-each select="Freie_x032x_Schlagworte_x058x_">
-						<subjectTopic>
-							<xsl:value-of select="." />
-							</subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-				
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Regionen_x058x_">
-					<xsl:for-each select="Regionen_x058x_">
-						<subjectGeographic><xsl:value-of select="." /></subjectGeographic>
-						</xsl:for-each>
-					</xsl:if>
-
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen_x058x_">
-					<xsl:for-each select="Personen_x058x_">
-						<subjectPerson>
-							<xsl:value-of select="." />
-							</subjectPerson>
-						</xsl:for-each>
-					</xsl:if>
 
 <!--shelfMark Signatur-->
 				<xsl:if test="Signatur_x058x_">
@@ -1035,6 +1020,7 @@
 <xsl:element name="dataset">
 
 <xsl:variable name="rel" select="Heft_x032x__x040x_Link_x041x__x058x_" />
+<xsl:variable name="top" select="substring-before(Heft_x032x__x040x_Link_x041x__x058x_,':')" />
 
 <!--typeOfRessource-->
 				<typeOfRessource>
@@ -1075,29 +1061,53 @@
 						</publishDate>
 					</xsl:if>
 
+<!--publisher-->
+				<publisher>	
+					<xsl:value-of select="//Datensatz[Signatur_x058x_=$top]/Verlag_x058x_" />
+					</publisher>
+
+<!--placeOfPublication-->
+				<placeOfPublication>	
+					<xsl:value-of select="//Datensatz[Signatur_x058x_=$top]/Ort_x058x_" />
+					</placeOfPublication>
+
 <!--issue Heft-->
-				<xsl:if test="Heft_x058x_">
-					<issue>
-						<xsl:value-of select="Heft_x058x_"/>
-						</issue>
-					</xsl:if>
+				<xsl:apply-templates select="Heft_x058x_" />
 
 <!--volume Jahrgang-->
-				<xsl:if test="Jg_x046x__x047x_Vol_x046x__x058x_">
-					<volume>
-						<xsl:value-of select="Jg_x046x__x047x_Vol_x046x__x058x_"/>
-						</volume>
-					</xsl:if>	
+				<xsl:apply-templates select="Jg_x046x__x047x_Vol_x046x__x058x_" />
 
 <!--physical Seitenangabe-->
-				<xsl:if test="Seiten_x058x_">
-					<physical>
-						<xsl:value-of select="Seiten_x058x_" />
-						</physical>
-					</xsl:if>	
+				<xsl:apply-templates select="Seiten_x058x_" />
+					
+<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Beigaben_x058x_" />
 
 <!--ISBN / ISSN-->
-				<xsl:choose>
+				<xsl:if test="//Datensatz[Signatur_x058x_=$top]/ZDB-ID_x058x_">
+					<xsl:for-each select="//Datensatz[Signatur_x058x_=$top]/ZDB-ID_x058x_">
+						<zdbId>			
+							<xsl:value-of select="substring-before(.,';')" />
+							</zdbId>
+						</xsl:for-each>
+					</xsl:if>
+				
+				
+				<xsl:if test="//Datensatz[Signatur_x058x_=$top]/ISSN_x058x_">
+					<xsl:for-each select="//Datensatz[Signatur_x058x_=$top]/ISSN_x058x_">
+						<issn>		
+							<xsl:value-of select="." />
+							</issn>	
+						</xsl:for-each>
+					</xsl:if>
+				
+				<!--<xsl:if test="//Datensatz[Signatur_x058x_=$top]/ISBN_x058x_">
+					<isbn>	
+						<xsl:value-of select="//Datensatz[Signatur_x058x_=$top]/ISBN_x058x_" />
+						</isbn>
+				</xsl:if>-->
+				
+				<!--<xsl:choose>
 					<xsl:when test="Heft_x032x__x040x_Link_x041x__x058x_">
 						<issn>
 							<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/ISBN_x058x_"></xsl:value-of>
@@ -1113,45 +1123,33 @@
 							<xsl:value-of select="ISSN_x058x_" />
 							</issn>
 						</xsl:when>
-					</xsl:choose>
+					</xsl:choose>-->
 
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Hauptschlagworte_x058x_">
-					<xsl:for-each select="Hauptschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
+<!--subjects-->
+				<xsl:apply-templates select="Hauptschlagworte_x058x_" />
+				<xsl:apply-templates select="Nebenschlagworte_x058x_" />
+				<xsl:apply-templates select="Regionen_x058x_" />
+				<xsl:apply-templates select="Personen_x058x_" />
+				<xsl:apply-templates select="Freie_x032x_Schlagworte_x058x_" />
 				
-				<xsl:if test="Nebenschlagworte_x058x_">
-					<xsl:for-each select="Nebenschlagworte_x058x_">
-						<subjectTopic><xsl:value-of select="." /></subjectTopic>
-						</xsl:for-each>
-					</xsl:if>
-
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Regionen_x058x_">
-					<xsl:for-each select="Regionen_x058x_">
-						<subjectGeographic><xsl:value-of select="." /></subjectGeographic>
-						</xsl:for-each>
-					</xsl:if>
-
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen_x058x_">
-					<xsl:for-each select="Personen_x058x_">
-						<subjectPerson>
-							<xsl:value-of select="." />
-							</subjectPerson>
-						</xsl:for-each>
-					</xsl:if>					
-
+				
 <!--sourceInfo-->	
-				<xsl:if test="In_x032x_Zeitschrift_x058x_">
+				<sourceInfo>
+					<xsl:value-of select="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_" />
+					<xsl:text> (</xsl:text>
+					<xsl:value-of select="Jahr_x058x_" />
+					<xsl:text>)</xsl:text>
+					<xsl:value-of select="Heft_x058x_" />
+					<xsl:text>, </xsl:text>
+					<xsl:value-of select="Seiten_x058x_" />
+					</sourceInfo>
+<!--				<xsl:if test="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_">
 					<xsl:for-each select="In_x032x_Zeitschrift_x058x_">
 						<sourceInfo>
 							<xsl:value-of select="." />
 							</sourceInfo>	
 						</xsl:for-each>
-					</xsl:if>				
+					</xsl:if>				-->
 			
 	</xsl:element>
 
@@ -1201,14 +1199,119 @@
 
 
 <!--Templates-->
+	
+	<xsl:template match="Seiten_x058x_">
+		<physical>
+			<xsl:value-of select="." />
+			</physical>
+		</xsl:template>
+	
+	<xsl:template match="Jg_x046x__x047x_Vol_x046x__x058x_">
+		<xsl:for-each select=".">
+			<volume>
+				<xsl:value-of select="." />
+				</volume>
+			</xsl:for-each>
+		</xsl:template>
+		
+	<xsl:template match="Heft_x058x_">
+		<xsl:for-each select=".">
+			<issue>
+				<xsl:value-of select="." />
+				</issue>
+			</xsl:for-each>
+		</xsl:template>
+		
 
+	<xsl:template match="Begleitmaterial_x058x_">
+		<xsl:for-each select=".">
+			<specificMaterialDesignation>
+				<xsl:value-of select="." />
+				</specificMaterialDesignation>
+			</xsl:for-each>
+		</xsl:template>	
+	
+	<xsl:template match="Beigaben_x058x_">
+		<xsl:for-each select=".">
+			<specificMaterialDesignation>
+				<xsl:value-of select="." />
+				</specificMaterialDesignation>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Zeitschriftentyp_x058x_">
+		<xsl:for-each select=".">
+			<documentType>
+				<xsl:value-of select="." />
+				</documentType>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Formen_x058x_">
+		<xsl:for-each select=".">
+			<documentType>
+				<xsl:value-of select="." />
+				</documentType>
+			</xsl:for-each>
+		</xsl:template>
 
+	<xsl:template match="Themen_x058x_">
+		<xsl:for-each select=".">
+			<subjectTopic>
+				<xsl:value-of select="." />
+				</subjectTopic>
+			</xsl:for-each>
+		</xsl:template>
 
+	<xsl:template match="Hauptschlagworte_x058x_">
+		<xsl:for-each select=".">
+			<subjectTopic>
+				<xsl:value-of select="." />
+				</subjectTopic>
+			</xsl:for-each>
+		</xsl:template>
 
+	<xsl:template match="Nebenschlagworte_x058x_">
+		<xsl:for-each select=".">
+			<subjectTopic>
+				<xsl:value-of select="." />
+				</subjectTopic>
+			</xsl:for-each>
+		</xsl:template>
+		
+	<xsl:template match="Freie_x032x_Schlagworte_x058x_">
+		<xsl:for-each select=".">
+			<subjectTopic>
+				<xsl:value-of select="." />
+				</subjectTopic>
+			</xsl:for-each>
+		</xsl:template>
 
-
-
-
+	<xsl:template match="Personen_x058x_">
+		<xsl:for-each select=".">
+			<subjectPerson>
+				<xsl:value-of select="." />
+				</subjectPerson>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Weitere_x032x_Personen_x058x_">
+		<xsl:for-each select=".">
+			<subjectPerson>
+				<xsl:value-of select="." />
+				</subjectPerson>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Regionen_x058x_">
+		<xsl:for-each select=".">
+			<subjectGeographic>
+				<xsl:value-of select="." />
+				</subjectGeographic>
+			</xsl:for-each>
+		</xsl:template>
+		
+		
 
 
 <!--Template Titel-->
@@ -1380,6 +1483,9 @@
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
+
+
+
 
 
 
