@@ -2,49 +2,68 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100;
-  src: local("Roboto Thin"), local("Roboto-Thin"), url("/vufind/themes/meta-bootstrap3/fonts/roboto/roboto-thin.woff") format("woff"); }
+  src: local("Roboto Thin"), local("Roboto-Thin"), url(/vufind/themes/meta-bootstrap3/css/fonts/roboto/roboto-thin.woff) format("woff"); }
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 300;
-  src: local("Roboto Light"), local("Roboto-Light"), url("../fonts/roboto/roboto-light.woff") format("woff"); }
+  src: local("Roboto Light"), local("Roboto-Light"), url(/vufind/themes/meta-bootstrap3/css/fonts/roboto/roboto-light.woff) format("woff"); }
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: local("Roboto Regular"), local("Roboto-Regular"), url("../fonts/roboto/roboto-regular.woff") format("woff"); }
+  src: local("Roboto Regular"), local("Roboto-Regular"), url(/vufind/themes/meta-bootstrap3/css/fonts/roboto/roboto-regular.woff) format("woff"); }
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
-  src: local("Roboto Medium"), local("Roboto-Medium"), url("../fonts/roboto/roboto-medium.woff") format("woff"); }
+  src: local("Roboto Medium"), local("Roboto-Medium"), url(/vufind/themes/meta-bootstrap3/css/fonts/roboto/roboto-medium.woff) format("woff"); }
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
-  src: local("Roboto Bold"), local("Roboto-Bold"), url("../fonts/roboto/roboto-bold.woff") format("woff"); }
+  src: local("Roboto Bold"), local("Roboto-Bold"), url(/vufind/themes/meta-bootstrap3/css/fonts/roboto/roboto-bold.woff) format("woff"); }
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 900;
-  src: local("Roboto Black"), local("Roboto-Black"), url("../fonts/roboto/roboto-black.woff") format("woff"); }
+  src: local("Roboto Black"), local("Roboto-Black"), url(/vufind/themes/meta-bootstrap3/css/fonts/roboto/roboto-black.woff) format("woff"); }
 @font-face {
   font-family: 'Droid';
   font-style: normal;
   font-weight: 400;
-  src: local("Droid Serif"), local("DroidSerif"), url("../fonts/droid-serif/DroidSerif.woff") format("woff"); }
+  src: local("Droid Serif"), local("DroidSerif"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif.woff) format("woff"); }
 @font-face {
   font-family: 'Droid';
   font-style: normal;
   font-weight: 700;
-  src: local("Droid Serif Bold"), local("DroidSerif-Bold"), url("../fonts/droid-serif/DroidSerif-Bold.woff") format("woff"); }
+  src: local("Droid Serif Bold"), local("DroidSerif-Bold"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif-Bold.woff) format("woff"); }
 @font-face {
   font-family: 'Droid';
   font-style: italic;
   font-weight: 400;
-  src: local("Droid Serif Italic"), local("DroidSerif-Italic"), url("../fonts/droid-serif/DroidSerif-Italic.woff") format("woff"); }
+  src: local("Droid Serif Italic"), local("DroidSerif-Italic"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif-Italic.woff) format("woff"); }
 @font-face {
   font-family: 'Droid';
   font-style: italic;
   font-weight: 700;
-  src: local("Droid Serif Bold Italic"), local("DroidSerif-BoldItalic"), url("../fonts/droid-serif/DroidSerif-BoldItalic.woff") format("woff"); }
+  src: local("Droid Serif Bold Italic"), local("DroidSerif-BoldItalic"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif-BoldItalic.woff) format("woff"); }
+html, body {
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-size: 14px;
+  line-height: 1.2;
+  font-family: Roboto, sans-serif;
+  font-weight: 400; }
+
+img {
+  border: 0 none; }
+
+ol, ul {
+  list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
