@@ -1,3 +1,5 @@
+// Basic HTML elements
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,9 +7,10 @@ html, body {
 
 body {
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1.3;
   font-family: Roboto, sans-serif;
   font-weight: 400;
+  color: $color-black;
 }
 
 img {
@@ -16,9 +19,109 @@ img {
 
 ol, ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    line-height: 1.5em;
+  }
 }
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+a {
+  color: $color-black;
+}
+
+// Main Page elements
+
+header {
+  background-color: $color-yellow-2;
+  margin-bottom: 40px;
+  padding-bottom: 60px;
+  .navbar-brand {
+    font-family: Droid, serif;
+    font-weight: 200;
+    display: inline-block;
+    height: auto;
+  }
+  .logo {
+    background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 / cover #fff;
+    box-shadow: 3px 3px 2px $color-orange;
+    display: inline-block;
+    height: 80px;
+    width: 250px;
+    position: absolute;
+    right: 15px;
+  }
+}
+
+.breadcrumb {
+  background-color: transparent;
+}
+
+footer {
+  margin-top: 40px;
+  padding: 40px 0;
+  background-color: $color-yellow-4;
+  line-height: 2;
+  p strong {
+    display: block;
+    border-bottom: 4px solid $color-orange;
+  }
+}
+
+// Page content
+
+.list-group { // Right nav blocks
+  .list-group-item:first-child,
+  .list-group-item:last-child {
+    border-radius: 0;
+  }
+  .list-group-item {
+    background-color: #F7F6F8;
+    border-left: 0 none;
+    border-right: 0 none;
+    padding: 5px 15px;
+    &.title {
+      background-color: #E6E5EB;
+      color: #707070;
+      font-family: Droid, serif;
+      text-transform: uppercase;
+      font-weight: 200;
+      letter-spacing: 3px;
+      padding: 10px 15px;
+    }
+    .badge {
+      float: none;
+    }
+  }
+}
+
+.badge { // Bullet label
+  background-color: transparent;
+  color: inherit;
+  float: none;
+  font-weight: inherit;
+  border-radius: 0;
+  font-size: inherit;
+  padding: 0;
+}
+
+.well-lg { // Search box
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.group { //
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.btn { // button
+  border-radius: 0;
+  text-align: center;
+  padding: 4px 30px;
 }

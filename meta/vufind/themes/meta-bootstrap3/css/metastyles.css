@@ -54,16 +54,95 @@ html, body {
 
 body {
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1.3;
   font-family: Roboto, sans-serif;
-  font-weight: 400; }
+  font-weight: 400;
+  color: black; }
 
 img {
   border: 0 none; }
 
 ol, ul {
-  list-style: none; }
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  ol li, ul li {
+    line-height: 1.5em; }
 
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+
+a {
+  color: black; }
+
+header {
+  background-color: #fbce6a;
+  margin-bottom: 40px;
+  padding-bottom: 60px; }
+  header .navbar-brand {
+    font-family: Droid, serif;
+    font-weight: 200;
+    display: inline-block;
+    height: auto; }
+  header .logo {
+    background: url(/vufind/themes/meta-bootstrap3/images/logo_ida_blau.png) no-repeat scroll 0 0/cover white;
+    box-shadow: 3px 3px 2px #ee952b;
+    display: inline-block;
+    height: 80px;
+    width: 250px;
+    position: absolute;
+    right: 15px; }
+
+.breadcrumb {
+  background-color: transparent; }
+
+footer {
+  margin-top: 40px;
+  padding: 40px 0;
+  background-color: #fdefcc;
+  line-height: 2; }
+  footer p strong {
+    display: block;
+    border-bottom: 4px solid #ee952b; }
+
+.list-group .list-group-item:first-child,
+.list-group .list-group-item:last-child {
+  border-radius: 0; }
+.list-group .list-group-item {
+  background-color: #F7F6F8;
+  border-left: 0 none;
+  border-right: 0 none;
+  padding: 5px 15px; }
+  .list-group .list-group-item.title {
+    background-color: #E6E5EB;
+    color: #707070;
+    font-family: Droid, serif;
+    text-transform: uppercase;
+    font-weight: 200;
+    letter-spacing: 3px;
+    padding: 10px 15px; }
+  .list-group .list-group-item .badge {
+    float: none; }
+
+.badge {
+  background-color: transparent;
+  color: inherit;
+  float: none;
+  font-weight: inherit;
+  border-radius: 0;
+  font-size: inherit;
+  padding: 0; }
+
+.well-lg {
+  border-radius: 0;
+  box-shadow: none; }
+
+.group {
+  background-color: transparent;
+  border-radius: 0; }
+
+.btn {
+  border-radius: 0;
+  text-align: center;
+  padding: 4px 30px; }

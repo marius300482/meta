@@ -2,20 +2,23 @@
 
 $theme-path-root: '/vufind/themes/meta-bootstrap3/';
 $theme-path-fonts: #{$theme-path-root}css/fonts; // has to be in CSS folder. Otherwise .htaccess excludes it
+$theme-path-images: #{$theme-path-root}images;
 
 // Colors
 
-$yellow-1: #FAAC1E;
-$yellow-2: #FBCEA6;
-$yellow-3: #FCDE99;
-$yellow-4: #FDEFCC;
-$yellow-5: #F7F5F0;
+$color-yellow-1: #FAAC1E;
+$color-yellow-2: #FBCE6A;
+$color-yellow-3: #FCDE99;
+$color-yellow-4: #FDEFCC;
+$color-yellow-5: #F7F5F0;
 
-$blue-1: #32294E;
-$blue-2: #645D77;
-$blue-3: #B7B1C6;
-$blue-4: #E5E4EA;
-$blue-5: #F7F7F9;
+$color-blue-1: #32294E;
+$color-blue-2: #645D77;
+$color-blue-3: #B7B1C6;
+$color-blue-4: #E5E4EA;
+$color-blue-5: #F7F7F9;
 
-$orange: #EE952B;
-$purple: #950097;
+$color-orange: #EE952B;
+$color-purple: #950097;
+
+$color-black: #000000;
