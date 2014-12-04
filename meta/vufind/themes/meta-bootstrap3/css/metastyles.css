@@ -78,45 +78,97 @@ a {
 
 header {
   background-color: #fbce6a;
-  margin-bottom: 40px;
+  margin-bottom: 70px;
   padding-bottom: 60px;
   color: #000; }
+  header .container {
+    border: 0 none; }
   header .navbar-brand {
     color: #000;
     font-family: 'Droid Serif', serif;
-    font-size: 22px;
+    font-size: 24px;
     display: inline-block;
     height: auto;
     line-height: 30px;
     letter-spacing: 3px; }
+  header .navbar-header {
+    float: none; }
   header .logo {
     background: url(/vufind/themes/meta-bootstrap3/images/logo_ida_blau.png) no-repeat scroll 0 0/cover white;
-    box-shadow: 3px 3px 2px #ee952b;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
     display: inline-block;
-    height: 80px;
-    width: 250px;
+    height: 95px;
+    width: 342px;
     position: absolute;
     right: 15px; }
+  header .visible-lg {
+    position: relative; }
+    header .visible-lg #searchForm {
+      display: block;
+      width: 100%;
+      padding: 0;
+      position: absolute; }
+      header .visible-lg #searchForm .search-nav-wrapper {
+        overflow: hidden;
+        padding: 3px 0 0 3px;
+        margin-left: -3px; }
+        header .visible-lg #searchForm .search-nav-wrapper .search-nav {
+          border: 0; }
+          header .visible-lg #searchForm .search-nav-wrapper .search-nav li {
+            margin-right: 10px; }
+            header .visible-lg #searchForm .search-nav-wrapper .search-nav li a {
+              background-color: #ee952b;
+              color: #32294e;
+              border: 0;
+              border-radius: 0;
+              padding: 5px 50px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+            header .visible-lg #searchForm .search-nav-wrapper .search-nav li.active a {
+              background-color: #fdefcc; }
+      header .visible-lg #searchForm .search-body {
+        background-color: #fdefcc;
+        padding: 15px 25px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+        header .visible-lg #searchForm .search-body .twitter-typeahead {
+          border-radius: 0;
+          background-color: transparent; }
+        header .visible-lg #searchForm .search-body #searchForm_lookfor {
+          border-radius: 0;
+          border: 0 none;
+          background-color: #FFFFFF !important;
+          /* Overwrite "style" attribute */
+          height: 32px;
+          width: 70%;
+          max-width: inherit;
+          margin-right: 15px;
+          box-shadow: 0 0 4px #999 inset; }
+        header .visible-lg #searchForm .search-body .btn-primary {
+          padding-top: 6px;
+          padding-bottom: 6px;
+          font-weight: bold; }
+          header .visible-lg #searchForm .search-body .btn-primary i {
+            display: none; }
 
 .breadcrumb {
   background-color: transparent; }
 
 footer {
   margin-top: 40px;
-  padding: 60px 0;
+  padding: 70px 0 50px;
   background-color: #fdefcc;
   line-height: 2; }
   footer p strong {
     display: block;
-    border-bottom: 4px solid #ee952b; }
+    border-bottom: 4px solid #ee952b;
+    font-weight: 500; }
   footer .footer-brand {
     color: #000;
     display: inline-block;
     font-family: 'Droid Serif', serif;
     height: auto;
-    font-size: 22px;
+    font-size: 24px;
     line-height: 30px;
-    margin-top: -20px;
+    margin-top: -40px;
     letter-spacing: 3px; }
 
 .list-group .list-group-item:first-child,
@@ -133,7 +185,8 @@ footer {
     font-family: 'Droid Serif', serif;
     text-transform: uppercase;
     letter-spacing: 3px;
-    padding: 10px 15px; }
+    padding: 10px 15px;
+    font-weight: normal; }
   .list-group .list-group-item .badge {
     float: none; }
 
@@ -154,7 +207,10 @@ footer {
   background-color: transparent;
   border-radius: 0; }
 
-.btn {
+.btn, .btn:hover {
   border-radius: 0;
   text-align: center;
-  padding: 4px 30px; }
+  padding: 4px 30px;
+  border: 0 none;
+  background-color: #423B5b;
+  color: #FFFFFF; }

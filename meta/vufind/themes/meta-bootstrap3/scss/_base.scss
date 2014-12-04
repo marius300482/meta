@@ -39,26 +39,91 @@ a {
 
 header {
   background-color: $color-yellow-2;
-  margin-bottom: 40px;
+  margin-bottom: 70px;
   padding-bottom: 60px;
   color: #000;
+  .container {
+    border: 0 none;
+  }
   .navbar-brand {
     color: #000;
     font-family: 'Droid Serif', serif;
-    font-size: 22px;
+    font-size: 24px;
     display: inline-block;
     height: auto;
     line-height: 30px;
     letter-spacing: 3px;
   }
+  .navbar-header {
+    float: none;
+  }
   .logo {
     background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 / cover #fff;
-    box-shadow: 3px 3px 2px $color-orange;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
     display: inline-block;
-    height: 80px;
-    width: 250px;
+    height: 95px;
+    width: 342px;
     position: absolute;
     right: 15px;
+  }
+  .visible-lg {
+    position: relative;
+    #searchForm {
+      // Top search form
+      display: block;
+      width: 100%;
+      padding: 0;
+      position: absolute;
+      .search-nav-wrapper {
+        overflow: hidden;
+        padding: 3px 0 0 3px;
+        margin-left: -3px;
+        .search-nav {
+          border: 0;
+          li {
+            margin-right: 10px;
+            a {
+              background-color: $color-orange;
+              color: $color-blue-1;
+              border: 0;
+              border-radius: 0;
+              padding: 5px 50px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }
+            &.active a {
+              background-color: $color-yellow-4;
+            }
+          }
+        }
+      }
+      .search-body {
+        background-color: $color-yellow-4;
+        padding: 15px 25px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        .twitter-typeahead {
+          border-radius: 0;
+          background-color: transparent;
+        }
+        #searchForm_lookfor {
+          border-radius: 0;
+          border: 0 none;
+          background-color: #FFFFFF !important; /* Overwrite "style" attribute */
+          height: 32px;
+          width: 70%;
+          max-width: inherit;
+          margin-right: 15px;
+          box-shadow: 0 0 4px #999 inset;
+        }
+        .btn-primary {
+          padding-top: 6px;
+          padding-bottom: 6px;
+          font-weight: bold;
+          i {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -68,21 +133,22 @@ header {
 
 footer {
   margin-top: 40px;
-  padding: 60px 0;
+  padding: 70px 0 50px;
   background-color: $color-yellow-4;
   line-height: 2;
   p strong {
     display: block;
     border-bottom: 4px solid $color-orange;
+    font-weight: 500;
   }
   .footer-brand {
     color: #000;
     display: inline-block;
     font-family: 'Droid Serif', serif;
     height: auto;
-    font-size: 22px;
+    font-size: 24px;
     line-height: 30px;
-    margin-top: -20px;
+    margin-top: -40px;
     letter-spacing: 3px;
   }
 }
@@ -106,6 +172,7 @@ footer {
       text-transform: uppercase;
       letter-spacing: 3px;
       padding: 10px 15px;
+      font-weight: normal;
     }
     .badge {
       float: none;
@@ -133,8 +200,11 @@ footer {
   border-radius: 0;
 }
 
-.btn { // Normal button
+.btn, .btn:hover { // Normal button
   border-radius: 0;
   text-align: center;
   padding: 4px 30px;
+  border: 0 none;
+  background-color: #423B5b;
+  color: #FFFFFF;
 }
