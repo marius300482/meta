@@ -57,7 +57,7 @@ body {
   line-height: 1.3;
   font-family: Roboto, sans-serif;
   font-weight: 400;
-  color: black; }
+  color: #32294e; }
 
 img {
   border: 0 none; }
@@ -74,17 +74,21 @@ table {
   border-spacing: 0; }
 
 a {
-  color: black; }
+  color: #32294e; }
 
 header {
   background-color: #fbce6a;
   margin-bottom: 40px;
-  padding-bottom: 60px; }
+  padding-bottom: 60px;
+  color: #000; }
   header .navbar-brand {
+    color: #000;
     font-family: Droid, serif;
-    font-weight: 200;
+    font-weight: 400;
+    font-size: 22px;
     display: inline-block;
-    height: auto; }
+    height: auto;
+    line-height: 30px; }
   header .logo {
     background: url(/vufind/themes/meta-bootstrap3/images/logo_ida_blau.png) no-repeat scroll 0 0/cover white;
     box-shadow: 3px 3px 2px #ee952b;
@@ -99,12 +103,22 @@ header {
 
 footer {
   margin-top: 40px;
-  padding: 40px 0;
+  padding: 60px 0;
   background-color: #fdefcc;
   line-height: 2; }
   footer p strong {
     display: block;
     border-bottom: 4px solid #ee952b; }
+  footer .footer-brand {
+    color: #000;
+    display: inline-block;
+    font-family: Droid;
+    font-style: normal;
+    font-weight: 400;
+    height: auto;
+    font-size: 22px;
+    line-height: 30px;
+    margin-top: -20px; }
 
 .list-group .list-group-item:first-child,
 .list-group .list-group-item:last-child {
