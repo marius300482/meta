@@ -219,3 +219,29 @@ footer {
     padding-right: 30px;
   }
 }
+
+.result { // Search result list row
+  margin-bottom: 30px;
+  .label-info {
+    color: inherit;
+    background-color: transparent;
+    border-radius: 0;
+    font-weight: normal;
+    font-size: inherit;
+    padding: 0;
+  }
+  a {
+    color: $color-purple;
+  }
+  a.title {
+    color: inherit;
+    font-size: 18px;
+    font-family: 'Droid Serif', serif;
+    display: block;
+    margin: 4px 0;
+  }
+}
+
+mark, .highlight { // Marker
+  background-color: $color-yellow-4;
+}

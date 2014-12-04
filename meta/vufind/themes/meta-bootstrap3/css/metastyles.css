@@ -221,3 +221,24 @@ footer {
 .main > .container {
   padding-left: 30px;
   padding-right: 30px; }
+
+.result {
+  margin-bottom: 30px; }
+  .result .label-info {
+    color: inherit;
+    background-color: transparent;
+    border-radius: 0;
+    font-weight: normal;
+    font-size: inherit;
+    padding: 0; }
+  .result a {
+    color: #950097; }
+  .result a.title {
+    color: inherit;
+    font-size: 18px;
+    font-family: 'Droid Serif', serif;
+    display: block;
+    margin: 4px 0; }
+
+mark, .highlight {
+  background-color: #fdefcc; }
