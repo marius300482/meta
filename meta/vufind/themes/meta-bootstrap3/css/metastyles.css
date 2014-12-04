@@ -277,3 +277,17 @@ mark, .highlight {
       border-radius: 12px;
       margin-top: -4px;
       margin-left: -6px; }
+
+.pagination > li:first-child > span, .pagination > li:first-child > a, .pagination > li:last-child > span, .pagination > li:last-child > a {
+  border-radius: 0; }
+.pagination li {
+  display: inline-block;
+  margin-right: 1px; }
+  .pagination li > a, .pagination li > span {
+    background-color: #EFEDF3;
+    border: 0 none;
+    color: inherit; }
+  .pagination li.active span {
+    background-color: #fbce6a;
+    color: inherit;
+    font-weight: 700; }

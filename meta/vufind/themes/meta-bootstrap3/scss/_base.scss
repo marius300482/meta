@@ -290,3 +290,26 @@ mark, .highlight { // Marker
     }
   }
 }
+
+.pagination { // pagination
+  &> li:first-child > span,
+  &> li:first-child > a,
+  &> li:last-child > span,
+  &> li:last-child > a {
+    border-radius: 0;
+  }
+  li {
+    display: inline-block;
+    margin-right: 1px;
+    &> a, &> span {
+      background-color: #EFEDF3;
+      border: 0 none;
+      color: inherit;
+    }
+    &.active span {
+      background-color: $color-yellow-2;
+      color: inherit;
+      font-weight: 700;
+    }
+  }
+}
