@@ -242,6 +242,12 @@ footer {
   }
 }
 
+.search-result-count { // Sentence which contains search result matches
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
 mark, .highlight { // Marker
   background-color: $color-yellow-4;
 }

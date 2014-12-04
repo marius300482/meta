@@ -74,7 +74,7 @@
 
       //if (!isset($this->layout()->searchbox)) { // PHE: We show the search box on every page
         $this->layout()->searchbox = $this->render('search/searchbox.phtml');
-      //}
+      //} // PHE
     ?>
     <header role="banner" class="hidden-print">
       <div class="container navbar">
@@ -85,7 +85,7 @@
         <nav class="nav searchbox hidden-lg hidden-print">
           <?=$this->layout()->searchbox ?>
         </nav>
-<!-- phe
+<?php /* PHE is not required
         <? if((!isset($this->layout()->showBreadcrumbs) || $this->layout()->showBreadcrumbs == true)
           && !empty($this->layout()->breadcrumbs)
           && $this->layout()->breadcrumbs !== false
@@ -110,7 +110,7 @@
           <? endif; ?>
           </ul>
         <? endif; ?>
--->
+*/ ?>
       </div>
     </header>
     <div role="main" class="main">

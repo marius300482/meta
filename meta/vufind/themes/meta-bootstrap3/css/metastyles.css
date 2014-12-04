@@ -240,5 +240,10 @@ footer {
     display: block;
     margin: 4px 0; }
 
+.search-result-count {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 40px; }
+
 mark, .highlight {
   background-color: #fdefcc; }
