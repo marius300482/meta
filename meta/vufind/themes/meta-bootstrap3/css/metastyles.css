@@ -72,7 +72,10 @@ ol, ul {
 label {
   font-weight: normal; }
 
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"],
+select {
+  border: 1px solid #ccc;
   border-radius: 0;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset; }
 
@@ -186,7 +189,9 @@ footer {
   border-left: 0 none;
   border-right: 0 none;
   padding: 5px 15px; }
-  .list-group .list-group-item.title {
+  .list-group .list-group-item:hover {
+    background-color: #fdefcc; }
+  .list-group .list-group-item.title, .list-group .list-group-item.title:hover {
     background-color: #E6E5EB;
     color: #707070;
     font-family: 'Droid Serif', serif;
@@ -197,9 +202,17 @@ footer {
   .list-group .list-group-item .badge {
     float: none; }
 
-.form-control {
+select.form-control {
+  border: 1px solid #D5D2DD;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: #D5D2DD; }
+
+.form-control, .form-control:focus {
   height: auto;
-  padding: 2px 6px; }
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset; }
 
 .lead {
   font-weight: normal; }
@@ -259,17 +272,18 @@ footer {
 mark, .highlight {
   background-color: #fdefcc; }
 
-.slider-container {
+.slider-container, .slider-horizontal {
   margin: 10px 0; }
-  .slider-container .slider .slider-track {
+  .slider-container .slider-track, .slider-horizontal .slider-track {
     background-color: #BBB;
-    height: 4px;
+    height: 4px !important;
     border-radius: 0;
     box-shadow: none; }
-    .slider-container .slider .slider-track .slider-selection {
+    .slider-container .slider-track .slider-selection, .slider-horizontal .slider-track .slider-selection {
       box-shadow: none;
       background-color: #423b5b; }
-    .slider-container .slider .slider-track .slider-handle {
+    .slider-container .slider-track .slider-handle, .slider-container .slider-track .slider-handle:hover, .slider-horizontal .slider-track .slider-handle, .slider-horizontal .slider-track .slider-handle:hover {
+      border: 1px solid #423b5b;
       background-color: #423b5b;
       opacity: 1;
       width: 12px;
@@ -277,6 +291,9 @@ mark, .highlight {
       border-radius: 12px;
       margin-top: -4px;
       margin-left: -6px; }
+
+#side-collapse-publishDate li:hover {
+  background-color: #f7f6f8; }
 
 .pagination > li:first-child > span, .pagination > li:first-child > a, .pagination > li:last-child > span, .pagination > li:last-child > a {
   border-radius: 0; }

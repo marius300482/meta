@@ -30,7 +30,10 @@ label {
   font-weight: normal;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"],
+select {
+  border: 1px solid #ccc;
   border-radius: 0;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
 }
@@ -174,7 +177,10 @@ footer {
     border-left: 0 none;
     border-right: 0 none;
     padding: 5px 15px;
-    &.title {
+    &:hover {
+      background-color: $color-yellow-4;
+    }
+    &.title, &.title:hover {
       background-color: #E6E5EB;
       color: #707070;
       font-family: 'Droid Serif', serif;
@@ -189,9 +195,18 @@ footer {
   }
 }
 
-.form-control { // Text input elements in form
+select.form-control {
+  border: 1px solid #D5D2DD;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: #D5D2DD;
+}
+
+.form-control, .form-control:focus { // Text input elements in form
   height: auto;
   padding: 2px 6px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
 }
 
 .lead { // block headline
@@ -266,29 +281,32 @@ mark, .highlight { // Marker
   background-color: $color-yellow-4;
 }
 
-.slider-container { // Date slider
+.slider-container, .slider-horizontal { // Date slider
   margin: 10px 0;
-  .slider {
-    .slider-track {
-      background-color: #BBB;
-      height: 4px;
-      border-radius: 0;
+  .slider-track {
+    background-color: #BBB;
+    height: 4px !important; // Allows to apply the height for all sliders
+    border-radius: 0;
+    box-shadow: none;
+    .slider-selection {
       box-shadow: none;
-      .slider-selection {
-        box-shadow: none;
-        background-color: #423b5b;
-      }
-      .slider-handle {
-        background-color: #423b5b;
-        opacity: 1;
-        width: 12px;
-        height: 12px;
-        border-radius: 12px;
-        margin-top: -4px;
-        margin-left: -6px;
-      }
+      background-color: #423b5b;
+    }
+    .slider-handle, .slider-handle:hover {
+      border: 1px solid #423b5b;
+      background-color: #423b5b;
+      opacity: 1;
+      width: 12px;
+      height: 12px;
+      border-radius: 12px;
+      margin-top: -4px;
+      margin-left: -6px;
     }
   }
+}
+
+#side-collapse-publishDate li:hover { // Date slider in side panel
+  background-color: #f7f6f8;
 }
 
 .pagination { // pagination
