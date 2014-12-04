@@ -148,7 +148,7 @@ footer {
     height: auto;
     font-size: 24px;
     line-height: 30px;
-    margin-top: -40px;
+    margin: -40px 0 0 -15px; // Special position
     letter-spacing: 3px;
   }
 }
@@ -180,6 +180,10 @@ footer {
   }
 }
 
+.lead { // block headline
+  font-weight: normal;
+}
+
 .badge { // Bullet label e.g.: (112)
   background-color: transparent;
   color: inherit;
@@ -207,4 +211,11 @@ footer {
   border: 0 none;
   background-color: #423B5b;
   color: #FFFFFF;
+}
+
+.main { // Main content div
+  &> .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }

@@ -168,7 +168,7 @@ footer {
     height: auto;
     font-size: 24px;
     line-height: 30px;
-    margin-top: -40px;
+    margin: -40px 0 0 -15px;
     letter-spacing: 3px; }
 
 .list-group .list-group-item:first-child,
@@ -189,6 +189,9 @@ footer {
     font-weight: normal; }
   .list-group .list-group-item .badge {
     float: none; }
+
+.lead {
+  font-weight: normal; }
 
 .badge {
   background-color: transparent;
@@ -214,3 +217,7 @@ footer {
   border: 0 none;
   background-color: #423B5b;
   color: #FFFFFF; }
+
+.main > .container {
+  padding-left: 30px;
+  padding-right: 30px; }
