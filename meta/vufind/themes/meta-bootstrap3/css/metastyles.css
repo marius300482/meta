@@ -69,6 +69,13 @@ ol, ul {
   ol li, ul li {
     line-height: 1.5em; }
 
+label {
+  font-weight: normal; }
+
+input[type="text"], input[type="password"] {
+  border-radius: 0;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset; }
+
 table {
   border-collapse: collapse;
   border-spacing: 0; }
@@ -184,11 +191,15 @@ footer {
     color: #707070;
     font-family: 'Droid Serif', serif;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    padding: 10px 15px;
+    letter-spacing: 1px;
+    padding: 7px 15px;
     font-weight: normal; }
   .list-group .list-group-item .badge {
     float: none; }
+
+.form-control {
+  height: auto;
+  padding: 2px 6px; }
 
 .lead {
   font-weight: normal; }
@@ -247,3 +258,22 @@ footer {
 
 mark, .highlight {
   background-color: #fdefcc; }
+
+.slider-container {
+  margin: 10px 0; }
+  .slider-container .slider .slider-track {
+    background-color: #BBB;
+    height: 4px;
+    border-radius: 0;
+    box-shadow: none; }
+    .slider-container .slider .slider-track .slider-selection {
+      box-shadow: none;
+      background-color: #423b5b; }
+    .slider-container .slider .slider-track .slider-handle {
+      background-color: #423b5b;
+      opacity: 1;
+      width: 12px;
+      height: 12px;
+      border-radius: 12px;
+      margin-top: -4px;
+      margin-left: -6px; }
