@@ -44,12 +44,12 @@ header {
   color: #000;
   .navbar-brand {
     color: #000;
-    font-family: Droid, serif;
-    font-weight: 400;
+    font-family: 'Droid Serif', serif;
     font-size: 22px;
     display: inline-block;
     height: auto;
     line-height: 30px;
+    letter-spacing: 3px;
   }
   .logo {
     background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 / cover #fff;
@@ -78,13 +78,12 @@ footer {
   .footer-brand {
     color: #000;
     display: inline-block;
-    font-family: Droid;
-    font-style: normal;
-    font-weight: 400;
+    font-family: 'Droid Serif', serif;
     height: auto;
     font-size: 22px;
     line-height: 30px;
     margin-top: -20px;
+    letter-spacing: 3px;
   }
 }
 
@@ -103,9 +102,8 @@ footer {
     &.title {
       background-color: #E6E5EB;
       color: #707070;
-      font-family: Droid, serif;
+      font-family: 'Droid Serif', serif;
       text-transform: uppercase;
-      font-weight: 200;
       letter-spacing: 3px;
       padding: 10px 15px;
     }

@@ -29,22 +29,22 @@
   font-weight: 900;
   src: local("Roboto Black"), local("Roboto-Black"), url(/vufind/themes/meta-bootstrap3/css/fonts/roboto/roboto-black.woff) format("woff"); }
 @font-face {
-  font-family: 'Droid';
+  font-family: 'Droid Serif';
   font-style: normal;
   font-weight: 400;
   src: local("Droid Serif"), local("DroidSerif"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif.woff) format("woff"); }
 @font-face {
-  font-family: 'Droid';
+  font-family: 'Droid Serif';
   font-style: normal;
   font-weight: 700;
   src: local("Droid Serif Bold"), local("DroidSerif-Bold"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif-Bold.woff) format("woff"); }
 @font-face {
-  font-family: 'Droid';
+  font-family: 'Droid Serif';
   font-style: italic;
   font-weight: 400;
   src: local("Droid Serif Italic"), local("DroidSerif-Italic"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif-Italic.woff) format("woff"); }
 @font-face {
-  font-family: 'Droid';
+  font-family: 'Droid Serif';
   font-style: italic;
   font-weight: 700;
   src: local("Droid Serif Bold Italic"), local("DroidSerif-BoldItalic"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif-BoldItalic.woff) format("woff"); }
@@ -83,12 +83,12 @@ header {
   color: #000; }
   header .navbar-brand {
     color: #000;
-    font-family: Droid, serif;
-    font-weight: 400;
+    font-family: 'Droid Serif', serif;
     font-size: 22px;
     display: inline-block;
     height: auto;
-    line-height: 30px; }
+    line-height: 30px;
+    letter-spacing: 3px; }
   header .logo {
     background: url(/vufind/themes/meta-bootstrap3/images/logo_ida_blau.png) no-repeat scroll 0 0/cover white;
     box-shadow: 3px 3px 2px #ee952b;
@@ -112,13 +112,12 @@ footer {
   footer .footer-brand {
     color: #000;
     display: inline-block;
-    font-family: Droid;
-    font-style: normal;
-    font-weight: 400;
+    font-family: 'Droid Serif', serif;
     height: auto;
     font-size: 22px;
     line-height: 30px;
-    margin-top: -20px; }
+    margin-top: -20px;
+    letter-spacing: 3px; }
 
 .list-group .list-group-item:first-child,
 .list-group .list-group-item:last-child {
@@ -131,9 +130,8 @@ footer {
   .list-group .list-group-item.title {
     background-color: #E6E5EB;
     color: #707070;
-    font-family: Droid, serif;
+    font-family: 'Droid Serif', serif;
     text-transform: uppercase;
-    font-weight: 200;
     letter-spacing: 3px;
     padding: 10px 15px; }
   .list-group .list-group-item .badge {
