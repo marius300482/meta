@@ -308,7 +308,13 @@ mark, .highlight { // Marker
   }
 }
 
-#side-collapse-publishDate li:hover { // Date slider in side panel
+.sidebar.col-sm-4 { // right sidebar panel
+  h4 {
+    margin-top: 0;
+  }
+}
+
+#side-collapse-publishDate li:hover { // Date slider in sidebar panel
   background-color: #f7f6f8;
 }
 
@@ -339,3 +345,4 @@ mark, .highlight { // Marker
     }
   }
 }
+

@@ -294,6 +294,9 @@ mark, .highlight {
       margin-top: -4px;
       margin-left: -6px; }
 
+.sidebar.col-sm-4 h4 {
+  margin-top: 0; }
+
 #side-collapse-publishDate li:hover {
   background-color: #f7f6f8; }
 
