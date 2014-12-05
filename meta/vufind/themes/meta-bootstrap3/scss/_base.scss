@@ -148,6 +148,9 @@ footer {
   padding: 70px 0 50px;
   background-color: $color-yellow-4;
   line-height: 2;
+  @media (max-width: 768px) {
+    padding: 40px 0 50px;
+  }
   p strong {
     display: block;
     border-bottom: 4px solid $color-orange;
@@ -162,6 +165,9 @@ footer {
     line-height: 30px;
     margin: -40px 0 0 -15px; // Special position
     letter-spacing: 3px;
+    @media (max-width: 768px) {
+      margin: 0 0 30px 0;
+    }
   }
 }
 
