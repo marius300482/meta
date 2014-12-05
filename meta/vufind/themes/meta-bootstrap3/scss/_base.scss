@@ -325,14 +325,14 @@ mark, .highlight { // Marker
       background-color: #423b5b;
     }
     .slider-handle, .slider-handle:hover {
-      border: 1px solid #423b5b;
       background-color: #423b5b;
+      border: 1px solid #423b5b;
+      border-radius: 14px;
+      height: 14px;
+      margin-left: -7px;
+      margin-top: -5px;
       opacity: 1;
-      width: 12px;
-      height: 12px;
-      border-radius: 12px;
-      margin-top: -4px;
-      margin-left: -6px;
+      width: 14px;
     }
   }
 }
