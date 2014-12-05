@@ -82,9 +82,18 @@
   <span class="Z3988" title="<?=$this->escapeHtmlAttr($this->driver->getOpenURL())?>"></span>
 */ ?>
 
-    <?php foreach (array_reverse($this->tabs) as $tab => $obj): ?>
-        <?=$this->record($this->driver)->getTab($obj)?>
-    <?php endforeach; ?>
+    <div class="record" id="detail-view-details">
+        <?php foreach (array_reverse($this->tabs) as $tab => $obj): ?>
+            <div class="col-sm-6">
+                <?php if ($tab == "Details") : ?>
+                    <h4><?php echo $this->transEsc('Description'); ?></h4>
+                <?php elseif ($tab == "HierarchyTree") : ?>
+                    <h4><?php echo $this->transEsc('Context'); ?></h4>
+                <?php endif; ?>
+                <?php echo $this->record($this->driver)->getTab($obj)?>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
 </div>
 

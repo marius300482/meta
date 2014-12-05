@@ -375,3 +375,40 @@ mark, .highlight { // Marker
   }
 }
 
+#detail-view-details { // Detail view table with details
+  h4 {
+    border-bottom: 4px solid #E6E5EB;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .jstree-default { // Hierarchy tree
+    .jstree-node {
+      background: 0 none;
+    }
+    a {
+      white-space: normal;
+      &.jstree-anchor {
+        height: auto;
+      }
+      i.jstree-icon:empty {
+        display: none;
+      }
+    }
+    i.jstree-icon {
+      background: 0 none;
+    }
+  }
+  .table-striped {
+    th, td {
+      background-color: transparent;
+      border: 0 none;
+    }
+    td {
+      font-weight: 400;
+    }
+    th {
+      text-align: left;
+      font-weight: 300;
+    }
+  }
+}

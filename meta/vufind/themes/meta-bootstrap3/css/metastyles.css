@@ -344,3 +344,26 @@ mark, .highlight {
     font-weight: 700; }
   .pagination li.paging-label a, .pagination li.paging-label span {
     background-color: transparent; }
+
+#detail-view-details h4 {
+  border-bottom: 4px solid #E6E5EB;
+  padding-bottom: 10px;
+  margin-bottom: 10px; }
+#detail-view-details .jstree-default .jstree-node {
+  background: 0 none; }
+#detail-view-details .jstree-default a {
+  white-space: normal; }
+  #detail-view-details .jstree-default a.jstree-anchor {
+    height: auto; }
+  #detail-view-details .jstree-default a i.jstree-icon:empty {
+    display: none; }
+#detail-view-details .jstree-default i.jstree-icon {
+  background: 0 none; }
+#detail-view-details .table-striped th, #detail-view-details .table-striped td {
+  background-color: transparent;
+  border: 0 none; }
+#detail-view-details .table-striped td {
+  font-weight: 400; }
+#detail-view-details .table-striped th {
+  text-align: left;
+  font-weight: 300; }
