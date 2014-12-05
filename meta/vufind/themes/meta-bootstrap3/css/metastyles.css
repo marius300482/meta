@@ -263,6 +263,8 @@ select.form-control {
     font-family: 'Droid Serif', serif;
     display: block;
     margin: 4px 0; }
+  .result.row .col-sm-1 {
+    padding: 0; }
 
 .search-result-count {
   font-size: 16px;
@@ -308,3 +310,5 @@ mark, .highlight {
     background-color: #fbce6a;
     color: inherit;
     font-weight: 700; }
+  .pagination li.paging-label a, .pagination li.paging-label span {
+    background-color: transparent; }

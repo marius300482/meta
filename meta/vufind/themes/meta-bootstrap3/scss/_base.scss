@@ -269,6 +269,9 @@ select.form-control {
     display: block;
     margin: 4px 0;
   }
+  &.row .col-sm-1 {
+    padding: 0;
+  }
 }
 
 .search-result-count { // Sentence which contains search result matches
@@ -328,6 +331,11 @@ mark, .highlight { // Marker
       background-color: $color-yellow-2;
       color: inherit;
       font-weight: 700;
+    }
+    &.paging-label {
+      a, span {
+        background-color: transparent;
+      }
     }
   }
 }
