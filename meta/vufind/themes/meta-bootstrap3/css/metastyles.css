@@ -167,6 +167,9 @@ footer {
   padding: 70px 0 50px;
   background-color: #fdefcc;
   line-height: 2; }
+  @media (max-width: 768px) {
+    footer {
+      padding: 40px 0 50px; } }
   footer p strong {
     display: block;
     border-bottom: 4px solid #ee952b;
@@ -180,6 +183,9 @@ footer {
     line-height: 30px;
     margin: -40px 0 0 -15px;
     letter-spacing: 3px; }
+    @media (max-width: 768px) {
+      footer .footer-brand {
+        margin: 0 0 30px 0; } }
 
 .list-group .list-group-item:first-child,
 .list-group .list-group-item:last-child {
