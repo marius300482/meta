@@ -11,6 +11,7 @@ body {
   font-family: Roboto, sans-serif;
   font-weight: 400;
   color: $color-blue-1;
+  min-width: 320px;
 }
 
 img {
@@ -52,10 +53,10 @@ a {
 header {
   background-color: $color-yellow-2;
   margin-bottom: 70px;
-  padding-bottom: 60px;
   color: #000;
-  .container {
+  &> .navbar {
     border: 0 none;
+    margin-bottom: -40px;
   }
   .navbar-brand {
     color: #000;
@@ -65,9 +66,13 @@ header {
     height: auto;
     line-height: 30px;
     letter-spacing: 3px;
+    float: none;
   }
   .navbar-header {
     float: none;
+  }
+  .navbar-toggle {
+    display: none;
   }
   .logo {
     background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 / cover #fff;
@@ -76,63 +81,81 @@ header {
     height: 95px;
     width: 342px;
     position: absolute;
-    right: 15px;
-  }
-  .visible-lg {
-    position: relative;
-    #searchForm {
-      // Top search form
+    right: 30px;
+    @media (max-width: 768px) {
       display: block;
-      width: 100%;
-      padding: 0;
-      position: absolute;
-      .search-nav-wrapper {
-        overflow: hidden;
-        padding: 3px 0 0 3px;
-        margin-left: -3px;
-        .search-nav {
-          border: 0;
-          li {
-            margin-right: 10px;
-            a {
-              background-color: $color-orange;
-              color: $color-blue-1;
-              border: 0;
-              border-radius: 0;
-              padding: 5px 50px;
-              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      position: relative;
+      right: auto;
+      margin-left: 15px;
+    }
+  }
+  .searchbox.hidden-lg {
+    display: none; // Hide the second search box for small devices
+  }
+  #searchForm { // Top search form
+    display: block;
+    float: none !important; // Overwrite bootstrap !important
+    .search-nav-wrapper {
+      overflow: hidden;
+      padding: 3px 0 0 3px;
+      margin-left: -3px;
+      .search-nav {
+        border: 0;
+        li {
+          margin-right: 10px;
+          a {
+            background-color: $color-orange;
+            color: $color-blue-1;
+            border: 0;
+            border-radius: 0;
+            padding: 5px 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            @media (max-width: 768px) {
+              padding: 5px 30px;
             }
-            &.active a {
-              background-color: $color-yellow-4;
-            }
+          }
+          &.active a {
+            background-color: $color-yellow-4;
           }
         }
       }
-      .search-body {
-        background-color: $color-yellow-4;
-        padding: 15px 25px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        .twitter-typeahead {
-          border-radius: 0;
-          background-color: transparent;
+    }
+    .search-body {
+      background-color: $color-yellow-4;
+      padding: 15px 25px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      .twitter-typeahead {
+        border-radius: 0;
+        background-color: transparent;
+        width: 70%;
+        display: inline-block !important;
+        margin-right: 15px;
+        vertical-align: top;
+        @media (max-width: 768px) {
+          margin-right: 10px;
+          width: 60%;
+        }
+        @media (max-width: 400px) {
+          margin-right: 5px;
+          width: 50%;
         }
         #searchForm_lookfor {
           border-radius: 0;
           border: 0 none;
           background-color: #FFFFFF !important; /* Overwrite "style" attribute */
           height: 32px;
-          width: 70%;
           max-width: inherit;
-          margin-right: 15px;
           box-shadow: 0 0 4px #999 inset;
+          width: 100%;
         }
-        .btn-primary {
-          padding-top: 6px;
-          padding-bottom: 6px;
-          font-weight: bold;
-          i {
-            display: none;
-          }
+      }
+      .btn-primary {
+        margin: 8px 0;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        font-weight: bold;
+        i {
+          display: none;
         }
       }
     }

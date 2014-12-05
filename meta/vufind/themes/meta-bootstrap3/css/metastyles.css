@@ -57,7 +57,8 @@ body {
   line-height: 1.3;
   font-family: Roboto, sans-serif;
   font-weight: 400;
-  color: #32294e; }
+  color: #32294e;
+  min-width: 320px; }
 
 img {
   border: 0 none; }
@@ -89,10 +90,10 @@ a {
 header {
   background-color: #fbce6a;
   margin-bottom: 70px;
-  padding-bottom: 60px;
   color: #000; }
-  header .container {
-    border: 0 none; }
+  header > .navbar {
+    border: 0 none;
+    margin-bottom: -40px; }
   header .navbar-brand {
     color: #000;
     font-family: 'Droid Serif', serif;
@@ -100,9 +101,12 @@ header {
     display: inline-block;
     height: auto;
     line-height: 30px;
-    letter-spacing: 3px; }
+    letter-spacing: 3px;
+    float: none; }
   header .navbar-header {
     float: none; }
+  header .navbar-toggle {
+    display: none; }
   header .logo {
     background: url(/vufind/themes/meta-bootstrap3/images/logo_ida_blau.png) no-repeat scroll 0 0/cover white;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
@@ -110,54 +114,73 @@ header {
     height: 95px;
     width: 342px;
     position: absolute;
-    right: 15px; }
-  header .visible-lg {
-    position: relative; }
-    header .visible-lg #searchForm {
-      display: block;
-      width: 100%;
-      padding: 0;
-      position: absolute; }
-      header .visible-lg #searchForm .search-nav-wrapper {
-        overflow: hidden;
-        padding: 3px 0 0 3px;
-        margin-left: -3px; }
-        header .visible-lg #searchForm .search-nav-wrapper .search-nav {
-          border: 0; }
-          header .visible-lg #searchForm .search-nav-wrapper .search-nav li {
-            margin-right: 10px; }
-            header .visible-lg #searchForm .search-nav-wrapper .search-nav li a {
-              background-color: #ee952b;
-              color: #32294e;
-              border: 0;
-              border-radius: 0;
-              padding: 5px 50px;
-              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
-            header .visible-lg #searchForm .search-nav-wrapper .search-nav li.active a {
-              background-color: #fdefcc; }
-      header .visible-lg #searchForm .search-body {
-        background-color: #fdefcc;
-        padding: 15px 25px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
-        header .visible-lg #searchForm .search-body .twitter-typeahead {
-          border-radius: 0;
-          background-color: transparent; }
-        header .visible-lg #searchForm .search-body #searchForm_lookfor {
+    right: 30px; }
+    @media (max-width: 768px) {
+      header .logo {
+        display: block;
+        position: relative;
+        right: auto;
+        margin-left: 15px; } }
+  header .searchbox.hidden-lg {
+    display: none; }
+  header #searchForm {
+    display: block;
+    float: none !important; }
+    header #searchForm .search-nav-wrapper {
+      overflow: hidden;
+      padding: 3px 0 0 3px;
+      margin-left: -3px; }
+      header #searchForm .search-nav-wrapper .search-nav {
+        border: 0; }
+        header #searchForm .search-nav-wrapper .search-nav li {
+          margin-right: 10px; }
+          header #searchForm .search-nav-wrapper .search-nav li a {
+            background-color: #ee952b;
+            color: #32294e;
+            border: 0;
+            border-radius: 0;
+            padding: 5px 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+            @media (max-width: 768px) {
+              header #searchForm .search-nav-wrapper .search-nav li a {
+                padding: 5px 30px; } }
+          header #searchForm .search-nav-wrapper .search-nav li.active a {
+            background-color: #fdefcc; }
+    header #searchForm .search-body {
+      background-color: #fdefcc;
+      padding: 15px 25px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+      header #searchForm .search-body .twitter-typeahead {
+        border-radius: 0;
+        background-color: transparent;
+        width: 70%;
+        display: inline-block !important;
+        margin-right: 15px;
+        vertical-align: top; }
+        @media (max-width: 768px) {
+          header #searchForm .search-body .twitter-typeahead {
+            margin-right: 10px;
+            width: 60%; } }
+        @media (max-width: 400px) {
+          header #searchForm .search-body .twitter-typeahead {
+            margin-right: 5px;
+            width: 50%; } }
+        header #searchForm .search-body .twitter-typeahead #searchForm_lookfor {
           border-radius: 0;
           border: 0 none;
           background-color: #FFFFFF !important;
           /* Overwrite "style" attribute */
           height: 32px;
-          width: 70%;
           max-width: inherit;
-          margin-right: 15px;
-          box-shadow: 0 0 4px #999 inset; }
-        header .visible-lg #searchForm .search-body .btn-primary {
-          padding-top: 6px;
-          padding-bottom: 6px;
-          font-weight: bold; }
-          header .visible-lg #searchForm .search-body .btn-primary i {
-            display: none; }
+          box-shadow: 0 0 4px #999 inset;
+          width: 100%; }
+      header #searchForm .search-body .btn-primary {
+        margin: 8px 0;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        font-weight: bold; }
+        header #searchForm .search-body .btn-primary i {
+          display: none; }
 
 .breadcrumb {
   background-color: transparent; }
