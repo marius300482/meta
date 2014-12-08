@@ -166,6 +166,13 @@ header {
   background-color: transparent;
 }
 
+.main { // Main content div
+  &> .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
 footer {
   margin-top: 40px;
   padding: 70px 0 50px;
@@ -238,7 +245,7 @@ select.form-control {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
 }
 
-.lead { // block headline
+.lead { // Block headline
   font-weight: normal;
 }
 
@@ -269,13 +276,6 @@ select.form-control {
   border: 0 none;
   background-color: #423B5b;
   color: #FFFFFF;
-}
-
-.main { // Main content div
-  &> .container {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
 }
 
 .result { // Search result list row
@@ -337,13 +337,23 @@ mark, .highlight { // Marker
   }
 }
 
-.sidebar.col-sm-4 { // right sidebar panel
+.sidebar.col-sm-4 { // Sidebar
   h4 {
     margin-top: 0;
   }
 }
 
-#side-collapse-publishDate li:hover { // Date slider in sidebar panel
+.detail-view-sidebar { // Sidebar of the detail view
+  .list-group-item, .list-group-item:hover {
+    padding: 10px 0;
+    background-color: transparent;
+    &:first-child {
+      border-top-width: 4px;
+    }
+  }
+}
+
+#side-collapse-publishDate li:hover { // Date slider in sidebar
   background-color: #f7f6f8;
 }
 
@@ -381,11 +391,32 @@ mark, .highlight { // Marker
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
+  #hierarchyTreeHolder {
+    background-color: #F7F7F9;
+    margin-top: -10px;
+    #treeSearch {
+      border-bottom: 1px solid #e6e5eb;
+      padding: 20px 10px;
+      margin-bottom: 20px;
+    }
+    .btn[type="submit"] {
+      width: 70px;
+      font-weight: 700;
+    }
+    #treeSearchText {
+      width: calc(100% - 200px);
+    }
+    #treeSearchType {
+      margin: 0 10px;
+    }
+  }
   .jstree-default { // Hierarchy tree
+    padding: 10px;
     .jstree-node {
       background: 0 none;
     }
     a {
+      width: calc(100% - 24px);
       white-space: normal;
       &.jstree-anchor {
         height: auto;
@@ -397,18 +428,46 @@ mark, .highlight { // Marker
     i.jstree-icon {
       background: 0 none;
     }
+    .jstree-clicked {
+      background-color: #FDEFCC;
+    }
   }
   .table-striped {
     th, td {
       background-color: transparent;
       border: 0 none;
     }
-    td {
-      font-weight: 400;
-    }
     th {
       text-align: left;
       font-weight: 300;
+      width: 30%;
+    }
+    td {
+      font-weight: 400;
+    }
+  }
+}
+
+#record { // The main record data in the detail view
+  h3 {
+    font-family: "Droid", serif;
+    font-weight: 700;
+    margin: 5px 0 20px 0;
+  }
+  a {
+    color: $color-purple;
+  }
+  .table {
+    th, td {
+      border: 0 none;
+    }
+    th {
+      font-weight: normal;
+      width: 30%;
+      padding-left: 0;
+    }
+    td a {
+      font-weight: 500;
     }
   }
 }
