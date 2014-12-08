@@ -35,6 +35,7 @@
 </div>
 */ ?>
 
+<?php /* PHE not required
 <? $facetList = is_object($this->results) ? $this->results->getFacetList() : array(); if (isset($facetList) && is_array($facetList)): ?>
 <div class="row">
   <? foreach ($facetList as $field => $details): ?>
@@ -43,7 +44,7 @@
       <p class="lead"><?=$this->transEsc('home_browse') . ' ' . $this->transEsc($details['label'])?></p>
       <div class="row">
         <ul class="list-unstyled <?=$field == "callnumber-first" ? 'col-sm-6' : 'col-sm-12' ?>">
-        <? /* Special case: two columns for LC call numbers... */ ?>
+        <? // Special case: two columns for LC call numbers... ?>
         <? if ($field == "callnumber-first"): ?>
           <? $i = 0; foreach ($sortedList as $url => $value): ?>
             <? if (!empty($value)): ?>
@@ -54,7 +55,7 @@
               </ul><ul class="list-unstyled col-sm-6">
             <? endif; ?>
           <? endforeach; ?>
-        <? /* Special case: collections */ ?>
+        <? // Special case: collections  ?>
         <? elseif ($field == 'hierarchy_top_title'): ?>
           <? $i = 0; foreach ($sortedList as $url => $value): ?>
             <? if (++$i > 10): ?>
@@ -81,3 +82,15 @@
   <? endforeach; ?>
 </div>
 <? endif; ?>
+ */ ?>
+
+<div class="row">
+    <div class="tag_cloud">
+        <?php foreach ($topics as $topic): ?>
+            <span style="font-size: <?= $topic['weight'] ?>px">
+                <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>"
+                   href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+            </span>
+        <?php endforeach; ?>
+    </div>
+</div>
