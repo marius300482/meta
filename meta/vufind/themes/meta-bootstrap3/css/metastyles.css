@@ -57,7 +57,7 @@ body {
   line-height: 1.3;
   font-family: Roboto, sans-serif;
   font-weight: 400;
-  color: #32294e;
+  color: #2e264d;
   min-width: 320px; }
 
 img {
@@ -85,10 +85,10 @@ table {
   border-spacing: 0; }
 
 a {
-  color: #32294e; }
+  color: #2e264d; }
 
 header {
-  background-color: #fbce6a;
+  background-color: #ffce67;
   margin-bottom: 70px;
   color: #000; }
   header > .navbar {
@@ -135,8 +135,8 @@ header {
         header #searchForm .search-nav-wrapper .search-nav li {
           margin-right: 10px; }
           header #searchForm .search-nav-wrapper .search-nav li a {
-            background-color: #ee952b;
-            color: #32294e;
+            background-color: #f3971e;
+            color: #2e264d;
             border: 0;
             border-radius: 0;
             padding: 5px 50px;
@@ -145,9 +145,9 @@ header {
               header #searchForm .search-nav-wrapper .search-nav li a {
                 padding: 5px 30px; } }
           header #searchForm .search-nav-wrapper .search-nav li.active a {
-            background-color: #fdefcc; }
+            background-color: #ffefcc; }
     header #searchForm .search-body {
-      background-color: #fdefcc;
+      background-color: #ffefcc;
       padding: 15px 25px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
       header #searchForm .search-body .twitter-typeahead {
@@ -192,14 +192,14 @@ header {
 footer {
   margin-top: 40px;
   padding: 70px 0 50px;
-  background-color: #fdefcc;
+  background-color: #ffefcc;
   line-height: 2; }
   @media (max-width: 768px) {
     footer {
       padding: 40px 0 50px; } }
   footer p strong {
     display: block;
-    border-bottom: 4px solid #ee952b;
+    border-bottom: 4px solid #f3971e;
     font-weight: 500; }
   footer .footer-brand {
     color: #000;
@@ -223,7 +223,7 @@ footer {
   border-right: 0 none;
   padding: 5px 15px; }
   .list-group .list-group-item:hover {
-    background-color: #fdefcc; }
+    background-color: #ffefcc; }
   .list-group .list-group-item.title, .list-group .list-group-item.title:hover {
     background-color: #E6E5EB;
     color: #707070;
@@ -285,7 +285,7 @@ select.form-control {
     font-size: inherit;
     padding: 0; }
   .result a {
-    color: #950097; }
+    color: #990099; }
   .result a.title {
     color: inherit;
     font-size: 18px;
@@ -301,7 +301,7 @@ select.form-control {
   margin-bottom: 40px; }
 
 mark, .highlight {
-  background-color: #fdefcc; }
+  background-color: #ffefcc; }
 
 .slider-container, .slider-horizontal {
   margin: 10px 0; }
@@ -345,7 +345,7 @@ mark, .highlight {
     border: 0 none;
     color: inherit; }
   .pagination li.active span {
-    background-color: #fbce6a;
+    background-color: #ffce67;
     color: inherit;
     font-weight: 700; }
   .pagination li.paging-label a, .pagination li.paging-label span {
@@ -399,7 +399,7 @@ mark, .highlight {
   font-weight: 700;
   margin: 5px 0 20px 0; }
 #record a {
-  color: #950097; }
+  color: #990099; }
 #record .table th, #record .table td {
   border: 0 none; }
 #record .table th {
