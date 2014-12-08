@@ -1,0 +1,19 @@
+<?
+/**
+ * THIS IS HOT WO MAKE THIS PAGE THE LANDING PAGE
+ *
+ * 1. GO TO "/vufind2/config/vufind/config.ini"
+ * 2. Set "defaultModule" value to "Search"
+ */
+
+// Set page title.
+$this->headTitle($this->translate('Home'));
+?>
+<ul class="tag_cloud">
+    <? foreach ($topics as $topic): ?>
+        <li<?php /*style="font-size: <?= $topic['weight'] ?>px"*/ ?>>
+            <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
+                href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+        </li>
+    <? endforeach; ?>
+</ul>

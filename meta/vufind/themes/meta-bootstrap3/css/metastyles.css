@@ -408,3 +408,30 @@ mark, .highlight {
   padding-left: 0; }
 #record .table td a {
   font-weight: 500; }
+
+.tag_cloud {
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
+  padding: 0 30px; }
+  .tag_cloud li {
+    display: inline-block; }
+  .tag_cloud .w19, .tag_cloud .w20, .tag_cloud .w21 {
+    font-size: 19px; }
+  .tag_cloud .w22, .tag_cloud .w23, .tag_cloud .w24 {
+    font-size: 22px; }
+  .tag_cloud .w25, .tag_cloud .w26, .tag_cloud .w27 {
+    font-size: 25px; }
+  .tag_cloud .w28, .tag_cloud .w29, .tag_cloud .w30, .tag_cloud .w31, .tag_cloud .w32 {
+    font-size: 28px; }
+  .tag_cloud .w33, .tag_cloud .w34, .tag_cloud .w35, .tag_cloud .w36, .tag_cloud .w37 {
+    font-size: 31px; }
+  .tag_cloud .w38, .tag_cloud .w39, .tag_cloud .w40, .tag_cloud .w41, .tag_cloud .w42 {
+    font-size: 40px;
+    color: #641373; }
+  .tag_cloud .w43, .tag_cloud .w44, .tag_cloud .w45 {
+    font-size: 43px;
+    color: #7E0A86; }
+  .tag_cloud .w46, .tag_cloud .w47, .tag_cloud .w48, .tag_cloud .w49, .tag_cloud .w50 {
+    font-size: 46px;
+    color: #990099; }

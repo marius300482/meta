@@ -46,7 +46,7 @@ $config = array(
                     'route'    => '/Topics',
                     'defaults' => array(
                         'controller' => 'Topics',
-                        'action'     => 'Cloud',
+                        'action'     => 'Home',
                     ),
                 ),
                 'may_terminate' => true,
