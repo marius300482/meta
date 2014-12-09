@@ -281,6 +281,7 @@ footer {
     border-left: 0 none;
     border-right: 0 none;
     padding: 5px 15px;
+    color: $color-blue-1;
     &:hover {
       background-color: $color-yellow-4;
     }
@@ -293,7 +294,19 @@ footer {
       padding: 7px 15px;
       font-weight: normal;
     }
-    .badge {
+    span.badge {
+      float: none;
+      color: #707070;
+      background-color: transparent;
+    }
+    &.active, &.active:hover {
+      color: #FFFFFF;
+      background-color: #423b5b;
+      span.badge {
+          color: #FFFFFF;
+      }
+    }
+    &.view-record {
       float: none;
     }
   }
