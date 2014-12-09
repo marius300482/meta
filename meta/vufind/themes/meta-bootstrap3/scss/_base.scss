@@ -50,10 +50,36 @@ a {
 
 // Main Page elements
 
+@media (min-width: 768px) { // content div on small screen
+  .container {
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) { // content div on medium screen
+  .container {
+    width: auto;
+  }
+}
+
+@media (min-width: 1200px) { // content div on huge screen
+  .container {
+    width: 1170px;
+  }
+}
+
 header {
-  background-color: $color-yellow-2;
   margin-bottom: 70px;
   color: #000;
+  .header-background {
+    position: absolute;
+    background-color: $color-yellow-2;
+    width: 100%;
+    height: 180px;
+    @media (max-width: 768px) {
+      height: 280px;
+    }
+  }
   &> .navbar {
     border: 0 none;
     margin-bottom: -40px;
@@ -67,6 +93,9 @@ header {
     line-height: 30px;
     letter-spacing: 3px;
     float: none;
+    @media (max-width: 768px) {
+      font-size: 19px;
+    }
   }
   .navbar-header {
     float: none;
@@ -87,6 +116,8 @@ header {
       position: relative;
       right: auto;
       margin-left: 15px;
+      width: 290px;
+      height: 80px;
     }
   }
   .searchbox.hidden-lg {
@@ -96,6 +127,7 @@ header {
     display: block;
     float: none !important; // Overwrite bootstrap !important
     margin-bottom: 0;
+    padding-bottom: 0;
     .search-nav-wrapper {
       overflow: hidden;
       padding: 3px 0 0 3px;
@@ -126,7 +158,7 @@ header {
     }
     #simple-search-body {
       background-color: $color-yellow-4;
-      padding: 15px 25px;
+      padding: 15px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       .twitter-typeahead {
         border-radius: 0;
@@ -168,13 +200,33 @@ header {
 
 #advSearchForm {
   padding: 0 15px;
+  @media (max-width: 992px) {
+    padding: 0;
+    select {
+      margin-top: 4px;
+    }
+    .group {
+      .col-md-7, .col-md-6, .col-md-4 {
+        padding: 0;
+      }
+    }
+  }
+  .group {
+    margin-top: 20px;
+    &#group0 {
+      margin-top: 0;
+    }
+  }
   #advanced-search-body {
     background-color: #ffefcc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 15px 25px;
+    padding: 15px;
   }
   .add-seach-criteria {
-    margin: 20px 0 30px 0;
+    margin: 20px 0 30px 15px;
+  }
+  .submit-advanced-search {
+    margin-left: 15px;
   }
 }
 

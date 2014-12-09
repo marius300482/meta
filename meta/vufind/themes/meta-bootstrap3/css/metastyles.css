@@ -87,10 +87,26 @@ table {
 a {
   color: #2e264d; }
 
+@media (min-width: 768px) {
+  .container {
+    width: auto; } }
+@media (min-width: 992px) {
+  .container {
+    width: auto; } }
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px; } }
 header {
-  background-color: #ffce67;
   margin-bottom: 70px;
   color: #000; }
+  header .header-background {
+    position: absolute;
+    background-color: #ffce67;
+    width: 100%;
+    height: 180px; }
+    @media (max-width: 768px) {
+      header .header-background {
+        height: 280px; } }
   header > .navbar {
     border: 0 none;
     margin-bottom: -40px; }
@@ -103,6 +119,9 @@ header {
     line-height: 30px;
     letter-spacing: 3px;
     float: none; }
+    @media (max-width: 768px) {
+      header .navbar-brand {
+        font-size: 19px; } }
   header .navbar-header {
     float: none; }
   header .navbar-toggle {
@@ -120,13 +139,16 @@ header {
         display: block;
         position: relative;
         right: auto;
-        margin-left: 15px; } }
+        margin-left: 15px;
+        width: 290px;
+        height: 80px; } }
   header .searchbox.hidden-lg {
     display: none; }
   header #searchForm {
     display: block;
     float: none !important;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    padding-bottom: 0; }
     header #searchForm .search-nav-wrapper {
       overflow: hidden;
       padding: 3px 0 0 3px;
@@ -152,7 +174,7 @@ header {
             cursor: inherit; }
     header #searchForm #simple-search-body {
       background-color: #ffefcc;
-      padding: 15px 25px;
+      padding: 15px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
       header #searchForm #simple-search-body .twitter-typeahead {
         border-radius: 0;
@@ -188,12 +210,25 @@ header {
 
 #advSearchForm {
   padding: 0 15px; }
+  @media (max-width: 992px) {
+    #advSearchForm {
+      padding: 0; }
+      #advSearchForm select {
+        margin-top: 4px; }
+      #advSearchForm .group .col-md-7, #advSearchForm .group .col-md-6, #advSearchForm .group .col-md-4 {
+        padding: 0; } }
+  #advSearchForm .group {
+    margin-top: 20px; }
+    #advSearchForm .group#group0 {
+      margin-top: 0; }
   #advSearchForm #advanced-search-body {
     background-color: #ffefcc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 15px 25px; }
+    padding: 15px; }
   #advSearchForm .add-seach-criteria {
-    margin: 20px 0 30px 0; }
+    margin: 20px 0 30px 15px; }
+  #advSearchForm .submit-advanced-search {
+    margin-left: 15px; }
 
 .breadcrumb {
   background-color: transparent; }

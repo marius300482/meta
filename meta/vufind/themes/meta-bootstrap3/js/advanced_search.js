@@ -57,7 +57,7 @@ function addGroup(firstTerm, firstField, join)
           '<label>'+searchLabel+':</label>' +
           '<i id="group'+nextGroup+'Holder" class="fa fa-plus-circle"></i> <a href="#" onClick="addSearch('+nextGroup+')">'+addSearchString+'</a>' +
       '</div>'
-    + '<div class="col-md-6>'
+    + '<div class="col-md-6" style="margin-top: 20px">'
     + '<label for="search_bool'+nextGroup+'">'+searchMatch+':&nbsp;</label>'
     + '<a href="#" onClick="deleteGroup('+nextGroup+')" class="close hidden" title="'+deleteSearchGroupString+'">&times;</a>'
     + '<select id="search_bool'+nextGroup+'" name="bool'+nextGroup+'[]" class="form-control">'
