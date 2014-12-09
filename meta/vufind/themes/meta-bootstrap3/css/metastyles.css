@@ -269,7 +269,8 @@ footer {
   background-color: #F7F6F8;
   border-left: 0 none;
   border-right: 0 none;
-  padding: 5px 15px; }
+  padding: 5px 15px;
+  color: #2e264d; }
   .list-group .list-group-item:hover {
     background-color: #ffefcc; }
   .list-group .list-group-item.title, .list-group .list-group-item.title:hover {
@@ -280,7 +281,16 @@ footer {
     letter-spacing: 1px;
     padding: 7px 15px;
     font-weight: normal; }
-  .list-group .list-group-item .badge {
+  .list-group .list-group-item span.badge {
+    float: none;
+    color: #707070;
+    background-color: transparent; }
+  .list-group .list-group-item.active, .list-group .list-group-item.active:hover {
+    color: #FFFFFF;
+    background-color: #423b5b; }
+    .list-group .list-group-item.active span.badge, .list-group .list-group-item.active:hover span.badge {
+      color: #FFFFFF; }
+  .list-group .list-group-item.view-record {
     float: none; }
 
 select.form-control {
