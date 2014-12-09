@@ -135,23 +135,26 @@ header {
         border: 0; }
         header #searchForm .search-nav-wrapper .search-nav li {
           margin-right: 10px; }
-          header #searchForm .search-nav-wrapper .search-nav li a {
+          header #searchForm .search-nav-wrapper .search-nav li span {
             background-color: #f3971e;
             color: #2e264d;
             border: 0;
             border-radius: 0;
             padding: 5px 50px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer; }
             @media (max-width: 768px) {
-              header #searchForm .search-nav-wrapper .search-nav li a {
+              header #searchForm .search-nav-wrapper .search-nav li span {
                 padding: 5px 30px; } }
-          header #searchForm .search-nav-wrapper .search-nav li.active a {
-            background-color: #ffefcc; }
-    header #searchForm .search-body {
+          header #searchForm .search-nav-wrapper .search-nav li.active span {
+            background-color: #ffefcc;
+            cursor: inherit; }
+    header #searchForm #simple-search-body {
       background-color: #ffefcc;
       padding: 15px 25px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
-      header #searchForm .search-body .twitter-typeahead {
+      header #searchForm #simple-search-body .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
         width: 70%;
@@ -159,14 +162,14 @@ header {
         margin-right: 15px;
         vertical-align: top; }
         @media (max-width: 768px) {
-          header #searchForm .search-body .twitter-typeahead {
+          header #searchForm #simple-search-body .twitter-typeahead {
             margin-right: 10px;
             width: 60%; } }
         @media (max-width: 400px) {
-          header #searchForm .search-body .twitter-typeahead {
+          header #searchForm #simple-search-body .twitter-typeahead {
             margin-right: 5px;
             width: 50%; } }
-        header #searchForm .search-body .twitter-typeahead #searchForm_lookfor {
+        header #searchForm #simple-search-body .twitter-typeahead #searchForm_lookfor {
           border-radius: 0;
           border: 0 none;
           background-color: #FFFFFF !important;
@@ -175,20 +178,22 @@ header {
           max-width: inherit;
           box-shadow: 0 0 4px #999 inset;
           width: 100%; }
-      header #searchForm .search-body .btn-primary {
+      header #searchForm #simple-search-body .btn-primary {
         margin: 8px 0;
         padding-top: 6px;
         padding-bottom: 6px;
         font-weight: bold; }
-        header #searchForm .search-body .btn-primary i {
+        header #searchForm #simple-search-body .btn-primary i {
           display: none; }
 
 #advSearchForm {
   padding: 0 15px; }
-  #advSearchForm .advanced-search-body {
+  #advSearchForm #advanced-search-body {
     background-color: #ffefcc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     padding: 15px 25px; }
+  #advSearchForm .add-seach-criteria {
+    margin: 20px 0 30px 0; }
 
 .breadcrumb {
   background-color: transparent; }

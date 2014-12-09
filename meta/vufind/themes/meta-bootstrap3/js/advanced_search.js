@@ -53,11 +53,11 @@ function addGroup(firstTerm, firstField, join)
   if (join       == undefined) {join       = '';}
 
   var newGroup = '<div id="group'+nextGroup+'" class="group clearfix">' +
-      '<div class="col-md-7">' +
+      '<div class="col-md-6">' +
           '<label>'+searchLabel+':</label>' +
           '<i id="group'+nextGroup+'Holder" class="fa fa-plus-circle"></i> <a href="#" onClick="addSearch('+nextGroup+')">'+addSearchString+'</a>' +
       '</div>'
-    + '<div class="col-md-5>'
+    + '<div class="col-md-6>'
     + '<label for="search_bool'+nextGroup+'">'+searchMatch+':&nbsp;</label>'
     + '<a href="#" onClick="deleteGroup('+nextGroup+')" class="close hidden" title="'+deleteSearchGroupString+'">&times;</a>'
     + '<select id="search_bool'+nextGroup+'" name="bool'+nextGroup+'[]" class="form-control">'
@@ -118,3 +118,32 @@ function addSearchJS(group)
   addSearch(groupNum);
   return false;
 }
+
+// Show all institution facets
+$(function(){
+    moreFacets('institution');
+});
+
+/**
+ * PHE: Toggling of the simple and advanced search
+ */
+$(document).ready(function() {
+    var simpleSearchTab = $("#advanceSearchTab"),
+        simpleSearchBody = $("#simple-search-body"),
+        advancedSearchTab = $("#simpleSearchTab"),
+        advancedSearchBody = $("#advSearchForm");
+
+    simpleSearchTab.click(function () {
+        simpleSearchTab.addClass("active");
+        advancedSearchTab.removeClass("active");
+        simpleSearchBody.addClass("hidden");
+        advancedSearchBody.removeClass("hidden");
+    });
+
+    advancedSearchTab.click(function () {
+        simpleSearchTab.removeClass("active");
+        advancedSearchTab.addClass("active");
+        simpleSearchBody.removeClass("hidden");
+        advancedSearchBody.addClass("hidden");
+    });
+});

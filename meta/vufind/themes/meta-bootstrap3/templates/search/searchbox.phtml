@@ -32,15 +32,15 @@
   <form role="search" class="navbar-form navbar-left" method="get" action="<?=$this->url($basicSearch)?>" name="searchForm" id="searchForm" autocomplete="off">
       <div class="search-nav-wrapper">
           <ul class="nav nav-tabs search-nav">
-              <li<?=true ? ' class="active"' : ''?>>
-                  <a href="<?=$this->url($searchHome)?>" class="btn btn-link"><?=$this->transEsc("Einfach")?></a>
+              <li id="simpleSearchTab" <?=true ? ' class="active"' : ''?>>
+                  <span><?=$this->transEsc("Einfach")?></span>
               </li>
-              <li<?=false ? ' class="active"' : ''?>>
-                  <a href="<?=$this->url($advSearch)?>" class="btn btn-link"><?=$this->transEsc("Advanced")?></a>
+              <li id="advanceSearchTab" <?=false ? ' class="active"' : ''?>>
+                  <span><?=$this->transEsc("Advanced")?></span>
               </li>
           </ul>
       </div>
-     <div class="search-body">
+     <div id="simple-search-body">
         <input class="form-control search-query<? if($this->searchbox()->autocompleteEnabled($this->searchClassId)):?> autocomplete searcher:<?=$this->escapeHtmlAttr($this->searchClassId) ?><? endif ?>" id="searchForm_lookfor" type="text" name="lookfor" value="<?=$this->escapeHtmlAttr($this->lookfor)?>"/>
         <?php $handlerCount = 0; ?><?php /* phe disable select field */ ?>
           <? if ($handlerCount > 1): ?>

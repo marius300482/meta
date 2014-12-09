@@ -41,13 +41,11 @@
 ?>
 
 <?=$this->flashmessages()?>
-<form role="search" name="searchForm" id="advSearchForm" method="get" action="<?=$this->url($this->options->getSearchAction())?>">
-  <div class="advanced-search-body">
+<form role="search" class="hidden" name="searchForm" id="advSearchForm" method="get" action="<?=$this->url($this->options->getSearchAction())?>">
+  <div id="advanced-search-body">
     <input type="hidden" name="sort" value="relevance">
-    <div class="clearfix">
-<?php /* PHE not required
+    <div class="clearfix hidden"><?php /* PHE not required */ ?>
       <p class="lead pull-left"><?=$this->transEsc('Advanced Search')?></p>
-*/ ?>
       <div id="groupJoin" class="form-inline pull-right hidden">
         <label for="join"><?=$this->transEsc("search_match")?>:</label>
         <select id="search_bool0" name="join" class="form-control">
@@ -56,14 +54,17 @@
         </select>
       </div>
     </div>
-    <span id="groupPlaceHolder">
+    <span id="groupPlaceHolder">&nbsp;</span>
+  </div>
+  <div class="add-seach-criteria">
       <i class="fa fa-plus-circle"></i> <a href="#" onClick="addGroup()"><?= $this->transEsc('add_search_group') ?></a>
-    </span>
-    <input class="btn btn-primary pull-right" type="submit" value="<?= $this->transEsc('Find')?>">
-    <? if (isset($this->extraAdvancedControls)): ?>
-      <?=$this->extraAdvancedControls ?>
-      <input class="btn btn-primary pull-right" type="submit" value="<?= $this->transEsc('Find')?>"/>
-    <? endif; ?>
+  </div>
+  <div class="submit-advanced-search">
+      <input class="btn btn-primaryt" type="submit" value="<?= $this->transEsc('Find')?>">
+      <? if (isset($this->extraAdvancedControls)): ?>
+        <?=$this->extraAdvancedControls ?>
+        <input class="btn btn-primary" type="submit" value="<?= $this->transEsc('Find')?>"/>
+      <? endif; ?>
   </div>
 <?php /* PHE not required
   <div class="<?=$this->layoutClass('sidebar')?>">
