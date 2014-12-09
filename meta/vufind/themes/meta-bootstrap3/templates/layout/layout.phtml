@@ -62,9 +62,6 @@
           $this->headScript()->appendFile("keep_alive.js");
       }
     ?>
-    <?=$this->headScript()?>
-  </head>
-  <body>
     <? // Set up the search box -- there are three possible cases:
       // 1. No search box was set; we should default to the normal box
       // 2. It was set to false; we should display nothing
@@ -76,6 +73,9 @@
         $this->layout()->searchbox = $this->render('search/searchbox.phtml');
       //} // PHE
     ?>
+    <?=$this->headScript()?>
+  </head>
+  <body>
     <header role="banner" class="hidden-print">
       <div class="container navbar">
         <a class="sr-only" href="#content"><?=$this->transEsc('Skip to content') ?></a>
