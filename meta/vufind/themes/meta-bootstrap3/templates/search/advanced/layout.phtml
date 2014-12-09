@@ -44,9 +44,9 @@
 <form role="search" class="hidden" name="searchForm" id="advSearchForm" method="get" action="<?=$this->url($this->options->getSearchAction())?>">
   <div id="advanced-search-body">
     <input type="hidden" name="sort" value="relevance">
-    <div class="clearfix hidden"><?php /* PHE not required */ ?>
-      <p class="lead pull-left"><?=$this->transEsc('Advanced Search')?></p>
-      <div id="groupJoin" class="form-inline pull-right hidden">
+    <div class="clearfix">
+      <p><?=$this->transEsc('Advanced Search for')?>:</p>
+      <div id="groupJoin" class="form-inline pull-right hidden" style="display: none"><?php /* PHE added "display:none", shall never be shown */ ?>
         <label for="join"><?=$this->transEsc("search_match")?>:</label>
         <select id="search_bool0" name="join" class="form-control">
           <option value="AND"<? if($searchDetails && $searchDetails->getOperator()=='ALL'):?> selected<?endif?>><?= $this->transEsc('group_AND') ?></option>

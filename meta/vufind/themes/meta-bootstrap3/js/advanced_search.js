@@ -54,10 +54,10 @@ function addGroup(firstTerm, firstField, join)
 
   var newGroup = '<div id="group'+nextGroup+'" class="group clearfix">' +
       '<div class="col-md-6">' +
-          '<label>'+searchLabel+':</label>' +
+          // '<label>'+searchLabel+':</label>' + // PHE not required
           '<i id="group'+nextGroup+'Holder" class="fa fa-plus-circle"></i> <a href="#" onClick="addSearch('+nextGroup+')">'+addSearchString+'</a>' +
       '</div>'
-    + '<div class="col-md-6" style="margin-top: 20px">'
+    + '<div class="col-md-6">'
     + '<label for="search_bool'+nextGroup+'">'+searchMatch+':&nbsp;</label>'
     + '<a href="#" onClick="deleteGroup('+nextGroup+')" class="close hidden" title="'+deleteSearchGroupString+'">&times;</a>'
     + '<select id="search_bool'+nextGroup+'" name="bool'+nextGroup+'[]" class="form-control">'
