@@ -95,6 +95,7 @@ header {
   #searchForm { // Top search form
     display: block;
     float: none !important; // Overwrite bootstrap !important
+    margin-bottom: 0;
     .search-nav-wrapper {
       overflow: hidden;
       padding: 3px 0 0 3px;
@@ -159,6 +160,15 @@ header {
         }
       }
     }
+  }
+}
+
+#advSearchForm {
+  padding: 0 15px;
+  .advanced-search-body {
+    background-color: #ffefcc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 15px 25px;
   }
 }
 

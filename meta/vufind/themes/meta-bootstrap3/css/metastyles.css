@@ -125,7 +125,8 @@ header {
     display: none; }
   header #searchForm {
     display: block;
-    float: none !important; }
+    float: none !important;
+    margin-bottom: 0; }
     header #searchForm .search-nav-wrapper {
       overflow: hidden;
       padding: 3px 0 0 3px;
@@ -181,6 +182,13 @@ header {
         font-weight: bold; }
         header #searchForm .search-body .btn-primary i {
           display: none; }
+
+#advSearchForm {
+  padding: 0 15px; }
+  #advSearchForm .advanced-search-body {
+    background-color: #ffefcc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 15px 25px; }
 
 .breadcrumb {
   background-color: transparent; }
