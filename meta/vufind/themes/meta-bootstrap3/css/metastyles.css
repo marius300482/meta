@@ -196,11 +196,11 @@ header {
         @media (max-width: 768px) {
           header #searchForm #simple-search-body .twitter-typeahead {
             margin-right: 10px;
-            width: 60%; } }
+            width: 55%; } }
         @media (max-width: 400px) {
           header #searchForm #simple-search-body .twitter-typeahead {
             margin-right: 5px;
-            width: 50%; } }
+            width: 48%; } }
         header #searchForm #simple-search-body .twitter-typeahead #searchForm_lookfor {
           border-radius: 0;
           border: 0 none;
@@ -304,20 +304,22 @@ footer {
   border-left: 0 none;
   border-right: 0 none;
   padding: 5px 15px;
-  color: #2e264d; }
+  color: #2e264d;
+  font-size: 15px; }
   .list-group .list-group-item:hover {
     background-color: #ffefcc; }
   .list-group .list-group-item.title, .list-group .list-group-item.title:hover {
     background-color: #e6e5eb;
-    color: #707070;
+    color: #767086;
     font-family: 'Droid Serif', serif;
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 7px 15px;
-    font-weight: normal; }
+    font-weight: normal;
+    font-size: 16px; }
   .list-group .list-group-item span.badge {
     float: none;
-    color: #707070;
+    color: #767086;
     background-color: transparent; }
   .list-group .list-group-item.active, .list-group .list-group-item.active:hover {
     color: #FFFFFF;
@@ -388,8 +390,8 @@ select.form-control {
     padding: 0; }
 
 .search-result-count {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: normal;
   margin-bottom: 40px; }
 
 mark, .highlight {
