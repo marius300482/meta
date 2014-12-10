@@ -18,7 +18,7 @@
       <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title">
       <?
         $summHighlightedTitle = $this->driver->getHighlightedTitle();
-        $summTitle = $this->driver->getTitle();
+        $summTitle = $this->driver->getDisplayTitle();
         if (!empty($summHighlightedTitle)) {
           echo $this->highlight($this->addEllipsis($summHighlightedTitle, $summTitle));
         } else if (!empty($summTitle)) {
@@ -76,6 +76,24 @@
         <? endif; ?>
       <? endif; ?>
     <? endif; ?>
+
+      <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
+      <? if (!empty($subjects)): ?>
+          <? foreach(array("Topic", "Person", "Geo") as $type): ?>
+              <? if (isset($subjects[strtolower($type)])): ?>
+                  <div>
+                      <?= $this->transEsc('result' . $type) ?>:
+                          <? $fields = $subjects[strtolower($type)]; ?>
+                          <? foreach ($fields as $subject): ?>
+                          <a title="<?= $this->escapeHtml($subject) ?>"
+                             href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>">
+                              <?= $this->escapeHtml($subject) ?></a><?= $subject !== end($fields) ? ", " : "" ?>
+                              <? // Keep above in one line to avoid unwanted whitespace ?>
+                          <? endforeach; ?>
+                  </div>
+              <? endif; ?>
+          <? endforeach; ?>
+      <? endif; ?>
 
     <?
     /* Display information on duplicate records if available */
