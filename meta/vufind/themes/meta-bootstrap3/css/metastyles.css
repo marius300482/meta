@@ -300,7 +300,7 @@ footer {
 .list-group .list-group-item:last-child {
   border-radius: 0; }
 .list-group .list-group-item {
-  background-color: #F7F6F8;
+  background-color: #f7f6f8;
   border-left: 0 none;
   border-right: 0 none;
   padding: 5px 15px;
@@ -308,7 +308,7 @@ footer {
   .list-group .list-group-item:hover {
     background-color: #ffefcc; }
   .list-group .list-group-item.title, .list-group .list-group-item.title:hover {
-    background-color: #E6E5EB;
+    background-color: #e6e5eb;
     color: #707070;
     font-family: 'Droid Serif', serif;
     text-transform: uppercase;
@@ -446,7 +446,7 @@ mark, .highlight {
       background-color: transparent; }
 
 #detail-view-details h4 {
-  border-bottom: 4px solid #E6E5EB;
+  border-bottom: 4px solid #e6e5eb;
   padding-bottom: 10px;
   margin-bottom: 10px; }
 #detail-view-details #detail-view-description th {

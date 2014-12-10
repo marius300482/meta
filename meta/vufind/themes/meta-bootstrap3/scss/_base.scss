@@ -37,7 +37,7 @@ select {
   border: 1px solid #ccc;
   border-radius: 0;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
-  color: #2e264d;
+  color: $color-blue-1;
 }
 
 table {
@@ -210,7 +210,7 @@ header {
     position: absolute; // PHE disable stretching
   }
   a, label, select, p {
-    color: #2e264d;
+    color: $color-blue-1;
   }
   label, select {
     font-size: 16px;
@@ -316,7 +316,7 @@ footer {
     border-radius: 0;
   }
   .list-group-item {
-    background-color: #F7F6F8;
+    background-color: $color-blue-5;
     border-left: 0 none;
     border-right: 0 none;
     padding: 5px 15px;
@@ -325,7 +325,7 @@ footer {
       background-color: $color-yellow-4;
     }
     &.title, &.title:hover {
-      background-color: #E6E5EB;
+      background-color: $color-blue-4;
       color: #707070;
       font-family: 'Droid Serif', serif;
       text-transform: uppercase;
@@ -474,7 +474,7 @@ mark, .highlight { // Marker
 }
 
 #side-collapse-publishDate li:hover { // Date slider in sidebar
-  background-color: #f7f6f8;
+  background-color: $color-blue-5;
 }
 
 .pagination { // pagination
@@ -508,7 +508,7 @@ mark, .highlight { // Marker
 
 #detail-view-details { // Detail view table with details
   h4 {
-    border-bottom: 4px solid #E6E5EB;
+    border-bottom: 4px solid $color-blue-4;
     padding-bottom: 10px;
     margin-bottom: 10px;
   }
@@ -530,7 +530,7 @@ mark, .highlight { // Marker
     background-color: #F7F7F9;
     margin-top: -10px;
     #treeSearch {
-      border-bottom: 1px solid #e6e5eb;
+      border-bottom: 1px solid $color-blue-4;
       padding: 20px 10px;
       margin-bottom: 20px;
     }
