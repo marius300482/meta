@@ -452,20 +452,23 @@ mark, .highlight {
 #detail-view-details .table-striped td {
   font-weight: 400; }
 
-#record h3 {
+#record h1 {
   font-family: "Droid", serif;
   font-weight: 700;
-  margin: 5px 0 20px 0; }
+  margin: 5px 0 20px 0;
+  font-size: 24px; }
 #record a {
   color: #990099; }
-#record .table th, #record .table td {
-  border: 0 none; }
-#record .table th {
+#record .citation th {
   font-weight: normal;
-  width: 30%;
-  padding-left: 0; }
-#record .table td a {
-  font-weight: 500; }
+  width: 120px;
+  padding-left: 0;
+  text-align: left;
+  padding-bottom: 15px; }
+#record .citation td {
+  padding-bottom: 15px; }
+  #record .citation td a {
+    font-weight: 500; }
 
 .tag_cloud {
   text-align: center;

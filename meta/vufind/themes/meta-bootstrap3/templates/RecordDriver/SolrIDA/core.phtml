@@ -42,7 +42,7 @@
         <? /* Title */ ?>
         <? $shortTitle = $this->driver->getShortTitle(); ?>
         <? $titleSub = $this->driver->getTitleSub(); ?>
-        <h1 property="name"><b><?= $this->escapeHtml($shortTitle); ?></b>
+        <h1 property="name"><?= $this->escapeHtml($shortTitle); ?>
             <?= isset($titleSub) && $titleSub != '' ?  " : " . $this->escapeHtml($titleSub) : ""; ?></h1>
 
         <? /* Autor */ ?>

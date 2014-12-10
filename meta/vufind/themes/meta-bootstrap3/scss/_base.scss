@@ -530,25 +530,28 @@ mark, .highlight { // Marker
 }
 
 #record { // The main record data in the detail view
-  h3 {
+  h1 {
     font-family: "Droid", serif;
     font-weight: 700;
     margin: 5px 0 20px 0;
+    font-size: 24px;
   }
   a {
     color: $color-purple;
   }
-  .table {
-    th, td {
-      border: 0 none;
-    }
+  .citation {
     th {
       font-weight: normal;
-      width: 30%;
+      width: 120px;
       padding-left: 0;
+      text-align: left;
+      padding-bottom: 15px;
     }
-    td a {
-      font-weight: 500;
+    td {
+      padding-bottom: 15px;
+      a {
+        font-weight: 500;
+      }
     }
   }
 }
