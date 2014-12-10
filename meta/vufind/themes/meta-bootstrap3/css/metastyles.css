@@ -90,7 +90,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-a {
+a, a:hover {
   color: #2e264d; }
 
 @media (min-width: 768px) {
@@ -104,7 +104,7 @@ a {
     width: 1170px; } }
 header {
   margin-bottom: 100px;
-  color: #000; }
+  color: black; }
   header .header-background {
     position: absolute;
     background-color: #ffce67;
@@ -166,7 +166,7 @@ header {
         header #searchForm .search-nav-wrapper .search-nav li {
           margin-right: 10px; }
           header #searchForm .search-nav-wrapper .search-nav li span {
-            background-color: #f3971e;
+            background-color: #ffad00;
             color: #664500;
             border: 0;
             border-radius: 0;
@@ -277,7 +277,7 @@ footer {
       padding: 40px 0 50px; } }
   footer p strong {
     display: block;
-    border-bottom: 4px solid #FFAD00;
+    border-bottom: 4px solid #ffad00;
     font-weight: 500;
     font-size: 15px; }
   footer .footer-brand {
@@ -328,10 +328,10 @@ footer {
     float: none; }
 
 select.form-control {
-  border: 1px solid #D5D2DD;
+  border: 1px solid #D6D3DE;
   border-radius: 0;
   box-shadow: none;
-  background-color: #D5D2DD; }
+  background-color: #D6D3DE; }
 
 .form-control, .form-control:focus {
   height: auto;
@@ -517,7 +517,7 @@ mark, .highlight {
 
 .tag_cloud {
   text-align: center;
-  line-height: 40px;
+  line-height: 46px;
   font-size: 16px;
   padding: 0 30px; }
   .tag_cloud li {
