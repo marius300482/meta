@@ -37,6 +37,7 @@ select {
   border: 1px solid #ccc;
   border-radius: 0;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
+  color: #2e264d;
 }
 
 table {
@@ -69,7 +70,7 @@ a {
 }
 
 header {
-  margin-bottom: 70px;
+  margin-bottom: 100px;
   color: #000;
   .header-background {
     position: absolute;
@@ -85,9 +86,9 @@ header {
     margin-bottom: -40px;
   }
   .navbar-brand {
-    color: #000;
+    color: #371C04;
     font-family: 'Droid Serif', serif;
-    font-size: 24px;
+    font-size: 23px;
     display: inline-block;
     height: auto;
     line-height: 30px;
@@ -105,7 +106,7 @@ header {
   }
   .logo {
     background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 / cover #fff;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
     display: inline-block;
     height: 95px;
     width: 342px;
@@ -138,13 +139,13 @@ header {
           margin-right: 10px;
           span {
             background-color: $color-orange;
-            color: $color-blue-1;
+            color: #664500;
             border: 0;
             border-radius: 0;
             padding: 5px 50px;
             display: inline-block;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             cursor: pointer;
+            font-size: 17px;
             @media (max-width: 768px) {
               padding: 5px 30px;
             }
@@ -152,6 +153,8 @@ header {
           &.active span {
             background-color: $color-yellow-4;
             cursor: inherit;
+            color: $color-black;
+            box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
           }
         }
       }
@@ -159,7 +162,7 @@ header {
     #simple-search-body {
       background-color: $color-yellow-4;
       padding: 15px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
       .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
@@ -183,13 +186,15 @@ header {
           max-width: inherit;
           box-shadow: 0 0 4px #999 inset;
           width: 100%;
+          font-size: 18px;
         }
       }
       .btn-primary {
         margin: 8px 0;
-        padding-top: 6px;
-        padding-bottom: 6px;
-        font-weight: bold;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        font-weight: 500;
+        font-size: 19px;
         i {
           display: none;
         }
@@ -199,6 +204,31 @@ header {
 }
 
 #advSearchForm {
+  #groupPlaceHolder {
+    position: absolute; // PHE disable stretching
+  }
+  a, label, select, p {
+    color: #2e264d;
+  }
+  label, select {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  input[type="text"] {
+    font-size: 18px;
+  }
+  .clearfix p {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  a[onclick] {
+    font-size: 16px;
+  }
+  .search {
+    .col-md-7, .col-md-4, .col-md-1 {
+      margin-bottom: 10px;
+    }
+  }
   padding: 0 15px;
   @media (max-width: 992px) {
     padding: 0;
@@ -219,14 +249,16 @@ header {
   }
   #advanced-search-body {
     background-color: #ffefcc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     padding: 15px;
   }
   .add-seach-criteria {
     margin: 20px 0 30px 15px;
   }
-  .submit-advanced-search {
+  .submit-advanced-search input {
     margin-left: 15px;
+    font-weight: 500;
+    font-size: 19px;
   }
 }
 
@@ -242,7 +274,7 @@ header {
 }
 
 footer {
-  margin-top: 40px;
+  margin-top: 90px;
   padding: 70px 0 50px;
   background-color: $color-yellow-4;
   line-height: 2;
@@ -251,17 +283,18 @@ footer {
   }
   p strong {
     display: block;
-    border-bottom: 4px solid $color-orange;
+    border-bottom: 4px solid #FFAD00;
     font-weight: 500;
+    font-size: 15px;
   }
   .footer-brand {
-    color: #000;
+    color: #371C04;
     display: inline-block;
     font-family: 'Droid Serif', serif;
     height: auto;
-    font-size: 24px;
+    font-size: 21px;
     line-height: 30px;
-    margin: -40px 0 0 -15px; // Special position
+    margin: -40px 0 0; // Special position
     letter-spacing: 3px;
     @media (max-width: 768px) {
       margin: 0 0 30px 0;
@@ -305,7 +338,7 @@ footer {
     }
     &.active, &.active:hover {
       color: #FFFFFF;
-      background-color: #423b5b;
+      background-color: #40395B;
       span.badge {
           color: #FFFFFF;
       }
@@ -359,7 +392,7 @@ select.form-control {
   text-align: center;
   padding: 4px 30px;
   border: 0 none;
-  background-color: #423B5b;
+  background-color: #40395B;
   color: #FFFFFF;
 }
 
@@ -407,11 +440,11 @@ mark, .highlight { // Marker
     box-shadow: none;
     .slider-selection {
       box-shadow: none;
-      background-color: #423b5b;
+      background-color: #40395B;
     }
     .slider-handle, .slider-handle:hover {
-      background-color: #423b5b;
-      border: 1px solid #423b5b;
+      background-color: #40395B;
+      border: 1px solid #40395B;
       border-radius: 14px;
       height: 14px;
       margin-left: -7px;
@@ -443,6 +476,7 @@ mark, .highlight { // Marker
 }
 
 .pagination { // pagination
+  margin-bottom: 0;
   &> li:first-child > span,
   &> li:first-child > a,
   &> li:last-child > span,

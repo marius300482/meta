@@ -78,7 +78,8 @@ input[type="password"],
 select {
   border: 1px solid #ccc;
   border-radius: 0;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset; }
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
+  color: #2e264d; }
 
 table {
   border-collapse: collapse;
@@ -97,7 +98,7 @@ a {
   .container {
     width: 1170px; } }
 header {
-  margin-bottom: 70px;
+  margin-bottom: 100px;
   color: #000; }
   header .header-background {
     position: absolute;
@@ -111,9 +112,9 @@ header {
     border: 0 none;
     margin-bottom: -40px; }
   header .navbar-brand {
-    color: #000;
+    color: #371C04;
     font-family: 'Droid Serif', serif;
-    font-size: 24px;
+    font-size: 23px;
     display: inline-block;
     height: auto;
     line-height: 30px;
@@ -128,7 +129,7 @@ header {
     display: none; }
   header .logo {
     background: url(/vufind/themes/meta-bootstrap3/images/logo_ida_blau.png) no-repeat scroll 0 0/cover white;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
     display: inline-block;
     height: 95px;
     width: 342px;
@@ -159,23 +160,25 @@ header {
           margin-right: 10px; }
           header #searchForm .search-nav-wrapper .search-nav li span {
             background-color: #f3971e;
-            color: #2e264d;
+            color: #664500;
             border: 0;
             border-radius: 0;
             padding: 5px 50px;
             display: inline-block;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            cursor: pointer; }
+            cursor: pointer;
+            font-size: 17px; }
             @media (max-width: 768px) {
               header #searchForm .search-nav-wrapper .search-nav li span {
                 padding: 5px 30px; } }
           header #searchForm .search-nav-wrapper .search-nav li.active span {
             background-color: #ffefcc;
-            cursor: inherit; }
+            cursor: inherit;
+            color: black;
+            box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6); }
     header #searchForm #simple-search-body {
       background-color: #ffefcc;
       padding: 15px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+      box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6); }
       header #searchForm #simple-search-body .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
@@ -199,17 +202,35 @@ header {
           height: 32px;
           max-width: inherit;
           box-shadow: 0 0 4px #999 inset;
-          width: 100%; }
+          width: 100%;
+          font-size: 18px; }
       header #searchForm #simple-search-body .btn-primary {
         margin: 8px 0;
-        padding-top: 6px;
-        padding-bottom: 6px;
-        font-weight: bold; }
+        padding-top: 3px;
+        padding-bottom: 3px;
+        font-weight: 500;
+        font-size: 19px; }
         header #searchForm #simple-search-body .btn-primary i {
           display: none; }
 
 #advSearchForm {
   padding: 0 15px; }
+  #advSearchForm #groupPlaceHolder {
+    position: absolute; }
+  #advSearchForm a, #advSearchForm label, #advSearchForm select, #advSearchForm p {
+    color: #2e264d; }
+  #advSearchForm label, #advSearchForm select {
+    font-size: 16px;
+    font-weight: 500; }
+  #advSearchForm input[type="text"] {
+    font-size: 18px; }
+  #advSearchForm .clearfix p {
+    font-size: 18px;
+    font-weight: 500; }
+  #advSearchForm a[onclick] {
+    font-size: 16px; }
+  #advSearchForm .search .col-md-7, #advSearchForm .search .col-md-4, #advSearchForm .search .col-md-1 {
+    margin-bottom: 10px; }
   @media (max-width: 992px) {
     #advSearchForm {
       padding: 0; }
@@ -223,12 +244,14 @@ header {
       margin-top: 0; }
   #advSearchForm #advanced-search-body {
     background-color: #ffefcc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     padding: 15px; }
   #advSearchForm .add-seach-criteria {
     margin: 20px 0 30px 15px; }
-  #advSearchForm .submit-advanced-search {
-    margin-left: 15px; }
+  #advSearchForm .submit-advanced-search input {
+    margin-left: 15px;
+    font-weight: 500;
+    font-size: 19px; }
 
 .breadcrumb {
   background-color: transparent; }
@@ -238,7 +261,7 @@ header {
   padding-right: 30px; }
 
 footer {
-  margin-top: 40px;
+  margin-top: 90px;
   padding: 70px 0 50px;
   background-color: #ffefcc;
   line-height: 2; }
@@ -247,16 +270,17 @@ footer {
       padding: 40px 0 50px; } }
   footer p strong {
     display: block;
-    border-bottom: 4px solid #f3971e;
-    font-weight: 500; }
+    border-bottom: 4px solid #FFAD00;
+    font-weight: 500;
+    font-size: 15px; }
   footer .footer-brand {
-    color: #000;
+    color: #371C04;
     display: inline-block;
     font-family: 'Droid Serif', serif;
     height: auto;
-    font-size: 24px;
+    font-size: 21px;
     line-height: 30px;
-    margin: -40px 0 0 -15px;
+    margin: -40px 0 0;
     letter-spacing: 3px; }
     @media (max-width: 768px) {
       footer .footer-brand {
@@ -290,7 +314,7 @@ footer {
     background-color: transparent; }
   .list-group .list-group-item.active, .list-group .list-group-item.active:hover {
     color: #FFFFFF;
-    background-color: #423b5b; }
+    background-color: #40395B; }
     .list-group .list-group-item.active span.badge, .list-group .list-group-item.active:hover span.badge {
       color: #FFFFFF; }
   .list-group .list-group-item.view-record {
@@ -333,7 +357,7 @@ select.form-control {
   text-align: center;
   padding: 4px 30px;
   border: 0 none;
-  background-color: #423B5b;
+  background-color: #40395B;
   color: #FFFFFF; }
 
 .result {
@@ -373,10 +397,10 @@ mark, .highlight {
     box-shadow: none; }
     .slider-container .slider-track .slider-selection, .slider-horizontal .slider-track .slider-selection {
       box-shadow: none;
-      background-color: #423b5b; }
+      background-color: #40395B; }
     .slider-container .slider-track .slider-handle, .slider-container .slider-track .slider-handle:hover, .slider-horizontal .slider-track .slider-handle, .slider-horizontal .slider-track .slider-handle:hover {
-      background-color: #423b5b;
-      border: 1px solid #423b5b;
+      background-color: #40395B;
+      border: 1px solid #40395B;
       border-radius: 14px;
       height: 14px;
       margin-left: -7px;
@@ -396,21 +420,23 @@ mark, .highlight {
 #side-collapse-publishDate li:hover {
   background-color: #f7f6f8; }
 
-.pagination > li:first-child > span, .pagination > li:first-child > a, .pagination > li:last-child > span, .pagination > li:last-child > a {
-  border-radius: 0; }
-.pagination li {
-  display: inline-block;
-  margin-right: 1px; }
-  .pagination li > a, .pagination li > span {
-    background-color: #EFEDF3;
-    border: 0 none;
-    color: inherit; }
-  .pagination li.active span {
-    background-color: #ffce67;
-    color: inherit;
-    font-weight: 700; }
-  .pagination li.paging-label a, .pagination li.paging-label span {
-    background-color: transparent; }
+.pagination {
+  margin-bottom: 0; }
+  .pagination > li:first-child > span, .pagination > li:first-child > a, .pagination > li:last-child > span, .pagination > li:last-child > a {
+    border-radius: 0; }
+  .pagination li {
+    display: inline-block;
+    margin-right: 1px; }
+    .pagination li > a, .pagination li > span {
+      background-color: #EFEDF3;
+      border: 0 none;
+      color: inherit; }
+    .pagination li.active span {
+      background-color: #ffce67;
+      color: inherit;
+      font-weight: 700; }
+    .pagination li.paging-label a, .pagination li.paging-label span {
+      background-color: transparent; }
 
 #detail-view-details h4 {
   border-bottom: 4px solid #E6E5EB;
