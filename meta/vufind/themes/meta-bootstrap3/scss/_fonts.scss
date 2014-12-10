@@ -71,3 +71,13 @@
   font-weight: 700;
   src: local('Droid Serif Bold Italic'), local('DroidSerif-BoldItalic'), url($theme-path-fonts + '/droid-serif/DroidSerif-BoldItalic.woff') format('woff');
 }
+
+// Libre Baskerville - WEBFONT
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Libre Baskerville'), local('LibreBaskerville-Regular'), url($theme-path-fonts + '/librebaskerville/LibreBaskerville-Regular.woff') format('woff');
+}
+

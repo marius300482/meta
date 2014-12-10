@@ -48,6 +48,11 @@
   font-style: italic;
   font-weight: 700;
   src: local("Droid Serif Bold Italic"), local("DroidSerif-BoldItalic"), url(/vufind/themes/meta-bootstrap3/css/fonts/droid-serif/DroidSerif-BoldItalic.woff) format("woff"); }
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Libre Baskerville"), local("LibreBaskerville-Regular"), url(/vufind/themes/meta-bootstrap3/css/fonts/librebaskerville/LibreBaskerville-Regular.woff) format("woff"); }
 html, body {
   margin: 0;
   padding: 0; }
@@ -113,12 +118,11 @@ header {
     margin-bottom: -40px; }
   header .navbar-brand {
     color: #371C04;
-    font-family: 'Droid Serif', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 23px;
     display: inline-block;
     height: auto;
     line-height: 30px;
-    letter-spacing: 3px;
     float: none; }
     @media (max-width: 768px) {
       header .navbar-brand {
@@ -276,12 +280,11 @@ footer {
   footer .footer-brand {
     color: #371C04;
     display: inline-block;
-    font-family: 'Droid Serif', serif;
+    font-family: 'Libre Baskerville', serif;
     height: auto;
     font-size: 21px;
     line-height: 30px;
-    margin: -40px 0 0;
-    letter-spacing: 3px; }
+    margin: -40px 0 0; }
     @media (max-width: 768px) {
       footer .footer-brand {
         margin: 0 0 30px 0; } }

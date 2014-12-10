@@ -87,12 +87,11 @@ header {
   }
   .navbar-brand {
     color: #371C04;
-    font-family: 'Droid Serif', serif;
+    font-family: 'Libre Baskerville', serif;
     font-size: 23px;
     display: inline-block;
     height: auto;
     line-height: 30px;
-    letter-spacing: 3px;
     float: none;
     @media (max-width: 768px) {
       font-size: 19px;
@@ -290,12 +289,11 @@ footer {
   .footer-brand {
     color: #371C04;
     display: inline-block;
-    font-family: 'Droid Serif', serif;
+    font-family: 'Libre Baskerville', serif;
     height: auto;
     font-size: 21px;
     line-height: 30px;
     margin: -40px 0 0; // Special position
-    letter-spacing: 3px;
     @media (max-width: 768px) {
       margin: 0 0 30px 0;
     }
