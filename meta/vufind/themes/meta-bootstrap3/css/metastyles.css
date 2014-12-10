@@ -109,10 +109,10 @@ header {
     position: absolute;
     background-color: #ffce67;
     width: 100%;
-    height: 180px; }
+    height: 220px; }
     @media (max-width: 768px) {
       header .header-background {
-        height: 280px; } }
+        height: 300px; } }
   header > .navbar {
     border: 0 none;
     margin-bottom: -40px; }
@@ -122,12 +122,14 @@ header {
     font-size: 23px;
     display: inline-block;
     height: auto;
-    line-height: 30px;
+    line-height: 35px;
     letter-spacing: 2px;
-    float: none; }
+    float: none;
+    margin: 20px 0 4px; }
     @media (max-width: 768px) {
       header .navbar-brand {
-        font-size: 19px; } }
+        font-size: 19px;
+        line-height: 30px; } }
   header .navbar-header {
     float: none; }
   header .navbar-toggle {
