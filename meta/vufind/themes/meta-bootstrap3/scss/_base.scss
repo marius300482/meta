@@ -438,6 +438,18 @@ mark, .highlight { // Marker
   }
 }
 
+#detail-view-description { // The lower description table of the detail view
+  th {
+    font-weight: normal;
+    padding: 0 10px 10px 0;
+    white-space: nowrap;
+  }
+  td {
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
+}
+
 #side-collapse-publishDate li:hover { // Date slider in sidebar
   background-color: #f7f6f8;
 }
