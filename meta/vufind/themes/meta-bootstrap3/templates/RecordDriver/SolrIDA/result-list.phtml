@@ -51,7 +51,11 @@
           <?=!empty($summDate) ? ' (' . $this->escapeHtml($summDate[0]) . ')' : ''?>
         <? elseif (!empty($summDate)): ?>
           <?=!empty($summAuthor) ? '<br />' : ''?>
-          <?=$this->transEsc('Published') . ' ' . $this->escapeHtml($summDate[0])?>
+          <?= $this->transEsc('Published'); ?>
+          <?php foreach ((array) $this->driver->getPublishers() as $publisher) : ?>
+              <?= $this->escapeHtml($publisher); ?>
+          <?php endforeach; ?>
+          <?= $this->escapeHtml($summDate[0]); ?>
         <? endif; ?>
         <? $summInCollection = $this->driver->getContainingCollections(); if (!empty($summInCollection)): ?>
           <? foreach ($summInCollection as $collId => $collText): ?>
@@ -65,7 +69,7 @@
         <? endif; ?>
       <? endif; ?>
     </div>
-
+<?php /* PHE replaced with subjects below
     <? if(!$this->driver->isCollection()): ?>
       <? if ($snippet = $this->driver->getHighlightedSnippet()): ?>
         <? if (!empty($snippet['caption'])): ?>
@@ -76,6 +80,7 @@
         <? endif; ?>
       <? endif; ?>
     <? endif; ?>
+*/ ?>
 
       <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
       <? if (!empty($subjects)): ?>
