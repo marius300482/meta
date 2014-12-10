@@ -262,6 +262,9 @@ footer {
       footer .footer-brand {
         margin: 0 0 30px 0; } }
 
+.font-500 {
+  font-weight: 500; }
+
 .list-group .list-group-item:first-child,
 .list-group .list-group-item:last-child {
   border-radius: 0; }
