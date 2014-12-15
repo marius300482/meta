@@ -481,8 +481,12 @@ mark, .highlight { // Marker
   .list-group-item, .list-group-item:hover {
     padding: 10px 0;
     background-color: transparent;
+    font-weight: 300;
     &:first-child {
       border-top-width: 4px;
+    }
+    a {
+      font-size: 14px;
     }
   }
 }
@@ -572,6 +576,7 @@ mark, .highlight { // Marker
   }
   .jstree-default { // Hierarchy tree
     padding: 10px;
+    font-size: 15px;
     .jstree-node {
       background: 0 none;
     }
@@ -580,6 +585,8 @@ mark, .highlight { // Marker
       white-space: normal;
       &.jstree-anchor {
         height: auto;
+        padding: 5px 10px 3px 20px;
+        border: 1px solid $color-blue-5;
       }
       i.jstree-icon:empty {
         display: none;
@@ -588,8 +595,13 @@ mark, .highlight { // Marker
     i.jstree-icon {
       background: 0 none;
     }
-    .jstree-clicked {
-      background-color: #FDEFCC;
+    .jstree-clicked, .jstree-hovered {
+      background-color: $color-yellow-4;
+      border: 1px solid $color-blue-4 !important;
+      box-shadow: none;
+    }
+    .jstree-children {
+      font-weight: 300;
     }
   }
   .table-striped {
