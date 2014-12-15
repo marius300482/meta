@@ -1,8 +1,7 @@
 // PATHS
 
-$theme-path-root: '/vufind/themes/meta-bootstrap3/';
-$theme-path-fonts: #{$theme-path-root}css/fonts; // has to be in CSS folder. Otherwise .htaccess excludes it
-$theme-path-images: #{$theme-path-root}images;
+$theme-path-fonts: './fonts'; // has to be in CSS folder. Otherwise .htaccess excludes it
+$theme-path-images: '../images';
 
 // Colors
 
