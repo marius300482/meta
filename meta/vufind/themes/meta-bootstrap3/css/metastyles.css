@@ -125,7 +125,7 @@ header {
     line-height: 35px;
     letter-spacing: 2px;
     float: none;
-    margin: 20px 0 4px; }
+    margin: 20px 0 4px 15px; }
     @media (max-width: 768px) {
       header .navbar-brand {
         font-size: 19px;
@@ -378,18 +378,21 @@ select.form-control {
   margin-bottom: 60px !important; }
 
 .result {
-  margin-bottom: 35px; }
+  margin-bottom: 35px;
+  font-weight: 300;
+  font-size: 15px; }
   .result.row .col-sm-1 {
     padding: 0; }
   .result .label-info {
     color: inherit;
     background-color: transparent;
     border-radius: 0;
-    font-weight: normal;
-    font-size: inherit;
+    font-size: 14px;
+    font-weight: 300;
     padding: 0; }
   .result a {
-    color: #990099; }
+    color: #990099;
+    font-weight: 400; }
   .result a.title {
     color: inherit;
     font-size: 20px;
@@ -462,23 +465,28 @@ mark, .highlight {
       background-color: transparent; }
 
 #detail-view-details h4 {
-  border-bottom: 4px solid #e6e5eb;
+  border-bottom: 5px solid #D6D3DE;
   padding-bottom: 10px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  font-weight: 500; }
 #detail-view-details #detail-view-description th {
-  font-weight: normal;
+  font-weight: 300;
   padding: 0 10px 10px 0;
   white-space: nowrap; }
 #detail-view-details #detail-view-description td {
-  font-weight: 500;
-  padding-bottom: 10px; }
+  font-weight: normal;
+  padding-bottom: 10px;
+  font-size: 16px; }
+  #detail-view-details #detail-view-description td a {
+    font-size: 14px;
+    color: #990099; }
 #detail-view-details #treeSelector {
   display: none; }
 #detail-view-details #hierarchyTreeHolder {
-  background-color: #F7F7F9;
+  background-color: #f7f6f8;
   margin-top: -10px; }
   #detail-view-details #hierarchyTreeHolder #treeSearch {
-    border-bottom: 1px solid #e6e5eb;
+    border-bottom: 1px solid #D6D3DE;
     padding: 20px 10px;
     margin-bottom: 20px; }
   #detail-view-details #hierarchyTreeHolder .btn[type="submit"] {
@@ -513,23 +521,26 @@ mark, .highlight {
 #detail-view-details .table-striped td {
   font-weight: 400; }
 
-#record h1 {
-  font-family: "Droid", serif;
-  font-weight: 700;
-  margin: 5px 0 20px 0;
-  font-size: 24px; }
-#record a {
-  color: #990099; }
-#record .citation th {
-  font-weight: normal;
-  width: 120px;
-  padding-left: 0;
-  text-align: left;
-  padding-bottom: 15px; }
-#record .citation td {
-  padding-bottom: 15px; }
-  #record .citation td a {
-    font-weight: 500; }
+#record {
+  font-weight: 300; }
+  #record h1 {
+    font-family: "Droid", serif;
+    font-weight: 700;
+    margin: 5px 0 20px 0;
+    font-size: 28px; }
+  #record a {
+    color: #990099;
+    font-weight: normal; }
+  #record .citation th {
+    font-weight: inherit;
+    width: 120px;
+    padding-left: 0;
+    text-align: left;
+    padding-bottom: 15px; }
+  #record .citation td {
+    padding-bottom: 15px; }
+  #record .head {
+    font-size: 15px; }
 
 .tag_cloud {
   text-align: center;

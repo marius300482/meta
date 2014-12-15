@@ -94,7 +94,7 @@ header {
     line-height: 35px;
     letter-spacing: 2px;
     float: none;
-    margin: 20px 0 4px;
+    margin: 20px 0 4px 15px;
     @media (max-width: 768px) {
       font-size: 19px;
       line-height: 30px;
@@ -410,6 +410,8 @@ select.form-control {
 }
 .result { // Search result list row
   margin-bottom: 35px;
+  font-weight: 300;
+  font-size: 15px;
   &.row .col-sm-1 {
     padding: 0;
   }
@@ -417,12 +419,13 @@ select.form-control {
     color: inherit;
     background-color: transparent;
     border-radius: 0;
-    font-weight: normal;
-    font-size: inherit;
+    font-size: 14px;
+    font-weight: 300;
     padding: 0;
   }
   a {
     color: $color-purple;
+    font-weight: 400;
   }
   a.title {
     color: inherit;
@@ -524,29 +527,35 @@ mark, .highlight { // Marker
 
 #detail-view-details { // Detail view table with details
   h4 {
-    border-bottom: 4px solid $color-blue-4;
+    border-bottom: 5px solid #D6D3DE;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    font-weight: 500;
   }
   #detail-view-description { // The lower description table of the detail view
     th {
-      font-weight: normal;
+      font-weight: 300;
       padding: 0 10px 10px 0;
       white-space: nowrap;
     }
     td {
-      font-weight: 500;
+      font-weight: normal;
       padding-bottom: 10px;
+      font-size: 16px;
+      a {
+        font-size: 14px;
+        color: $color-purple;
+      }
     }
   }
   #treeSelector {
     display: none;
   }
   #hierarchyTreeHolder {
-    background-color: #F7F7F9;
+    background-color: $color-blue-5;
     margin-top: -10px;
     #treeSearch {
-      border-bottom: 1px solid $color-blue-4;
+      border-bottom: 1px solid #D6D3DE;
       padding: 20px 10px;
       margin-bottom: 20px;
     }
@@ -600,18 +609,20 @@ mark, .highlight { // Marker
 }
 
 #record { // The main record data in the detail view
+  font-weight: 300;
   h1 {
     font-family: "Droid", serif;
     font-weight: 700;
     margin: 5px 0 20px 0;
-    font-size: 24px;
+    font-size: 28px;
   }
   a {
     color: $color-purple;
+    font-weight: normal;
   }
   .citation {
     th {
-      font-weight: normal;
+      font-weight: inherit;
       width: 120px;
       padding-left: 0;
       text-align: left;
@@ -619,10 +630,10 @@ mark, .highlight { // Marker
     }
     td {
       padding-bottom: 15px;
-      a {
-        font-weight: 500;
-      }
     }
+  }
+  .head {
+    font-size: 15px;
   }
 }
 
