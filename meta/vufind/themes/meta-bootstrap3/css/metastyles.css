@@ -503,7 +503,9 @@ mark, .highlight {
   padding: 10px;
   font-size: 15px; }
   #detail-view-details .jstree-default .jstree-node {
-    background: 0 none; }
+    background: 0 none;
+    font-weight: inherit;
+    font-style: inherit; }
   #detail-view-details .jstree-default a {
     width: calc(100% - 24px);
     white-space: normal; }
