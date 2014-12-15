@@ -319,6 +319,7 @@ footer {
     background-color: $color-blue-5;
     border-left: 0 none;
     border-right: 0 none;
+    border-top-color: #D6D3DE;
     padding: 5px 15px;
     color: $color-blue-1;
     font-size: 15px;
@@ -350,6 +351,9 @@ footer {
     &.view-record {
       float: none;
     }
+  }
+  a[href*=moreFacets] {
+    color: $color-purple;
   }
 }
 
@@ -401,7 +405,10 @@ select.form-control {
 }
 
 .result { // Search result list row
-  margin-bottom: 30px;
+  margin-bottom: 35px;
+  &:last-child {
+    margin-bottom: 40px;
+  }
   .label-info {
     color: inherit;
     background-color: transparent;
@@ -433,7 +440,7 @@ select.form-control {
 }
 
 mark, .highlight { // Marker
-  background-color: $color-yellow-4;
+  background-color: #FFEFAB;
 }
 
 .slider-container, .slider-horizontal { // Date slider
@@ -495,6 +502,8 @@ mark, .highlight { // Marker
       background-color: #EFEDF3;
       border: 0 none;
       color: inherit;
+      font-size: 18px;
+      padding: 6px 14px;
     }
     &.active span {
       background-color: $color-yellow-2;

@@ -303,6 +303,7 @@ footer {
   background-color: #f7f6f8;
   border-left: 0 none;
   border-right: 0 none;
+  border-top-color: #D6D3DE;
   padding: 5px 15px;
   color: #2e264d;
   font-size: 15px; }
@@ -328,6 +329,8 @@ footer {
       color: #FFFFFF; }
   .list-group .list-group-item.view-record {
     float: none; }
+.list-group a[href*=moreFacets] {
+  color: #990099; }
 
 select.form-control {
   border: 1px solid #D6D3DE;
@@ -370,7 +373,9 @@ select.form-control {
   color: #FFFFFF; }
 
 .result {
-  margin-bottom: 30px; }
+  margin-bottom: 35px; }
+  .result:last-child {
+    margin-bottom: 40px; }
   .result .label-info {
     color: inherit;
     background-color: transparent;
@@ -396,7 +401,7 @@ select.form-control {
   margin-bottom: 40px; }
 
 mark, .highlight {
-  background-color: #ffefcc; }
+  background-color: #FFEFAB; }
 
 .slider-container, .slider-horizontal {
   margin: 10px 0; }
@@ -440,7 +445,9 @@ mark, .highlight {
     .pagination li > a, .pagination li > span {
       background-color: #EFEDF3;
       border: 0 none;
-      color: inherit; }
+      color: inherit;
+      font-size: 18px;
+      padding: 6px 14px; }
     .pagination li.active span {
       background-color: #ffce67;
       color: inherit;

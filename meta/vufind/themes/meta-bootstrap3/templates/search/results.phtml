@@ -109,9 +109,9 @@
       <?=$this->context($this)->renderInContext('search/bulk-action-buttons.phtml', array('idPrefix' => ''))?>
       <?=$this->render('search/list-' . $this->params->getView() . '.phtml')?>
       <?=$this->context($this)->renderInContext('search/bulk-action-buttons.phtml', array('idPrefix' => 'bottom_'))?>
-      <div class="col-xs-12 row">
-          <div class="col-sm-1 col-xs-3 left">&nbsp;</div>
-          <div class="col-sm-11 col-xs-6 middle">
+      <div class="col-sm-12 row">
+          <div class="col-sm-1 hidden-xs left">&nbsp;</div>
+          <div class="col-sm-11 middle">
             <?=$this->paginationControl($this->results->getPaginator(), 'Sliding', 'search/pagination.phtml', array('results' => $this->results))?>
           </div>
       </div>
