@@ -311,6 +311,7 @@ footer {
 }
 
 .list-group { // Right nav blocks
+  margin-bottom: 25px;
   .list-group-item:first-child,
   .list-group-item:last-child {
     border-radius: 0;
@@ -332,7 +333,7 @@ footer {
       font-family: 'Droid Serif', serif;
       text-transform: uppercase;
       letter-spacing: 1px;
-      padding: 7px 15px;
+      padding: 9px 15px;
       font-weight: normal;
       font-size: 16px;
     }
@@ -404,10 +405,13 @@ select.form-control {
   color: #FFFFFF;
 }
 
+.row.result:last-child {
+  margin-bottom: 60px !important;
+}
 .result { // Search result list row
   margin-bottom: 35px;
-  &:last-child {
-    margin-bottom: 40px;
+  &.row .col-sm-1 {
+    padding: 0;
   }
   .label-info {
     color: inherit;
@@ -427,9 +431,6 @@ select.form-control {
     display: block;
     margin: 4px 0;
     font-weight: 700;
-  }
-  &.row .col-sm-1 {
-    padding: 0;
   }
 }
 
@@ -488,7 +489,10 @@ mark, .highlight { // Marker
 }
 
 .pagination { // pagination
-  margin-bottom: 0;
+  margin: 30px 0 0;
+  @media (max-width: 768px) {
+    margin: 30px 0 50px;
+  }
   &> li:first-child > span,
   &> li:first-child > a,
   &> li:last-child > span,
@@ -664,4 +668,16 @@ mark, .highlight { // Marker
       padding: 0 15px 5px;
       text-align: left;
     }
+}
+
+#publishDateFilter { // Date filter
+  .btn[type=submit] {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  #publishDatefrom,
+  #publishDateto {
+    font-size: 18px;
+  }
 }
