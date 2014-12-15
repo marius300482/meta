@@ -415,10 +415,11 @@ select.form-control {
   }
   a.title {
     color: inherit;
-    font-size: 18px;
+    font-size: 20px;
     font-family: 'Droid Serif', serif;
     display: block;
     margin: 4px 0;
+    font-weight: 700;
   }
   &.row .col-sm-1 {
     padding: 0;
@@ -647,4 +648,11 @@ mark, .highlight { // Marker
     font-size: 46px;
     color: $color-purple;
   }
+}
+
+.browse.list-group { // Browse catalog view (table)
+  .list-group-item.view-record {
+      padding: 0 15px 5px;
+      text-align: left;
+    }
 }

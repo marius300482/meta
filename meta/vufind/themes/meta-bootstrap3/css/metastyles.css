@@ -382,10 +382,11 @@ select.form-control {
     color: #990099; }
   .result a.title {
     color: inherit;
-    font-size: 18px;
+    font-size: 20px;
     font-family: 'Droid Serif', serif;
     display: block;
-    margin: 4px 0; }
+    margin: 4px 0;
+    font-weight: 700; }
   .result.row .col-sm-1 {
     padding: 0; }
 
@@ -543,3 +544,7 @@ mark, .highlight {
   .tag_cloud .w46, .tag_cloud .w47, .tag_cloud .w48, .tag_cloud .w49, .tag_cloud .w50 {
     font-size: 46px;
     color: #990099; }
+
+.browse.list-group .list-group-item.view-record {
+  padding: 0 15px 5px;
+  text-align: left; }
