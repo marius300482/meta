@@ -35,7 +35,7 @@
 */ ?>
 
 <? $facetList = is_object($this->results) ? $this->results->getFacetList() : array(); if (isset($facetList) && is_array($facetList)): ?>
-<div class="col-sm-12">
+<div class="col-xs-12 row">
   <? foreach ($facetList as $field => $details): ?>
     <? $sortedList = $this->sortFacetList($this->results, $field, $details['list'], $basicSearch); ?>
     <div class="<?=$field=='callnumber-first' ? 'col-sm-6' : 'col-sm-3' ?>">

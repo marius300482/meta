@@ -296,7 +296,7 @@ footer {
     height: auto;
     font-size: 21px;
     line-height: 30px;
-    margin: -40px 0 0;
+    margin: -40px 0 0 15px;
     letter-spacing: 2px; }
     @media (max-width: 768px) {
       footer .footer-brand {
@@ -566,8 +566,7 @@ mark, .highlight {
 .tag_cloud {
   text-align: center;
   line-height: 46px;
-  font-size: 16px;
-  padding: 0 30px; }
+  font-size: 16px; }
   .tag_cloud li {
     display: inline-block; }
   .tag_cloud .w19, .tag_cloud .w20, .tag_cloud .w21 {
@@ -590,6 +589,8 @@ mark, .highlight {
     font-size: 46px;
     color: #990099; }
 
+.browse.list-group:last-child {
+  padding-right: 0; }
 .browse.list-group .list-group-item.view-record {
   padding: 0 15px 5px;
   text-align: left; }

@@ -10,7 +10,7 @@
 // Set page title.
 $this->headTitle($this->translate('Home'));
 ?>
-<ul class="tag_cloud">
+<ul class="tag_cloud col-xs-12">
     <? foreach ($topics as $topic): ?>
         <li<?php /*style="font-size: <?= $topic['weight'] ?>px"*/ ?>>
             <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
