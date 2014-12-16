@@ -284,6 +284,10 @@ header {
   &> .container {
     padding-left: 30px;
     padding-right: 30px;
+    @media (max-width: 768px) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
   }
 }
 
@@ -386,6 +390,7 @@ select.form-control {
 
 .lead { // Block headline
   font-weight: normal;
+  font-size: 21px;
 }
 
 .badge { // Bullet label e.g.: (112)
@@ -719,4 +724,8 @@ mark, .highlight { // Marker
   #publishDateto {
     font-size: 18px;
   }
+}
+
+#browse-home {
+
 }

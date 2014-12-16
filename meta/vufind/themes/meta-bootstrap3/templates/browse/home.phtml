@@ -6,7 +6,7 @@
   $SEARCH_BASE = $this->url($this->currentAction == 'Tag' ? 'tag-home' : 'search-results');
 ?>
 
-<div class="col-xs-12">
+<div class="col-xs-12" id="browse-home">
 
   <? if (!isset($this->currentAction)): ?>
     <h2><?=$this->transEsc('Choose a Category to Begin Browsing') ?>:</h2>

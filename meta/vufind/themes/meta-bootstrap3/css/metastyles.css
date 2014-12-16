@@ -275,6 +275,10 @@ header {
 .main > .container {
   padding-left: 30px;
   padding-right: 30px; }
+  @media (max-width: 768px) {
+    .main > .container {
+      padding-left: 15px;
+      padding-right: 15px; } }
 
 footer {
   margin-top: 90px;
@@ -356,7 +360,8 @@ select.form-control {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset; }
 
 .lead {
-  font-weight: normal; }
+  font-weight: normal;
+  font-size: 21px; }
 
 .badge {
   background-color: transparent;
