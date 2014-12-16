@@ -206,6 +206,7 @@ header {
 }
 
 #advSearchForm {
+  padding: 0 15px;
   #groupPlaceHolder {
     position: absolute; // PHE disable stretching
   }
@@ -227,20 +228,8 @@ header {
     font-size: 16px;
   }
   .search {
-    .col-md-7, .col-md-4, .col-md-1 {
+    .col-xs-12, .col-xs-11, .col-xs-1 {
       margin-bottom: 10px;
-    }
-  }
-  padding: 0 15px;
-  @media (max-width: 992px) {
-    padding: 0;
-    select {
-      margin-top: 4px;
-    }
-    .group {
-      .col-md-7, .col-md-6, .col-md-4 {
-        padding: 0;
-      }
     }
   }
   .group {
@@ -253,12 +242,13 @@ header {
     background-color: $color-yellow-4;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     padding: 15px;
-    .delete, .close {
-      opacity: inherit;
-      font-weight: normal;
-      &:hover {
-        text-decoration: none;
-      }
+  }
+  .delete, .close {
+    text-align: right;
+    opacity: inherit;
+    font-weight: normal;
+    &:hover {
+      text-decoration: none;
     }
   }
   .add-seach-criteria {
@@ -273,6 +263,28 @@ header {
     content: "+";
     font-weight: 700;
     font-size: 20px;
+  }
+  @media (max-width: 768px) {
+    .col-xs-12, .col-xs-11, .col-xs-1, .col-sm-6 {
+      padding: 0;
+    }
+    .col-sm-6:last-child {
+      margin-top: 15px;
+    }
+  }
+  @media (max-width: 992px) {
+    padding: 0;
+    select {
+      margin-top: 4px;
+    }
+    .group {
+      .col-md-7, .col-md-6, .col-md-4 {
+        padding: 0;
+      }
+    }
+    .col-xs-1 {
+      text-align: right;
+    }
   }
 }
 

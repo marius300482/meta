@@ -236,15 +236,8 @@ header {
     font-weight: 500; }
   #advSearchForm a[onclick] {
     font-size: 16px; }
-  #advSearchForm .search .col-md-7, #advSearchForm .search .col-md-4, #advSearchForm .search .col-md-1 {
+  #advSearchForm .search .col-xs-12, #advSearchForm .search .col-xs-11, #advSearchForm .search .col-xs-1 {
     margin-bottom: 10px; }
-  @media (max-width: 992px) {
-    #advSearchForm {
-      padding: 0; }
-      #advSearchForm select {
-        margin-top: 4px; }
-      #advSearchForm .group .col-md-7, #advSearchForm .group .col-md-6, #advSearchForm .group .col-md-4 {
-        padding: 0; } }
   #advSearchForm .group {
     margin-top: 20px; }
     #advSearchForm .group#group0 {
@@ -253,11 +246,12 @@ header {
     background-color: #ffefcc;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     padding: 15px; }
-    #advSearchForm #advanced-search-body .delete, #advSearchForm #advanced-search-body .close {
-      opacity: inherit;
-      font-weight: normal; }
-      #advSearchForm #advanced-search-body .delete:hover, #advSearchForm #advanced-search-body .close:hover {
-        text-decoration: none; }
+  #advSearchForm .delete, #advSearchForm .close {
+    text-align: right;
+    opacity: inherit;
+    font-weight: normal; }
+    #advSearchForm .delete:hover, #advSearchForm .close:hover {
+      text-decoration: none; }
   #advSearchForm .add-seach-criteria {
     margin: 20px 0 30px 15px; }
   #advSearchForm .submit-advanced-search input {
@@ -268,6 +262,20 @@ header {
     content: "+";
     font-weight: 700;
     font-size: 20px; }
+  @media (max-width: 768px) {
+    #advSearchForm .col-xs-12, #advSearchForm .col-xs-11, #advSearchForm .col-xs-1, #advSearchForm .col-sm-6 {
+      padding: 0; }
+    #advSearchForm .col-sm-6:last-child {
+      margin-top: 15px; } }
+  @media (max-width: 992px) {
+    #advSearchForm {
+      padding: 0; }
+      #advSearchForm select {
+        margin-top: 4px; }
+      #advSearchForm .group .col-md-7, #advSearchForm .group .col-md-6, #advSearchForm .group .col-md-4 {
+        padding: 0; }
+      #advSearchForm .col-xs-1 {
+        text-align: right; } }
 
 .breadcrumb {
   background-color: transparent; }

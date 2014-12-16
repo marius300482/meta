@@ -11,8 +11,8 @@ function addSearch(group, term, field)
   // Build the new search
   var inputIndex = $('#group'+group+' input').length;
   var inputID = group+'_'+$('#group'+group+' input').length;
-  var newSearch = '<div class="search" id="search'+inputID+'"><div class=""><div class="col-md-7"><input id="search_lookfor'+inputID+'" class="form-control" type="text" name="lookfor'+group+'[]" value="'+term+'"/></div>'
-    + '<div class="col-md-4"><select id="search_type'+inputID+'" name="type'+group+'[]" class="form-control">';
+  var newSearch = '<div class="search" id="search'+inputID+'"><div class=""><div class="col-sm-7 col-xs-12"><input id="search_lookfor'+inputID+'" class="form-control" type="text" name="lookfor'+group+'[]" value="'+term+'"/></div>'
+    + '<div class="col-sm-4 col-xs-11"><select id="search_type'+inputID+'" name="type'+group+'[]" class="form-control">';
   for (var key in searchFields) {
     newSearch += '<option value="' + key + '"';
     if (key == field) {
@@ -20,7 +20,7 @@ function addSearch(group, term, field)
     }
     newSearch += ">" + searchFields[key] + "</option>";
   }
-  newSearch += '</select></div><div class="col-md-1"><a class="help-block delete" href="#" onClick="deleteSearch('+group+','+inputIndex+')" class="delete">X</a></div></div>';
+  newSearch += '</select></div><div class="col-xs-1"><a class="help-block delete" href="#" onClick="deleteSearch('+group+','+inputIndex+')" class="delete">X</a></div></div>';
 
   // Insert it
   $("#group" + group + "Holder").before(newSearch);
@@ -53,11 +53,11 @@ function addGroup(firstTerm, firstField, join)
   if (join       == undefined) {join       = '';}
 
   var newGroup = '<div id="group'+nextGroup+'" class="group clearfix">' +
-      '<div class="col-md-6">' +
+      '<div class="col-sm-6">' +
           // '<label>'+searchLabel+':</label>' + // PHE not required
           '<i id="group'+nextGroup+'Holder" class="fa fa-plus-circle"></i> <a href="#" onClick="addSearch('+nextGroup+')">'+addSearchString+'</a>' +
       '</div>'
-    + '<div class="col-md-6">'
+    + '<div class="col-sm-6">'
     + '<label for="search_bool'+nextGroup+'">'+searchMatch+':&nbsp;</label>'
     + '<a href="#" onClick="deleteGroup('+nextGroup+')" class="close hidden" title="'+deleteSearchGroupString+'">X</a>'
     + '<select id="search_bool'+nextGroup+'" name="bool'+nextGroup+'[]" class="form-control">'
