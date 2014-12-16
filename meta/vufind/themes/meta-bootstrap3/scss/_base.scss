@@ -597,10 +597,13 @@ mark, .highlight { // Marker
       font-weight: 700;
     }
     #treeSearchText {
+      display: inline;
       width: calc(100% - 200px);
     }
     #treeSearchType {
+      display: inline;
       margin: 0 10px;
+      width: auto;
     }
   }
   .jstree-default { // Hierarchy tree
@@ -618,6 +621,8 @@ mark, .highlight { // Marker
         height: auto;
         padding: 5px 10px 3px 20px;
         border: 1px solid $color-blue-5;
+        font: inherit;
+        line-height: 1.2em;
       }
       i.jstree-icon:empty {
         display: none;

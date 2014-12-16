@@ -518,9 +518,12 @@ mark, .highlight {
     width: 70px;
     font-weight: 700; }
   #detail-view-details #hierarchyTreeHolder #treeSearchText {
+    display: inline;
     width: calc(100% - 200px); }
   #detail-view-details #hierarchyTreeHolder #treeSearchType {
-    margin: 0 10px; }
+    display: inline;
+    margin: 0 10px;
+    width: auto; }
 #detail-view-details .jstree-default {
   padding: 10px;
   font-size: 15px; }
@@ -534,7 +537,9 @@ mark, .highlight {
     #detail-view-details .jstree-default a.jstree-anchor {
       height: auto;
       padding: 5px 10px 3px 20px;
-      border: 1px solid #f7f6f8; }
+      border: 1px solid #f7f6f8;
+      font: inherit;
+      line-height: 1.2em; }
     #detail-view-details .jstree-default a i.jstree-icon:empty {
       display: none; }
   #detail-view-details .jstree-default i.jstree-icon {
