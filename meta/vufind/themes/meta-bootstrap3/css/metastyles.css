@@ -294,7 +294,8 @@ header {
   header .navbar-toggle {
     display: none; }
   header .logo {
-    background: url("../images/logo_ida_blau.png") no-repeat scroll 0 0/cover white;
+    background: url("../images/logo_ida_blau.png") no-repeat scroll 0 0 white;
+    background-size: cover;
     box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
     display: inline-block;
     height: 95px;
@@ -317,7 +318,8 @@ header {
     display: block;
     float: none !important;
     margin-bottom: 0;
-    padding-bottom: 0; }
+    padding-bottom: 0;
+    border: 0 none; }
     header #searchForm .search-nav-wrapper {
       overflow: hidden;
       padding: 3px 0 0 3px;
@@ -542,7 +544,7 @@ footer {
     margin-bottom: 20px; }
   #detail-view-details #hierarchyTreeHolder .btn[type="submit"] {
     font-weight: 700;
-    padding: 4px 15px; }
+    padding: 4px 13px; }
   #detail-view-details #hierarchyTreeHolder #treeSearchText {
     display: inline;
     width: calc(100% - 200px); }
@@ -568,8 +570,6 @@ footer {
       line-height: 1.2em; }
     #detail-view-details .jstree-default a i.jstree-icon:empty {
       display: none; }
-  #detail-view-details .jstree-default i.jstree-icon {
-    background: 0 none; }
   #detail-view-details .jstree-default .jstree-clicked, #detail-view-details .jstree-default .jstree-hovered {
     background-color: #ffefcc;
     border: 1px solid #e6e5eb !important;
