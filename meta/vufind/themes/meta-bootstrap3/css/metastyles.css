@@ -128,7 +128,7 @@ header {
     margin: 20px 0 4px 15px; }
     @media (max-width: 768px) {
       header .navbar-brand {
-        font-size: 19px;
+        font-size: 17px;
         line-height: 30px; } }
   header .navbar-header {
     float: none; }
@@ -141,12 +141,14 @@ header {
     height: 95px;
     width: 342px;
     position: absolute;
-    right: 30px; }
+    right: 30px;
+    top: 0; }
     @media (max-width: 768px) {
       header .logo {
         display: block;
         position: relative;
         right: auto;
+        top: auto;
         margin-left: 15px;
         width: 290px;
         height: 80px; } }
@@ -276,6 +278,14 @@ header {
         padding: 0; }
       #advSearchForm .col-xs-1 {
         text-align: right; } }
+
+.alert, .error {
+  border: 1px solid #f7f6f8;
+  border-left: 0 none;
+  border-right: 0 none;
+  border-radius: 0;
+  color: inherit;
+  background-color: #ffefcc; }
 
 .breadcrumb {
   background-color: transparent; }
@@ -515,8 +525,8 @@ mark, .highlight {
     padding: 20px 10px;
     margin-bottom: 20px; }
   #detail-view-details #hierarchyTreeHolder .btn[type="submit"] {
-    width: 70px;
-    font-weight: 700; }
+    font-weight: 700;
+    padding: 4px 15px; }
   #detail-view-details #hierarchyTreeHolder #treeSearchText {
     display: inline;
     width: calc(100% - 200px); }

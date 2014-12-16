@@ -96,7 +96,7 @@ header {
     float: none;
     margin: 20px 0 4px 15px;
     @media (max-width: 768px) {
-      font-size: 19px;
+      font-size: 17px;
       line-height: 30px;
     }
   }
@@ -114,10 +114,12 @@ header {
     width: 342px;
     position: absolute;
     right: 30px;
+    top: 0;
     @media (max-width: 768px) {
       display: block;
       position: relative;
       right: auto;
+      top: auto;
       margin-left: 15px;
       width: 290px;
       height: 80px;
@@ -286,6 +288,15 @@ header {
       text-align: right;
     }
   }
+}
+
+.alert, .error {
+  border: 1px solid $color-blue-5;
+  border-left: 0 none;
+  border-right: 0 none;
+  border-radius: 0;
+  color: inherit;
+  background-color: $color-yellow-4;
 }
 
 .breadcrumb {
@@ -593,8 +604,8 @@ mark, .highlight { // Marker
       margin-bottom: 20px;
     }
     .btn[type="submit"] {
-      width: 70px;
       font-weight: 700;
+      padding: 4px 15px;
     }
     #treeSearchText {
       display: inline;
@@ -633,7 +644,7 @@ mark, .highlight { // Marker
     }
     .jstree-clicked, .jstree-hovered {
       background-color: $color-yellow-4;
-      border: 1px solid $color-blue-4 !important;
+      border: 1px solid $color-blue-4 !important; // Overwrite super long selector
       box-shadow: none;
     }
     .jstree-children {
@@ -741,8 +752,4 @@ mark, .highlight { // Marker
   #publishDateto {
     font-size: 18px;
   }
-}
-
-#browse-home {
-
 }
