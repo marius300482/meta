@@ -83,30 +83,9 @@
     padding: 10px;
     font-size: 15px;
     .jstree-node {
-      background: 0 none;
+      background: transparent none;
       font-weight: inherit; // Overwrite search highlight style
       font-style: inherit; // Overwrite search highlight style
-    }
-    a {
-      width: calc(100% - 24px);
-      white-space: normal;
-      &.jstree-anchor {
-        height: auto;
-        padding: 5px 10px 3px 20px;
-        border: 1px solid $color-blue-5;
-        font: inherit;
-        line-height: 1.2em;
-      }
-    }
-    li {
-      position: relative;
-      i {
-        position: absolute;
-        z-index: 1;
-      }
-      i.jstree-themeicon {
-        display: none;
-      }
     }
     .jstree-clicked, .jstree-hovered {
       background-color: $color-yellow-4;
@@ -115,6 +94,50 @@
     }
     .jstree-children {
       font-weight: 300;
+      .jstree-node {
+        margin-left: 24px;
+      }
+    }
+    li {
+      position: relative;
+      i {
+        position: absolute;
+        background: transparent none;
+        z-index: 1;
+        left: -3px;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+      }
+      i.jstree-themeicon {
+        display: none;
+      }
+      a {
+        white-space: normal;
+        &.jstree-anchor {
+          height: auto;
+          padding: 5px 10px 3px 20px;
+          border: 1px solid $color-blue-5;
+          font: inherit;
+          line-height: 1.2em;
+        }
+      }
+    }
+  }
+  .jstree-default {
+    .jstree-open {
+      .jstree-ocl:before {
+        content: "\25B9"; // Child
+      }
+      &> .jstree-ocl:before {
+        content: "\25B4"; // Root
+      }
+    }
+    .jstree-closed {
+      &> .jstree-ocl:before {
+        content: "\25B8"; // Root
+      }
     }
   }
   .table-striped {

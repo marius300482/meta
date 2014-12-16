@@ -564,31 +564,44 @@ footer {
   padding: 10px;
   font-size: 15px; }
   #detail-view-details .jstree-default .jstree-node {
-    background: 0 none;
+    background: transparent none;
     font-weight: inherit;
     font-style: inherit; }
-  #detail-view-details .jstree-default a {
-    width: calc(100% - 24px);
-    white-space: normal; }
-    #detail-view-details .jstree-default a.jstree-anchor {
-      height: auto;
-      padding: 5px 10px 3px 20px;
-      border: 1px solid #f7f6f8;
-      font: inherit;
-      line-height: 1.2em; }
-  #detail-view-details .jstree-default li {
-    position: relative; }
-    #detail-view-details .jstree-default li i {
-      position: absolute;
-      z-index: 1; }
-    #detail-view-details .jstree-default li i.jstree-themeicon {
-      display: none; }
   #detail-view-details .jstree-default .jstree-clicked, #detail-view-details .jstree-default .jstree-hovered {
     background-color: #ffefcc;
     border: 1px solid #e6e5eb !important;
     box-shadow: none; }
   #detail-view-details .jstree-default .jstree-children {
     font-weight: 300; }
+    #detail-view-details .jstree-default .jstree-children .jstree-node {
+      margin-left: 24px; }
+  #detail-view-details .jstree-default li {
+    position: relative; }
+    #detail-view-details .jstree-default li i {
+      position: absolute;
+      background: transparent none;
+      z-index: 1;
+      left: -3px;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      line-height: 24px; }
+    #detail-view-details .jstree-default li i.jstree-themeicon {
+      display: none; }
+    #detail-view-details .jstree-default li a {
+      white-space: normal; }
+      #detail-view-details .jstree-default li a.jstree-anchor {
+        height: auto;
+        padding: 5px 10px 3px 20px;
+        border: 1px solid #f7f6f8;
+        font: inherit;
+        line-height: 1.2em; }
+#detail-view-details .jstree-default .jstree-open .jstree-ocl:before {
+  content: "\25B9"; }
+#detail-view-details .jstree-default .jstree-open > .jstree-ocl:before {
+  content: "\25B4"; }
+#detail-view-details .jstree-default .jstree-closed > .jstree-ocl:before {
+  content: "\25B8"; }
 #detail-view-details .table-striped th, #detail-view-details .table-striped td {
   background-color: transparent;
   border: 0 none; }
