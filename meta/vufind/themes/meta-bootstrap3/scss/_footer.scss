@@ -1,0 +1,28 @@
+footer {
+  margin-top: 90px;
+  padding: 70px 0 50px;
+  background-color: $color-yellow-4;
+  line-height: 2;
+  @media (max-width: 768px) {
+    padding: 40px 0 50px;
+  }
+  p strong {
+    display: block;
+    border-bottom: 4px solid $color-yellow-1;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .footer-brand {
+    color: #371C04;
+    display: inline-block;
+    font-family: 'Libre Baskerville', serif;
+    height: auto;
+    font-size: 21px;
+    line-height: 30px;
+    margin: -40px 0 0 15px; // Special position
+    letter-spacing: 2px;
+    @media (max-width: 768px) {
+      margin: 0 0 30px 0;
+    }
+  }
+}

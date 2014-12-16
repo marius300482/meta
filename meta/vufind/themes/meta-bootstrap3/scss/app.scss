@@ -1,3 +1,22 @@
+// Global variables
 @import 'variables';
+// Global font definition
 @import 'fonts';
-@import 'base';
+
+// Basic HTML rules
+@import 'base-html';
+// Basic elements, used on various pages
+@import 'base-elements';
+// Page main header with simple and advanced search
+@import 'header';
+// Page main footer
+@import 'footer';
+
+// Page: /Search/Results/ (Lists the results of a search)
+@import 'page-search-results';
+// Page: /Record/ (Detail view of a search result)
+@import 'page-record';
+// Page: /Topics/Home/  =  / (Landing page which shows a tag cloud)
+@import 'page-topics-home';
+// Page: /Browse/Home/ (Top-down selection/search)
+@import 'browse-home';
