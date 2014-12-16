@@ -93,6 +93,9 @@ table {
 a, a:hover {
   color: #2e264d; }
 
+pre {
+  border-radius: 0; }
+
 .main > .container {
   padding-left: 30px;
   padding-right: 30px; }
@@ -260,6 +263,11 @@ mark, .highlight {
       margin-top: -5px;
       opacity: 1;
       width: 14px; }
+
+.modal-content {
+  border-radius: 0; }
+  .modal-content .close, .modal-content .close:hover {
+    opacity: 1; }
 
 header {
   margin-bottom: 100px;
@@ -568,7 +576,12 @@ footer {
       border: 1px solid #f7f6f8;
       font: inherit;
       line-height: 1.2em; }
-    #detail-view-details .jstree-default a i.jstree-icon:empty {
+  #detail-view-details .jstree-default li {
+    position: relative; }
+    #detail-view-details .jstree-default li i {
+      position: absolute;
+      z-index: 1; }
+    #detail-view-details .jstree-default li i.jstree-themeicon {
       display: none; }
   #detail-view-details .jstree-default .jstree-clicked, #detail-view-details .jstree-default .jstree-hovered {
     background-color: #ffefcc;

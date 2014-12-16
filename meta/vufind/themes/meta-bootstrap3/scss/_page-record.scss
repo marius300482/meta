@@ -97,7 +97,14 @@
         font: inherit;
         line-height: 1.2em;
       }
-      i.jstree-icon:empty {
+    }
+    li {
+      position: relative;
+      i {
+        position: absolute;
+        z-index: 1;
+      }
+      i.jstree-themeicon {
         display: none;
       }
     }

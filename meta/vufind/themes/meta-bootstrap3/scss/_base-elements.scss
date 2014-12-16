@@ -223,3 +223,12 @@ mark, .highlight {
     }
   }
 }
+
+// Popup overlay
+.modal-content {
+  border-radius: 0;
+  .close, .close:hover {
+    //color: $color-blue-1;
+    opacity: 1;
+  }
+}
