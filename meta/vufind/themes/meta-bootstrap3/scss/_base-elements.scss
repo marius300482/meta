@@ -124,7 +124,7 @@ select.form-control {
       float: none;
     }
   }
-  a[href*=moreFacets] {
+  a[href*=moreFacets], a[href*=lessFacets] {
     color: $color-purple;
   }
 }

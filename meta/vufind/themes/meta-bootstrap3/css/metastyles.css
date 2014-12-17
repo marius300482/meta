@@ -193,7 +193,7 @@ select.form-control {
         color: white; }
     .list-group .list-group-item.view-record {
       float: none; }
-  .list-group a[href*=moreFacets] {
+  .list-group a[href*=moreFacets], .list-group a[href*=lessFacets] {
     color: #990099; }
 
 .badge {
