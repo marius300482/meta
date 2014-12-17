@@ -23,8 +23,9 @@ return array(
         'jquery-ui/js/jquery-ui.js',
         'lightbox.js',
         'common.js',*/
-    )/*,
+    ),
     'favicon' => 'favicon.ico',
+    /*
     'helpers' => array(
         'factories' => array(
             'layoutclass' => array('VuFind\View\Helper\Blueprint\Factory', 'getLayoutClass'),
