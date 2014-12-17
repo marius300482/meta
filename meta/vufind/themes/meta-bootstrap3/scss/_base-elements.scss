@@ -42,16 +42,16 @@
 
 // Text input elements in form
 select.form-control {
-  background-color: #D6D3DE;
-  border: 1px solid #D6D3DE;
+  background-color: $color-grey-border;
+  border: 1px solid $color-grey-border;
   border-radius: 0;
   box-shadow: none;
 }
 .form-control, .form-control:focus {
   height: auto;
   padding: 2px 6px;
-  border: 1px solid #D6D3DE;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
+  border: 1px solid $color-grey-border;
+  box-shadow: $shadow-inner;
 }
 // Normal button
 .btn, .btn:hover {
@@ -59,8 +59,8 @@ select.form-control {
   text-align: center;
   padding: 4px 30px;
   border: 0 none;
-  background-color: #40395B;
-  color: #FFFFFF;
+  background-color: $color-blue-button;
+  color: $color-white
 }
 
 // Breadcrump
@@ -90,7 +90,7 @@ select.form-control {
     background-color: $color-blue-5;
     border-left: 0 none;
     border-right: 0 none;
-    border-top-color: #D6D3DE;
+    border-top-color: $color-grey-border;
     padding: 5px 15px;
     color: $color-blue-1;
     font-size: 15px;
@@ -113,10 +113,10 @@ select.form-control {
       background-color: transparent;
     }
     &.active, &.active:hover {
-      color: #FFFFFF;
-      background-color: #40395B;
+      color: $color-white;
+      background-color: $color-blue-button;
       span.badge {
-        color: #FFFFFF;
+        color: $color-white
       }
     }
     &.view-record {
@@ -147,7 +147,7 @@ select.form-control {
 
 // Marker and highlighting
 mark, .highlight {
-  background-color: #FFEFAB;
+  background-color: #FFEFAB; // Special color
 }
 
 // Pagination
@@ -166,7 +166,7 @@ mark, .highlight {
     display: inline-block;
     margin-right: 1px;
     &> a, &> span {
-      background-color: #EFEDF3;
+      background-color: $color-blue-4;
       border: 0 none;
       color: inherit;
       font-size: 18px;
@@ -203,17 +203,17 @@ mark, .highlight {
 .slider-container, .slider-horizontal {
   margin: 10px 0;
   .slider-track {
-    background-color: #BBB;
+    background-color: $color-grey-border;
     height: 4px !important; // Allows to apply the height for all sliders
     border-radius: 0;
     box-shadow: none;
     .slider-selection {
       box-shadow: none;
-      background-color: #40395B;
+      background-color: $color-blue-button;
     }
     .slider-handle, .slider-handle:hover {
-      background-color: #40395B;
-      border: 1px solid #40395B;
+      background-color: $color-blue-button;
+      border: 1px solid $color-blue-button;
       border-radius: 14px;
       height: 14px;
       margin-left: -7px;

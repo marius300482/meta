@@ -15,7 +15,7 @@ header {
     margin-bottom: -40px;
   }
   .navbar-brand {
-    color: #371C04;
+    color: $color-black-logo;
     font-family: 'Libre Baskerville', serif;
     font-size: 23px;
     display: inline-block;
@@ -36,9 +36,9 @@ header {
     display: none;
   }
   .logo {
-    background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 #FFFFFF;
+    background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 $color-white;
     background-size: cover;
-    box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
+    box-shadow: $shadow-outer;
     display: inline-block;
     height: 95px;
     width: 342px;
@@ -75,7 +75,7 @@ header {
           margin-right: 10px;
           span {
             background-color: $color-yellow-1;
-            color: #664500;
+            color: #664500; // Special color
             border: 0;
             border-radius: 0;
             padding: 5px 50px;
@@ -90,7 +90,7 @@ header {
             background-color: $color-yellow-4;
             cursor: inherit;
             color: $color-black;
-            box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
+            box-shadow: $shadow-outer;
           }
         }
       }
@@ -98,7 +98,7 @@ header {
     #simple-search-body {
       background-color: $color-yellow-4;
       padding: 15px;
-      box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
+      box-shadow: $shadow-outer;
       .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
@@ -116,11 +116,10 @@ header {
         }
         #searchForm_lookfor {
           border-radius: 0;
-          border: 0 none;
-          background-color: #FFFFFF !important; // Overwrite "style" attribute
+          background-color: $color-white !important; // Overwrite "style" attribute
           height: 32px;
           max-width: inherit;
-          box-shadow: 0 0 4px #999 inset;
+          box-shadow: $shadow-inner;
           width: 100%;
           font-size: 18px;
         }
@@ -173,7 +172,7 @@ header {
     }
     #advanced-search-body {
       background-color: $color-yellow-4;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      box-shadow: $shadow-inner;
       padding: 15px;
     }
     .delete, .close {

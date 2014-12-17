@@ -32,9 +32,9 @@ label {
 input[type="text"],
 input[type="password"],
 select {
-  border: 1px solid #ccc;
+  border: 1px solid $color-grey-border;
   border-radius: 0;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: $shadow-inner;
   color: $color-blue-1;
 }
 

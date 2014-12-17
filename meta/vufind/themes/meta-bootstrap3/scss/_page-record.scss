@@ -31,7 +31,7 @@
 // Detail view table with details
 #detail-view-details {
   h4 {
-    border-bottom: 5px solid #D6D3DE;
+    border-bottom: 5px solid $color-grey-border;
     padding-bottom: 10px;
     margin-bottom: 10px;
     font-weight: 500;
@@ -60,7 +60,7 @@
     background-color: $color-blue-5;
     margin-top: -10px;
     #treeSearch {
-      border-bottom: 1px solid #D6D3DE;
+      border-bottom: 1px solid $color-grey-border;
       padding: 20px 10px;
       margin-bottom: 20px;
     }
