@@ -104,15 +104,17 @@ pre {
       padding-left: 15px;
       padding-right: 15px; } }
 
-@media (min-width: 768px) {
-  .container {
-    width: auto; } }
-@media (min-width: 992px) {
-  .container {
-    width: auto; } }
-@media (min-width: 1200px) {
-  .container {
-    width: 1170px; } }
+.container {
+  border-radius: 0; }
+  @media (min-width: 768px) {
+    .container {
+      width: auto; } }
+  @media (min-width: 992px) {
+    .container {
+      width: auto; } }
+  @media (min-width: 1200px) {
+    .container {
+      width: 1200px; } }
 
 .lead {
   font-weight: normal;

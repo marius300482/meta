@@ -6,7 +6,7 @@ header {
     background-color: $color-yellow-2;
     width: 100%;
     height: 220px;
-    @media (max-width: 768px) {
+    @media (max-width: $device-xs-max-width) {
       height: 300px;
     }
   }
@@ -24,7 +24,7 @@ header {
     letter-spacing: 2px;
     float: none;
     margin: 20px 0 4px 15px;
-    @media (max-width: 768px) {
+    @media (max-width: $device-xs-max-width) {
       font-size: 17px;
       line-height: 30px;
     }
@@ -45,7 +45,7 @@ header {
     position: absolute;
     right: 30px;
     top: 0;
-    @media (max-width: 768px) {
+    @media (max-width: $device-xs-max-width) {
       display: block;
       position: relative;
       right: auto;
@@ -82,7 +82,7 @@ header {
             display: inline-block;
             cursor: pointer;
             font-size: 17px;
-            @media (max-width: 768px) {
+            @media (max-width: $device-xs-max-width) {
               padding: 5px 30px;
             }
           }
@@ -106,11 +106,11 @@ header {
         display: inline-block !important;
         margin-right: 15px;
         vertical-align: top;
-        @media (max-width: 768px) {
+        @media (max-width: $device-xs-max-width) {
           margin-right: 10px;
           width: 55%;
         }
-        @media (max-width: 400px) {
+        @media (max-width: $device-xxs-max-width) {
           margin-right: 5px;
           width: 48%;
         }
@@ -196,7 +196,7 @@ header {
       font-weight: 700;
       font-size: 20px;
     }
-    @media (max-width: 768px) {
+    @media (max-width: $device-xs-max-width) {
       .col-xs-12, .col-xs-11, .col-xs-1, .col-sm-6 {
         padding: 0;
       }
@@ -204,7 +204,7 @@ header {
         margin-top: 15px;
       }
     }
-    @media (max-width: 992px) {
+    @media (max-width: $device-md-max-width) {
       padding: 0;
       select {
         margin-top: 4px;

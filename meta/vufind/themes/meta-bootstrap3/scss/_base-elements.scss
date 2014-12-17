@@ -3,24 +3,25 @@
   &> .container {
     padding-left: 30px;
     padding-right: 30px;
-    @media (max-width: 768px) {
+    @media (max-width: $device-xs-max-width) {
       padding-left: 15px;
       padding-right: 15px;
     }
   }
 }
 .container {
+  border-radius: 0;
   // Small screen
-  @media (min-width: 768px) {
+  @media (min-width: $device-xs-max-width) {
     width: auto;
   }
   // Medium screen
-  @media (min-width: 992px) {
+  @media (min-width: $device-md-max-width) {
     width: auto;
   }
   // Huge screen
-  @media (min-width: 1200px) {
-    width: 1170px;
+  @media (min-width: $device-lg-max-width) {
+    width: 1200px;
   }
 }
 
@@ -153,7 +154,7 @@ mark, .highlight {
 // Pagination
 .pagination {
   margin: 30px 0 0;
-  @media (max-width: 768px) {
+  @media (max-width: $device-xs-max-width) {
     margin: 30px 0 50px;
   }
   &> li:first-child > span,

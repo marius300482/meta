@@ -3,6 +3,13 @@
 $theme-path-fonts: './fonts'; // fonts have to be in CSS folder. Otherwise .htaccess excludes them
 $theme-path-images: '../images';
 
+// Responsive breakpoints (same as bootstrap!!!!)
+
+$device-xxs-max-width: 400px;
+$device-xs-max-width: 768px;
+$device-md-max-width: 992px;
+$device-lg-max-width: 1200px;
+
 // Colors
 
 $color-yellow-1: #FFAD00;
