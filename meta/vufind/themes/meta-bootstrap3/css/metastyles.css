@@ -484,6 +484,8 @@ footer {
   font-size: 15px; }
   .result.row .col-sm-1 {
     padding: 0; }
+  .result .col-xs-1 {
+    padding: 0; }
   .result .label-info {
     color: inherit;
     background-color: transparent;
