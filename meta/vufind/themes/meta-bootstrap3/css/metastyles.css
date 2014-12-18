@@ -414,7 +414,7 @@ header {
         margin-top: 0; }
     header #advSearchForm #advanced-search-body {
       background-color: #ffefcc;
-      box-shadow: 0 0 4px rgba(64, 57, 91, 0.3) inset;
+      box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6);
       padding: 15px; }
     header #advSearchForm .delete, header #advSearchForm .close {
       text-align: right;
