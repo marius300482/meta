@@ -14,6 +14,9 @@ class SolrLibrary extends SolrIDA {
     function __construct($mainConfig = null, $recordConfig = null,
                          $searchSettings = null)
     {
+        //edit:dku
+//        var_dump($mainConfig);
+//        die('hier');
         parent::__construct($mainConfig, $recordConfig, $searchSettings);
     }
 
