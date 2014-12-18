@@ -7,7 +7,7 @@
  */
 namespace Ida\RecordDriver;
 
-use VuFind\RecordDriver\SolrDefault;use VuFind\View\Helper\Root\RecordLink;
+use VuFind\RecordDriver\SolrDefault,VuFind\View\Helper\Root\RecordLink, Ida\Institution\Institution;
 
 abstract class SolrIDA extends SolrDefault
 {
@@ -99,6 +99,13 @@ abstract class SolrIDA extends SolrDefault
     public function getInstitutionsFull()
     {
         return $this->getMultiValuedField("institutionFull");
+    }
+
+    public function getInstitutionDetails($institutionId)
+    {
+        $institution = new Institution($institutionId);
+
+        return $institution->getInstitutionDetails();
     }
     
     public function getTranslatedTerms()

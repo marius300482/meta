@@ -29,14 +29,29 @@
 }
 
 // Detail view table with details
-#detail-view-details {
+.detail-view-detail-row {
+  margin-bottom: 10px;
   h4 {
     border-bottom: 5px solid $color-grey-border;
     padding-bottom: 10px;
     margin-bottom: 10px;
     font-weight: 500;
   }
-  // The lower description table of the detail view
+  // The lover institution section
+  .institution {
+    font-weight: 300;
+    h5 {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    strong {
+      font-weight: 500;
+    }
+    .opening-hours {
+      margin-top: 20px;
+    }
+  }
+  // The lower description table
   #detail-view-description {
     th {
       font-weight: 300;

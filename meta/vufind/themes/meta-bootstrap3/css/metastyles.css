@@ -528,92 +528,103 @@ footer {
   #record .head {
     font-size: 15px; }
 
-#detail-view-details h4 {
-  border-bottom: 5px solid #d6d3de;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  font-weight: 500; }
-#detail-view-details #detail-view-description th {
-  font-weight: 300;
-  padding: 0 10px 10px 0;
-  white-space: nowrap; }
-#detail-view-details #detail-view-description td {
-  font-weight: normal;
-  padding-bottom: 10px;
-  font-size: 16px; }
-  #detail-view-details #detail-view-description td a {
-    font-size: 14px;
-    color: #990099; }
-#detail-view-details #treeSelector {
-  display: none; }
-#detail-view-details #hierarchyTreeHolder {
-  background-color: #f7f6f8;
-  margin-top: -10px; }
-  #detail-view-details #hierarchyTreeHolder #treeSearch {
-    border-bottom: 1px solid #d6d3de;
-    padding: 20px 10px;
-    margin-bottom: 20px; }
-  #detail-view-details #hierarchyTreeHolder .btn[type="submit"] {
-    font-weight: 700;
-    padding: 4px 13px; }
-  #detail-view-details #hierarchyTreeHolder #treeSearchText {
-    display: inline;
-    width: calc(100% - 200px); }
-  #detail-view-details #hierarchyTreeHolder #treeSearchType {
-    display: inline;
-    margin: 0 10px;
-    width: auto; }
-#detail-view-details .jstree-default {
-  padding: 10px;
-  font-size: 15px; }
-  #detail-view-details .jstree-default .jstree-node {
-    background: transparent none;
-    font-weight: inherit;
-    font-style: inherit; }
-  #detail-view-details .jstree-default .jstree-clicked, #detail-view-details .jstree-default .jstree-hovered {
-    background-color: #ffefcc;
-    border: 1px solid #e6e5eb !important;
-    box-shadow: none; }
-  #detail-view-details .jstree-default .jstree-children {
+.detail-view-detail-row {
+  margin-bottom: 10px; }
+  .detail-view-detail-row h4 {
+    border-bottom: 5px solid #d6d3de;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-weight: 500; }
+  .detail-view-detail-row .institution {
     font-weight: 300; }
-    #detail-view-details .jstree-default .jstree-children .jstree-node {
-      margin-left: 24px; }
-  #detail-view-details .jstree-default li {
-    position: relative; }
-    #detail-view-details .jstree-default li i {
-      position: absolute;
+    .detail-view-detail-row .institution h5 {
+      margin-top: 20px;
+      font-size: 18px; }
+    .detail-view-detail-row .institution strong {
+      font-weight: 500; }
+    .detail-view-detail-row .institution .opening-hours {
+      margin-top: 20px; }
+  .detail-view-detail-row #detail-view-description th {
+    font-weight: 300;
+    padding: 0 10px 10px 0;
+    white-space: nowrap; }
+  .detail-view-detail-row #detail-view-description td {
+    font-weight: normal;
+    padding-bottom: 10px;
+    font-size: 16px; }
+    .detail-view-detail-row #detail-view-description td a {
+      font-size: 14px;
+      color: #990099; }
+  .detail-view-detail-row #treeSelector {
+    display: none; }
+  .detail-view-detail-row #hierarchyTreeHolder {
+    background-color: #f7f6f8;
+    margin-top: -10px; }
+    .detail-view-detail-row #hierarchyTreeHolder #treeSearch {
+      border-bottom: 1px solid #d6d3de;
+      padding: 20px 10px;
+      margin-bottom: 20px; }
+    .detail-view-detail-row #hierarchyTreeHolder .btn[type="submit"] {
+      font-weight: 700;
+      padding: 4px 13px; }
+    .detail-view-detail-row #hierarchyTreeHolder #treeSearchText {
+      display: inline;
+      width: calc(100% - 200px); }
+    .detail-view-detail-row #hierarchyTreeHolder #treeSearchType {
+      display: inline;
+      margin: 0 10px;
+      width: auto; }
+  .detail-view-detail-row .jstree-default {
+    padding: 10px;
+    font-size: 15px; }
+    .detail-view-detail-row .jstree-default .jstree-node {
       background: transparent none;
-      z-index: 1;
-      left: -3px;
-      top: 0;
-      width: 24px;
-      height: 24px;
-      line-height: 24px; }
-    #detail-view-details .jstree-default li i.jstree-themeicon {
-      display: none; }
-    #detail-view-details .jstree-default li a {
-      white-space: normal; }
-      #detail-view-details .jstree-default li a.jstree-anchor {
-        height: auto;
-        padding: 5px 10px 3px 20px;
-        border: 1px solid #f7f6f8;
-        font: inherit;
-        line-height: 1.2em; }
-#detail-view-details .jstree-default .jstree-open .jstree-ocl:before {
-  content: "\25B9"; }
-#detail-view-details .jstree-default .jstree-open > .jstree-ocl:before {
-  content: "\25B4"; }
-#detail-view-details .jstree-default .jstree-closed > .jstree-ocl:before {
-  content: "\25B8"; }
-#detail-view-details .table-striped th, #detail-view-details .table-striped td {
-  background-color: transparent;
-  border: 0 none; }
-#detail-view-details .table-striped th {
-  text-align: left;
-  font-weight: 300;
-  width: 30%; }
-#detail-view-details .table-striped td {
-  font-weight: 400; }
+      font-weight: inherit;
+      font-style: inherit; }
+    .detail-view-detail-row .jstree-default .jstree-clicked, .detail-view-detail-row .jstree-default .jstree-hovered {
+      background-color: #ffefcc;
+      border: 1px solid #e6e5eb !important;
+      box-shadow: none; }
+    .detail-view-detail-row .jstree-default .jstree-children {
+      font-weight: 300; }
+      .detail-view-detail-row .jstree-default .jstree-children .jstree-node {
+        margin-left: 24px; }
+    .detail-view-detail-row .jstree-default li {
+      position: relative; }
+      .detail-view-detail-row .jstree-default li i {
+        position: absolute;
+        background: transparent none;
+        z-index: 1;
+        left: -3px;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        line-height: 24px; }
+      .detail-view-detail-row .jstree-default li i.jstree-themeicon {
+        display: none; }
+      .detail-view-detail-row .jstree-default li a {
+        white-space: normal; }
+        .detail-view-detail-row .jstree-default li a.jstree-anchor {
+          height: auto;
+          padding: 5px 10px 3px 20px;
+          border: 1px solid #f7f6f8;
+          font: inherit;
+          line-height: 1.2em; }
+  .detail-view-detail-row .jstree-default .jstree-open .jstree-ocl:before {
+    content: "\25B9"; }
+  .detail-view-detail-row .jstree-default .jstree-open > .jstree-ocl:before {
+    content: "\25B4"; }
+  .detail-view-detail-row .jstree-default .jstree-closed > .jstree-ocl:before {
+    content: "\25B8"; }
+  .detail-view-detail-row .table-striped th, .detail-view-detail-row .table-striped td {
+    background-color: transparent;
+    border: 0 none; }
+  .detail-view-detail-row .table-striped th {
+    text-align: left;
+    font-weight: 300;
+    width: 30%; }
+  .detail-view-detail-row .table-striped td {
+    font-weight: 400; }
 
 .detail-view-sidebar .list-group-item, .detail-view-sidebar .list-group-item:hover {
   padding: 10px 0;
