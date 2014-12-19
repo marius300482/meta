@@ -80,3 +80,12 @@
   font-weight: 400;
   src: local('Libre Baskerville'), local('LibreBaskerville-Regular'), url($theme-path-fonts + '/librebaskerville/LibreBaskerville-Regular.woff') format('woff');
 }
+
+// Icomoon ICONS- WEBFONT
+
+@font-face {
+  font-family: 'icomoon';
+  font-style: normal;
+  font-weight: 400;
+  src: local('icomoon'), local('icomoon'), url($theme-path-fonts + '/icomoon/icomoon.woff') format('woff');
+}

@@ -53,6 +53,11 @@
   font-style: normal;
   font-weight: 400;
   src: local("Libre Baskerville"), local("LibreBaskerville-Regular"), url("./fonts/librebaskerville/LibreBaskerville-Regular.woff") format("woff"); }
+@font-face {
+  font-family: 'icomoon';
+  font-style: normal;
+  font-weight: 400;
+  src: local("icomoon"), local("icomoon"), url("./fonts/icomoon/icomoon.woff") format("woff"); }
 html, body {
   margin: 0;
   padding: 0; }
@@ -577,8 +582,7 @@ footer {
       margin: 0 10px;
       width: auto; }
   .detail-view-detail-row .jstree-default {
-    padding: 10px;
-    font-size: 15px; }
+    padding: 10px; }
     .detail-view-detail-row .jstree-default .jstree-node {
       background: transparent none;
       font-weight: inherit;
@@ -598,7 +602,7 @@ footer {
         background: transparent none;
         z-index: 1;
         left: -3px;
-        top: 0;
+        top: 2px;
         width: 24px;
         height: 24px;
         line-height: 24px; }
@@ -613,11 +617,20 @@ footer {
           font: inherit;
           line-height: 1.2em; }
   .detail-view-detail-row .jstree-default .jstree-open .jstree-ocl:before {
-    content: "\25B9"; }
+    font-family: icomoon;
+    font-size: 12px;
+    font-style: normal;
+    content: "\e602"; }
   .detail-view-detail-row .jstree-default .jstree-open > .jstree-ocl:before {
-    content: "\25B4"; }
+    font-family: icomoon;
+    font-size: 9px;
+    font-style: normal;
+    content: "\e600"; }
   .detail-view-detail-row .jstree-default .jstree-closed > .jstree-ocl:before {
-    content: "\25B8"; }
+    font-family: icomoon;
+    font-size: 12px;
+    font-style: normal;
+    content: "\e601"; }
   .detail-view-detail-row .table-striped th, .detail-view-detail-row .table-striped td {
     background-color: transparent;
     border: 0 none; }

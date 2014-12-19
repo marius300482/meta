@@ -100,7 +100,6 @@
   // Hierarchy tree
   .jstree-default {
     padding: 10px;
-    font-size: 15px;
     .jstree-node {
       background: transparent none;
       font-weight: inherit; // Overwrite search highlight style
@@ -124,7 +123,7 @@
         background: transparent none;
         z-index: 1;
         left: -3px;
-        top: 0;
+        top: 2px;
         width: 24px;
         height: 24px;
         line-height: 24px;
@@ -147,15 +146,24 @@
   .jstree-default {
     .jstree-open {
       .jstree-ocl:before {
-        content: "\25B9"; // Child
+        font-family: icomoon;
+        font-size: 12px;
+        font-style: normal;
+        content: "\e602"; // Child
       }
       &> .jstree-ocl:before {
-        content: "\25B4"; // Root
+        font-family: icomoon;
+        font-size: 9px;
+        font-style: normal;
+        content: "\e600"; // Root
       }
     }
     .jstree-closed {
       &> .jstree-ocl:before {
-        content: "\25B8"; // Root
+        font-family: icomoon;
+        font-size: 12px;
+        font-style: normal;
+        content: "\e601"; // Root
       }
     }
   }
