@@ -53,6 +53,11 @@
   font-style: normal;
   font-weight: 400;
   src: local("Libre Baskerville"), local("LibreBaskerville-Regular"), url("./fonts/librebaskerville/LibreBaskerville-Regular.woff") format("woff"); }
+@font-face {
+  font-family: 'icomoon';
+  font-style: normal;
+  font-weight: 400;
+  src: local("icomoon"), local("icomoon"), url("./fonts/icomoon/icomoon.woff") format("woff"); }
 html, body {
   margin: 0;
   padding: 0; }
@@ -151,8 +156,11 @@ select.form-control {
 .breadcrumb {
   background-color: transparent; }
 
-.sidebar.col-sm-4 h4 {
+.sidebar h4 {
   margin-top: 0; }
+  @media (max-width: 768px) {
+    .sidebar h4 {
+      margin-top: 30px; } }
 
 .group {
   background-color: transparent;
@@ -182,6 +190,13 @@ select.form-control {
       padding: 9px 15px;
       font-weight: normal;
       font-size: 16px; }
+    .list-group .list-group-item[data-toggle="collapse"]:after {
+      content: "\e603";
+      float: right;
+      font-size: 12px;
+      font-family: icomoon; }
+    .list-group .list-group-item.collapsed[data-toggle="collapse"]:after {
+      content: "\e604"; }
     .list-group .list-group-item span.badge {
       float: none;
       color: #767086;
@@ -297,8 +312,10 @@ header {
     margin: 20px 0 4px 15px; }
     @media (max-width: 768px) {
       header .navbar-brand {
-        font-size: 17px;
         line-height: 30px; } }
+    @media (max-width: 400px) {
+      header .navbar-brand {
+        font-size: 17px; } }
   header .navbar-header {
     float: none; }
   header .navbar-toggle {
@@ -317,9 +334,9 @@ header {
       header .logo {
         display: block;
         position: relative;
-        right: auto;
+        right: 15px;
         top: auto;
-        margin-left: 15px;
+        margin: 0 0 0 auto;
         width: 290px;
         height: 80px; } }
   header .searchbox.hidden-lg {
@@ -471,7 +488,12 @@ footer {
     letter-spacing: 2px; }
     @media (max-width: 768px) {
       footer .footer-brand {
-        margin: 0 0 30px 0; } }
+        margin: 0 0 10px 0; } }
+  @media (max-width: 768px) {
+    footer .col-sm-3 {
+      margin-top: 20px; }
+      footer .col-sm-3:first-child {
+        margin-top: 0; } }
 
 .search-result-count {
   font-size: 20px;
@@ -533,8 +555,8 @@ footer {
   .detail-view-detail-row h4 {
     border-bottom: 5px solid #d6d3de;
     padding-bottom: 10px;
-    margin-bottom: 10px;
-    font-weight: 500; }
+    font-weight: 500;
+    margin-top: 20px; }
   .detail-view-detail-row .institution {
     font-weight: 300; }
     .detail-view-detail-row .institution h5 {
@@ -557,76 +579,76 @@ footer {
     .detail-view-detail-row #detail-view-description td a {
       font-size: 14px;
       color: #990099; }
-  .detail-view-detail-row #treeSelector {
-    display: none; }
-  .detail-view-detail-row #hierarchyTreeHolder {
-    background-color: #f7f6f8;
-    margin-top: -10px; }
-    .detail-view-detail-row #hierarchyTreeHolder #treeSearch {
-      border-bottom: 1px solid #d6d3de;
-      padding: 20px 10px;
-      margin-bottom: 20px; }
-    .detail-view-detail-row #hierarchyTreeHolder .btn[type="submit"] {
-      font-weight: 700;
-      padding: 4px 13px; }
-    .detail-view-detail-row #hierarchyTreeHolder #treeSearchText {
-      display: inline;
-      width: calc(100% - 200px); }
-    .detail-view-detail-row #hierarchyTreeHolder #treeSearchType {
-      display: inline;
-      margin: 0 10px;
-      width: auto; }
-  .detail-view-detail-row .jstree-default {
-    padding: 10px;
-    font-size: 15px; }
-    .detail-view-detail-row .jstree-default .jstree-node {
+
+#treeSelector {
+  display: none; }
+
+#hierarchyTreeHolder {
+  background-color: #f7f6f8;
+  margin-top: -10px;
+  padding: 0 10px 10px 10px; }
+  #hierarchyTreeHolder #treeSearch {
+    border-bottom: 1px solid #d6d3de;
+    padding: 20px 10px;
+    margin-bottom: 20px; }
+  #hierarchyTreeHolder .btn[type="submit"] {
+    font-weight: 700;
+    padding: 4px 13px; }
+  #hierarchyTreeHolder #treeSearchText {
+    display: inline;
+    width: calc(100% - 200px); }
+  #hierarchyTreeHolder #treeSearchType {
+    display: inline;
+    margin: 0 10px;
+    width: auto; }
+  #hierarchyTreeHolder .jstree-node {
+    background: transparent none;
+    font-weight: inherit;
+    font-style: inherit; }
+  #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
+    background-color: #ffefcc;
+    border: 1px solid #e6e5eb !important;
+    box-shadow: none; }
+  #hierarchyTreeHolder .jstree-children {
+    font-weight: 300; }
+    #hierarchyTreeHolder .jstree-children .jstree-node {
+      margin-left: 24px; }
+  #hierarchyTreeHolder li {
+    position: relative; }
+    #hierarchyTreeHolder li i {
+      position: absolute;
       background: transparent none;
-      font-weight: inherit;
-      font-style: inherit; }
-    .detail-view-detail-row .jstree-default .jstree-clicked, .detail-view-detail-row .jstree-default .jstree-hovered {
-      background-color: #ffefcc;
-      border: 1px solid #e6e5eb !important;
-      box-shadow: none; }
-    .detail-view-detail-row .jstree-default .jstree-children {
-      font-weight: 300; }
-      .detail-view-detail-row .jstree-default .jstree-children .jstree-node {
-        margin-left: 24px; }
-    .detail-view-detail-row .jstree-default li {
-      position: relative; }
-      .detail-view-detail-row .jstree-default li i {
-        position: absolute;
-        background: transparent none;
-        z-index: 1;
-        left: -3px;
-        top: 0;
-        width: 24px;
-        height: 24px;
-        line-height: 24px; }
-      .detail-view-detail-row .jstree-default li i.jstree-themeicon {
-        display: none; }
-      .detail-view-detail-row .jstree-default li a {
-        white-space: normal; }
-        .detail-view-detail-row .jstree-default li a.jstree-anchor {
-          height: auto;
-          padding: 5px 10px 3px 20px;
-          border: 1px solid #f7f6f8;
-          font: inherit;
-          line-height: 1.2em; }
-  .detail-view-detail-row .jstree-default .jstree-open .jstree-ocl:before {
-    content: "\25B9"; }
-  .detail-view-detail-row .jstree-default .jstree-open > .jstree-ocl:before {
-    content: "\25B4"; }
-  .detail-view-detail-row .jstree-default .jstree-closed > .jstree-ocl:before {
-    content: "\25B8"; }
-  .detail-view-detail-row .table-striped th, .detail-view-detail-row .table-striped td {
-    background-color: transparent;
-    border: 0 none; }
-  .detail-view-detail-row .table-striped th {
-    text-align: left;
-    font-weight: 300;
-    width: 30%; }
-  .detail-view-detail-row .table-striped td {
-    font-weight: 400; }
+      z-index: 1;
+      left: -3px;
+      top: 2px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px; }
+    #hierarchyTreeHolder li i.jstree-themeicon {
+      display: none; }
+    #hierarchyTreeHolder li a {
+      white-space: normal; }
+      #hierarchyTreeHolder li a.jstree-anchor {
+        height: auto;
+        padding: 5px 10px 3px 20px;
+        border: 1px solid #f7f6f8;
+        font: inherit;
+        line-height: 1.2em; }
+  #hierarchyTreeHolder .jstree-default .jstree-open .jstree-ocl:before {
+    font-family: icomoon;
+    font-size: 12px;
+    font-style: normal;
+    content: "\e602"; }
+  #hierarchyTreeHolder .jstree-default .jstree-open > .jstree-ocl:before {
+    font-family: icomoon;
+    font-size: 9px;
+    font-style: normal;
+    content: "\e600"; }
+  #hierarchyTreeHolder .jstree-default .jstree-closed > .jstree-ocl:before {
+    font-family: icomoon;
+    font-size: 12px;
+    font-style: normal;
+    content: "\e601"; }
 
 .detail-view-sidebar .list-group-item, .detail-view-sidebar .list-group-item:hover {
   padding: 10px 0;

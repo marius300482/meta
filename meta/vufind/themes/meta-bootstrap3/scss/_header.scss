@@ -25,8 +25,10 @@ header {
     float: none;
     margin: 20px 0 4px 15px;
     @media (max-width: $device-xs-max-width) {
-      font-size: 17px;
       line-height: 30px;
+    }
+    @media (max-width: $device-xxs-max-width) {
+      font-size: 17px;
     }
   }
   .navbar-header {
@@ -48,9 +50,9 @@ header {
     @media (max-width: $device-xs-max-width) {
       display: block;
       position: relative;
-      right: auto;
+      right: 15px;
       top: auto;
-      margin-left: 15px;
+      margin: 0 0 0 auto;
       width: 290px;
       height: 80px;
     }
