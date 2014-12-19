@@ -108,6 +108,15 @@ select.form-control {
       font-weight: normal;
       font-size: 16px;
     }
+    &[data-toggle="collapse"]:after {
+      content: "\e603";
+      float: right;
+      font-size: 12px;
+      font-family: icomoon;
+    }
+    &.collapsed[data-toggle="collapse"]:after {
+      content: "\e604";
+    }
     span.badge {
       float: none;
       color: $color-grey-dark;
