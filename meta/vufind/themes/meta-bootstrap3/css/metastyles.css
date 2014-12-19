@@ -302,8 +302,10 @@ header {
     margin: 20px 0 4px 15px; }
     @media (max-width: 768px) {
       header .navbar-brand {
-        font-size: 17px;
         line-height: 30px; } }
+    @media (max-width: 400px) {
+      header .navbar-brand {
+        font-size: 17px; } }
   header .navbar-header {
     float: none; }
   header .navbar-toggle {
@@ -322,9 +324,9 @@ header {
       header .logo {
         display: block;
         position: relative;
-        right: auto;
+        right: 15px;
         top: auto;
-        margin-left: 15px;
+        margin: 0 0 0 auto;
         width: 290px;
         height: 80px; } }
   header .searchbox.hidden-lg {
