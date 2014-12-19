@@ -26,10 +26,7 @@
  * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
 namespace Ida\Hierarchy\TreeDataSource;
-use VuFind\Hierarchy\TreeDataSource\AbstractBase;
-use VuFindSearch\Query\Query;
-use VuFindSearch\Service as SearchService;
-use VuFindSearch\ParamBag;
+use VuFindSearch\ParamBag;use VuFindSearch\Query\Query;
 
 /**
  * Hierarchy Tree Data Source (Solr)
@@ -42,45 +39,8 @@ use VuFindSearch\ParamBag;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
-class Solr extends AbstractBase
+class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
 {
-    /**
-     * Search service
-     *
-     * @var SearchService
-     */
-    protected $searchService;
-
-    /**
-     * Cache directory
-     *
-     * @var string
-     */
-    protected $cacheDir = null;
-
-    /**
-     * Filter queries
-     *
-     * @var array
-     */
-    protected $filters = array();
-
-    /**
-     * Constructor.
-     *
-     * @param SearchService $search   Search service
-     * @param string        $cacheDir Directory to hold cache results (optional)
-     * @param array         $filters  Filters to apply to Solr tree queries
-     */
-    public function __construct(SearchService $search, $cacheDir = null,
-                                $filters = array()
-    ) {
-        $this->searchService = $search;
-        if (null !== $cacheDir) {
-            $this->cacheDir = rtrim($cacheDir, '/');
-        }
-        $this->filters = $filters;
-    }
 
     /**
      * Get XML for the specified hierarchy ID.
@@ -100,7 +60,7 @@ class Solr extends AbstractBase
         $recordID = $options['recordID'];//TODO: anders uebergeben
         //subtree
 //        $id='INachschlaggenderbib';
-        $loadSubtree = empty($recordID) ? true : false;
+        $loadSubtree = !empty($recordID);
 //        var_dump(__FUNCTION__,$recordID,'loadsubtree=',$loadSubtree,$id);exit;
 //        $query = new Query(
 //            'hierarchy_parent_id:"' . addcslashes($id, '"') . '"'
@@ -277,6 +237,7 @@ XML;
         return $xml;
     }
     */
+    // TODO delete
     // orig: VuFind/Hierarchy/TreeDataSource/Solr::getXML(2)
     public function getXMLVuFind($id, $options = array())
     {
@@ -449,9 +410,12 @@ XML;
         return $xmlReturnString;
     }
     */
+
+    // TODO delete
     // orig: VuFind/Hierarchy/TreeDataSource/Solr::getChildren(2)
     protected function getChildrenVuFind($parentID, &$count)
     {
+
         $query = new Query(
             'hierarchy_parent_id:"' . addcslashes($parentID, '"') . '"'
         );
@@ -494,43 +458,5 @@ XML;
             $xmlReturnString .= $node[1];
         }
         return $xmlReturnString;
-    }
-
-    /**
-     * Sort Nodes
-     *
-     * @param array  &$array The Array to Sort
-     * @param string $key    The key to sort on
-     *
-     * @return void
-     */
-    protected function sortNodes(&$array, $key)
-    {
-        $sorter=array();
-        $ret=array();
-        reset($array);
-        foreach ($array as $ii => $va) {
-            $sorter[$ii]=$va[$key];
-        }
-        asort($sorter);
-        foreach ($sorter as $ii => $va) {
-            $ret[$ii]=$array[$ii];
-        }
-        $array=$ret;
-    }
-
-    /**
-     * Does this data source support the specified hierarchy ID?
-     *
-     * @param string $id Hierarchy ID.
-     *
-     * @return bool
-     */
-    public function supports($id)
-    {
-        //1edit:dku
-//        print __METHOD__.'<br>';
-        // Assume all IDs are supported.
-        return true;
     }
 }

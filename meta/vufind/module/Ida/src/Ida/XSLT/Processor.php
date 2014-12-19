@@ -26,7 +26,7 @@
  * @link     http://vufind.org/wiki/ Wiki
  */
 namespace Ida\XSLT;
-use DOMDocument, XSLTProcessor;
+use DOMDocument;use XSLTProcessor;
 
 /**
  * VuFind XSLT wrapper
@@ -37,7 +37,7 @@ use DOMDocument, XSLTProcessor;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/ Wiki
  */
-class Processor
+class Processor extends \VuFind\XSLT\Processor
 {
     /**
      * Perform an XSLT transformation and return the results.

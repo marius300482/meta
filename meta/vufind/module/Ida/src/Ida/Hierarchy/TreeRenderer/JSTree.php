@@ -39,117 +39,8 @@ namespace Ida\Hierarchy\TreeRenderer;
  * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
 
-class JSTree extends \VuFind\Hierarchy\TreeRenderer\AbstractBase
-    implements \VuFind\I18n\Translator\TranslatorAwareInterface
+class JSTree extends \VuFind\Hierarchy\TreeRenderer\JSTree
 {
-    /**
-     * Translator (or null if unavailable)
-     *
-     * @var \Zend\I18n\Translator\Translator
-     */
-    protected $translator = null;
-
-    /**
-     * Set a translator
-     *
-     * @param \Zend\I18n\Translator\Translator $translator Translator
-     *
-     * @return AbstractBase
-     */
-    public function setTranslator(\Zend\I18n\Translator\Translator $translator)
-    {
-        $this->translator = $translator;
-        return $this;
-    }
-
-    /**
-     * Translate a string if a translator is available.
-     *
-     * @param string $msg Message to translate
-     *
-     * @return string
-     */
-    public function translate($msg)
-    {
-        return null !== $this->translator
-            ? $this->translator->translate($msg) : $msg;
-    }
-
-    /**
-     * Get a list of trees containing the item represented by the stored record
-     * driver.
-     *
-     * @param string $hierarchyID Optional filter: specific hierarchy ID to retrieve
-     *
-     * @return mixed An array of hierarchy IDS if an archive tree exists,
-     * false if it does not
-     */
-    public function getTreeList($hierarchyID = false)
-    {
-        $record = $this->getRecordDriver();
-        $inHierarchies = $record->getHierarchyTopID();
-        $inHierarchiesTitle = $record->getHierarchyTopTitle();
-
-        // 1edit:dku
-//        print __METHOD__.'<br>';
-//        die('ENDE');
-//        var_dump($hierarchyID);exit;
-//        $hierarchyID='1337';
-//        $hierarchyID=10464;
-        if ($hierarchyID) {
-            print 'iffffffffffff';
-            // Specific Hierarchy Supplied
-            if (in_array($hierarchyID, $inHierarchies)
-                && $this->getDataSource()->supports($hierarchyID)
-            ) {
-                return array(
-                    $hierarchyID => $this->getHierarchyName(
-                        $hierarchyID, $inHierarchies, $inHierarchiesTitle
-                    )
-                );
-            }
-        } else {
-            // Return All Hierarchies
-            $i = 0;
-            //edit:dku
-//            var_dump('sdsd',get_class($this));
-//            print 'else223';
-//            print 'xxyxyx';
-            $hierarchies = array();
-            foreach ($inHierarchies as $hierarchyTopID) {
-                if ($this->getDataSource()->supports($hierarchyTopID)) {
-                    $hierarchies[$hierarchyTopID] = $inHierarchiesTitle[$i];
-                }
-                $i++;
-            }
-            if (!empty($hierarchies)) {
-                return $hierarchies;
-            }
-        }
-
-        // If we got this far, we couldn't find valid match(es).
-        return false;
-    }
-
-    /**
-     * Render the Hierarchy Tree
-     *
-     * @param string $context     The context from which the call has been made
-     * @param string $mode        The mode in which the tree should be generated
-     * @param string $hierarchyID The hierarchy ID of the tree to fetch (optional)
-     * @param string $recordID    The current record ID (optional)
-     *
-     * @return mixed The desired hierarchy tree output (or false on error)
-     */
-    public function render($context, $mode, $hierarchyID, $recordID = false)
-    {
-        if (!empty($context) && !empty($mode)) {
-            return $this->transformCollectionXML(
-                $context, $mode, $hierarchyID, $recordID
-            );
-        }
-        return false;
-    }
 
     /**
      * transformCollectionXML
@@ -210,7 +101,6 @@ class JSTree extends \VuFind\Hierarchy\TreeRenderer\AbstractBase
 //        $tstart=microtime(true);
 //        throw new \Exception('help wanted');
 //        var_dump(func_get_args(),$_REQUEST['subtree']);exit;
-        var_dump(get_class($record),get_class($this->getDataSource()));exit;
         $xmlFile = $this->getDataSource()->getXML($hierarchyID,array('recordID'=>$recordID,'foo'=>'bar'));
 //        print __METHOD__.'<br>';
 //        print htmlspecialchars(substr($xmlFile,0,1113500));

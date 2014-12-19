@@ -17,10 +17,11 @@ $config = array(
 //                    'flat' => array('VuFind\Hierarchy\Driver\Factory', 'getHierarchyFlat'),
 //                ),
 //            ),
+
             'hierarchy_treedatasource' => array(
                 'factories' => array(
                     //edit:dku
-                    'solr1337' => array('Ida\Hierarchy\TreeDataSource\Factory', 'getSolr'),
+                    'solr' => array('Ida\Hierarchy\TreeDataSource\Factory', 'getSolr'),
 //                    'solr' => array('VuFind\Hierarchy\TreeDataSource\Factory', 'getSolr'),
                 ),
                 'invokables' => array(

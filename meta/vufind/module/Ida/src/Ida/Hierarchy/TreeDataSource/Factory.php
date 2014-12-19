@@ -35,7 +35,6 @@ use Zend\ServiceManager\ServiceManager;
  *
  * @category VuFind2
  * @package  HierarchyTree_DataSource
- * @author   Demian Katz <demian.katz@villanova.edu>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
@@ -51,7 +50,7 @@ class Factory
     public static function getSolr(ServiceManager $sm)
     {
         //edit:dku
-        die(':)) here '.__METHOD__);
+//        die(':)) here '.__METHOD__);
 //        var_dump($sm->getServiceLocator()->get('VuFind\Search'));exit;
 //        var_dump($hierarchyFilters = $sm->getServiceLocator()->get('VuFind\Config')->get('HierarchyDefault'),$hierarchyFilters = $sm->getServiceLocator()->get('VuFind\Config'));exit;
         $cacheDir = $sm->getServiceLocator()->get('VuFind\CacheManager')
