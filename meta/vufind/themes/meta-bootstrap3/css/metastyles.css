@@ -698,3 +698,9 @@ footer {
 .browse.list-group .list-group-item.view-record {
   padding: 0 15px 5px;
   text-align: left; }
+
+#browse-go-back {
+  color: #990099;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: 500; }
