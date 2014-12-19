@@ -507,6 +507,20 @@ footer {
   font-size: 20px;
   font-weight: normal;
   margin-bottom: 40px; }
+  @media (max-width: 768px) {
+    .search-result-count {
+      margin-bottom: 10px; } }
+
+.result-sort-options label {
+  display: inline;
+  padding: 0; }
+.result-sort-options .form-control {
+  width: auto;
+  display: inline; }
+@media (max-width: 768px) {
+  .result-sort-options {
+    text-align: left;
+    margin-bottom: 20px; } }
 
 .result {
   margin-bottom: 35px;

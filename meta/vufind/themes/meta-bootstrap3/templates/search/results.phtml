@@ -50,7 +50,7 @@
 */ ?>
   <? endif; ?>
   <?=$this->flashmessages()?>
-  <div class="hidden-print search-controls clearfix col-sm-12">
+  <div class="hidden-print search-controls clearfix col-sm-6">
     <div class="search-result-count">
       <? if ($recordTotal > 0): ?>
         <?=$this->transEsc("Showing")?>
@@ -72,16 +72,16 @@
         <p class="lead"><?=$this->transEsc('nohit_heading')?></p>
       <? endif; ?>
     </div>
-<?php /* PHE is not required
-    <? if ($recordTotal > 0): ?>
-      <div class="col-sm-6 text-right">
-        <?=$this->render('search/controls/limit.phtml')?>
-        <?=$this->render('search/controls/sort.phtml')?>
-        <?=$this->render('search/controls/view.phtml')?>
-      </div>
-    <? endif; ?>
-*/ ?>
   </div>
+
+  <? if ($recordTotal > 0): ?>
+    <div class="col-sm-6 text-right result-sort-options">
+      <?=$this->render('search/controls/limit.phtml')?>
+      <?=$this->render('search/controls/sort.phtml')?>
+      <?=$this->render('search/controls/view.phtml')?>
+    </div>
+  <? endif; ?>
+
   <? /* End Listing Options */ ?>
 
 <div class="col-sm-8">
@@ -116,7 +116,7 @@
           </div>
       </div>
     </form>
-<?php /* PHE not  required
+
     <div class="searchtools hidden-print">
       <strong><?=$this->transEsc('Search Tools')?>:</strong>
       <i class="fa fa-bell"></i> <a href="<?=$this->results->getUrlQuery()->setViewParam('rss')?>"><?=$this->transEsc('Get RSS Feed')?></a>
@@ -131,7 +131,7 @@
         <? endif; ?>
       <? endif; ?>
     </div>
-*/ ?>
+
   <? endif; ?>
 </div>
 <? /* End Main Listing */ ?>
