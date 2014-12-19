@@ -1,0 +1,32 @@
+<? if ($mobileViewLink = $this->mobileUrl()): // display 'return to mobile' link when applicable ?>
+  <div class="mobileViewLink"><a href="<?=$this->escapeHtmlAttr($mobileViewLink)?>" class="btn btn-primary btn-lg"><?=$this->transEsc("mobile_link")?></a></div>
+<? endif; ?>
+<div class="col-sm-3"><div class="footer-brand">METADATEN-<br />KATALOG</div></div>
+<div class="col-sm-3"><p><strong><?=$this->transEsc('Search Options')?></strong></p>
+<ul>
+  <li><a href="<?=$this->url('search-history')?>"><?=$this->transEsc('Search History')?></a></li>
+  <li><a href="<?=$this->url('search-home')?>"><?=$this->transEsc('List of Subjects')?></a></li>
+  <li><a href="<?=$this->url('home')?>"><?=$this->transEsc('Tagcloud of Subjects')?></a></li>
+<?php /* PHE not required
+  <li><a href="<?=$this->url('search-advanced')?>"><?=$this->transEsc('Advanced Search')?></a></li>
+*/ ?>
+  <li><a href="<?=$this->url('browse-home')?>"><?=$this->transEsc('Browse the Catalog')?></a></li>
+</ul>
+</div>
+<div class="col-sm-3"><p><strong><?=$this->transEsc('Need Help?')?></strong></p>
+    <ul>
+        <li><a href="<?=$this->url('help-home')?>?topic=search" class="help-link" title="<?=$this->transEsc('Search Tips')?>"><?=$this->transEsc('Search Tips')?></a></li>
+<?php /* PHE not required
+        <li><a href="#"><?=$this->transEsc('Ask a Librarian')?></a></li>
+        <li><a href="#"><?=$this->transEsc('FAQs')?></a></li>
+*/ ?>
+    </ul>
+</div>
+<div class="col-sm-3"><p><strong><?=$this->transEsc('Service')?></strong></p>
+<ul>
+  <li><a href="mailto:karin.aleksander@gender.hu-berlin.de?subject=[Vufind]"><?=$this->transEsc('Contact')?></a></li>
+  <li><a href="https://www.gender.hu-berlin.de/impressum"><?=$this->transEsc('Imprint')?></a></li>
+  <li><a href="http://www2.gender.hu-berlin.de/genderbib"><?=$this->transEsc('Weblog')?></a></li>
+</ul>
+</div>
+

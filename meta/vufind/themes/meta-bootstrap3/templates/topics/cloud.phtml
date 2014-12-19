@@ -1,0 +1,20 @@
+<?
+/**
+ * THIS IS HOW TO MAKE THIS PAGE THE DEFAULT (landing) PAGE
+ *
+ * 1. Open "/vufind2/config/vufind/config.ini".
+ * 2. Replace the value of "defaultModule" with "Search".
+ * 3. When calling "/vufind/Index" in the browser, a tag-cloud should be shown.
+ */
+
+// Set page title.
+$this->headTitle($this->translate('Home'));
+?>
+<ul class="tag_cloud col-xs-12">
+    <? foreach ($topics as $topic): ?>
+        <li<?php /*style="font-size: <?= $topic['weight'] ?>px"*/ ?>>
+            <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
+                href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+        </li>
+    <? endforeach; ?>
+</ul>

@@ -26,7 +26,9 @@
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
         <filter class="solr.ICUFoldingFilterFactory"/>
         <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.SnowballPorterFilterFactory" language="English"/>
+          <filter class="solr.EdgeNGramFilterFactory" minGramSize="5" maxGramSize="20" side="front"/>
+          <filter class="solr.EdgeNGramFilterFactory" minGramSize="5" maxGramSize="20" side="back"/>
+        <filter class="solr.SnowballPorterFilterFactory" language="German2"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
       <analyzer type="query">
@@ -36,7 +38,7 @@
         <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true"/>
         <filter class="solr.ICUFoldingFilterFactory"/>
         <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-        <filter class="solr.SnowballPorterFilterFactory" language="English"/>
+        <filter class="solr.SnowballPorterFilterFactory" language="German2"/>
         <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
       </analyzer>
     </fieldType>
@@ -96,6 +98,7 @@
       </analyzer>
     </fieldType>
     <fieldType name="date" class="solr.TrieDateField" sortMissingLast="true" omitNorms="true" precisionStep="6"/>
+    <fieldType name="random" class="solr.RandomSortField" indexed="true" />
   </types>
  <fields>
    <!-- Required by Solr 4.x -->
@@ -112,6 +115,8 @@
    <field name="spellingShingle" type="textSpellShingle" indexed="true" stored="true" multiValued="true"/>
    <!-- Institutional Fields -->
    <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="institution_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
+   <field name="institutionFull" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="collection" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="building" type="string" indexed="true" stored="true" multiValued="true"/>
    <!-- Generic Fields -->
@@ -127,9 +132,6 @@
    <field name="title_full" type="text" indexed="true" stored="true"/>
    <field name="title_full_unstemmed" type="textProper" indexed="true" stored="true"/>
    <field name="title_fullStr" type="string" indexed="true" stored="true"/>
-   <field name="upcomingTitle" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="formerTitle" type="text" indexed="true" stored="true" multiValued="true"/>
-   <field name="alternativeTitle" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="title_auth" type="text" indexed="true" stored="true"/>
    <field name="physical" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="publisher" type="textProper" indexed="true" stored="true" multiValued="true"/>
@@ -175,7 +177,7 @@
    <field name="series2" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="topic" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_unstemmed" type="textProper" indexed="true" stored="false" multiValued="true"/>
-   <field name="topic_facet" type="textFacet" indexed="true" stored="false" multiValued="true"/>
+   <field name="topic_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_browse" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="author_browse" type="string" indexed="true" stored="false" multiValued="true"/>
      <field name="editor_browse" type="string" indexed="true" stored="false" multiValued="true"/>
@@ -202,17 +204,19 @@
    <field name="hierarchy_sequence" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="is_hierarchy_id" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="is_hierarchy_title" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="title_in_hierarchy" type="string" indexed="true" stored="true" multiValued="true" />
    <field name="hierarchy_browse" type="textFacetRaw" indexed="true" stored="false" multiValued="true"/>
    <!-- Used for loading correct record driver -->
-   <field name="recordtype" type="string" indexed="false" stored="true"/>
+   <field name="recordtype" type="string" indexed="true" stored="true"/>
+    <field name="recordtype_facet" type="textFacet" indexed="true" stored="true"/>
    <!-- Tracking fields to keep track of oldest and most recent index times -->
    <field name="first_indexed" type="date" indexed="true" stored="true"/>
    <field name="last_indexed" type="date" indexed="true" stored="true"/>
    <!-- Custom Fields -->
    <field name="signatur" type="string" indexed="true" stored="true"/>
    <field name="coverage" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="laufzeit" type="string" indexed="true" stored="true"/>
-   <field name="contributor" type="string" indexed="true" stored="true"/>
+   <field name="laufzeit" type="string" indexed="true" multiValued="true" stored="true"/>
+   <field name="contributor" type="string" indexed="true" stored="true"  multiValued="true"/>
    <field name="rel" type="string" indexed="true" stored="true"
    multiValued="true"/>
    <field name="toHost" type="text" indexed="true" stored="true" multiValued="true"/>
@@ -221,37 +225,46 @@
    <field name="language_code" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="placeOfPublication" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="editor" type="string" indexed="true" stored="true" multiValued="true"/>
-     <field name="editorStr" type="textFacet" indexed="true" stored="false" multiValued="true"/>
-     <field name="recordContentSource" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="editorStr" type="textFacet" indexed="true" stored="false" multiValued="true"/>
+   <field name="recordContentSource" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="recordCreationDate" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="recordChangeDate" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="typeOfRessource" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="hostItem" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="zdbId" type="string" indexed="true" stored="true"
-    multiValued="true"/>
+   <field name="zdbId" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="circa-jahr" type="string" indexed="true" stored="true"/>
    <field name="displayPublishDate" type="string" indexed="true" stored="true"/>
    <field name="subjectGeographic" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="subjectPerson" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="shelfMark" type="string" indexed="true" stored="true"/>
-     <field name="seriesNr" type="text" indexed="true" stored="true"/>
-     <field name="project" type="text" indexed="true" stored="true" multiValued="true"/>
-     <field name="timeSpanStart" type="string" indexed="true" stored="true"/>
-     <field name="timeSpanEnd" type="string" indexed="true" stored="true"/>
-      <field name="systematik_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
-       <field name="systematik_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
-        <field name="translatedTerm" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="loanStatus" type="boolean" indexed="true" stored="true"/>
-	<field name="loanReturn" type="string" indexed="true" stored="true"/>
-	<field name="reviewer" type="text" indexed="true" stored="true"/>
-	<field name="documentType" type="text" indexed="true" stored="true"/>
-	<field name="issue" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="volume" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="dimension" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="runTime" type="string" indexed="true" stored="true" multiValued="true"/>
-	<field name="leader" type="string" indexed="false" stored="true"/>
-	<field name="controlfield" type="string" indexed="false" stored="true"/>
-	<field name="relatedTo" type="string" indexed="true" stored="true" />
+   <field name="subjectName" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="shelfMark" type="string" indexed="true" stored="true"/>
+   <field name="seriesNr" type="text" indexed="true" stored="true"/>
+   <field name="project" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="timeSpanStart" type="string" indexed="true" stored="true"/>
+   <field name="timeSpanEnd" type="string" indexed="true" stored="true"/>
+   <field name="systematik_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="systematik_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="translatedTerm" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="loanStatus" type="boolean" indexed="true" stored="true"/>
+   <field name="loanReturn" type="string" indexed="true" stored="true"/>
+   <field name="reviewer" type="text" indexed="true" stored="true"/>
+   <field name="documentType" type="text" indexed="true" stored="true"/>
+   <field name="issue" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="volume" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="dimension" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="runTime" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="leader" type="string" indexed="false" stored="true"/>
+   <field name="controlfield" type="string" indexed="false" stored="true"/>
+   <field name="relatedTo" type="string" indexed="true" stored="true" />
+   <field name="upcomingTitle" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="formerTitle" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="alternativeTitle" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="sourceInfo" type="text" indexed="true" stored="true" multiValued="true" />
+   <field name="listOfContents" type="text" indexed="true" stored="true" multiValued="true" />
+   <field name="details" type="text" indexed="true" stored="true" multiValued="true" />
+   <field name="blockingYear" type="text" indexed="true" stored="true" multiValued="true" />
+   <field name="classification" type="text" indexed="true" stored="true" multiValued="true" />
+    <field name="specificMaterialDesignation" type="text" indexed="true" stored="true" multiValued="true" />
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
@@ -265,6 +278,7 @@
    <dynamicField name="*_txtF_mv" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <dynamicField name="*_txtP" type="textProper" indexed="true" stored="true"/>
    <dynamicField name="*_txtP_mv" type="textProper" indexed="true" stored="true" multiValued="true"/>
+   <dynamicField name="*_random" type="random" />
  </fields>
  <uniqueKey>id</uniqueKey>
  <defaultSearchField>allfields</defaultSearchField>
@@ -279,6 +293,8 @@
  <copyField source="series"   dest="spellingShingle"/>
  <copyField source="topic"    dest="spellingShingle"/>
  <!-- CopyFields for Faceting on Text -->
+    <copyField source="recordtype" dest="recordtype_facet"/>
+ <copyField source="institution" dest="institution_facet"/>
  <copyField source="title_full" dest="title_fullStr"/>
  <copyField source="title_full" dest="title_full_unstemmed"/>
  <copyField source="author" dest="authorStr"/>

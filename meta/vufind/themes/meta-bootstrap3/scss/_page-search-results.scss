@@ -1,0 +1,42 @@
+// Sentence which contains search result matches
+.search-result-count {
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 40px;
+}
+
+// Search result list row
+.result {
+  margin-bottom: 35px;
+  font-weight: 300;
+  font-size: 15px;
+  &.row .col-sm-1 {
+    padding: 0;
+  }
+  .col-xs-1 {
+    padding: 0;
+  }
+  .label-info {
+    color: inherit;
+    background-color: transparent;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 0;
+  }
+  a {
+    color: $color-purple;
+    font-weight: 400;
+  }
+  a.title {
+    color: inherit;
+    font-size: 20px;
+    font-family: 'Droid Serif', serif;
+    display: block;
+    margin: 4px 0;
+    font-weight: 700;
+  }
+}
+.row.result:last-child {
+  margin-bottom: 60px !important;
+}

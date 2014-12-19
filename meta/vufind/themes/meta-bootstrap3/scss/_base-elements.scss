@@ -1,0 +1,235 @@
+// Main content divs
+.main {
+  &> .container {
+    padding-left: 30px;
+    padding-right: 30px;
+    @media (max-width: $device-xs-max-width) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}
+.container {
+  border-radius: 0;
+  // Small screen
+  @media (min-width: $device-xs-max-width) {
+    width: auto;
+  }
+  // Medium screen
+  @media (min-width: $device-md-max-width) {
+    width: auto;
+  }
+  // Huge screen
+  @media (min-width: $device-lg-max-width) {
+    width: 1200px;
+  }
+}
+
+// Headline
+.lead {
+  font-weight: normal;
+  font-size: 21px;
+}
+
+// Alert and error messages
+.alert, .error {
+  background-color: $color-yellow-4;
+  border: 1px solid $color-blue-5;
+  border-left: 0 none;
+  border-right: 0 none;
+  border-radius: 0;
+  color: inherit;
+}
+
+// Text input elements in form
+select.form-control {
+  background-color: $color-grey-border;
+  border: 1px solid $color-grey-border;
+  border-radius: 0;
+  box-shadow: none;
+}
+.form-control, .form-control:focus {
+  height: auto;
+  padding: 2px 6px;
+  border: 1px solid $color-grey-border;
+  box-shadow: $shadow-inner;
+}
+// Normal button
+.btn, .btn:hover {
+  border-radius: 0;
+  text-align: center;
+  padding: 4px 30px;
+  border: 0 none;
+  background-color: $color-blue-button;
+  color: $color-white
+}
+
+// Breadcrump
+.breadcrumb {
+  background-color: transparent;
+}
+
+// Sidebar
+.sidebar.col-sm-4 {
+  h4 {
+    margin-top: 0;
+  }
+}
+
+// Groups (e.g. used in right sidebar)
+.group {
+  background-color: transparent;
+  border-radius: 0;
+}
+.list-group {
+  margin-bottom: 25px;
+  .list-group-item:first-child,
+  .list-group-item:last-child {
+    border-radius: 0;
+  }
+  .list-group-item {
+    background-color: $color-blue-5;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-top-color: $color-grey-border;
+    padding: 5px 15px;
+    color: $color-blue-1;
+    font-size: 15px;
+    &:hover {
+      background-color: $color-yellow-4;
+    }
+    &.title, &.title:hover {
+      background-color: $color-blue-4;
+      color: $color-grey-dark;
+      font-family: 'Droid Serif', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 9px 15px;
+      font-weight: normal;
+      font-size: 16px;
+    }
+    span.badge {
+      float: none;
+      color: $color-grey-dark;
+      background-color: transparent;
+    }
+    &.active, &.active:hover {
+      color: $color-white;
+      background-color: $color-blue-button;
+      span.badge {
+        color: $color-white
+      }
+    }
+    &.view-record {
+      float: none;
+    }
+  }
+  a[href*=moreFacets], a[href*=lessFacets] {
+    color: $color-purple;
+  }
+}
+
+// Bullet label e.g.: (112)
+.badge {
+  background-color: transparent;
+  color: inherit;
+  float: none;
+  font-weight: inherit;
+  border-radius: 0;
+  font-size: inherit;
+  padding: 0;
+}
+
+// Box (e.g. search box)
+.well-lg {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+// Marker and highlighting
+mark, .highlight {
+  background-color: #FFEFAB; // Special color
+}
+
+// Pagination
+.pagination {
+  margin: 30px 0 0;
+  @media (max-width: $device-xs-max-width) {
+    margin: 30px 0 50px;
+  }
+  &> li:first-child > span,
+  &> li:first-child > a,
+  &> li:last-child > span,
+  &> li:last-child > a {
+    border-radius: 0;
+  }
+  li {
+    display: inline-block;
+    margin-right: 1px;
+    &> a, &> span {
+      background-color: $color-blue-4;
+      border: 0 none;
+      color: inherit;
+      font-size: 18px;
+      padding: 6px 14px;
+    }
+    &.active span {
+      background-color: $color-yellow-2;
+      color: inherit;
+      font-weight: 700;
+    }
+    &.paging-label {
+      a, span {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+// Date filter/slider
+#side-collapse-publishDate li:hover {
+  background-color: $color-blue-5;
+}
+#publishDateFilter {
+  .btn[type=submit] {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  #publishDatefrom,
+  #publishDateto {
+    font-size: 18px;
+  }
+}
+.slider-container, .slider-horizontal {
+  margin: 10px 0;
+  .slider-track {
+    background-color: $color-grey-border;
+    height: 4px !important; // Allows to apply the height for all sliders
+    border-radius: 0;
+    box-shadow: none;
+    .slider-selection {
+      box-shadow: none;
+      background-color: $color-blue-button;
+    }
+    .slider-handle, .slider-handle:hover {
+      background-color: $color-blue-button;
+      border: 1px solid $color-blue-button;
+      border-radius: 14px;
+      height: 14px;
+      margin-left: -7px;
+      margin-top: -5px;
+      opacity: 1;
+      width: 14px;
+    }
+  }
+}
+
+// Popup overlay
+.modal-content {
+  border-radius: 0;
+  .close, .close:hover {
+    //color: $color-blue-1;
+    opacity: 1;
+  }
+}

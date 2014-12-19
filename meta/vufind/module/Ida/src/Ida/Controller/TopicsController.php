@@ -63,6 +63,11 @@ class TopicsController extends BrowseController
         return $view;
     }
 
+    public function homeAction()
+    {
+        return $this->cloudAction();
+    }
+
     public function cloudAction()
     {
         $topics = $this->getTopics();

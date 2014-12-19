@@ -1,0 +1,191 @@
+// The main record data in the detail view
+#record {
+  font-weight: 300;
+  h1 {
+    font-family: "Droid", serif;
+    font-weight: 700;
+    margin: 5px 0 20px 0;
+    font-size: 28px;
+  }
+  a {
+    color: $color-purple;
+    font-weight: normal;
+  }
+  .citation {
+    th {
+      font-weight: inherit;
+      width: 120px;
+      padding-left: 0;
+      text-align: left;
+      padding-bottom: 15px;
+    }
+    td {
+      padding-bottom: 15px;
+    }
+  }
+  .head {
+    font-size: 15px;
+  }
+}
+
+// Detail view table with details
+.detail-view-detail-row {
+  margin-bottom: 10px;
+  h4 {
+    border-bottom: 5px solid $color-grey-border;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  // The lover institution section
+  .institution {
+    font-weight: 300;
+    h5 {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    strong {
+      font-weight: 500;
+    }
+    .opening-hours {
+      margin-top: 20px;
+    }
+    // Google map
+    #map-canvas img {
+      max-width: inherit;
+    }
+  }
+  // The lower description table
+  #detail-view-description {
+    th {
+      font-weight: 300;
+      padding: 0 10px 10px 0;
+      white-space: nowrap;
+    }
+    td {
+      font-weight: normal;
+      padding-bottom: 10px;
+      font-size: 16px;
+      a {
+        font-size: 14px;
+        color: $color-purple;
+      }
+    }
+  }
+  #treeSelector {
+    display: none;
+  }
+  #hierarchyTreeHolder {
+    background-color: $color-blue-5;
+    margin-top: -10px;
+    #treeSearch {
+      border-bottom: 1px solid $color-grey-border;
+      padding: 20px 10px;
+      margin-bottom: 20px;
+    }
+    .btn[type="submit"] {
+      font-weight: 700;
+      padding: 4px 13px;
+    }
+    #treeSearchText {
+      display: inline;
+      width: calc(100% - 200px);
+    }
+    #treeSearchType {
+      display: inline;
+      margin: 0 10px;
+      width: auto;
+    }
+  }
+  // Hierarchy tree
+  .jstree-default {
+    padding: 10px;
+    font-size: 15px;
+    .jstree-node {
+      background: transparent none;
+      font-weight: inherit; // Overwrite search highlight style
+      font-style: inherit; // Overwrite search highlight style
+    }
+    .jstree-clicked, .jstree-hovered {
+      background-color: $color-yellow-4;
+      border: 1px solid $color-blue-4 !important; // Overwrite super long selector
+      box-shadow: none;
+    }
+    .jstree-children {
+      font-weight: 300;
+      .jstree-node {
+        margin-left: 24px;
+      }
+    }
+    li {
+      position: relative;
+      i {
+        position: absolute;
+        background: transparent none;
+        z-index: 1;
+        left: -3px;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+      }
+      i.jstree-themeicon {
+        display: none;
+      }
+      a {
+        white-space: normal;
+        &.jstree-anchor {
+          height: auto;
+          padding: 5px 10px 3px 20px;
+          border: 1px solid $color-blue-5;
+          font: inherit;
+          line-height: 1.2em;
+        }
+      }
+    }
+  }
+  .jstree-default {
+    .jstree-open {
+      .jstree-ocl:before {
+        content: "\25B9"; // Child
+      }
+      &> .jstree-ocl:before {
+        content: "\25B4"; // Root
+      }
+    }
+    .jstree-closed {
+      &> .jstree-ocl:before {
+        content: "\25B8"; // Root
+      }
+    }
+  }
+  .table-striped {
+    th, td {
+      background-color: transparent;
+      border: 0 none;
+    }
+    th {
+      text-align: left;
+      font-weight: 300;
+      width: 30%;
+    }
+    td {
+      font-weight: 400;
+    }
+  }
+}
+
+// Sidebar
+.detail-view-sidebar {
+  .list-group-item, .list-group-item:hover {
+    padding: 10px 0;
+    background-color: transparent;
+    font-weight: 300;
+    &:first-child {
+      border-top-width: 4px;
+    }
+    a {
+      font-size: 14px;
+    }
+  }
+}

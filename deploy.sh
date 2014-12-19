@@ -10,6 +10,10 @@ echo "Delete theme ida"
 rm -r /usr/local/vufind2/themes/ida
 echo "Delete theme genderbib"
 rm -r /usr/local/vufind2/themes/genderbib
+echo "Delete theme meta"
+rm -r /usr/local/vufind2/themes/meta
+echo "Delete theme meta-bootstrap3"
+rm -r /usr/local/vufind2/themes/meta-bootstrap3
 echo "Delete module Ida"
 rm -r /usr/local/vufind2/module/Ida/
 echo "Copy all to vufind"
@@ -19,6 +23,6 @@ cp -R meta/vufind/* /usr/local/vufind2/
 #pushd $VUFIND_HOME
 #./vufind.sh restart
 echo "Remember to restart Solr, if schema xml was modified!"
+#popd
 
-popd
 popd

@@ -9,7 +9,7 @@
 namespace Ida\RecordDriver;
 
 
-class SolrSystematik extends SolrIDA
+class SolrSystematics extends SolrIDA
 {
     function __construct($mainConfig = null, $recordConfig = null,
                          $searchSettings = null)

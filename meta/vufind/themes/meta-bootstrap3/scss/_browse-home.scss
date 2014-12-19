@@ -1,0 +1,10 @@
+// Browse catalog view (table)
+.browse.list-group {
+  &:last-child {
+    padding-right: 0;
+  }
+  .list-group-item.view-record {
+    padding: 0 15px 5px;
+    text-align: left;
+  }
+}

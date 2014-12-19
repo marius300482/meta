@@ -8,7 +8,7 @@ $config = array(
                 'factories' => array(
                     'solrlibrary' => array('Ida\Factory', 'getSolrLibrary'),
                     'solrarchive' => array('Ida\Factory', 'getSolrArchive'),
-                    'solrsystematik' => array('Ida\Factory', 'getSolrSystematik'),
+                    'solrsystematics' => array('Ida\Factory', 'getSolrSystematics'),
                 ),
             ),
 //            'hierarchy_driver' => array(
@@ -35,16 +35,18 @@ $config = array(
             ),
         ),
         'recorddriver_tabs' => array(
-            // Disable Holdings and  Staff View
+            // Disable Holdings, Comments and  Staff View
             'Ida\RecordDriver\SolrIDA' => array(
                 'tabs' => array (
-                    'Description' => 'Description',
+                    //'Holdings' => 'HoldingsILS',
+                    //'Description' => 'Description',
                     'TOC' => 'TOC',
-                    'UserComments' => 'UserComments',
+                    //'UserComments' => 'UserComments',
                     'Reviews' => 'Reviews',
                     'Excerpt' => 'Excerpt',
                     'HierarchyTree' => 'HierarchyTree',
                     'Map' => 'Map',
+                    'Details' => 'StaffViewArray',
                 ),
                 'defaultTab' => null,
             ),
@@ -66,7 +68,7 @@ $config = array(
                     'route'    => '/Topics',
                     'defaults' => array(
                         'controller' => 'Topics',
-                        'action'     => 'Cloud',
+                        'action'     => 'Home',
                     ),
                 ),
                 'may_terminate' => true,

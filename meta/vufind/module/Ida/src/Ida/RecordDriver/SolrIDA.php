@@ -7,7 +7,7 @@
  */
 namespace Ida\RecordDriver;
 
-use VuFind\RecordDriver\SolrDefault;use VuFind\View\Helper\Root\RecordLink;
+use VuFind\RecordDriver\SolrDefault,VuFind\View\Helper\Root\RecordLink, Ida\Institution\Institution;
 
 abstract class SolrIDA extends SolrDefault
 {
@@ -96,6 +96,18 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('seriesNr');
     }
 
+    public function getInstitutionsFull()
+    {
+        return $this->getMultiValuedField("institutionFull");
+    }
+
+    public function getInstitutionDetails($institutionId)
+    {
+        $institution = new Institution($institutionId);
+
+        return $institution->getInstitutionDetails();
+    }
+    
     public function getTranslatedTerms()
     {
         return $this->getMultiValuedField("translatedTerms");
@@ -107,11 +119,31 @@ abstract class SolrIDA extends SolrDefault
             $this->getShortTitle() . " : " . $this->getTitleSub() : $this->getTitle();
     }
 
+    public function getRecordType()
+    {
+        return $this->getSingleValuedField('recordtype');
+    }
+
     public function getTitleSub()
     {
         return $this->getSingleValuedField('title_sub');
     }
 
+    public function getFormerTitles()
+    {
+      return $this->getMultiValuedField("formerTitle");
+    }
+
+    public function getUpcomingTitles()
+    {
+      return $this->getMultiValuedField("upcomingTitle");
+    }
+    
+    public function getAlternativeTitles()
+    {
+      return $this->getMultiValuedField("alternativeTitle");
+    }
+    
     public function getEditors()
     {
         return $this->getMultiValuedField("editor");
@@ -125,6 +157,11 @@ abstract class SolrIDA extends SolrDefault
     public function getPublishers()
     {
         return $this->getMultiValuedField("publisher");
+    }
+
+    public function getSignatory()
+    {
+        return $this->getSingleValuedField('signatur');
     }
 
     /**
@@ -193,6 +230,11 @@ abstract class SolrIDA extends SolrDefault
         return $this->getMultiValuedField("zdbId");
     }
 
+    public function getSourceInfos()
+    {
+        return $this->getMultiValuedField("sourceInfo");
+    }
+
     public function getShelfMark()
     {
         return $this->getSingleValuedField('shelfMark');
@@ -252,7 +294,12 @@ abstract class SolrIDA extends SolrDefault
     {
         return $this->getMultiValuedField("recordContentSource");
     }
-
+    
+    public function getListOfContents()
+    {
+        return $this->getMultiValuedField("listOfContents");
+    }
+    
     protected function getSingleValuedField($fieldName)
     {
         return isset($this->fields[$fieldName]) ? $this->fields[$fieldName] : null;

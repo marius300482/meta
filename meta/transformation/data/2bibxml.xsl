@@ -29,8 +29,30 @@
 
 <!--solr-->
 		
-			<field name="allfields"><xsl:value-of select="normalize-space(string(.))"/></field><!-- ALLFIELDS alle Inhalte werden in ein Feld geschrieben -->
-		
+			<!--<field name="allfields"><xsl:value-of select="normalize-space(string(.))"/></field>--><!-- ALLFIELDS alle Inhalte werden in ein Feld geschrieben -->
+			<field name="allfields">
+				<!--<xsl:value-of select="normalize-space(string(.))"/>-->
+				<xsl:value-of select="dataset/format"/><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/documentType" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/title[normalize-space()]"/><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/formerTitle"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/upcomingTitle"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/author"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/editor"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/entity"/><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/reviewer"/><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/series" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/isbn" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/issn" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/zdbId" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/displayPublishDate" /><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/subjectTopic[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/subjectGeographic[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/subjectPerson[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/description" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/listOfContents" /><xsl:text> </xsl:text>
+                    				
+				</field><!-- ALLFIELDS alle Inhalte werden in ein Feld geschrieben -->
 <!--vufind-->
 		
 			<field name="id"><xsl:value-of select="vufind/id" /></field>
@@ -43,7 +65,7 @@
 			
 			<field name="leader">
 				<!--<xsl:text>     </xsl:text>--><!--0-4-->
-				<xsl:text>03008</xsl:text><!--0-4-->
+				<xsl:text>     </xsl:text><!--0-4-->
 					<xsl:text>n</xsl:text><!--5-->
 					<xsl:choose><!--6-->
 						<xsl:when test="dataset/format[text()='Video/DVD']">
@@ -60,7 +82,7 @@
 					<xsl:text>2</xsl:text><!--10-->
 					<xsl:text>2</xsl:text><!--11-->
 					<!--<xsl:text>     </xsl:text>--><!--12-16-->
-					<xsl:text>00181</xsl:text><!--12-16-->
+					<xsl:text>     </xsl:text><!--12-16-->
 					<xsl:text>u</xsl:text><!--17-->
 					<xsl:text>u</xsl:text><!--18-->
 					<xsl:text> </xsl:text><!--19-->
@@ -142,6 +164,8 @@
 		
 			<field name="institution"><xsl:value-of select="institution/institutionShortname" /></field>
 			
+			<field name="institutionFull"><xsl:value-of select="institution/institutionFull" /></field>
+			
 			<field name="collection"><xsl:value-of select="institution/collection" /></field>
 			
 			<field name="recordContentSource"><xsl:value-of select="institution/isil" /></field>
@@ -172,7 +196,8 @@
     			
     			<xsl:if test="dataset/formerTitle">
                    	 		<xsl:for-each select="dataset/formerTitle">
-                   	 			<field name="formerTitle">
+                   	 			<!--<field name="formerTitle">--><!--geändert 18.09.14 MZ-->
+                   	 			<field name="title_old">
            					<xsl:value-of select="." />
 	                   	 			</field>
                    	 			</xsl:for-each>
@@ -180,7 +205,8 @@
                    	 		
                    	 	<xsl:if test="dataset/upcomingTitle">
                    	 		<xsl:for-each select="dataset/upcomingTitle">
-                   	 			<field name="upcomingTitle">
+                   	 			<!--<field name="upcomingTitle">--><!--18.09.14 geändert MZ-->
+                   	 			<field name="title_new">
            					<xsl:value-of select="." />
 	                   	 			</field>
                    	 			</xsl:for-each>
@@ -188,7 +214,8 @@
                    	 	
                    	 	<xsl:if test="dataset/alternativeTitle">
                    	 		<xsl:for-each select="dataset/alternativeTitle">
-                   	 			<field name="alternativeTitle">
+                   	 			<!--<field name="alternativeTitle">--><!--18.09.14 geändert MZ-->
+                   	 			<field name="title_alt">
                    	 				<xsl:value-of select="." />
                    	 				</field>
                    	 			</xsl:for-each>
@@ -211,6 +238,8 @@
                     				</xsl:for-each>
                 			</xsl:if>
     			
+			<xsl:apply-templates select="dataset/contributor" />
+    			
     			<xsl:if test="dataset/entity">
     				<field name="entity"><xsl:value-of select="dataset/entity"/></field>
     				</xsl:if>
@@ -227,13 +256,15 @@
 				<field name="seriesNr"><xsl:value-of select="dataset/seriesNr" /></field>
 				</xsl:if>
     			
-    			<xsl:if test="dataset/isbn">
+    			<!--<xsl:if test="dataset/isbn">
 				<field name="isbn">	<xsl:value-of select="dataset/isbn" /></field>
-				</xsl:if>
+				</xsl:if>-->
+			<xsl:apply-templates select="dataset/isbn" />
 			
-			<xsl:if test="dataset/issn">
+			<!--<xsl:if test="dataset/issn">
 				<field name="issn">	<xsl:value-of select="dataset/issn" /></field>
-				</xsl:if>
+				</xsl:if>-->
+			<xsl:apply-templates select="dataset/issn" />
 			
 			<xsl:if test="dataset/zdbId">
 				<field name="zdbId"><xsl:value-of select="dataset/zdbId" /></field>
@@ -258,9 +289,8 @@
                     				</xsl:for-each>
                 			</xsl:if>
 			
-			<xsl:if test="dataset/publisher[normalize-space()]">
-				<field name="publisher"><xsl:value-of select="dataset/publisher"/></field>
-                			</xsl:if>
+			<xsl:apply-templates select="dataset/publisher" />
+			
     			
     			<xsl:if test="dataset/physical">
 				<field name="physical"><xsl:value-of select="dataset/physical" /></field>
@@ -277,6 +307,8 @@
 				<field name="runTime"><xsl:value-of select="dataset/runTime" /></field>
 				</xsl:if>
     			
+			<xsl:apply-templates select="dataset/specificMaterialDesignation" />
+    			
 			<xsl:for-each select="dataset/language">
 				<xsl:variable name="test" select="." />
 					<field name="language">
@@ -286,6 +318,8 @@
 						<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@use=$test]/@code"/>
 						</field>
 				</xsl:for-each>
+			
+			<xsl:apply-templates select="dataset/language_code" />
 			
 			<xsl:if test="dataset/subjectTopic">
                 			<xsl:for-each select="dataset/subjectTopic[text()!='']">
@@ -319,6 +353,14 @@
                     				<field name="subjectPerson"><xsl:value-of select="."/></field>
                     				</xsl:for-each>
                 			</xsl:if>
+                			
+                		<xsl:apply-templates select="dataset/subjectName" />
+                		
+                		<xsl:if test="dataset/description">
+                			<field name="description">
+                				<xsl:value-of select="dataset/description" />
+                				</field>
+                			</xsl:if>
                 		
                 		<xsl:if test="dataset/shelfMark">
 				<field name="signatur"><xsl:value-of select="dataset/shelfMark" /></field>
@@ -336,11 +378,11 @@
 					</xsl:for-each>
 				</xsl:if>
 				
-			<xsl:if test="dataset/description">
+			<!--<xsl:if test="dataset/description">
 				<xsl:for-each select="dataset/description">
 					<field name="description"><xsl:value-of select="." /></field>
 					</xsl:for-each>
-				</xsl:if>
+				</xsl:if>-->
 			
 			<xsl:if test="dataset/project">
 				<xsl:for-each select="distinct-values(tokenize(dataset/project, ' '))">
@@ -348,12 +390,6 @@
 						<field name="project"><xsl:value-of select="." /></field>
 						</xsl:if>
 					</xsl:for-each>
-				</xsl:if>
-			
-			<xsl:if test="dataset/edition">
-				<field name="edition">
-					<xsl:value-of select="dataset/edition" />
-					</field>
 				</xsl:if>
 			
 			<xsl:if test="dataset/url">
@@ -367,6 +403,25 @@
 					<xsl:value-of select="dataset/relatedTo"/>
 					</field>
 				</xsl:if>
+			
+			<xsl:if test="dataset/sourceInfo">
+				<xsl:for-each select="dataset/sourceInfo">
+					<field name="sourceInfo">
+						<xsl:value-of select="." />
+						</field>
+					</xsl:for-each>
+				</xsl:if>
+			
+			<xsl:if test="dataset/listOfContents">
+				<xsl:for-each select="dataset/listOfContents">
+				<field name="listOfContents">
+					<xsl:value-of select="." />
+					</field>
+					</xsl:for-each>
+				</xsl:if>
+				
+			<xsl:apply-templates select="dataset/edition" />
+				
 			
 	<!--Anreicherung Artikel-->
 			<xsl:if test="dataset/format='Artikel'">
@@ -387,6 +442,8 @@
 				<xsl:if test="//record[@id=$test]/functions/systematikFields/systematik_parent_title">
 					<field name="systematik_parent_title"><xsl:value-of select="//record[@id=$test]/functions/systematikFields/systematik_parent_title"/></field>
 					</xsl:if>
+				
+				<xsl:if test="(not(dataset/language)) and (not(dataset/language_code))">
 				<xsl:choose>
 					<xsl:when test="//record[@id=$test]/dataset/language">
 						<xsl:for-each select="//record[@id=$test]/dataset/language">
@@ -409,8 +466,9 @@
 							</field>
 						</xsl:otherwise>	
 						</xsl:choose>
+						</xsl:if>
 				</xsl:if>
-	
+				
 	
 	
 		
@@ -478,7 +536,69 @@
 </add>
 </xsl:template>
 
-
+	<xsl:template match="subjectName">
+		<xsl:for-each select=".">
+			<field name="subjectName">
+				<xsl:value-of select="." />
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="specificMaterialDesignation">
+		<xsl:for-each select=".">
+			<field name="specificMaterialDesignation">
+				<xsl:value-of select="." />
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="contributor">
+		<xsl:for-each select=".">
+			<field name="contributor">
+				<xsl:value-of select="." />
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="issn">
+		<xsl:for-each select=".">
+			<field name="issn">
+				<xsl:value-of select="." />
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="isbn">
+		<xsl:for-each select=".">
+			<field name="isbn">
+				<xsl:value-of select="." />
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="language_code">
+		<xsl:variable name="test" select="." />
+		<xsl:for-each select=".">
+			<field name="language">
+				<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@code=$test]/@name"/>
+				</field>
+			<field name="language_code">
+				<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@code=$test]/@code"/>
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="edition">
+		<field name="edition">
+			<xsl:value-of select="." />
+			</field>
+		</xsl:template>
+		
+	<xsl:template match="publisher">
+		<field name="publisher">
+			<xsl:value-of select="." />
+			</field>
+		</xsl:template>
 	
 
 </xsl:stylesheet>
