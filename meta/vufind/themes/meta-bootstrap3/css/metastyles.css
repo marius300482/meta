@@ -156,8 +156,11 @@ select.form-control {
 .breadcrumb {
   background-color: transparent; }
 
-.sidebar.col-sm-4 h4 {
+.sidebar h4 {
   margin-top: 0; }
+  @media (max-width: 768px) {
+    .sidebar h4 {
+      margin-top: 30px; } }
 
 .group {
   background-color: transparent;

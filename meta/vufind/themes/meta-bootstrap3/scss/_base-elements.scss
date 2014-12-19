@@ -70,9 +70,10 @@ select.form-control {
 }
 
 // Sidebar
-.sidebar.col-sm-4 {
-  h4 {
-    margin-top: 0;
+.sidebar h4 {
+  margin-top: 0;
+  @media (max-width: $device-xs-max-width) {
+    margin-top: 30px;
   }
 }
 
@@ -195,7 +196,7 @@ mark, .highlight {
   }
 }
 
-// Date filter/slider
+// Date filter (may be part of the slider)
 #side-collapse-publishDate li:hover {
   background-color: $color-blue-5;
 }
