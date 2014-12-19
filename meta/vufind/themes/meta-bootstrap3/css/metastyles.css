@@ -478,7 +478,12 @@ footer {
     letter-spacing: 2px; }
     @media (max-width: 768px) {
       footer .footer-brand {
-        margin: 0 0 30px 0; } }
+        margin: 0 0 10px 0; } }
+  @media (max-width: 768px) {
+    footer .col-sm-3 {
+      margin-top: 20px; }
+      footer .col-sm-3:first-child {
+        margin-top: 0; } }
 
 .search-result-count {
   font-size: 20px;
