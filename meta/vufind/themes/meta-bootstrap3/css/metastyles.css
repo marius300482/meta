@@ -449,6 +449,14 @@ header {
       content: "+";
       font-weight: 700;
       font-size: 20px; }
+    header #advSearchForm input.reset-form-button, header #advSearchForm input.reset-form-button:hover, header #advSearchForm input.reset-form-button:active {
+      border: 0 none;
+      background: transparent none;
+      color: #990099;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 30px;
+      height: 30px; }
     @media (max-width: 768px) {
       header #advSearchForm .col-xs-12, header #advSearchForm .col-xs-11, header #advSearchForm .col-xs-1, header #advSearchForm .col-sm-6 {
         padding: 0; }
