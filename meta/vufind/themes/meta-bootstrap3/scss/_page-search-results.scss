@@ -35,6 +35,9 @@
     display: block;
     margin: 4px 0;
     font-weight: 700;
+    @media (max-width: $device-xs-max-width) {
+     font-size: 16px;
+    }
   }
 }
 .row.result:last-child {

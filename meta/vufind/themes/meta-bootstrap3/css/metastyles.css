@@ -533,6 +533,9 @@ footer {
     display: block;
     margin: 4px 0;
     font-weight: 700; }
+    @media (max-width: 768px) {
+      .result a.title {
+        font-size: 16px; } }
 
 .row.result:last-child {
   margin-bottom: 60px !important; }
@@ -582,6 +585,9 @@ footer {
     font-weight: 700;
     margin: 5px 0 20px 0;
     font-size: 28px; }
+    @media (max-width: 768px) {
+      #record h1 {
+        font-size: 18px; } }
   #record a {
     color: #990099;
     font-weight: normal; }
