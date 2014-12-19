@@ -85,7 +85,7 @@
   #treeSearch {
     border-bottom: 1px solid $color-grey-border;
     padding: 20px 10px;
-    margin-bottom: 20px;
+    margin: 0 -10px 20px -10px;
   }
   .btn[type="submit"] {
     font-weight: 700;
@@ -164,21 +164,6 @@
         font-style: normal;
         content: "\e601"; // Root
       }
-    }
-  }
-}
-
-// Sidebar
-.detail-view-sidebar {
-  .list-group-item, .list-group-item:hover {
-    padding: 10px 0;
-    background-color: transparent;
-    font-weight: 300;
-    &:first-child {
-      border-top-width: 4px;
-    }
-    a {
-      font-size: 14px;
     }
   }
 }
