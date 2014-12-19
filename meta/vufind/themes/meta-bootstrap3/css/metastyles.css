@@ -545,8 +545,8 @@ footer {
   .detail-view-detail-row h4 {
     border-bottom: 5px solid #d6d3de;
     padding-bottom: 10px;
-    margin-bottom: 10px;
-    font-weight: 500; }
+    font-weight: 500;
+    margin-top: 20px; }
   .detail-view-detail-row .institution {
     font-weight: 300; }
     .detail-view-detail-row .institution h5 {
@@ -569,84 +569,76 @@ footer {
     .detail-view-detail-row #detail-view-description td a {
       font-size: 14px;
       color: #990099; }
-  .detail-view-detail-row #treeSelector {
-    display: none; }
-  .detail-view-detail-row #hierarchyTreeHolder {
-    background-color: #f7f6f8;
-    margin-top: -10px; }
-    .detail-view-detail-row #hierarchyTreeHolder #treeSearch {
-      border-bottom: 1px solid #d6d3de;
-      padding: 20px 10px;
-      margin-bottom: 20px; }
-    .detail-view-detail-row #hierarchyTreeHolder .btn[type="submit"] {
-      font-weight: 700;
-      padding: 4px 13px; }
-    .detail-view-detail-row #hierarchyTreeHolder #treeSearchText {
-      display: inline;
-      width: calc(100% - 200px); }
-    .detail-view-detail-row #hierarchyTreeHolder #treeSearchType {
-      display: inline;
-      margin: 0 10px;
-      width: auto; }
-  .detail-view-detail-row .jstree-default {
-    padding: 10px; }
-    .detail-view-detail-row .jstree-default .jstree-node {
+
+#treeSelector {
+  display: none; }
+
+#hierarchyTreeHolder {
+  background-color: #f7f6f8;
+  margin-top: -10px;
+  padding: 0 10px 10px 10px; }
+  #hierarchyTreeHolder #treeSearch {
+    border-bottom: 1px solid #d6d3de;
+    padding: 20px 10px;
+    margin-bottom: 20px; }
+  #hierarchyTreeHolder .btn[type="submit"] {
+    font-weight: 700;
+    padding: 4px 13px; }
+  #hierarchyTreeHolder #treeSearchText {
+    display: inline;
+    width: calc(100% - 200px); }
+  #hierarchyTreeHolder #treeSearchType {
+    display: inline;
+    margin: 0 10px;
+    width: auto; }
+  #hierarchyTreeHolder .jstree-node {
+    background: transparent none;
+    font-weight: inherit;
+    font-style: inherit; }
+  #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
+    background-color: #ffefcc;
+    border: 1px solid #e6e5eb !important;
+    box-shadow: none; }
+  #hierarchyTreeHolder .jstree-children {
+    font-weight: 300; }
+    #hierarchyTreeHolder .jstree-children .jstree-node {
+      margin-left: 24px; }
+  #hierarchyTreeHolder li {
+    position: relative; }
+    #hierarchyTreeHolder li i {
+      position: absolute;
       background: transparent none;
-      font-weight: inherit;
-      font-style: inherit; }
-    .detail-view-detail-row .jstree-default .jstree-clicked, .detail-view-detail-row .jstree-default .jstree-hovered {
-      background-color: #ffefcc;
-      border: 1px solid #e6e5eb !important;
-      box-shadow: none; }
-    .detail-view-detail-row .jstree-default .jstree-children {
-      font-weight: 300; }
-      .detail-view-detail-row .jstree-default .jstree-children .jstree-node {
-        margin-left: 24px; }
-    .detail-view-detail-row .jstree-default li {
-      position: relative; }
-      .detail-view-detail-row .jstree-default li i {
-        position: absolute;
-        background: transparent none;
-        z-index: 1;
-        left: -3px;
-        top: 2px;
-        width: 24px;
-        height: 24px;
-        line-height: 24px; }
-      .detail-view-detail-row .jstree-default li i.jstree-themeicon {
-        display: none; }
-      .detail-view-detail-row .jstree-default li a {
-        white-space: normal; }
-        .detail-view-detail-row .jstree-default li a.jstree-anchor {
-          height: auto;
-          padding: 5px 10px 3px 20px;
-          border: 1px solid #f7f6f8;
-          font: inherit;
-          line-height: 1.2em; }
-  .detail-view-detail-row .jstree-default .jstree-open .jstree-ocl:before {
+      z-index: 1;
+      left: -3px;
+      top: 2px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px; }
+    #hierarchyTreeHolder li i.jstree-themeicon {
+      display: none; }
+    #hierarchyTreeHolder li a {
+      white-space: normal; }
+      #hierarchyTreeHolder li a.jstree-anchor {
+        height: auto;
+        padding: 5px 10px 3px 20px;
+        border: 1px solid #f7f6f8;
+        font: inherit;
+        line-height: 1.2em; }
+  #hierarchyTreeHolder .jstree-default .jstree-open .jstree-ocl:before {
     font-family: icomoon;
     font-size: 12px;
     font-style: normal;
     content: "\e602"; }
-  .detail-view-detail-row .jstree-default .jstree-open > .jstree-ocl:before {
+  #hierarchyTreeHolder .jstree-default .jstree-open > .jstree-ocl:before {
     font-family: icomoon;
     font-size: 9px;
     font-style: normal;
     content: "\e600"; }
-  .detail-view-detail-row .jstree-default .jstree-closed > .jstree-ocl:before {
+  #hierarchyTreeHolder .jstree-default .jstree-closed > .jstree-ocl:before {
     font-family: icomoon;
     font-size: 12px;
     font-style: normal;
     content: "\e601"; }
-  .detail-view-detail-row .table-striped th, .detail-view-detail-row .table-striped td {
-    background-color: transparent;
-    border: 0 none; }
-  .detail-view-detail-row .table-striped th {
-    text-align: left;
-    font-weight: 300;
-    width: 30%; }
-  .detail-view-detail-row .table-striped td {
-    font-weight: 400; }
 
 .detail-view-sidebar .list-group-item, .detail-view-sidebar .list-group-item:hover {
   padding: 10px 0;

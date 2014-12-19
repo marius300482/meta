@@ -34,8 +34,8 @@
   h4 {
     border-bottom: 5px solid $color-grey-border;
     padding-bottom: 10px;
-    margin-bottom: 10px;
     font-weight: 500;
+    margin-top: 20px;
   }
   // The lover institution section
   .institution {
@@ -72,74 +72,73 @@
       }
     }
   }
-  #treeSelector {
-    display: none;
+}
+
+// The lower hierarchy tree
+#treeSelector {
+  display: none;
+}
+#hierarchyTreeHolder {
+  background-color: $color-blue-5;
+  margin-top: -10px;
+  padding: 0 10px 10px 10px;
+  #treeSearch {
+    border-bottom: 1px solid $color-grey-border;
+    padding: 20px 10px;
+    margin-bottom: 20px;
   }
-  #hierarchyTreeHolder {
-    background-color: $color-blue-5;
-    margin-top: -10px;
-    #treeSearch {
-      border-bottom: 1px solid $color-grey-border;
-      padding: 20px 10px;
-      margin-bottom: 20px;
-    }
-    .btn[type="submit"] {
-      font-weight: 700;
-      padding: 4px 13px;
-    }
-    #treeSearchText {
-      display: inline;
-      width: calc(100% - 200px);
-    }
-    #treeSearchType {
-      display: inline;
-      margin: 0 10px;
-      width: auto;
-    }
+  .btn[type="submit"] {
+    font-weight: 700;
+    padding: 4px 13px;
   }
-  // Hierarchy tree
-  .jstree-default {
-    padding: 10px;
+  #treeSearchText {
+    display: inline;
+    width: calc(100% - 200px);
+  }
+  #treeSearchType {
+    display: inline;
+    margin: 0 10px;
+    width: auto;
+  }
+  .jstree-node {
+    background: transparent none;
+    font-weight: inherit; // Overwrite search highlight style
+    font-style: inherit; // Overwrite search highlight style
+  }
+  .jstree-clicked, .jstree-hovered {
+    background-color: $color-yellow-4;
+    border: 1px solid $color-blue-4 !important; // Overwrite super long selector
+    box-shadow: none;
+  }
+  .jstree-children {
+    font-weight: 300;
     .jstree-node {
+      margin-left: 24px;
+    }
+  }
+  li {
+    position: relative;
+    i {
+      position: absolute;
       background: transparent none;
-      font-weight: inherit; // Overwrite search highlight style
-      font-style: inherit; // Overwrite search highlight style
+      z-index: 1;
+      left: -3px;
+      top: 2px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
     }
-    .jstree-clicked, .jstree-hovered {
-      background-color: $color-yellow-4;
-      border: 1px solid $color-blue-4 !important; // Overwrite super long selector
-      box-shadow: none;
+    i.jstree-themeicon {
+      display: none;
     }
-    .jstree-children {
-      font-weight: 300;
-      .jstree-node {
-        margin-left: 24px;
-      }
-    }
-    li {
-      position: relative;
-      i {
-        position: absolute;
-        background: transparent none;
-        z-index: 1;
-        left: -3px;
-        top: 2px;
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
-      }
-      i.jstree-themeicon {
-        display: none;
-      }
-      a {
-        white-space: normal;
-        &.jstree-anchor {
-          height: auto;
-          padding: 5px 10px 3px 20px;
-          border: 1px solid $color-blue-5;
-          font: inherit;
-          line-height: 1.2em;
-        }
+    a {
+      white-space: normal;
+      &.jstree-anchor {
+        height: auto;
+        padding: 5px 10px 3px 20px;
+        border: 1px solid $color-blue-5;
+        font: inherit;
+        line-height: 1.2em;
       }
     }
   }
@@ -165,20 +164,6 @@
         font-style: normal;
         content: "\e601"; // Root
       }
-    }
-  }
-  .table-striped {
-    th, td {
-      background-color: transparent;
-      border: 0 none;
-    }
-    th {
-      text-align: left;
-      font-weight: 300;
-      width: 30%;
-    }
-    td {
-      font-weight: 400;
     }
   }
 }
