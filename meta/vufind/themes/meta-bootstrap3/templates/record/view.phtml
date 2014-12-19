@@ -101,7 +101,7 @@
     <?php $institutionDetails = $this->driver->getInstitutionDetails($institution); ?>
     <?php if ($institutionDetails != NULL) : ?>
       <?php /* PHE - start next row, if previous row is full */ ?>
-      <?php if ($tabCount == 2) : ?>
+      <?php if ($tabCount > 1 && $tabCount % 2 == 0) : ?>
         </div><div class="record row detail-view-detail-row">
       <? endif; ?>
       <div class="col-sm-6 institution">
