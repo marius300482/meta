@@ -114,7 +114,7 @@
             google.maps.event.addDomListener(window, 'load', function () {
               var mapOptions = { zoom: 15 };
               var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-              var address = "<?= strip_tags($institutionDetails["address"], "<br>"); ?>".replace("<br>", ", ");
+              var address = <?= json_encode(strip_tags($institutionDetails["address"], "<br>")); ?>.replace("<br>", ", ");
               geocoder = new google.maps.Geocoder();
               geocoder.geocode( { 'address': address}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
@@ -122,7 +122,7 @@
                   new google.maps.InfoWindow({
                     map: map,
                     position: results[0].geometry.location,
-                    content: "<strong><?= $this->escapeHtml($institution); ?></strong><br />" + address
+                    content: "<strong><?= str_replace('"', '\"', $this->escapeHtml($institution)); ?></strong><br />" + address
                   });
                 }
               });
