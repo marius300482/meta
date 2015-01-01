@@ -22,25 +22,34 @@ class Institution
     /**
      * Identifier of an institution
      *
-     * @var null|String
+     * @var String
      */
     private $institutionId;
 
     /**
+     * Language identifier
+     *
+     * @var String
+     */
+    private $language;
+
+    /**
      * Local path where the institutions are stored
      *
-     * @var string
+     * @var String
      */
     private $institutionDir;
 
     /**
      * Constructor
      *
-     * @param $institutionId Identifier of an institution
+     * @param String $institutionId Identifier of an institution
+     * @param String $language Language identifier
      */
-    public function __construct($institutionId)
+    public function __construct($institutionId, $language)
     {
         $this->institutionId = $institutionId;
+        $this->language = $language;
         $this->institutionDir = APPLICATION_PATH . "/module/Ida/data/institutions/";
     }
 
@@ -81,6 +90,6 @@ class Institution
      */
     private function getInstitutionFileName()
     {
-        return preg_replace("/[^0-9a-zA-Z_-öäüßÄÖÜ]/", "", $this->institutionId) . ".ini";
+        return preg_replace("/[^0-9a-zA-Z_-öäüßÄÖÜ]/", "", $this->institutionId) . "_" . $this->language . ".ini";
     }
 }
