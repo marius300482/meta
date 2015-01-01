@@ -243,3 +243,19 @@ mark, .highlight {
     opacity: 1;
   }
 }
+
+// Dropdown
+.twitter-typeahead {
+  border-radius: 0;
+}
+.tt-dropdown-menu {
+  margin: 0;
+}
+.tt-suggestion {
+  &:first-child, &:last-child {
+    border-radius: 0;
+  }
+  &.tt-cursor {
+    background-color: $color-blue-1;
+  }
+}

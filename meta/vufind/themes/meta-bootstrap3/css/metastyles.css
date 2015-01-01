@@ -286,6 +286,17 @@ mark, .highlight {
   .modal-content .close, .modal-content .close:hover {
     opacity: 1; }
 
+.twitter-typeahead {
+  border-radius: 0; }
+
+.tt-dropdown-menu {
+  margin: 0; }
+
+.tt-suggestion:first-child, .tt-suggestion:last-child {
+  border-radius: 0; }
+.tt-suggestion.tt-cursor {
+  background-color: #2e264d; }
+
 header {
   margin-bottom: 100px;
   color: black; }
@@ -391,6 +402,8 @@ header {
           header #searchForm #simple-search-body .twitter-typeahead {
             margin-right: 5px;
             width: 48%; } }
+        header #searchForm #simple-search-body .twitter-typeahead .tt-dropdown-menu {
+          margin-top: -10px; }
         header #searchForm #simple-search-body .twitter-typeahead #searchForm_lookfor {
           border-radius: 0;
           background-color: white !important;
