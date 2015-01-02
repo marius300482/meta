@@ -9,10 +9,13 @@
 }
 
 // Button to jump to the search facets
+.goToFacetsWrapper {
+  padding: 0 15px;
+}
 #goToFacets {
   display: block;
   padding: 8px 0;
-  margin: 30px 0;
+  margin: 20px 0 30px;
   background-color: $color-blue-1;
   color: $color-white;
   text-align: center;

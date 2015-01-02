@@ -76,10 +76,15 @@
         <p class="lead"><?=$this->transEsc('nohit_heading')?></p>
       <? endif; ?>
     </div>
-    <a href="#facets" class="visible-xs" id="goToFacets">
-      <?=$this->transEsc('Narrow Search')?>
-    </a>
   </div>
+
+  <? if ($recordTotal > 0): ?>
+    <div class="visible-xs goToFacetsWrapper">
+      <a href="#facets" id="goToFacets">
+        <?=$this->transEsc('Narrow Search')?>
+      </a>
+    </div>
+  <? endif; ?>
 
   <? if ($recordTotal > 0): ?>
     <div class="col-sm-6 text-right result-sort-options">
