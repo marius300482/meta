@@ -76,6 +76,9 @@
         <p class="lead"><?=$this->transEsc('nohit_heading')?></p>
       <? endif; ?>
     </div>
+    <a href="#facets" class="hidden-sm" id="goToFacets">
+      <?=$this->transEsc('Narrow Search')?>
+    </a>
   </div>
 
   <? if ($recordTotal > 0): ?>
@@ -142,7 +145,7 @@
 <? /* End Main Listing */ ?>
 
 <? /* Narrow Search Options */ ?>
-<div class="sidebar col-sm-4 hidden-print">
+<div id="facets" class="sidebar col-sm-4 hidden-print">
   <? foreach ($this->results->getRecommendations('side') as $current): ?>
     <?=$this->recommend($current)?>
   <? endforeach; ?>

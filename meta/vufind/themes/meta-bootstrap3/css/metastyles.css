@@ -524,6 +524,19 @@ footer {
     .search-result-count {
       margin-bottom: 10px; } }
 
+#goToFacets {
+  display: block;
+  padding: 8px 0;
+  margin: 30px 0;
+  background-color: #2e264d;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  font-size: 19px; }
+  #goToFacets:hover {
+    text-decoration: none;
+    cursor: pointer; }
+
 .result-sort-options label {
   display: inline;
   padding: 0; }
