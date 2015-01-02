@@ -72,7 +72,7 @@ select.form-control {
 // Sidebar
 .sidebar h4 {
   margin-top: 0;
-  @media (max-width: $device-xs-max-width) {
+  @media (max-width: $device-md-max-width) {
     margin-top: 30px;
   }
 }
