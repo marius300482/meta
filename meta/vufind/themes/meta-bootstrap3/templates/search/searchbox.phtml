@@ -16,6 +16,7 @@
     $advSearch = $options->getAdvancedSearchAction();
     $lastSort = $options->getLastSort();
     $lastLimit = $options->getLastLimit();
+    $this->isAdvancedSearch = isset($_GET["isAdvancedSearch"]);
 
 ?>
 <? if ($this->searchType == 'advanced'): ?>
@@ -32,15 +33,15 @@
   <form role="search" class="navbar-form navbar-left" method="get" action="<?=$this->url($basicSearch)?>" name="searchForm" id="searchForm" autocomplete="off">
       <div class="search-nav-wrapper">
           <ul class="nav nav-tabs search-nav">
-              <li id="simpleSearchTab" <?=true ? ' class="active"' : ''?>>
+              <li id="simpleSearchTab" <?= $this->isAdvancedSearch ? '' : ' class="active"'; ?>>
                   <span><?=$this->transEsc("Standard")?></span>
               </li>
-              <li id="advanceSearchTab" <?=false ? ' class="active"' : ''?>>
+              <li id="advanceSearchTab" <?= $this->isAdvancedSearch ? ' class="active"' : ''; ?>>
                   <span><?=$this->transEsc("Advanced")?></span>
               </li>
           </ul>
       </div>
-     <div id="simple-search-body">
+     <div id="simple-search-body" class="<?= $this->isAdvancedSearch ? "hidden" : ""; ?>">
         <input class="form-control search-query<? if($this->searchbox()->autocompleteEnabled($this->searchClassId)):?> autocomplete searcher:<?=$this->escapeHtmlAttr($this->searchClassId) ?><? endif ?>" id="searchForm_lookfor" type="text" name="lookfor" value="<?=$this->escapeHtmlAttr($this->lookfor)?>"/>
         <?php $handlerCount = 0; ?><?php /* phe disable select field */ ?>
           <? if ($handlerCount > 1): ?>
