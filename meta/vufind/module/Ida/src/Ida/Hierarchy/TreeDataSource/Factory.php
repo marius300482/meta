@@ -2,28 +2,6 @@
 /**
  * Hierarchy Data Source Factory Class
  *
- * PHP version 5
- *
- * Copyright (C) Villanova University 2010.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * @category VuFind2
- * @package  HierarchyTree_DataSource
- * @author   Demian Katz <demian.katz@villanova.edu>
- * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
 namespace Ida\Hierarchy\TreeDataSource;
 use Zend\ServiceManager\ServiceManager;
@@ -31,12 +9,9 @@ use Zend\ServiceManager\ServiceManager;
 /**
  * Hierarchy Data Source Factory Class
  *
- * This is a factory class to build objects for managing hierarchies.
+ * This is a factory class to build objects for managing hierarchies
+ * and is an exact copy of the corresponding file in the VuFind module.
  *
- * @category VuFind2
- * @package  HierarchyTree_DataSource
- * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
 class Factory
 {
@@ -49,10 +24,6 @@ class Factory
      */
     public static function getSolr(ServiceManager $sm)
     {
-        //edit:dku
-//        die(':)) here '.__METHOD__);
-//        var_dump($sm->getServiceLocator()->get('VuFind\Search'));exit;
-//        var_dump($hierarchyFilters = $sm->getServiceLocator()->get('VuFind\Config')->get('HierarchyDefault'),$hierarchyFilters = $sm->getServiceLocator()->get('VuFind\Config'));exit;
         $cacheDir = $sm->getServiceLocator()->get('VuFind\CacheManager')
             ->getCacheDir(false);
         $hierarchyFilters = $sm->getServiceLocator()->get('VuFind\Config')
@@ -60,6 +31,8 @@ class Factory
         $filters = isset($hierarchyFilters->HierarchyTree->filterQueries)
             ? $hierarchyFilters->HierarchyTree->filterQueries->toArray()
             : array();
+
+        // Instance of Ida\Hierarchy\TreeDataSource\Solr class
         return new Solr(
             $sm->getServiceLocator()->get('VuFind\Search'),
             rtrim($cacheDir, '/') . '/hierarchy',
