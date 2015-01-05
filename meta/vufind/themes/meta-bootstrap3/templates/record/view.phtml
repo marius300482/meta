@@ -164,13 +164,15 @@
   // Allow search result section toggling
   $(document).ready(function() {
     var maxMobileWidth = 768; // px
+    var headlines = $(".detail-view-detail-row h4[data-toggle], .detail-view-sidebar h4");
+    var sections = $(".detail-view-detail-row .collapsible, .detail-view-sidebar ul");
     // Hide sections on mobile devices
     $(window).bind("load resize",function(e) {
-      var sections = $(".detail-view-detail-row .collapsible, .detail-view-sidebar ul");
       ($(document).width() <= maxMobileWidth) ? sections.hide() : sections.show();
+      headlines.removeClass("open");
     });
     // Make sections toggleable on mobile devices
-    $(".detail-view-detail-row h4[data-toggle], .detail-view-sidebar h4").click(function () {
+    headlines.click(function () {
       if (($(document).width() <= maxMobileWidth)) {
         var $this = $(this);
         $this.next().slideToggle("normal", function (e) {
