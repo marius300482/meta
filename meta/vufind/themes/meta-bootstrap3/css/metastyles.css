@@ -647,11 +647,23 @@ footer {
 
 .detail-view-detail-row {
   margin-bottom: 10px; }
+  @media (max-width: 768px) {
+    .detail-view-detail-row {
+      margin-bottom: 0; } }
   .detail-view-detail-row h4 {
     border-bottom: 5px solid #d6d3de;
     padding-bottom: 10px;
     font-weight: 500;
     margin-top: 20px; }
+    @media (max-width: 768px) {
+      .detail-view-detail-row h4 {
+        cursor: pointer; }
+        .detail-view-detail-row h4:after {
+          font-family: icomoon;
+          float: right;
+          content: "\e605"; }
+        .detail-view-detail-row h4.open:after {
+          content: "\e606"; } }
   .detail-view-detail-row .institution {
     font-weight: 300; }
     .detail-view-detail-row .institution h5 {
@@ -744,6 +756,21 @@ footer {
     font-size: 12px;
     font-style: normal;
     content: "\e601"; }
+
+@media (max-width: 768px) {
+  .detail-view-sidebar h4 {
+    cursor: pointer;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 5px solid #d6d3de; }
+    .detail-view-sidebar h4:after {
+      font-family: icomoon;
+      float: right;
+      content: "\e605"; }
+    .detail-view-sidebar h4.open:after {
+      content: "\e606"; }
+  .detail-view-sidebar .list-group-item:first-child, .detail-view-sidebar .list-group-item:hover:first-child {
+    border-top-width: 0; } }
 
 .tag_cloud {
   text-align: center;

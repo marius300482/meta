@@ -87,11 +87,13 @@
     <?php foreach (array_reverse($this->tabs) as $tab => $obj): ?>
       <div class="col-sm-6">
         <?php if ($tab == "Details") : ?>
-          <h4><?php echo $this->transEsc('Description'); ?></h4>
+          <h4 data-toggle="collapse"><?php echo $this->transEsc('Description'); ?></h4>
         <?php elseif ($tab == "HierarchyTree") : ?>
-          <h4><?php echo $this->transEsc('Context'); ?></h4>
+          <h4 data-toggle="collapse"><?php echo $this->transEsc('Context'); ?></h4>
         <?php endif; ?>
-        <?php echo $this->record($this->driver)->getTab($obj)?>
+        <div class="collapsible">
+          <?php echo $this->record($this->driver)->getTab($obj)?>
+        </div>
       </div>
       <?php $tabCount++; ?>
     <?php endforeach; ?>
@@ -103,10 +105,14 @@
     <?php if ($institutionDetails != NULL) : ?>
       <?php /* PHE - start next row, if previous row is full */ ?>
       <?php if ($tabCount > 1 && $tabCount % 2 == 0) : ?>
-        </div><div class="record row detail-view-detail-row">
+        </div>
+        <div class="record row">
       <? endif; ?>
-      <div class="col-sm-6 institution">
-        <h4><?php echo $this->transEsc('Institution'); ?></h4>
+      <div class="col-sm-6 institution detail-view-detail-row">
+        <h4 data-toggle="collapse">
+          <?php echo $this->transEsc('Institution'); ?>
+        </h4>
+        <div class="collapsible">
         <!-- Start google maps -->
         <?php if (isset($institutionDetails["address"])) : ?>
           <div id="map-canvas" style="width: 100%; height: 300px; margin: -10px 0 20px"></div>
@@ -144,7 +150,7 @@
       </div>
     <?php endif; ?>
     <?php /* PHE - END of the institution details */ ?>
-
+    </div>
   </div>
 </div>
 
@@ -153,3 +159,24 @@
     <?=$this->related()->render($current)?>
   <?php endforeach; ?>
 </div>
+
+<script type="text/javascript">
+  // Allow search result section toggling
+  $(document).ready(function() {
+    var maxMobileWidth = 768; // px
+    // Hide sections on mobile devices
+    $(window).bind("load resize",function(e) {
+      var sections = $(".detail-view-detail-row .collapsible, .detail-view-sidebar ul");
+      ($(document).width() <= maxMobileWidth) ? sections.hide() : sections.show();
+    });
+    // Make sections toggleable on mobile devices
+    $(".detail-view-detail-row h4[data-toggle], .detail-view-sidebar h4").click(function () {
+      if (($(document).width() <= maxMobileWidth)) {
+        var $this = $(this);
+        $this.next().slideToggle("normal", function (e) {
+          $this.toggleClass("open");
+        });
+      }
+    });
+  });
+</script>

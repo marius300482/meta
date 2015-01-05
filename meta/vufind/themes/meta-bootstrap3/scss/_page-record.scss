@@ -34,11 +34,25 @@
 // Detail view table with details
 .detail-view-detail-row {
   margin-bottom: 10px;
+  @media (max-width: $device-xs-max-width) {
+    margin-bottom: 0;
+  }
   h4 {
     border-bottom: 5px solid $color-grey-border;
     padding-bottom: 10px;
     font-weight: 500;
     margin-top: 20px;
+    @media (max-width: $device-xs-max-width) {
+      cursor: pointer;
+      &:after {
+        font-family: icomoon;
+        float: right;
+        content: "\e605";
+      }
+      &.open:after {
+        content: "\e606";
+      }
+    }
   }
   // The lover institution section
   .institution {
@@ -167,6 +181,29 @@
         font-style: normal;
         content: "\e601"; // Root
       }
+    }
+  }
+}
+
+//Sidebar
+.detail-view-sidebar {
+  @media (max-width: $device-xs-max-width) {
+    h4 {
+      cursor: pointer;
+      margin-top: 20px;
+      padding-bottom: 10px;
+      border-bottom: 5px solid #d6d3de;
+      &:after {
+        font-family: icomoon;
+        float: right;
+        content: "\e605";
+      }
+      &.open:after {
+        content: "\e606";
+      }
+    }
+    .list-group-item:first-child, .list-group-item:hover:first-child {
+      border-top-width: 0;
     }
   }
 }
