@@ -103,6 +103,9 @@
     border-bottom: 1px solid $color-grey-border;
     padding: 20px 10px;
     margin: 0 -10px 20px -10px;
+    width: 100%;
+    display: table;
+    box-sizing: content-box !important; // overwrite global style
   }
   .btn[type="submit"] {
     font-weight: 700;
@@ -110,7 +113,7 @@
   }
   #treeSearchText {
     display: inline;
-    width: calc(100% - 200px);
+    width: 100%;
   }
   #treeSearchType {
     display: inline;
