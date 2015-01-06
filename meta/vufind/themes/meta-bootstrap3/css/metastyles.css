@@ -230,6 +230,9 @@ select.form-control {
 mark, .highlight {
   background-color: #FFEFAB; }
 
+.pagination-ld {
+  padding-left: 9%; }
+
 .pagination {
   margin: 30px 0 0; }
   @media (max-width: 768px) {
@@ -246,6 +249,10 @@ mark, .highlight {
       color: inherit;
       font-size: 18px;
       padding: 6px 14px; }
+      @media (max-width: 768px) {
+        .pagination li > a, .pagination li > span {
+          font-size: 17px;
+          padding: 6px; } }
     .pagination li.active span {
       background-color: #ffce67;
       color: inherit;

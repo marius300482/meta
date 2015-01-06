@@ -162,6 +162,9 @@ mark, .highlight {
 }
 
 // Pagination
+.pagination-ld {
+  padding-left: 9%;
+}
 .pagination {
   margin: 30px 0 0;
   @media (max-width: $device-xs-max-width) {
@@ -182,6 +185,10 @@ mark, .highlight {
       color: inherit;
       font-size: 18px;
       padding: 6px 14px;
+      @media (max-width: $device-xs-max-width) {
+        font-size: 17px;
+        padding: 6px;
+      }
     }
     &.active span {
       background-color: $color-yellow-2;

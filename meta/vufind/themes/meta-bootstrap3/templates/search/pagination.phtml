@@ -1,14 +1,14 @@
 <? if ($this->pageCount): ?>
   <ul class="pagination">
     <? if (isset($this->previous)): ?>
-      <li><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage(1)?>">1</a></li>
+      <li class="hidden-xs hidden-sm"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage(1)?>">1</a></li>
       <li class="paging-label"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->previous)?>">&laquo; <?=$this->transEsc('Prev')?></a></li>
     <? endif; ?>
 
     <? if (count($this->pagesInRange) > 1): ?>
       <? foreach ($this->pagesInRange as $page): ?>
         <? if ($page != $this->current): ?>
-          <li><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($page)?>"><?=$page?></a></li>
+          <li class="hidden-xs"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($page)?>"><?=$page?></a></li>
         <? else: ?>
           <li class="active"><span><?=$page?></span></li>
         <? endif; ?>
@@ -17,7 +17,7 @@
 
     <? if (isset($this->next)): ?>
       <li class="paging-label"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->next)?>"><?=$this->transEsc('Next');?> &raquo;</a></li>
-      <li><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pageCount)?>"><?=$this->pageCount?></a></li>
+      <li class="hidden-xs hidden-sm"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pageCount)?>"><?=$this->pageCount?></a></li>
     <? endif; ?>
   </ul>
 <? endif; ?>
