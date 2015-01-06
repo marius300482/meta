@@ -81,8 +81,10 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
         else {
 
             $xml = $this->getChildren($id);
-//            print htmlspecialchars($xml);exit;
-            if (0 === strlen($xml)) {return '';}
+
+            if (0 === strlen($xml)) {
+                return '';
+            }
         }
 
         if (false) {} // TODO: Caching
@@ -93,36 +95,26 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
                 $result = $result->first();
 
                 $xml = $this->_getXMLParents($result, '');
-//                $xml = <<<ROOT
-//<root>
-//    $xml
-//</root>
-//ROOT;
             }
-            else {
-//                // TODO: return lieber oben?
-////                $xml='';//test
-////                $xml=$this->_getXMLRecord($this->searchService->retrieve('Solr', '10464genderbib')->first(),false);
-////                $xml = str_replace('%%%children%%%', $xml, $this->_getXMLRecord($this->searchService->retrieve('Solr', $id)->first(),true));
-//                $xml = '<root>'.$xml.'</root>';
-////                $xml = $this->getChildren($id);
-////                $xml = '<root>'.$this->getChildren($id).'</root>';
-            }
+
             $xml = <<<ROOT
 <root>
     $xml
 </root>
 ROOT;
         }
-//        print htmlspecialchars($xml);exit;
 
         return $xml;
     }
-    //traverse tree upwards
-    protected function _getXMLParents($record, $treeXML) {
-//        print '<br>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++';
-//        var_dump(__FUNCTION__,get_class($record),method_exists($record, 'getHierarchyPositionsInParents'));
 
+    /**
+     * @param $record
+     * @param $treeXML
+     * @return mixed|string
+     */
+    protected function _getXMLParents($record, $treeXML) {
+
+        // Unspecified error?
         if (false === method_exists($record, 'getHierarchyPositionsInParents')) {
             return '';
         }
@@ -131,9 +123,11 @@ ROOT;
 
         if (0 < count($parents)) {
 
+            // Use first parent entry
             $parentId = array_shift(array_flip($record->getHierarchyPositionsInParents()));
             $result = $this->searchService->retrieve('Solr', $parentId);
 
+            // Traverse tree upwards
             if (0 < $result->getTotal()) {
 
                 $repl=0<strlen($treeXML);
@@ -150,8 +144,8 @@ ROOT;
 //                return str_replace('%%%children%%%', $this->_getXMLParents($result->first(), $treeXML), $children);
                 return $this->_getXMLParents($result->first(), $treeXML);
             }
+            // No parents in tree hierarchy
             else {
-//                die('ende erreicht1');
                 return '';
             }
         }
@@ -162,6 +156,13 @@ ROOT;
         }
     }
 
+    /**
+     * Generate XML code for a specific record (in the hierarchy tree).
+     *
+     * @param $record the Solr record
+     * @param boolean $hasChildren if the record is parent of another record (in the hierarchy tree)
+     * @return string the hierarchy tree's record XML code
+     */
     protected function _getXMLRecord($record, $hasChildren) {
 
         if (false === method_exists($record, 'getUniqueID')) {
@@ -183,106 +184,6 @@ ROOT;
 </item>
 XML;
 
-        return $xml;
-    }
-    /*
-    public function getXMLVuFind($id, $options = array())
-    {
-        //edit:dku
-//        print __METHOD__;exit;
-        $top = $this->searchService->retrieve('Solr', $id)->getRecords();
-        if (!isset($top[0])) {
-            return '';
-        }
-        $top = $top[0];
-        $cacheFile = (null !== $this->cacheDir)
-            ? $this->cacheDir . '/hierarchyTree_' . urlencode($id) . '.xml'
-            : false;
-
-        $useCache = isset($options['refresh']) ? !$options['refresh'] : true;
-        $cacheTime = $this->getHierarchyDriver()->getTreeCacheTime();
-        //edit:dku
-        $useCache=false;
-//        var_dump(__METHOD__,$cacheFile);
-
-        if ($useCache && file_exists($cacheFile)
-            && ($cacheTime < 0 || filemtime($cacheFile) > (time() - $cacheTime))
-        ) {
-            $this->debug("Using cached data from $cacheFile");
-            $xml = file_get_contents($cacheFile);
-        } else {
-            $starttime = microtime(true);
-            $isCollection = $top->isCollection() ? "true" : "false";
-            $xml = '<root><item id="' .
-                htmlspecialchars($id) .
-                '" isCollection="' . $isCollection . '">' .
-                '<content><name>' . htmlspecialchars($top->getTitle()) .
-                '</name></content>';
-            $count = 0;
-            //edit:dku
-//            $id_matched=false;
-            $xml .= $this->getChildrenVuFind($id, $count,$options['recordID']);
-            $xml .= '</item></root>';
-            if ($cacheFile) {
-                if (!file_exists($this->cacheDir)) {
-                    mkdir($this->cacheDir);
-                }
-                file_put_contents($cacheFile, $xml);
-            }
-            $this->debug(
-                "Hierarchy of $count records built in " .
-                abs(microtime(true) - $starttime)
-            );
-        }
-        return $xml;
-    }
-    */
-    // TODO delete
-    // orig: VuFind/Hierarchy/TreeDataSource/Solr::getXML(2)
-    public function getXMLVuFind($id, $options = array())
-    {
-        $top = $this->searchService->retrieve('Solr', $id)->getRecords();
-        if (!isset($top[0])) {
-            return '';
-        }
-        $top = $top[0];
-        $cacheFile = (null !== $this->cacheDir)
-            ? $this->cacheDir . '/hierarchyTree_' . urlencode($id) . '.xml'
-            : false;
-
-        $useCache = isset($options['refresh']) ? !$options['refresh'] : true;
-        //2edit:dku
-        $useCache=false;
-        $cacheTime = $this->getHierarchyDriver()->getTreeCacheTime();
-
-        if ($useCache && file_exists($cacheFile)
-            && ($cacheTime < 0 || filemtime($cacheFile) > (time() - $cacheTime))
-        ) {
-            $this->debug("Using cached data from $cacheFile");
-            $xml = file_get_contents($cacheFile);
-        } else {
-            $starttime = microtime(true);
-            $isCollection = $top->isCollection() ? "true" : "false";
-            $xml = '<root><item id="' .
-                htmlspecialchars($id) .
-                '" isCollection="' . $isCollection . '">' .
-                '<content><name>' . htmlspecialchars($top->getTitle()) .
-                '</name></content>';
-            $count = 0;
-            //2edit:dku
-            $xml .= $this->getChildrenVuFind($id, $count);
-            $xml .= '</item></root>';
-            if ($cacheFile) {
-                if (!file_exists($this->cacheDir)) {
-                    mkdir($this->cacheDir);
-                }
-                file_put_contents($cacheFile, $xml);
-            }
-            $this->debug(
-                "Hierarchy of $count records built in " .
-                abs(microtime(true) - $starttime)
-            );
-        }
         return $xml;
     }
 
