@@ -686,8 +686,6 @@ footer {
       font-weight: 500; }
     .detail-view-detail-row .institution .opening-hours {
       margin-top: 20px; }
-    .detail-view-detail-row .institution #map-canvas img {
-      max-width: inherit; }
   .detail-view-detail-row #detail-view-description th {
     font-weight: 300;
     padding: 0 10px 10px 0;
@@ -699,6 +697,9 @@ footer {
     .detail-view-detail-row #detail-view-description td a {
       font-size: 14px;
       color: #990099; }
+
+#map-canvas img {
+  max-width: inherit; }
 
 #treeSelector {
   display: none; }
