@@ -54,25 +54,16 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
      * @return string
      */
     public function getXML($id, $options = array()) {
-        // debug: fallback to vufind
-//        return $this->getXMLVuFind($id,$options);
 
         $recordID = $options['recordID'];//TODO: anders uebergeben
         //subtree
-//        $id='INachschlaggenderbib';
-        $loadSubtree = !empty($recordID);
-//        var_dump(__FUNCTION__,$recordID,'loadsubtree=',$loadSubtree,$id);exit;
-//        $query = new Query(
-//            'hierarchy_parent_id:"' . addcslashes($id, '"') . '"'
-//        );
-//        $results = $this->searchService->search(
-//            'Solr', $query, 0, 10000, new ParamBag(array('fq' => $this->filters))
-//        );
-//        var_dump(__FUNCTION__,$id,$this->searchService->search('Solr', $query, 0, 10000, new ParamBag(array('fq' => $this->filters)))->getTotal(),$recordID);return 'USERABORT';
+        $loadSubtree = isset($options['subtree']) && true === $options['subtree'];
+//        $loadSubtree = !empty($recordID);
 
         if (false === $loadSubtree) {
 
-            $result = $this->searchService->retrieve('Solr', $recordID);
+            $result = $this->searchService->retrieve('Solr', $id);
+//            $result = $this->searchService->retrieve('Solr', $recordID);
 
             if (0 === $result->getTotal()) {
                 return '';
@@ -133,7 +124,6 @@ ROOT;
                 $repl=0<strlen($treeXML);
                 $children = $this->getChildren($parentId,$repl?$record->getUniqueID():'28394jsadkasdsdlksa8d9823');
 //                $children = $this->getChildren($parentId,$record->getUniqueID());
-//                print htmlspecialchars($children);
 
                 if ($repl) {
                     $treeXML = str_replace('%%%children%%%', $treeXML, $children);
@@ -149,10 +139,9 @@ ROOT;
                 return '';
             }
         }
+        // Root element reached
         else {
-//            var_dump('ende erreicht2',$record->getUniqueID(),$this->_getXMLRecord($record, true));exit;
             return str_replace('%%%children%%%', $treeXML, $this->_getXMLRecord($record, true));
-//            return $treeXML;
         }
     }
 
@@ -314,6 +303,7 @@ XML;
 
     // TODO delete
     // orig: VuFind/Hierarchy/TreeDataSource/Solr::getChildren(2)
+    /*
     protected function getChildrenVuFind($parentID, &$count)
     {
 
@@ -360,4 +350,5 @@ XML;
         }
         return $xmlReturnString;
     }
+    */
 }

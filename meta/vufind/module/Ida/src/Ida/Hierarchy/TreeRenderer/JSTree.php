@@ -50,19 +50,21 @@ class JSTree extends \VuFind\Hierarchy\TreeRenderer\JSTree
 
         //edit:dku
         // TODO: auslagern an richtige stelle
-        if (false&&isset($_REQUEST['subtree'])) {
+        if (isset($_REQUEST['subtree'])) {
             $recordID = '';
         }
 
         // Transform the XML
         // TODO:
-//        if (true) {
+        if (!isset($_REQUEST['subtree'])) {
+            $xmlFile = $this->getDataSource()->getXML($recordID);
 //            $xmlFile = $this->getDataSource()->getXML($hierarchyID);
-//        }
-//        else {
+        }
+        else {
+            $xmlFile = $this->getDataSource()->getXML($hierarchyID, array('subtree' => true));
 //            $xmlFile = $this->getDataSource()->getXML($recordID, array('subtree' => true));
-//        }
-        $xmlFile = $this->getDataSource()->getXML($hierarchyID,array('recordID'=>$recordID,'foo'=>'bar'));
+        }
+//        $xmlFile = $this->getDataSource()->getXML($hierarchyID,array('recordID'=>$recordID,'foo'=>'bar'));
 
         $transformation = ucfirst($context) . ucfirst($mode);
         $xslFile = "Hierarchy/{$transformation}.xsl";
