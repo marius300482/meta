@@ -644,6 +644,9 @@ footer {
   #record a {
     color: #990099;
     font-weight: normal; }
+  #record img.recordcover {
+    max-width: inherit;
+    width: 100%; }
   #record .citation th {
     font-weight: inherit;
     width: 120px;
