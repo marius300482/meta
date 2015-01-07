@@ -135,6 +135,12 @@ JS;
                 <span class="pull-right"><i class="fa fa-times"></i></span>
               <? endif; ?>
               <?=$this->escapeHtml($thisFacet['displayText'])?>
+              <span class="badge">
+              (<?=$this->localizedNumber($thisFacet['count'])?>)
+                <? if ($allowExclude): ?>
+                  <a href="<?=$this->currentPath().$results->getUrlQuery()->addFacet($title, $thisFacet['value'], 'NOT') ?>" title="<?=$this->transEsc('exclude_facet') ?>"><i class="fa fa-times"></i></a>
+                <? endif; ?>
+            </span>
             </a>
           <? else: ?>
             <? $addURL = $this->currentPath().$results->getUrlQuery()->addFacet($title, $thisFacet['value'], $thisFacet['operator']); ?>
