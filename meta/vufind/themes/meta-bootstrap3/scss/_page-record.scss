@@ -71,10 +71,6 @@
     .opening-hours {
       margin-top: 20px;
     }
-    // Google map
-    #map-canvas img {
-      max-width: inherit;
-    }
   }
   // The lower description table
   #detail-view-description {
@@ -93,6 +89,11 @@
       }
     }
   }
+}
+
+// Google map
+#map-canvas img {
+  max-width: inherit;
 }
 
 // The lower hierarchy tree
