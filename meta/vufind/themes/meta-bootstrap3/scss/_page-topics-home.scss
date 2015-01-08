@@ -1,0 +1,36 @@
+// Tag cloud
+.tag_cloud {
+  text-align: center;
+  line-height: 46px;
+  font-size: 16px;
+  li {
+    display: inline-block;
+  }
+  .w19, .w20, .w21 {
+    font-size: 19px;
+  }
+  .w22, .w23, .w24 {
+    font-size: 22px;
+  }
+  .w25, .w26, .w27 {
+    font-size: 25px;
+  }
+  .w28, .w29, .w30, .w31, .w32 {
+    font-size: 28px;
+  }
+  .w33, .w34, .w35, .w36, .w37 {
+    font-size: 31px;
+  }
+  .w38, .w39, .w40, .w41, .w42 {
+    font-size: 40px;
+    color: #641373; // Special color
+  }
+  .w43, .w44, .w45 {
+    font-size: 43px;
+    color: #7E0A86; // Special color
+  }
+  .w46, .w47, .w48, .w49, .w50 {
+    font-size: 46px;
+    color: $color-purple;
+  }
+}
