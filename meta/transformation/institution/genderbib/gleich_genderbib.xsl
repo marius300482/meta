@@ -18,7 +18,7 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 
-		<!--<xsl:if test="objektart[text()!='NutzerIn']">--><!--Datensätze dieser Objektart werden nicht umgewandelt-->
+			<xsl:if test="objektart[text()!='NutzerIn']"><!--Datensätze dieser Objektart werden nicht umgewandelt-->
 
 		<!--<xsl:if test="(objektart[text()='Magistra/Magister Gender Studies']) or (objektart[text()='Abschlussarbeit'])
 		or (objektart[text()='Buch']) or (objektart[text()='Zeitschrift'])
@@ -151,45 +151,16 @@ den Datenbestand angezeigt-->
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
 
-<!--title Titelinformationen-->
-				<xsl:if test="Sachtitel[1]">
-					<xsl:apply-templates select="Sachtitel[1]"/>
-					</xsl:if>
+<!--FORMAT-->
 
-<!--author Autorinneninformation-->
-				<xsl:if test="Autorin[1]">
-					<xsl:apply-templates select="Autorin[1]"/>
-					</xsl:if>
-
-<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="Hrsg_[1]">
-					<xsl:apply-templates select="Hrsg_[1]"/>
-					</xsl:if>
-
-<!--series Reiheninformation-->
-				<xsl:if test="Reihentitel">
-					<series>
-						<xsl:value-of select="Reihentitel"/>
-						 </series>
-						</xsl:if>
-				<xsl:if test="Bd--ReihenNr_">
-					<seriesNr>
-						<xsl:value-of select="Bd--ReihenNr_"/>
-						</seriesNr>
-					</xsl:if>
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Buch</xsl:text></format>	
 			
-<!--format Objektartinformationen-->
-				
-				<format>
-					<xsl:text>Buch</xsl:text>
-					</format>
-
-<!--documentType-->	
+	<!--documentType Objektartinformationen-->
 				<xsl:choose>
 					<xsl:when test="not(s__Aufsatz)">
 						<documentType>
@@ -202,71 +173,72 @@ den Datenbestand angezeigt-->
 							</documentType>
 						</xsl:otherwise>
 				</xsl:choose>
-				
-<!--ISBN / ISSN-->
-				<xsl:if test="ISBN !=''">
-					<isbn>
-						<xsl:value-of select="ISBN"/>
-						</isbn>
-					</xsl:if>
-					
-<!--displayDate-->
+				<xsl:apply-templates select="Dok-art"/>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Sachtitel[1]"/>
+
+<!--RESPONSIBLE-->
+
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="Autorin"/>
+
+	<!--editor Herausgeberinneninformationen-->
+				<xsl:apply-templates select="Hrsg_"/>
+
+	<!--series Reiheninformation-->
+				<xsl:apply-templates select="Reihentitel"/>
+				<xsl:apply-templates select="Bd--ReihenNr_"/>
+
+<!--IDENTIFIER-->
+	
+	<!--ISBN / ISSN-->
+				<xsl:apply-templates select="ISBN"/>
+
+<!--PUBLISHING-->
+
+	<!--displayDate-->
 				<displayPublishDate>
 					<xsl:value-of select="Jahr[1]"/>
 					</displayPublishDate>
 
-<!--publishDate Jahresangabe-->
-				<xsl:if test="Jahr[1]">
-					<xsl:apply-templates select="Jahr[1]"/>
-					</xsl:if>
+	<!--publishDate Jahresangabe-->
+				<xsl:apply-templates select="Jahr"/>
 
-<!--placeOfPublication Ortsangabe-->						
-				<xsl:if test="Ort[1]">
-					<xsl:apply-templates select="Ort"/>
-					</xsl:if>
-
-<!--publisher Verlagsangabe-->
-				<xsl:if test="Verlag[1]">
-					<xsl:apply-templates select="Verlag[1]"/>
-					</xsl:if>
+	<!--placeOfPublication Ortsangabe-->						
+				<xsl:apply-templates select="Ort"/>
+	
+	<!--publisher Verlagsangabe-->
+				<xsl:apply-templates select="Verlag"/>
+	
+<!--PHYSICAL INFORMATION-->
 					
-<!--physical Seitenangabe-->
-				<xsl:if test="Seitenzahlen !=''">
-					<physical>
-						<xsl:value-of select="Seitenzahlen"/>
-						</physical>
-					</xsl:if>
+	<!--physical Seitenangabe-->
+				<xsl:apply-templates select="Seitenzahlen"/>
+
+<!--CONTENTRELATED INFORMATION-->
 				
-<!--language Sprachangaben-->
+	<!--language Sprachangaben-->
 				<xsl:choose>
-					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
+					<xsl:when test="Sprache"><xsl:apply-templates select="Sprache"/></xsl:when>
 					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
 					</xsl:choose>
 				
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Deskriptoren1[1]">
-					<xsl:apply-templates select="Deskriptoren1[1]"/>
-					</xsl:if>
-
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Geografika">
-					<subjectGeographic>
-						<xsl:value-of select="Geografika"/>
-						</subjectGeographic>
-					</xsl:if>
-				
-				<xsl:if test="Land">
-					<subjectGeographic>
-						<xsl:value-of select="Land"/>
-						</subjectGeographic>
-					</xsl:if>
+	<!--subjectTopic Deskriptoren-->
+				<xsl:apply-templates select="Deskriptoren1"/>
+	
+	<!--subjectGeographic Ortsangaben-->
+				<xsl:apply-templates select="Geografika"/>
+				<xsl:apply-templates select="Land"/>
+	
+	<!--subjectPerson Personenangaben-->
+				<xsl:apply-templates select="Personen"/>
+	
+<!--OTHER-->
 			
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen">
-					<xsl:apply-templates select="Personen"/>
-					</xsl:if>
-			
-<!--shelfMark Signatur-->
+	<!--shelfMark Signatur-->
 				<xsl:if test="Sign_[1]">
 					<shelfMark>
 						<xsl:value-of select="Sign_[1]"/>
@@ -284,19 +256,6 @@ den Datenbestand angezeigt-->
 						</xsl:for-each>
 					</project>-->
 </xsl:element>
-
-
-<!--<xsl:element name="functions">-->
-	
-<!--loan-->			<!--<xsl:if test="Ausleihe_an[1]">
-					<xsl:apply-templates select="Ausleihe_an[1]"/>
-					</xsl:if>für die METADB wirde diese Funktion nicht benötigt 18.09.14 MZ-->
-
-<!--hierarchyFields--> 	<!--<xsl:apply-templates select="Sign_[1]"/>-->
-
-
-	
-<!--</xsl:element>	-->
 
 <xsl:if test="s__Aufsatz">
 	<xsl:element name="functions">	
@@ -332,108 +291,87 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
+<!--FORMAT-->
 
-<!--title Titelinformationen-->
-				<xsl:if test="Titel[1]">
-					<xsl:apply-templates select="Titel[1]"/>
-					</xsl:if>
-
-<!--author Autorinneninformation-->
-				<xsl:if test="Autorin[1]">
-					<xsl:apply-templates select="Autorin[1]"/>
-					</xsl:if>
-
-<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="Hrsg[1]">
-					<xsl:apply-templates select="Hrsg[1]"/>
-					</xsl:if>
-
-<!--reviewer Gutachterin-->
-				<xsl:if test="Gutachter_in[1]">
-					<reviewer>
-						<xsl:value-of select="Gutachter_in[1]" />
-						</reviewer>
-					</xsl:if>
-
-<!--format Objektartinformationen-->
-				<format>
-					<xsl:text>Hochschulschrift</xsl:text>
-					</format>
-
-<!--documentType Dokumentinformation-->
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+				
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Hochschulschrift</xsl:text></format>
+				
+	<!--documentType Dokumentinformation-->
 				<xsl:if test="objektart[text()='Magistra/Magister Gender Studies']">
 					<documentType>
 						<xsl:text>Magistra/Magister Gender Studies</xsl:text>
 						</documentType>
 					</xsl:if>
-				<xsl:if test="Dok-art">
-					<documentType>
-						<xsl:value-of select="Dok-art[1]"/>
-						</documentType>
+					<xsl:apply-templates select="Dok-art"/>
+				
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Titel"/>
+	
+<!--RESPONSIBLE-->
+
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="Autorin"/>
+
+	<!--editor Herausgeberinneninformationen-->
+				<xsl:apply-templates select="Hrsg"/>
+	
+	<!--reviewer Gutachterin-->
+				<xsl:if test="Gutachter_in">
+					<reviewer>
+						<xsl:value-of select="Gutachter_in" />
+						</reviewer>
 					</xsl:if>
 
-<!--displayDate-->
+<!--IDENTIFIER-->
+
+<!--PUBLISHING-->
+
+	<!--displayDate-->
 				<displayPublishDate>
 					<xsl:value-of select="Jahr[1]"/>
 					</displayPublishDate>
 
-<!--publishDate Jahresangabe-->
-				<xsl:if test="Jahr[1]">
-					<xsl:apply-templates select="Jahr[1]"/>
-					</xsl:if>
+	<!--publishDate Jahresangabe-->
+				<xsl:apply-templates select="Jahr[1]"/>
+	
+	<!--placeOfPublication Ortsangabe-->						
+				<xsl:apply-templates select="Ort"/>
+	
+	<!--publisher Verlagsangabe-->
+				<xsl:apply-templates select="Verlag[1]"/>
+	
+<!--PHYSICAL INFORMATION-->
 
-<!--placeOfPublication Ortsangabe-->						
-				<xsl:if test="Ort[1]">
-					<xsl:apply-templates select="Ort"/>
-					</xsl:if>
+	<!--physical Seitenangabe-->
+				<xsl:apply-templates select="Umfang"/>
+					
+<!--CONTENTRELATED INFORMATION-->
 
-<!--publisher Verlagsangabe-->
-				<xsl:if test="Verlag[1]">
-					<xsl:apply-templates select="Verlag[1]"/>
-					</xsl:if>
-
-<!--physical Seitenangabe-->
-				<xsl:if test="Seitenzahlen !=''">
-					<physical>
-						<xsl:value-of select="Seitenzahlen"/>
-						</physical>
-					</xsl:if>
-
-<!--language Sprachangaben-->
+	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
 					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
 					</xsl:choose>
-				
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Deskriptoren1[1]">
-					<xsl:apply-templates select="Deskriptoren1[1]"/>
-					</xsl:if>
 
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Geografika">
-					<subjectGeographic>
-						<xsl:value-of select="Geografika"/>
-						</subjectGeographic>
-					</xsl:if>
-				
-				<xsl:if test="Land">
-					<subjectGeographic>
-						<xsl:value-of select="Land"/>
-						</subjectGeographic>
-					</xsl:if>
-
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen">
-					<xsl:apply-templates select="Personen"/>
-				</xsl:if>
+	<!--subjectTopic Deskriptoren-->
+				<xsl:apply-templates select="Deskriptoren1[1]"/>
+	
+	<!--subjectGeographic Ortsangaben-->
+				<xsl:apply-templates select="Geografika"/>
+				<xsl:apply-templates select="Land"/>
+	
+	<!--subjectPerson Personenangaben-->
+				<xsl:apply-templates select="Personen"/>
 			
-
-<!--shelfMark Signatur-->
+<!--OTHER-->
+	
+	<!--shelfMark Signatur-->
 				<xsl:if test="Sign_[1]">
 					<shelfMark>
 						<xsl:value-of select="Sign_[1]"/>
@@ -485,107 +423,85 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
+<!--FORMAT-->
 
-<!--title Titelinformationen-->
-				<xsl:choose>
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Artikel</xsl:text></format>
+	
+	<!--documentType-->
+				<documentType><xsl:text>Artikel (Aktenschrank)</xsl:text></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Einzeltitel"/>
+	
+				<!--<xsl:choose>
 					<xsl:when test="Einzeltitel!=''"><xsl:apply-templates select="Einzeltitel[1]"/></xsl:when>
 					<xsl:otherwise><xsl:apply-templates select="Sammeltitel[1]"/></xsl:otherwise>
-					</xsl:choose>
-					
-<!--author Autorinneninformation-->
-				<xsl:if test="Autorin[1]">
-					<xsl:apply-templates select="Autorin[1]"/>
-					</xsl:if>
+					</xsl:choose>-->
 
-<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="Hrsg[1]">
+<!--RESPONSIBLE-->
+				
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="Autorin[1]"/>
+				
+	<!--editor Herausgeberinneninformationen-->
 					<xsl:apply-templates select="Hrsg[1]"/>
-					</xsl:if>
 			
-<!--format Objektartinformationen-->
-				<format>
-					<!--<xsl:text>Artikel (Aktenschrank)</xsl:text>--><!--geänder für METADB vorher genderbib.de 18.09.14 MZ-->
-					<xsl:text>Artikel</xsl:text>
-					</format>
+<!--IDENTIFIER-->
 
-<!--displayDate-->
-				<displayPublishDate>
-					<xsl:value-of select="Jahr[1]"/>
-					</displayPublishDate>
+<!--PUBLISHING-->
 
-<!--publishDate Jahresangabe-->
-				<xsl:if test="Jahr[1]">
-					<xsl:apply-templates select="Jahr[1]"/>
-					</xsl:if>
+	<!--displayDate-->
+				<displayPublishDate><xsl:value-of select="Jahr[1]"/></displayPublishDate>
 
-<!--issue Heft-->
-				<xsl:if test="Heft-Nr_">
-					<issue>
-						<xsl:value-of select="Heft-Nr_"/>
-						</issue>
-					</xsl:if>
+	<!--publishDate Jahresangabe-->
+				<xsl:apply-templates select="Jahr"/>
 
-<!--volume Jahrgang-->
-				<xsl:if test="Jg_">
-					<xsl:for-each select="Jg_">
-						<volume>
-							<xsl:value-of select="."/>
-							</volume>
-						</xsl:for-each>
-					</xsl:if>
+	<!--placeOfPublication Ortsangabe-->						
+				<xsl:apply-templates select="Ort"/>
+				
+	<!--publisher Verlagsangabe-->
+				<xsl:apply-templates select="Verlag"/>
 
-<!--placeOfPublication Ortsangabe-->						
-				<xsl:if test="Ort[1]">
-					<xsl:apply-templates select="Ort"/>
-					</xsl:if>
+<!--PHYSICAL INFORMATION-->
 
-<!--publisher Verlagsangabe-->
-				<xsl:if test="Verlag[1]">
-					<xsl:apply-templates select="Verlag[1]"/>
-					</xsl:if>
+	<!--physical Seitenangabe-->
+				<xsl:apply-templates select="Seitenzahlen" />
 
-<!--physical Seitenangabe-->
-				<xsl:if test="Seitenzahlen !=''">
-					<physical>
-						<xsl:value-of select="Seitenzahlen"/>
-						</physical>
-					</xsl:if>
+<!--CONTENTRELATED INFORMATION-->
 
-<!--language Sprachangaben-->
+	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
 					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
 					</xsl:choose>
+	
+	<!--subjectTopic Deskriptoren-->
+				<xsl:apply-templates select="Deskriptoren1"/>
+	
+	<!--subjectGeographic Ortsangaben-->
+				<xsl:apply-templates select="Geografika"/>
+				<xsl:apply-templates select="Land"/>
+	
+	<!--subjectPerson Personenangaben-->
+				<xsl:apply-templates select="Personen"/>
+	
+<!--DETAILS FOR JOURNAL RELATED CONTENT-->
 				
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Deskriptoren1[1]">
-					<xsl:apply-templates select="Deskriptoren1[1]"/>
-					</xsl:if>
+	<!--issue Heft-->
+				<xsl:apply-templates select="Heft-Nr_"/>
 
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Geografika">
-					<subjectGeographic>
-						<xsl:value-of select="Geografika"/>
-						</subjectGeographic>
-					</xsl:if>
-				
-				<xsl:if test="Land">
-					<subjectGeographic>
-						<xsl:value-of select="Land"/>
-						</subjectGeographic>
-					</xsl:if>
+	<!--volume Jahrgang-->
+				<xsl:apply-templates select="Jg_"/>
 			
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen">
-					<xsl:apply-templates select="Personen"/>
-					</xsl:if>
-			
-
-<!--shelfMark Signatur-->
+<!--OTHER-->
+					
+	<!--shelfMark Signatur-->
 				<xsl:if test="Sign_[1]">
 					<shelfMark>
 						<xsl:value-of select="Sign_[1]"/>
@@ -638,41 +554,50 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
+<!--FORMAT-->
 
-<!--Titelinformationen-->
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Artikel</xsl:text></format>
+	
+	<!--documentType-->
+				<documentType><xsl:text>Online-Artikel</xsl:text></documentType>
+				<xsl:apply-templates select="Dok-art"/>
+
+<!--TITLE-->
+
+	<!--Titelinformationen-->
 				<xsl:choose>
 					<xsl:when test="Titel!=''"><xsl:apply-templates select="Titel[1]"/></xsl:when>
 					<xsl:otherwise><xsl:apply-templates select="Sammeltitel[1]"/></xsl:otherwise>
 					</xsl:choose>
 					
-<!--title Titelinformationen-->
+	<!--title Titelinformationen-->
 				<xsl:if test="Titel[1]">
 					<xsl:apply-templates select="Titel[1]"/>
 					</xsl:if>
 
-<!--author Autorinneninformation-->
-				<xsl:if test="Autorin[1]">
-					<xsl:apply-templates select="Autorin[1]"/>
-					</xsl:if>
-				
-<!--series Reiheninformation-->
-				<xsl:if test="Reihentitel">
-					<series>
-						<xsl:value-of select="Reihentitel"/>
-						</series>
-					</xsl:if>
-			
-<!--format Objektartinformationen-->
-				<format>
-					<!--<xsl:text>Online-Artikel</xsl:text>--><!--vorerst keine Unterscheidung in METADB zwischen Artikel und Online-Artikel 18.09.14 MZ-->
-					<xsl:text>Artikel</xsl:text>
-					</format>
-					
-<!--DisplayDate-->
+<!--RESPONSIBLE-->
+
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="Autorin"/>
+	
+	<!--editor Herausgeberinneninformationen-->
+				<xsl:apply-templates select="Hrsg_[1]"/>
+		
+	<!--series Reiheninformation-->
+				<xsl:apply-templates select="Reihentitel"/>
+
+<!--IDENTIFIER-->
+
+	<!--Digitale_Dokumente-->
+				<xsl:apply-templates select="Digitale_Dokumente"/>
+
+<!--PUBLISHING-->
+	
+	<!--DisplayDate-->
 				<xsl:choose>
 					<xsl:when test="J_">
 						<displayPublishDate>
@@ -685,8 +610,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 							</displayPublishDate>		
 						</xsl:otherwise>
 					</xsl:choose>
-					
-<!--publishDate Jahresangabe-->
+	<!--publishDate Jahresangabe-->
 				<xsl:choose>
 					<xsl:when test="Jahr[1]"><xsl:apply-templates select="Jahr[1]"/></xsl:when>
 					<xsl:otherwise>
@@ -696,79 +620,55 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 						</xsl:otherwise>
 					</xsl:choose>
 
-<!--issue Heft-->
-				<xsl:if test="H">
-					<issue>
-						<xsl:value-of select="H"/>
-						</issue>
-					</xsl:if>
-
-<!--volume Jahrgang-->
-				<xsl:if test="Jg-">
-					<volume>
-						<xsl:value-of select="Jg-"/>
-						</volume>
-					</xsl:if>
-
-
-<!--placeOfPublication Ortsangabe-->						
-				<xsl:if test="Ort[1]">
+	<!--placeOfPublication Ortsangabe-->						
 					<xsl:apply-templates select="Ort"/>
-					</xsl:if>
 
-<!--publisher Verlagsangabe-->
-				<xsl:if test="Verlag[1]">
-					<xsl:apply-templates select="Verlag[1]"/>
-					</xsl:if>
+	<!--publisher Verlagsangabe-->
+				<xsl:apply-templates select="Verlag[1]"/>
+	
+	<!--sourceInfo-->
+				<xsl:apply-templates select="Sammeltitel"/>
+	
+<!--PHYSICAL INFORMATION-->
 
-<!--physical Seitenangabe-->
-				<xsl:if test="Seitenzahlen !=''">
-					<physical>
-						<xsl:value-of select="Seitenzahlen"/>
-						</physical>
-					</xsl:if>
+	<!--physical Seitenangabe-->
+				<xsl:apply-templates select="Seitenzahlen"/>
 
-<!--language Sprachangaben-->
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
 					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
 					</xsl:choose>
-				
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Deskriptoren1[1]">
-					<xsl:apply-templates select="Deskriptoren1[1]"/>
-					</xsl:if>
 
-<!--subjectGeographic Ortsangaben-->
-				
-				<xsl:if test="Geografika">
-					<xsl:apply-templates select="Geografika[1]"/>
-					</xsl:if>
-				
-				<xsl:if test="Land">
-					<subjectGeographic>
-						<xsl:value-of select="Land"/>
-					</subjectGeographic>
-					</xsl:if>
-			
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen">
-					<xsl:apply-templates select="Personen"/>
-					</xsl:if>
+	<!--subjectTopic Deskriptoren-->
+				<xsl:apply-templates select="Deskriptoren1"/>
+	
+	<!--subjectGeographic Ortsangaben-->
+				<xsl:apply-templates select="Geografika"/>
+				<xsl:apply-templates select="Land"/>
+	
+	<!--subjectPerson Personenangaben-->
+				<xsl:apply-templates select="Personen"/>
 
-<!--shelfMark Signatur-->
+<!--DETAILS FOR JOURNAL RELATED CONTENT-->
+
+	<!--issue Heft-->
+				<xsl:apply-templates select="H"/>
+
+	<!--volume Jahrgang-->
+				<xsl:apply-templates select="Jg-"/>
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
 				<xsl:if test="Sign_[1]">
 					<shelfMark>
 						<xsl:value-of select="Sign_[1]"/>
 						</shelfMark>
 					</xsl:if>
 
-<!--url Link zum Dokument-->
-				<xsl:if test="Digitale_Dokumente">
-					<url>
-						<xsl:value-of select="Digitale_Dokumente"/>
-						</url>
-					</xsl:if>
 
 <!--projectMark-->	
 				<!--<project>
@@ -810,90 +710,72 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-					<xsl:text>Video</xsl:text>
-					</typeOfRessource>
+<!--FORMAT-->
 
-<!--title Titelinformationen-->
-				<xsl:if test="Titel[1]">
-					<xsl:apply-templates select="Titel[1]"/>
-					</xsl:if>
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>Video</xsl:text></typeOfRessource>
 
-<!--author Autorinneninformation-->
-				<xsl:if test="Autorin[1]">
-					<xsl:apply-templates select="Autorin[1]"/>
-					</xsl:if>
-
-<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="Hrsg[1]">
-					<xsl:apply-templates select="Hrsg[1]"/>
-					</xsl:if>
-
-<!--format Objektartinformationen-->
-				<format>
-					<xsl:text>Video / DVD</xsl:text>
-					</format>
-
-<!--displayDate-->
-				<xsl:if test="Jahr">
-					<displayPublishDate>
-						<xsl:value-of select="Jahr"/>
-						</displayPublishDate>
-					</xsl:if>	
-
-<!--publishDate Jahresangabe-->
-				<xsl:if test="Jahr[1]">
-					<xsl:apply-templates select="Jahr[1]"/>
-					</xsl:if>
-
-<!--placeOfPublication Ortsangabe-->						
-				<xsl:if test="Ort[1]">
-					<xsl:apply-templates select="Ort"/>
-					</xsl:if>
-
-<!--publisher Verlagsangabe-->
-				<xsl:if test="Verlag[1]">
-					<xsl:apply-templates select="Verlag[1]"/>
-					</xsl:if>
-
-<!--runTime Laufzeit DVD-->
-				<xsl:if test="Laufzeit !=''">
-					<runTime>
-						<xsl:value-of select="Laufzeit"/>
-						</runTime>
-					</xsl:if>
-
-<!--language Sprachangaben-->
-				<xsl:if test="Sprache[1]">
-					<xsl:apply-templates select="Sprache[1]"/>
-					</xsl:if>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Film</xsl:text></format>
 				
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Deskriptoren1[1]">
-					<xsl:apply-templates select="Deskriptoren1[1]"/>
-					</xsl:if>
-
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Geografika">
-					<subjectGeographic>
-						<xsl:value-of select="Geografika"/>
-						</subjectGeographic>
-					</xsl:if>
+	<!--documentType-->
+				<documentType><xsl:text>Video / DVD</xsl:text></documentType>
+				<xsl:apply-templates select="Dok-art"/>
 				
-				<xsl:if test="Land">
-					<subjectGeographic>
-						<xsl:value-of select="Land"/>
-						</subjectGeographic>
-					</xsl:if>
-			
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen">
-					<xsl:apply-templates select="Personen"/>
-					</xsl:if>
-			
+<!--TITLE-->
+		
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Titel"/>
+				
+<!--RESPONSIBLE-->			
+	
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="Autorin[1]"/>
+				
+	<!--editor Herausgeberinneninformationen-->
+				<xsl:apply-templates select="Hrsg_[1]"/>
 
-<!--shelfMark Signatur-->
+<!--IDENTIFIER-->
+
+<!--PUBLISHING-->
+
+	<!--displayDate-->
+				<displayPublishDate>
+					<xsl:value-of select="Jahr[1]"/>
+					</displayPublishDate>
+
+	<!--publishDate Jahresangabe-->
+				<xsl:apply-templates select="Jahr[1]"/>
+
+	<!--placeOfPublication Ortsangabe-->	
+				<xsl:apply-templates select="Ort"/>
+
+	<!--publisher Verlagsangabe-->
+				<xsl:apply-templates select="Verlag[1]"/>
+
+<!--PHYSICAL INFORMATION-->
+		
+	<!--runTime Laufzeit DVD-->
+				<xsl:apply-templates select="Laufzeit"/>
+		
+<!--CONTENTRELATED INFORMATION-->
+				
+	<!--language Sprachangaben-->
+				<xsl:apply-templates select="Sprache[1]"/>
+
+	<!--subjectTopic Deskriptoren-->
+				<xsl:apply-templates select="Deskriptoren1"/>
+	
+	<!--subjectGeographic Ortsangaben-->
+				<xsl:apply-templates select="Geografika"/>
+				<xsl:apply-templates select="Land"/>
+	
+	<!--subjectPerson Personenangaben-->
+				<xsl:apply-templates select="Personen"/>
+
+<!--OTHER-->		
+
+	<!--shelfMark Signatur-->
 				<xsl:if test="Sign_[1]">
 					<shelfMark>
 						<xsl:value-of select="Sign_[1]"/>
@@ -931,50 +813,52 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
+<!--FORMAT-->
 
-<!--title Titelinformationen-->
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Zeitschrift</xsl:text></format>
+
+	<!--documentType Objektartinformationen-->
+				<documentType><xsl:text>Online-Zeitschrift</xsl:text></documentType>
+				<xsl:apply-templates select="Dok-art"/>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
 				<xsl:choose>
-					<xsl:when test="Sachtitel!=''"><xsl:apply-templates select="Sachtitel[1]"/></xsl:when>
-					<xsl:otherwise><xsl:apply-templates select="Zeitschr_-Titel[1]"/></xsl:otherwise>
+					<xsl:when test="Sachtitel!=''">
+						<xsl:apply-templates select="Sachtitel[1]"/>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="Zeitschr_-Titel[1]"/>
+						</xsl:otherwise>
 					</xsl:choose>
 
-<!--author Autorinneninformation-->
-				<xsl:if test="Autorin[1]">
-					<xsl:apply-templates select="Autorin[1]"/>
-					</xsl:if>
+<!--RESPONSIBLE-->
 
-<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="Hrsg[1]">
-					<xsl:apply-templates select="Hrsg[1]"/>
-					</xsl:if>
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="Autorin[1]"/>
 
-<!--entity Körperschaft-->
-				
-<!--series Reiheninformation-->
-				<xsl:if test="Reihentitel">
-					<series>
-						<xsl:value-of select="Reihentitel"/>
-						</series>
-					</xsl:if>
-			
-<!--format Objektartinformationen-->
-				<format>
-					<!--<xsl:text>Online-Zeitschrift</xsl:text>vorerst keine Untescheidung zwischen Online und nicht-Online 18.09.14 MZ-->
-					<xsl:text>Zeitschrift</xsl:text>
-					</format>
-<!--ISBN / ISSN-->
+	<!--editor Herausgeberinneninformationen-->
+				<xsl:apply-templates select="Hrsg_[1]"/>
 
-				<xsl:if test="ISSN">
-					<issn>
-						<xsl:value-of select="ISSN"/>
-						</issn>
-					</xsl:if>
+	<!--series Reiheninformation-->
+				<xsl:apply-templates select="Reihentitel"/>		
 
-<!--displayDate-->
+<!--IDENTIFIER-->
+	
+	<!--ISBN / ISSN-->
+				<xsl:apply-templates select="ISSN"/>
+
+	<!--Digitale_Dokumente-->
+				<xsl:apply-templates select="Digitale_Dokumente"/>
+
+<!--PUBLISHING-->
+	
+	<!--displayDate-->
 				<xsl:choose>
 					<xsl:when test="J_[2]">
 						<displayPublishDate>
@@ -990,7 +874,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 						</xsl:otherwise>
 					</xsl:choose>	
 
-<!--timeSpan Laufzeit / Publishdate-->
+	<!--timeSpan Laufzeit / Publishdate-->
 				<xsl:choose>
 					<xsl:when test="J_[2]">
 						<timeSpan>
@@ -1009,72 +893,48 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 						</xsl:otherwise>
 					</xsl:choose>	
 
-<!--issue Heft-->
-				<xsl:if test="H">
-					<issue>
-						<xsl:value-of select="H"/>
-						</issue>
-					</xsl:if>
-
-<!--volume Jahrgang-->
-				<xsl:if test="Jg-">
-					<xsl:for-each select="Jg-">
-						<volume>
-							<xsl:value-of select="."/>
-							</volume>
-						</xsl:for-each>
-					</xsl:if>
-
-<!--placeOfPublication Ortsangabe-->						
-				<xsl:if test="Ort[1]">
-					<xsl:apply-templates select="Ort"/>
-					</xsl:if>
-
-<!--publisher Verlagsangabe-->
-				<xsl:if test="Verlag[1]">
-					<xsl:apply-templates select="Verlag[1]"/>
-				</xsl:if>
-
-<!--language Sprachangaben-->
-				<xsl:if test="Sprache[1]">
-					<xsl:apply-templates select="Sprache[1]"/>
-				</xsl:if>
+	<!--placeOfPublication Ortsangabe-->						
+				<xsl:apply-templates select="Ort"/>
+				<xsl:apply-templates select="Ersch_-ort"/>
 				
-<!--subjectTopic Deskriptoren-->
-				<xsl:if test="Deskriptoren1[1]">
-					<xsl:apply-templates select="Deskriptoren1[1]"/>
-				</xsl:if>
+	<!--publisher Verlagsangabe-->
+				<xsl:apply-templates select="Verlag"/>
 
-<!--subjectGeographic Ortsangaben-->
-				<xsl:if test="Geografika">
-					<subjectGeographic>
-						<xsl:value-of select="Geografika"/>
-						</subjectGeographic>
-					</xsl:if>
-			
-				<xsl:if test="Land">
-					<subjectGeographic>
-						<xsl:value-of select="Land"/>
-						</subjectGeographic>
-					</xsl:if>
-			
-<!--subjectPerson Personenangaben-->
-				<xsl:if test="Personen">
-					<xsl:apply-templates select="Personen"/>
-					</xsl:if>
+<!--PHYSICAL INFORMATION-->
 
-<!--shelfMark Signatur-->
+	<!--physical Seitenangabe-->
+				<xsl:apply-templates select="Seitenzahlen" />
+
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--language Sprachangaben-->
+				<xsl:apply-templates select="Sprache[1]"/>
+
+	<!--subjectTopic Deskriptoren-->
+				<xsl:apply-templates select="Deskriptoren1"/>
+	
+	<!--subjectGeographic Ortsangaben-->
+				<xsl:apply-templates select="Geografika"/>
+				<xsl:apply-templates select="Land"/>
+	
+	<!--subjectPerson Personenangaben-->
+				<xsl:apply-templates select="Personen"/>
+
+<!--DETAILS FOR JOURNAL RELATED CONTENT-->
+	
+	<!--issue Heft-->
+				<xsl:apply-templates select="H"/>
+
+	<!--volume Jahrgang-->
+				<xsl:apply-templates select="Jg-"/>
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
 				<xsl:if test="Sign_[1]">
 					<shelfMark>
 						<xsl:value-of select="Sign_[1]"/>
 						</shelfMark>
-					</xsl:if>
-
-<!--url Link zum Dokument-->
-				<xsl:if test="Digitale_Dokumente">
-					<url>
-						<xsl:value-of select="Digitale_Dokumente"/>
-						</url>
 					</xsl:if>
 
 </xsl:element>
@@ -1125,26 +985,35 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
+<!--FORMAT-->
 
-<!--title Titelinformationen-->
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Zeitschrift</xsl:text></format>
+
+	<!--documentType Objektartinformationen-->
+				<documentType><xsl:text>Zeitschrift</xsl:text></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
 				<xsl:apply-templates select="Zeitschr_-Titel"/>
 					
-<!--format Objektartinformationen-->
-				<format>
-					<xsl:text>Zeitschrift</xsl:text>
-					</format>
+<!--RESPONSIBLE-->
 
-<!--ISBN / ISSN-->
+<!--IDENTIFIER-->
+				
+	<!--ISBN / ISSN-->
 				<xsl:apply-templates select="ISSN" />
 
-<!--ZDB-ID-->
+	<!--ZDB-ID-->
 				<xsl:apply-templates select="ZDB-ID" />
 
-<!--displayDate-->
+<!--PUBLISHING-->
+
+	<!--displayDate-->
 				<xsl:choose>
 					<xsl:when test="J_[2]">
 						<displayPublishDate>
@@ -1160,7 +1029,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 						</xsl:otherwise>
 					</xsl:choose>	
 
-<!--timeSpan Laufzeit / Publishdate-->
+	<!--timeSpan Laufzeit / Publishdate-->
 				<xsl:choose>
 					<xsl:when test="J_[2]">
 						<timeSpan>
@@ -1179,12 +1048,19 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 						</xsl:otherwise>
 					</xsl:choose>	
 
-<!--placeOfPublication Ortsangabe-->	
+	<!--placeOfPublication Ortsangabe-->	
 					<xsl:apply-templates select="Ersch_-ort[1]"/>
 
-<!--publisher Verlagsangabe-->
+	<!--publisher Verlagsangabe-->
 					<xsl:apply-templates select="Verlag[1]"/>
-					
+
+<!--PHYSICAL INFORMATION-->
+
+<!--CONTENTRELATED INFORMATION-->
+
+<!--DETAILS FOR JOURNAL RELATED CONTENT-->
+
+<!--OTHER-->
 				
 </xsl:element>
 
@@ -1223,58 +1099,60 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 
 <xsl:if test="objektart[text()='Zeitschrift/Heftitel']">
 
-<xsl:variable name="zTitel" select="translate(s__ST[1], translate(.,'0123456789', ''), '')"/>
+<!--Zeitschriftenhefttitel gehören zu einer Zeitschrift. Ein Zeitschriftenhefttitel hat Einzeltitel. 
+Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
+
+<xsl:variable name="zTitel" select="translate(s__Zeitschriftentitel[1], translate(.,'0123456789', ''), '')"/>
+<xsl:variable name="sSachtitel" select="translate(s__ST[1], translate(.,'0123456789', ''), '')"/>
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
+<!--FORMAT-->
 
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+				
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Zeitschrift</xsl:text></format>
+	
+	<!--documentType Objektartinformationen-->
+				<documentType><xsl:text>Zeitschriftenheft</xsl:text></documentType>
 
-<!--title Titelinformationen-->
-					<title>
-						<xsl:value-of select="Sachtitel[1]"/>
-						<xsl:if test="Inhalt-Thema">
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				
+				<title>
+					<xsl:value-of select="Sachtitel[1]"/>
+						<!--<xsl:if test="Inhalt-Thema">
 							<xsl:text> : </xsl:text>
 							<xsl:value-of select="Inhalt-Thema"/>
-							</xsl:if>
-							<xsl:text> </xsl:text>
-						<xsl:if test="Ausgabe">
-							<xsl:text> </xsl:text>
-							<xsl:value-of select="Ausgabe" />
-							</xsl:if>
-						</title>
-					
-					<title_short>
+							</xsl:if>-->
+					</title>
+				
+				<title_short>
 						<xsl:value-of select="Sachtitel"/>
 						</title_short>
-					
-					<xsl:if test="(Inhalt-Thema) or (Ausgabe)">
+				
+				
+					<xsl:if test="Inhalt-Thema">
 						<title_sub>
 							<xsl:value-of select="Inhalt-Thema"/>
-							<xsl:if test="Ausgabe">
+							<!--<xsl:if test="Ausgabe">
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="Ausgabe" />
-							</xsl:if>
+							</xsl:if>-->
 							</title_sub>
 						</xsl:if>
-					
+				
+<!--RESPONSIBLE-->
+	
+	<!--series Reiheninformation-->
+				<xsl:apply-templates select="Reihentitel"/>	
 
-<!--seriesninformation-->	
-				<xsl:if test="Reihentitel!=''">
-					<series>
-						<xsl:value-of select="Reihentitel"/>
-						</series>
-					</xsl:if>
+<!--IDENTIFIER-->
 
-<!--format Objektartinformationen-->
-					<format>
-						<xsl:text>Zeitschriftenheft</xsl:text>
-						</format>
-
-<!--ISBN / ISSN-->
+	<!--ISBN / ISSN-->
 					<xsl:choose>
 						<xsl:when test="ISSN">
 							<xsl:apply-templates select="ISSN" />
@@ -1286,7 +1164,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:when>
 						<xsl:when test="s__ST">
 							<issn>
-								<xsl:value-of select="//datensatz[id=$zTitel]/ISSN"/>
+								<xsl:value-of select="//datensatz[id=$sSachtitel]/ISSN"/>
 								</issn>
 							</xsl:when>
 						<xsl:otherwise>
@@ -1296,7 +1174,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:otherwise>
 						</xsl:choose>
 
-<!--ZDB-ID-->
+	<!--ZDB-ID-->
 					<xsl:choose>
 						<xsl:when test="ZDB-ID">
 							<xsl:apply-templates select="ZDB-ID" />
@@ -1308,7 +1186,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:when>
 						<xsl:when test="s__ST">
 							<zdbId>
-								<xsl:value-of select="//datensatz[id=$zTitel]/ZDB-ID"/>
+								<xsl:value-of select="//datensatz[id=$sSachtitel]/ZDB-ID"/>
 								</zdbId>
 							</xsl:when>
 						<xsl:otherwise>
@@ -1318,7 +1196,9 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:otherwise>
 						</xsl:choose>
 
-<!--publisher Verlagsangabe-->		
+<!--PUBLISHING-->
+
+	<!--publisher Verlagsangabe-->		
 					<xsl:choose>
 						<xsl:when test="Verlag">
 							<xsl:apply-templates select="Verlag[1]" />
@@ -1330,7 +1210,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:when>
 						<xsl:when test="s__ST">
 							<publisher>
-								<xsl:value-of select="//datensatz[id=$zTitel]/Verlag"/>
+								<xsl:value-of select="//datensatz[id=$sSachtitel]/Verlag"/>
 								</publisher>
 							</xsl:when>
 						<xsl:otherwise>
@@ -1340,7 +1220,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:otherwise>
 						</xsl:choose>
 					
-<!--placeOfPublication Ortsangabe-->
+	<!--placeOfPublication Ortsangabe-->
 					<xsl:choose>
 						<xsl:when test="Ersch_-ort">
 							<xsl:apply-templates select="Ersch_-ort" />
@@ -1352,7 +1232,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:when>
 						<xsl:when test="s__ST">
 							<placeOfPublication>
-								<xsl:value-of select="//datensatz[id=$zTitel]/Ersch_-ort"/>
+								<xsl:value-of select="//datensatz[id=$sSachtitel]/Ersch_-ort"/>
 								</placeOfPublication>
 							</xsl:when>
 						<xsl:otherwise>
@@ -1362,7 +1242,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:otherwise>
 						</xsl:choose>
 					
-<!--displayDate-->
+	<!--displayDate-->
 					<xsl:choose>
 						<xsl:when test="J_">
 							<displayPublishDate>
@@ -1377,7 +1257,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							</xsl:when>
 						</xsl:choose>
 						
-<!--publishDate Jahresangabe-->
+	<!--publishDate Jahresangabe-->
 					<xsl:choose>
 						<xsl:when test="J_">
 							<publishDate>
@@ -1391,15 +1271,62 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 								</publishDate>
 							</xsl:when>
 						</xsl:choose>
+		
+	<!--sourceInfo-->
+				<xsl:variable name="zdbid" select="ZDB-ID" />
+				<sourceInfo>
+					<xsl:value-of select="Sachtitel" />
+					<xsl:text> (</xsl:text>
+						<xsl:choose>
+							<xsl:when test="J_">
+								<xsl:value-of select="J_"/>
+								</xsl:when>
+							<xsl:when test="not(J_)">	
+								<xsl:variable name="z-jahr1" select="substring-after($z-ausgabe,'(')"/>
+								<xsl:value-of select="substring-before($z-jahr1,')')"/>
+								</xsl:when>	
+							</xsl:choose>
+					<xsl:text>)</xsl:text>
+						<xsl:choose>
+							<xsl:when test="H">
+								<xsl:value-of select="H[1]" />
+								</xsl:when>
+							<xsl:when test="not(H)">	
+								<xsl:value-of select="substring-after($z-ausgabe,')')"/>
+								</xsl:when>
+							</xsl:choose>
 					
+					
+					</sourceInfo>
+	
+<!--PHYSICAL INFORMATION-->		
 
-<!--issue Heft-->				
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--language Sprachangaben-->
+				<xsl:apply-templates select="Sprache[1]"/>
+
+	<!--subjectTopic Deskriptoren-->
+				<xsl:apply-templates select="Deskriptoren1"/>
+	
+	<!--subjectGeographic Ortsangaben-->
+				<xsl:apply-templates select="Geografika"/>
+				<xsl:apply-templates select="Land"/>
+	
+	<!--subjectPerson Personenangaben-->
+				<xsl:apply-templates select="Personen"/>
+
+<!--DETAILS FOR JOURNAL RELATED CONTENT-->
+
+	<!--issue Heft-->				
 					<xsl:apply-templates select="H[1]" />
 
-<!--volume Jahrgang-->
-					<xsl:apply-templates select="Jg-[1]" />					
+	<!--volume Jahrgang-->
+					<xsl:apply-templates select="Jg-[1]" />	
 
-<!--shelfMark-->
+<!--OTHER-->
+
+	<!--shelfMark-->
 					<xsl:if test="Sign_">
 						<shelfMark>
 							<xsl:value-of select="Sign_" />
@@ -1469,30 +1396,147 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 
 <xsl:element name="dataset">
 
-<!--typeOfRessource-->
-				<typeOfRessource>
-						<xsl:text>text</xsl:text>
-					</typeOfRessource>
-				
-<!--title Titelinformationen-->
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Artikel</xsl:text></format>
+	
+	<!--documentType Objektartinformationen-->
+
+<!--TITLE-->
+			
+	<!--title Titelinformationen-->
 				<xsl:apply-templates select="Einzeltitel[1]"/>
 
-<!--author Autorinneninformation-->
+<!--RESPONSIBLE-->
+
+	<!--author Autorinneninformation-->
 				<xsl:apply-templates select="Autorin[1]"/>
-					
-<!--editor Herausgeberinneninformationen-->
-				<xsl:apply-templates select="Hrsg[1]"/>
+						
+	<!--editor Herausgeberinneninformationen-->
+				<xsl:apply-templates select="Hrsg_[1]"/>
 
-<!--format Objektartinformationen-->
-				<format>
-					<xsl:text>Artikel</xsl:text>
-					</format>
+<!--IDENTIFIER-->
 
-<!--physical Seitenangabe-->
-				<xsl:apply-templates select="Umfang[1]"/>
+	<!--ISBN / ISSN-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/ISSN">
+					<issn>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/ISSN"/>
+						</issn>
+						</xsl:if>
+
+	<!--ZDB-ID-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/ZDB-ID">
+					<zdbId>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/ZDB-ID"/>
+						</zdbId>
+						</xsl:if>
+			
+<!--PUBLISHING-->
+
+	<!--displayDate-->
+				<displayPublishDate>
+					<xsl:choose>
+						<xsl:when test="//datensatz[id=$s_sachtitel]/J_">
+							<xsl:value-of select="//datensatz[id=$s_sachtitel]/J_"/>
+							</xsl:when>
+						<xsl:when test="//datensatz[id=$s_sachtitel]/Jahr">
+							<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jahr"/>
+							</xsl:when>
+						<xsl:when test="not(//datensatz[id=$s_sachtitel]/J_)">
+							<xsl:value-of select="substring-after(substring-before(//datensatz[id=$s_sachtitel]/Ausgabe,')'),'(')" />
+							</xsl:when>
+						</xsl:choose>
+					</displayPublishDate>
+	
+	<!--publishDate Jahresangabe-->
+				<publishDate>
+					<xsl:choose>
+						<xsl:when test="//datensatz[id=$s_sachtitel]/J_">
+							<xsl:value-of select="//datensatz[id=$s_sachtitel]/J_"/>
+							</xsl:when>
+						<xsl:when test="//datensatz[id=$s_sachtitel]/Jahr">
+							<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jahr"/>
+							</xsl:when>
+						<xsl:when test="not(//datensatz[id=$s_sachtitel]/J_)">
+							<xsl:value-of select="substring-after(substring-before(//datensatz[id=$s_sachtitel]/Ausgabe,')'),'(')" />
+							</xsl:when>
+						</xsl:choose>
+					</publishDate>
 				
-<!--Deskriptoren-->		
+	<!--placeOfPublication Ortsangabe-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Ersch_-ort">
+					<placeOfPublication>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Ersch_-ort"/>
+						</placeOfPublication>
+						</xsl:if>
+
+	<!--publisher Verlagsangabe-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Verlag">
+					<publisher>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Verlag"/>
+						</publisher>
+						</xsl:if>
+	
+	<!--sourceInfo-->
+				<sourceInfo>
+					<xsl:value-of select="//datensatz[id=$s_sachtitel]/Sachtitel"/>
+					<xsl:text> (</xsl:text>
+						<xsl:choose>
+							<xsl:when test="//datensatz[id=$s_sachtitel]/J_">
+								<xsl:value-of select="//datensatz[id=$s_sachtitel]/J_" />
+								</xsl:when>
+							<xsl:when test="//datensatz[id=$s_sachtitel]/Jahr">
+								<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jahr" />
+								</xsl:when>
+							<xsl:when test="not(//datensatz[id=$s_sachtitel]/J_)">
+								<xsl:value-of select="substring-after(substring-before(//datensatz[id=$s_sachtitel]/Ausgabe,')'),'(')" />
+								</xsl:when>
+							</xsl:choose>
+						
+					<xsl:text>)</xsl:text>
+					<xsl:value-of select="//datensatz[id=$s_sachtitel]/H" />
+					<xsl:text>, </xsl:text>
+					<xsl:value-of select="Umfang" />
+					</sourceInfo>
+
+<!--PHYSICAL INFORMATION-->
+
+	<!--physical Seitenangabe-->	
+				<xsl:apply-templates select="Umfang[1]"/>
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--Deskriptoren-->		
 				<xsl:apply-templates select="Deskriptoren1"></xsl:apply-templates>	
+
+<!--DETAILS FOR JOURNAL RELATED CONTENT-->
+
+	<!--Heft-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/H">
+					<issue>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/H"/>
+						</issue>
+						</xsl:if>
+
+	<!--Volume-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Jg-">
+					<volume>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jg-"/>
+						</volume>
+						</xsl:if>
+
+<!--OTHER-->
+	
+	<!--shelfMark-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Sign_">
+					<shelfMark>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Sign_"/>
+						</shelfMark>
+						</xsl:if>
 
 </xsl:element>
 
@@ -1558,7 +1602,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 
 
 </xsl:element>
-<!--</xsl:if>-->
+</xsl:if>
 </xsl:template>
 
 
@@ -1569,6 +1613,99 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 
 
 <!--Templates-->
+
+	<xsl:template match="Dok-art">
+		<xsl:for-each select=".">
+			<documentType>
+				<xsl:value-of select="."/>
+				</documentType>
+			</xsl:for-each>
+		</xsl:template>
+
+	<xsl:template match="Sammeltitel">
+		<xsl:choose>
+			
+			<xsl:when test="contains(.,'In: ')">
+				<sourceInfo>
+					<xsl:value-of select="substring-after(.,'In: ')" />
+					<xsl:text> (</xsl:text>
+					<xsl:value-of select="../Jahr[1]" />
+					<xsl:text>)</xsl:text>
+					<xsl:choose>
+					<xsl:when test="../Heft-Nr_">
+						<xsl:value-of select="../Heft-Nr_" />
+						</xsl:when>
+					<xsl:when test="../H">
+						<xsl:value-of select="../H" />
+						</xsl:when>
+					</xsl:choose>
+					<xsl:if test="../Seitenzahlen">
+						<xsl:text>, </xsl:text>
+						<xsl:value-of select="../Seitenzahlen" />
+						</xsl:if>
+					</sourceInfo>
+				</xsl:when>
+			
+			<xsl:otherwise>
+				
+			<sourceInfo>
+				<xsl:value-of select="." />
+				
+				<xsl:choose>
+					<xsl:when test="../Jahr[1]">
+						<xsl:text> (</xsl:text>
+						<xsl:value-of select="../Jahr[1]" />
+						<xsl:text>)</xsl:text>
+						</xsl:when>
+					<xsl:when test="../J_[1]">
+						<xsl:text> (</xsl:text>
+						<xsl:value-of select="../J_[1]" />
+						<xsl:text>)</xsl:text>
+						</xsl:when>
+					</xsl:choose>
+				
+				<xsl:choose>
+					<xsl:when test="../Heft-Nr_">
+						<xsl:value-of select="../Heft-Nr_" />
+						</xsl:when>
+					<xsl:when test="../H">
+						<xsl:value-of select="../H" />
+						</xsl:when>
+					</xsl:choose>
+					<xsl:if test="../Seitenzahlen">
+						<xsl:text>, </xsl:text>
+						<xsl:value-of select="../Seitenzahlen" />
+						</xsl:if>
+			</sourceInfo>
+				
+				</xsl:otherwise>
+			</xsl:choose>
+		
+		</xsl:template>
+
+	<xsl:template match="Digitale_Dokumente">
+		<url>
+			<xsl:value-of select="." />
+			</url>
+		</xsl:template>
+	
+	<xsl:template match="Bd--ReihenNr_">
+		<seriesNr>
+			<xsl:value-of select="." />
+			</seriesNr>
+		</xsl:template>
+	
+	<xsl:template match="Reihentitel">
+		<series>
+			<xsl:value-of select="." />
+			</series>
+		</xsl:template>
+	
+	<xsl:template match="Seitenzahlen">
+		<physical>
+			<xsl:value-of select="." />
+			</physical>
+		</xsl:template>
 	
 	<xsl:template match="Umfang">
 		<physical>
@@ -1576,11 +1713,33 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 			</physical>
 		</xsl:template>
 	
+	<xsl:template match="Laufzeit">
+		<runTime>
+			<xsl:value-of select="." />
+			</runTime>
+		</xsl:template>
+	
+	<xsl:template match="Jg_">
+		<xsl:for-each select=".">
+			<volume>
+				<xsl:value-of select="." />
+				</volume>
+			</xsl:for-each>
+		</xsl:template>
+	
 	<xsl:template match="Jg-">
 		<xsl:for-each select=".">
 			<volume>
 				<xsl:value-of select="." />
 				</volume>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Heft-Nr_">
+		<xsl:for-each select=".">
+			<issue>
+				<xsl:value-of select="."/>
+				</issue>
 			</xsl:for-each>
 		</xsl:template>
 	
@@ -1595,7 +1754,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 	<xsl:template match="ZDB-ID">
 		<xsl:for-each select=".">
 			<zdbId>
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				</zdbId>
 			</xsl:for-each>
 		</xsl:template>
@@ -1603,8 +1762,16 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 	<xsl:template match="ISSN">
 		<xsl:for-each select=".">
 			<issn>
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				</issn>
+			</xsl:for-each>
+		</xsl:template>
+
+	<xsl:template match="ISBN">
+		<xsl:for-each select=".">
+			<isbn>
+				<xsl:value-of select="normalize-space(.)" />
+				</isbn>
 			</xsl:for-each>
 		</xsl:template>
 
@@ -1729,7 +1896,23 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 				</subjectTopic>
 			</xsl:for-each>
 		</xsl:template>
-
+		
+	<xsl:template match="Geografika">
+		<xsl:for-each select=".">
+			<subjectGeographic>
+				<xsl:value-of select="."/>
+				</subjectGeographic>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Land">
+		<xsl:for-each select=".">
+			<subjectGeographic>
+				<xsl:value-of select="."/>
+				</subjectGeographic>
+			</xsl:for-each>
+		</xsl:template>
+	
 <!--Template Personen-->
 	<xsl:template match="Personen[1]">
 			<xsl:for-each select="tokenize(.[1], ';')">
@@ -1740,8 +1923,8 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 		</xsl:template>
 
 <!--Template Autorin-->	
-	<xsl:template match="Autorin[1]">
-		<xsl:for-each select="tokenize(.[1], ';')">
+	<xsl:template match="Autorin">
+		<xsl:for-each select="tokenize(., ';')">
 			<author>
 				<xsl:value-of select="normalize-space(.)"/>
 				</author>
@@ -1749,8 +1932,8 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 		</xsl:template>
 
 <!--Template Herausgeberinnen-->
-	<xsl:template match="Hrsg_[1]">
-		<xsl:for-each select="tokenize(.[1], ';')">
+	<xsl:template match="Hrsg_">
+		<xsl:for-each select="tokenize(., ';')">
 			<editor>
 				<xsl:value-of select="normalize-space(.)"/>
 				</editor>
@@ -1859,25 +2042,25 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 		</xsl:template>
 
 <!--Template Sachtitel-->
-	<xsl:template match="Sachtitel[1]">
+	<xsl:template match="Sachtitel">
 		<xsl:choose>
-			<xsl:when test="contains(.[1], ':')">
+			<xsl:when test="contains(., ':')">
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="."/>
 					</title>
 				<title_short>
-					<xsl:value-of select="normalize-space(substring-before(.[1], ':'))"/>
+					<xsl:value-of select="normalize-space(substring-before(., ':'))"/>
 					</title_short>
 				<title_sub>
-					<xsl:value-of select="normalize-space(substring-after(.[1], ':'))"/>
+					<xsl:value-of select="normalize-space(substring-after(., ':'))"/>
 					</title_sub>
 			</xsl:when>
 			<xsl:otherwise>
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="."/>
 					</title>
 				<title_short>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="."/>
 					</title_short>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -2020,7 +2203,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 		</xsl:template>
 	
 <!--Template Sprachangabe-->
-	<xsl:template match="Sprache[1]">
+	<xsl:template match="Sprache">
 		<xsl:choose>
 			<xsl:when test="not(.)">
 				<language>
@@ -2044,15 +2227,6 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 					</xsl:choose>
 				</xsl:when>
 			</xsl:choose>
-		</xsl:template>
-
-<!--Template Geografika-->
-	<xsl:template match="Geografika">
-		<xsl:for-each select="tokenize(.[1], ';')">
-			<subjectGeographic>
-				<xsl:value-of select="normalize-space(.)"/>
-				</subjectGeographic>
-			</xsl:for-each>
 		</xsl:template>
 
 <!--Template Hierarchy-->
