@@ -54,7 +54,7 @@ class Institution
     }
 
     /**
-     * Returns all details about an institution, if a corresponding
+     * Return all details about an institution, if a corresponding
      * file exists in the file system.
      *
      * @return array
@@ -75,16 +75,20 @@ class Institution
             }
             catch (Exception\RuntimeException $error)
             {
-                // TODO log errors
+                // TODO log error?
             }
+        }
+        else
+        {
+            // TODO log error?
         }
 
         return $details;
     }
 
     /**
-     * Returns the file name for a given institution id.
-     * Removed all chars which can cause security problems.
+     * Return the file name for a given institution id and
+     * remove all chars which can cause (security) problems
      *
      * @return string
      */
