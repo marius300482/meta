@@ -2,42 +2,16 @@
 /**
  * Hierarchy Tree Data Source (Solr)
  *
- * PHP version 5
- *
- * Copyright (C) Villanova University 2010.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * @category VuFind2
- * @package  HierarchyTree_DataSource
- * @author   Luke O'Sullivan <l.osullivan@swansea.ac.uk>
- * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
 namespace Ida\Hierarchy\TreeDataSource;
-use VuFindSearch\ParamBag;use VuFindSearch\Query\Query;
+use VuFindSearch\ParamBag;
+use VuFindSearch\Query\Query;
 
 /**
  * Hierarchy Tree Data Source (Solr)
  *
  * This is a base helper class for producing hierarchy Trees.
  *
- * @category VuFind2
- * @package  HierarchyTree_DataSource
- * @author   Luke O'Sullivan <l.osullivan@swansea.ac.uk>
- * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     http://vufind.org/wiki/vufind2:hierarchy_components Wiki
  */
 class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
 {
@@ -47,7 +21,7 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
      *
      * Build the XML file from the Solr fields
      *
-     * @param string $id      Hierarchy ID.
+     * @param string $id Hierarchy ID.
      * @param array  $options Additional options for XML generation.  (Currently one
      * option is supported: 'refresh' may be set to true to bypass caching).
      *
@@ -55,25 +29,27 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
      */
     public function getXML($id, $options = array()) {
 
-        $recordID = $options['recordID'];//TODO: anders uebergeben
-        //subtree
+        // Get the next hierarchy level (one sub level)
         $loadSubtree = isset($options['subtree']) && true === $options['subtree'];
-//        $loadSubtree = !empty($recordID);
 
         if (false === $loadSubtree) {
 
+            // Lookup by record ID
             $result = $this->searchService->retrieve('Solr', $id);
-//            $result = $this->searchService->retrieve('Solr', $recordID);
 
             if (0 === $result->getTotal()) {
+
+                // Record was not found (error)
                 return '';
             }
         }
+        // Load sub-tree
         else {
 
             $xml = $this->getChildren($id);
 
             if (0 === strlen($xml)) {
+
                 return '';
             }
         }
@@ -85,6 +61,7 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
 
                 $result = $result->first();
 
+                // Traverse hierarchy tree upwards
                 $xml = $this->_getXMLParents($result, '');
             }
 
@@ -99,9 +76,12 @@ ROOT;
     }
 
     /**
-     * @param $record
-     * @param $treeXML
-     * @return mixed|string
+     * Build the hierarchy tree XML of a record's parents.
+     *
+     * @author dku <dku@outermedia.de>
+     * @param VuFind\\RecordDriver $record hierarchy tree record
+     * @param string $treeXML the record's descendant's XML (optional)
+     * @return string the record's parents' XML
      */
     protected function _getXMLParents($record, $treeXML) {
 
@@ -121,17 +101,12 @@ ROOT;
             // Traverse tree upwards
             if (0 < $result->getTotal()) {
 
-                $repl=0<strlen($treeXML);
-                $children = $this->getChildren($parentId,$repl?$record->getUniqueID():'28394jsadkasdsdlksa8d9823');
-//                $children = $this->getChildren($parentId,$record->getUniqueID());
+                // Build the record's sibling's tree level (XML)
+                $children = $this->getChildren($parentId, $record->getUniqueID());
 
-                if ($repl) {
-                    $treeXML = str_replace('%%%children%%%', $treeXML, $children);
-                }
-                else {
-                    $treeXML = $children;
-                }
-//                return str_replace('%%%children%%%', $this->_getXMLParents($result->first(), $treeXML), $children);
+                // Append former descendant's XML to this tree level (if applicable)
+                $treeXML = str_replace('%%%children%%%', $treeXML, $children);
+
                 return $this->_getXMLParents($result->first(), $treeXML);
             }
             // No parents in tree hierarchy
@@ -148,7 +123,7 @@ ROOT;
     /**
      * Generate XML code for a specific record (in the hierarchy tree).
      *
-     * @param $record the Solr record
+     * @param VuFind\\RecordDriver $record the hierarchy tree record
      * @param boolean $hasChildren if the record is parent of another record (in the hierarchy tree)
      * @return string the hierarchy tree's record XML code
      */

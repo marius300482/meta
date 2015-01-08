@@ -204,8 +204,6 @@ $(document).ready(function()
         });
 
         var jsTreeNode = $(".jsTreeID:input[value='"+recordID+"']").parent();
-        //edit:dku
-        console.log(recordID,'curr_rec=',jsTreeNode,$("#hierarchyTree"));
         // Open Nodes to Current Path
         jsTreeNode.parents("li").removeClass("jstree-closed").addClass("jstree-open");
         // Initially Open Current node too
@@ -228,8 +226,8 @@ $(document).ready(function()
     .jstree({
         "xml_data" : {
             "ajax" : {
+                // Custom "URL" function
                 'url': function (node) {
-                    //console.log('nde=',node);
 
                     var hid = hierarchyID,
                         rid = recordID,
@@ -237,14 +235,11 @@ $(document).ready(function()
 
                     // Expand subtree with children not rendered?
                     if (-1 !== node) {
-                        //console.log('id=',node.children('input[type=hidden]').val());
 
                         // Extract hierarchy id from hidden field
                         hid = node.children('input[type=hidden]').val();
-                        //hid = 'INachschlaggenderbib';
                         params.subtree = 'true';
                     }
-                    console.log('hid='+hid,'rid='+rid,params);
 
                     params.hierarchyID = hid;
                     params.id = rid;
@@ -253,7 +248,6 @@ $(document).ready(function()
 
                     return path + '/Hierarchy/GetTree?' + $.param(params);
                 },
-                //"url" : path + '/Hierarchy/GetTree?' + $.param({'hierarchyID': hierarchyID, 'id': recordID, 'context': context, mode: "Tree"}),
                 success: function(data)
                 {
                     // Necessary as data is a string
