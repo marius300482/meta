@@ -151,24 +151,34 @@ XML;
         return $xml;
     }
 
-    // hinweis: nur eine h-ebene
-    protected function getChildren($parentID,$hookId=false) {
+    /**
+     * Get the immediate children's XML of a hierarchy tree record.
+     *
+     * @param string $parentID to get the children of
+     * @param string $hookId the id of the record to insert further lower tree levels
+     * @return string the children's XML
+     * @throws \Exception
+     */
+    protected function getChildren($parentID, $hookId = null) {
 
-//        var_dump(get_class($this->searchService));exit;
+        // Lookup children by parent ID
         $query = new Query(
             'hierarchy_parent_id:"' . addcslashes($parentID, '"') . '"'
         );
+
         $results = $this->searchService->search(
             'Solr', $query, 0, 10000, new ParamBag(array('fq' => $this->filters))
         );
+
         if ($results->getTotal() < 1) {
             return '';
         }
+
         $xml = array();
         $sorting = $this->getHierarchyDriver()->treeSorting();
 
         foreach ($results->getRecords() as $current) {
-//            ++$count;
+
             if ($sorting) {
                 $positions = $current->getHierarchyPositionsInParents();
                 if (isset($positions[$parentID])) {
@@ -181,19 +191,19 @@ XML;
             $id = htmlspecialchars($uid);
             $title = htmlspecialchars($current->getTitle());
             $isCollection = $current->isCollection() ? "true" : "false";
-//            $hasChildren='false';
             $hasChildren = $this->_recordHasChildren($current) ? 'true' : 'false';
-            $ins2=$uid===$hookId?'%%%children%%%':'';
+            // Placeholder for further children levels (see calling function)
+            $replace= ($uid === $hookId) ? '%%%children%%%' : '';
+
             $xmlNode = <<<XML
 <item id="$id" hasChildren="$hasChildren" isCollection="$isCollection">
     <content>
         <name>$title</name>
     </content>
-    $ins2
+    $replace
 </item>
 XML;
 
-//            array_push($xml, array(0, $xmlNode));
             array_push($xml, array((isset($sequence) ? $sequence : 0), $xmlNode));
         }
 
@@ -202,13 +212,22 @@ XML;
         }
 
         $xmlReturnString = '';
+
         foreach ($xml as $node) {
             $xmlReturnString .= $node[1];
         }
+
         return $xmlReturnString;
     }
+
+    /**
+     * Check whether a hierarchy tree record has children.
+     *
+     * @author dku <dku@outermedia.de>
+     * @param VuFind\\RecordDriver $record the hierarchy tree record to check
+     * @return bool record has children
+     */
     protected function _recordHasChildren($record) {
-//        var_dump(gettype($record));exit;
 
         if ('object' === gettype($record) && method_exists($record, 'getUniqueID')) {
             $record = $record->getUniqueID();
@@ -219,111 +238,4 @@ XML;
 
         return 0 < $this->searchService->search('Solr', $query, 0, 10000, $params)->getTotal();
     }
-    /**
-     * Get Solr Children
-     *
-     * @param string $parentID The starting point for the current recursion
-     * (equivlent to Solr field hierarchy_parent_id)
-     * @param string &$count   The total count of items in the tree
-     * before this recursion
-     *
-     * @return string
-     */
-    /*
-    protected function getChildrenVuFind($parentID, &$count)
-    {
-        $query = new Query(
-            'hierarchy_parent_id:"' . addcslashes($parentID, '"') . '"'
-        );
-        $results = $this->searchService->search(
-            'Solr', $query, 0, 10000, new ParamBag(array('fq' => $this->filters))
-        );
-        if ($results->getTotal() < 1) {
-            return '';
-        }
-        $xml = array();
-        $sorting = $this->getHierarchyDriver()->treeSorting();
-
-        foreach ($results->getRecords() as $current) {
-            ++$count;
-            if ($sorting) {
-                $positions = $current->getHierarchyPositionsInParents();
-                if (isset($positions[$parentID])) {
-                    $sequence = $positions[$parentID];
-                }
-            }
-
-            $this->debug("$parentID: " . $current->getUniqueID());
-            $xmlNode = '';
-            $isCollection = $current->isCollection() ? "true" : "false";
-            $xmlNode .= '<item id="' . htmlspecialchars($current->getUniqueID()) .
-                '" isCollection="' . $isCollection . '"><content><name>' .
-                htmlspecialchars($current->getTitle()) . '</name></content>';
-            $xmlNode .= $this->getChildrenVuFind($current->getUniqueID(), $count);
-            $xmlNode .= '</item>';
-            array_push($xml, array((isset($sequence) ? $sequence : 0), $xmlNode));
-        }
-
-        if ($sorting) {
-            $this->sortNodes($xml, 0);
-        }
-
-        $xmlReturnString = '';
-        foreach ($xml as $node) {
-            $xmlReturnString .= $node[1];
-        }
-        return $xmlReturnString;
-    }
-    */
-
-    // TODO delete
-    // orig: VuFind/Hierarchy/TreeDataSource/Solr::getChildren(2)
-    /*
-    protected function getChildrenVuFind($parentID, &$count)
-    {
-
-        $query = new Query(
-            'hierarchy_parent_id:"' . addcslashes($parentID, '"') . '"'
-        );
-        $results = $this->searchService->search(
-            'Solr', $query, 0, 10000, new ParamBag(array('fq' => $this->filters))
-        );
-        if ($results->getTotal() < 1) {
-            return '';
-        }
-        $xml = array();
-        $sorting = $this->getHierarchyDriver()->treeSorting();
-
-        foreach ($results->getRecords() as $current) {
-            ++$count;
-            if ($sorting) {
-                $positions = $current->getHierarchyPositionsInParents();
-                if (isset($positions[$parentID])) {
-                    $sequence = $positions[$parentID];
-                }
-            }
-
-            $this->debug("$parentID: " . $current->getUniqueID());
-            $xmlNode = '';
-            $isCollection = $current->isCollection() ? "true" : "false";
-            $xmlNode .= '<item id="' . htmlspecialchars($current->getUniqueID()) .
-                '" isCollection="' . $isCollection . '"><content><name>' .
-                htmlspecialchars($current->getTitle()) . '</name></content>';
-            // 2edit:dku
-            $xmlNode .= $this->getChildrenVuFind($current->getUniqueID(), $count);
-            $xmlNode .= '</item>';
-            array_push($xml, array((isset($sequence) ? $sequence : 0), $xmlNode));
-        }
-
-        if ($sorting) {
-            $this->sortNodes($xml, 0);
-        }
-
-        $xmlReturnString = '';
-        foreach ($xml as $node) {
-            $xmlReturnString .= $node[1];
-        }
-        return $xmlReturnString;
-    }
-    */
 }
