@@ -54,7 +54,26 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
             }
         }
 
-        if (false) {} // TODO: Caching
+        // Caching
+        $cacheRead = isset($options['refresh']) ? !$options['refresh'] : true;
+        $cacheTime = $this->getHierarchyDriver()->getTreeCacheTime();
+        $cacheFile = $this->cacheDir;
+
+        if (null !== $cacheFile) {
+
+            $cacheFile .= '/';
+            $cacheFile .= (false === $loadSubtree) ? 'hierarchyTree' : 'hierarchySubTree';
+            $cacheFile .= '_' . urlencode($id) . '.xml';
+        }
+
+        $cacheWrite = $cacheRead && null !== $cacheFile;
+
+        // Read (sub) tree from cache?
+        if (true === $cacheRead && null !== $cacheFile && true === file_exists($cacheFile)
+            && ($cacheTime < 0 || filemtime($cacheFile) > (time() - $cacheTime))) {
+
+            $xml = file_get_contents($cacheFile);
+        }
         else {
 
             if (false === $loadSubtree) {
@@ -70,6 +89,16 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
     $xml
 </root>
 ROOT;
+
+            // Write (sub) tree to cache
+            if ($cacheWrite) {
+
+                if (!file_exists($this->cacheDir)) {
+                    mkdir($this->cacheDir);
+                }
+
+                file_put_contents($cacheFile, $xml);
+            }
         }
 
         return $xml;
