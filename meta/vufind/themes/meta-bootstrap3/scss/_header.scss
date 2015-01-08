@@ -116,6 +116,9 @@ header {
           margin-right: 5px;
           width: 48%;
         }
+        .tt-dropdown-menu {
+          margin-top: -10px;
+        }
         #searchForm_lookfor {
           border-radius: 0;
           background-color: $color-white !important; // Overwrite "style" attribute
@@ -197,6 +200,15 @@ header {
       content: "+";
       font-weight: 700;
       font-size: 20px;
+    }
+    input.reset-form-button, input.reset-form-button:hover, input.reset-form-button:active {
+      border: 0 none;
+      background: transparent none;
+      color: $color-purple;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 30px;
+      height: 30px;
     }
     @media (max-width: $device-xs-max-width) {
       .col-xs-12, .col-xs-11, .col-xs-1, .col-sm-6 {

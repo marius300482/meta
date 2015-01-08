@@ -2,14 +2,21 @@
 #record {
   font-weight: 300;
   h1 {
-    font-family: "Droid", serif;
+    font-family: "Droid Serif", serif;
     font-weight: 700;
     margin: 5px 0 20px 0;
     font-size: 28px;
+    @media (max-width: $device-xs-max-width) {
+      font-size: 18px;
+    }
   }
   a {
     color: $color-purple;
     font-weight: normal;
+  }
+  img.recordcover {
+    max-width: inherit;
+    width: 100%;
   }
   .citation {
     th {
@@ -31,11 +38,25 @@
 // Detail view table with details
 .detail-view-detail-row {
   margin-bottom: 10px;
+  @media (max-width: $device-xs-max-width) {
+    margin-bottom: 0;
+  }
   h4 {
     border-bottom: 5px solid $color-grey-border;
     padding-bottom: 10px;
     font-weight: 500;
     margin-top: 20px;
+    @media (max-width: $device-xs-max-width) {
+      cursor: pointer;
+      &:after {
+        font-family: icomoon;
+        float: right;
+        content: "\e605";
+      }
+      &.open:after {
+        content: "\e606";
+      }
+    }
   }
   // The lover institution section
   .institution {
@@ -49,10 +70,6 @@
     }
     .opening-hours {
       margin-top: 20px;
-    }
-    // Google map
-    #map-canvas img {
-      max-width: inherit;
     }
   }
   // The lower description table
@@ -74,6 +91,11 @@
   }
 }
 
+// Google map
+#map-canvas img {
+  max-width: inherit;
+}
+
 // The lower hierarchy tree
 #treeSelector {
   display: none;
@@ -85,7 +107,10 @@
   #treeSearch {
     border-bottom: 1px solid $color-grey-border;
     padding: 20px 10px;
-    margin-bottom: 20px;
+    margin: 0 -10px 20px -10px;
+    width: 100%;
+    display: table;
+    box-sizing: content-box !important; // overwrite global style
   }
   .btn[type="submit"] {
     font-weight: 700;
@@ -93,7 +118,7 @@
   }
   #treeSearchText {
     display: inline;
-    width: calc(100% - 200px);
+    width: 100%;
   }
   #treeSearchType {
     display: inline;
@@ -168,17 +193,25 @@
   }
 }
 
-// Sidebar
+//Sidebar
 .detail-view-sidebar {
-  .list-group-item, .list-group-item:hover {
-    padding: 10px 0;
-    background-color: transparent;
-    font-weight: 300;
-    &:first-child {
-      border-top-width: 4px;
+  @media (max-width: $device-xs-max-width) {
+    h4 {
+      cursor: pointer;
+      margin-top: 20px;
+      padding-bottom: 10px;
+      border-bottom: 5px solid #d6d3de;
+      &:after {
+        font-family: icomoon;
+        float: right;
+        content: "\e605";
+      }
+      &.open:after {
+        content: "\e606";
+      }
     }
-    a {
-      font-size: 14px;
+    .list-group-item:first-child, .list-group-item:hover:first-child {
+      border-top-width: 0;
     }
   }
 }

@@ -22,30 +22,39 @@ class Institution
     /**
      * Identifier of an institution
      *
-     * @var null|String
+     * @var String
      */
     private $institutionId;
 
     /**
+     * Language identifier
+     *
+     * @var String
+     */
+    private $language;
+
+    /**
      * Local path where the institutions are stored
      *
-     * @var string
+     * @var String
      */
     private $institutionDir;
 
     /**
      * Constructor
      *
-     * @param $institutionId Identifier of an institution
+     * @param String $institutionId Identifier of an institution
+     * @param String $language Language identifier
      */
-    public function __construct($institutionId)
+    public function __construct($institutionId, $language)
     {
         $this->institutionId = $institutionId;
+        $this->language = $language;
         $this->institutionDir = APPLICATION_PATH . "/module/Ida/data/institutions/";
     }
 
     /**
-     * Returns all details about an institution, if a corresponding
+     * Return all details about an institution, if a corresponding
      * file exists in the file system.
      *
      * @return array
@@ -66,21 +75,25 @@ class Institution
             }
             catch (Exception\RuntimeException $error)
             {
-                // TODO log errors
+                // TODO log error?
             }
+        }
+        else
+        {
+            // TODO log error?
         }
 
         return $details;
     }
 
     /**
-     * Returns the file name for a given institution id.
-     * Removed all chars which can cause security problems.
+     * Return the file name for a given institution id and
+     * remove all chars which can cause (security) problems
      *
      * @return string
      */
     private function getInstitutionFileName()
     {
-        return preg_replace("/[^0-9a-zA-Z_-öäüßÄÖÜ]/", "", $this->institutionId) . ".ini";
+        return preg_replace("/[^0-9a-zA-Z_-öäüßÄÖÜ]/", "", $this->institutionId) . "_" . $this->language . ".ini";
     }
 }

@@ -12,6 +12,8 @@
     <h2><?=$this->transEsc('Choose a Category to Begin Browsing') ?>:</h2>
   <? endif; ?>
 
+  <div id="browse-go-back"><?= $this->transEsc("Go back") ?></div>
+
   <ul class="browse list-group col-sm-3<? if (!empty($this->categoryList)): ?> hidden-xs<? endif ?>" id="list1">
   <? foreach ($this->browseOptions as $item=>$currentOption): ?>
     <a href="<?=$this->url('browse-' . strtolower($currentOption['action'])); ?>" class="list-group-item<? if($currentOption['action'] == $this->currentAction): ?> active<? endif; ?>">
@@ -84,3 +86,26 @@
   <? endif; ?>
 
 </div>
+<script>
+  // Show a "back" button in the mobile view, if necessary
+  $(document).ready(function() {
+    function setButtonVisibility () {
+      var goBackLink = $("#browse-go-back"),
+          breakpoint = 768; // px
+      if ($("#browse-home ul:first").hasClass("hidden-xs") && $(window).width() < breakpoint) {
+        goBackLink.removeClass("hidden");
+      } else {
+        goBackLink.addClass("hidden");
+      }
+    }
+    $(window).on("load resize", function () {
+      setButtonVisibility();
+    });
+    $("#browse-go-back").click(function () {
+      $("#browse-home ul:last").remove();
+      $("#browse-home ul:last").removeClass("hidden-xs");
+      $("#browse-home ul:last .list-group-item").removeClass("active");
+      setButtonVisibility();
+    });
+  });
+</script>
