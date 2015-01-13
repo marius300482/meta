@@ -424,7 +424,7 @@
 				
 			
 	<!--Anreicherung Artikel-->
-			<xsl:if test="dataset/format='Artikel'">
+			<!--<xsl:if test="dataset/format='Artikel'">
 			<xsl:variable name="test" select="functions/hierarchyFields/hierarchy_parent_id" />
 			
 				<xsl:if test="//record[@id=$test]/dataset/displayPublishDate">
@@ -462,12 +462,12 @@
 						</xsl:when>
 					<xsl:otherwise>
 						<field name="language">
-							<xsl:text>o.A.</xsl:text>
+							<xsl:text>o. A.</xsl:text>
 							</field>
 						</xsl:otherwise>	
 						</xsl:choose>
 						</xsl:if>
-				</xsl:if>
+				</xsl:if>-->
 				
 	
 	
