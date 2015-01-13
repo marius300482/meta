@@ -223,7 +223,7 @@ den Datenbestand angezeigt-->
 	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache"><xsl:apply-templates select="Sprache"/></xsl:when>
-					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+					<xsl:otherwise><language>o. A.</language></xsl:otherwise>
 					</xsl:choose>
 				
 	<!--subjectTopic Deskriptoren-->
@@ -356,7 +356,7 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
-					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+					<xsl:otherwise><language>o. A.</language></xsl:otherwise>
 					</xsl:choose>
 
 	<!--subjectTopic Deskriptoren-->
@@ -478,7 +478,7 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
-					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+					<xsl:otherwise><language>o. A.</language></xsl:otherwise>
 					</xsl:choose>
 	
 	<!--subjectTopic Deskriptoren-->
@@ -568,16 +568,21 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 
 <!--TITLE-->
 
-	<!--Titelinformationen-->
+	<!--Titelinformationen-->			
 				<xsl:choose>
-					<xsl:when test="Titel!=''"><xsl:apply-templates select="Titel[1]"/></xsl:when>
-					<xsl:otherwise><xsl:apply-templates select="Sammeltitel[1]"/></xsl:otherwise>
+					<xsl:when test="Titel">
+						<xsl:apply-templates select="Titel[1]"/></xsl:when>
+					<xsl:when test="Sammeltitel">
+						<title>
+							<xsl:value-of select="Sammeltitel" />
+							</title>
+						</xsl:when>
 					</xsl:choose>
 					
 	<!--title Titelinformationen-->
-				<xsl:if test="Titel[1]">
+				<!--<xsl:if test="Titel[1]">
 					<xsl:apply-templates select="Titel[1]"/>
-					</xsl:if>
+					</xsl:if>-->
 
 <!--RESPONSIBLE-->
 
@@ -639,7 +644,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
-					<xsl:otherwise><language>o.A.</language></xsl:otherwise>
+					<xsl:otherwise><language>o. A.</language></xsl:otherwise>
 					</xsl:choose>
 
 	<!--subjectTopic Deskriptoren-->
@@ -1169,7 +1174,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							</xsl:when>
 						<xsl:otherwise>
 							<issn>
-								<xsl:text>o.A.</xsl:text>
+								<xsl:text>o. A.</xsl:text>
 								</issn>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -1191,7 +1196,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							</xsl:when>
 						<xsl:otherwise>
 							<zdbId>
-								<xsl:text>o.A.</xsl:text>
+								<xsl:text>o. A.</xsl:text>
 								</zdbId>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -1215,7 +1220,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							</xsl:when>
 						<xsl:otherwise>
 							<publisher>
-								<xsl:text>o.A.</xsl:text>
+								<xsl:text>o. A.</xsl:text>
 								</publisher>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -1237,7 +1242,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							</xsl:when>
 						<xsl:otherwise>
 							<placeOfPublication>
-								<xsl:text>o.A.</xsl:text>
+								<xsl:text>o. A.</xsl:text>
 								</placeOfPublication>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -2071,7 +2076,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<xsl:choose>
 			<xsl:when test="(not(.)) or (contains(.[1], 'o.A.'))">
 				<placeOfPublication>
-					<xsl:text>o.A.</xsl:text>
+					<xsl:text>o. A.</xsl:text>
 					</placeOfPublication>
 				</xsl:when>
 			<xsl:when test=".[1]">
@@ -2098,7 +2103,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<xsl:choose>
 			<xsl:when test="(not(.)) or (contains(.[1], 'o.A.'))">
 				<placeOfPublication>
-					<xsl:text>o.A.</xsl:text>
+					<xsl:text>o. A.</xsl:text>
 					</placeOfPublication>
 				</xsl:when>
 			<xsl:when test=".[1]">
@@ -2125,7 +2130,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<xsl:choose>
 			<xsl:when test="(not(.)) or (contains(., 'o.A.'))">
 				<publisher>
-					<xsl:text>o.A.</xsl:text>
+					<xsl:text>o. A.</xsl:text>
 					</publisher>
 			</xsl:when>
 			<xsl:when test=".[1]">
@@ -2161,7 +2166,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					</xsl:when>
 				<xsl:when test="Jahr[1]=''">
 					<publishDate>
-						<xsl:text>o.A.</xsl:text>
+						<xsl:text>o. A.</xsl:text>
 						</publishDate>
 					</xsl:when>
 				<xsl:when test="(contains(.[1], '[')) or (contains(.[1], '(')) or (contains(.[1], 'ca'))">
@@ -2171,7 +2176,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					</xsl:when>
 				<xsl:when test="matches(.[1],'[a-z]')">
 					<publishDate>
-						<xsl:text>o.A.</xsl:text>
+						<xsl:text>o. A.</xsl:text>
 						</publishDate>
 					</xsl:when>
 				<xsl:when test="(matches(.[1],'/'))">
@@ -2207,7 +2212,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<xsl:choose>
 			<xsl:when test="not(.)">
 				<language>
-					<xsl:text>o.A.</xsl:text>
+					<xsl:text>o. A.</xsl:text>
 					</language>
 				</xsl:when>
 			<xsl:when test=".[1]">
