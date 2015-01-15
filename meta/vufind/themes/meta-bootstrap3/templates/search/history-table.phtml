@@ -25,7 +25,7 @@
           <? endforeach; ?>
         <? endforeach; ?>
       </td>
-      <td><?=$this->escapeHtml($this->localizedNumber($info->getResultTotal()))?></td>
+      <td><?=$this->escapeHtml($this->number_format($info->getResultTotal()))?></td>
 <?php /* PHE not required
       <td>
         <? if ($this->showSaved): ?>
