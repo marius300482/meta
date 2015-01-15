@@ -18,8 +18,11 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 
-			<xsl:if test="objektart[text()!='NutzerIn']"><!--Datensätze dieser Objektart werden nicht umgewandelt-->
-
+			<!--<xsl:if test="objektart[text()!='NutzerIn']">--><!--Datensätze dieser Objektart werden nicht umgewandelt-->
+			<!--<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">-->
+			<!--xsl:if test="objektart[text()='Online-Artikel']">-->
+			<!--<xsl:if test="objektart[text()='Artikel']">-->
+			
 		<!--<xsl:if test="(objektart[text()='Magistra/Magister Gender Studies']) or (objektart[text()='Abschlussarbeit'])
 		or (objektart[text()='Buch']) or (objektart[text()='Zeitschrift'])
 		or (contains(objektart,'Einzeltitel')) or objektart[text()='Zeitschrift/Heftitel']">--><!--Datensätze dieser Objektart werden nicht umgewandelt-->
@@ -178,7 +181,15 @@ den Datenbestand angezeigt-->
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-				<xsl:apply-templates select="Sachtitel[1]"/>
+				<xsl:choose>
+					<xsl:when test="Sachtitel">
+						<xsl:apply-templates select="Sachtitel[1]"/>
+						</xsl:when>
+					<xsl:when test="Reihentitel">
+						<xsl:apply-templates select="Reihentitel[1]"/>
+						</xsl:when>
+					</xsl:choose>
+				
 
 <!--RESPONSIBLE-->
 
@@ -437,7 +448,36 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-				<xsl:apply-templates select="Einzeltitel"/>
+				<xsl:choose>
+					<xsl:when test="Einzeltitel">
+						<xsl:apply-templates select="Einzeltitel"/>
+						</xsl:when>
+					<xsl:when test="Sammeltitel">
+						<xsl:choose>
+							<xsl:when test="contains(Sammeltitel[1], ':')">
+								<title>
+									<xsl:value-of select="Sammeltitel[1]"/>
+									</title>
+								<title_short>
+									<xsl:value-of select="normalize-space(substring-before(Sammeltitel[1], ':'))"/>
+									</title_short>
+								<title_sub>
+									<xsl:value-of select="normalize-space(substring-after(Sammeltitel[1], ':'))"/>
+									</title_sub>
+								</xsl:when>
+					<xsl:otherwise>
+						<title>
+							<xsl:value-of select="Sammeltitel[1]"/>
+							</title>
+						<title_short>
+							<xsl:value-of select="Sammeltitel[1]"/>
+							</title_short>
+						</xsl:otherwise>
+					</xsl:choose>
+						
+						</xsl:when>
+					</xsl:choose>
+				
 	
 				<!--<xsl:choose>
 					<xsl:when test="Einzeltitel!=''"><xsl:apply-templates select="Einzeltitel[1]"/></xsl:when>
@@ -576,6 +616,9 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 						<title>
 							<xsl:value-of select="Sammeltitel" />
 							</title>
+						<title_short>
+							<xsl:value-of select="Sammeltitel" />
+							</title_short>
 						</xsl:when>
 					</xsl:choose>
 					
@@ -1005,6 +1048,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 
 	<!--title Titelinformationen-->
 				<xsl:apply-templates select="Zeitschr_-Titel"/>
+				<xsl:apply-templates select="Titeländg_" />
 					
 <!--RESPONSIBLE-->
 
@@ -1074,18 +1118,18 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
 				<hierarchy_top_title>
 					<xsl:value-of select="Zeitschr_-Titel" />
-					<xsl:if test="Untertitel">
+					<!--<xsl:if test="Untertitel">
 						<xsl:text> : </xsl:text>
 						<xsl:value-of select="Untertitel" />
-							</xsl:if>
+							</xsl:if>-->
 						</hierarchy_top_title>
 					
 				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
 				<is_hierarchy_title><xsl:value-of select="Zeitschr_-Titel" />
-					<xsl:if test="Untertitel">
+					<!--<xsl:if test="Untertitel">
 						<xsl:text> : </xsl:text>
 						<xsl:value-of select="Untertitel" />
-							</xsl:if></is_hierarchy_title>
+							</xsl:if>--></is_hierarchy_title>
 				</hierarchyFields>
 			</functions>
 
@@ -1149,6 +1193,8 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							</xsl:if>-->
 							</title_sub>
 						</xsl:if>
+				
+				<xsl:apply-templates select="Titeländg_" />
 				
 <!--RESPONSIBLE-->
 	
@@ -1324,7 +1370,17 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 <!--DETAILS FOR JOURNAL RELATED CONTENT-->
 
 	<!--issue Heft-->				
-					<xsl:apply-templates select="H[1]" />
+					<xsl:choose>
+						<xsl:when test="H">
+							<xsl:apply-templates select="H[1]" />
+							</xsl:when>
+						<xsl:when test="Ausgabe">
+							<issue>
+								<xsl:value-of select="substring-after(Ausgabe,')')" />
+								</issue>
+							</xsl:when>
+						</xsl:choose>
+					<!--<xsl:apply-templates select="H[1]" />-->
 
 	<!--volume Jahrgang-->
 					<xsl:apply-templates select="Jg-[1]" />	
@@ -1339,8 +1395,55 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 						</xsl:if>
 
 </xsl:element>
-
+	
 	<xsl:if test="(s__ST) or (s__Aufsatz_Z)">
+		<xsl:variable name="s_ST" select="translate(s__ST, translate(.,'0123456789', ''), '')"/>
+		<xsl:variable name="s_Aufsatz" select="translate(s__Aufsatz_Z, translate(.,'0123456789', ''), '')"/>
+		<functions>
+			<hierarchyFields>
+				<!--<xsl:if test="s__ST">
+					<hierarchy_top_id><xsl:value-of select="//datensatz[id=$s_ST]/id" /><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title>
+						<xsl:value-of select="//datensatz[id=$s_ST]/Zeitschr_-Titel" />-->
+						<!--<xsl:if test="//datensatz[id=$s_ST]/Untertitel">
+							<xsl:text> : </xsl:text>
+							<xsl:value-of select="//datensatz[id=$s_ST]/Untertitel" />
+							</xsl:if>-->
+					<!--</hierarchy_top_title>
+					
+					<hierarchy_parent_id><xsl:value-of select="//datensatz[id=$s_ST]/id" /><xsl:text>genderbib</xsl:text></hierarchy_parent_id>
+					<hierarchy_parent_title>
+						<xsl:value-of select="//datensatz[id=$s_ST]/Zeitschr_-Titel" />-->
+						<!--<xsl:if test="//datensatz[id=$s_ST]/Untertitel">
+							<xsl:text> : </xsl:text>
+							<xsl:value-of select="//datensatz[id=$s_ST]/Untertitel" />
+							</xsl:if>-->
+					<!--</hierarchy_parent_title>
+					</xsl:if>-->
+				
+				<xsl:if test="s__Aufsatz">
+				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+				<hierarchy_top_title><xsl:value-of select="Sachtitel" />
+					<!--<xsl:if test="Ausgabe">
+						<xsl:text> : </xsl:text>
+						<xsl:value-of select="Ausgabe" />
+							</xsl:if>-->
+					</hierarchy_top_title>
+					</xsl:if>
+					
+				
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title><xsl:value-of select="Sachtitel" />
+					<!--<xsl:if test="Ausgabe">
+						<xsl:text> : </xsl:text>
+						<xsl:value-of select="Ausgabe" />
+							</xsl:if>-->
+					</is_hierarchy_title>
+				</hierarchyFields>
+			</functions>
+		</xsl:if>
+	
+	<!--<xsl:if test="(s__ST) or (s__Aufsatz_Z)">
 		<xsl:variable name="s_ST" select="translate(s__ST, translate(.,'0123456789', ''), '')"/>
 		<xsl:variable name="s_Aufsatz" select="translate(s__Aufsatz_Z, translate(.,'0123456789', ''), '')"/>
 		<functions>
@@ -1383,7 +1486,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							</xsl:if></is_hierarchy_title>
 				</hierarchyFields>
 			</functions>
-		</xsl:if>
+		</xsl:if>-->
 </xsl:if>
 
 
@@ -1521,11 +1624,23 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 <!--DETAILS FOR JOURNAL RELATED CONTENT-->
 
 	<!--Heft-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/H">
+				<xsl:choose>
+					<xsl:when test="//datensatz[id=$s_sachtitel]/H">
+						<issue>
+							<xsl:value-of select="//datensatz[id=$s_sachtitel]/H"/>
+							</issue>
+						</xsl:when>
+					<xsl:when test="//datensatz[id=$s_sachtitel]/Ausgabe">
+						<issue>
+							<xsl:value-of select="substring-after(//datensatz[id=$s_sachtitel]/Ausgabe,')')"/>
+							</issue>
+						</xsl:when>
+					</xsl:choose>
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/H">
 					<issue>
 						<xsl:value-of select="//datensatz[id=$s_sachtitel]/H"/>
 						</issue>
-						</xsl:if>
+						</xsl:if>-->
 
 	<!--Volume-->
 				<xsl:if test="//datensatz[id=$s_sachtitel]/Jg-">
@@ -1607,7 +1722,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 
 </xsl:element>
-</xsl:if>
+<!--</xsl:if>-->
 </xsl:template>
 
 
@@ -1903,17 +2018,17 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		</xsl:template>
 		
 	<xsl:template match="Geografika">
-		<xsl:for-each select=".">
+		<xsl:for-each select="tokenize(., ';')">
 			<subjectGeographic>
-				<xsl:value-of select="."/>
+				<xsl:value-of select="normalize-space(.)"/>
 				</subjectGeographic>
 			</xsl:for-each>
 		</xsl:template>
 	
 	<xsl:template match="Land">
-		<xsl:for-each select=".">
+		<xsl:for-each select="tokenize(., ';')">
 			<subjectGeographic>
-				<xsl:value-of select="."/>
+				<xsl:value-of select="normalize-space(.)"/>
 				</subjectGeographic>
 			</xsl:for-each>
 		</xsl:template>
@@ -1969,7 +2084,40 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:template>
-	
+
+<!--Template Titeländg_-->
+
+	<xsl:template match="Titeländg_">
+		<formerTitle>
+			<xsl:value-of select="." />
+			</formerTitle>
+		</xsl:template>
+
+<!--Template Reihentitel-->
+	<xsl:template match="Reihentitel[1]">
+		<xsl:choose>
+			<xsl:when test="contains(.[1], ':')">
+				<title>
+					<xsl:value-of select=".[1]"/>
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(substring-before(.[1], ':'))"/>
+					</title_short>
+				<title_sub>
+					<xsl:value-of select="normalize-space(substring-after(.[1], ':'))"/>
+					</title_sub>
+				</xsl:when>
+			<xsl:otherwise>
+				<title>
+					<xsl:value-of select=".[1]"/>
+					</title>
+				<title_short>
+					<xsl:value-of select=".[1]"/>
+					</title_short>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:template>
+
 <!--Template Einzeltitel-->
 	<xsl:template match="Einzeltitel[1]">
 		<xsl:choose>
@@ -1999,10 +2147,10 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<xsl:template match="Zeitschr_-Titel[1]">
 		<title>
 			<xsl:value-of select="." />
-			<xsl:if test="../Untertitel">
+			<!--<xsl:if test="../Untertitel">
 				<xsl:text> : </xsl:text>
 				<xsl:value-of select="../Untertitel" />
-			</xsl:if>
+				</xsl:if>-->
 			</title>
 		<title_short>
 			<xsl:value-of  select="." />
