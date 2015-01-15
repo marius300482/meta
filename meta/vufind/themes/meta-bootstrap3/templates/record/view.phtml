@@ -91,7 +91,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
         <?php foreach (array_reverse($this->tabs) as $tab => $obj): ?>
             <div class="col-sm-6">
                 <?php if ($tab == "Details") : ?>
-                    <h4 data-toggle="collapse"><?php echo $this->transEsc('Description'); ?></h4>
+                    <h4 data-toggle="collapse"><?php echo $this->transEsc('further information'); ?></h4>
                 <?php elseif ($tab == "HierarchyTree") : ?>
                     <h4 data-toggle="collapse"><?php echo $this->transEsc('Context'); ?></h4>
                 <?php endif; ?>
