@@ -26,7 +26,7 @@
         <? endforeach; ?>
       </td>
       <?php /* PHE not required
-      <td><?=$this->escapeHtml($this->number_format($info->getResultTotal()))?></td>
+	  <td><?=$this->escapeHtml(number_format($info->getResultTotal()))?></td>
       <td>
         <? if ($this->showSaved): ?>
           <a href="<?=$this->url('myresearch-savesearch')?>?delete=<?=urlencode($info->getSearchId())?>&amp;mode=history"><i class="fa fa-remove"></i> <?=$this->transEsc("history_delete_link")?></a>

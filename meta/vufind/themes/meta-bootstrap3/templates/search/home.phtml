@@ -34,7 +34,8 @@
 </div>
 */ ?>
 
-<? $facetList = is_object($this->results) ? $this->results->getFacetList() : array(); if (isset($facetList) && is_array($facetList)): ?>
+<? $facetList = is_object($this->results) ? $this->results->getFacetList() : array(); ?>
+<? if (isset($facetList) && is_array($facetList)): ?>
 <div class="col-xs-12 row">
   <? foreach ($facetList as $field => $details): ?>
     <? $sortedList = $this->sortFacetList($this->results, $field, $details['list'], $basicSearch); ?>
