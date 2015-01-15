@@ -155,7 +155,7 @@ JS;
             <? endif; ?>
             <?=$this->escapeHtml($thisFacet['displayText'])?>
             <span class="badge">
-              (<?=$this->localizedNumber($thisFacet['count'])?>)
+              (<?=$this->number_format($thisFacet['count'])?>)
               <? if ($allowExclude): ?>
                 <a href="<?=$this->currentPath().$results->getUrlQuery()->addFacet($title, $thisFacet['value'], 'NOT') ?>" title="<?=$this->transEsc('exclude_facet') ?>"><i class="fa fa-times"></i></a>
               <? endif; ?>
