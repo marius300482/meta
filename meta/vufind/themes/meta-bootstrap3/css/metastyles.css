@@ -412,8 +412,6 @@ header {
           header #searchForm #simple-search-body .twitter-typeahead {
             margin-right: 5px;
             width: 48%; } }
-        header #searchForm #simple-search-body .twitter-typeahead .tt-dropdown-menu {
-          margin-top: -10px; }
         header #searchForm #simple-search-body .twitter-typeahead #searchForm_lookfor {
           border-radius: 0;
           background-color: white !important;
