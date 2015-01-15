@@ -116,9 +116,6 @@ header {
           margin-right: 5px;
           width: 48%;
         }
-        .tt-dropdown-menu {
-          margin-top: -10px;
-        }
         #searchForm_lookfor {
           border-radius: 0;
           background-color: $color-white !important; // Overwrite "style" attribute
@@ -130,7 +127,7 @@ header {
         }
       }
       .btn-primary {
-        margin: 8px 0;
+        margin: 0;
         padding-top: 3px;
         padding-bottom: 3px;
         font-weight: 500;
