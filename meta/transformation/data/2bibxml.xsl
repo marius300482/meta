@@ -35,6 +35,7 @@
 				<xsl:value-of select="dataset/format"/><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/documentType" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/title[normalize-space()]"/><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/title_sub[normalize-space()]"/><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/formerTitle"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/upcomingTitle"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/author"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
