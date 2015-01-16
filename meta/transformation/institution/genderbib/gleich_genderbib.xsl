@@ -18,7 +18,7 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 
-			<!--<xsl:if test="objektart[text()!='NutzerIn']">--><!--Datensätze dieser Objektart werden nicht umgewandelt-->
+			<xsl:if test="objektart[text()!='NutzerIn']"><!--Datensätze dieser Objektart werden nicht umgewandelt-->
 			<!--<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">-->
 			<!--xsl:if test="objektart[text()='Online-Artikel']">-->
 			<!--<xsl:if test="objektart[text()='Artikel']">-->
@@ -1722,7 +1722,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 
 </xsl:element>
-<!--</xsl:if>-->
+</xsl:if>
 </xsl:template>
 
 
