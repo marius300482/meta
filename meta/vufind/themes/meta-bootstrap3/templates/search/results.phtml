@@ -30,10 +30,8 @@
     $this->layout()->breadcrumbs .= '<li class="active">' . $this->transEsc('Search') . ': ' . $this->escapeHtml($lookfor) . '</li>';
   }
 
-  // Disable cart if appropriate:
-  if (!$this->params->getOptions()->supportsCart()) {
-    $this->hideCartControls = true;
-  }
+  // Enable cart if appropriate:
+  $this->showCartControls = $this->params->getOptions()->supportsCart() && $this->cart()->isActive();
 
   // Load Javascript dependencies into header:
   $this->headScript()->appendFile("check_item_statuses.js");
@@ -58,9 +56,9 @@
     <div class="search-result-count">
       <? if ($recordTotal > 0): ?>
         <?=$this->transEsc("Showing")?>
-        <?=$this->localizedNumber($this->results->getStartRecord())?> - <?=$this->localizedNumber($this->results->getEndRecord())?>
+          <strong><?=number_format($this->results->getStartRecord())?></strong> - <strong><?=number_format($this->results->getEndRecord())?></strong>
         <? if (!isset($this->skipTotalCount)): ?>
-          <?=$this->transEsc('of')?> <?=$this->localizedNumber($recordTotal)?>
+            <?=$this->transEsc('of')?> <strong><?=number_format($recordTotal)?></strong>
         <? endif; ?>
 <?php /* PHE always show the search query
         <? if (isset($this->overrideSearchHeading)): ?>
@@ -73,7 +71,7 @@
 
 <?php /* PHE is not required
         <? if ($qtime = $this->results->getQuerySpeed()): ?>
-          <?=$this->transEsc('query time')?>: <?=$this->localizedNumber($qtime, 2).$this->transEsc('seconds_abbrev')?>
+            <?=$this->transEsc('query time')?>: <?=$this->escapeHtml(round($qtime, 2))?>s
         <? endif; ?>
 */ ?>
       <? else: ?>

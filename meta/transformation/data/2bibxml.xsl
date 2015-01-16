@@ -35,6 +35,7 @@
 				<xsl:value-of select="dataset/format"/><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/documentType" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/title[normalize-space()]"/><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/title_sub[normalize-space()]"/><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/formerTitle"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/upcomingTitle"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/author"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
@@ -424,7 +425,7 @@
 				
 			
 	<!--Anreicherung Artikel-->
-			<xsl:if test="dataset/format='Artikel'">
+			<!--<xsl:if test="dataset/format='Artikel'">
 			<xsl:variable name="test" select="functions/hierarchyFields/hierarchy_parent_id" />
 			
 				<xsl:if test="//record[@id=$test]/dataset/displayPublishDate">
@@ -462,12 +463,12 @@
 						</xsl:when>
 					<xsl:otherwise>
 						<field name="language">
-							<xsl:text>o.A.</xsl:text>
+							<xsl:text>o. A.</xsl:text>
 							</field>
 						</xsl:otherwise>	
 						</xsl:choose>
 						</xsl:if>
-				</xsl:if>
+				</xsl:if>-->
 				
 	
 	

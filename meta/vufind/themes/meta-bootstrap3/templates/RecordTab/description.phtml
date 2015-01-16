@@ -1,6 +1,6 @@
 <?
     // Set page title.
-    $this->headTitle($this->translate('Description') . ': ' . $this->driver->getBreadcrumb());
+    $this->headTitle($this->translate('further information') . ': ' . $this->driver->getBreadcrumb());
 
     // Grab clean ISBN for convenience:
     $isbn = $this->driver->getCleanISBN();
@@ -10,8 +10,9 @@
         $this->headScript()->appendFile($this->syndeticsPlus()->getScript());
     }
 ?>
-<table id="detail-view-description" cellpadding="0" cellspacing="0" border="0" summary="<?=$this->transEsc('Description')?>">
+<table id="detail-view-description" cellpadding="0" cellspacing="0" border="0" summary="<?=$this->transEsc('further information')?>">
 
+<?php /* Not required
     <? $formats = $this->driver->getFormats(); ?>
     <? if (!empty($formats)): ?>
         <? $contentDisplayed = true; ?>
@@ -20,7 +21,7 @@
             <td property="format"><?=$this->record($this->driver)->getFormatList()?></td>
         </tr>
     <? endif; ?>
-
+*/?>
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
         <? $contentDisplayed = true; ?>
@@ -30,6 +31,7 @@
         </tr>
     <? endif; ?>
 
+<?php /* Not required
     <? $displayTitle = $this->driver->getdisplayTitle(); ?>
     <? if (isset($displayTitle)): ?>
         <? $contentDisplayed = true; ?>
@@ -56,6 +58,7 @@
             <td property="titlesub"><?= $this->escapeHtml($titleSub); ?></td>
         </tr>
     <? endif; ?>
+*/ ?>
 
     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
     <? if (!empty($authors['main']) || !empty($authors['additional'])):  ?>
@@ -112,7 +115,7 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shelf Mark')?>: </th>
-            <td property=shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
+            <td property="shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
         </tr>
     <? endif; ?>
 
@@ -149,8 +152,9 @@
     <? endif; ?>
 
 
+
     <!-- Schriftenreihe -->
-    <? /* Display series section if at least one series exists. */ ?>
+    <? /* Display series section if at least one series exists.  ?>
     <? $series = $this->driver->getSeries();
     if (!empty($series)): ?>
         <? $contentDisplayed = true; ?>
@@ -158,9 +162,7 @@
             <th><?= $this->transEsc('Series') ?>:</th>
             <td>
                 <? foreach ($series as $field): ?>
-                    <? /* Depending on the record driver, $field may either be an array with
-             "name" and "number" keys or a flat string containing only the series
-             name.  We should account for both cases to maximize compatibility. */
+                    <? // Depending on the record driver, $field may either be an array with "name" and "number" keys or a flat string containing only the series name.  We should account for both cases to maximize compatibility.
                     ?>
                     <? if (is_array($field)): ?>
                         <? if (!empty($field['name'])): ?>
@@ -177,8 +179,9 @@
                 <? endforeach; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; */ ?> 
 
+<?php /* Not required
     <? $placesOfPublication = $this->driver->getPlacesOfPublication(); ?>
     <? if (!empty($placesOfPublication)): ?>
         <? $contentDisplayed = true; ?>
@@ -191,7 +194,9 @@
             </td>
         </tr>
     <? endif; ?>
-
+    */?>
+    
+<?php /* Not required
     <? $publishers = $this->driver->getPublishers(); ?>
     <? if (!empty($publishers)): ?>
         <? $contentDisplayed = true; ?>
@@ -212,14 +217,14 @@
             <th><?=$this->transEsc('Date of publication')?>: </th>
             <td property=publicationDate"><?= $this->escapeHtml($publicationDate) ?></td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>*/?>
 
     <? $issues = $this->driver->getIssues(); ?>
     <? if (!empty($issues)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Issue')?>: </th>
-            <td property=issue">
+            <td property="issue">
             <? foreach($issues as $issue): ?>
                 <?= $this->escapeHtml($issue) ?><?= $issue !== end($issues) ? ", " : "" ?>
             <? endforeach; ?>
@@ -232,7 +237,7 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Volume')?>: </th>
-            <td property=volume">
+            <td property="volume">
             <? foreach($volumes as $volume): ?>
                 <?= $this->escapeHtml($volume) ?><?= $volume !== end($volumes) ? ", " : "" ?>
             <? endforeach; ?>
@@ -259,7 +264,7 @@
             </td>
         </tr>
     <? endif; ?>
-
+<?php /* Not required
     <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
     <? if (!empty($physicals)): ?>
         <? $contentDisplayed = true; ?>
@@ -271,7 +276,7 @@
             <? endforeach; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>*/?>
 
     <? $dimensions = $this->driver->getDimensions(); ?>
     <? if (!empty($dimensions)): ?>
@@ -299,6 +304,7 @@
         </tr>
     <? endif; ?>
 
+<?php /* Not required
     <!-- Schlagworte -->
     <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
     <? if (!empty($subjects)): ?>
@@ -319,7 +325,7 @@
                 <? endif; ?>
             </tr>
         <? endforeach; ?>
-    <? endif; ?>
+    <? endif; ?>*/?>
 
 
     <? $isbns = $this->driver->getISBNs(); ?>
@@ -366,7 +372,7 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Description')?>: </th>
-            <td property=description"><?= $this->escapeHtml($description) ?></td>
+            <td property="description"><?= $this->escapeHtml($description) ?></td>
         </tr>
     <? endif; ?>
 
@@ -375,7 +381,7 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Signatory')?>: </th>
-            <td property=signatory"><?= $this->escapeHtml($signatory) ?></td>
+            <td property="signatory"><?= $this->escapeHtml($signatory) ?></td>
         </tr>
     <? endif; ?>
 

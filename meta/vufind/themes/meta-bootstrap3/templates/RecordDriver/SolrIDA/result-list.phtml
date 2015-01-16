@@ -35,7 +35,7 @@
         <?=implode('<br>', $this->driver->getSummary()); ?>
       <? else: ?>
         <? $summAuthor = $this->driver->getPrimaryAuthor(); if (!empty($summAuthor)): ?>
-        <?=$this->transEsc('by')?>
+        <?=$this->transEsc('by')?>:
         <a href="<?=$this->record($this->driver)->getLink('author', $summAuthor)?>"><?
           $summHighlightedAuthor = $this->driver->getHighlightedAuthor();
           echo !empty($summHighlightedAuthor)
@@ -51,7 +51,7 @@
           <?=!empty($summDate) ? ' (' . $this->escapeHtml($summDate[0]) . ')' : ''?>
         <? elseif (!empty($summDate)): ?>
           <?=!empty($summAuthor) ? '<br />' : ''?>
-          <?= $this->transEsc('Published'); ?>
+          <?= $this->transEsc('Published'); ?>:
           <?php foreach ((array) $this->driver->getPublishers() as $publisher) : ?>
               <?= $this->escapeHtml($publisher); ?>
           <?php endforeach; ?>
