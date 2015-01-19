@@ -140,13 +140,13 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                     <!-- END google maps -->
                     <h5><?= $this->escapeHtmlAttr($institution); ?></h5>
                     <?php if (isset($institutionDetails["address"])) : ?>
-                        <div id="institution-address"><?= strip_tags($institutionDetails["address"], '<br><strong>'); ?></div>
+                        <div id="institution-address"><?= strip_tags($institutionDetails["address"], '<br><strong><a>'); ?></div>
                     <?php endif; ?>
                     <?php if (isset($institutionDetails["addressExtra"])) : ?>
-                        <div class="address-extra"><?= strip_tags($institutionDetails["addressExtra"], '<br><strong>'); ?></div>
+                        <div class="address-extra"><?= strip_tags($institutionDetails["addressExtra"], '<br><strong><a>'); ?></div>
                     <?php endif; ?>
                     <?php if (isset($institutionDetails["openingHours"])) : ?>
-                        <div class="opening-hours"><?= strip_tags($institutionDetails["openingHours"], '<br><strong>'); ?></div>
+                        <div class="opening-hours"><?= strip_tags($institutionDetails["openingHours"], '<br><strong><a>'); ?></div>
                     <?php endif; ?>
                 </div>
             </div>

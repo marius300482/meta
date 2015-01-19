@@ -747,6 +747,8 @@
 				<xsl:apply-templates select="Freie_x032x_Schlagworte_x058x_" />
 				<xsl:apply-templates select="Eigennamen_x058x_" />
 
+
+
 <!--OTHER-->
 	
 	<!--SHELFMARK-->

@@ -2,10 +2,12 @@
   <div class="col-xs-2" style="padding-right: 0">
 
       <? /* Thumbnail */ ?>
-      <? $mediumThumb = $this->record($this->driver)->getThumbnail('medium'); $largeThumb = $this->record($this->driver)->getThumbnail('large'); ?>
+      <? $mediumThumb = $this->record($this->driver)->getThumbnail('medium');
+         $largeThumb  = $this->record($this->driver)->getThumbnail('large');
+      ?>
       <? if ($mediumThumb): ?>
         <? if ($largeThumb): ?><a href="<?=$this->escapeHtmlAttr($largeThumb)?>"><? endif; ?>
-          <img alt="<?=$this->transEsc('Cover Image')?>" class="recordcover" src="<?=$this->escapeHtmlAttr($mediumThumb);?>"/>
+          <img alt="<?=$this->transEsc('Cover Image')?>" class="recordcover" src="<?=$this->escapeHtmlAttr($largeThumb ? $largeThumb : $mediumThumb);?>"/>
         <? if ($largeThumb): ?></a><? endif; ?>
       <? else: ?>
         <img src="<?=$this->url('cover-unavailable')?>" class="recordcover" alt="<?=$this->transEsc('No Cover Image')?>"/>
@@ -62,15 +64,16 @@
         <? endif; ?>
         <? endif; ?>
 
-        <? /* Körperschaft */ ?>
+<?php /* MZ entitiy not required in this view
+        //Körperschaft
         <? $entities = $this->driver->getEntities();
         if (!empty($entities)):
             $mainEntity = array_shift($entities); ?>
             <span><?= $this->escapeHtml($mainEntity) ?></span>
             <? if(!empty($entities)): ?>
-            [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+        //    [<a href="<?php// echo $this->recordLink()->getTabUrl($this->driver, "description")>#tabnav"><?=$this->transEsc("weitere")?></a>]
         <? endif; ?>
-        <? endif; ?>
+        <? endif; ?>*/?>
 
     </div>
     <div class="head">
