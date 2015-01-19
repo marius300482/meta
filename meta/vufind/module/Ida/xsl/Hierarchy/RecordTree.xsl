@@ -20,9 +20,9 @@
         </xsl:variable>
         <xsl:variable name="baseModule">
             <xsl:choose>
-                <xsl:when test="$context = 'Record'">
+                <xsl:when test="true or $context = 'Record'">
                     <xsl:choose>
-                        <xsl:when test="$isCollection = 'true'">Collection</xsl:when>
+                        <xsl:when test="false and $isCollection = 'true'">YYY</xsl:when>
                         <xsl:otherwise>Record</xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
