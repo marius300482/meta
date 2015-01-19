@@ -35,7 +35,7 @@
         <?=implode('<br>', $this->driver->getSummary()); ?>
       <? else: ?>
         <? $summAuthor = $this->driver->getPrimaryAuthor(); if (!empty($summAuthor)): ?>
-        <?=$this->transEsc('by')?>:
+        <?=$this->transEsc('From')?>:
         <a href="<?=$this->record($this->driver)->getLink('author', $summAuthor)?>"><?
           $summHighlightedAuthor = $this->driver->getHighlightedAuthor();
           echo !empty($summHighlightedAuthor)
@@ -85,6 +85,9 @@
       <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
       <? if (!empty($subjects)): ?>
           <? foreach(array("Topic" => 20, "Person" => 5, "Geo" => 9999) as $type => $limit): ?>
+              <?php /* PHE START Remove geografika https://github.com/marius300482/meta/issues/5 */ ?>
+              <?php if ($type == "Geo") continue; ?>
+              <?php /* PHE END Remove geografika https://github.com/marius300482/meta/issues/5 */ ?>
               <? if (isset($subjects[strtolower($type)])): ?>
                   <div>
                       <?= $this->transEsc('result' . $type) ?>:
