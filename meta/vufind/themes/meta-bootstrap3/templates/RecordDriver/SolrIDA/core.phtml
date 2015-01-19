@@ -64,15 +64,16 @@
         <? endif; ?>
         <? endif; ?>
 
-        <? /* Körperschaft */ ?>
+<?php /* MZ entitiy not required in this view
+        //Körperschaft
         <? $entities = $this->driver->getEntities();
         if (!empty($entities)):
             $mainEntity = array_shift($entities); ?>
             <span><?= $this->escapeHtml($mainEntity) ?></span>
             <? if(!empty($entities)): ?>
-            [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+        //    [<a href="<?php// echo $this->recordLink()->getTabUrl($this->driver, "description")>#tabnav"><?=$this->transEsc("weitere")?></a>]
         <? endif; ?>
-        <? endif; ?>
+        <? endif; ?>*/?>
 
     </div>
     <div class="head">
