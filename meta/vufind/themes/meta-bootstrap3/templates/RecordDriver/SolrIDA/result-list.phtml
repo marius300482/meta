@@ -84,11 +84,8 @@
 
       <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
       <? if (!empty($subjects)): ?>
-          <? foreach(array("Topic" => 20, "Person" => 5, "Geo" => 9999) as $type => $limit): ?>
-              <?php /* PHE START Remove geografika https://github.com/marius300482/meta/issues/5 */ ?>
-              <?php if ($type == "Geo") continue; ?>
-              <?php /* PHE END Remove geografika https://github.com/marius300482/meta/issues/5 */ ?>
-              <? if (isset($subjects[strtolower($type)])): ?>
+          <? foreach(array("Topic" => 20, "Person" => 5, "Geo" => 0) as $type => $limit): ?>
+              <? if (isset($subjects[strtolower($type)]) && 0 < $limit): ?>
                   <div>
                       <?= $this->transEsc('result' . $type) ?>:
                       <? $fields = $subjects[strtolower($type)]; ?>
