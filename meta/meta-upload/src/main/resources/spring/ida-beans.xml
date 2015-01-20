@@ -29,7 +29,7 @@
 
     <bean id="genderbib" class="de.idadachverband.institution.IdaInstitutionBean">
         <constructor-arg index="0" value="genderbib"/>
-        <constructor-arg index="1" value="${xslt.basePath}/institution/genderbib/gleich.xsl"/>
+        <constructor-arg index="1" value="${xslt.basePath}/institution/genderbib/gleich_genderbib.xsl"/>
         <constructor-arg index="2" ref="xsltTransformer"/>
     </bean>
     <bean id="frauenmediaturm" class="de.idadachverband.institution.IdaInstitutionBean">
@@ -44,16 +44,16 @@
         <ref bean="frauenmediaturm"/>
     </util:set>
 
-    <bean id="xsltTransformer" class="de.idadachverband.transform.xslt.XsltTransformer">
-    <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
+    <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer">
+        <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- SMTP settings -->
         <property name="host" value="remask.innermedia.de"/>
         <property name="port" value="25"/>
-        <!--property name="username" value="USER_NAME" />
-        <property name="password" value="PASSWORD" /-->
+        <!--property institutionName="username" value="USER_NAME" />
+        <property institutionName="password" value="PASSWORD" /-->
 
         <property name="javaMailProperties">
             <!-- additional properties specific to JavaMail -->
