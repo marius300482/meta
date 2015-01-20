@@ -71,6 +71,21 @@
           <?= $this->escapeHtml($summDate[0]); ?>
         <? endif; ?>
 
+        <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
+        <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
+        <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
+            <?=$this->transEsc('Time span')?>:
+            <? if (isset($timeSpanStart)): ?>
+              <?= $this->escapeHtml($timeSpanStart) ?>
+              <? if (isset($timeSpanEnd)): ?>
+                -
+                <?= $this->escapeHtml($timeSpanEnd) ?>
+              <? endif ?>
+            <? elseif (isset($timeSpanEnd)): ?>
+              <?= $this->escapeHtml($timeSpanEnd) ?>
+            <? endif; ?><br />
+        <? endif; ?>
+
         <? $summInCollection = $this->driver->getContainingCollections(); ?>
         <?php if (!empty($summInCollection)): ?>
           <? foreach ($summInCollection as $collId => $collText): ?>
