@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ *
  * Created by boehm on 13.11.14.
  */
 public interface IdaTransformer
@@ -15,13 +16,18 @@ public interface IdaTransformer
     /**
      * Performs transformation
      *
-     * @param input
-     * @param institutionBean
-     * @return
+     * @param input The input which should be transformed
+     * @param institutionBean Bean which holds information about the institution.
+     * @return The transformed File
      * @throws TransformerException
      * @throws IOException
      */
     File transform(InputStream input, IdaInstitutionBean institutionBean) throws TransformerException, IOException;
 
+    /**
+     * Used to present potential errors and warnings to the user.
+     *
+     * @return Errors and warnings gathered during transformation.-
+     */
     String getTransformationMessages();
 }
