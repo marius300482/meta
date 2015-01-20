@@ -62,6 +62,23 @@ public class SolrService
     }
 
     /**
+     * Deletes all documents of an institution.
+     *
+     * @param institution Name of institution
+     * @return Response from Solr.
+     * @throws IOException
+     * @throws SolrServerException
+     */
+    public String deleteInstitution(String institution) throws IOException, SolrServerException
+    {
+        log.info("Delete all documents on core {} for institution {}", name, institution);
+        final UpdateResponse updateResponse = server.deleteByQuery("institution:" + institution);
+        final NamedList<Object> response = updateResponse.getResponse();
+        log.info("Result of deleting all documents on core {} for institution {}: {}", name, institution, response);
+        return response.toString();
+    }
+
+    /**
      * Deletes everything from Solr core and add files
      *
      * @param files to add
@@ -104,7 +121,7 @@ public class SolrService
     {
         log.info("Delete all documents on core {}", name);
         final UpdateResponse updateResponse = server.deleteByQuery("*:*");
-        log.info("Delete all documents {}", updateResponse);
+        log.info("Deleted all documents {}", updateResponse);
     }
 
     @Override
