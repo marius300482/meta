@@ -22,66 +22,102 @@
 		</institution>
 		
 		<dataset>
-			<typeOfRessource/>	<!--Pflicht : welche Dokumentenart z.b. text-->
-			<format/>		<!--Pflicht : Objektart-->
-			<documentTyp/>		<!--Dokumententyp wenn angegeben -->
-			
-		<!--Titelangaben-->
-			<title>Titel</title>	<!--Pflicht: Titel wie angesetzt-->
-			<title_short/>		<!--Pflicht: Hauptsachtitel-->
-			<title_sub/>		<!--Zusatz zum Sachtitel-->
-			<upcomingTitle/>	<!--Späterer Titel-->
-			<formerTitle/>		<!--Früherer Titel-->
-			<alternativeTitle/>	<!--Alternativer Titel z.b. Origignaltitel-->
-			
-		<!--Angaben über beteiligte Personen am Werk-->
-			<author/>		<!--Pflicht: Autorinneen-->
-			<editor/>		<!--Pflicht: Herausgeber_innen oder Herausgegeben von-->
-			<entity/>		<!--Körperschaft-->
-			<contributor>		<!--beiligte Personen z.B. Vorwort, Übersetzerin-->
-			<reviewer/>		<!--Gutachter_in bei z.B. Hochschularbeiten-->
-			
-			
-			<series/>		<!--Reiheninformation-->
-			<seriesNr/>		<!--Reihennummer-->
 		
-		<!--Identnummern-->
-			<isbn/>
-			<issn/>
-			<zdbid/>
-		
-		<!--Veröffentlichungsangaben-->
-			<displayPublishDate />	<!--Pflicht: Zeit wie angesetzt-->
-			<publishDate/>		<!--Aufgerarbeitete Zeitangaben-->
-			<timeSpan>
-				<timeSpanStart/>
-				<timeSpanEnd/>
-				</timeSpan>
-			<placeOfPublication/>	<!--Pflicht: Ortsangabe-->
-			<publisher/>		<!--Pflicht: Verlagsangabe-->
-			<sourceInfo/>		<!--Quellenangabe-->
+		<!--FORMAT-->
 
-		<!--Physische Eigentschaften-->
-			<physical/>		<!--Seiten oder Umfang-->
-			<dimension/>		<!--Angabe der physischen Ausmaße eines Dokumentes / Kiste-->
-			<runTime/>		<!--Laufzeit Video zb. 60min-->
+				<!--*** typeOfRessource-->
+					<typeOfRessource/>	<!--Pflicht : welche Dokumentenart z.b. text oder moving image-->
 
-		<!--Inhaltliche Erschließung-->
-			<language/>		<!--Sprachangabe in vorgebener Form z.b. deutsch-->
-			<subjectTopic/>		<!--Inhaltsschlagworte-->
-			<subjectPerson/>	<!--Personenschlagworte z.B. um wen geht es im Werk-->
-			<subjectGeographic/>	<!--geografische Schlagworte z.B. Land oder Region-->
-			<description/>		<!--Beschreibungen Annotationen-->
-			<listOfContents/>	<!--Inhaltsangaben-->
-			<annotation/>		<!--weitere Anmerkungen-->
+				<!--*** format Objektartinformationen-->
+					<format/>		<!--Pflicht : Objektart-->
+
+				<!--documentType-->
+					<documentTyp/>		<!--Dokumententyp wenn angegeben -->
+
+
+		<!--TITLE-->	
+
+				<!--*** title Titelinformationen-->	
+					<title/>			<!--Pflicht: Titel wie angesetzt-->					
+					<title_short/>		<!--Pflicht: Hauptsachtitel-->
+
+				<!--Titelzusätze-->
+					<title_sub/>		<!--Zusatz zum Sachtitel-->
+					<upcomingTitle/>	<!--Späterer Titel-->
+					<formerTitle/>		<!--Früherer Titel-->
+					<alternativeTitle/>	<!--Alternativer Titel-->
+					<originalTitle/>	<!--Original Titlel-->
 			
-			<!--Zeitschriftenangaben-->
-			<issue/>		<!--Heft-->
-			<volume/>		<!--Jahrgang-->
+			
+		<!--RESPONSIBLE-->	
+				
+				<!--author Autorinneninformation-->
+					<author/>		
+
+				<!--editor Herausgeberinneninformationen-->
+					<editor/>
+
+				<!--entity Körperschaftsangaben-->	
+					<entity/>
+				
+				<!--contributor Mitwirkende-->
+					<contributor>		<!--beiligte Personen z.B. Vorwort, Übersetzerin-->
+				
+				<!--revwiewer Gutachterin-->
+					<reviewer/>		<!--Gutachter_in bei z.B. Hochschularbeiten-->
+					
+				<!--series Titel Reihe/ Band-->
+					<series/>		<!--Reihentitel-->
+					<seriesNr/>		
+				
+				<!--edition Ausgabe-->
+					<edition/>		<!--Reihennummer-->
+		
+		<!--IDENTIFIER-->
+				
+					<isbn/>
+					<issn/>
+					<zdbid/>
+		
+		<!--PUBLISHING-->
+			
+				<!--display publishDate Jahresangabe-->	
+					<displayPublishDate />	<!--Pflicht: Zeit wie angesetzt-->
+					<publishDate/>		<!--Aufgerarbeitete Zeitangaben-->
+				
+					<timeSpan>
+						<timeSpanStart/>
+						<timeSpanEnd/>
+						</timeSpan>
+						
+					<placeOfPublication/>	<!--Pflicht: Ortsangabe-->
+					<publisher/>		<!--Pflicht: Verlagsangabe-->
+					<sourceInfo/>		<!--Quellenangabe-->
+
+		<!--PHYSICAL INFORMATION-->
+
+					<physical/>		<!--Seiten oder Umfang-->
+					<dimension/>		<!--Angabe der physischen Ausmaße eines Dokumentes / Kiste-->
+					<runTime/>		<!--Laufzeit Video zb. 60min-->
+
+		<!--CONTENTRELATED INFORMATION-->
+		
+					<language/>		<!--Sprachangabe in vorgebener Form z.b. deutsch-->
+					<subjectTopic/>		<!--Inhaltsschlagworte-->
+					<subjectPerson/>	<!--Personenschlagworte z.B. um wen geht es im Werk-->
+					<subjectGeographic/>	<!--geografische Schlagworte z.B. Land oder Region-->
+					<description/>		<!--Beschreibungen Annotationen-->
+					<listOfContents/>	<!--Inhaltsangaben-->
+					<annotation/>		<!--weitere Anmerkungen-->
+			
+			<!--DETAILS FOR JOURNAL RELATED CONTENT-->
+		
+					<issue/>		<!--Heft-->
+					<volume/>		<!--Jahrgang-->
 		 
-		<!--Sonstiges-->
-			<project/>		<!--Teil eines inhaltlichen Projektes-->
-			<shelfMark/>		<!--Signatur wie angesetzt-->
+		<!--OTHER-->
+					<project/>		<!--Teil eines inhaltlichen Projektes-->
+					<shelfMark/>		<!--Signatur wie angesetzt-->
 			
 		</dataset>
 
