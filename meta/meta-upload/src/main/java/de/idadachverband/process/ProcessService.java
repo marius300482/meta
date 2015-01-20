@@ -38,7 +38,7 @@ public class ProcessService
 
     private TransformationBean processFile(InputStream input, IdaInstitutionBean institution, SolrService solr)
     {
-        TransformationBean transformationBean = new TransformationBean(institution);
+        TransformationBean transformationBean = new TransformationBean();
         transformationProgressService.add(transformationBean);
         log.debug("====================== Call async method");
         Future<?> voidFuture = null;

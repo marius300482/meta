@@ -17,8 +17,8 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     </appender>
 
     <!-- Uncomment and add your logger here:
-     <logger name="org.springframework.samples.process.process" level="debug"/> -->
-    <!--logger name="org.springframework.web.servlet" level="debug"/-->
+     <logger institutionName="org.springframework.samples.process.process" level="debug"/> -->
+    <!--logger institutionName="org.springframework.web.servlet" level="debug"/-->
     <logger name="de.idadachverband" level="debug"/>
     <root level="info">
         <appender-ref ref="console"/>

@@ -145,6 +145,13 @@ ROOT;
         }
         // Root element reached
         else {
+
+            // If no hierarchy tree has been generated yet, try to fetch
+            // at least the immediate children of the root element
+            if (0 === strlen($treeXML)) {
+                $treeXML = $this->getChildren($record->getUniqueID());
+            }
+
             return str_replace('%%%children%%%', $treeXML, $this->_getXMLRecord($record, true));
         }
     }
@@ -222,7 +229,7 @@ XML;
             $isCollection = $current->isCollection() ? "true" : "false";
             $hasChildren = $this->_recordHasChildren($current) ? 'true' : 'false';
             // Placeholder for further children levels (see calling function)
-            $replace= ($uid === $hookId) ? '%%%children%%%' : '';
+            $replace = ($uid === $hookId) ? '%%%children%%%' : '';
 
             $xmlNode = <<<XML
 <item id="$id" hasChildren="$hasChildren" isCollection="$isCollection">

@@ -1,5 +1,7 @@
 package de.idadachverband.transform;
 
+import de.idadachverband.institution.IdaInstitutionBean;
+
 import javax.inject.Named;
 import javax.xml.transform.TransformerException;
 import java.io.File;
@@ -15,10 +17,10 @@ public class TransformationStrategy implements IdaTransformer
     private IdaTransformer transformer;
 
     @Override
-    public File transform(InputStream input, TransformationBean transformationBean) throws TransformerException, IOException
+    public File transform(InputStream input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
-        transformer = transformationBean.getInstitutionBean().getTransformationStrategy();
-        return transformer.transform(input, transformationBean);
+        transformer = institutionBean.getTransformationStrategy();
+        return transformer.transform(input, institutionBean);
     }
 
     @Override

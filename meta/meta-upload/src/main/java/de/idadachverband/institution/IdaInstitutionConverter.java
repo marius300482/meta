@@ -7,7 +7,7 @@ import javax.inject.Named;
 import java.util.Set;
 
 /**
- * Provides {@link IdaInstitutionBean} from name of institution
+ * Provides {@link IdaInstitutionBean} from institutionName of institution
  * Created by boehm on 23.09.14.
  */
 @Named
@@ -21,11 +21,11 @@ final public class IdaInstitutionConverter implements Converter<String, IdaInsti
     {
         for (IdaInstitutionBean institution : institutionSet)
         {
-            if (institution.getName().equals(name))
+            if (institution.getInstitutionName().equals(name))
             {
                 return institution;
             }
         }
-        throw new IllegalArgumentException("Did not find institution with name " + name);
+        throw new IllegalArgumentException("Did not find institution with institutionName " + name);
     }
 }

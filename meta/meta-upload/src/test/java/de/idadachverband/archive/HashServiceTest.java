@@ -15,7 +15,7 @@ public class HashServiceTest
     @Test
     public void testGetHashedString() throws Exception
     {
-        String name = "name";
+        String name = "institutionName";
         File file = new File(name);
         String first = cut.getHashedFileName(file);
         String second = cut.getHashedFileName(file);

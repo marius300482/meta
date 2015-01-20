@@ -21,7 +21,7 @@ public class TransformationProgressServiceTest
 
     @Mock
     private IdaInstitutionBean institutionBean;
-    private TransformationBean transformationBean = new TransformationBean(institutionBean);
+    private TransformationBean transformationBean = new TransformationBean();
     private TransformationProgressService cut = new TransformationProgressService();
     @Mock
     private Future<File> future;
@@ -36,7 +36,7 @@ public class TransformationProgressServiceTest
     @Test
     public void getResultNotFound() throws Exception
     {
-        TransformationProgressState actual = cut.getState(new TransformationBean(institutionBean));
+        TransformationProgressState actual = cut.getState(new TransformationBean());
 
         assertThat(actual, is(TransformationProgressState.NOTFOUND));
     }
