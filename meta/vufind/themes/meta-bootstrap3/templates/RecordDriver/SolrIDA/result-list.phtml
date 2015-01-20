@@ -32,22 +32,35 @@
 
     <div>
       <? if($this->driver->isCollection()): ?>
+
         <?=implode('<br>', $this->driver->getSummary()); ?>
+
       <? else: ?>
-        <? $summAuthor = $this->driver->getPrimaryAuthor(); if (!empty($summAuthor)): ?>
-        <?=$this->transEsc('From')?>:
-        <a href="<?=$this->record($this->driver)->getLink('author', $summAuthor)?>"><?
-          $summHighlightedAuthor = $this->driver->getHighlightedAuthor();
-          echo !empty($summHighlightedAuthor)
-              ? $this->highlight($summHighlightedAuthor)
-              : $this->escapeHtml($summAuthor);
-        ?></a>
+
+        <? $summAuthor = $this->driver->getPrimaryAuthor();?>
+        <?php if (!empty($summAuthor)): ?>
+          <?=$this->transEsc('From')?>:
+          <a href="<?=$this->record($this->driver)->getLink('author', $summAuthor)?>"><?
+            $summHighlightedAuthor = $this->driver->getHighlightedAuthor();
+            echo !empty($summHighlightedAuthor)
+                ? $this->highlight($summHighlightedAuthor)
+                : $this->escapeHtml($summAuthor);
+          ?></a>
+        <?php else : ?>
+          <? $editors = $this->driver->getEditors(); ?>
+          <?php if (!empty($editors))  : ?>
+            <?=$this->transEsc('Editors')?>:
+            <? foreach ($editors as $editor): ?>
+              <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
+            <? endforeach; ?><br/>
+          <?php endif; ?>
         <? endif; ?>
 
         <? $journalTitle = $this->driver->getContainerTitle(); $summDate = $this->driver->getPublicationDates(); ?>
         <? if (!empty($journalTitle)): ?>
           <?=!empty($summAuthor) ? '<br />' : ''?>
-          <?=/* TODO: handle highlighting more elegantly here */ $this->transEsc('Published in') . ' <a href="' . $this->record($this->driver)->getLink('journaltitle', str_replace(array('{{{{START_HILITE}}}}', '{{{{END_HILITE}}}}'), '', $journalTitle)) . '">' . $this->highlight($journalTitle) . '</a>';?>
+          <?=/* TODO: handle highlighting more elegantly here */
+             $this->transEsc('Published in') . ' <a href="' . $this->record($this->driver)->getLink('journaltitle', str_replace(array('{{{{START_HILITE}}}}', '{{{{END_HILITE}}}}'), '', $journalTitle)) . '">' . $this->highlight($journalTitle) . '</a>';?>
           <?=!empty($summDate) ? ' (' . $this->escapeHtml($summDate[0]) . ')' : ''?>
         <? elseif (!empty($summDate)): ?>
           <?=!empty($summAuthor) ? '<br />' : ''?>
@@ -57,7 +70,9 @@
           <?php endforeach; ?>
           <?= $this->escapeHtml($summDate[0]); ?>
         <? endif; ?>
-        <? $summInCollection = $this->driver->getContainingCollections(); if (!empty($summInCollection)): ?>
+
+        <? $summInCollection = $this->driver->getContainingCollections(); ?>
+        <?php if (!empty($summInCollection)): ?>
           <? foreach ($summInCollection as $collId => $collText): ?>
             <div>
               <b><?=$this->transEsc("in_collection_label")?></b>
@@ -67,6 +82,7 @@
             </div>
           <? endforeach; ?>
         <? endif; ?>
+
       <? endif; ?>
     </div>
 <?php /* PHE replaced with subjects below
