@@ -52,6 +52,7 @@
 				<xsl:for-each select="dataset/subjectPerson[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/description" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/listOfContents" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/sourceInfo" /><xsl:text> </xsl:text>
                     				
 				</field><!-- ALLFIELDS alle Inhalte werden in ein Feld geschrieben -->
 <!--vufind-->
