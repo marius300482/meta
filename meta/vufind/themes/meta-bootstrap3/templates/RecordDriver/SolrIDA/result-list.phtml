@@ -76,6 +76,9 @@
               <?= $this->escapeHtml($publisher); ?>
           <?php endforeach; ?>
           <?= $this->escapeHtml($summDate[0]); ?>
+          <?php foreach ((array) $this->driver->getVolumes() as $volume) : ?>,
+            <?= $this->transEsc('Volume'); ?> <?= $this->escapeHtml($volume); ?>
+          <?php endforeach; ?>
         <? endif; ?>
 
         <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
