@@ -172,6 +172,9 @@
 
 	<!--alternativeTitle-->
 			<xsl:apply-templates select="datafield[@tag='370']" />
+			
+	<!--originalTitle-->
+			<xsl:apply-templates select="datafield[@tag='341']" />
 
 <!--RESPONSIBLE-->	
 		
@@ -186,6 +189,9 @@
 					(not(datafield[@tag='108']))">
 				<xsl:apply-templates select="datafield[@tag='359']" />
 				</xsl:if>
+	
+	<!--entity Körperschaft-->
+			<xsl:apply-templates select="datafield[@tag='200']" />
 			
 	<!--series-->
 			<xsl:apply-templates select="datafield[@tag='GTU']" />
@@ -200,11 +206,24 @@
 	<!--ISBN / ISSN-->
 			<xsl:apply-templates select="datafield[@tag='540']" />
 	
+	<!--ISBN / ISSN-->
+			<xsl:apply-templates select="datafield[@tag='542']" />
+	
 <!--PUBLISHING-->
 		
 	<!--display / publishDate Jahresangabe-->
-			<xsl:apply-templates select="datafield[@tag='425']" />
-			<!--<xsl:choose>
+			<!--<xsl:apply-templates select="datafield[@tag='425']" />-->
+		<xsl:if test="datafield[@tag='425'][@ind1='a']">
+			<displayPublishDate>
+				<xsl:value-of select="datafield[@tag='425']"/>
+				</displayPublishDate>
+			<publishDate>
+				<xsl:value-of select="datafield[@tag='425']"/>
+				</publishDate>
+			</xsl:if>
+		
+		<xsl:if test="datafield[@tag='425']">
+			<xsl:choose>
 				<xsl:when test="datafield[@tag='078'][1][text()='Reihe']">
 					<timeSpan>
 						<timeSpanStart><xsl:value-of select="datafield[@tag='425'][@ind1='b']" /></timeSpanStart>
@@ -214,8 +233,9 @@
 				<xsl:otherwise>
 					<xsl:apply-templates select="datafield[@tag='425']" />	
 					</xsl:otherwise>
-				</xsl:choose>-->
-			
+				</xsl:choose>
+			</xsl:if>
+						
 	<!--placeOfPublication Ortsangabe-->
 			<xsl:apply-templates select="datafield[@tag='594']" />
 			<xsl:apply-templates select="datafield[@tag='410']" />
@@ -316,6 +336,14 @@
 		</xsl:if>
 </xsl:if>
 
+
+
+
+
+
+
+
+
 <!--Zeitschrift________________Zeitschrift___________________________Zeitschrift-->
 <!--Zeitschrift________________Zeitschrift___________________________Zeitschrift-->
 <!--Zeitschrift________________Zeitschrift___________________________Zeitschrift-->
@@ -375,7 +403,13 @@
 			<xsl:apply-templates select="datafield[@tag='410']" />
 
 	<!--publishDate-->
-			<xsl:apply-templates select="datafield[@tag='425']" />		
+			<xsl:if test="datafield[@tag='425'][1]">
+				<timeSpan>
+					<timeSpanStart><xsl:value-of select="datafield[@tag='425'][@ind1='b']" /></timeSpanStart>
+					<timeSpanEnd><xsl:value-of select="datafield[@tag='425'][@ind1='c']" /></timeSpanEnd>
+				</timeSpan>	
+				</xsl:if>
+			<!--<xsl:apply-templates select="datafield[@tag='425'][1]" />	-->	
 		
 	<!--publisher Verlag-->
 			<xsl:apply-templates select="datafield[@tag='412']" />
@@ -667,9 +701,7 @@
 		</xsl:element>
 		<!--</xsl:if>-->
 	</xsl:template>
-	
-	
-	
+
 	
 	<xsl:template match="datafield[@tag='653']">
 		<dimension>
@@ -728,9 +760,9 @@
 		</xsl:template>
 	
 	<xsl:template match="datafield[@tag='200']">
-		<editor>
+		<entity>
 			<xsl:value-of select="subfield[@code='a']" />
-			</editor>
+			</entity>
 		</xsl:template>	
 	
 	<xsl:template match="datafield[@tag='544']">
@@ -892,8 +924,10 @@
 				</xsl:when>
 			<xsl:when test="../datafield[@tag='078'][1][text()='Zeitschrift']">
 				<timeSpan>
-					<timeSpanStart><xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" /></timeSpanStart>
-					<timeSpanEnd><xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" /></timeSpanEnd>
+					<!--<timeSpanStart><xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" /></timeSpanStart>-->
+					<timeSpanStart><xsl:value-of select=".[@ind1='b']" /></timeSpanStart>
+					<!--<timeSpanEnd><xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" /></timeSpanEnd>-->
+					<timeSpanEnd><xsl:value-of select=".[@ind1='c']" /></timeSpanEnd>
 				</timeSpan>	
 				</xsl:when>
 			<xsl:when test="../datafield[@tag='078'][1][text()='ÖEZA-Zeitschrift']">
@@ -989,6 +1023,12 @@
 			</xsl:choose>
 		</xsl:template>
 	
+	<xsl:template match="datafield[@tag='341']">
+		<originalTitle>
+			<xsl:value-of select="." />
+			</originalTitle>
+		</xsl:template>
+		
 	<xsl:template match="datafield[@tag='370']">
 		<alternativeTitle>
 			<xsl:value-of select="." />
