@@ -21,13 +21,16 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfom
     }
 
     @Override
-    public File transform(InputStream input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public File transform(File input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
         final File file = getOutputFile(institutionBean.getInstitutionName(), "solr");
 
         @Cleanup
+        InputStream in = new FileInputStream(input);
+
+        @Cleanup
         OutputStream out = new FileOutputStream(file);
-        transformInstitution(input, out, new File(gleichXsl));
+        transformInstitution(in, out, new File(gleichXsl));
         log.info("Transformed to Solr format");
 
         return file;

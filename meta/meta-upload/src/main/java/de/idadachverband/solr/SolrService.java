@@ -13,7 +13,6 @@ import org.apache.solr.common.util.NamedList;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -62,6 +61,23 @@ public class SolrService
     }
 
     /**
+     * Deletes all documents of an institution.
+     *
+     * @param institution Name of institution
+     * @return Response from Solr.
+     * @throws IOException
+     * @throws SolrServerException
+     */
+    public String deleteInstitution(String institution) throws IOException, SolrServerException
+    {
+        log.info("Delete all documents on core {} for institution {}", name, institution);
+        final UpdateResponse updateResponse = server.deleteByQuery("institution:" + institution);
+        final NamedList<Object> response = updateResponse.getResponse();
+        log.info("Result of deleting all documents on core {} for institution {}: {}", name, institution, response);
+        return response.toString();
+    }
+
+    /**
      * Deletes everything from Solr core and add files
      *
      * @param files to add
@@ -76,10 +92,10 @@ public class SolrService
         for (Path path : files)
         {
             final Path tmpPath = tempDirectory.resolve(path.getFileName());
-            try (InputStream unzipStream = zipService.unzip(path.toFile()))
+            final File file = zipService.unzip(path.toFile());
+            try
             {
-                Files.copy(unzipStream, tmpPath);
-                update(tmpPath.toFile());
+                update(file);
             } catch (SolrServerException e)
             {
                 failedUpdates.put(path, e);
@@ -104,7 +120,7 @@ public class SolrService
     {
         log.info("Delete all documents on core {}", name);
         final UpdateResponse updateResponse = server.deleteByQuery("*:*");
-        log.info("Delete all documents {}", updateResponse);
+        log.info("Deleted all documents {}", updateResponse);
     }
 
     @Override

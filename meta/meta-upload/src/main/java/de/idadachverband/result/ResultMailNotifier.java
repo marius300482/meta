@@ -54,12 +54,14 @@ public class ResultMailNotifier implements ResultNotifier
         Map<String, Object> model = new HashMap();
         model.put("user", userService.getUsername());
         model.put("t", transformationBean);
-        model.put("result", transformationBean.getException() == null ? "Success" : "Failure");
+        final String result = transformationBean.getException() == null ? "Success" : "Failure";
+        model.put("result", result);
 
         try
         {
             final String text = FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerMailConfiguration.getTemplate("result-mail.ftl"), model);
             email.setText(text);
+            log.debug("Send mail {}", email);
             mailSender.send(email);
         } catch (IOException | TemplateException | MailException e)
         {

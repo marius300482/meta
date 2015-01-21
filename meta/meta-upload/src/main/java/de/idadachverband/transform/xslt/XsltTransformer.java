@@ -20,7 +20,6 @@ public class XsltTransformer extends AbstractXsltTransfomer
      * Implementation class for TransformerFactory is defined in:
      * {@code src/main/resources/META-INF/services/javax.xml.transform.TransformerFactory}
      * Currently @see net.sf.saxon.TransformerFactoryImpl is used because it is the only one that works for me.
-     *
      */
     public XsltTransformer()
     {
@@ -28,7 +27,7 @@ public class XsltTransformer extends AbstractXsltTransfomer
     }
 
     @Override
-    public File transform(InputStream input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public File transform(File input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
         return transform(input, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionName());
     }
@@ -36,20 +35,23 @@ public class XsltTransformer extends AbstractXsltTransfomer
     /**
      * Transforms input to to Ida standard format, only stored in temporary file, and then to Solr input xml.
      *
-     * @param inputStream    the input XML to be transformed
-     * @param institutionXsl XSL for institution corresponding to input XML
+     * @param input           the input XML to be transformed
+     * @param institutionXsl  XSL for institution corresponding to input XML
      * @param institutionName
      * @return Solr input file. Can be added to Solr via update request
      * @throws TransformerException
      * @throws IOException
      */
-    private File transform(final InputStream inputStream, File institutionXsl, String institutionName) throws TransformerException, IOException
+    private File transform(final File input, File institutionXsl, String institutionName) throws TransformerException, IOException
     {
         final File file = getOutputFile(institutionName, "workingformat");
 
         @Cleanup
+        InputStream in = new FileInputStream(input);
+
+        @Cleanup
         OutputStream out = new FileOutputStream(file);
-        transformInstitution(inputStream, out, institutionXsl);
+        transformInstitution(in, out, institutionXsl);
         log.info("Transformed to Working format");
 
         return file;

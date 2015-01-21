@@ -55,6 +55,7 @@ public class ResultStateController
             } catch (TransformedFileException e)
             {
                 state = FAILURE;
+                transformationProgressService.setException(key, e);
                 result.add("exception", e.toString());
             }
         }
