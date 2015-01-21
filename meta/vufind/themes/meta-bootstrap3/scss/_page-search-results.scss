@@ -2,7 +2,10 @@
 .search-result-count {
   font-size: 20px;
   font-weight: normal;
-  margin-bottom: 40px;
+}
+
+.search-result-used-filters {
+  margin: 10px 0 40px;
   @media (max-width: $device-xs-max-width) {
     margin-bottom: 10px;
   }

@@ -526,10 +526,12 @@ footer {
 
 .search-result-count {
   font-size: 20px;
-  font-weight: normal;
-  margin-bottom: 40px; }
+  font-weight: normal; }
+
+.search-result-used-filters {
+  margin: 10px 0 40px; }
   @media (max-width: 768px) {
-    .search-result-count {
+    .search-result-used-filters {
       margin-bottom: 10px; } }
 
 .goToFacetsWrapper {
