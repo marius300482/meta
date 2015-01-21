@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Named
 @Slf4j
-public class SolrInputArchiver
+public class IdaInputArchiver
 {
     private final Path archivePath;
 
@@ -45,10 +45,42 @@ public class SolrInputArchiver
      * @param zipService
      */
     @Inject
-    public SolrInputArchiver(Path archivePath, ZipService zipService)
+    public IdaInputArchiver(Path archivePath, ZipService zipService)
     {
         this.archivePath = archivePath;
         this.zipService = zipService;
+    }
+
+
+    public File archiveFile(File input, String institutionName) throws IOException
+    {
+        if (!zip)
+        {
+            return input;
+        } else
+        {
+            Path path = getArchivePathOfInstitution(institutionName).resolve(input.getName() + ".zip");
+            Files.createDirectories(path.getParent());
+            zipService.zip(input, path.toFile());
+            input.delete();
+            return path.toFile();
+        }
+    }
+
+    protected Path getArchivePathOfInstitution(String institutionName)
+    {
+        return archivePath.resolve(institutionName);
+    }
+
+    public File readArchivedFile(File input) throws IOException
+    {
+        if (!zip)
+        {
+            return input;
+        } else
+        {
+            return zipService.unzip(input);
+        }
     }
 
     /**
@@ -57,6 +89,8 @@ public class SolrInputArchiver
      * @param institutionName Name of institution the input file belongs to
      * @return The archived file
      * @throws IOException
+     *
+     * @deprecated
      */
     public File saveSolrFile(File file, String solrCoreName, String institutionName) throws IOException
     {

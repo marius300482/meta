@@ -13,7 +13,6 @@ import org.apache.solr.common.util.NamedList;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -93,10 +92,10 @@ public class SolrService
         for (Path path : files)
         {
             final Path tmpPath = tempDirectory.resolve(path.getFileName());
-            try (InputStream unzipStream = zipService.unzip(path.toFile()))
+            final File file = zipService.unzip(path.toFile());
+            try
             {
-                Files.copy(unzipStream, tmpPath);
-                update(tmpPath.toFile());
+                update(file);
             } catch (SolrServerException e)
             {
                 failedUpdates.put(path, e);

@@ -122,6 +122,11 @@ public class TransformationProgressService
         return tranformations.get(key).getException();
     }
 
+    public void setException(String key, Exception e)
+    {
+        tranformations.get(key).setException(e);
+    }
+
     private void removeResultFromMap(String key)
     {
         tranformations.remove(key);

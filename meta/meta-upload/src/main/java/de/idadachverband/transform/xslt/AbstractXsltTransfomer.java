@@ -87,8 +87,8 @@ public abstract class AbstractXsltTransfomer implements IdaTransformer
         DateFormat df = new SimpleDateFormat("yyyyMMdd-hhmmss");
         final String dateString = df.format(now);
 
-        Files.createDirectories(archivePath);
-        final File file = Files.createFile(archivePath.resolve(dateString + "-" + institutionName + "-" + type + ".xml")).toFile();
+        Files.createDirectories(archivePath.resolve(institutionName));
+        final File file = Files.createFile(archivePath.resolve(dateString + "-" + type + ".xml")).toFile();
         log.info("Create {} file {}", type, file);
         return file;
     }
