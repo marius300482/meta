@@ -34,6 +34,13 @@
       <? if($this->driver->isCollection()): ?>
 
         <?=implode('<br>', $this->driver->getSummary()); ?>
+        <? $editors = $this->driver->getEditors(); ?>
+        <?php if (!empty($editors))  : ?>
+          <?=$this->transEsc('Editors')?>:
+          <? foreach ($editors as $editor): ?>
+            <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
+          <? endforeach; ?><br/>
+        <?php endif; ?>
 
       <? else: ?>
 
