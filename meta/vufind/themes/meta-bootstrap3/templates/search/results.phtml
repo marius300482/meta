@@ -40,6 +40,11 @@
   // Set page-rage of the paginator
   $paginator = $this->results->getPaginator();
   $paginator->setPageRange(5); // default is 11
+
+  // Get the used search filters (selected facet elements)
+  $extraFilters = isset($this->extraSideFacetFilters) ? $this->extraSideFacetFilters : array();
+  $filterList = array_merge($this->results->getParams()->getFilterList(true), $extraFilters);
+
 ?>
 
   <?=$this->search()->renderSpellingSuggestions('<strong>' . $this->transEsc('spell_suggest') . '</strong>:', $this->results, $this); ?>
@@ -52,7 +57,7 @@
 */ ?>
   <? endif; ?>
   <?=$this->flashmessages()?>
-  <div class="hidden-print search-controls clearfix col-sm-6">
+  <div class="hidden-print search-controls clearfix col-sm-8">
     <div class="search-result-count">
       <? if ($recordTotal > 0): ?>
         <?=$this->transEsc("Showing")?>
@@ -77,6 +82,22 @@
       <? else: ?>
         <p class="lead"><?=$this->transEsc('nohit_heading')?></p>
       <? endif; ?>
+
+    </div>
+    <div class="search-result-used-filters ">
+      <? foreach ($filterList as $field => $filters): ?>
+        <?=$this->transEsc($field)?>:
+        <? foreach ($filters as $i => $filter): ?>
+          <? if ($filter['displayText'] == '[* TO *]') : ?>
+            <? $filter['displayText'] = $this->translate('filter_wildcard'); ?>
+          <? endif; ?>
+          <strong>
+            <?=$this->escapeHtml($filter['displayText'])?><?= $filter !== end($filters) ? ", " : "" ?>
+            <? // Keep above in one line to avoid unwanted whitespace ?>
+          </strong>
+        <? endforeach; ?>
+        <br />
+      <? endforeach; ?>
     </div>
   </div>
 
@@ -89,7 +110,7 @@
   <? endif; ?>
 
   <? if ($recordTotal > 0): ?>
-    <div class="col-sm-6 text-right result-sort-options">
+    <div class="col-sm-4 text-right result-sort-options">
       <?=$this->render('search/controls/limit.phtml')?>
       <?=$this->render('search/controls/sort.phtml')?>
       <?=$this->render('search/controls/view.phtml')?>
