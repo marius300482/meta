@@ -26,7 +26,6 @@
     </util:set>
 
     <!-- XSLT -->
-
     <bean id="genderbib" class="de.idadachverband.institution.IdaInstitutionBean">
         <constructor-arg index="0" value="genderbib"/>
         <constructor-arg index="1" value="${xslt.basePath}/institution/genderbib/gleich_genderbib.xsl"/>
@@ -44,32 +43,38 @@
         <ref bean="frauenmediaturm"/>
     </util:set>
 
-    <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer">
-        <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
+    <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer"
+          scope="prototype">
+    <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- SMTP settings -->
-        <property name="host" value="remask.innermedia.de"/>
-        <property name="port" value="25"/>
-        <!--property institutionName="username" value="USER_NAME" />
-        <property institutionName="password" value="PASSWORD" /-->
+        <property name="host" value="${smtp.host}"/>
+        <property name="port" value="${smtp.port}"/>
+        <property name="username" value="${smtp.username}"/>
+        <property name="password" value="${smtp.password}"/>
+
 
         <property name="javaMailProperties">
             <!-- additional properties specific to JavaMail -->
             <props>
                 <prop key="mail.transport.protocol">smtp</prop>
-                <!--prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop-->
+                <prop key="mail.smtp.auth">${smtp.auth}</prop>
+                <prop key="mail.smtp.starttls.enable">${smtp.starttls}</prop>
             </props>
         </property>
     </bean>
 
     <bean id="archivePath" class="java.nio.file.Paths" factory-method="get">
-        <constructor-arg value="file:/tmp/ida/archive"/>
+        <constructor-arg value="file:/var/local/ida/archive"/>
     </bean>
 
     <bean id="uploadPath" class="java.nio.file.Paths" factory-method="get">
-        <constructor-arg value="file:/tmp/ida/tmp"/>
+        <constructor-arg value="file:/tmp/ida/"/>
+    </bean>
+
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyyMMdd_hhmmss"/>
     </bean>
 </beans>
