@@ -37,7 +37,7 @@ public class DownloadController
     @ResponseBody
     public FileSystemResource download(@PathVariable("filename") String filename, HttpServletResponse response) throws IOException
     {
-        if (null == filename || filename.trim().length() == 0)
+        if ((null == filename) || (filename.trim().length() == 0))
         {
             log.warn("Found no file for empty filename");
             throw new FileNotFoundException();

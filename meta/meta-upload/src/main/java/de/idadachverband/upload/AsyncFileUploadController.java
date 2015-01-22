@@ -20,7 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -47,6 +49,9 @@ public class AsyncFileUploadController
 
     @Inject
     private ProcessService processService;
+
+    @Inject
+    private SimpleDateFormat dateFormat;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView prepareUploadForm(@AuthenticationPrincipal Authentication authentication)
@@ -98,7 +103,7 @@ public class AsyncFileUploadController
                 File tempFile;
                 try
                 {
-                    tempFile = File.createTempFile("upload-", "-" + (file.getContentType().toLowerCase().equals("application/zip") ? ".tmp.zip" : ".tmp"));
+                    tempFile = File.createTempFile(dateFormat.format(new Date()) + "-upload-", file.getContentType().toLowerCase().equals("application/zip") ? ".tmp.zip" : ".tmp");
                     file.transferTo(tempFile);
 
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();

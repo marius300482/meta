@@ -28,9 +28,7 @@ public class IdaInputArchiver
 
     private final ZipService zipService;
 
-    @Getter
-    @Setter
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");
+    private final SimpleDateFormat dateFormat;
 
     @Getter
     @Setter
@@ -43,28 +41,51 @@ public class IdaInputArchiver
     /**
      * @param archivePath Root of archive
      * @param zipService
+     * @param dateFormat
      */
     @Inject
-    public IdaInputArchiver(Path archivePath, ZipService zipService)
+    public IdaInputArchiver(Path archivePath, ZipService zipService, SimpleDateFormat dateFormat)
     {
         this.archivePath = archivePath;
         this.zipService = zipService;
+        this.dateFormat = dateFormat;
     }
 
-
+    /**
+     * @param input
+     * @param institutionName
+     * @return
+     * @throws IOException
+     */
     public File archiveFile(File input, String institutionName) throws IOException
     {
         if (!zip)
         {
+            log.debug("Compression disabled for file: {}", input);
             return input;
         } else
+            if (inputIsZip(input))
+            {
+                final Path target = getArchivePathOfInstitution(institutionName).resolve(input.getName());
+                log.info("File: {} is a zip file. Move to: {}", input, target);
+                Files.createDirectories(target.getParent());
+                Files.move(input.toPath(), target);
+                return target.toFile();
+            } else
         {
             Path path = getArchivePathOfInstitution(institutionName).resolve(input.getName() + ".zip");
+            log.debug("Create folder (if not exists) for file: {}", path);
             Files.createDirectories(path.getParent());
             zipService.zip(input, path.toFile());
             input.delete();
             return path.toFile();
         }
+    }
+
+    private boolean inputIsZip(File input) throws IOException
+    {
+        final String contentType = Files.probeContentType(input.toPath());
+        return contentType.contains("zip") || input.getName().toLowerCase().endsWith(".zip");
     }
 
     protected Path getArchivePathOfInstitution(String institutionName)
@@ -132,7 +153,7 @@ public class IdaInputArchiver
 
     private Path getFilename(File file, String solrServiceName, String institutionName)
     {
-        final String date = simpleDateFormat.format(new Date());
+        final String date = dateFormat.format(new Date());
         return archivePath.resolve(solrServiceName).resolve(institutionName).resolve(date + "-" + file.getName());
     }
 

@@ -54,7 +54,7 @@ public class ResultMailNotifier implements ResultNotifier
         Map<String, Object> model = new HashMap();
         model.put("user", userService.getUsername());
         model.put("t", transformationBean);
-        final String result = transformationBean.getException() == null ? "Success" : "Failure";
+        final String result = (transformationBean.getException() == null) ? "Success" : "Failure";
         model.put("result", result);
 
         try
