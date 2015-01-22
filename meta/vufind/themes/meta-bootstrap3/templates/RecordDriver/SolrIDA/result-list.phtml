@@ -32,8 +32,19 @@
 
     <div>
       <? if($this->driver->isCollection()): ?>
-
         <?=implode('<br>', $this->driver->getSummary()); ?>
+      <? endif; ?>
+
+      <? $summAuthor = $this->driver->getPrimaryAuthor();?>
+      <?php if (!empty($summAuthor)): ?>
+        <?=$this->transEsc('From')?>:
+        <a href="<?=$this->record($this->driver)->getLink('author', $summAuthor)?>"><?
+          $summHighlightedAuthor = $this->driver->getHighlightedAuthor();
+          echo !empty($summHighlightedAuthor)
+              ? $this->highlight($summHighlightedAuthor)
+              : $this->escapeHtml($summAuthor);
+        ?></a>
+      <?php else : ?>
         <? $editors = $this->driver->getEditors(); ?>
         <?php if (!empty($editors))  : ?>
           <?=$this->transEsc('Editors')?>:
@@ -41,27 +52,9 @@
             <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
           <? endforeach; ?><br/>
         <?php endif; ?>
+      <? endif; ?>
 
-      <? else: ?>
-
-        <? $summAuthor = $this->driver->getPrimaryAuthor();?>
-        <?php if (!empty($summAuthor)): ?>
-          <?=$this->transEsc('From')?>:
-          <a href="<?=$this->record($this->driver)->getLink('author', $summAuthor)?>"><?
-            $summHighlightedAuthor = $this->driver->getHighlightedAuthor();
-            echo !empty($summHighlightedAuthor)
-                ? $this->highlight($summHighlightedAuthor)
-                : $this->escapeHtml($summAuthor);
-          ?></a>
-        <?php else : ?>
-          <? $editors = $this->driver->getEditors(); ?>
-          <?php if (!empty($editors))  : ?>
-            <?=$this->transEsc('Editors')?>:
-            <? foreach ($editors as $editor): ?>
-              <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
-            <? endforeach; ?><br/>
-          <?php endif; ?>
-        <? endif; ?>
+      <? if(!$this->driver->isCollection()): ?>
 
         <? $journalTitle = $this->driver->getContainerTitle(); $summDate = $this->driver->getPublicationDates(); ?>
         <? if (!empty($journalTitle)): ?>
