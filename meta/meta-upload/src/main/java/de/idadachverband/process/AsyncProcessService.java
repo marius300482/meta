@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Future;
 
+import static org.apache.solr.client.solrj.impl.HttpSolrServer.RemoteSolrException;
+
 /**
  * Created by boehm on 08.10.14.
  */
@@ -59,9 +61,9 @@ public class AsyncProcessService
 
             file = idaInputArchiver.archiveFile(transformedFile, institution.getInstitutionName());
             transformationBean.setTransformedFile(file);
-            upateSolr(solr, transformationBean, file);
+            upateSolr(solr, transformationBean, file, institution.getInstitutionName());
 
-        } catch (TransformerException | IOException | SolrServerException e)
+        } catch (TransformerException | IOException | SolrServerException | RemoteSolrException e)
         {
             log.warn("Transformation failed: ", e);
             transformationBean.setException(e);
@@ -90,9 +92,12 @@ public class AsyncProcessService
         return workingFormatTransformer.transform(unzippedFile, institution);
     }
 
-    public void upateSolr(SolrService solr, TransformationBean transformationBean, File inputFile) throws IOException, SolrServerException
+    public void upateSolr(SolrService solr, TransformationBean transformationBean, File inputFile, String institutionName) throws IOException, SolrServerException
     {
         final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
+        final String deleteResult = solr.deleteInstitution(institutionName);
+        log.debug("Solr delete documents of institution result: {}", deleteResult);
+
         String solrResult = solr.update(unzippedFile);
         transformationBean.setSolrResponse(solrResult);
         log.debug("Solr result {}", solrResult);

@@ -34,6 +34,7 @@ public class ZipService
                 ZipFile zipFile = new ZipFile(input);
                 Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
+                //noinspection LoopStatementThatDoesntLoop
                 while (entries.hasMoreElements())
                 {
                     ZipEntry zipEntry = entries.nextElement();
@@ -48,7 +49,7 @@ public class ZipService
                     @Cleanup
                     final FileOutputStream fileOutputStream = new FileOutputStream(unzipped);
 
-                    writeInputStreamToOutputstream(inputStream, fileOutputStream);
+                    writeInputStreamToOutputStream(inputStream, fileOutputStream);
 
                     // stop after first file
                     return unzipped;
@@ -61,7 +62,7 @@ public class ZipService
         return input;
     }
 
-    private void writeInputStreamToOutputstream(InputStream inputStream, FileOutputStream fileOutputStream) throws IOException
+    private void writeInputStreamToOutputStream(InputStream inputStream, FileOutputStream fileOutputStream) throws IOException
     {
         byte[] b = new byte[10000];
         while (true)

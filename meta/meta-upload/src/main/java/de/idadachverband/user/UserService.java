@@ -30,7 +30,7 @@ public class UserService
      */
     public String getUsername()
     {
-        UserDetails userDetails = null;
+        UserDetails userDetails;
         try
         {
             userDetails = getUserDetails();
@@ -73,7 +73,7 @@ public class UserService
     public List<GrantedAuthority> getRoles()
     {
 
-        UserDetails userDetails = null;
+        UserDetails userDetails;
         try
         {
             userDetails = getUserDetails();

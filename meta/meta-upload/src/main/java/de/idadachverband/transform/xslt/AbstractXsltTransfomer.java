@@ -67,7 +67,7 @@ public abstract class AbstractXsltTransfomer implements IdaTransformer
     }
 
 
-    protected void transformInstitution(InputStream inputStream, OutputStream outputStream, File institutionXsl) throws TransformerException, IOException
+    protected void transformInstitution(InputStream inputStream, OutputStream outputStream, File institutionXsl) throws TransformerException
     {
         Transformer transformer = getTransformerInstance(institutionXsl);
         transformer.transform(new StreamSource(inputStream), new StreamResult(outputStream));

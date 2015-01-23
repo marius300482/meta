@@ -19,7 +19,7 @@
     </http>
     <authentication-manager>
         <authentication-provider>
-            <user-service id="userDetailsService" properties="classpath:users.properties"/>
+            <user-service id="userDetailsService" properties="file:/var/local/ida/users.properties"/>
         </authentication-provider>
     </authentication-manager>
 

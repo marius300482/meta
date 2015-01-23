@@ -22,26 +22,25 @@ public class ArchiveController
 {
     private final Path archivePath;
 
-    private final HashService hashService;
-
     private final Set<SolrService> solrServiceSet;
 
+    private final HashedFileNameFileVisitor fileVisitor;
+
     @Inject
-    public ArchiveController(Path archivePath, HashService hashService, Set<SolrService> solrServiceSet)
+    public ArchiveController(Path archivePath, Set<SolrService> solrServiceSet, HashedFileNameFileVisitor fileVisitor)
     {
         this.archivePath = archivePath;
-        this.hashService = hashService;
         this.solrServiceSet = solrServiceSet;
+        this.fileVisitor = fileVisitor;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView list(ModelAndView mav) throws IOException
     {
         mav.setViewName("archiveList");
-        final HashedFileNameFileVisitor hashedFileNameFileVisitor = new HashedFileNameFileVisitor(hashService);
         Files.createDirectories(archivePath);
-        Files.walkFileTree(archivePath, hashedFileNameFileVisitor);
-        final Map<String, Path> fileMap = hashedFileNameFileVisitor.getFileMap();
+        Files.walkFileTree(archivePath, fileVisitor);
+        final Map<String, Path> fileMap = fileVisitor.getFileMap();
         mav.addObject("fileMap", fileMap);
         mav.addObject("solrSet", solrServiceSet);
         return mav;
