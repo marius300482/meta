@@ -99,6 +99,15 @@
             <? endforeach; ?>
         <? endif; ?>
 
+        <? $sourceInfo = $this->driver->getSourceInfos(); ?>
+        <? if (!empty($sourceInfo)): ?>
+            <br />
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($sourceInfo as $info): ?>
+                <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
+            <? endforeach; ?>
+        <? endif; ?>
+
         <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
         <? if (isset($publicationDate)): ?>
             <? if ($secondLineNotEmpty): ?>
