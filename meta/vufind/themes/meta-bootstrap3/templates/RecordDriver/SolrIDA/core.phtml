@@ -60,8 +60,8 @@
             $mainEditor = array_shift($editors); ?>
             <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Ed.') ?>)</a>
             <? if(!empty($editors)): ?>
-            [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
-        <? endif; ?>
+                [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+            <? endif; ?>
         <? endif; ?>
 
 <?php /* MZ entitiy not required in this view
