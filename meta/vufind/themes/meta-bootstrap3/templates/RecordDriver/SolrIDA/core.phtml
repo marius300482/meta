@@ -56,7 +56,7 @@
 
         <? /* Herausgeber */ ?>
         <? $editors = $this->driver->getEditors();
-        if (!empty($editors)):
+        if (!empty($editors) && empty($authors['main']) && empty($authors['additional'])):
             $mainEditor = array_shift($editors); ?>
             <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Ed.') ?>)</a>
             <? if(!empty($editors)): ?>
