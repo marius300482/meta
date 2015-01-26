@@ -213,12 +213,55 @@
 		
 	<!--display / publishDate Jahresangabe-->
 			<!--<xsl:apply-templates select="datafield[@tag='425']" />-->
+		
+		<xsl:choose>
+			<xsl:when test="datafield[@tag='425'][@ind1='a']">
+				<displayPublishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
+					</publishDate>
+				</xsl:when>
+			<xsl:when test="datafield[@tag='425'][@ind1='b']">
+				<displayPublishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='b']"/>
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='b']"/>
+					</publishDate>
+				</xsl:when>
+			<xsl:when test="datafield[@tag='425'][@ind1='c']">
+					<timeSpan>
+						<timeSpanStart><xsl:value-of select="datafield[@tag='425'][@ind1='b']" /></timeSpanStart>
+						<timeSpanEnd><xsl:value-of select="datafield[@tag='425'][@ind1='c']" /></timeSpanEnd>
+					</timeSpan>
+					</xsl:when>
+			<xsl:otherwise>
+				<displayPublishDate>
+					<xsl:value-of select="datafield[@tag='425']"/>
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="datafield[@tag='425']"/>
+					</publishDate>
+				</xsl:otherwise>
+			</xsl:choose>
+		<!--
 		<xsl:if test="datafield[@tag='425'][@ind1='a']">
 			<displayPublishDate>
-				<xsl:value-of select="datafield[@tag='425']"/>
+				<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
 				</displayPublishDate>
 			<publishDate>
-				<xsl:value-of select="datafield[@tag='425']"/>
+				<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
+				</publishDate>
+			</xsl:if>
+		
+		<xsl:if test="datafield[@tag='425'][@ind1='a']">
+			<displayPublishDate>
+				<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
+				</displayPublishDate>
+			<publishDate>
+				<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
 				</publishDate>
 			</xsl:if>
 		
@@ -231,10 +274,10 @@
 					</timeSpan>
 					</xsl:when>
 				<xsl:otherwise>
-					<xsl:apply-templates select="datafield[@tag='425']" />	
+					<xsl:apply-templates select="datafield[@tag='425'][@ind1='a']" />	
 					</xsl:otherwise>
 				</xsl:choose>
-			</xsl:if>
+			</xsl:if>-->
 						
 	<!--placeOfPublication Ortsangabe-->
 			<xsl:apply-templates select="datafield[@tag='594']" />
@@ -542,8 +585,8 @@
 	<!--sourceInfo-->
 			<sourceInfo>
 				<xsl:value-of select="datafield[@tag='QUE']/subfield[@code='a']" />
-				<xsl:text> </xsl:text>
-				<xsl:value-of select="datafield[@tag='QUE']/subfield[@code='b']" />
+				<!--<xsl:text> </xsl:text>
+				<xsl:value-of select="datafield[@tag='QUE']/subfield[@code='b']" />-->
 				</sourceInfo>
 
 <!--PHYSICAL INFORMATION-->
@@ -592,6 +635,8 @@
 				
 					<is_hierarchy_id><xsl:value-of select="$id"/><xsl:text>frso</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="datafield[@tag='331']" /></is_hierarchy_title>
+				
+					<hierarchy_sequence><xsl:value-of select="datafield[@tag='QUE']/subfield[@code='b']"></xsl:value-of></hierarchy_sequence>
 				
 				</hierarchyFields>
 		</xsl:element>	
@@ -915,7 +960,41 @@
 		</xsl:template>
 	
 	<xsl:template match="datafield[@tag='425']">
+		
 		<xsl:choose>
+			<xsl:when test=".[@ind1='a']">
+				<displayPublishDate>
+					<xsl:value-of select=".[@ind1='a']"/>
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select=".[@ind1='a']"/>
+					</publishDate>
+				</xsl:when>
+			<xsl:when test=".[@ind1='b']">
+				<displayPublishDate>
+					<xsl:value-of select=".[@ind1='b']"/>
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select=".[@ind1='b']"/>
+					</publishDate>
+				</xsl:when>
+			<xsl:when test="datafield[@tag='425'][@ind1='c']">
+					<timeSpan>
+						<timeSpanStart><xsl:value-of select=".[@ind1='b']" /></timeSpanStart>
+						<timeSpanEnd><xsl:value-of select=".[@ind1='c']" /></timeSpanEnd>
+					</timeSpan>
+					</xsl:when>
+			<xsl:otherwise>
+				<displayPublishDate>
+					<xsl:value-of select="."/>
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="."/>
+					</publishDate>
+				</xsl:otherwise>
+			</xsl:choose>
+	
+		<!--<xsl:choose>
 			<xsl:when test="../datafield[@tag='078'][1][text()='Reihe']">
 				<timeSpan>
 					<timeSpanStart><xsl:value-of select="@ind1='b'" /></timeSpanStart>
@@ -924,9 +1003,7 @@
 				</xsl:when>
 			<xsl:when test="../datafield[@tag='078'][1][text()='Zeitschrift']">
 				<timeSpan>
-					<!--<timeSpanStart><xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" /></timeSpanStart>-->
 					<timeSpanStart><xsl:value-of select=".[@ind1='b']" /></timeSpanStart>
-					<!--<timeSpanEnd><xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" /></timeSpanEnd>-->
 					<timeSpanEnd><xsl:value-of select=".[@ind1='c']" /></timeSpanEnd>
 				</timeSpan>	
 				</xsl:when>
@@ -936,15 +1013,7 @@
 					<timeSpanEnd></timeSpanEnd>
 				</timeSpan>	
 				</xsl:when>
-			<!--<xsl:otherwise>
-				<publishDate>
-					<xsl:value-of select="translate(.[1], translate(.,'0123456789', ''), '')" />
-					</publishDate>
-				<displayPublishDate>
-					<xsl:value-of select=".[1]" />
-					</displayPublishDate>
-				</xsl:otherwise>-->
-			</xsl:choose>
+			</xsl:choose>-->
 		
 		</xsl:template>
 	
