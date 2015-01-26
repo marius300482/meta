@@ -56,12 +56,12 @@
 
         <? /* Herausgeber */ ?>
         <? $editors = $this->driver->getEditors();
-        if (!empty($editors)):
+        if (!empty($editors) && empty($authors['main']) && empty($authors['additional'])):
             $mainEditor = array_shift($editors); ?>
             <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Hrsg.') ?>)</a>
             <? if(!empty($editors)): ?>
-            [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
-        <? endif; ?>
+                [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+            <? endif; ?>
         <? endif; ?>
 
 <?php /* MZ entitiy not required in this view
@@ -96,6 +96,15 @@
             <? $secondLineNotEmpty = true; ?>
             <? foreach($publishers as $publisher): ?>
                 <span property="publisher" typeof="Organization"><?= $this->escapeHtml($publisher) ?></span><?= $publisher !== end($publishers) ? ", " : "" ?>
+            <? endforeach; ?>
+        <? endif; ?>
+
+        <? $sourceInfo = $this->driver->getSourceInfos(); ?>
+        <? if (!empty($sourceInfo)): ?>
+            <br />
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($sourceInfo as $info): ?>
+                <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
             <? endforeach; ?>
         <? endif; ?>
 
