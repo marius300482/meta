@@ -58,7 +58,7 @@
         <? $editors = $this->driver->getEditors();
         if (!empty($editors)):
             $mainEditor = array_shift($editors); ?>
-            <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Ed.') ?>)</a>
+            <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Hrsg.') ?>)</a>
             <? if(!empty($editors)): ?>
             [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
         <? endif; ?>
@@ -102,7 +102,7 @@
         <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
         <? if (isset($publicationDate)): ?>
             <? if ($secondLineNotEmpty): ?>
-                ;
+                ,
             <? elseif ($placeOfPublicationSet): ?>
                 :
             <? endif; ?>
@@ -113,16 +113,83 @@
         <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
         <? if (!empty($physicals)): ?>
             <? if ($secondLineNotEmpty): ?>
-                ;
+                .
             <? elseif ($placeOfPublicationSet): ?>
                 :
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($physicals as $physical): ?>
+                -
                 <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physical !== end($physicals) ? ", " : ""; ?>
+                S.
             <? endforeach; ?>
         <? endif; ?>
-    </div>
+
+ <? $belongsToTop = $this->driver->getBelongsToTop();
+        if (!empty($belongsToTop)): ?>
+            In: <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
+            
+            <? endif; ?>
+
+<!--ausblenden
+    <? $sourceInfos = $this->driver->getSourceInfos(); ?>
+        <? if (!empty($sourceInfos)): ?>
+
+            <? if ($secondLineNotEmpty): ?>
+                
+            <? elseif ($placeOfPublicationSet): ?>
+                :
+            <? endif; ?>
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($sourceInfos as $sourceInfo): ?>
+                <span property="series">In: <?= $this->escapeHtml($sourceInfo) ?></span><?= $sourceInfo !== end($sourceInfos) ? "; " : ""; ?>
+           
+            <? endforeach; ?>
+        <? endif; ?>-->
+      
+<!--ausblenden
+    <? $series = $this->driver->getSeries(); ?>
+        <? if (!empty($series)): ?>
+            <? if ($secondLineNotEmpty): ?>
+                
+            <? elseif ($placeOfPublicationSet): ?>
+                :
+            <? endif; ?>
+            <? $secondLineNotEmpty = true; ?>
+          <? foreach ($series as $field): ?>
+                        <?/* Depending on the record driver, $field may either be an array with
+               "name" and "number" keys or a flat string containing only the series
+               name.  We should account for both cases to maximize compatibility. */?>
+                        <? if (is_array($field)): ?>
+                            <? if (!empty($field['name'])): ?>
+                                <a href="<?=$this->record($this->driver)->getLink('series', $field['name'])?>"><?=$this->escapeHtml($field['name'])?></a>
+                                <? if (!empty($field['number'])): ?>
+                                    <?=$this->escapeHtml($field['number'])?>
+                                <? endif; ?>
+                          
+                            <? endif; ?>
+                        <? else: ?>
+                            (<a href="<?=$this->record($this->driver)->getLink('series', $field)?>"><?=$this->escapeHtml($field)?></a>)
+                        <? endif; ?>
+                    <? endforeach; ?>
+        <? endif; ?>-->
+        
+    <? $isbns = $this->driver->getISBNs(); ?>
+        <? if (!empty($isbns)): ?>
+            <? if ($secondLineNotEmpty): ?>
+                    
+            <? elseif ($placeOfPublicationSet): ?>
+                :
+            <? endif; ?>
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($isbns as $isbn): ?>
+
+                <span property="isbn">ISBN: <?= $this->escapeHtml($isbn) ?></span><?= $isbn !== end($isbns) ? ", " : ""; ?>
+           
+            <? endforeach; ?>
+        <? endif; ?>
+        
+        </div>
   </div>
 </div>
 
@@ -177,6 +244,7 @@
             </tr>
         <? endif; ?>
 
+<!--ausblenden
         <? $belongsToTop = $this->driver->getBelongsToTop();
         if (!empty($belongsToTop)): ?>
             <tr valign="top">
@@ -185,9 +253,9 @@
                     <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
                 </td>
             </tr>
-        <? endif; ?>
+        <? endif; ?>-->
 
-        <!-- Ausgabe -->
+        <!-- Ausgabe
         <?/* Display series section if at least one series exists. */?>
         <? $series = $this->driver->getSeries(); if (!empty($series)): ?>
             <tr>
@@ -211,7 +279,7 @@
                     <? endforeach; ?>
                 </td>
             </tr>
-        <? endif; ?>
+        <? endif; ?> -->
 
 
         <!-- tags -->
