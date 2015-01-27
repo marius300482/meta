@@ -30,8 +30,15 @@
             <td property="type"><?= $this->escapeHtml($documentType); ?></td>
         </tr>
     <? endif; ?>
-
-<?php /* Not required
+    <? $signatory = $this->driver->getSignatory(); ?>
+    <? if (isset($signatory)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Signatory')?>: </th>
+            <td property="signatory"><?= $this->escapeHtml($signatory) ?></td>
+        </tr>
+    <? endif; ?>
+<!--
     <? $displayTitle = $this->driver->getdisplayTitle(); ?>
     <? if (isset($displayTitle)): ?>
         <? $contentDisplayed = true; ?>
@@ -57,8 +64,8 @@
             <th><?=$this->transEsc('Title Sub')?>: </th>
             <td property="titlesub"><?= $this->escapeHtml($titleSub); ?></td>
         </tr>
-    <? endif; ?>
-*/ ?>
+    <? endif; ?>-->
+
 
     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
     <? if (!empty($authors['main']) || !empty($authors['additional'])):  ?>
@@ -154,7 +161,6 @@
 
 
     <!-- Schriftenreihe -->
-    <? /* Display series section if at least one series exists.  ?>
     <? $series = $this->driver->getSeries();
     if (!empty($series)): ?>
         <? $contentDisplayed = true; ?>
@@ -179,7 +185,7 @@
                 <? endforeach; ?>
             </td>
         </tr>
-    <? endif; */ ?> 
+    <? endif; ?> 
 
 <?php /* Not required
     <? $placesOfPublication = $this->driver->getPlacesOfPublication(); ?>
@@ -376,14 +382,7 @@
         </tr>
     <? endif; ?>
 
-    <? $signatory = $this->driver->getSignatory(); ?>
-    <? if (isset($signatory)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Signatory')?>: </th>
-            <td property="signatory"><?= $this->escapeHtml($signatory) ?></td>
-        </tr>
-    <? endif; ?>
+
 
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>
