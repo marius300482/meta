@@ -37,8 +37,8 @@
         <constructor-arg index="2" ref="xsltTransformer"/>
     </bean>
     <bean id="frauensolidaritaet" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" value="frauensolidarität"/>
-        <constructor-arg index="1" value="${xslt.basePath}/institution/frauensolidaritaet/gleich_frs.xsl"/>
+        <constructor-arg index="0" value="frauensolidaritaet"/>
+        <constructor-arg index="1" value="${xslt.basePath}/institution/frauensolidaritaet/gleich_frauensolidaritaet.xsl"/>
         <constructor-arg index="2" ref="xsltTransformer"/>
     </bean>
     
