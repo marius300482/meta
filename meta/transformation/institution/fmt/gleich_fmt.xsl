@@ -56,7 +56,7 @@
 	
 	<!--institutionShortname-->
 				<institutionShortname>
-					<xsl:text>FMT</xsl:text>
+					<xsl:text>FrauenMediaTurm</xsl:text>
 					</institutionShortname>
 	<!--institutionFullname-->
 				<institutionFull>
@@ -952,7 +952,11 @@
 		</placeOfPublication>
 	</xsl:template>
 	<xsl:template match="Signatur_x058x_">
-		<xsl:choose>
+			<shelfMark>
+					<xsl:value-of select="."/>
+				</shelfMark>
+		
+		<!--<xsl:choose>
 			<xsl:when test="../Objektart_x058x_[text()='Zeitschriftenartikel']">
 				<shelfMark>
 					<xsl:value-of select="substring-before(.,'-a')"/>
@@ -973,7 +977,7 @@
 					<xsl:value-of select="."/>
 				</shelfMark>
 			</xsl:when>
-		</xsl:choose>
+		</xsl:choose>-->
 	</xsl:template>
 	<xsl:template match="Jahr_x058x_">
 		<displayPublishDate>
