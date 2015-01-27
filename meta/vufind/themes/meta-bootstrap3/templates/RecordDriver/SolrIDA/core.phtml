@@ -99,15 +99,6 @@
             <? endforeach; ?>
         <? endif; ?>
 
-        <? $sourceInfo = $this->driver->getSourceInfos(); ?>
-        <? if (!empty($sourceInfo)): ?>
-            <br />
-            <? $secondLineNotEmpty = true; ?>
-            <? foreach($sourceInfo as $info): ?>
-                <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
-            <? endforeach; ?>
-        <? endif; ?>
-
         <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
         <? if (isset($publicationDate)): ?>
             <? if ($secondLineNotEmpty): ?>
@@ -119,26 +110,55 @@
             <span property="publicationDate"><?= $this->escapeHtml($publicationDate) ?></span>
         <? endif; ?>
 
+    <? $issues = $this->driver->getIssues(); ?>
+    <? if (!empty($issues)): ?>
+        <? $contentDisplayed = true; ?>
+   /
+            <? foreach($issues as $issue): ?>
+                <?= $this->escapeHtml($issue) ?><?= $issue !== end($issues) ? ", " : "" ?>
+            <? endforeach; ?>
+    <? endif; ?>
+
+    <? $volumes = $this->driver->getVolumes(); ?>
+    <? if (!empty($volumes)): ?>
+        <? $contentDisplayed = true; ?>
+            <?=$this->transEsc('Volume')?>:
+            <? foreach($volumes as $volume): ?>
+                <?= $this->escapeHtml($volume) ?><?= $volume !== end($volumes) ? ", " : "" ?>
+            <? endforeach; ?>
+    <? endif; ?>
+
         <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
         <? if (!empty($physicals)): ?>
             <? if ($secondLineNotEmpty): ?>
-                .
+                ,
             <? elseif ($placeOfPublicationSet): ?>
                 :
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($physicals as $physical): ?>
-                -
+                
                 <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physical !== end($physicals) ? ", " : ""; ?>
                 S.
             <? endforeach; ?>
         <? endif; ?>
 
+      <? $sourceInfo = $this->driver->getSourceInfos(); ?>
+        <? if (!empty($sourceInfo)): ?>
+          <br /> In: 
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($sourceInfo as $info): ?>
+                <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
+       
+       <? endforeach; ?>
+        <? endif; ?>
+        
+<!--ausblenden
  <? $belongsToTop = $this->driver->getBelongsToTop();
         if (!empty($belongsToTop)): ?>
             In: <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
             
-            <? endif; ?>
+            <? endif; ?>-->
 
 <!--ausblenden
     <? $sourceInfos = $this->driver->getSourceInfos(); ?>
@@ -186,14 +206,29 @@
     <? $isbns = $this->driver->getISBNs(); ?>
         <? if (!empty($isbns)): ?>
             <? if ($secondLineNotEmpty): ?>
-                    
+                  
             <? elseif ($placeOfPublicationSet): ?>
                 :
             <? endif; ?>
             <? $secondLineNotEmpty = true; ?>
             <? foreach($isbns as $isbn): ?>
 
-                <span property="isbn">ISBN: <?= $this->escapeHtml($isbn) ?></span><?= $isbn !== end($isbns) ? ", " : ""; ?>
+                <span property="isbn"><nobr>ISBN: <?= $this->escapeHtml($isbn) ?></nobr></span><?= $isbn !== end($isbns) ? ", " : ""; ?>
+           
+            <? endforeach; ?>
+        <? endif; ?>
+        
+     <? $issns = $this->driver->getISSNs(); ?>
+        <? if (!empty($issns)): ?>
+            <? if ($secondLineNotEmpty): ?>
+                    
+            <? elseif ($placeOfPublicationSet): ?>
+                :
+            <? endif; ?>
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($issns as $issn): ?>
+
+                <span property="isbn"><nobr>ISSN: <?= $this->escapeHtml($issn) ?></nobr></span><?= $issn !== end($issns) ? ", " : ""; ?>
            
             <? endforeach; ?>
         <? endif; ?>
