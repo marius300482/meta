@@ -18,6 +18,7 @@ import javax.inject.Named;
 import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.Future;
 
 import static org.apache.solr.client.solrj.impl.HttpSolrServer.RemoteSolrException;
@@ -69,6 +70,7 @@ public class AsyncProcessService
             transformationBean.setException(e);
         } finally
         {
+            transformationBean.setEndTime(new Date());
             final String transformationMessages1 = transformationStrategy.getTransformationMessages();
             final String transformationMessages = workingFormatTransformer.getTransformationMessages();
             transformationBean.setTransformationMessages(" - Transformation to working format: " + transformationMessages1 + "\n - Transformation to solr format: " + transformationMessages);

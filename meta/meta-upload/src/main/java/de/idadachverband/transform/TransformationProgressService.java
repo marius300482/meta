@@ -1,15 +1,17 @@
 package de.idadachverband.transform;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static de.idadachverband.transform.TransformationProgressState.*;
+import static de.idadachverband.transform.TransformationProgressState.PROCESSING;
 
 /**
  * Provides details about progress of transformation.
@@ -22,6 +24,7 @@ import static de.idadachverband.transform.TransformationProgressState.*;
 @Slf4j
 public class TransformationProgressService
 {
+    @Getter
     final private Map<String, TransformationBean> tranformations = new ConcurrentHashMap<>();
 
     /**
@@ -50,42 +53,7 @@ public class TransformationProgressService
     public TransformationProgressState getState(String key)
     {
         TransformationBean transformationBean = tranformations.get(key);
-        if (transformationBean == null)
-        {
-            log.warn("Can not find result '{}' in '{}'.", key, tranformations.keySet());
-            return NOTFOUND;
-        }
-
-        if (transformationBean.getException() != null)
-        {
-            log.debug("Transformation {} failed.", transformationBean);
-            return FAILURE;
-        }
-
-        Future<?> future = transformationBean.getFuture();
-
-        if (future == null)
-        {
-            log.warn("Probably not started '{}' in '{}'.", transformationBean);
-            return NOTSTARTED;
-        } else
-        {
-            if (future.isDone())
-            {
-                log.info("Job '{}' is done. Remove from map", key);
-                // removeResultFromMap(key);
-                return DONE;
-            } else
-            {
-                if (future.isCancelled())
-                {
-                    log.info("Job '{}' was cancelled. Remove from map", key);
-                    // removeResultFromMap(key);
-                    return CANCELLED;
-                }
-            }
-        }
-        return PROCESSING;
+        return TransformationProgressState.getState(transformationBean);
     }
 
     /**
@@ -125,6 +93,20 @@ public class TransformationProgressService
     public void setException(String key, Exception e)
     {
         tranformations.get(key).setException(e);
+    }
+
+    public Map<String, TransformationBean> clear()
+    {
+        Map<String, TransformationBean> removedTransformations = new HashMap<>();
+        for (String key : tranformations.keySet())
+        {
+            final TransformationProgressState state = tranformations.get(key).getProgressState();
+            if (state != PROCESSING)
+            {
+                removedTransformations.put(key, tranformations.remove(key));
+            }
+        }
+        return removedTransformations;
     }
 
     private void removeResultFromMap(String key)
