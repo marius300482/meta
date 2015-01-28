@@ -1,0 +1,17 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<spring:url value="/upload" var="url"/>
+<spring:url value="/transformations/status" var="transformationsUrl"/>
+<spring:url value="/j_spring_security_logout" var="logoutUrl"/>
+<spring:url value="/archive" var="archive"/>
+<%--
+  Created by IntelliJ IDEA.
+  User: boehm
+  Date: 27.01.15
+  Time: 12:57
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
