@@ -66,6 +66,18 @@
         </tr>
     <? endif; ?>-->
 
+    <? $alternativeTitles = $this->driver->getAlternativeTitles(); ?>
+    <? if (!empty($alternativeTitles)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Title variation')?>: </th>
+            <td property="issue">
+            <? foreach($alternativeTitles as $alternativeTitle): ?>
+                <?= $this->escapeHtml($alternativeTitle) ?><?= $alternativeTitle !== end($alternativeTitles) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
 
     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
     <? if (!empty($authors['main']) || !empty($authors['additional'])):  ?>
@@ -251,6 +263,19 @@
         </tr>
     <? endif; ?>
 
+    <? $provenances = $this->driver->getProvenances(); ?>
+    <? if (!empty($provenances)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Provenance')?>: </th>
+            <td property="provenance">
+            <? foreach($provenances as $provenance): ?>
+                <?= $this->escapeHtml($provenance) ?><?= $provenance !== end($provenances) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
     <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
     <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
     <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
@@ -382,7 +407,14 @@
         </tr>
     <? endif; ?>
 
-
+    <? $creationdate = $this->driver->getRecordCreationDate(); ?>
+    <? if (isset($creationdate)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Date')?>: </th>
+            <td property="creationdate"><?= $this->escapeHtml($creationdate) ?></td>
+        </tr>
+    <? endif; ?>
 
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>
