@@ -36,7 +36,17 @@
         <constructor-arg index="1" value="${xslt.basePath}/institution/fmt/gleich_fmt.xsl"/>
         <constructor-arg index="2" ref="xsltTransformer"/>
     </bean>
-
+    <bean id="frauensolidaritaet" class="de.idadachverband.institution.IdaInstitutionBean">
+        <constructor-arg index="0" value="frauensolidaritaet"/>
+        <constructor-arg index="1" value="${xslt.basePath}/institution/frauensolidaritaet/gleich_frauensolidaritaet.xsl"/>
+        <constructor-arg index="2" ref="xsltTransformer"/>
+    </bean>
+    <bean id="ffbiz" class="de.idadachverband.institution.IdaInstitutionBean">
+        <constructor-arg index="0" value="ffbiz"/>
+        <constructor-arg index="1" value="${xslt.basePath}/institution/ffbiz/gleich_ffbiz.xsl"/>
+        <constructor-arg index="2" ref="xsltTransformer"/>
+    </bean>
+    
     <util:set id="institutionsSet" set-class="java.util.HashSet"
               value-type="de.idadachverband.institution.IdaInstitutionBean">
         <ref bean="genderbib"/>

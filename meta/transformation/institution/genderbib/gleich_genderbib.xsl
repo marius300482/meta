@@ -109,7 +109,7 @@
 							</institutionShortname>
 	
 <!--institutionFullname-->			<institutionFull>
-							<xsl:text>Genderbibliothek/Information/Dokumentation am Zentrum für transdisziplinäre Geschlechterstudien an der Humboldt-Universität zu Berlin</xsl:text>
+							<xsl:text>Genderbibliothek am Zentrum für transdisziplinäre Geschlechterstudien</xsl:text>
 							</institutionFull>
 			
 <!--collection-->				<collection><xsl:text>GReTA</xsl:text></collection>
@@ -181,14 +181,15 @@ den Datenbestand angezeigt-->
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-				<xsl:choose>
+				<xsl:apply-templates select="Sachtitel[1]"/>
+				<!--<xsl:choose>
 					<xsl:when test="Sachtitel">
 						<xsl:apply-templates select="Sachtitel[1]"/>
 						</xsl:when>
 					<xsl:when test="Reihentitel">
 						<xsl:apply-templates select="Reihentitel[1]"/>
 						</xsl:when>
-					</xsl:choose>
+					</xsl:choose>-->
 				
 
 <!--RESPONSIBLE-->
@@ -211,9 +212,11 @@ den Datenbestand angezeigt-->
 <!--PUBLISHING-->
 
 	<!--displayDate-->
+				<xsl:if test="Jahr[1]">
 				<displayPublishDate>
 					<xsl:value-of select="Jahr[1]"/>
 					</displayPublishDate>
+					</xsl:if>
 
 	<!--publishDate Jahresangabe-->
 				<xsl:apply-templates select="Jahr"/>
@@ -1051,6 +1054,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 				<xsl:apply-templates select="Titeländg_" />
 					
 <!--RESPONSIBLE-->
+				
 
 <!--IDENTIFIER-->
 				
@@ -1327,7 +1331,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				<xsl:variable name="zdbid" select="ZDB-ID" />
 				<sourceInfo>
 					<xsl:value-of select="Sachtitel" />
-					<xsl:text> (</xsl:text>
+					<!--<xsl:text> (</xsl:text>
 						<xsl:choose>
 							<xsl:when test="J_">
 								<xsl:value-of select="J_"/>
@@ -1345,7 +1349,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							<xsl:when test="not(H)">	
 								<xsl:value-of select="substring-after($z-ausgabe,')')"/>
 								</xsl:when>
-							</xsl:choose>
+							</xsl:choose>-->
 					
 					
 					</sourceInfo>
@@ -1525,8 +1529,25 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				<xsl:apply-templates select="Autorin[1]"/>
 						
 	<!--editor Herausgeberinneninformationen-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Hrsg_[1]">
+				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Hrsg_[1]" />
+					<xsl:for-each select="tokenize(//datensatz[id=$s_sachtitel]/Hrsg_[1], ';')">
+					<editor>
+						<xsl:value-of select="normalize-space(.)"></xsl:value-of>
+						<!--<xsl:value-of select="tokenize(//datensatz[id=$s_sachtitel]/Hrsg_[1], ';')"/>-->
+						</editor>
+						</xsl:for-each>
+						</xsl:if>
+				
 				<xsl:apply-templates select="Hrsg_[1]"/>
-
+				
+	<!--series Reiheninformation-->
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Reihentitel">
+					<series>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Reihentitel"/>
+						</series>
+						</xsl:if>
+					
 <!--IDENTIFIER-->
 
 	<!--ISBN / ISSN-->
@@ -1534,6 +1555,12 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					<issn>
 						<xsl:value-of select="//datensatz[id=$s_sachtitel]/ISSN"/>
 						</issn>
+						</xsl:if>
+						
+				<xsl:if test="//datensatz[id=$s_sachtitel]/ISBN">
+					<isbn>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/ISBN"/>
+						</isbn>
 						</xsl:if>
 
 	<!--ZDB-ID-->
@@ -1581,6 +1608,13 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Ersch_-ort"/>
 						</placeOfPublication>
 						</xsl:if>
+						
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Ort">
+					<placeOfPublication>
+						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Ort"/>
+						</placeOfPublication>
+						</xsl:if>
+
 
 	<!--publisher Verlagsangabe-->
 				<xsl:if test="//datensatz[id=$s_sachtitel]/Verlag">
@@ -1592,7 +1626,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<!--sourceInfo-->
 				<sourceInfo>
 					<xsl:value-of select="//datensatz[id=$s_sachtitel]/Sachtitel"/>
-					<xsl:text> (</xsl:text>
+					<!--<xsl:text> (</xsl:text>
 						<xsl:choose>
 							<xsl:when test="//datensatz[id=$s_sachtitel]/J_">
 								<xsl:value-of select="//datensatz[id=$s_sachtitel]/J_" />
@@ -1608,7 +1642,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					<xsl:text>)</xsl:text>
 					<xsl:value-of select="//datensatz[id=$s_sachtitel]/H" />
 					<xsl:text>, </xsl:text>
-					<xsl:value-of select="Umfang" />
+					<xsl:value-of select="Umfang" />-->
 					</sourceInfo>
 
 <!--PHYSICAL INFORMATION-->
@@ -1748,7 +1782,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 			<xsl:when test="contains(.,'In: ')">
 				<sourceInfo>
 					<xsl:value-of select="substring-after(.,'In: ')" />
-					<xsl:text> (</xsl:text>
+					<!--<xsl:text> (</xsl:text>
 					<xsl:value-of select="../Jahr[1]" />
 					<xsl:text>)</xsl:text>
 					<xsl:choose>
@@ -1762,7 +1796,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					<xsl:if test="../Seitenzahlen">
 						<xsl:text>, </xsl:text>
 						<xsl:value-of select="../Seitenzahlen" />
-						</xsl:if>
+						</xsl:if>-->
 					</sourceInfo>
 				</xsl:when>
 			
@@ -1771,7 +1805,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 			<sourceInfo>
 				<xsl:value-of select="." />
 				
-				<xsl:choose>
+				<!--<xsl:choose>
 					<xsl:when test="../Jahr[1]">
 						<xsl:text> (</xsl:text>
 						<xsl:value-of select="../Jahr[1]" />
@@ -1795,7 +1829,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					<xsl:if test="../Seitenzahlen">
 						<xsl:text>, </xsl:text>
 						<xsl:value-of select="../Seitenzahlen" />
-						</xsl:if>
+						</xsl:if>-->
 			</sourceInfo>
 				
 				</xsl:otherwise>
@@ -1810,9 +1844,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		</xsl:template>
 	
 	<xsl:template match="Bd--ReihenNr_">
-		<seriesNr>
+		<volume>
 			<xsl:value-of select="." />
-			</seriesNr>
+			</volume>
 		</xsl:template>
 	
 	<xsl:template match="Reihentitel">
@@ -2094,7 +2128,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		</xsl:template>
 
 <!--Template Reihentitel-->
-	<xsl:template match="Reihentitel[1]">
+	<!--<xsl:template match="Reihentitel[1]">
 		<xsl:choose>
 			<xsl:when test="contains(.[1], ':')">
 				<title>
@@ -2116,7 +2150,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					</title_short>
 				</xsl:otherwise>
 			</xsl:choose>
-		</xsl:template>
+		</xsl:template>-->
 
 <!--Template Einzeltitel-->
 	<xsl:template match="Einzeltitel[1]">

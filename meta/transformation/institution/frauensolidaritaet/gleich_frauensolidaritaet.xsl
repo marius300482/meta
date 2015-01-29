@@ -100,7 +100,7 @@
 <xsl:element name="institution">
 	
 <!--institutionShortname-->			<institutionShortname>
-							<xsl:text>FRSO</xsl:text>
+							<xsl:text>Frauensolidarität</xsl:text>
 							</institutionShortname>
 	
 <!--institutionFullname-->			<institutionFull>
@@ -374,6 +374,8 @@
 				<is_hierarchy_id><xsl:value-of select="$id"/><xsl:text>frso</xsl:text></is_hierarchy_id>
 				<is_hierarchy_title><xsl:value-of select="datafield[@tag='331']" /></is_hierarchy_title>	
 				
+				<hierarchy_sequence><xsl:value-of select="substring(datafield[@tag='331'],1,3)"/></hierarchy_sequence>
+				
 				</hierarchyFields>
 		</xsl:element>	
 		</xsl:if>
@@ -495,7 +497,9 @@
 					
 					<is_hierarchy_id><xsl:value-of select="$id"/><xsl:text>frso</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="datafield[@tag='331']" /></is_hierarchy_title>
-				
+					
+					<hierarchy_sequence><xsl:value-of select="substring(datafield[@tag='331'],1,3)"/></hierarchy_sequence>
+					
 				</hierarchyFields>
 		</xsl:element>	
 	</xsl:if>
@@ -636,7 +640,7 @@
 					<is_hierarchy_id><xsl:value-of select="$id"/><xsl:text>frso</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="datafield[@tag='331']" /></is_hierarchy_title>
 				
-					<hierarchy_sequence><xsl:value-of select="datafield[@tag='QUE']/subfield[@code='b']"></xsl:value-of></hierarchy_sequence>
+					<hierarchy_sequence><xsl:value-of select="substring(datafield[@tag='331'],1,3)"/></hierarchy_sequence>
 				
 				</hierarchyFields>
 		</xsl:element>	
