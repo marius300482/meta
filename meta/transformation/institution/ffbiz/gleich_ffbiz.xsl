@@ -161,6 +161,8 @@
 
 	<!--alternativeTitle-->
 			<xsl:apply-templates select="Titel_x132x_nderungen" />
+			<xsl:apply-templates select="Einheitssachtitel" />
+	
 
 <!--RESPONSIBLE-->
 
@@ -170,15 +172,28 @@
 	<!--editor Herausgeberinneninformationen-->
 			<xsl:apply-templates select="Hrsg_x046x_" />
 
+	<!--entity Körperschaft-->
+			<xsl:apply-templates select="bet_x046x_KS" />
+			<xsl:apply-templates select="Urheber" />
+
+	<!--series Reiheninformation-->
+			<xsl:apply-templates select="Reihe" />
+			
 	<!--edition Auflage-->
 			<xsl:apply-templates select="Auflage" />
+			
+	<!--volume-->
+			<xsl:apply-templates select="Band" />
+			
+	<!--Herkunft-->
+			<xsl:apply-templates select="Provenienz" />
 
 <!--IDENTIFIER-->
 
 <!--PUBLISHING-->
 
 	<!--display / publishDate Jahresangabe-->
-			<xsl:apply-templates select="Datum" />
+			<xsl:apply-templates select="Jahr_x047x_Datierung" />
 
 	<!--placeOfPublication Ortsangabe-->
 			<xsl:apply-templates select="Verlagsort" />	
@@ -198,6 +213,9 @@
 
 	<!--subjectTopic Deskriptoren-->
 			<xsl:apply-templates select="Schlagwort_x032x_Bibliothek" />
+			
+	<!--description-->
+			<xsl:apply-templates select="Bemerkung" />
 
 <!--OTHER-->
 
@@ -221,7 +239,43 @@
 	</xsl:template>
 	
 <!--Templates-->
-		
+	
+	<xsl:template match="Provenienz">
+		<provenance>
+			<xsl:value-of select="." />
+			</provenance>
+		</xsl:template>
+	
+	<xsl:template match="Bemerkung">
+		<description>
+			<xsl:value-of select="." />
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="Band">
+		<volume>
+			<xsl:value-of select="." />
+			</volume>
+		</xsl:template>
+	
+	<xsl:template match="Urheber">
+		<contributor>
+			<xsl:value-of select="." />
+			</contributor>
+		</xsl:template>
+	
+	<xsl:template match="bet_x046x_KS">
+		<entity>
+			<xsl:value-of select="." />
+			</entity>
+		</xsl:template>
+	
+	<xsl:template match="Reihe">
+		<series>
+			<xsl:value-of select="." />
+			</series>
+		</xsl:template>
+	
 	<xsl:template match="Auflage">
 		<edition>
 			<xsl:value-of select="." />
@@ -231,6 +285,10 @@
 	<xsl:template match="Signatur">
 		<shelfMark>
 			<xsl:value-of select="." />
+			<xsl:if test="../Signatur-Nummerierung">
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="../Signatur-Nummerierung" />
+				</xsl:if>
 			</shelfMark>
 		</xsl:template>
 	
@@ -277,7 +335,7 @@
 			</xsl:choose>
 		</xsl:template>
 	
-	<xsl:template match="Datum">
+	<xsl:template match="Jahr_x047x_Datierung">
 		<displayPublishDate>
 			<xsl:value-of select="." />
 			</displayPublishDate>
@@ -300,6 +358,12 @@
 				<xsl:value-of select="."/>
 				</author>
 			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Einheitssachtitel">
+		<alternativeTitle>
+			<xsl:value-of  select="." />
+				</alternativeTitle>
 		</xsl:template>
 	
 	<xsl:template match="Titel_x132x_nderungen">
