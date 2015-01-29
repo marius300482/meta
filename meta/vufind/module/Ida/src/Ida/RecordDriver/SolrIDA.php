@@ -86,6 +86,16 @@ abstract class SolrIDA extends SolrDefault
         return $retval;
     }
 
+    public function getProvenances()
+    {
+        return $this->getMultiValuedField("provenance");
+    }
+
+    public function getRecordCreationDate()
+    {
+        return $this->getSingleValuedField("recordCreationDate");
+    }
+
     public function getPlacesOfPublication()
     {
         return $this->getMultiValuedField("placeOfPublication");
@@ -141,7 +151,7 @@ abstract class SolrIDA extends SolrDefault
     
     public function getAlternativeTitles()
     {
-      return $this->getMultiValuedField("alternativeTitle");
+      return $this->getMultiValuedField("title_alt");
     }
     
     public function getEditors()
