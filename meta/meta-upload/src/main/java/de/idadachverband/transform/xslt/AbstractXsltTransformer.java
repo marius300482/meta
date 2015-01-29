@@ -10,7 +10,6 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -31,9 +30,8 @@ import java.util.TimeZone;
  * Created by boehm on 15.01.15.
  */
 @Slf4j
-@Named
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public abstract class AbstractXsltTransfomer implements IdaTransformer
+public abstract class AbstractXsltTransformer implements IdaTransformer
 {
 
     @Getter
@@ -41,7 +39,7 @@ public abstract class AbstractXsltTransfomer implements IdaTransformer
     @Inject
     protected Path archivePath;
 
-    protected AbstractXsltTransfomer()
+    protected AbstractXsltTransformer()
     {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }

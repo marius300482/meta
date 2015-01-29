@@ -12,7 +12,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d %-5level %logger{0} - %msg%n</pattern>
+            <pattern>%d %-5level %logger{0} [%thread]- %msg%n</pattern>
         </encoder>
     </appender>
 

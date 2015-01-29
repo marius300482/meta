@@ -91,23 +91,23 @@ public class AsyncFileUploadController
      */
     @RequestMapping(method = RequestMethod.POST)
     public Callable<String> handleFormUpload(@ModelAttribute final UploadFormBean uploadFormBean,
-                                             @AuthenticationPrincipal Authentication authentication, final RedirectAttributes map)
+                                             @AuthenticationPrincipal final Authentication authentication, final RedirectAttributes map)
     {
-        log.info("Attempt to process upload {}", uploadFormBean);
+        log.info("Attempt to process uploaded file: {}", uploadFormBean);
         return new Callable<String>()
         {
             @Override
             public String call()
             {
                 MultipartFile file = uploadFormBean.getFile();
+                log.info("User: {} uploaded file: {}", authentication.getName(), file);
                 File tempFile;
                 try
                 {
-                    tempFile = File.createTempFile(dateFormat.format(new Date()) + "-upload-", file.getContentType().toLowerCase().equals("application/zip") ? ".tmp.zip" : ".tmp");
-                    file.transferTo(tempFile);
-
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
                     SolrService solr = uploadFormBean.getSolr();
+
+                    tempFile = moveToTempFile(file, institution.getInstitutionName());
 
                     TransformationBean transformationBean = processService.process(tempFile, institution, solr, file.getOriginalFilename());
                     map.addAttribute("result", transformationBean.getKey());
@@ -123,5 +123,15 @@ public class AsyncFileUploadController
                 }
             }
         };
+    }
+
+    private File moveToTempFile(MultipartFile file, String institutionName) throws IOException
+    {
+        final String prefix = institutionName + "-" + dateFormat.format(new Date()) + "-upload-";
+        final String suffix = file.getContentType().toLowerCase().equals("application/zip") ? ".tmp.zip" : ".tmp";
+        File tempFile = File.createTempFile(prefix, suffix);
+        file.transferTo(tempFile);
+        log.debug("Moved uploaded file: {} to: {}", file, tempFile);
+        return tempFile;
     }
 }

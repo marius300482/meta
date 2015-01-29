@@ -64,6 +64,7 @@ public class IdaInputArchiver
             log.debug("Compression disabled for file: {}", input);
             return input;
         } else
+        {
             if (inputIsZip(input))
             {
                 final Path target = getArchivePathOfInstitution(institutionName).resolve(input.getName());
@@ -72,13 +73,14 @@ public class IdaInputArchiver
                 Files.move(input.toPath(), target);
                 return target.toFile();
             } else
-        {
-            Path path = getArchivePathOfInstitution(institutionName).resolve(input.getName() + ".zip");
-            log.debug("Create folder (if not exists) for file: {}", path);
-            Files.createDirectories(path.getParent());
-            zipService.zip(input, path.toFile());
-            input.delete();
-            return path.toFile();
+            {
+                Path path = getArchivePathOfInstitution(institutionName).resolve(input.getName() + ".zip");
+                log.debug("Create folder (if not exists) for file: {}", path);
+                Files.createDirectories(path.getParent());
+                zipService.zip(input, path.toFile());
+                input.delete();
+                return path.toFile();
+            }
         }
     }
 
@@ -110,7 +112,6 @@ public class IdaInputArchiver
      * @param institutionName Name of institution the input file belongs to
      * @return The archived file
      * @throws IOException
-     *
      * @deprecated
      */
     public File saveSolrFile(File file, String solrCoreName, String institutionName) throws IOException

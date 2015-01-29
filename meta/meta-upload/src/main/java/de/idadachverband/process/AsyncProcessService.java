@@ -50,7 +50,7 @@ public class AsyncProcessService
     @Async
     public Future<Void> processAsynchronous(File input, IdaInstitutionBean institution, SolrService solr, TransformationBean transformationBean) throws NotificationException
     {
-        log.debug("**************** In async method");
+        log.debug("Start asynchronous processing of: {}", transformationBean);
         AsyncResult<Void> asyncResult = new AsyncResult<>(null);
         try
         {
@@ -71,37 +71,53 @@ public class AsyncProcessService
         } finally
         {
             transformationBean.setEndTime(new Date());
-            final String transformationMessages1 = transformationStrategy.getTransformationMessages();
-            final String transformationMessages = workingFormatTransformer.getTransformationMessages();
-            transformationBean.setTransformationMessages(" - Transformation to working format: " + transformationMessages1 + "\n - Transformation to solr format: " + transformationMessages);
+            final String transformationMessagesFromUpload = transformationStrategy.getTransformationMessages();
+            final String transformationMessagesToSolrFormat = workingFormatTransformer.getTransformationMessages();
+            transformationBean.setTransformationMessages(" - Transformation to working format: " + transformationMessagesFromUpload + "\n - Transformation to solr format: " + transformationMessagesToSolrFormat);
             resultMailSender.notify(transformationBean);
         }
 
-        log.debug("**************** End of async method");
+        log.debug("* End of asynchronous processing of: {}", transformationBean);
         return asyncResult;
     }
 
 
     public File transformToWorkingFormat(File inputFile, IdaInstitutionBean institution) throws TransformerException, IOException
     {
+        log.info("Start transformation of: {} for: {} to working format", inputFile, institution);
+        final long start = System.currentTimeMillis();
         final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        return transformationStrategy.transform(unzippedFile, institution);
+        final File transformedFile = transformationStrategy.transform(unzippedFile, institution);
+        final long end = System.currentTimeMillis();
+        log.info("Transformation of: {} for: {} to working format took: {} seconds", inputFile, institution, (end - start) / 1000);
+        return transformedFile;
     }
 
     public File transformToSolrFormat(IdaInstitutionBean institution, File inputFile) throws TransformerException, IOException
     {
+        log.info("Start transformation of: {} for: {} to Solr format", inputFile, institution);
+        final long start = System.currentTimeMillis();
         final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        return workingFormatTransformer.transform(unzippedFile, institution);
+        final File transformedFile = workingFormatTransformer.transform(unzippedFile, institution);
+        final long end = System.currentTimeMillis();
+        log.info("Transformation of: {} for: {} to Solr format took: {} seconds", inputFile, institution, (end - start) / 1000);
+        return transformedFile;
     }
 
     public void upateSolr(SolrService solr, TransformationBean transformationBean, File inputFile, String institutionName) throws IOException, SolrServerException
     {
+        log.info("Start Solr update of core: {} for: {} with file: {}", solr, institutionName, inputFile);
+        final long start = System.currentTimeMillis();
+
         final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        final String deleteResult = solr.deleteInstitution(institutionName);
-        log.debug("Solr delete documents of institution result: {}", deleteResult);
+        solr.deleteInstitution(institutionName);
 
         String solrResult = solr.update(unzippedFile);
         transformationBean.setSolrResponse(solrResult);
+
+        final long end = System.currentTimeMillis();
+        log.info("Solr update of core: {} for: {} with file: {} took: {} seconds.", solr, institutionName, inputFile, (end - start) / 1000);
+
         log.debug("Solr result {}", solrResult);
     }
 

@@ -52,11 +52,12 @@ public class SolrService
      */
     public String update(File input) throws IOException, SolrServerException
     {
+        log.info("Update core: {} with file: {}", name, input);
         ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/update");
         request.addFile(input, "text/xml");
         log.info("Send file {} with request {}{}", input, url, request.getPath());
         NamedList<Object> result = server.request(request);
-        log.debug("Result {}", result);
+        log.debug("Result for update of core: {} with: {} is:  {}", name, input, result);
         return result.toString();
     }
 
@@ -86,6 +87,7 @@ public class SolrService
      */
     public void reindex(List<Path> files) throws IOException, SolrServerException
     {
+        log.info("Reindex on core: {} with: {}", name, files);
         deleteAll();
         Map<Path, Exception> failedUpdates = new HashMap<>();
         final Path tempDirectory = Files.createTempDirectory("index-");
