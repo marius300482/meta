@@ -258,6 +258,8 @@
 				<field name="seriesNr"><xsl:value-of select="dataset/seriesNr" /></field>
 				</xsl:if>
     			
+    			<xsl:apply-templates select="dataset/provenance" />
+    			
     			<!--<xsl:if test="dataset/isbn">
 				<field name="isbn">	<xsl:value-of select="dataset/isbn" /></field>
 				</xsl:if>-->
@@ -538,6 +540,14 @@
 </add>
 </xsl:template>
 
+	<xsl:template match="provenance">
+		<xsl:for-each select=".">
+			<field name="provenance">
+				<xsl:value-of select="." />
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+
 	<xsl:template match="subjectName">
 		<xsl:for-each select=".">
 			<field name="subjectName">
@@ -579,13 +589,14 @@
 		</xsl:template>
 	
 	<xsl:template match="language_code">
-		<xsl:variable name="test" select="." />
+		
 		<xsl:for-each select=".">
+		<xsl:variable name="test" select="." />
 			<field name="language">
 				<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@code=$test]/@name"/>
 				</field>
 			<field name="language_code">
-				<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@code=$test]/@code"/>
+				<xsl:value-of select="."/>
 				</field>
 			</xsl:for-each>
 		</xsl:template>
