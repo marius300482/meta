@@ -1,5 +1,5 @@
+<%@ include file="header.jspf" %>
 <%@ page import="de.idadachverband.transform.TransformationProgressState" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: boehm
@@ -7,7 +7,6 @@
   Time: 15:09
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title></title>
@@ -16,10 +15,8 @@
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 </head>
 <body>
-<h1>It worked</h1>
-<spring:url value="/upload" var="url"/>
+<h1>You successfully uploaded one file</h1>
 <spring:url value="/files/" var="fileUrl"/>
-<spring:url value="/j_spring_security_logout" var="logoutUrl"/>
 <spring:url value="/result/getResult" var="stateUrl"/>
 <spring:url value="/resources/images/waiting.gif" var="waiting"/>
 
@@ -42,10 +39,6 @@
 
 </div>
 
-<div>
-    <a href="${url}">Next file</a>
-    <a href="${logoutUrl}">Logout</a>
-</div>
 
 <script type="application/javascript">
     successCallback = function (v) {
@@ -80,5 +73,7 @@
 
     pollInterval = setInterval(poll, 15000);
 </script>
+
+<%@include file="footer.jspf" %>
 </body>
 </html>

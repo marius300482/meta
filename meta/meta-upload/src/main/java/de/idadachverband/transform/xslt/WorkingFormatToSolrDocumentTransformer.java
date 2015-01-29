@@ -11,7 +11,7 @@ import java.io.*;
  * Created by boehm on 15.01.15.
  */
 @Slf4j
-public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfomer
+public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransformer
 {
     final private String gleichXsl;
 

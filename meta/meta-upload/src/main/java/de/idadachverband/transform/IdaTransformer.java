@@ -25,7 +25,8 @@ public interface IdaTransformer
     /**
      * Used to present potential errors and warnings to the user.
      *
-     * @return Errors and warnings gathered during transformation.-
+     * @return Errors and warnings gathered during transformation.
      */
+
     String getTransformationMessages();
 }

@@ -26,11 +26,12 @@ public class ProcessService
     @Inject
     private TransformationProgressService transformationProgressService;
 
-    public TransformationBean process(File input, IdaInstitutionBean institution, SolrService solr) throws IOException
+    public TransformationBean process(File input, IdaInstitutionBean institution, SolrService solr, String originalFileName) throws IOException
     {
-        TransformationBean transformationBean = new TransformationBean();
+        log.info("Start processing of: {} for institution: {} on Solr core: {}", originalFileName, institution.getInstitutionName(), solr.getName());
+        TransformationBean transformationBean = new TransformationBean(institution.getInstitutionName(), originalFileName);
         transformationProgressService.add(transformationBean);
-        log.debug("====================== Call async method");
+        log.debug("= Call async method for: {}", transformationBean);
         Future<?> voidFuture = null;
         try
         {
@@ -40,7 +41,7 @@ public class ProcessService
             log.error("Failed to notify result of transformation {}", transformationBean, e);
         }
         transformationBean.setFuture(voidFuture);
-        log.debug("====================== Async method returned");
+        log.debug("= Async method returned for: {}", transformationBean);
         return transformationBean;
     }
 }

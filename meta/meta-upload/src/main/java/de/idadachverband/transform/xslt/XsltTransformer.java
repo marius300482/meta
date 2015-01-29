@@ -14,7 +14,7 @@ import java.io.*;
  */
 @Slf4j
 @Named
-public class XsltTransformer extends AbstractXsltTransfomer
+public class XsltTransformer extends AbstractXsltTransformer
 {
     /**
      * Implementation class for TransformerFactory is defined in:

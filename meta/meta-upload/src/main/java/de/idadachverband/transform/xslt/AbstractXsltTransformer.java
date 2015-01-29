@@ -1,7 +1,6 @@
 package de.idadachverband.transform.xslt;
 
 import de.idadachverband.transform.IdaTransformer;
-import lombok.Cleanup;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.saxon.lib.ErrorGatherer;
@@ -11,11 +10,13 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -29,9 +30,8 @@ import java.util.TimeZone;
  * Created by boehm on 15.01.15.
  */
 @Slf4j
-@Named
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public abstract class AbstractXsltTransfomer implements IdaTransformer
+public abstract class AbstractXsltTransformer implements IdaTransformer
 {
 
     @Getter
@@ -39,33 +39,10 @@ public abstract class AbstractXsltTransfomer implements IdaTransformer
     @Inject
     protected Path archivePath;
 
-    protected AbstractXsltTransfomer()
+    protected AbstractXsltTransformer()
     {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
-
-    /**
-     * Transforms input to to Ida standard format, only stored in temporary file, and then to Solr input xml.
-     *
-     * @param inputStream    the input XML to be transformed
-     * @param institutionXsl XSL for institution corresponding to input XML
-     * @return Solr input file. Can be added to Solr via update request
-     * @throws TransformerException
-     * @throws IOException
-     */
-    private File transform(final InputStream inputStream, File institutionXsl) throws TransformerException, IOException
-    {
-        Path tempFile = Files.createTempFile("work-", ".xml");
-        log.info("Create temp file {}", tempFile);
-
-        @Cleanup
-        OutputStream out = new FileOutputStream(tempFile.toFile());
-        transformInstitution(inputStream, out, institutionXsl);
-        log.info("Transformed to Working format");
-
-        return tempFile.toFile();
-    }
-
 
     protected void transformInstitution(InputStream inputStream, OutputStream outputStream, File institutionXsl) throws TransformerException
     {
