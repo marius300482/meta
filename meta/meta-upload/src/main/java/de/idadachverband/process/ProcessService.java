@@ -26,9 +26,9 @@ public class ProcessService
     @Inject
     private TransformationProgressService transformationProgressService;
 
-    public TransformationBean process(File input, IdaInstitutionBean institution, SolrService solr) throws IOException
+    public TransformationBean process(File input, IdaInstitutionBean institution, SolrService solr, String originalFileName) throws IOException
     {
-        TransformationBean transformationBean = new TransformationBean(institution.getInstitutionName());
+        TransformationBean transformationBean = new TransformationBean(institution.getInstitutionName(), originalFileName);
         transformationProgressService.add(transformationBean);
         log.debug("====================== Call async method");
         Future<?> voidFuture = null;

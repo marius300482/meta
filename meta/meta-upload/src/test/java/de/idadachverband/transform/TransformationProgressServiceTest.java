@@ -21,7 +21,7 @@ public class TransformationProgressServiceTest
 
     @Mock
     private IdaInstitutionBean institutionBean;
-    private TransformationBean transformationBean = new TransformationBean("");
+    private TransformationBean transformationBean = new TransformationBean("", "");
     private TransformationProgressService cut = new TransformationProgressService();
     @Mock
     private Future<File> future;

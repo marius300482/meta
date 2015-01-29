@@ -109,7 +109,7 @@ public class AsyncFileUploadController
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
                     SolrService solr = uploadFormBean.getSolr();
 
-                    TransformationBean transformationBean = processService.process(tempFile, institution, solr);
+                    TransformationBean transformationBean = processService.process(tempFile, institution, solr, file.getOriginalFilename());
                     map.addAttribute("result", transformationBean.getKey());
 
                     return "redirect:result/success";
