@@ -1150,10 +1150,10 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="replace(.,'_','')"/>
 				</title>
 				<title_short>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="replace(.,'_','')"/>
 				</title_short>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -1162,7 +1162,7 @@
 		<xsl:choose>
 			<xsl:when test="contains(.[1], ':')">
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="replace(.,'_','')"/>
 				</title>
 				<title_short>
 					<xsl:value-of select="normalize-space(substring-before(.[1], ':'))"/>
@@ -1173,10 +1173,10 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="replace(.,'_','')"/>
 				</title>
 				<title_short>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="replace(.,'_','')"/>
 				</title_short>
 			</xsl:otherwise>
 		</xsl:choose>
