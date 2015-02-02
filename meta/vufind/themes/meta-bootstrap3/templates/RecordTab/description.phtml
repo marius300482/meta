@@ -22,6 +22,20 @@
         </tr>
     <? endif; ?>
 */?>
+    
+    <? $institutions = $this->driver->getInstitutions(); ?>
+    <? if (!empty($institutions)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Institution')?>: </th>
+            <td property="institution">
+            <? foreach($institutions as $institution): ?>
+                <?= $this->escapeHtml($institution) ?><?= $institution !== end($institutions) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+    
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
         <? $contentDisplayed = true; ?>
