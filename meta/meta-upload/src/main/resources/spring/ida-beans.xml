@@ -46,6 +46,11 @@
         <constructor-arg index="1" value="${xslt.basePath}/institution/ffbiz/gleich_ffbiz.xsl"/>
         <constructor-arg index="2" ref="xsltTransformer"/>
     </bean>
+    <bean id="belladonna" class="de.idadachverband.institution.IdaInstitutionBean">
+        <constructor-arg index="0" value="belladonna"/>
+        <constructor-arg index="1" value="${xslt.basePath}/institution/belladonna/gleich_belladonna.xsl"/>
+        <constructor-arg index="2" ref="xsltTransformer"/>
+    </bean>
     
     <util:set id="institutionsSet" set-class="java.util.HashSet"
               value-type="de.idadachverband.institution.IdaInstitutionBean">
