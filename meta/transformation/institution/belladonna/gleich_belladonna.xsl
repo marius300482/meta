@@ -347,7 +347,61 @@
 <xsl:if test="Objektart[text()='Buch-Aufsatz']">
 	<xsl:element name="dataset">
 	
-	<xsl:variable name="s_sachtitel" select="translate(s_Sachtitel[1], translate(.,'0123456789', ''), '')"/>
+	<!--<xsl:variable name="s_sachtitel" select="translate(s_Sachtitel[1], translate(.,'0123456789', ''), '')"/>-->
+	
+	<xsl:variable name="testi">
+		<xsl:for-each select="//datensatz[id=$s_sachtitel]">
+			
+			<xsl:text>editor:</xsl:text>
+				<xsl:value-of select="HerausgeberIn"></xsl:value-of>
+				<xsl:text>:editor</xsl:text>
+			
+			<xsl:text>contributor:</xsl:text>
+				<xsl:value-of select="ÜbersetzerIn"></xsl:value-of>
+				<xsl:text>:contributor</xsl:text>
+			
+			<xsl:text>entity:</xsl:text>
+				<xsl:value-of select="Körperschaft"></xsl:value-of>
+				<xsl:text>:entity</xsl:text>
+			
+			<xsl:text>series:</xsl:text>
+				<xsl:value-of select="Reihe"></xsl:value-of>
+				<xsl:text>:series</xsl:text>
+			
+			<xsl:text>volume:</xsl:text>
+				<xsl:value-of select="Band-Nr_"></xsl:value-of>
+				<xsl:text>:volume</xsl:text>
+			
+			<xsl:text>isbn:</xsl:text>
+				<xsl:value-of select="ISBN"></xsl:value-of>
+				<xsl:text>:isbn</xsl:text>
+			
+			<xsl:text>publishDate:</xsl:text>
+				<xsl:value-of select="Jahr"></xsl:value-of>
+				<xsl:text>:publishDate</xsl:text>
+			
+			<xsl:text>placeOfPublication:</xsl:text>
+				<xsl:value-of select="Ort"></xsl:value-of>
+				<xsl:text>:placeOfPublication</xsl:text>
+			
+			<xsl:text>publisher:</xsl:text>
+				<xsl:value-of select="Verlag"></xsl:value-of>
+				<xsl:text>:publisher</xsl:text>
+			
+			<xsl:text>sourceInfo:</xsl:text>
+				<xsl:value-of select="normalize-space(replace(Sachtitel,'_',''))"></xsl:value-of>
+				<xsl:text>:sourceInfo</xsl:text>
+			
+			<xsl:text>shelfMark:</xsl:text>
+				<xsl:value-of select="Signatur"></xsl:value-of>
+				<xsl:text>:shelfMark</xsl:text>
+			
+			</xsl:for-each>
+		
+		
+		</xsl:variable>
+	
+	
 	
 <!--FORMAT-->
 
@@ -372,17 +426,36 @@
 				<xsl:apply-templates select="AutorIn" />
 
 	<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/HerausgeberIn!=''">
+				<xsl:if test="substring-after($testi,'editor:')!=':'">
+					<xsl:for-each select="tokenize(substring-before(substring-after($testi,'editor:'),':editor'), ';')">
+					<editor>
+						<xsl:value-of select="normalize-space(.)" />
+						</editor>
+						</xsl:for-each>
+					</xsl:if>
+				
+				
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/HerausgeberIn!=''">
 				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/HerausgeberIn" />
 					<xsl:for-each select="tokenize(//datensatz[id=$s_sachtitel]/HerausgeberIn, ';')">
 					<editor>
 						<xsl:value-of select="normalize-space(.)" />
 						</editor>
 						</xsl:for-each>
-						</xsl:if>
+						</xsl:if>-->
 				
 	<!--contributor Beteiligte Personen-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/ÜbersetzerIn!=''">
+				<xsl:if test="substring-after($testi,'contributor:')!=':'">
+					<xsl:for-each select="tokenize(substring-before(substring-after($testi,'contributor:'),':contributor'), ';')">
+					<contributor>
+						<xsl:value-of select="substring-before(substring-after($testi,'contributor:'),':contributor')" />
+						<xsl:text> [Übers.]</xsl:text>
+						</contributor>
+						</xsl:for-each>
+					</xsl:if>
+
+				
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/ÜbersetzerIn!=''">
 				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/ÜbersetzerIn" />
 					<xsl:for-each select="tokenize(//datensatz[id=$s_sachtitel]/ÜbersetzerIn, ';')">
 					<contributor>
@@ -390,48 +463,89 @@
 						<xsl:text> [Übers.]</xsl:text>
 						</contributor>
 						</xsl:for-each>
-						</xsl:if>
+						</xsl:if>-->
 
 	<!--entity Körperschaftsangaben-->	
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Körperschaft!=''">
+				<xsl:if test="substring-after($testi,'entity:')!=':'">
+					<xsl:for-each select="tokenize(substring-before(substring-after($testi,'entity:'),':entity'), ';')">
+					<entity>
+						<xsl:value-of select="substring-before(substring-after($testi,'entity:'),':entity')" />
+						</entity>
+						</xsl:for-each>
+					</xsl:if>
+
+
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/Körperschaft!=''">
 				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Körperschaft" />
 					<entity>
-						<xsl:value-of select="normalize-space($rel)" />
+						
+						<xsl:value-of select="normalize-space(//datensatz[id=$s_sachtitel]/Körperschaft)" />
 						</entity>
-						</xsl:if>
+						</xsl:if>-->
 
 	<!--series Reiheninformation-->						
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Reihe!=''">
-				<xsl:for-each select="Reihe">
-				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Reihe" />
+				<xsl:if test="substring-after($testi,'series:')!=':'">
+					<xsl:for-each select="tokenize(substring-before(substring-after($testi,'series:'),':series'), ';')">
+					<entity>
+						<xsl:value-of select="substring-before(substring-after($testi,'series:'),':series')" />
+						</entity>
+						</xsl:for-each>
+					</xsl:if>
+				
+				
+				
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/Reihe!=''">
+				<xsl:for-each select="//datensatz[id=$s_sachtitel]/Reihe">
 					<series>
-						<xsl:value-of select="normalize-space(substring-before($rel,';'))" />
+						<xsl:value-of select="normalize-space(.)" />
 						</series>
 					</xsl:for-each>
-					</xsl:if>
+					</xsl:if>-->
 						
 	
 	<!--volume-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Band-Nr_!=''">
-				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Band-Nr_" />
+				<xsl:if test="substring-after($testi,'volume:')!=':'">
 					<volume>
-						<xsl:value-of select="normalize-space($rel)" />
+						<xsl:value-of select="substring-before(substring-after($testi,'volume:'),':volume')" />
 						</volume>
-						</xsl:if>
+					</xsl:if>
+				<!--
+				<xsl:if test="//datensatz[id=$s_sachtitel]/Band-Nr_!=''">
+					<volume>
+						
+						<xsl:value-of select="normalize-space(//datensatz[id=$s_sachtitel]/Band-Nr_)" />
+						</volume>
+						</xsl:if>-->
 
 <!--IDENTIFIER-->
 
 	<!--ISBN-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/ISBN!=''">
-				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/ISBN" />
+				<xsl:if test="substring-after($testi,'isbn:')!=':'">
 					<isbn>
-						<xsl:value-of select="normalize-space($rel)" />
+						<xsl:value-of select="substring-before(substring-after($testi,'isbn:'),':isbn')" />
 						</isbn>
-						</xsl:if>
+					</xsl:if>
+				
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/ISBN!=''">
+				
+					<isbn>
+						
+						<xsl:value-of select="normalize-space(//datensatz[id=$s_sachtitel]/ISBN)" />
+						</isbn>
+						</xsl:if>-->
 
 <!--PUBLISHING-->
 	
 	<!--display publishDate Jahresangabe-->
+				<xsl:if test="substring-after($testi,'publishDate:')!=':'">
+					<displayPublishDate>
+						<xsl:value-of select="substring-before(substring-after($testi,'publishDate:'),':publishDate')" />
+						</displayPublishDate>
+					<publishDate>
+						<xsl:value-of select="substring-before(substring-after($testi,'publishDate:'),':publishDate')" />
+						</publishDate>
+					</xsl:if>
+				<!--
 				<xsl:if test="//datensatz[id=$s_sachtitel]/Jahr!=''">
 				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Jahr" />
 					<displayPublishDate>
@@ -440,32 +554,50 @@
 					<publishDate>
 						<xsl:value-of select="normalize-space($rel)" />
 						</publishDate>
-						</xsl:if>
+						</xsl:if>-->
 						
 	<!--placeOfPublication Ortsangabe-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Ort!=''">
+				<xsl:if test="substring-after($testi,'placeOfPublication:')!=':'">
+					<placeOfPublication>
+						<xsl:value-of select="substring-before(substring-after($testi,'placeOfPublication:'),':placeOfPublication')" />
+						</placeOfPublication>
+					</xsl:if>
+				
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/Ort!=''">
 				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Ort" />
 					<placeOfPublication>
+						
 						<xsl:value-of select="normalize-space($rel)" />
 						</placeOfPublication>
-						</xsl:if>
+						</xsl:if>-->
 				
 	<!--publisher Verlagsangabe-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Verlag!=''">
+				<xsl:if test="substring-after($testi,'publisher:')!=':'">
+					<publisher>
+						<xsl:value-of select="substring-before(substring-after($testi,'publisher:'),':publisher')" />
+						</publisher>
+					</xsl:if>
+				
+				
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/Verlag!=''">
 				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Verlag" />
 					<publisher>
 						<xsl:value-of select="normalize-space($rel)" />
 						</publisher>
-						</xsl:if>
+						</xsl:if>-->
 	
 	<!--sourceInfo-->
 				<sourceInfo>
+					<xsl:value-of select="substring-before(substring-after($testi,'sourceInfo:'),':sourceInfo')" />
+					</sourceInfo>
+				
+				<!--<sourceInfo>
 					<xsl:value-of select="normalize-space(replace(//datensatz[id=$s_sachtitel]/Sachtitel,'_',''))"/>
 					<xsl:if test="//datensatz[id=$s_sachtitel]/Zus__Sachtitel!=''">
 						<xsl:text> : </xsl:text>
 						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Zus__Sachtitel" />
 						</xsl:if>
-					</sourceInfo>
+					</sourceInfo>-->
 			
 <!--PHYSICAL INFORMATION-->
 	
@@ -487,18 +619,38 @@
 <!--OTHER-->
 	
 	<!--shelfMark-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Signatur!=''">
+				<xsl:if test="substring-after($testi,'shelfMark:')!=':'">
+					<shelfMark>
+						<xsl:value-of select="substring-before(substring-after($testi,'shelfMark:'),':shelfMark')" />
+						</shelfMark>
+					</xsl:if>
+				
+				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/Signatur!=''">
 				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Signatur" />
 					<shelfMark>
 						<xsl:value-of select="normalize-space($rel)" />
 						</shelfMark>
-						</xsl:if>
+						</xsl:if>-->
 			
 		</xsl:element>
 	
 	
 <xsl:element name="functions">
-	
+	<xsl:variable name="testi">
+		<xsl:for-each select="//datensatz[id=$s_sachtitel]">
+			
+			<xsl:text>sourceInfo:</xsl:text>
+				<xsl:value-of select="normalize-space(replace(Sachtitel,'_',''))"></xsl:value-of>
+				<xsl:text>:sourceInfo</xsl:text>
+			
+			<xsl:text>title_sub:</xsl:text>
+				<xsl:value-of select="Zus__Sachtitel"></xsl:value-of>
+				<xsl:text>:title_sub</xsl:text>
+			
+			</xsl:for-each>
+		
+		
+		</xsl:variable>
 	<xsl:element name="hierarchyFields">
 		
 		<hierarchy_top_id>
@@ -506,10 +658,11 @@
 			<xsl:text>belladonna</xsl:text>
 			</hierarchy_top_id>
 	           <hierarchy_top_title>
-	           	<xsl:value-of select="normalize-space(replace(//datensatz[id=$s_sachtitel]/Sachtitel,'_',''))"/>
-	           	<xsl:if test="//datensatz[id=$s_sachtitel]/Zus__Sachtitel!=''">
+	       	   	<xsl:value-of select="substring-before(substring-after($testi,'sourceInfo:'),':sourceInfo')" />
+	           	<!--<xsl:value-of select="normalize-space(replace(//datensatz[id=$s_sachtitel]/Sachtitel,'_',''))"/>-->
+	           	<xsl:if test="substring-after($testi,'title_sub:')!=':'">
 						<xsl:text> : </xsl:text>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Zus__Sachtitel" />
+						<xsl:value-of select="substring-before(substring-after($testi,'title_sub:'),':title_sub')" />
 						</xsl:if>
 	           	</hierarchy_top_title>
 	            
@@ -518,11 +671,19 @@
 			<xsl:text>belladonna</xsl:text>
 	           	</hierarchy_parent_id>
 		<hierarchy_parent_title>
-			<xsl:value-of select="normalize-space(replace(//datensatz[id=$s_sachtitel]/Sachtitel,'_',''))"/>
+			<xsl:value-of select="substring-before(substring-after($testi,'sourceInfo:'),':sourceInfo')" />
+	           	<!--<xsl:value-of select="normalize-space(replace(//datensatz[id=$s_sachtitel]/Sachtitel,'_',''))"/>-->
+	           	<xsl:if test="substring-after($testi,'title_sub:')!=':'">
+						<xsl:text> : </xsl:text>
+						<xsl:value-of select="substring-before(substring-after($testi,'title_sub:'),':title_sub')" />
+						</xsl:if>
+			
+			
+			<!--<xsl:value-of select="normalize-space(replace(//datensatz[id=$s_sachtitel]/Sachtitel,'_',''))"/>
 			<xsl:if test="//datensatz[id=$s_sachtitel]/Zus__Sachtitel!=''">
 						<xsl:text> : </xsl:text>
 						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Zus__Sachtitel" />
-						</xsl:if>
+						</xsl:if>-->
 			</hierarchy_parent_title>
 	            
 	           <is_hierarchy_id>
