@@ -41,7 +41,7 @@
 	<!--<xsl:if test="Objektart[text()='Graue Materialien']">-->
 	<!--<xsl:if test="Objektart[text()='Einzelbeitrag']">-->
 	<!--<xsl:if test="Objektart[text()='Diplom- und Examensarbeiten']">-->
-	<xsl:if test="Objektart[text()='Buch-Aufsatz']">
+	<!--<xsl:if test="Objektart[text()='Buch-Aufsatz']">-->
 	<!--<xsl:if test="Objektart[text()='Sachliteratur']">-->
 	<!--<xsl:if test="Objektart[text()='Belletristik']">-->
 
@@ -1798,7 +1798,7 @@
 
 			
 			</xsl:element>
-		</xsl:if>
+		<!--</xsl:if>-->
 	</xsl:template>
 
 <!--Templates-->
