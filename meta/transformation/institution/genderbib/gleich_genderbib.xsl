@@ -158,14 +158,19 @@
 					</id>
 
 	<!--recordCreationDate-->
-				<xsl:choose>
+	
+				<recordCreationDate>
+					<xsl:value-of select="current-dateTime()"/>
+					</recordCreationDate>
+			
+				<!--<xsl:choose>
 					<xsl:when test="erfasst_am- !=''">
 						<recordCreationDate>
-							<xsl:value-of select="substring(erfasst_am-[1],7,4)"/><!--jahr-->
+							<xsl:value-of select="substring(erfasst_am-[1],7,4)"/>
 							<xsl:text>-</xsl:text>
-							<xsl:value-of select="substring(erfasst_am-[1],4,2)"/><!--monat-->
+							<xsl:value-of select="substring(erfasst_am-[1],4,2)"/>
 							<xsl:text>-</xsl:text>
-							<xsl:value-of select="substring(erfasst_am-[1],1,2)"/><!--tag-->
+							<xsl:value-of select="substring(erfasst_am-[1],1,2)"/>
 							<xsl:text>T</xsl:text>
 							<xsl:text>00:00:00Z</xsl:text>
 							</recordCreationDate>
@@ -175,7 +180,7 @@
 							<xsl:value-of select="current-dateTime()"/>
 							</recordCreationDate>
 						</xsl:otherwise>
-					</xsl:choose>
+					</xsl:choose>-->
 					
 	<!--recordChangeDate-->
 				<recordChangeDate>
