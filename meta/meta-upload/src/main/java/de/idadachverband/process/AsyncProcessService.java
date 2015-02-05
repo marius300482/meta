@@ -62,7 +62,7 @@ public class AsyncProcessService
 
             file = idaInputArchiver.archiveFile(transformedFile, institution.getInstitutionName());
             transformationBean.setTransformedFile(file);
-            upateSolr(solr, transformationBean, file, institution.getInstitutionName());
+            upateSolr(solr, transformationBean, file, institution);
 
         } catch (TransformerException | IOException | SolrServerException | RemoteSolrException e)
         {
@@ -104,19 +104,23 @@ public class AsyncProcessService
         return transformedFile;
     }
 
-    public void upateSolr(SolrService solr, TransformationBean transformationBean, File inputFile, String institutionName) throws IOException, SolrServerException
+    public void upateSolr(SolrService solr, TransformationBean transformationBean, File inputFile, IdaInstitutionBean institution) throws IOException, SolrServerException
     {
-        log.info("Start Solr update of core: {} for: {} with file: {}", solr, institutionName, inputFile);
+        log.info("Start Solr update of core: {} for: {} with file: {}", solr, institution, inputFile);
         final long start = System.currentTimeMillis();
 
         final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        solr.deleteInstitution(institutionName);
+
+        if (!institution.isIncrementalUpdate())
+        {
+            solr.deleteInstitution(institution.getInstitutionName());
+        }
 
         String solrResult = solr.update(unzippedFile);
         transformationBean.setSolrResponse(solrResult);
 
         final long end = System.currentTimeMillis();
-        log.info("Solr update of core: {} for: {} with file: {} took: {} seconds.", solr, institutionName, inputFile, (end - start) / 1000);
+        log.info("Solr update of core: {} for: {} with file: {} took: {} seconds.", solr, institution, inputFile, (end - start) / 1000);
 
         log.debug("Solr result {}", solrResult);
     }

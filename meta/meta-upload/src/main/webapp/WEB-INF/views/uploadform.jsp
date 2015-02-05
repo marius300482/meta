@@ -31,6 +31,10 @@
     <form:select path="institution" items="${institutions}"/>
     <br/>
     </div>
+    <c:if test="${allowIncremental}">
+        <form:checkbox path="incremental" value="${incrementalDefault}" label="Inkrementelles Update"/>
+        <br/>
+    </c:if>
 
     <input type="submit" value="Upload"/>
     Click button to upload the file!
