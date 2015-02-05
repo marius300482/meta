@@ -137,7 +137,7 @@ JS;
               <? endif; ?>
               <?=$this->escapeHtml($thisFacet['displayText'])?>
               <span class="badge">
-              (<?=$this->number_format($thisFacet['count'])?>)
+              (<?=$this->number_format($thisFacet['count'], 0, ',', '.')?>)
             </span>
             </a>
           <? else: ?>
@@ -156,7 +156,7 @@ JS;
             <? endif; ?>
             <?=$this->escapeHtml($thisFacet['displayText'])?>
             <span class="badge">
-              (<?=number_format($thisFacet['count'])?>)
+              (<?=number_format($thisFacet['count'], 0, ',', '.')?>)
               <? if ($allowExclude): ?>
                 <a href="<?=$this->currentPath().$results->getUrlQuery()->addFacet($title, $thisFacet['value'], 'NOT') ?>" title="<?=$this->transEsc('exclude_facet') ?>"><i class="fa fa-times"></i></a>
               <? endif; ?>
