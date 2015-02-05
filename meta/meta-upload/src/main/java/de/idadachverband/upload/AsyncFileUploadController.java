@@ -65,6 +65,8 @@ public class AsyncFileUploadController
         {
             mav.addObject("institutions", institutionsSet);
             mav.addObject("solrServices", solrServiceSet);
+            mav.addObject("allowIncremental", true);
+            mav.addObject("incrementalDefault", true);
         } else
         {
             Set<IdaInstitutionBean> idaInstitutions = new HashSet<>(1);
@@ -74,6 +76,8 @@ public class AsyncFileUploadController
             Set<SolrService> solrServices = new HashSet<>(1);
             solrServices.add(defaultSolrUpdater);
             mav.addObject("solrServices", solrServices);
+            mav.addObject("allowIncremental", idaInstitutionBean.isIncrementalUpdateAllowed());
+            mav.addObject("incrementalDefault", idaInstitutionBean.isIncrementalUpdate());
         }
         mav.addObject("transformation", new UploadFormBean());
 
@@ -105,6 +109,7 @@ public class AsyncFileUploadController
                 try
                 {
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
+                    institution.setIncrementalUpdate(uploadFormBean.isIncremental());
                     SolrService solr = uploadFormBean.getSolr();
 
                     tempFile = moveToTempFile(file, institution.getInstitutionName());

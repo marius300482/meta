@@ -15,4 +15,5 @@ public class UploadFormBean
     private IdaInstitutionBean institution;
     private SolrService solr;
     private MultipartFile file;
+    private boolean incremental;
 }
