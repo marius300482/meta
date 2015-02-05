@@ -18,7 +18,11 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 
-			<xsl:if test="objektart[text()!='NutzerIn']"><!--Datensätze dieser Objektart werden nicht umgewandelt-->
+			<xsl:if test="objektart[text()!='NutzerIn']">
+			
+			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Zeitschrift/Heftitel'])">-->
+			<!--<xsl:if test="contains(objektart,'Einzeltitel')">-->
+			<!---->
 			<!--<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">-->
 			<!--xsl:if test="objektart[text()='Online-Artikel']">-->
 			<!--<xsl:if test="objektart[text()='Artikel']">-->
@@ -42,6 +46,100 @@
 		<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 		<xsl:variable name="z-ausgabe" select="Ausgabe"/>
 		<xsl:variable name="currentDate" select="current-date()"/>
+		
+	<xsl:variable name="connect">
+	
+		<xsl:choose>
+			<xsl:when test="s__Sachtitel">
+				
+			<xsl:for-each select="//datensatz[id=$s_sachtitel]">
+			
+			<xsl:text> editor:</xsl:text>
+				<xsl:value-of select="Hrsg_"></xsl:value-of>
+				<xsl:text>:editor</xsl:text>
+			
+			<xsl:text> hrsg:</xsl:text>
+				<xsl:value-of select="Hrsg__Körperschaft"></xsl:value-of>
+				<xsl:text>:hrsg</xsl:text>
+			
+			<xsl:text> contributor:</xsl:text>
+				<xsl:value-of select="ÜbersetzerIn"></xsl:value-of>
+				<xsl:text>:contributor</xsl:text>
+			
+			<xsl:text> entity:</xsl:text>
+				<xsl:value-of select="Körperschaft"></xsl:value-of>
+				<xsl:text>:entity</xsl:text>
+			
+			<xsl:text> series:</xsl:text>
+				<xsl:value-of select="Reihentitel"></xsl:value-of>
+				<xsl:text>:series</xsl:text>
+				
+			<!--<xsl:text> edition:</xsl:text>
+				<xsl:value-of select="Ausgabe"></xsl:value-of>
+				<xsl:text>:edition</xsl:text>-->
+			
+			<xsl:text> volume:</xsl:text>
+				<xsl:value-of select="Jg-"></xsl:value-of>
+				<xsl:text>:volume</xsl:text>
+			
+			<xsl:text> issue:</xsl:text>
+				<xsl:value-of select="H"></xsl:value-of>
+				<xsl:text>:issue</xsl:text>
+			
+			<xsl:text> isbn:</xsl:text>
+				<xsl:value-of select="ISBN"></xsl:value-of>
+				<xsl:text>:isbn</xsl:text>
+			
+			<xsl:text> issn:</xsl:text>
+				<xsl:value-of select="ISSN"></xsl:value-of>
+				<xsl:text>:issn</xsl:text>
+			
+			<xsl:text> zdbid:</xsl:text>
+				<xsl:value-of select="ZDB-ID"></xsl:value-of>
+				<xsl:text>:zdbid</xsl:text>
+			
+			<xsl:text> publishDate:</xsl:text>
+				<xsl:value-of select="J_"></xsl:value-of>
+				<xsl:value-of select="Jahr"></xsl:value-of>
+				<xsl:text>:publishDate</xsl:text>
+			
+			<xsl:text> ausgabe:</xsl:text>
+				<xsl:value-of select="Ausgabe"></xsl:value-of>
+				<xsl:text>:ausgabe</xsl:text>
+			
+			<xsl:text> placeOfPublication:</xsl:text>
+				<xsl:value-of select="Ort"></xsl:value-of>
+				<xsl:value-of select="Ersch_-ort"></xsl:value-of>
+				<xsl:text>:placeOfPublication</xsl:text>
+			
+			<xsl:text> publisher:</xsl:text>
+				<xsl:value-of select="Verlag"></xsl:value-of>
+				<xsl:value-of select="Druckerei-Verlag"></xsl:value-of>
+				<xsl:text>:publisher</xsl:text>
+			
+			<xsl:text> sourceInfo:</xsl:text>
+				<xsl:value-of select="normalize-space(replace(Sachtitel,'_',''))"></xsl:value-of>
+				<xsl:value-of select="Zeitschr_-Titel"></xsl:value-of>
+				<xsl:text>:sourceInfo</xsl:text>
+			
+			<xsl:text> topic:</xsl:text>
+				<xsl:value-of select="Inhalt-Thema"></xsl:value-of>
+				<xsl:text>:topic</xsl:text>
+			
+			<xsl:text> shelfMark:</xsl:text>
+				<xsl:value-of select="Sign_"></xsl:value-of>
+				<xsl:text>:shelfMark</xsl:text>
+			</xsl:for-each>	
+			
+				</xsl:when>
+			
+			</xsl:choose>
+	
+		</xsl:variable>
+		
+		<!--<test>
+			<xsl:value-of select="$connect"></xsl:value-of>
+			</test>-->
 				
 <!--vufind_______________________________vufind_______________________________vufind-->
 <!--vufind_______________________________vufind_______________________________vufind-->
@@ -698,7 +796,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 	
 	<!--subjectGeographic Ortsangaben-->
 				<xsl:apply-templates select="Geografika"/>
-				<xsl:apply-templates select="Land"/>
+				<!--<xsl:apply-templates select="Land"/>-->
 	
 	<!--subjectPerson Personenangaben-->
 				<xsl:apply-templates select="Personen"/>
@@ -1400,7 +1498,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 </xsl:element>
 	
-	<xsl:if test="(s__ST) or (s__Aufsatz_Z)">
+	<xsl:if test="(s__ST) or (s__Aufsatz_Z) or (s__Aufsatz)">
 		<xsl:variable name="s_ST" select="translate(s__ST, translate(.,'0123456789', ''), '')"/>
 		<xsl:variable name="s_Aufsatz" select="translate(s__Aufsatz_Z, translate(.,'0123456789', ''), '')"/>
 		<functions>
@@ -1529,122 +1627,90 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				<xsl:apply-templates select="Autorin[1]"/>
 						
 	<!--editor Herausgeberinneninformationen-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Hrsg_[1]">
-				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Hrsg_[1]" />
-					<xsl:for-each select="tokenize(//datensatz[id=$s_sachtitel]/Hrsg_[1], ';')">
+				<xsl:if test="substring(substring-after($connect,'editor:'),1,1)!=':'">
+					<xsl:for-each select="tokenize(substring-before(substring-after($connect,'editor:'),':editor'), ';')">
 					<editor>
-						<xsl:value-of select="normalize-space(.)"></xsl:value-of>
-						<!--<xsl:value-of select="tokenize(//datensatz[id=$s_sachtitel]/Hrsg_[1], ';')"/>-->
+						<xsl:value-of select="normalize-space(.)" />
 						</editor>
 						</xsl:for-each>
-						</xsl:if>
+					</xsl:if>
 				
 				<xsl:apply-templates select="Hrsg_[1]"/>
 				
-	<!--series Reiheninformation-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Reihentitel">
-					<series>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Reihentitel"/>
-						</series>
-						</xsl:if>
+	<!--series Reiheninformation-->					
+				<xsl:if test="substring(substring-after($connect,'edition:'),1,1)!=':'">
+					<xsl:for-each select="tokenize(substring-before(substring-after($connect,'edition:'),':edition'), ';')">
+					<edition>
+						<xsl:value-of select="normalize-space(.)" />
+						</edition>
+						</xsl:for-each>
+					</xsl:if>
 					
 <!--IDENTIFIER-->
 
 	<!--ISBN / ISSN-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/ISSN">
-					<issn>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/ISSN"/>
-						</issn>
-						</xsl:if>
-						
-				<xsl:if test="//datensatz[id=$s_sachtitel]/ISBN">
+				<xsl:if test="substring(substring-after($connect,'isbn:'),1,1)!=':'">
 					<isbn>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/ISBN"/>
+						<xsl:value-of select="substring-before(substring-after($connect,'isbn:'),':isbn')" />
 						</isbn>
-						</xsl:if>
+					</xsl:if>
+					
+				<xsl:if test="substring(substring-after($connect,'issn:'),1,1)!=':'">
+					<issn>
+						<xsl:value-of select="substring-before(substring-after($connect,'issn:'),':issn')" />
+						</issn>
+					</xsl:if>
 
 	<!--ZDB-ID-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/ZDB-ID">
+				<xsl:if test="substring(substring-after($connect,'zdbid:'),1,1)!=':'">
 					<zdbId>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/ZDB-ID"/>
+						<xsl:value-of select="substring-before(substring-after($connect,'zdbid:'),':zdbid')" />
 						</zdbId>
-						</xsl:if>
-			
+					</xsl:if>
+						
 <!--PUBLISHING-->
 
 	<!--displayDate-->
-				<displayPublishDate>
-					<xsl:choose>
-						<xsl:when test="//datensatz[id=$s_sachtitel]/J_">
-							<xsl:value-of select="//datensatz[id=$s_sachtitel]/J_"/>
-							</xsl:when>
-						<xsl:when test="//datensatz[id=$s_sachtitel]/Jahr">
-							<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jahr"/>
-							</xsl:when>
-						<xsl:when test="not(//datensatz[id=$s_sachtitel]/J_)">
-							<xsl:value-of select="substring-after(substring-before(//datensatz[id=$s_sachtitel]/Ausgabe,')'),'(')" />
-							</xsl:when>
-						</xsl:choose>
-					</displayPublishDate>
-	
-	<!--publishDate Jahresangabe-->
-				<publishDate>
-					<xsl:choose>
-						<xsl:when test="//datensatz[id=$s_sachtitel]/J_">
-							<xsl:value-of select="//datensatz[id=$s_sachtitel]/J_"/>
-							</xsl:when>
-						<xsl:when test="//datensatz[id=$s_sachtitel]/Jahr">
-							<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jahr"/>
-							</xsl:when>
-						<xsl:when test="not(//datensatz[id=$s_sachtitel]/J_)">
-							<xsl:value-of select="substring-after(substring-before(//datensatz[id=$s_sachtitel]/Ausgabe,')'),'(')" />
-							</xsl:when>
-						</xsl:choose>
-					</publishDate>
 				
-	<!--placeOfPublication Ortsangabe-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Ersch_-ort">
-					<placeOfPublication>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Ersch_-ort"/>
-						</placeOfPublication>
-						</xsl:if>
-						
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Ort">
-					<placeOfPublication>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Ort"/>
-						</placeOfPublication>
-						</xsl:if>
-
+				<xsl:choose>
+					<xsl:when test="substring(substring-after($connect,'publishDate:'),1,1)!=':'">
+						<displayPublishDate>
+							<xsl:value-of select="substring-before(substring-after($connect,'publishDate:'),':publishDate')" />
+							</displayPublishDate>
+						<publishDate>
+							<xsl:value-of select="substring-before(substring-after($connect,'publishDate:'),':publishDate')" />
+							</publishDate>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:variable name="ausgabe" select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
+						<displayPublishDate>							
+							<xsl:value-of select="substring-after(substring-before($ausgabe,')'),'(')"></xsl:value-of>
+							</displayPublishDate>
+						<publishDate>
+							<xsl:value-of select="substring-after(substring-before($ausgabe,')'),'(')"></xsl:value-of>
+							</publishDate>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+	<!--placeOfPublication angabe-->
+				<xsl:if test="substring(substring-after($connect,'placeOfPublication:'),1,1)!=':'">
+					<zdbId>
+						<xsl:value-of select="substring-before(substring-after($connect,'placeOfPublication:'),':placeOfPublication')" />
+						</zdbId>
+					</xsl:if>
 
 	<!--publisher Verlagsangabe-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Verlag">
+				<xsl:if test="substring(substring-after($connect,'publisher:'),1,1)!=':'">
 					<publisher>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Verlag"/>
+						<xsl:value-of select="substring-before(substring-after($connect,'publisher:'),':publisher')" />
 						</publisher>
-						</xsl:if>
-	
+					</xsl:if>
+					
 	<!--sourceInfo-->
 				<sourceInfo>
-					<xsl:value-of select="//datensatz[id=$s_sachtitel]/Sachtitel"/>
-					<!--<xsl:text> (</xsl:text>
-						<xsl:choose>
-							<xsl:when test="//datensatz[id=$s_sachtitel]/J_">
-								<xsl:value-of select="//datensatz[id=$s_sachtitel]/J_" />
-								</xsl:when>
-							<xsl:when test="//datensatz[id=$s_sachtitel]/Jahr">
-								<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jahr" />
-								</xsl:when>
-							<xsl:when test="not(//datensatz[id=$s_sachtitel]/J_)">
-								<xsl:value-of select="substring-after(substring-before(//datensatz[id=$s_sachtitel]/Ausgabe,')'),'(')" />
-								</xsl:when>
-							</xsl:choose>
-						
-					<xsl:text>)</xsl:text>
-					<xsl:value-of select="//datensatz[id=$s_sachtitel]/H" />
-					<xsl:text>, </xsl:text>
-					<xsl:value-of select="Umfang" />-->
+					<xsl:value-of select="substring-before(substring-after($connect,'sourceInfo:'),':sourceInfo')" />
 					</sourceInfo>
-
+				
 <!--PHYSICAL INFORMATION-->
 
 	<!--physical Seitenangabe-->	
@@ -1659,45 +1725,41 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 	<!--Heft-->
 				<xsl:choose>
-					<xsl:when test="//datensatz[id=$s_sachtitel]/H">
+					<xsl:when test="substring(substring-after($connect,'issue:'),1,1)!=':'">
 						<issue>
-							<xsl:value-of select="//datensatz[id=$s_sachtitel]/H"/>
+							<xsl:value-of select="substring-before(substring-after($connect,'issue:'),':issue')" />
 							</issue>
 						</xsl:when>
-					<xsl:when test="//datensatz[id=$s_sachtitel]/Ausgabe">
-						<issue>
-							<xsl:value-of select="substring-after(//datensatz[id=$s_sachtitel]/Ausgabe,')')"/>
+					<xsl:when test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
+						<!--<xsl:value-of select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />-->
+						<xsl:variable name="ausgabe" select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
+						<issue>							
+							<xsl:value-of select="substring-after($ausgabe,')')"></xsl:value-of>
 							</issue>
 						</xsl:when>
 					</xsl:choose>
-				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/H">
-					<issue>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/H"/>
-						</issue>
-						</xsl:if>-->
 
 	<!--Volume-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Jg-">
+			<xsl:if test="substring(substring-after($connect,'volume:'),1,1)!=':'">
 					<volume>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Jg-"/>
+						<xsl:value-of select="substring-before(substring-after($connect,'volume:'),':volume')" />
 						</volume>
-						</xsl:if>
-
+					</xsl:if>
 <!--OTHER-->
 	
 	<!--shelfMark-->
-				<xsl:if test="//datensatz[id=$s_sachtitel]/Sign_">
+				<xsl:if test="substring(substring-after($connect,'shelfMark:'),1,1)!=':'">
 					<shelfMark>
-						<xsl:value-of select="//datensatz[id=$s_sachtitel]/Sign_"/>
+						<xsl:value-of select="substring-before(substring-after($connect,'shelfMark:'),':shelfMark')" />
 						</shelfMark>
-						</xsl:if>
+					</xsl:if>
 
 </xsl:element>
 
 <xsl:element name="functions">
-	<xsl:variable name="sachtitel" select="//datensatz[id=$s_sachtitel]/Sachtitel[1]" />
+	<!--<xsl:variable name="sachtitel" select="//datensatz[id=$s_sachtitel]/Sachtitel[1]" />
 	<xsl:variable name="heftthema" select="//datensatz[id=$s_sachtitel]/Inhalt-Thema" />
-	<xsl:variable name="heftausgabe" select="//datensatz[id=$s_sachtitel]/Ausgabe[1]" />
+	<xsl:variable name="heftausgabe" select="//datensatz[id=$s_sachtitel]/Ausgabe[1]" />-->
 	
 	<xsl:element name="hierarchyFields">
 		
@@ -1706,14 +1768,16 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 			<xsl:text>genderbib</xsl:text>
 			</hierarchy_top_id>
 	           <hierarchy_top_title>
-	           	<xsl:value-of select="$sachtitel"/>
-	           	<xsl:if test="$heftthema">
+	           	<xsl:value-of select="substring-before(substring-after($connect,'sourceInfo:'),':sourceInfo')" />
+	           	<!--<xsl:value-of select="$sachtitel"/>-->
+	           	<xsl:if test="substring(substring-after($connect,'topic:'),1,1)!=':'">
+	           	<!--<xsl:if test="$heftthema">-->
 	           		<xsl:text>: </xsl:text>
-				<xsl:value-of select="$heftthema"/>
+				<xsl:value-of select="substring-before(substring-after($connect,'topic:'),':topic')" />
 				</xsl:if>
-			<xsl:if test="$heftausgabe">
+			<xsl:if test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
 				<xsl:text> </xsl:text>
-				<xsl:value-of select="$heftausgabe"/>
+				<xsl:value-of select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
 				</xsl:if>
 	           	</hierarchy_top_title>
 	            
@@ -1722,14 +1786,16 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	           	<xsl:text>genderbib</xsl:text>
 	           	</hierarchy_parent_id>
 		<hierarchy_parent_title>
-			<xsl:value-of select="$sachtitel"/>
-			<xsl:if test="$heftthema">
+			<xsl:value-of select="substring-before(substring-after($connect,'sourceInfo:'),':sourceInfo')" />
+	           	<!--<xsl:value-of select="$sachtitel"/>-->
+	           	<xsl:if test="substring(substring-after($connect,'topic:'),1,1)!=':'">
+	           	<!--<xsl:if test="$heftthema">-->
 	           		<xsl:text>: </xsl:text>
-				<xsl:value-of select="$heftthema"/>
+				<xsl:value-of select="substring-before(substring-after($connect,'topic:'),':topic')" />
 				</xsl:if>
-			<xsl:if test="$heftausgabe">
+			<xsl:if test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
 				<xsl:text> </xsl:text>
-				<xsl:value-of select="$heftausgabe"/>
+				<xsl:value-of select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
 				</xsl:if>
 			</hierarchy_parent_title>
 	            
@@ -2099,10 +2165,10 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<xsl:choose>
 			<xsl:when test="contains(.[1], ':')">
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
 					</title>
 				<title_short>
-					<xsl:value-of select="normalize-space(substring-before(.[1], ':'))"/>
+					<xsl:value-of select="normalize-space(substring-before(replace(.,'_',''), ':'))"/>
 					</title_short>
 				<title_sub>
 					<xsl:value-of select="normalize-space(substring-after(.[1], ':'))"/>
@@ -2110,7 +2176,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				</xsl:when>
 			<xsl:otherwise>
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
 					</title>
 				<title_short>
 					<xsl:value-of select=".[1]"/>
@@ -2157,10 +2223,10 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<xsl:choose>
 			<xsl:when test="contains(.[1], ':')">
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
 					</title>
 				<title_short>
-					<xsl:value-of select="normalize-space(substring-before(.[1], ':'))"/>
+					<xsl:value-of select="normalize-space(substring-before(replace(.,'_',''), ':'))"/>
 					</title_short>
 				<title_sub>
 					<xsl:value-of select="normalize-space(substring-after(.[1], ':'))"/>
@@ -2168,7 +2234,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				</xsl:when>
 			<xsl:otherwise>
 				<title>
-					<xsl:value-of select=".[1]"/>
+					<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
 					</title>
 				<title_short>
 					<xsl:value-of select=".[1]"/>
@@ -2233,10 +2299,10 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<xsl:choose>
 			<xsl:when test="contains(., ':')">
 				<title>
-					<xsl:value-of select="."/>
+					<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
 					</title>
 				<title_short>
-					<xsl:value-of select="normalize-space(substring-before(., ':'))"/>
+					<xsl:value-of select="normalize-space(substring-before(replace(.,'_',''), ':'))"/>
 					</title_short>
 				<title_sub>
 					<xsl:value-of select="normalize-space(substring-after(., ':'))"/>
@@ -2244,7 +2310,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 			</xsl:when>
 			<xsl:otherwise>
 				<title>
-					<xsl:value-of select="."/>
+					<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
 					</title>
 				<title_short>
 					<xsl:value-of select="."/>
