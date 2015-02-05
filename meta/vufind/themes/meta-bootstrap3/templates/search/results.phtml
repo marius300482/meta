@@ -63,7 +63,7 @@
         <?=$this->transEsc("Showing")?>
           <strong><?=number_format($this->results->getStartRecord())?></strong> - <strong><?=number_format($this->results->getEndRecord())?></strong>
         <? if (!isset($this->skipTotalCount)): ?>
-            <?=$this->transEsc('of')?> <strong><?=number_format($recordTotal)?></strong>
+            <?=$this->transEsc('of')?> <strong><?=number_format($recordTotal, 0, ',', '.')?></strong>
         <? endif; ?>
 <?php /* PHE always show the search query
         <? if (isset($this->overrideSearchHeading)): ?>

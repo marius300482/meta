@@ -416,8 +416,10 @@
     <? if (isset($description)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Description')?>: </th>
-            <td property="description"><?= $this->escapeHtml($description) ?></td>
+            <th colspan="2"><?=$this->transEsc('Description')?>:</th>
+        </tr>
+        <tr valign="top">
+            <td property="description" colspan="2"><?= $this->escapeHtml($description) ?></td>
         </tr>
     <? endif; ?>
 

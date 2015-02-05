@@ -1,8 +1,9 @@
 package de.idadachverband.institution;
 
 import de.idadachverband.transform.IdaTransformer;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.io.File;
 
@@ -11,23 +12,36 @@ import java.io.File;
  * Created by boehm on 26.08.14.
  */
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IdaInstitutionBean
 {
     /**
      * The name of the institution. No special characters or white spaces should be used.
      */
+    @NonNull
     private String institutionName;
 
     /**
      * Optional. Can hold information required by the transformation process
      */
+    @NonNull
     private File transformationRecipeFile;
 
     /**
      * Holds implementation of the transformation class to transform institution input to working format,
      */
+    @NonNull
     private IdaTransformer transformationStrategy;
+
+    /**
+     * Controls, if incremental upload is possible. Defaults to false.
+     */
+    private boolean incrementalUpdateAllowed = false;
+
+    /**
+     * Do incremental upload or not. Defaults to true.
+     */
+    private boolean incrementalUpdate = true;
 
     @Override
     public String toString()
