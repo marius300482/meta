@@ -821,13 +821,6 @@
 						</volume>
 					</xsl:if>
 				
-				<!--<xsl:if test="//datensatz[id=$s_sachtitel]/Band-Nr_!=''">
-				<xsl:variable name="rel" select="//datensatz[id=$s_sachtitel]/Band-Nr_" />
-					<volume>
-						<xsl:value-of select="normalize-space($rel)" />
-						</volume>
-						</xsl:if>
--->
 <!--IDENTIFIER-->
 
 <!--PUBLISHING-->
