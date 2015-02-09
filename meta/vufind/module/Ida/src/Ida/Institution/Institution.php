@@ -94,6 +94,6 @@ class Institution
      */
     private function getInstitutionFileName()
     {
-        return preg_replace("/[^0-9a-zA-Z_-öäüßÄÖÜ]/", "", $this->institutionId) . "_" . $this->language . ".ini";
+        return preg_replace("/[^0-9a-zA-Z_\-öäüßÄÖÜ]/", "", $this->institutionId) . "_" . $this->language . ".ini";
     }
 }
