@@ -290,6 +290,19 @@
         </tr>
     <? endif; ?>
 
+    <? $specificMaterialDesignations = $this->driver->getSpecificMaterialDesignations(); ?>
+    <? if (!empty($specificMaterialDesignations)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Description')?>: </th>
+            <td property="specificMaterialDesignations">
+            <? foreach($specificMaterialDesignations as $specificMaterialDesignation): ?>
+                <?= $this->escapeHtml($specificMaterialDesignation) ?><?= $specificMaterialDesignation !== end($specificMaterialDesignations) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
     <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
     <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
     <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
@@ -416,7 +429,7 @@
     <? if (isset($description)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th colspan="2"><?=$this->transEsc('Description')?>:</th>
+            <th colspan="2"><?=$this->transEsc('Content')?>:</th>
         </tr>
         <tr valign="top">
             <td property="description" colspan="2"><?= $this->escapeHtml($description) ?></td>
