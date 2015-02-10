@@ -32,7 +32,7 @@
 
 <xsl:template match="datensatz">	
 	
-	<xsl:if test="Objektart[text()!='Plakate']">
+	<!--<xsl:if test="Objektart[text()='Plakate']">-->
 	<!--<xsl:if test="Objektart[text()='Zeitschriften-Artikel']">-->
 	<!--<xsl:if test="Objektart[text()='Zeitschriften']">-->
 	<!--<xsl:if test="Objektart[text()='Filme']">-->
@@ -214,9 +214,19 @@
 					<xsl:value-of select="current-dateTime()"/>
 					</recordChangeDate>
 	<!--recordType-->
-				<recordType>
-					<xsl:text>library</xsl:text>
-					</recordType>
+				<xsl:choose>
+					<xsl:when test="Objektart[text()='Plakate']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:otherwise>
+						<recordType>
+							<xsl:text>library</xsl:text>
+							</recordType>
+						</xsl:otherwise>
+					</xsl:choose>		
+					<!--<xsl:text>library</xsl:text>-->
 			</xsl:element>
 
 
@@ -1738,6 +1748,66 @@
 
 
 
+
+<!--Plakate______Plakate____________Plakate-->
+
+
+<xsl:if test="Objektart[text()='Plakate']">
+	<xsl:element name="dataset">
+	
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Plakat</xsl:text></format>		
+	<!--documentType-->
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Titel" />		
+
+<!--RESPONSIBLE-->
+
+<!--IDENTIFIER-->
+
+<!--PUBLISHING-->
+	
+	<!--display publishDate Jahresangabe-->
+				<xsl:apply-templates select="Veranstaltungsdatum" />	
+				
+	<!--placeOfPublication Ortsangabe-->
+				<xsl:apply-templates select="Veranstaltungsort" />	
+
+<!--PHYSICAL INFORMATION-->
+
+	<!--dimension Ausmaße-->
+				<xsl:apply-templates select="Format" />	
+	<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Bildbeschreibung" />	
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--Deskriptoren-->		
+				<xsl:apply-templates select="Themen_Schlagwort"/>
+				<xsl:apply-templates select="Länder_Schlagwort"/>	
+				<xsl:apply-templates select="Frauen_Schlagwort"/>	
+				<xsl:apply-templates select="Personen"/>	
+	
+	<!--description-->
+				<xsl:apply-templates select="Inhalt"/>	
+	
+<!--OTHER-->
+	
+	<!--shelfMark-->
+				<xsl:apply-templates select="Signatur" />
+
+	</xsl:element>
+	</xsl:if>
+	
+
+
 	
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
@@ -1745,10 +1815,24 @@
 
 			
 			</xsl:element>
-		</xsl:if>
+		<!--</xsl:if>-->
 	</xsl:template>
 
 <!--Templates-->
+	
+	
+	
+	<xsl:template match="Bildbeschreibung">
+		<specificMaterialDesignation>
+			<xsl:value-of select="normalize-space(.)" />
+			</specificMaterialDesignation>
+		</xsl:template>
+	
+	<xsl:template match="Format">
+		<dimension>
+			<xsl:value-of select="normalize-space(.)" />
+			</dimension>
+		</xsl:template>
 	
 	<xsl:template match="Jahrg_">
 		<volume>
@@ -1870,6 +1954,12 @@
 			</publisher>
 		</xsl:template>
 	
+	<xsl:template match="Veranstaltungsort">
+		<placeOfPublication>
+			<xsl:value-of select="." />
+			</placeOfPublication>
+		</xsl:template>
+	
 	<xsl:template match="Erscheinungsort">
 		<placeOfPublication>
 			<xsl:value-of select="." />
@@ -1883,6 +1973,15 @@
 		</xsl:template>
 	
 	<xsl:template match="Entstehungsjahr">
+		<displayPublishDate>
+			<xsl:value-of select="." />
+			</displayPublishDate>
+		<publishDate>
+			<xsl:value-of select="." />				
+			</publishDate>	
+		</xsl:template>
+	
+	<xsl:template match="Veranstaltungsdatum">
 		<displayPublishDate>
 			<xsl:value-of select="." />
 			</displayPublishDate>
@@ -1919,6 +2018,14 @@
 			<entity>
 				<xsl:value-of select="normalize-space(.)"/>
 				</entity>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="Personen">
+		<xsl:for-each select="tokenize(., ';')">
+			<subjectPerson>
+				<xsl:value-of select="normalize-space(.)"/>
+				</subjectPerson>
 			</xsl:for-each>
 		</xsl:template>
 	
@@ -2024,16 +2131,26 @@
 	
 	<xsl:template match="Titel">
 			<title>
-				<xsl:value-of select="replace(.[1],'_','')"/>
+				<xsl:value-of select="normalize-space(replace(.[1],'_',''))"/>
+				<xsl:if test="../Zus__Sachtitel!=''">
+					<xsl:text> : </xsl:text>
+					<xsl:value-of select="normalize-space(../Zus__Sachtitel)" />
+					</xsl:if>
 				<xsl:if test="../Untertitel!=''">
 					<xsl:text> : </xsl:text>
-					<xsl:value-of select="../Untertitel" />
+					<xsl:value-of select="normalize-space(../Untertitel)" />
 					</xsl:if>
 				</title>
 		
 			<title_short>
-				<xsl:value-of select="replace(.[1],'_','')"/>
+				<xsl:value-of select="normalize-space(replace(.[1],'_',''))"/>
 				</title_short>
+			
+			<xsl:if test="../Zus__Sachtitel!=''">
+				<title_sub>
+					<xsl:value-of select="../Zus__Sachtitel" />
+					</title_sub>	
+				</xsl:if>
 			
 			<xsl:if test="../Untertitel!=''">
 				<title_sub>
