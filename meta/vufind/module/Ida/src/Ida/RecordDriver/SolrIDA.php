@@ -86,6 +86,11 @@ abstract class SolrIDA extends SolrDefault
         return $retval;
     }
 
+    public function getSpecificMaterialDesignations()
+    {
+        return $this->getMultiValuedField("specificMaterialDesignation");
+    }
+
     public function getProvenances()
     {
         return $this->getMultiValuedField("provenance");
