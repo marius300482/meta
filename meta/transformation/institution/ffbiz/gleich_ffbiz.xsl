@@ -32,7 +32,8 @@
 <xsl:template match="Objekt">	
 		<xsl:variable name="id" select="id" />
 		
-		<xsl:if test="objektart[text()='Bibliothek']">
+		<!--<xsl:if test="objektart[text()='Bibliothek']">-->
+		<!--<xsl:if test="objektart[text()='Akten, Graue Materialien, ZD']">-->
 		
 		<xsl:element name="record">
 			<xsl:attribute name="id"><xsl:value-of select="$id"></xsl:value-of></xsl:attribute>	
@@ -69,9 +70,19 @@
 					</recordChangeDate>
 	
 	<!--recordType-->
-				<recordType>
-					<xsl:text>library</xsl:text>
-					</recordType>
+				<xsl:choose>
+					<xsl:when test="objektart[text()='Bibliothek']">
+						<recordType>
+							<xsl:text>library</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Akten, Graue Materialien, ZD']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					</xsl:choose>
+				
 				
 </xsl:element>
 
@@ -135,8 +146,9 @@
 			</typeOfRessource>-->
 
 
-<!--Buch________________Buch___________________________Buch-->
-<!--Buch________________Buch___________________________Buch-->
+
+
+
 <!--Buch________________Buch___________________________Buch-->
 
 <xsl:if test="objektart[text()='Bibliothek']">
@@ -229,16 +241,125 @@
 </xsl:if>
 
 
+
+
+
+
+
+<!--Akten, Graue Materialien, ZD__________Akten, Graue Materialien, ZD-->
+
+<xsl:if test="objektart[text()='Akten, Graue Materialien, ZD']">
+
+<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+			<format><xsl:text>Akte</xsl:text></format>
+
+	<!--documentType-->
+			<documentType><xsl:value-of select="Bestand" /></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->	
+			<xsl:apply-templates select="Titel" />
+
+<!--RESPONSIBLE-->
+
+	<!--entity Körperschaft / Organisation-->
+			<xsl:apply-templates select="Organisation" />
+	
+	<!--provenance Privinienz-->
+			<xsl:apply-templates select="Provenienz" />
+	
+<!--PUBLISHING-->
+
+	<!--display / publishDate Jahresangabe-->
+			<xsl:apply-templates select="Jahr_x047x_Datierung" />
+		
+	<!--placeOfPublication Ortsangabe-->
+			<xsl:apply-templates select="Ort" />	
+
+	<!--blockingPeriod Sperrfrist-->
+			<xsl:apply-templates select="Sperrfrist" />	
+
+<!--PHYSICAL INFORMATION-->
+
+	<!--physical Seitenangabe-->
+			<xsl:apply-templates select="Umfang" />
+
+<!--CONTENTRELATED INFORMATION-->
+		
+	<!--subject Deskriptoren-->
+			<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+			<xsl:apply-templates select="Kontinent" />
+			<xsl:apply-templates select="Land_x047x_Region" />
+	
+	<!--language Sprachangaben-->
+			<xsl:apply-templates select="Sprache" />	
+				
+	<!--description-->
+			<xsl:apply-templates select="Enth_x132x_lt" />
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+	</xsl:element>
+	</xsl:if>
+
+
 			
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 
 		</xsl:element>
-		</xsl:if>
+		<!--</xsl:if>-->
 	</xsl:template>
 	
 <!--Templates-->
+	
+	<xsl:template match="Sperrfrist">
+		<blockingPeriod>
+			<xsl:value-of select="." />
+			</blockingPeriod>
+		</xsl:template>
+	
+	<xsl:template match="Ort">
+		<placeOfPublication>
+			<xsl:value-of select="." />
+			</placeOfPublication>
+		</xsl:template>
+	
+	<xsl:template match="Land_x047x_Region">
+		<subjectGeographic>
+			<xsl:value-of select="." />
+			</subjectGeographic>
+		</xsl:template>
+	
+	<xsl:template match="Kontinent">
+		<subjectGeographic>
+			<xsl:value-of select="." />
+			</subjectGeographic>
+		</xsl:template>
+	
+	<xsl:template match="Enth_x132x_lt">
+		<description>
+			<xsl:value-of select="." />
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="Organisation">
+		<entity>
+			<xsl:value-of select="." />
+			</entity>
+		</xsl:template>
 	
 	<xsl:template match="Provenienz">
 		<provenance>
@@ -292,6 +413,14 @@
 			</shelfMark>
 		</xsl:template>
 	
+	<xsl:template match="Schlagworte_x032x_Archiv">
+		<xsl:for-each select=".">
+			<subjectTopic>
+				<xsl:value-of select="." />
+				</subjectTopic>
+			</xsl:for-each>
+		</xsl:template>
+	
 	<xsl:template match="Schlagwort_x032x_Bibliothek">
 		<xsl:for-each select=".">
 			<subjectTopic>
@@ -309,9 +438,20 @@
 		</xsl:template>
 	
 	<xsl:template match="Umfang">
-		<physical>
-			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
-			</physical>
+		<xsl:choose>
+			<xsl:when test="../objektart[text()='Bibliothek']">
+				<physical>
+					<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
+					</physical>
+				</xsl:when>
+			<xsl:when test="../objektart[text()='Akten, Graue Materialien, ZD']">
+				<physical>
+					<xsl:value-of select="normalize-space(.)" />
+					</physical>
+				</xsl:when>
+			</xsl:choose>
+		
+		
 		</xsl:template>
 	
 	<xsl:template match="Verlag">
@@ -336,12 +476,28 @@
 		</xsl:template>
 	
 	<xsl:template match="Jahr_x047x_Datierung">
-		<displayPublishDate>
+		<xsl:choose>
+			<xsl:when test="contains(.,'-')">
+				<timeSpan>
+					<timeSpanStart><xsl:value-of select="normalize-space(substring-before(.,'-'))" /></timeSpanStart>
+					<timeSpanEnd><xsl:value-of select="normalize-space(substring-after(.,'-'))" /></timeSpanEnd>
+					</timeSpan>
+				</xsl:when>
+			<xsl:otherwise>
+				<displayPublishDate>
+					<xsl:value-of select="." />
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
+					</publishDate>
+				</xsl:otherwise>
+			</xsl:choose>		
+		<!--<displayPublishDate>
 			<xsl:value-of select="." />
 			</displayPublishDate>
 		<publishDate>
 			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
-			</publishDate>
+			</publishDate>-->
 		</xsl:template>
 	
 	<xsl:template match="Hrsg_x046x_">
@@ -371,6 +527,17 @@
 			<xsl:value-of  select="." />
 				</alternativeTitle>
 		</xsl:template>
+	
+	<xsl:template match="Titel">
+		<title>
+			<xsl:value-of select="." />
+			</title>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		</xsl:template>
+	
+	
 	
 	<xsl:template match="Hauptsachtitel">
 		<title>
