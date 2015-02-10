@@ -425,7 +425,8 @@
 				</xsl:if>
 				
 			<xsl:apply-templates select="dataset/edition" />
-				
+			
+			<!--<xsl:apply-templates select="dataset/provenance" />-->
 			
 	<!--Anreicherung Artikel-->
 			<!--<xsl:if test="dataset/format='Artikel'">
