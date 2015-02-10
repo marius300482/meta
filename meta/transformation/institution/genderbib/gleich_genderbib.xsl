@@ -348,7 +348,7 @@ den Datenbestand angezeigt-->
 	
 	<!--subjectGeographic Ortsangaben-->
 				<xsl:apply-templates select="Geografika"/>
-				<xsl:apply-templates select="Land"/>
+				<!--<xsl:apply-templates select="Land"/>-->
 	
 	<!--subjectPerson Personenangaben-->
 				<xsl:apply-templates select="Personen"/>
@@ -481,7 +481,7 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 	
 	<!--subjectGeographic Ortsangaben-->
 				<xsl:apply-templates select="Geografika"/>
-				<xsl:apply-templates select="Land"/>
+				<!--<xsl:apply-templates select="Land"/>-->
 	
 	<!--subjectPerson Personenangaben-->
 				<xsl:apply-templates select="Personen"/>
@@ -632,7 +632,7 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 	
 	<!--subjectGeographic Ortsangaben-->
 				<xsl:apply-templates select="Geografika"/>
-				<xsl:apply-templates select="Land"/>
+				<!--<xsl:apply-templates select="Land"/>-->
 	
 	<!--subjectPerson Personenangaben-->
 				<xsl:apply-templates select="Personen"/>
@@ -922,7 +922,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 	
 	<!--subjectGeographic Ortsangaben-->
 				<xsl:apply-templates select="Geografika"/>
-				<xsl:apply-templates select="Land"/>
+				<!--<xsl:apply-templates select="Land"/>-->
 	
 	<!--subjectPerson Personenangaben-->
 				<xsl:apply-templates select="Personen"/>
@@ -1069,7 +1069,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 	
 	<!--subjectGeographic Ortsangaben-->
 				<xsl:apply-templates select="Geografika"/>
-				<xsl:apply-templates select="Land"/>
+				<!--<xsl:apply-templates select="Land"/>-->
 	
 	<!--subjectPerson Personenangaben-->
 				<xsl:apply-templates select="Personen"/>
