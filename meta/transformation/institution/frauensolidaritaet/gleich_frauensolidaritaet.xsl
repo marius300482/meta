@@ -31,7 +31,9 @@
 
 <!--Der Objektknoten-->
 	<xsl:template match="document">	
-
+		
+		<xsl:if test="datafield[6]">
+		
 <!--<xsl:if test="not(datafield[@tag='078'])">-->
 
 <!--<xsl:if test="datafield[@tag='078'][1][text()='Bildtonträger']">-->
@@ -168,7 +170,20 @@
 <!--TITLE-->	
 
 	<!--title Titelinformationen-->	
-			<xsl:apply-templates select="datafield[@tag='331']" />
+			<xsl:choose>
+				<xsl:when test="datafield[@tag='331']">
+					<xsl:apply-templates select="datafield[@tag='331']" />
+					</xsl:when>
+				<xsl:otherwise>
+					<title>
+						<xsl:text>[Ohne Titelangabe]</xsl:text>
+						</title>
+					<title_short>
+						<xsl:text>[Ohne Titelangabe]</xsl:text>
+						</title_short>
+					</xsl:otherwise>
+				</xsl:choose>
+			
 
 	<!--alternativeTitle-->
 			<xsl:apply-templates select="datafield[@tag='370']" />
@@ -194,9 +209,17 @@
 			<xsl:apply-templates select="datafield[@tag='200']" />
 			
 	<!--series-->
-			<xsl:apply-templates select="datafield[@tag='GTU']" />
-			<xsl:apply-templates select="datafield[@tag='GT1']" />
-			<xsl:apply-templates select="datafield[@tag='GT0']" />
+			<xsl:choose>
+				<xsl:when test="datafield[@tag='GT1']">
+					<xsl:apply-templates select="datafield[@tag='GT1']" />
+					</xsl:when>
+				<xsl:when test="datafield[@tag='GTU']">
+					<xsl:apply-templates select="datafield[@tag='GTU']" />
+					</xsl:when>
+				<xsl:when test="datafield[@tag='GT0']">
+					<xsl:apply-templates select="datafield[@tag='GT0']" />
+					</xsl:when>
+				</xsl:choose>
 
 	<!--edition-->
 			<xsl:apply-templates select="datafield[@tag='403']" />
@@ -372,7 +395,20 @@
 					</xsl:if>
 					
 				<is_hierarchy_id><xsl:value-of select="$id"/><xsl:text>frso</xsl:text></is_hierarchy_id>
-				<is_hierarchy_title><xsl:value-of select="datafield[@tag='331']" /></is_hierarchy_title>	
+				<is_hierarchy_title>
+					<xsl:choose>
+						<xsl:when test="contains(datafield[@tag='331'],'¬')">
+							<xsl:value-of select="normalize-space(replace(datafield[@tag='331'],'¬',''))"/>
+							</xsl:when>
+						<xsl:when test="contains(datafield[@tag='331'],'&gt;&gt;')">
+							<xsl:variable name="title" select="substring-after(substring-before(datafield[@tag='331'],'&gt;&gt;'),'&lt;&lt;')"></xsl:variable>
+							<xsl:value-of select="normalize-space(replace(datafield[@tag='331'],'&lt;&lt;(.*?)&gt;&gt;',$title))"></xsl:value-of>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="normalize-space(datafield[@tag='331'])" />
+							</xsl:otherwise>
+						</xsl:choose>
+					<!--<xsl:value-of select="datafield[@tag='331']" />--></is_hierarchy_title>	
 				
 				<hierarchy_sequence><xsl:value-of select="substring(datafield[@tag='331'],1,3)"/></hierarchy_sequence>
 				
@@ -448,12 +484,37 @@
 			<xsl:apply-templates select="datafield[@tag='410']" />
 
 	<!--publishDate-->
-			<xsl:if test="datafield[@tag='425'][1]">
+			<xsl:choose>
+				<xsl:when test="datafield[@tag='425'][@ind1='b']">
+					<timeSpan>
+						<timeSpanStart><xsl:value-of select="datafield[@tag='425'][@ind1='b']" /></timeSpanStart>
+						<timeSpanEnd><xsl:value-of select="datafield[@tag='425'][@ind1='c']" /></timeSpanEnd>
+						</timeSpan>
+					</xsl:when>
+				<xsl:when test="datafield[@tag='425'][@ind1='a']">
+					<displayPublishDate>
+						<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
+						</displayPublishDate>
+					<publishDate>
+						<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
+						</publishDate>
+					</xsl:when>
+				<xsl:when test="datafield[@tag='425'][@ind1=' ']">
+					<displayPublishDate>
+						<xsl:value-of select="datafield[@tag='425'][@ind1=' ']"/>
+						</displayPublishDate>
+					<publishDate>
+						<xsl:value-of select="datafield[@tag='425'][@ind1=' ']"/>
+						</publishDate>
+					</xsl:when>
+				</xsl:choose>
+			
+			<!--<xsl:if test="datafield[@tag='425'][1]">
 				<timeSpan>
 					<timeSpanStart><xsl:value-of select="datafield[@tag='425'][@ind1='b']" /></timeSpanStart>
 					<timeSpanEnd><xsl:value-of select="datafield[@tag='425'][@ind1='c']" /></timeSpanEnd>
 				</timeSpan>	
-				</xsl:if>
+				</xsl:if>-->
 			<!--<xsl:apply-templates select="datafield[@tag='425'][1]" />	-->	
 		
 	<!--publisher Verlag-->
@@ -638,7 +699,20 @@
 					<hierarchy_parent_title><xsl:value-of select="datafield[@tag='QUE']/subfield[@code='a']" /></hierarchy_parent_title>
 				
 					<is_hierarchy_id><xsl:value-of select="$id"/><xsl:text>frso</xsl:text></is_hierarchy_id>
-					<is_hierarchy_title><xsl:value-of select="datafield[@tag='331']" /></is_hierarchy_title>
+					<is_hierarchy_title>
+						<xsl:choose>
+						<xsl:when test="contains(datafield[@tag='331'],'¬')">
+							<xsl:value-of select="normalize-space(replace(datafield[@tag='331'],'¬',''))"/>
+							</xsl:when>
+						<xsl:when test="contains(datafield[@tag='331'],'&gt;&gt;')">
+							<xsl:variable name="title" select="substring-after(substring-before(datafield[@tag='331'],'&gt;&gt;'),'&lt;&lt;')"></xsl:variable>
+							<xsl:value-of select="normalize-space(replace(datafield[@tag='331'],'&lt;&lt;(.*?)&gt;&gt;',$title))"></xsl:value-of>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="normalize-space(datafield[@tag='331'])" />
+							</xsl:otherwise>
+						</xsl:choose>
+						<!--<xsl:value-of select="datafield[@tag='331']" />--></is_hierarchy_title>
 				
 					<hierarchy_sequence><xsl:value-of select="substring(datafield[@tag='331'],1,3)"/></hierarchy_sequence>
 				
@@ -748,7 +822,7 @@
 			
 			
 		</xsl:element>
-		<!--</xsl:if>-->
+		</xsl:if>
 	</xsl:template>
 
 	
@@ -1098,21 +1172,62 @@
 	
 	<xsl:template match="datafield[@tag='341']">
 		<originalTitle>
-			<xsl:value-of select="." />
+			<!--<xsl:value-of select="." />-->
+			<xsl:choose>
+				<xsl:when test="contains(.,'¬')">
+					<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+					</xsl:when>
+				<xsl:when test="contains(.,'&gt;&gt;')">
+					<xsl:variable name="title" select="substring-after(substring-before(.,'&gt;&gt;'),'&lt;&lt;')"></xsl:variable>
+					<xsl:value-of select="normalize-space(replace(.,'&lt;&lt;(.*?)&gt;&gt;',$title))"></xsl:value-of>
+					</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(.)" />
+					</xsl:otherwise>
+				</xsl:choose>
+			
 			</originalTitle>
 		</xsl:template>
 		
 	<xsl:template match="datafield[@tag='370']">
 		<alternativeTitle>
-			<xsl:value-of select="." />
+			<!--<xsl:value-of select="." />-->
+			
+			<xsl:choose>
+				<xsl:when test="contains(.,'¬')">
+					<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+					</xsl:when>
+				<xsl:when test="contains(.,'&gt;&gt;')">
+					<xsl:variable name="title" select="substring-after(substring-before(.,'&gt;&gt;'),'&lt;&lt;')"></xsl:variable>
+					<xsl:value-of select="normalize-space(replace(.,'&lt;&lt;(.*?)&gt;&gt;',$title))"></xsl:value-of>
+					</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(.)" />
+					</xsl:otherwise>
+				</xsl:choose>
+			
 			</alternativeTitle>
 		</xsl:template>
 	
 	<xsl:template match="datafield[@tag='331']">
 		
 		<title>
-			<xsl:value-of select="translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ¬', '1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ')" />
+			<xsl:choose>
+				<xsl:when test="contains(.,'¬')">
+					<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+					</xsl:when>
+				<xsl:when test="contains(.,'&gt;&gt;')">
+					<xsl:variable name="title" select="substring-after(substring-before(.,'&gt;&gt;'),'&lt;&lt;')"></xsl:variable>
+					<xsl:value-of select="normalize-space(replace(.,'&lt;&lt;(.*?)&gt;&gt;',$title))"></xsl:value-of>
+					</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(.)" />
+					</xsl:otherwise>
+				</xsl:choose>
+			
+				<!--<xsl:value-of select="translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ¬', '1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ')" />-->
 				<!--<xsl:value-of select="datafield[@tag='331']" />-->
+			
 			<xsl:if test="../datafield[@tag='335']">
 					<xsl:text>: </xsl:text>
 					<xsl:value-of select="../datafield[@tag='335']"></xsl:value-of>
@@ -1121,7 +1236,21 @@
 			</title>
 			
 			<title_short>
-				<xsl:value-of select="translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ¬', '1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ')" />
+				<xsl:choose>
+				<xsl:when test="contains(.,'¬')">
+					<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+					</xsl:when>
+				<xsl:when test="contains(.,'&gt;&gt;')">
+					<xsl:variable name="title" select="substring-after(substring-before(.,'&gt;&gt;'),'&lt;&lt;')"></xsl:variable>
+					<xsl:value-of select="normalize-space(replace(.,'&lt;&lt;(.*?)&gt;&gt;',$title))"></xsl:value-of>
+					</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(.)" />
+					</xsl:otherwise>
+				</xsl:choose>
+				
+				
+				<!--<xsl:value-of select="translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ¬', '1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHJKLMNOPQRSTUVWYZ')" />-->
 			</title_short>
 		
 		<xsl:if test="../datafield[@tag='335']">
