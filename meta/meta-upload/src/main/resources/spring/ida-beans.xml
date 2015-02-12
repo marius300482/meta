@@ -27,33 +27,38 @@
 
     <!-- XSLT -->
     <bean id="genderbib" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" value="genderbib"/>
-        <constructor-arg index="1" value="${xslt.basePath}/institution/genderbib/gleich_genderbib.xsl"/>
-        <constructor-arg index="2" ref="xsltTransformer"/>
+        <constructor-arg index="0" name="institutionName" value="Genderbibliothek"/>
+        <constructor-arg index="1" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/genderbib/gleich_genderbib.xsl"/>
+        <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
     <bean id="frauenmediaturm" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" value="frauenmediaturm"/>
-        <constructor-arg index="1" value="${xslt.basePath}/institution/fmt/gleich_fmt.xsl"/>
-        <constructor-arg index="2" ref="xsltTransformer"/>
+        <constructor-arg index="0" name="institutionName" value="FrauenMediaTurm"/>
+        <constructor-arg index="1" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/fmt/gleich_fmt.xsl"/>
+        <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
     <bean id="frauensolidaritaet" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" value="frauensolidaritaet"/>
-        <constructor-arg index="1" value="${xslt.basePath}/institution/frauensolidaritaet/gleich_frauensolidaritaet.xsl"/>
-        <constructor-arg index="2" ref="xsltTransformer"/>
+        <constructor-arg index="0" name="institutionName" value="Frauensolidarität"/>
+        <constructor-arg index="1" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/frauensolidaritaet/gleich_frauensolidaritaet.xsl"/>
+        <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
     <bean id="ffbiz" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" value="ffbiz"/>
-        <constructor-arg index="1" value="${xslt.basePath}/institution/ffbiz/gleich_ffbiz.xsl"/>
-        <constructor-arg index="2" ref="xsltTransformer"/>
+        <constructor-arg index="0" name="institutionName" value="FFBIZ-Archiv"/>
+        <constructor-arg index="1" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/ffbiz/gleich_ffbiz.xsl"/>
+        <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
     <bean id="belladonna" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" value="belladonna"/>
-        <constructor-arg index="1" value="${xslt.basePath}/institution/belladonna/gleich_belladonna.xsl"/>
-        <constructor-arg index="2" ref="xsltTransformer"/>
+        <constructor-arg index="0" name="institutionName" value="belladonna"/>
+        <constructor-arg index="1" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/belladonna/gleich_belladonna.xsl"/>
+        <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
     
