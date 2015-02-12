@@ -32,7 +32,7 @@
 <xsl:template match="Objekt">	
 		<xsl:variable name="id" select="id" />
 		
-		<!--<xsl:if test="objektart[text()='Bibliothek']">-->
+		<xsl:if test="not(objektart[text()='Zeitschriften'])">
 		<!--<xsl:if test="objektart[text()='Akten, Graue Materialien, ZD']">-->
 		
 		<xsl:element name="record">
@@ -81,6 +81,11 @@
 							<xsl:text>archive</xsl:text>
 							</recordType>
 						</xsl:when>
+					<xsl:otherwise>
+						<recordType>
+							<xsl:text>library</xsl:text>
+							</recordType>
+						</xsl:otherwise>
 					</xsl:choose>
 				
 				
@@ -225,6 +230,7 @@
 
 	<!--subjectTopic Deskriptoren-->
 			<xsl:apply-templates select="Schlagwort_x032x_Bibliothek" />
+			<xsl:apply-templates select="Person" />
 			
 	<!--description-->
 			<xsl:apply-templates select="Bemerkung" />
@@ -298,6 +304,7 @@
 			<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
 			<xsl:apply-templates select="Kontinent" />
 			<xsl:apply-templates select="Land_x047x_Region" />
+			<xsl:apply-templates select="Person" />
 	
 	<!--language Sprachangaben-->
 			<xsl:apply-templates select="Sprache" />	
@@ -314,16 +321,592 @@
 	</xsl:if>
 
 
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+<!--Ansichtskarten__________Ansichtskarten____________Ansichtskarten-->
+
+<xsl:if test="objektart[text()='Ansichtskarten']">
+
+<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Bildmaterial</xsl:text></format>		
+	<!--documentType-->
+				<documentType><xsl:value-of select="objektart" /></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+			<xsl:apply-templates select="Einzeltitel" />
+
+<!--RESPONSIBLE-->
+	
+	<!--author Autorinneninformation-->
+			<xsl:apply-templates select="UrheberIn" />
+	
+	<!--edition-->
+			<xsl:apply-templates select="Editions-Nr_x046x_" />
+
+
+<!--PUBLISHING-->
+	
+	<!--display publishDate Jahresangabe-->
+					
+	<!--placeOfPublication Ortsangabe-->
+	
+	<!--publisher Verlagsangabe-->
+			<xsl:apply-templates select="Druck_x047x_Verlag_x047x_Grafik" />		
+	
+	
+	
+<!--PHYSICAL INFORMATION-->
+	
+	<!--dimension Ausmaße-->
+				<xsl:apply-templates select="Breite_x032x_x_x032x_H_x148x_he_x032x_in_x032x_cm" />	
+	<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Bemerkung" />
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--language Sprachangaben-->
+			<xsl:apply-templates select="Sprache" />
+	
+	<!--subject Deskriptoren-->
+				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+				<xsl:apply-templates select="Kontinent" />
+				<xsl:apply-templates select="Land_x047x_Region" />
+				<xsl:apply-templates select="Person" />
+				
+	<!--description-->
+				<xsl:apply-templates select="Bildbeschreibung"/>	
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+
+	</xsl:element>
+	</xsl:if>
+
+
+
+<!--Fotografien________Fotografien____________Fotografien-->
+
+<xsl:if test="objektart[text()='Fotografien']">
+
+<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Bildmaterial</xsl:text></format>		
+	<!--documentType-->
+				<documentType><xsl:value-of select="objektart" /></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+			<xsl:apply-templates select="Einzeltitel" />
+
+<!--RESPONSIBLE-->
+	
+	<!--author Autorinneninformation-->
+			<xsl:apply-templates select="UrheberIn" />
+	
+	<!--provenance Privinienz-->
+			<xsl:apply-templates select="Provenienz" />
 			
+<!--PUBLISHING-->
+	
+	<!--display publishDate Jahresangabe-->
+			<xsl:apply-templates select="freie_x032x_Datumseingabe" />
+
+	<!--placeOfPublication Ortsangabe-->
+			<xsl:apply-templates select="Ort" />	
+
+<!--PHYSICAL INFORMATION-->
+	
+	<!--dimension Ausmaße-->
+				<xsl:apply-templates select="Breite_x032x_x_x032x_H_x148x_he_x032x_in_x032x_cm" />	
+	<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Bemerkung[1]" />
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--language Sprachangaben-->
+			<xsl:apply-templates select="Sprache" />
+	
+	<!--subject Deskriptoren-->
+				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+				<xsl:apply-templates select="Kontinent" />
+				<xsl:apply-templates select="Land_x047x_Region" />
+				<xsl:apply-templates select="Person" />
+				
+	<!--description-->
+				<xsl:apply-templates select="Bildbeschreibung"/>	
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+		</xsl:element>
+	</xsl:if>
+	
+
+
+
+
+<!--Buttons und Sticker________Buttons und Sticker____________Buttons und Sticker-->
+
+<xsl:if test="objektart[text()='Buttons und Sticker']">
+
+<xsl:element name="dataset">
+	
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Bildmaterial</xsl:text></format>		
+	<!--documentType-->
+				<documentType><xsl:value-of select="objektart" /></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Anlass_x047x_Ereignis_x047x_Thema" />
+
+<!--RESPONSIBLE-->
+
+	<!--entity Körperschaft / Organisation-->
+			<xsl:apply-templates select="Veranstalt_x046x__x047x_Hrsg_x046x_" />
+	
+	<!--provenance Privinienz-->
+			<xsl:apply-templates select="Provenienz" />
+			
+<!--PUBLISHING-->
+
+	<!--display / publishDate Jahresangabe-->
+			<xsl:apply-templates select="Jahr_x047x_Datierung" />
+			
+	<!--placeOfPublication Ortsangabe-->
+			<xsl:apply-templates select="Ort" />	
+
+<!--PHYSICAL INFORMATION-->
+	
+	<!--dimension Ausmaße-->
+				<xsl:apply-templates select="Format" />	
+	<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Farben" />
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--language Sprachangaben-->
+			<xsl:apply-templates select="Sprache" />
+	
+	<!--subject Deskriptoren-->
+				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+				<xsl:apply-templates select="Kontinent" />
+				<xsl:apply-templates select="Land_x047x_Region" />
+				<xsl:apply-templates select="Person" />
+				
+	<!--description-->
+				<xsl:apply-templates select="Bildbeschreibung"/>	
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+		</xsl:element>
+	</xsl:if>
+	
+	
+
+<!--Filme________Filme____________Filme-->
+
+<xsl:if test="objektart[text()='Filme']">
+
+<xsl:element name="dataset">
+	
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>moving image</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Film</xsl:text></format>		
+	<!--documentType-->
+				<documentType><xsl:value-of select="objektart" /></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Filmtitel" />
+
+<!--RESPONSIBLE-->
+	
+	<!--provenance Privinienz-->
+			<xsl:apply-templates select="Provenienz" />
+
+
+
+<!--PUBLISHING-->
+
+	<!--display / publishDate Jahresangabe-->
+			<xsl:apply-templates select="Jahr_x047x_Datierung" />
+			
+
+<!--PHYSICAL INFORMATION-->
+	
+	<!--runTime Laufzeit CD-->
+				<xsl:apply-templates select="L_x132x_nge" />
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--language Sprachangaben-->
+			<xsl:apply-templates select="Sprache" />
+	
+	<!--subject Deskriptoren-->
+				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+				<xsl:apply-templates select="Kontinent" />
+				<xsl:apply-templates select="Land_x047x_Region" />
+				<xsl:apply-templates select="Person" />
+				
+	<!--description-->
+				<xsl:apply-templates select="Bemerkung"/>	
+	
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+		</xsl:element>
+	</xsl:if>
+	
+
+
+
+
+
+<!--Audios________Audios____________Audios-->
+
+<xsl:if test="objektart[text()='Audios']">
+
+<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>sound recording</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Tonträger</xsl:text></format>		
+	<!--documentType-->
+				<documentType><xsl:value-of select="Tontr_x132x_ger" /></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Titel_x047x_Thema" />
+
+<!--RESPONSIBLE-->
+
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="AutorIn" />
+	<!--provenance Privinienz-->
+			<xsl:apply-templates select="Provenienz" />
+	<!--contributor Beteiligte Personen-->
+			<xsl:apply-templates select="SprecherIn_x047x_S_x132x_ngerIn" />
+
+<!--PUBLISHING-->
+
+	<!--display / publishDate Jahresangabe-->
+			<xsl:apply-templates select="Jahr_x047x_Datierung" />
+			
+	<!--placeOfPublication Ortsangabe-->
+			<xsl:apply-templates select="Ort" />	
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--language Sprachangaben-->
+				<xsl:apply-templates select="Sprache" />
+	
+	<!--subject Deskriptoren-->
+				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+				<xsl:apply-templates select="Kontinent" />
+				<xsl:apply-templates select="Land_x047x_Region" />
+				<xsl:apply-templates select="Person" />
+				
+	<!--description-->
+				<xsl:apply-templates select="Beschreibung"/>	
+		
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+		</xsl:element>
+	</xsl:if>
+	
+	
+	
+
+
+<!--Autographen________Autographen____________Autographen-->
+
+<xsl:if test="objektart[text()='Autographen']">
+
+<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+			<format><xsl:text>Autograf</xsl:text></format>
+
+	<!--documentType-->
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Enth_x132x_lt" />
+
+<!--RESPONSIBLE-->
+
+	<!--author Autorinneninformation-->
+				<xsl:apply-templates select="AutorIn" />
+
+<!--PUBLISHING-->
+
+	<!--display / publishDate Jahresangabe-->
+			<xsl:apply-templates select="Jahr_x047x_Datierung" />
+	
+	<!--placeOfPublication Ortsangabe-->
+			<xsl:apply-templates select="Ort" />	
+			
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--language Sprachangaben-->
+				<xsl:apply-templates select="Sprache" />
+	
+	<!--subject Deskriptoren-->
+				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+				<xsl:apply-templates select="Kontinent" />
+				<xsl:apply-templates select="Land_x047x_Region" />
+				<xsl:apply-templates select="Person" />
+				
+	<!--description-->
+				<xsl:apply-templates select="AdressatIn"/>	
+
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+		</xsl:element>
+	</xsl:if>
+		
+		
+		
+		
+		
+		
+
+
+<!--Nachlässe________Nachlässe____________Nachlässe-->
+
+<xsl:if test="objektart[text()='Nachlässe']">
+
+<xsl:element name="dataset">
+
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+			<format>
+				<xsl:choose>
+					<xsl:when test="Vorwort">
+						<xsl:text>Nachlass</xsl:text>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>Akte</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+				</format>
+
+	<!--documentType-->
+			<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->	
+			<xsl:choose>
+					<xsl:when test="Vorwort">
+						<xsl:apply-templates select="Bestand" />
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="Titel" />
+						</xsl:otherwise>
+					</xsl:choose>
+
+<!--PUBLISHING-->
+
+	<!--display / publishDate Jahresangabe-->
+			<xsl:apply-templates select="Bestandslaufzeit" />
+			<xsl:apply-templates select="Jahr_x047x_Datierung" />
+			
+	<!--placeOfPublication Ortsangabe-->
+			<xsl:apply-templates select="Ort" />	
+
+<!--PHYSICAL INFORMATION-->
+	
+	<!--dimension Ausmaße-->
+				<xsl:apply-templates select="Breite_x032x_x_x032x_H_x148x_he_x032x_in_x032x_cm" />	
+	<!--specificMaterialDesignation-->
+				<xsl:apply-templates select="Bemerkung" />
+	<!--physical Seitenangabe-->
+			<xsl:apply-templates select="Umfang" />
+
+<!--CONTENTRELATED INFORMATION-->				
+	
+	<!--language Sprachangaben-->
+				<xsl:apply-templates select="Sprache" />
+	
+	<!--subject Deskriptoren-->
+				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+				<xsl:apply-templates select="Kontinent" />
+				<xsl:apply-templates select="Land_x047x_Region" />
+				<xsl:apply-templates select="Person" />
+	<!--description-->
+				<xsl:apply-templates select="Vorwort"/>	
+				<xsl:apply-templates select="Enth_x132x_lt"/>	
+								
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+		</xsl:element>
+	</xsl:if>
+
+
+
+<!--Plakate________Plakate____________Plakate-->
+
+<xsl:if test="objektart[text()='Plakate']">
+
+<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+				<format><xsl:text>Bildmaterial</xsl:text></format>		
+	<!--documentType-->
+				<documentType><xsl:text>Plakat</xsl:text></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->	
+			<xsl:apply-templates select="Titel" />
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+		</xsl:element>
+	</xsl:if>
+
+
+		
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 
 		</xsl:element>
-		<!--</xsl:if>-->
+		</xsl:if>
 	</xsl:template>
 	
 <!--Templates-->
+	
+	<xsl:template match="AdressatIn">
+		<description>
+			<xsl:text>AdressatIn: </xsl:text>
+				<xsl:value-of select="normalize-space(.)" />
+			<xsl:if test="../Eigenh_x132x_nd_x046x__x032x_Unterschrift">
+				<xsl:text> - Unterschrift: </xsl:text>
+				<xsl:value-of select="normalize-space(../Eigenh_x132x_nd_x046x__x032x_Unterschrift)" />
+				</xsl:if>
+			<xsl:if test="../Karte">
+				<xsl:text> - Karte: </xsl:text>
+				<xsl:value-of select="normalize-space(../Karte)" />
+				</xsl:if>
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="Farben">
+		<specificMaterialDesignation>
+			<xsl:value-of select="normalize-space(.)" />
+			</specificMaterialDesignation>
+		</xsl:template>
+	
+	<xsl:template match="Format">
+		<dimension>
+			<xsl:value-of select="normalize-space(.)" />
+			</dimension>
+		</xsl:template>
+	
+	<xsl:template match="Breite_x032x_x_x032x_H_x148x_he_x032x_in_x032x_cm">
+		<dimension>
+			<xsl:if test="../Format">
+				<xsl:value-of select="../Format" />
+				<xsl:text> - </xsl:text>
+				</xsl:if>
+			<xsl:value-of select="." />
+			</dimension>
+		</xsl:template>
+	
+	<xsl:template match="Beschreibung">
+		<description>
+			<xsl:value-of select="normalize-space(.)" />
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="Bildbeschreibung">
+		<description>
+			<xsl:value-of select="normalize-space(.)" />
+			</description>
+		</xsl:template>
 	
 	<xsl:template match="Sperrfrist">
 		<blockingPeriod>
@@ -349,10 +932,28 @@
 			</subjectGeographic>
 		</xsl:template>
 	
-	<xsl:template match="Enth_x132x_lt">
+	<xsl:template match="Vorwort">
 		<description>
 			<xsl:value-of select="." />
 			</description>
+		</xsl:template>
+	
+	<xsl:template match="Enth_x132x_lt">
+		<xsl:choose>
+			<xsl:when test="../objektart[text()='Autographen']">
+				<title>
+					<xsl:value-of select="normalize-space(.)" />
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)" />
+					</title_short>
+				</xsl:when>
+			<xsl:otherwise>
+				<description>
+					<xsl:value-of select="." />
+					</description>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:template>
 	
 	<xsl:template match="Organisation">
@@ -368,9 +969,54 @@
 		</xsl:template>
 	
 	<xsl:template match="Bemerkung">
-		<description>
-			<xsl:value-of select="." />
-			</description>
+		<xsl:choose>
+			<xsl:when test="../objektart[text()='Ansichtskarten']">
+				<specificMaterialDesignation>
+					<xsl:if test="../Bildfarbe"><xsl:value-of select="../Bildfarbe" />
+						<xsl:text> - </xsl:text>
+						</xsl:if>
+					<xsl:value-of select="." />
+					</specificMaterialDesignation>
+				</xsl:when>
+			<xsl:when test="../objektart[text()='Fotografien']">
+				<specificMaterialDesignation>
+					<xsl:if test="../Fototyp"><xsl:value-of select="../Fototyp" />
+						<xsl:text> - </xsl:text>
+						</xsl:if>					
+					<xsl:if test="../Bildfarbe"><xsl:value-of select="../Bildfarbe" />
+						<xsl:text> - </xsl:text>
+						</xsl:if>
+					<xsl:for-each select="../Bemerkung">
+						<xsl:value-of select="." />
+						<xsl:text> - </xsl:text>
+						</xsl:for-each>
+					<!--<xsl:value-of select="." />-->
+					</specificMaterialDesignation>
+				</xsl:when>
+			<xsl:when test="../objektart[text()='Nachlässe']">
+				<specificMaterialDesignation>
+					<xsl:value-of select="." />
+					</specificMaterialDesignation>
+				</xsl:when>
+			<xsl:when test="../objektart[text()='Filme']">
+				<description>
+					<xsl:if test="../Erscheinungsform">
+						<xsl:value-of select="../Erscheinungsform" />
+						<xsl:text> - </xsl:text>
+						</xsl:if>
+					<xsl:if test="../Filmgenre">
+						<xsl:value-of select="../Filmgenre" />
+						<xsl:text> - </xsl:text>
+						</xsl:if>					
+					<xsl:value-of select="." />
+					</description>
+				</xsl:when>
+			<xsl:otherwise>
+				<description>
+					<xsl:value-of select="." />
+					</description>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:template>
 	
 	<xsl:template match="Band">
@@ -397,6 +1043,12 @@
 			</series>
 		</xsl:template>
 	
+	<xsl:template match="Editions-Nr_x046x_">
+		<edition>
+			<xsl:value-of select="." />
+			</edition>
+		</xsl:template>
+	
 	<xsl:template match="Auflage">
 		<edition>
 			<xsl:value-of select="." />
@@ -405,12 +1057,20 @@
 	
 	<xsl:template match="Signatur">
 		<shelfMark>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(.)" />
 			<xsl:if test="../Signatur-Nummerierung">
 				<xsl:text> </xsl:text>
 				<xsl:value-of select="../Signatur-Nummerierung" />
 				</xsl:if>
 			</shelfMark>
+		</xsl:template>
+	
+	<xsl:template match="Person">
+		<xsl:for-each select=".">
+			<subjectPerson>
+				<xsl:value-of select="." />
+				</subjectPerson>
+			</xsl:for-each>
 		</xsl:template>
 	
 	<xsl:template match="Schlagworte_x032x_Archiv">
@@ -437,6 +1097,12 @@
 			</xsl:for-each>
 		</xsl:template>
 	
+	<xsl:template match="L_x132x_nge">
+		<runTime>
+			<xsl:value-of select="normalize-space(.)" />
+			</runTime>
+		</xsl:template>
+	
 	<xsl:template match="Umfang">
 		<xsl:choose>
 			<xsl:when test="../objektart[text()='Bibliothek']">
@@ -449,9 +1115,22 @@
 					<xsl:value-of select="normalize-space(.)" />
 					</physical>
 				</xsl:when>
+			<xsl:otherwise>
+				<physical>
+					<xsl:value-of select="normalize-space(.)" />
+					</physical>
+				</xsl:otherwise>
 			</xsl:choose>
 		
 		
+		</xsl:template>
+	
+	<xsl:template match="Druck_x047x_Verlag_x047x_Grafik">
+		<xsl:for-each select="tokenize(., ';')">
+			<publisher>
+				<xsl:value-of select="normalize-space(.)"/>
+				</publisher>
+			</xsl:for-each>
 		</xsl:template>
 	
 	<xsl:template match="Verlag">
@@ -473,6 +1152,40 @@
 					</placeOfPublication>
 				</xsl:otherwise>
 			</xsl:choose>
+		</xsl:template>
+	
+	<xsl:template match="freie_x032x_Datumseingabe">
+		<displayPublishDate>
+			<xsl:value-of select="." />
+			</displayPublishDate>
+		<publishDate>
+			<xsl:value-of select="." />
+			</publishDate>
+		</xsl:template>
+	
+	<xsl:template match="Bestandslaufzeit">
+		<xsl:choose>
+			<xsl:when test="contains(.,'-')">
+				<timeSpan>
+					<timeSpanStart><xsl:value-of select="normalize-space(substring-before(.,'-'))" /></timeSpanStart>
+					<timeSpanEnd><xsl:value-of select="normalize-space(substring-after(.,'-'))" /></timeSpanEnd>
+					</timeSpan>
+				</xsl:when>
+			<xsl:otherwise>
+				<displayPublishDate>
+					<xsl:value-of select="." />
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
+					</publishDate>
+				</xsl:otherwise>
+			</xsl:choose>		
+		<!--<displayPublishDate>
+			<xsl:value-of select="." />
+			</displayPublishDate>
+		<publishDate>
+			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
+			</publishDate>-->
 		</xsl:template>
 	
 	<xsl:template match="Jahr_x047x_Datierung">
@@ -500,11 +1213,44 @@
 			</publishDate>-->
 		</xsl:template>
 	
+	<xsl:template match="Veranstalt_x046x__x047x_Hrsg_x046x_">
+		<xsl:for-each select=".">
+			<editor>
+				<xsl:value-of select="."/>
+				</editor>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="SprecherIn_x047x_S_x132x_ngerIn">
+		<xsl:for-each select=".">
+			<contributor>
+				<xsl:value-of select="."/>
+				<xsl:text> [Sprech.]</xsl:text>
+				</contributor>
+			</xsl:for-each>
+		</xsl:template>
+	
 	<xsl:template match="Hrsg_x046x_">
 		<xsl:for-each select=".">
 			<editor>
 				<xsl:value-of select="."/>
 				</editor>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="UrheberIn">
+		<xsl:for-each select=".">
+			<author>
+				<xsl:value-of select="."/>
+				</author>
+			</xsl:for-each>
+		</xsl:template>
+	
+	<xsl:template match="AutorIn">
+		<xsl:for-each select=".">
+			<author>
+				<xsl:value-of select="."/>
+				</author>
 			</xsl:for-each>
 		</xsl:template>
 	
@@ -528,6 +1274,33 @@
 				</alternativeTitle>
 		</xsl:template>
 	
+	<xsl:template match="Bestand">
+		<title>
+			<xsl:value-of select="." />
+			</title>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		</xsl:template>
+	
+	<xsl:template match="Titel_x047x_Thema">
+		<title>
+			<xsl:value-of select="." />
+			</title>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		</xsl:template>
+	
+	<xsl:template match="Titel_x032x_">
+		<title>
+			<xsl:value-of select="." />
+			</title>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		</xsl:template>
+	
 	<xsl:template match="Titel">
 		<title>
 			<xsl:value-of select="." />
@@ -537,7 +1310,41 @@
 			</title_short>
 		</xsl:template>
 	
+	<xsl:template match="Filmtitel">
+		<title>
+			<xsl:value-of select="." />
+			</title>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		</xsl:template>
 	
+	<xsl:template match="Anlass_x047x_Ereignis_x047x_Thema">
+		<title>
+			<xsl:value-of select="." />
+			</title>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		</xsl:template>
+	
+	<xsl:template match="Einzeltitel">
+		<title>
+			<xsl:value-of select="." />
+			<xsl:if test="../Untertitel!=''">
+				<xsl:text> : </xsl:text>
+				<xsl:value-of select="../Untertitel" />
+				</xsl:if>
+			</title>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		<xsl:if test="../Untertitel!=''">
+			<title_sub>
+				<xsl:value-of select="../Untertitel" />
+				</title_sub>
+			</xsl:if>
+		</xsl:template>
 	
 	<xsl:template match="Hauptsachtitel">
 		<title>
