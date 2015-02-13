@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!-- New document created with EditiX at Wed Feb 27 13:46:04 CET 2013 -->
 
 <xsl:stylesheet version="2.0" 
@@ -166,7 +165,8 @@
 			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 
 	<!--format Objektartinformationen-->
-			<format><xsl:text>Buch</xsl:text></format>
+			<!--<format><xsl:text>Buch</xsl:text></format>-->
+			<format><xsl:text>TEXT</xsl:text></format>
 
 	<!--documentType-->
 			<documentType><xsl:text>Buch</xsl:text></documentType>
@@ -197,7 +197,7 @@
 			<xsl:apply-templates select="Reihe" />
 			
 	<!--edition Auflage-->
-			<xsl:apply-templates select="Auflage" />
+			<xsl:apply-templates select="Auflage[1]" />
 			
 	<!--volume-->
 			<xsl:apply-templates select="Band" />
@@ -264,10 +264,12 @@
 			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 
 	<!--format Objektartinformationen-->
-			<format><xsl:text>Akte</xsl:text></format>
+			<!--<format><xsl:text>Akte</xsl:text></format>-->
+			<format><xsl:text>TEXT</xsl:text></format>
 
 	<!--documentType-->
-			<documentType><xsl:value-of select="Bestand" /></documentType>
+			<!--<documentType><xsl:value-of select="Bestand" /></documentType>-->
+			<documentType>Akte</documentType>
 
 <!--TITLE-->
 
@@ -349,9 +351,11 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Bildmaterial</xsl:text></format>		
+				<!--<format><xsl:text>Bildmaterial</xsl:text></format>	-->	
+				<format><xsl:text>BILD</xsl:text></format>	
 	<!--documentType-->
-				<documentType><xsl:value-of select="objektart" /></documentType>
+				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
+				<documentType><xsl:text>Ansichtskarte</xsl:text></documentType>
 
 <!--TITLE-->
 
@@ -364,7 +368,7 @@
 			<xsl:apply-templates select="UrheberIn" />
 	
 	<!--edition-->
-			<xsl:apply-templates select="Editions-Nr_x046x_" />
+			<xsl:apply-templates select="Editions-Nr_x046x_[1]" />
 
 
 <!--PUBLISHING-->
@@ -421,9 +425,11 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Bildmaterial</xsl:text></format>		
+				<!--<format><xsl:text>Bildmaterial</xsl:text></format>	-->
+				<format><xsl:text>BILD</xsl:text></format>			
 	<!--documentType-->
-				<documentType><xsl:value-of select="objektart" /></documentType>
+				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
+				<documentType><xsl:text>Fotografie</xsl:text></documentType>
 
 <!--TITLE-->
 
@@ -490,9 +496,11 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Bildmaterial</xsl:text></format>		
+				<!--<format><xsl:text>Bildmaterial</xsl:text></format>	-->
+				<format><xsl:text>BILD</xsl:text></format>			
 	<!--documentType-->
-				<documentType><xsl:value-of select="objektart" /></documentType>
+				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
+				<documentType><xsl:text>Buttons und Sticker</xsl:text></documentType>
 
 <!--TITLE-->
 
@@ -557,9 +565,11 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>moving image</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Film</xsl:text></format>		
+				<!--<format><xsl:text>Film</xsl:text></format>	-->
+				<format><xsl:text>BILD</xsl:text></format>		
 	<!--documentType-->
-				<documentType><xsl:value-of select="objektart" /></documentType>
+				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
+				<documentType><xsl:text>Film</xsl:text></documentType>
 
 <!--TITLE-->
 
@@ -622,9 +632,17 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>sound recording</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Tonträger</xsl:text></format>		
+				<!--<format><xsl:text>Tonträger</xsl:text></format>	-->
+				<format><xsl:text>TON</xsl:text></format>		
 	<!--documentType-->
-				<documentType><xsl:value-of select="Tontr_x132x_ger" /></documentType>
+				<documentType>
+					<xsl:choose>
+						<xsl:when test="Tontr_x132x_ger">
+							<xsl:value-of select="Tontr_x132x_ger" />
+							</xsl:when>
+						<xsl:otherwise><xsl:text>Tonträger</xsl:text></xsl:otherwise>
+						</xsl:choose>
+					</documentType>
 
 <!--TITLE-->
 
@@ -639,6 +657,9 @@
 			<xsl:apply-templates select="Provenienz" />
 	<!--contributor Beteiligte Personen-->
 			<xsl:apply-templates select="SprecherIn_x047x_S_x132x_ngerIn" />
+		<!--contributor Beteiligte Personen-->
+			<xsl:apply-templates select="Regie_x047x_Erstellung" />		
+	
 
 <!--PUBLISHING-->
 
@@ -686,10 +707,12 @@
 			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 
 	<!--format Objektartinformationen-->
-			<format><xsl:text>Autograf</xsl:text></format>
+			<!--<format><xsl:text>Autograf</xsl:text></format>-->
+			<format><xsl:text>TEXT</xsl:text></format>
 
 	<!--documentType-->
-
+			<documentType><xsl:text>Autograf</xsl:text></documentType>	
+					
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
@@ -752,18 +775,28 @@
 
 	<!--format Objektartinformationen-->
 			<format>
-				<xsl:choose>
+				<!--<xsl:choose>
 					<xsl:when test="Vorwort">
 						<xsl:text>Nachlass</xsl:text>
 						</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>Akte</xsl:text>
 						</xsl:otherwise>
-					</xsl:choose>
+					</xsl:choose>-->
+					<xsl:text>TEXT</xsl:text>
 				</format>
 
 	<!--documentType-->
-			<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
+			<documentType>
+				<xsl:choose>
+					<xsl:when test="Vorwort">
+						<xsl:text>Nachlass/Vorlass</xsl:text>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>Akte</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+				</documentType>
 
 <!--TITLE-->
 
@@ -830,7 +863,8 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Bildmaterial</xsl:text></format>		
+				<!--<format><xsl:text>Bildmaterial</xsl:text></format>-->
+				<format><xsl:text>BILD</xsl:text></format>				
 	<!--documentType-->
 				<documentType><xsl:text>Plakat</xsl:text></documentType>
 
@@ -1221,6 +1255,15 @@
 			</xsl:for-each>
 		</xsl:template>
 	
+	<xsl:template match="Regie_x047x_Erstellung">
+		<xsl:for-each select=".">
+			<contributor>
+				<xsl:value-of select="."/>
+				<xsl:text> [Regie]</xsl:text>
+				</contributor>
+			</xsl:for-each>
+		</xsl:template>
+	
 	<xsl:template match="SprecherIn_x047x_S_x132x_ngerIn">
 		<xsl:for-each select=".">
 			<contributor>
@@ -1240,9 +1283,10 @@
 	
 	<xsl:template match="UrheberIn">
 		<xsl:for-each select=".">
-			<author>
+			<contributor>
 				<xsl:value-of select="."/>
-				</author>
+				<xsl:text> [Fotogr.]</xsl:text>
+				</contributor>
 			</xsl:for-each>
 		</xsl:template>
 	
@@ -1264,80 +1308,80 @@
 	
 	<xsl:template match="Einheitssachtitel">
 		<alternativeTitle>
-			<xsl:value-of  select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 				</alternativeTitle>
 		</xsl:template>
 	
 	<xsl:template match="Titel_x132x_nderungen">
 		<alternativeTitle>
-			<xsl:value-of  select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 				</alternativeTitle>
 		</xsl:template>
 	
 	<xsl:template match="Bestand">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title_short>
 		</xsl:template>
 	
 	<xsl:template match="Titel_x047x_Thema">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title_short>
 		</xsl:template>
 	
 	<xsl:template match="Titel_x032x_">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title_short>
 		</xsl:template>
 	
 	<xsl:template match="Titel">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title_short>
 		</xsl:template>
 	
 	<xsl:template match="Filmtitel">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title_short>
 		</xsl:template>
 	
 	<xsl:template match="Anlass_x047x_Ereignis_x047x_Thema">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title_short>
 		</xsl:template>
 	
 	<xsl:template match="Einzeltitel">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			<xsl:if test="../Untertitel!=''">
 				<xsl:text> : </xsl:text>
 				<xsl:value-of select="../Untertitel" />
 				</xsl:if>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(.,'_','')"/>
 			</title_short>
 		<xsl:if test="../Untertitel!=''">
 			<title_sub>
@@ -1348,14 +1392,14 @@
 	
 	<xsl:template match="Hauptsachtitel">
 		<title>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
 			<xsl:if test="../Untertitel!=''">
 				<xsl:text> : </xsl:text>
 				<xsl:value-of select="../Untertitel" />
 				</xsl:if>
 			</title>
 		<title_short>
-			<xsl:value-of select="." />
+			<xsl:value-of select="replace(normalize-space(.),'_','')"/>
 			</title_short>
 		<xsl:if test="../Untertitel!=''">
 			<title_sub>
