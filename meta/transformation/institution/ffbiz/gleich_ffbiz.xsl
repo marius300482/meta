@@ -165,11 +165,11 @@
 			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 
 	<!--format Objektartinformationen-->
-			<!--<format><xsl:text>Buch</xsl:text></format>-->
-			<format><xsl:text>TEXT</xsl:text></format>
+			<format><xsl:text>Buch</xsl:text></format>
+			<!--<format><xsl:text>TEXT</xsl:text></format>-->
 
 	<!--documentType-->
-			<documentType><xsl:text>Buch</xsl:text></documentType>
+			<!--<documentType><xsl:text>Buch</xsl:text></documentType>-->
 
 <!--TITLE-->
 
@@ -264,12 +264,12 @@
 			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 
 	<!--format Objektartinformationen-->
-			<!--<format><xsl:text>Akte</xsl:text></format>-->
-			<format><xsl:text>TEXT</xsl:text></format>
+			<format><xsl:text>Akte</xsl:text></format>
+			<!--<format><xsl:text>TEXT</xsl:text></format>-->
 
 	<!--documentType-->
 			<!--<documentType><xsl:value-of select="Bestand" /></documentType>-->
-			<documentType>Akte</documentType>
+			<!--<documentType>Akte</documentType>-->
 
 <!--TITLE-->
 
@@ -349,13 +349,13 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<!--<format><xsl:text>Bildmaterial</xsl:text></format>	-->	
-				<format><xsl:text>BILD</xsl:text></format>	
+				<!--<format><xsl:text>Bildmaterial</xsl:text></format>-->
+				<format><xsl:text>Ansichtskarte</xsl:text></format>	
 	<!--documentType-->
 				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
-				<documentType><xsl:text>Ansichtskarte</xsl:text></documentType>
+				<!--<documentType><xsl:text>Ansichtskarte</xsl:text></documentType>-->
 
 <!--TITLE-->
 
@@ -423,13 +423,13 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<!--<format><xsl:text>Bildmaterial</xsl:text></format>	-->
-				<format><xsl:text>BILD</xsl:text></format>			
+				<format><xsl:text>Fotografie</xsl:text></format>			
 	<!--documentType-->
 				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
-				<documentType><xsl:text>Fotografie</xsl:text></documentType>
+				<!--<documentType><xsl:text>Fotografie</xsl:text></documentType>-->
 
 <!--TITLE-->
 
@@ -494,13 +494,13 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<!--<format><xsl:text>Bildmaterial</xsl:text></format>	-->
-				<format><xsl:text>BILD</xsl:text></format>			
+				<format><xsl:text>Buttons und Sticker</xsl:text></format>			
 	<!--documentType-->
 				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
-				<documentType><xsl:text>Buttons und Sticker</xsl:text></documentType>
+				<!--<documentType><xsl:text>Buttons und Sticker</xsl:text></documentType>-->
 
 <!--TITLE-->
 
@@ -563,13 +563,13 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>moving image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<!--<format><xsl:text>Film</xsl:text></format>	-->
-				<format><xsl:text>BILD</xsl:text></format>		
+				<format><xsl:text>Film</xsl:text></format>		
 	<!--documentType-->
 				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
-				<documentType><xsl:text>Film</xsl:text></documentType>
+				<!--<documentType><xsl:text>Film</xsl:text></documentType>-->
 
 <!--TITLE-->
 
@@ -630,20 +630,16 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>sound recording</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>ton</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<!--<format><xsl:text>Tonträger</xsl:text></format>	-->
-				<format><xsl:text>TON</xsl:text></format>		
+				<format><xsl:text>Tonträger</xsl:text></format>		
 	<!--documentType-->
-				<documentType>
-					<xsl:choose>
-						<xsl:when test="Tontr_x132x_ger">
-							<xsl:value-of select="Tontr_x132x_ger" />
-							</xsl:when>
-						<xsl:otherwise><xsl:text>Tonträger</xsl:text></xsl:otherwise>
-						</xsl:choose>
-					</documentType>
-
+				<xsl:if test="Tontr_x132x_ger">
+					<documentType>
+						<xsl:value-of select="Tontr_x132x_ger" />
+						</documentType>
+					</xsl:if>
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
@@ -708,10 +704,10 @@
 
 	<!--format Objektartinformationen-->
 			<!--<format><xsl:text>Autograf</xsl:text></format>-->
-			<format><xsl:text>TEXT</xsl:text></format>
+			<format><xsl:text>Autograf</xsl:text></format>
 
 	<!--documentType-->
-			<documentType><xsl:text>Autograf</xsl:text></documentType>	
+			<!--<documentType><xsl:text>Autograf</xsl:text></documentType>	-->
 					
 <!--TITLE-->
 
@@ -775,19 +771,18 @@
 
 	<!--format Objektartinformationen-->
 			<format>
-				<!--<xsl:choose>
+				<xsl:choose>
 					<xsl:when test="Vorwort">
-						<xsl:text>Nachlass</xsl:text>
+						<xsl:text>Nachlass / Vorlass</xsl:text>
 						</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>Akte</xsl:text>
 						</xsl:otherwise>
-					</xsl:choose>-->
-					<xsl:text>TEXT</xsl:text>
+					</xsl:choose>
 				</format>
 
 	<!--documentType-->
-			<documentType>
+<!--			<documentType>
 				<xsl:choose>
 					<xsl:when test="Vorwort">
 						<xsl:text>Nachlass/Vorlass</xsl:text>
@@ -796,7 +791,7 @@
 						<xsl:text>Akte</xsl:text>
 						</xsl:otherwise>
 					</xsl:choose>
-				</documentType>
+				</documentType>-->
 
 <!--TITLE-->
 
@@ -861,12 +856,12 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<!--<format><xsl:text>Bildmaterial</xsl:text></format>-->
-				<format><xsl:text>BILD</xsl:text></format>				
+				<format><xsl:text>Plakat</xsl:text></format>				
 	<!--documentType-->
-				<documentType><xsl:text>Plakat</xsl:text></documentType>
+				<!--<documentType><xsl:text>Plakat</xsl:text></documentType>-->
 
 <!--TITLE-->
 
