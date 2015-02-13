@@ -271,6 +271,12 @@
 
 
 
+
+
+
+
+
+
 <!--Belletristik_________________Belletristik________________Belletristik-->
 
 
@@ -282,12 +288,21 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Buch</xsl:text></format>		
+				<!--<format><xsl:text>Buch</xsl:text></format>		-->
+				<format><xsl:text>Buch</xsl:text></format>
 	<!--documentType-->
-				<documentType><xsl:value-of select="Objektart" /></documentType>
+				<xsl:choose>
+					<xsl:when test="Dokumentenart!=''">
+						<documentType><xsl:value-of select="Dokumentenart" /></documentType>
+						</xsl:when>
+					<xsl:otherwise>
+						<documentType><xsl:text>Belletristik</xsl:text></documentType>
+						</xsl:otherwise>
+					</xsl:choose>
+				<!--<documentType><xsl:value-of select="Objektart" /></documentType>
 				<xsl:if test="Dokumentenart!=''">
 					<documentType><xsl:value-of select="Dokumentenart" /></documentType>
-					</xsl:if>
+					</xsl:if>-->
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
@@ -358,6 +373,13 @@
 
 
 
+
+
+
+
+
+
+
 <!--Sachliteratur______________Sachliteratur____________Sachliteratur-->
 
 	<xsl:if test="Objektart[text()='Sachliteratur']">
@@ -370,11 +392,14 @@
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Buch</xsl:text></format>		
 	<!--documentType-->
-				<documentType><xsl:value-of select="Objektart" /></documentType>
-				<xsl:if test="Dokumentenart!=''">
-					<documentType><xsl:value-of select="Dokumentenart" /></documentType>
-					</xsl:if>
-	
+				<xsl:choose>
+					<xsl:when test="Dokumentenart!=''">
+						<documentType><xsl:value-of select="Dokumentenart" /></documentType>
+						</xsl:when>
+					<xsl:otherwise>
+						<documentType><xsl:text>Sachliteratur</xsl:text></documentType>
+						</xsl:otherwise>
+					</xsl:choose>
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
@@ -502,10 +527,19 @@
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Artikel</xsl:text></format>		
 	<!--documentType-->
+				<xsl:choose>
+					<xsl:when test="Dokumentenart!=''">
+						<documentType><xsl:value-of select="Dokumentenart" /></documentType>
+						</xsl:when>
+					<xsl:otherwise>
+						<documentType><xsl:text>Buch-Aufsatz</xsl:text></documentType>
+						</xsl:otherwise>
+					</xsl:choose>
+				<!--
 				<documentType><xsl:value-of select="Objektart" /></documentType>
 				<xsl:if test="Dokumentenart!=''">
 					<documentType><xsl:value-of select="Dokumentenart" /></documentType>
-					</xsl:if>
+					</xsl:if>-->
 
 <!--TITLE-->
 
@@ -678,6 +712,15 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <!--Diplom- und Examensarbeiten___________Diplom- und Examensarbeiten________Diplom- und Examensarbeiten-->
 	
 	
@@ -691,10 +734,19 @@
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Hochschulschrift</xsl:text></format>		
 	<!--documentType-->
-				<documentType><xsl:value-of select="Objektart" /></documentType>
+				<xsl:choose>
+					<xsl:when test="Dokumentenart!=''">
+						<documentType><xsl:value-of select="Dokumentenart" /></documentType>
+						</xsl:when>
+					<xsl:otherwise>
+						<documentType><xsl:text>Diplom- und Examensarbeiten</xsl:text></documentType>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				<!--<documentType><xsl:value-of select="Objektart" /></documentType>
 				<xsl:if test="Dokumentenart!=''">
 					<documentType><xsl:value-of select="Dokumentenart" /></documentType>
-					</xsl:if>
+					</xsl:if>-->
 	
 <!--TITLE-->
 
@@ -768,10 +820,14 @@
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Artikel</xsl:text></format>		
 	<!--documentType-->
-				<documentType><xsl:value-of select="Objektart" /></documentType>
-				<xsl:if test="Dokumentenart!=''">
-					<documentType><xsl:value-of select="Dokumentenart" /></documentType>
-					</xsl:if>
+				<xsl:choose>
+					<xsl:when test="Dokumentenart!=''">
+						<documentType><xsl:value-of select="Dokumentenart" /></documentType>
+						</xsl:when>
+					<xsl:otherwise>
+						<documentType><xsl:text>Einzelbeitrag</xsl:text></documentType>
+						</xsl:otherwise>
+					</xsl:choose>
 	
 <!--TITLE-->
 
@@ -947,6 +1003,17 @@
 	
 	
 
+
+
+
+
+
+
+
+
+
+
+
 <!--Graue Materialien__________________Graue Materialien_________________Graue Materialien-->
 	
 	<xsl:if test="Objektart[text()='Graue Materialien']">
@@ -959,10 +1026,20 @@
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Buch</xsl:text></format>		
 	<!--documentType-->
+				<xsl:choose>
+					<xsl:when test="Dokumentenart!=''">
+						<documentType><xsl:value-of select="Dokumentenart" /></documentType>
+						</xsl:when>
+					<xsl:otherwise>
+						<documentType><xsl:text>Graue Materialien</xsl:text></documentType>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				<!--
 				<documentType><xsl:value-of select="Objektart" /></documentType>
 				<xsl:if test="Dokumentenart!=''">
 					<documentType><xsl:value-of select="Dokumentenart" /></documentType>
-					</xsl:if>
+					</xsl:if>-->
 	
 <!--TITLE-->
 
@@ -1071,6 +1148,15 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <!--CD_______________CD_______________CD-->
 	
 	<xsl:if test="Objektart[text()='CD']">
@@ -1079,7 +1165,7 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>sound recording</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>ton</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Tonträger</xsl:text></format>		
 	<!--documentType-->
@@ -1087,6 +1173,8 @@
 				<xsl:if test="ergänz__Angaben!=''">
 					<documentType><xsl:value-of select="ergänz__Angaben" /></documentType>
 					</xsl:if>	
+				
+				
 
 <!--TITLE-->
 
@@ -1154,6 +1242,14 @@
 		</xsl:if>	
 	
 
+
+
+
+
+
+
+
+
 <!--Tonträger_______________Tonträger_______________Tonträger-->
 	
 	<xsl:if test="Objektart[text()='Tonträger']">
@@ -1162,7 +1258,7 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>sound recording</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>ton</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Tonträger</xsl:text></format>		
 	<!--documentType-->
@@ -1235,6 +1331,10 @@
 			
 		</xsl:element>
 		</xsl:if>	
+
+
+
+
 
 
 
@@ -1250,7 +1350,7 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>moving image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Film</xsl:text></format>		
 	<!--documentType-->
@@ -1330,6 +1430,12 @@
 
 
 
+
+
+
+
+
+
 <!--Film__________Film_________Film-->
 
 	<xsl:if test="Objektart[text()='Filme']">
@@ -1339,7 +1445,7 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>moving image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Film</xsl:text></format>		
 	<!--documentType-->
@@ -1414,6 +1520,7 @@
 			
 		</xsl:element>
 		</xsl:if>	
+
 
 
 
@@ -1546,6 +1653,10 @@
 	
 
 </xsl:if>	
+
+
+
+
 
 
 
@@ -1749,6 +1860,13 @@
 
 
 
+
+
+
+
+
+
+
 <!--Plakate______Plakate____________Plakate-->
 
 
@@ -1758,10 +1876,11 @@
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>still image</xsl:text></typeOfRessource>
+				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Plakat</xsl:text></format>		
 	<!--documentType-->
+				<!--<documentType><xsl:text>Plakat</xsl:text></documentType>-->
 
 <!--TITLE-->
 
