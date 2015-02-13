@@ -53,6 +53,7 @@
 				<xsl:value-of select="dataset/description" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/listOfContents" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/sourceInfo" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/specificMaterialDesignation" /><xsl:text> </xsl:text>
                     				
 				</field><!-- ALLFIELDS alle Inhalte werden in ein Feld geschrieben -->
 <!--vufind-->
@@ -174,7 +175,7 @@
 		
 <!--dataset-->
 		
-			<xsl:if test="typeOfRessource">
+			<xsl:if test="dataset/typeOfRessource">
 				<field name="typeOfRessource"><xsl:value-of select="dataset/typeOfRessource" /></field>
     				</xsl:if>
     			
