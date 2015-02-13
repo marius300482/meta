@@ -34,15 +34,11 @@
 		
 		<xsl:if test="datafield[6]">
 		
-<!--<xsl:if test="not(datafield[@tag='078'])">-->
-
-<!--<xsl:if test="datafield[@tag='078'][1][text()='Bildtonträger']">-->
-	
-<!--<xsl:if test="(datafield[@tag='078'][text()='Monographie']) or (datafield[@tag='078'][text()='Reihe']) or (datafield[@tag='078'][text()='Anthologie']) or (datafield[@tag='078'][text()='Reihenband']) or (datafield[@tag='078'][text()='Mehrbändiges Werk']) or (datafield[@tag='078'][text()='Zeitschrift']) or (datafield[@tag='078'][text()='Artikel'])">-->
-
-<!--<xsl:if test="datafield[@tag='078'][text()='Artikel']">-->
-
-<!--<xsl:if test="(datafield[@tag='078'][text()='Monographie']) 
+		<!--<xsl:if test="not(datafield[@tag='078'])">-->
+		<!--<xsl:if test="datafield[@tag='078'][1][text()='Bildtonträger']">-->
+		<!--<xsl:if test="(datafield[@tag='078'][text()='Monographie']) or (datafield[@tag='078'][text()='Reihe']) or (datafield[@tag='078'][text()='Anthologie']) or (datafield[@tag='078'][text()='Reihenband']) or (datafield[@tag='078'][text()='Mehrbändiges Werk']) or (datafield[@tag='078'][text()='Zeitschrift']) or (datafield[@tag='078'][text()='Artikel'])">-->
+		<!--<xsl:if test="datafield[@tag='078'][text()='Artikel']">-->
+		<!--<xsl:if test="(datafield[@tag='078'][text()='Monographie']) 
 		or (datafield[@tag='078'][text()='Anthologie']) 
 		or (datafield[@tag='078'][text()='Reihenband'])
 		or (datafield[@tag='078'][text()='Mehrbändiges Werk'])">-->
@@ -443,7 +439,13 @@
 		<format><xsl:text>Zeitschrift</xsl:text></format>
 
 	<!--documentType-->
-		<xsl:choose>
+		<xsl:if test="datafield[@tag='078'][text()='ÖEZA-Zeitschrift']">
+			<documentType>
+				<xsl:text>ÖEZA-Zeitschrift</xsl:text>
+				</documentType>
+			</xsl:if>
+		
+<!--		<xsl:choose>
 			<xsl:when test="datafield[@tag='078'][text()='Zeitschrift']">
 				<documentType>
 					<xsl:text>Zeitschrift</xsl:text>
@@ -454,7 +456,7 @@
 					<xsl:text>ÖEZA-Zeitschrift</xsl:text>
 					</documentType>
 				</xsl:when>
-			</xsl:choose>
+			</xsl:choose>-->
 		
 <!--TITLE-->
 
@@ -737,13 +739,14 @@
 <!--FORMAT-->
 	
 	<!--typeOfRessource-->
-		<xsl:choose>
+		<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>		
+		<!--<xsl:choose>
 			<xsl:when test="contains(datafield[@tag='100']/subfield[@code='b'],'Regie')">
 				<typeOfRessource>
 					<xsl:text>moving image</xsl:text>
 					</typeOfRessource>		
 				</xsl:when>
-			</xsl:choose>
+			</xsl:choose>-->
 
 	<!--format Objektartinformationen-->
 		<format><xsl:text>Film</xsl:text></format>
