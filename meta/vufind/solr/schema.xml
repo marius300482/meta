@@ -179,6 +179,7 @@
    <field name="topic_unstemmed" type="textProper" indexed="true" stored="false" multiValued="true"/>
    <field name="topic_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="documentType_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
+   <field name="typeOfRessouce_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_browse" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="author_browse" type="string" indexed="true" stored="false" multiValued="true"/>
      <field name="editor_browse" type="string" indexed="true" stored="false" multiValued="true"/>
@@ -309,6 +310,7 @@
  <copyField source="fulltext" dest="fulltext_unstemmed"/>
 <copyField source="topic"	dest="topic_facet"/>
 <copyField source="documentType"	dest="documentType_facet"/>
+<copyField source="typeOfRessource"	dest="typeOfRessource_facet"/>
  <!-- CopyFields for Alphabetic Browse -->
  <copyField source="topic"    dest="topic_browse"/>
  <copyField source="author"    dest="author_browse"/>
