@@ -280,13 +280,13 @@
 				<xsl:variable name="relatedID" select="translate(in_x058x_, translate(.,'0123456789', ''), '')" />
 				<sourceInfo>
 					<xsl:value-of select="//Objekt[Objektnummer=$relatedID]/Titel" />
-					<xsl:text> (</xsl:text>
+					<!--<xsl:text> (</xsl:text>
 					<xsl:value-of select="Jahr" />
 					<xsl:text>)</xsl:text>
 					<xsl:if test="Seiten!=''">
 						<xsl:text>,</xsl:text>
 						<xsl:value-of select="Seiten" />
-						</xsl:if>
+						</xsl:if>-->
 					
 					</sourceInfo>
 				
@@ -375,10 +375,10 @@
 	<!--sourceInfo-->
 				<sourceInfo>
 					<xsl:value-of select="Reihe" />
-					<xsl:text> (</xsl:text>
+					<!--<xsl:text> (</xsl:text>
 					<xsl:value-of select="Jahr" />
 					<xsl:text>)</xsl:text>
-					<xsl:value-of select="Band-Nr_x046x_" />
+					<xsl:value-of select="Band-Nr_x046x_" />-->
 					</sourceInfo>
 
 <!--CONTENTRELATED INFORMATION-->
@@ -462,12 +462,12 @@
 	<!--sourceInfo-->
 				<sourceInfo>
 					<xsl:value-of select="Reihe" />
-					<xsl:text> (</xsl:text>
+					<!--<xsl:text> (</xsl:text>
 					<xsl:value-of select="Jahr" />
 					<xsl:text>)</xsl:text>
 					<xsl:value-of select="Band-Nr_x046x_" />
 					<xsl:text>, </xsl:text>
-					<xsl:value-of select="Seiten" />
+					<xsl:value-of select="Seiten" />-->
 					</sourceInfo>
 	
 <!--PHYSICAL INFORMATION-->
