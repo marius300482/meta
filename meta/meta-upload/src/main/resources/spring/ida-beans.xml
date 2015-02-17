@@ -61,11 +61,30 @@
         <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
+     <bean id="spinnboden" class="de.idadachverband.institution.IdaInstitutionBean">
+        <constructor-arg index="0" name="institutionName" value="spinnboden"/>
+        <constructor-arg index="1" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/spinnboden/gleich_spibo.xsl"/>
+        <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
+         <bean id="stichwort" class="de.idadachverband.institution.IdaInstitutionBean">
+        <constructor-arg index="0" name="institutionName" value="stichwort"/>
+        <constructor-arg index="1" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/strichwort/gleich_stichwort.xsl"/>
+        <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
     
     <util:set id="institutionsSet" set-class="java.util.HashSet"
               value-type="de.idadachverband.institution.IdaInstitutionBean">
         <ref bean="genderbib"/>
         <ref bean="frauenmediaturm"/>
+	<ref bean="frauensolidaritaet"/>
+	<ref bean="ffbiz"/>
+	<ref bean="belladonna"/>
+	<ref bean="spinnboden"/>
+	<ref bean="stichwort"/>
     </util:set>
 
     <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer"
