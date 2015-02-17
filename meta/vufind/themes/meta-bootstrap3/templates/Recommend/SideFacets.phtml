@@ -137,7 +137,7 @@ JS;
               <? endif; ?>
               <?=$this->escapeHtml($thisFacet['displayText'])?>
               <span class="badge">
-              (<?=$this->number_format($thisFacet['count'], 0, ',', '.')?>)
+              (<?=number_format($thisFacet['count'], 0, ',', '.')?>)
             </span>
             </a>
           <? else: ?>
