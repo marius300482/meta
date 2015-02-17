@@ -29,10 +29,14 @@
 			<xsl:element name="record">
 				<xsl:attribute name="id"><xsl:value-of select="id" /></xsl:attribute>
 					
-			<xsl:apply-templates select="Tagesdatum" /><!--vufind und institutionsblock werden hier eingefügt-->			
+			<xsl:apply-templates select="Tagesdatum" />
+			
+			<!--vufind und institutionsblock werden hier eingefügt-->			
 			
 				<xsl:element name="dataset">
-					
+
+<!--FORMAT-->
+				
 			<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
@@ -48,18 +52,24 @@
 							<documentType><xsl:text>Monografie</xsl:text></documentType>
 							</xsl:otherwise>
 						</xsl:choose>
-			
+
+<!--TITLE-->
+	
 			<!--title Titelinformationen-->	
 					<xsl:apply-templates select="Buchtitel[1]" />
 			
 			<!--originalTitle-->
 					<xsl:apply-templates select="Originaltitel" />
-					
+
+<!--RESPONSIBLE-->
+			
 			<!--author Autorinneninformation-->
 					<xsl:apply-templates select="Autorin" />
 			
 			<!--editor Herausgeberinneninformationen-->
 					<xsl:apply-templates select="HerausgeberIn" />
+
+<!--PUBLISHING-->
 
 			<!--display / publishDate Jahresangabe-->
 					<xsl:apply-templates select="Jahr[1]" />
@@ -69,12 +79,16 @@
 				
 			<!--publisher Verlagsangabe-->
 					<xsl:apply-templates select="Verlag" />
-			
+
+<!--PHYSICAL INFORMATION-->
+		
 			<!--physical Seitenangabe-->
 					<xsl:apply-templates select="Umfang[1]" />
 			
 			<!--specificMaterialDesignation-->
 					<xsl:apply-templates select="Ausstattung[1]" />
+			
+<!--CONTENTRELATED INFORMATION-->
 			
 			<!--language Sprachangaben-->
 					<xsl:apply-templates select="Sprache" />
@@ -90,7 +104,9 @@
 			
 			<!--description-->
 					<xsl:apply-templates select="Annotation[1]" />
-			
+
+<!--OTHER-->
+
 			<!--shelfMark Signatur-->
 					<xsl:apply-templates select="Signatur" />
 			
@@ -258,7 +274,7 @@
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
 			<!--format Objektartinformationen-->
-					<format><xsl:text>Zeitschriftenartikel</xsl:text></format>
+					<format><xsl:text>Artikel</xsl:text></format>
 			
 			<!--documentType-->
 					<documentType>
@@ -353,7 +369,9 @@
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
 			<!--format Objektartinformationen-->
-					<xsl:choose>
+					<format><xsl:text>Zeitschrift</xsl:text></format>
+					
+					<!--<xsl:choose>
 						<xsl:when test="s_x046x__x032x_ET">
 							<format><xsl:text>Zeitschriftenheft</xsl:text></format>
 							</xsl:when>
@@ -363,12 +381,12 @@
 						<xsl:otherwise>
 							<format><xsl:text>Zeitschrift</xsl:text></format>
 							</xsl:otherwise>
-						</xsl:choose>
+						</xsl:choose>-->
 			
 			<!--documentType-->
-					<documentType>
+					<!--<documentType>
 						<xsl:text>Zeitschrift</xsl:text>
-						</documentType>		
+						</documentType>		-->
 	
 			<!--title Titelinformationen-->	
 					<xsl:apply-templates select="Sammeltitel_x032x_-Zs[1]" />
@@ -420,7 +438,7 @@
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
 			<!--format Objektartinformationen-->
-					<format><xsl:text>Zeitschriftenheft</xsl:text></format>
+					<format><xsl:text>Zeitschrift</xsl:text></format>
 			
 			<!--documentType-->
 					<documentType>
