@@ -16,8 +16,8 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.transform.TransformerException;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.concurrent.Future;
 
@@ -48,23 +48,24 @@ public class AsyncProcessService
     }
 
     @Async
-    public Future<Void> processAsynchronous(File input, IdaInstitutionBean institution, SolrService solr, TransformationBean transformationBean) throws NotificationException
+    public Future<Void> processAsynchronous(Path input, IdaInstitutionBean institution, SolrService solr, TransformationBean transformationBean) throws NotificationException
     {
         log.debug("Start asynchronous processing of: {}", transformationBean);
         AsyncResult<Void> asyncResult = new AsyncResult<>(null);
         try
         {
-            File file = idaInputArchiver.archiveFile(input, institution.getInstitutionName());
-            File workingFormatFile = transformToWorkingFormat(file, institution);
+            Path path = idaInputArchiver.archiveFile(input, institution.getInstitutionName());
 
-            file = idaInputArchiver.archiveFile(workingFormatFile, institution.getInstitutionName());
-            final File transformedFile = transformToSolrFormat(institution, file);
+            Path workingFormatFile = transformToWorkingFormat(path, institution);
+            path = idaInputArchiver.archiveFile(workingFormatFile, institution.getInstitutionName());
 
-            file = idaInputArchiver.archiveFile(transformedFile, institution.getInstitutionName());
-            transformationBean.setTransformedFile(file);
-            upateSolr(solr, transformationBean, file, institution);
+            final Path transformedFile = transformToSolrFormat(institution, path);
+            path = idaInputArchiver.archiveFile(transformedFile, institution.getInstitutionName());
 
-        } catch (TransformerException | IOException | SolrServerException | RemoteSolrException e)
+            transformationBean.setTransformedFile(path);
+            upateSolr(solr, transformationBean, path, institution);
+
+        } catch (TransformerException | IOException | SolrServerException | RemoteSolrException | NullPointerException e)
         {
             log.warn("Transformation failed: ", e);
             transformationBean.setException(e);
@@ -82,34 +83,34 @@ public class AsyncProcessService
     }
 
 
-    public File transformToWorkingFormat(File inputFile, IdaInstitutionBean institution) throws TransformerException, IOException
+    public Path transformToWorkingFormat(Path inputFile, IdaInstitutionBean institution) throws TransformerException, IOException
     {
         log.info("Start transformation of: {} for: {} to working format", inputFile, institution);
         final long start = System.currentTimeMillis();
-        final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        final File transformedFile = transformationStrategy.transform(unzippedFile, institution);
+        final Path unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
+        final Path transformedFile = transformationStrategy.transform(unzippedFile, institution);
         final long end = System.currentTimeMillis();
         log.info("Transformation of: {} for: {} to working format took: {} seconds", inputFile, institution, (end - start) / 1000);
         return transformedFile;
     }
 
-    public File transformToSolrFormat(IdaInstitutionBean institution, File inputFile) throws TransformerException, IOException
+    public Path transformToSolrFormat(IdaInstitutionBean institution, Path inputFile) throws TransformerException, IOException
     {
         log.info("Start transformation of: {} for: {} to Solr format", inputFile, institution);
         final long start = System.currentTimeMillis();
-        final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        final File transformedFile = workingFormatTransformer.transform(unzippedFile, institution);
+        final Path unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
+        final Path transformedFile = workingFormatTransformer.transform(unzippedFile, institution);
         final long end = System.currentTimeMillis();
         log.info("Transformation of: {} for: {} to Solr format took: {} seconds", inputFile, institution, (end - start) / 1000);
         return transformedFile;
     }
 
-    public void upateSolr(SolrService solr, TransformationBean transformationBean, File inputFile, IdaInstitutionBean institution) throws IOException, SolrServerException
+    public void upateSolr(SolrService solr, TransformationBean transformationBean, Path inputFile, IdaInstitutionBean institution) throws IOException, SolrServerException
     {
         log.info("Start Solr update of core: {} for: {} with file: {}", solr, institution, inputFile);
         final long start = System.currentTimeMillis();
 
-        final File unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
+        final Path unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
 
         if (!institution.isIncrementalUpdate())
         {

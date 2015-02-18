@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.inject.Named;
 import javax.xml.transform.TransformerException;
 import java.io.*;
+import java.nio.file.Path;
 
 /**
  * Transforms XML files to Solr input format.
@@ -27,7 +28,7 @@ public class XsltTransformer extends AbstractXsltTransformer
     }
 
     @Override
-    public File transform(File input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public Path transform(Path input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
         return transform(input, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionName());
     }
@@ -42,15 +43,15 @@ public class XsltTransformer extends AbstractXsltTransformer
      * @throws TransformerException
      * @throws IOException
      */
-    private File transform(final File input, File institutionXsl, String institutionName) throws TransformerException, IOException
+    private Path transform(final Path input, Path institutionXsl, String institutionName) throws TransformerException, IOException
     {
-        final File file = getOutputFile(institutionName, "workingformat");
+        final Path file = getOutputFile(institutionName, "workingformat");
 
         @Cleanup
-        InputStream in = new FileInputStream(input);
+        InputStream in = new FileInputStream(input.toFile());
 
         @Cleanup
-        OutputStream out = new FileOutputStream(file);
+        OutputStream out = new FileOutputStream(file.toFile());
         transformInstitution(in, out, institutionXsl);
         log.info("Transformed to Working format");
 

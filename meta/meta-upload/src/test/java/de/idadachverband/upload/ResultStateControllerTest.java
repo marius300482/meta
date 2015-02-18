@@ -12,8 +12,9 @@ import org.testng.annotations.Test;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import java.io.File;
 import java.io.StringReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import static de.idadachverband.transform.TransformationProgressState.*;
@@ -70,10 +71,10 @@ public class ResultStateControllerTest
     public void getResultDone() throws Exception
     {
         when(processService.getState(key)).thenReturn(DONE);
-        when(processService.getFile(key)).thenReturn(new File(""));
+        when(processService.getFile(key)).thenReturn(Paths.get(""));
 
         String filename = "hashedFilename";
-        when(hashService.getHashedFileName(any(File.class))).thenReturn(filename);
+        when(hashService.getHashedFileName(any(Path.class))).thenReturn(filename);
 
         String actual = cut.getResult(key);
 

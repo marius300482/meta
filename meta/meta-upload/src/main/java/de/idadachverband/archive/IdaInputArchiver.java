@@ -57,7 +57,7 @@ public class IdaInputArchiver
      * @return
      * @throws IOException
      */
-    public File archiveFile(File input, String institutionName) throws IOException
+    public Path archiveFile(Path input, String institutionName) throws IOException
     {
         if (!zip)
         {
@@ -67,27 +67,27 @@ public class IdaInputArchiver
         {
             if (inputIsZip(input))
             {
-                final Path target = getArchivePathOfInstitution(institutionName).resolve(input.getName());
+                final Path target = getArchivePathOfInstitution(institutionName).resolve(input.getFileName());
                 log.info("File: {} is a zip file. Move to: {}", input, target);
                 Files.createDirectories(target.getParent());
-                Files.move(input.toPath(), target);
-                return target.toFile();
+                Files.move(input, target);
+                return target;
             } else
             {
-                Path path = getArchivePathOfInstitution(institutionName).resolve(input.getName() + ".zip");
+                Path path = getArchivePathOfInstitution(institutionName).resolve(input.getFileName() + ".zip");
                 log.debug("Create folder (if not exists) for file: {}", path);
                 Files.createDirectories(path.getParent());
-                zipService.zip(input, path.toFile());
-                input.delete();
-                return path.toFile();
+                zipService.zip(input, path);
+                Files.deleteIfExists(input);
+                return path;
             }
         }
     }
 
-    private boolean inputIsZip(File input) throws IOException
+    private boolean inputIsZip(Path input) throws IOException
     {
-        final String contentType = Files.probeContentType(input.toPath());
-        return contentType.contains("zip") || input.getName().toLowerCase().endsWith(".zip");
+        final String contentType = Files.probeContentType(input);
+        return contentType.contains("zip") || input.endsWith(".zip");
     }
 
     protected Path getArchivePathOfInstitution(String institutionName)
@@ -95,7 +95,12 @@ public class IdaInputArchiver
         return archivePath.resolve(institutionName);
     }
 
-    public File readArchivedFile(File input) throws IOException
+    /**
+     * @param input
+     * @return
+     * @throws IOException
+     */
+    public Path readArchivedFile(Path input) throws IOException
     {
         if (!zip)
         {

@@ -1,10 +1,11 @@
 package de.idadachverband.transform;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
-import java.io.File;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -63,17 +64,16 @@ public class TransformationProgressService
      * @return
      * @throws TransformedFileException
      */
-    public File getFile(String key) throws TransformedFileException
+    public Path getFile(String key) throws TransformedFileException
     {
         try
         {
             TransformationBean transformationBean = tranformations.get(key);
             Future<?> future = transformationBean.getFuture();
             future.get();
-            File file = transformationBean.getTransformedFile();
-            // Force NPE
-            file.getName();
-            return file;
+            @NonNull
+            Path path = transformationBean.getTransformedFile();
+            return path;
         } catch (InterruptedException | ExecutionException | NullPointerException e)
         {
             throw new TransformedFileException(e);

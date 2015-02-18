@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.concurrent.Future;
 
 /**
@@ -26,7 +26,7 @@ public class ProcessService
     @Inject
     private TransformationProgressService transformationProgressService;
 
-    public TransformationBean process(File input, IdaInstitutionBean institution, SolrService solr, String originalFileName) throws IOException
+    public TransformationBean process(Path input, IdaInstitutionBean institution, SolrService solr, String originalFileName) throws IOException
     {
         log.info("Start processing of: {} for institution: {} on Solr core: {}", originalFileName, institution.getInstitutionName(), solr.getName());
         TransformationBean transformationBean = new TransformationBean(institution.getInstitutionName(), originalFileName);

@@ -23,7 +23,7 @@ public class IdaInputArchiverTest
 
     private String institutionName = UUID.randomUUID().toString();
 
-    private File input = new File(UUID.randomUUID().toString());
+    private Path input = Paths.get(UUID.randomUUID().toString());
 
     @Mock
     private Path archivePath;

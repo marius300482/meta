@@ -4,7 +4,7 @@ import lombok.Setter;
 import org.springframework.util.DigestUtils;
 
 import javax.inject.Named;
-import java.io.File;
+import java.nio.file.Path;
 
 /**
  * Created by boehm on 11.11.14.
@@ -18,11 +18,11 @@ public class HashService
     /**
      * Hashed filename is based on original filename.
      *
-     * @param file to get hashed filename for
+     * @param path to get hashed filename for
      * @return the hashed filename as input for {@code findFile}
      */
-    public String getHashedFileName(File file)
+    public String getHashedFileName(Path path)
     {
-        return DigestUtils.md5DigestAsHex(file.getName().getBytes()) + suffix;
+        return DigestUtils.md5DigestAsHex(path.toString().getBytes()) + suffix;
     }
 }

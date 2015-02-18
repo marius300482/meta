@@ -3,8 +3,8 @@ package de.idadachverband.transform;
 import de.idadachverband.institution.IdaInstitutionBean;
 
 import javax.xml.transform.TransformerException;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Created by boehm on 13.11.14.
@@ -20,7 +20,7 @@ public interface IdaTransformer
      * @throws TransformerException
      * @throws IOException
      */
-    File transform(File input, IdaInstitutionBean institutionBean) throws TransformerException, IOException;
+    Path transform(Path input, IdaInstitutionBean institutionBean) throws TransformerException, IOException;
 
     /**
      * Used to present potential errors and warnings to the user.

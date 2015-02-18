@@ -8,6 +8,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -81,10 +83,10 @@ public class TransformationProgressServiceTest
     @Test
     public void getFileSucces() throws Exception
     {
-        File expected = new File("");
+        Path expected = Paths.get("");
         transformationBean.setTransformedFile(expected);
         cut.add(transformationBean);
-        File actual = cut.getFile(transformationBean.getKey());
+        Path actual = cut.getFile(transformationBean.getKey());
 
         assertThat(actual, is(expected));
     }
