@@ -6,7 +6,6 @@ import org.mockito.Mock;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -42,7 +41,7 @@ public class IdaInputArchiverTest
     public void archiveFile() throws Exception
     {
         cut.archiveFile(input, institutionName);
-        verify(zipService, times(1)).zip(any(File.class), any(File.class));
+        verify(zipService, times(1)).zip(any(Path.class), any(Path.class));
     }
 
     @Test

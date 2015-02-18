@@ -6,8 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 import javax.xml.transform.TransformerException;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 /**
  * Transforms XML files to Solr input format.
@@ -45,16 +49,16 @@ public class XsltTransformer extends AbstractXsltTransformer
      */
     private Path transform(final Path input, Path institutionXsl, String institutionName) throws TransformerException, IOException
     {
-        final Path file = getOutputFile(institutionName, "workingformat");
+        final Path outputFile = getOutputFile(institutionName, "workingformat");
 
         @Cleanup
-        InputStream in = new FileInputStream(input.toFile());
-
+        InputStream in = Files.newInputStream(input, StandardOpenOption.READ);
         @Cleanup
-        OutputStream out = new FileOutputStream(file.toFile());
+        OutputStream out = Files.newOutputStream(outputFile, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+
         transformInstitution(in, out, institutionXsl);
         log.info("Transformed to Working format");
 
-        return file;
+        return outputFile;
     }
 }

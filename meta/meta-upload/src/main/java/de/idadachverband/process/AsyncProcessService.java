@@ -47,6 +47,14 @@ public class AsyncProcessService
         this.workingFormatTransformer = workingFormatTransformer;
     }
 
+    /**
+     * @param input              The input file to process
+     * @param institution        The institution to which the file belongs
+     * @param solr               The solr instance to update
+     * @param transformationBean Bean holding process information
+     * @return
+     * @throws NotificationException
+     */
     @Async
     public Future<Void> processAsynchronous(Path input, IdaInstitutionBean institution, SolrService solr, TransformationBean transformationBean) throws NotificationException
     {
@@ -82,8 +90,7 @@ public class AsyncProcessService
         return asyncResult;
     }
 
-
-    public Path transformToWorkingFormat(Path inputFile, IdaInstitutionBean institution) throws TransformerException, IOException
+    private Path transformToWorkingFormat(Path inputFile, IdaInstitutionBean institution) throws TransformerException, IOException
     {
         log.info("Start transformation of: {} for: {} to working format", inputFile, institution);
         final long start = System.currentTimeMillis();
@@ -94,7 +101,7 @@ public class AsyncProcessService
         return transformedFile;
     }
 
-    public Path transformToSolrFormat(IdaInstitutionBean institution, Path inputFile) throws TransformerException, IOException
+    private Path transformToSolrFormat(IdaInstitutionBean institution, Path inputFile) throws TransformerException, IOException
     {
         log.info("Start transformation of: {} for: {} to Solr format", inputFile, institution);
         final long start = System.currentTimeMillis();
@@ -105,7 +112,7 @@ public class AsyncProcessService
         return transformedFile;
     }
 
-    public void upateSolr(SolrService solr, TransformationBean transformationBean, Path inputFile, IdaInstitutionBean institution) throws IOException, SolrServerException
+    private void upateSolr(SolrService solr, TransformationBean transformationBean, Path inputFile, IdaInstitutionBean institution) throws IOException, SolrServerException
     {
         log.info("Start Solr update of core: {} for: {} with file: {}", solr, institution, inputFile);
         final long start = System.currentTimeMillis();

@@ -7,11 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -107,7 +107,11 @@ public class IdaInputArchiver
             return input;
         } else
         {
-            return zipService.unzip(input);
+            final Path unzip = zipService.unzip(input);
+            final Path tempDirectory = Files.createTempDirectory("unzip");
+            final Path tempFile = Files.createTempFile(tempDirectory, "" + System.currentTimeMillis(), null);
+            Files.move(unzip, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            return tempFile;
         }
     }
 
@@ -119,20 +123,19 @@ public class IdaInputArchiver
      * @throws IOException
      * @deprecated
      */
-    public File saveSolrFile(File file, String solrCoreName, String institutionName) throws IOException
+    public Path saveSolrFile(Path file, String solrCoreName, String institutionName) throws IOException
     {
         final Path filename = getFilename(file, solrCoreName, institutionName);
         Files.createDirectories(filename.getParent());
-        final File compressedFile;
+        final Path compressedFile;
         if (isZip())
         {
             final String zipFileName = filename.toAbsolutePath() + ".zip";
-            compressedFile = Paths.get(zipFileName).toFile();
+            compressedFile = Paths.get(zipFileName);
             zipService.zip(file, compressedFile);
         } else
         {
-            final Path copy = Files.copy(Paths.get(file.getAbsolutePath()), getFilename(file, solrCoreName, institutionName));
-            compressedFile = copy.toFile();
+            compressedFile = Files.copy(file, getFilename(file, solrCoreName, institutionName));
         }
         if (this.isDeleteOld())
         {
@@ -141,9 +144,8 @@ public class IdaInputArchiver
         return compressedFile;
     }
 
-    private void deleteOldFiles(File currentFile) throws IOException
+    private void deleteOldFiles(Path currentPath) throws IOException
     {
-        final Path currentPath = Paths.get(currentFile.getAbsolutePath());
         final Path parent = currentPath.getParent();
         final ArchiveFileVisitor archiveFileVisitor = new ArchiveFileVisitor();
         Files.walkFileTree(parent, archiveFileVisitor);
@@ -157,10 +159,10 @@ public class IdaInputArchiver
         }
     }
 
-    private Path getFilename(File file, String solrServiceName, String institutionName)
+    private Path getFilename(Path path, String solrServiceName, String institutionName)
     {
         final String date = dateFormat.format(new Date());
-        return archivePath.resolve(solrServiceName).resolve(institutionName).resolve(date + "-" + file.getName());
+        return archivePath.resolve(solrServiceName).resolve(institutionName).resolve(date + "-" + path.toString());
     }
 
 }

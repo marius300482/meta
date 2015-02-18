@@ -5,9 +5,13 @@ import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.transform.TransformerException;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 /**
  * Created by boehm on 15.01.15.
@@ -25,17 +29,24 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
     @Override
     public Path transform(Path input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
-        final Path path = getOutputFile(institutionBean.getInstitutionName(), "solr");
+        final Path outputFile = getOutputFile(institutionBean.getInstitutionName(), "solr");
 
-        @Cleanup
-        InputStream in = new FileInputStream(input.toFile());
+        try
+        {
+            @Cleanup
+            InputStream in = Files.newInputStream(input, StandardOpenOption.READ);
+            @Cleanup
+            OutputStream out = Files.newOutputStream(outputFile, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 
-        @Cleanup
-        OutputStream out = new FileOutputStream(path.toFile());
-        transformInstitution(in, out, Paths.get(gleichXsl));
+            transformInstitution(in, out, Paths.get(gleichXsl));
+        } catch (UnsupportedOperationException e)
+        {
+            log.warn("Transformation failed", e);
+            throw e;
+        }
+
         log.info("Transformed to Solr format");
-
-        return path;
+        return outputFile;
     }
 
     @Override
