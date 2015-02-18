@@ -22,6 +22,9 @@
 
 			<!--<xsl:if test="(objektart[text()='D - Diplomarbeiten']) and (Titel_x032x_-D)">-->
 
+	
+	
+	
 	<!--B-Buchtitel-->		
 						
 			<xsl:if test="objektart[text()='B - Buchtitel']">
@@ -139,7 +142,9 @@
 			
 			<!--variables-->	
 					<xsl:variable name="relatedID" select="translate(s_x046x__x032x_Buchtitel[1], translate(.,'0123456789', ''), '')"/>
-					
+
+<!--FORMAT-->					
+
 			<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
@@ -148,24 +153,33 @@
 			
 			<!--documentType-->
 					<documentType>Artikel aus Sammelband</documentType>
-			
+
+<!--TITLE-->
+
 			<!--title Titelinformationen-->	
 					<xsl:apply-templates select="Einzeltitel[1]" />
+
+<!--RESPONSIBLE-->
 			
 			<!--author Autorinneninformation-->
 					<xsl:apply-templates select="Autorin" />
-			
+
+<!--PUBLISHING-->
+		
 			<!--display / publishDate Jahresangabe-->
-					<xsl:if test="//datensatz[id=$relatedID]/Jahr[1]">
-						<displayPublishDate>
-							<xsl:value-of select="//datensatz[id=$relatedID]/Jahr[1]" />
-							</displayPublishDate>
-						<publishDate>
-							<xsl:value-of select="translate(//datensatz[id=$relatedID]/Jahr[1], translate(.,'0123456789', ''), '')" />
-							</publishDate>
-						</xsl:if>
-					
-					<xsl:apply-templates select="Jahr[1]" />
+					<xsl:choose>
+						<xsl:when test="Jahr[1]">
+							<xsl:apply-templates select="Jahr[1]" />
+							</xsl:when>
+						<xsl:when test="//datensatz[id=$relatedID]/Jahr[1]">
+							<displayPublishDate>
+								<xsl:value-of select="//datensatz[id=$relatedID]/Jahr[1]" />
+								</displayPublishDate>
+							<publishDate>
+								<xsl:value-of select="translate(//datensatz[id=$relatedID]/Jahr[1], translate(.,'0123456789', ''), '')" />
+								</publishDate>
+							</xsl:when>
+						</xsl:choose>
 			
 			<!--placeOfPublication Ortsangabe-->
 					<xsl:if test="//datensatz[id=$relatedID]/Ort">
@@ -181,19 +195,24 @@
 							</publisher>
 						</xsl:if>
 
+<!--PHYSICAL INFORMATION-->
+
 			<!--physical Seitenangabe-->
 					<xsl:apply-templates select="Umfang[1]" />
 			
 			<!--specificMaterialDesignation-->
 					<xsl:apply-templates select="Ausstattung[1]" />
-			
+
+<!--CONTENTRELATED INFORMATION-->
+
 			<!--description-->
 					<xsl:apply-templates select="Annotation" />
 			
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptoren" />
+
 			
-						
+				
 					</xsl:element><!--closing tag dataset-->
 			
 				<xsl:element name="functions">
@@ -204,6 +223,11 @@
 				
 			</xsl:if>
 			
+
+
+
+
+
 
 	<!--D - Diplomarbeiten-->
 				
@@ -216,6 +240,8 @@
 			<xsl:apply-templates select="Tagesdatum" /><!--vufind und institutionsblock werden hier eingefügt-->			
 			
 				<xsl:element name="dataset">
+
+<!--FORMAT-->
 			
 			<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
@@ -226,21 +252,29 @@
 			<!--documentType-->
 					<xsl:apply-templates select="Art_x032x_der_x032x_Arbeit" />
 
+<!--TITLE-->
+
 			<!--title Titelinformationen-->	
 					<xsl:apply-templates select="Titel_x032x_-D[1]" />
-			
+
+<!--RESPONSIBLE-->
+		
 			<!--author Autorinneninformation-->
 					<xsl:apply-templates select="Autorin" />
 			
 			<!--reviewer Begutachterin-->
 					<xsl:apply-templates select="Betreuung_x047x_MentorIn_x058x_" />
-			
+
+<!--PUBLISHING-->
+		
 			<!--display / publishDate Jahresangabe-->
 					<xsl:apply-templates select="Jahr[1]" />
 
 			<!--placeOfPublication Ortsangabe-->
 					<xsl:apply-templates select="Ort_x047x_Verlag_x058x_" />	
-					
+
+<!--CONTENTRELATED INFORMATION-->
+				
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Schlagwortliste_x032x_-B" />
 			
@@ -251,6 +285,16 @@
 						</xsl:element><!--closing tag dataset-->
 					</xsl:element><!--closing tag record-->
 				</xsl:if><!--closing tag if in dataset-->
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 	<!--Ze - Zeitschriften/Einzeltitel-->
@@ -269,7 +313,9 @@
 			
 			<!--variables-->	
 					<xsl:variable name="relatedID" select="translate(s_x046x__x032x_ST[1], translate(.,'0123456789', ''), '')" />
-			
+
+<!--FORMAT-->
+		
 			<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
@@ -280,10 +326,16 @@
 					<documentType>
 						<xsl:text>Zeitschriftenartikel</xsl:text>
 						</documentType>		
+
+<!--TITLE-->
 	
 			<!--title Titelinformationen-->	
 					<xsl:apply-templates select="Einzeltitel[1]" />
-			
+
+<!--RESPONSIBLE-->
+
+<!--PUBLISHING-->
+
 			<!--placeOfPublication Ortsangabe-->
 					<xsl:if test="//datensatz[id=$relatedID]/Ort">
 						<placeOfPublication>
@@ -297,10 +349,14 @@
 							<xsl:value-of select="//datensatz[id=$relatedID]/Verlag" />
 							</publisher>
 						</xsl:if>
-			
+
+<!--PHYSICAL INFORMATION-->
+		
 			<!--physical Seitenangabe-->
 					<xsl:apply-templates select="Umfang[1]" />
-			
+
+<!--CONTENTRELATED INFORMATION-->
+		
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptoren" />
 			
@@ -319,10 +375,10 @@
 			<!--volume Jahrgang-->
 					<xsl:apply-templates select="Jahrgang" />
 			
-			<!--sourceInfo-->
+			<!--sourfo-->
 					<sourceInfo>
 						<xsl:value-of select="//datensatz[id=$relatedID]/Sammeltitel_x032x_-Zs" />
-						<xsl:text> </xsl:text>
+						<!--<xsl:text> </xsl:text>
 						<xsl:if test="Jahrgang">
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="Jahrgang" />
@@ -335,13 +391,12 @@
 							</xsl:if>
 						<xsl:if test="Heftnummer_x032x_-Z">
 							<xsl:value-of select="Heftnummer_x032x_-Z" />
-							</xsl:if>
+							</xsl:if>-->
 						</sourceInfo>
 					
 			
 						</xsl:element><!--closing tag dataset-->
-				
-				<xsl:element name="functions">
+						<xsl:element name="functions">
 					<xsl:apply-templates select="s_x046x__x032x_ST" />		
 					</xsl:element>		
 				
@@ -364,7 +419,9 @@
 			
 			<!--variables-->	
 					<!--<xsl:variable name="relatedID" select="translate(s_x046x__x032x_ST[1], translate(.,'0123456789', ''), '')" />-->
-			
+
+<!--FORMAT-->
+		
 			<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
@@ -387,13 +444,19 @@
 					<!--<documentType>
 						<xsl:text>Zeitschrift</xsl:text>
 						</documentType>		-->
-	
+
+<!--TITLE-->
+
 			<!--title Titelinformationen-->	
 					<xsl:apply-templates select="Sammeltitel_x032x_-Zs[1]" />
-			
+
+<!--RESPONSIBLE-->
+		
 			<!--editor Herausgeberinneninformationen-->
 					<xsl:apply-templates select="Hrsg_x032x_-_x032x_Zs" />
-						
+
+<!--PUBLISHING-->
+					
 			<!--displayPublishDate-->
 					<xsl:apply-templates select="Ersch_x046x_-zeitraum" />
 			
@@ -421,6 +484,17 @@
 				</xsl:if><!--closing tag if in dataset-->
 				
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!--Zh - Zeitschriften/Hefttitel-->
 				
 			<xsl:if test="(objektart[text()='Zh - Zeitschriften/Hefttitel']) 
@@ -434,6 +508,8 @@
 			
 				<xsl:element name="dataset">
 
+<!--FORMAT-->
+
 			<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
@@ -444,13 +520,19 @@
 					<documentType>
 						<xsl:text>Zeitschriftenheft</xsl:text>
 						</documentType>		
-		
+
+<!--TITLE-->
+
 			<!--title Titelinformationen-->	
 					<xsl:apply-templates select="Hefttitel_x032x_-Zh[1]" />
-			
+
+<!--PUBLISHING-->
+		
 			<!--display / publishDate Jahresangabe-->
 					<xsl:apply-templates select="Jahr[1]" />
-			
+
+<!--CONTENTRELATED INFORMATION-->
+		
 			<!--language Sprachangaben-->
 					<xsl:apply-templates select="Sprache" />
 			
@@ -464,10 +546,10 @@
 					<xsl:apply-templates select="Ort_x047x_Land_x032x_d_x046x__x032x_Handlung_x047x_Inhalts" />
 		
 			<!--issue Heft-->	
-					<xsl:apply-templates select="Heftnummer_x032x_-Z" />
+					<xsl:apply-templates select="Heftnummer_x032x_-Z[1]" />
 			
 			<!--volume Jahrgang-->
-					<xsl:apply-templates select="Jahrgang" />
+					<xsl:apply-templates select="Jahrgang[1]" />
 		
 						</xsl:element><!--closing tag dataset-->
 						
@@ -792,8 +874,11 @@
 				<displayPublishDate>
 					<xsl:value-of select="." />
 					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="." />
+					</publishDate>
 				
-				<xsl:variable name="jear" select=".[1]"/>
+				<!--<xsl:variable name="jear" select=".[1]"/>
 			<xsl:choose>
 				<xsl:when test="string-length($jear) &gt; 7">
 					<publishDate>
@@ -832,7 +917,7 @@
 						<xsl:value-of select=".[1]"/>
 						</publishDate>
 					</xsl:otherwise>
-				</xsl:choose>
+				</xsl:choose>-->
 				
 				
 				</xsl:template>
@@ -862,7 +947,20 @@
 				</xsl:template>
 			
 			<xsl:template match="Sammeltitel_x032x_-Zs[1]">
-				<xsl:choose>
+				
+				<title>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title_short>
+				<xsl:if test="../Untertitel">
+						<title_sub>
+							<xsl:value-of select="normalize-space(../Untertitel[1])"/>
+							</title_sub>
+						</xsl:if>
+				
+				<!--<xsl:choose>
 					
 					<xsl:when test="contains(., ':')">
 						<title>
@@ -905,11 +1003,24 @@
 								<xsl:value-of select="."/>
 								</title_short>
 							</xsl:otherwise>
-					</xsl:choose>		
+					</xsl:choose>	-->	
 				</xsl:template>
 			
 			<xsl:template match="Buchtitel[1]">
-				<xsl:choose>
+				
+				<title>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title_short>
+				<xsl:if test="../Untertitel">
+						<title_sub>
+							<xsl:value-of select="normalize-space(../Untertitel[1])"/>
+							</title_sub>
+						</xsl:if>
+				
+				<!--<xsl:choose>
 					
 					<xsl:when test="contains(., ':')">
 						<title>
@@ -952,11 +1063,24 @@
 								<xsl:value-of select="."/>
 								</title_short>
 							</xsl:otherwise>
-					</xsl:choose>		
+					</xsl:choose>	-->	
 				</xsl:template>
 			
 			<xsl:template match="Einzeltitel[1]">
-				<xsl:choose>
+				
+				<title>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title_short>
+				<xsl:if test="../Untertitel">
+						<title_sub>
+							<xsl:value-of select="normalize-space(../Untertitel[1])"/>
+							</title_sub>
+						</xsl:if>
+				
+				<!--<xsl:choose>
 					
 					<xsl:when test="contains(., ':')">
 						<title>
@@ -999,11 +1123,24 @@
 								<xsl:value-of select="."/>
 								</title_short>
 							</xsl:otherwise>
-					</xsl:choose>		
+					</xsl:choose>	-->	
 				</xsl:template>
 
 				<xsl:template match="Titel_x032x_-D[1]">
-				<xsl:choose>
+				
+					<title>
+						<xsl:value-of select="normalize-space(.)"/>
+						</title>
+					<title_short>
+						<xsl:value-of select="normalize-space(.)"/>
+						</title_short>
+					<xsl:if test="../Untertitel">
+						<title_sub>
+							<xsl:value-of select="normalize-space(../Untertitel[1])"/>
+							</title_sub>
+						</xsl:if>
+				
+				<!--<xsl:choose>
 					
 					<xsl:when test="contains(., ':')">
 						<title>
@@ -1046,11 +1183,24 @@
 								<xsl:value-of select="."/>
 								</title_short>
 							</xsl:otherwise>
-					</xsl:choose>		
+					</xsl:choose>	-->	
 				</xsl:template>
 				
 			<xsl:template match="Hefttitel_x032x_-Zh[1]">
-				<xsl:choose>	
+				
+				<title>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)"/>
+					</title_short>
+				<xsl:if test="../Untertitel">
+						<title_sub>
+							<xsl:value-of select="normalize-space(../Untertitel[1])"/>
+							</title_sub>
+						</xsl:if>
+				
+				<!--<xsl:choose>	
 					<xsl:when test="contains(., ':')">
 						<title>
 							<xsl:value-of select="."/>
@@ -1070,7 +1220,7 @@
 							<xsl:value-of select="."/>
 							</title_short>
 						</xsl:otherwise>
-					</xsl:choose>		
+					</xsl:choose>	-->	
 				</xsl:template>
 
 			<xsl:template match="Tagesdatum">
