@@ -1056,8 +1056,8 @@
 	
 	<xsl:template match="Urheber">
 		<contributor>
-			<xsl:value-of select="." />
-			</contributor>
+					<xsl:value-of select="." />
+					</contributor>
 		</xsl:template>
 	
 	<xsl:template match="bet_x046x_KS">
@@ -1121,7 +1121,7 @@
 	<xsl:template match="Sprache">
 		<xsl:for-each select=".">
 			<language>
-				<xsl:value-of select="." />
+				<xsl:value-of select="lower-case(.)" />
 				</language>
 			</xsl:for-each>
 		</xsl:template>
@@ -1277,12 +1277,27 @@
 		</xsl:template>
 	
 	<xsl:template match="UrheberIn">
-		<xsl:for-each select=".">
+	<xsl:for-each select=".">	
+		<xsl:choose>
+			<xsl:when test="contains(.,'FotografIn unbekannt')">
+				<contributorNoFacet>
+					<xsl:value-of select="." />
+					</contributorNoFacet>
+				</xsl:when>
+			<xsl:otherwise>
+				<contributor>
+					<xsl:value-of select="."/>
+						<xsl:text> [Fotogr.]</xsl:text>
+					</contributor>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:for-each>
+		<!--<xsl:for-each select=".">
 			<contributor>
 				<xsl:value-of select="."/>
 				<xsl:text> [Fotogr.]</xsl:text>
 				</contributor>
-			</xsl:for-each>
+			</xsl:for-each>-->
 		</xsl:template>
 	
 	<xsl:template match="AutorIn">
