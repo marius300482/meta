@@ -178,6 +178,7 @@
    <field name="topic" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_unstemmed" type="textProper" indexed="true" stored="false" multiValued="true"/>
    <field name="topic_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
+   <field name="contributor_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="typeOfRessource_facet" type="textFacet" indexed="true" stored="true" />
    <field name="topic_browse" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="author_browse" type="string" indexed="true" stored="false" multiValued="true"/>
@@ -311,6 +312,11 @@
 <copyField source="subjectGeographic" dest="topic_facet"/>
 <copyField source="subjectPerson" dest="topic_facet"/>
 <copyField source="typeOfRessource"	dest="typeOfRessource_facet"/>
+<copyField source="subjectPerson" dest="contributor_facet"/>
+<copyField source="author" dest="contributor_facet"/>
+<copyField source="author_additional" dest="contributor_facet"/>
+<copyField source="editor" dest="contributor_facet"/>
+<copyField source="contributor" dest="contributor_facet"/>
  <!-- CopyFields for Alphabetic Browse -->
  <copyField source="topic"    dest="topic_browse"/>
  <copyField source="author"    dest="author_browse"/>
