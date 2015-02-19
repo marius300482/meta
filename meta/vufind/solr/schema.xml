@@ -219,6 +219,7 @@
    <field name="coverage" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="laufzeit" type="string" indexed="true" multiValued="true" stored="true"/>
    <field name="contributor" type="string" indexed="true" stored="true"  multiValued="true"/>
+   <field name="contributorNoFacet" type="string" indexed="true" stored="true"  multiValued="true"/>
    <field name="rel" type="string" indexed="true" stored="true"
    multiValued="true"/>
    <field name="toHost" type="text" indexed="true" stored="true" multiValued="true"/>
