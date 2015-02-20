@@ -12,7 +12,7 @@
   </div>
   <div class="col-xs-11">
 
-      <?=str_replace('class="', 'class="label label-info ', $this->record($this->driver)->getFormatList())?>
+      <?=str_replace('class="', 'class="label  label-info ', $this->record($this->driver)->getFormatList())?>
 
     <div>
       <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title">
@@ -71,6 +71,9 @@
           <?= $this->escapeHtml($summDate[0]); ?>
           <?php foreach ((array) $this->driver->getVolumes() as $volume) : ?>,
             <?= $this->transEsc('Volume'); ?> <?= $this->escapeHtml($volume); ?>
+          <?php endforeach; ?>
+           <?php foreach ((array) $this->driver->getIssues() as $issue) : ?>,
+            <?= $this->transEsc('Issue'); ?> <?= $this->escapeHtml($issue); ?>
           <?php endforeach; ?>
         <? endif; ?>
 

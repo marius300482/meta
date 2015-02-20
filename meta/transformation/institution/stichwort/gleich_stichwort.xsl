@@ -530,15 +530,19 @@
 			<xsl:variable name="relatedID" select="translate(., translate(.,'0123456789', ''), '')" />
 			<functions>
 				<hierarchyFields>
-					<hierarchy_top_id><xsl:value-of select="$relatedID" /><xsl:text>stw</xsl:text></hierarchy_top_id>
+					<hierarchy_top_id><xsl:value-of select="$relatedID" /><xsl:text>stichwort</xsl:text></hierarchy_top_id>
 					<hierarchy_top_title><xsl:value-of select="//Objekt[Objektnummer=$relatedID]/Titel" /></hierarchy_top_title>
 					
-					<hierarchy_parent_id><xsl:value-of select="$relatedID" /><xsl:text>stw</xsl:text></hierarchy_parent_id>
+					<hierarchy_parent_id><xsl:value-of select="$relatedID" /><xsl:text>stichwort</xsl:text></hierarchy_parent_id>
 					<hierarchy_parent_title><xsl:value-of select="//Objekt[Objektnummer=$relatedID]/Titel" /></hierarchy_parent_title>
 					
 					
-					<is_hierarchy_id><xsl:value-of select="../Objektnummer" /><xsl:text>stw</xsl:text></is_hierarchy_id>
+					<is_hierarchy_id><xsl:value-of select="../Objektnummer" /><xsl:text>stichwort</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="../Titel" /></is_hierarchy_title>
+				
+					<hierarchy_sequence>
+						<xsl:value-of select="normalize-space(substring(../Titel,1,3))"/>
+						</hierarchy_sequence>
 				
 					</hierarchyFields>
 				</functions>
@@ -720,7 +724,14 @@
 			</xsl:template>
 		
 		<xsl:template match="Titel">
-			<xsl:choose>
+						<title>
+							<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
+							</title>
+						<title_short>
+							<xsl:value-of select="normalize-space(replace(.,'_',''))"/>	
+							</title_short>
+			
+			<!--<xsl:choose>
 				<xsl:when test="contains(., '.')">
 					<title>
 						<xsl:value-of select="."/>
@@ -742,7 +753,7 @@
 							<xsl:value-of select="."/>
 							</title_short>
 						</xsl:otherwise>
-					</xsl:choose>
+					</xsl:choose>-->
 			</xsl:template>
 		
 		<xsl:template match="et_al">
