@@ -1,40 +1,37 @@
 <?php
 /**
- * Piwik Analytics view helper
+ * Facet translation view helper
  *
  * @package  View_Helpers
- * @author   dkuom <dku@outermedia.de>
  */
 namespace Ida\View\Helper;
 
 /**
- * Piwik Analytics view helper
+ * Facet translation view helper
  *
  * @package  View_Helpers
- * @author   dkuom <dku@outermedia.de>
  */
-class FacetEntryTranslation extends \Zend\View\Helper\AbstractHelper {
-
+class FacetEntryTranslation extends \Zend\View\Helper\AbstractHelper
+{
+    /**
+     * @var
+     */
+    private $facetNames;
 
     /**
-     * Constructor
-     *
-     * @param string $trackerURL Piwik tracking tracker url (null if disabled)
-     * @param int $siteId Piwik tracking site id (null if disabled)
+     * @param $facetNames
      */
-    public function __construct() {
-
+    public function __construct(Array $facetNames)
+    {
+        $this->facetNames = $facetNames;
     }
 
     /**
-     * Returns PA code (if correctly set up) or empty string if not.
-     *
-     * @return string
+     * @param $facetName
+     * @return bool
      */
-    public function __invoke($entry) {
-
-        $escaper = $this->getView()->plugin('escapeHtml');
-
-        return $escaper($entry);
+    public function __invoke($facetName)
+    {
+        return in_array($facetName, $this->facetNames);
     }
 }
