@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 
 import java.nio.file.Path;
 import java.util.Date;
-import java.util.UUID;
 import java.util.concurrent.Future;
 
 /**
@@ -33,7 +32,7 @@ public class TransformationBean
         this.institutionName = institutionName;
         this.originalFileName = originalFileName;
         startTime = new Date();
-        this.key = UUID.randomUUID().toString();
+        this.key = System.currentTimeMillis() + ""; //UUID.randomUUID().toString();
     }
 
     public TransformationProgressState getProgressState()

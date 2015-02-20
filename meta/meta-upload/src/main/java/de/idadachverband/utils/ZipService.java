@@ -31,7 +31,9 @@ public class ZipService
         final ZipFileVisitor zipFileVisitor = new ZipFileVisitor(input.getParent());
         Files.walkFileTree(root, zipFileVisitor);
 
-        return zipFileVisitor.getExtractedFilePath();
+        final Path extractedFilePath = zipFileVisitor.getExtractedFilePath();
+        log.debug("Extracted: {} from archive: {}", extractedFilePath, input);
+        return extractedFilePath;
     }
 
     protected String stripZipSuffixFromPath(File input)

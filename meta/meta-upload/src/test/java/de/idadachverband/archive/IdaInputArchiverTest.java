@@ -10,9 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class IdaInputArchiverTest
@@ -40,8 +39,8 @@ public class IdaInputArchiverTest
     //@Test
     public void archiveFile() throws Exception
     {
-        cut.archiveFile(input, institutionName);
-        verify(zipService, times(1)).zip(any(Path.class), any(Path.class));
+        //cut.archiveFile(input, institutionName, "");
+        //verify(zipService, times(1)).zip(any(Path.class), any(Path.class));
     }
 
     @Test

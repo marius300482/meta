@@ -1,5 +1,6 @@
 package de.idadachverband.archive;
 
+import de.idadachverband.archive.visitor.HashedFileNameFileVisitor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;

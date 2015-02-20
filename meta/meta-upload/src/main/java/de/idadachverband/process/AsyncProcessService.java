@@ -1,6 +1,8 @@
 package de.idadachverband.process;
 
+import de.idadachverband.archive.Archiver;
 import de.idadachverband.archive.IdaInputArchiver;
+import de.idadachverband.archive.ProcessFileConfiguration;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.result.NotificationException;
 import de.idadachverband.result.ResultNotifier;
@@ -17,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.concurrent.Future;
@@ -38,13 +41,24 @@ public class AsyncProcessService
 
     final private WorkingFormatToSolrDocumentTransformer workingFormatTransformer;
 
+    final private ProcessFileConfiguration processFileConfiguration;
+    final private Archiver archiver;
+
+
     @Inject
-    public AsyncProcessService(IdaTransformer transformationStrategy, WorkingFormatToSolrDocumentTransformer workingFormatTransformer, ResultNotifier resultMailSender, IdaInputArchiver idaInputArchiver)
+    public AsyncProcessService(IdaTransformer transformationStrategy,
+                               WorkingFormatToSolrDocumentTransformer workingFormatTransformer,
+                               ResultNotifier resultMailSender,
+                               IdaInputArchiver idaInputArchiver,
+                               ProcessFileConfiguration processFileConfiguration,
+                               Archiver archiver)
     {
         this.transformationStrategy = transformationStrategy;
         this.resultMailSender = resultMailSender;
         this.idaInputArchiver = idaInputArchiver;
         this.workingFormatTransformer = workingFormatTransformer;
+        this.processFileConfiguration = processFileConfiguration;
+        this.archiver = archiver;
     }
 
     /**
@@ -60,19 +74,21 @@ public class AsyncProcessService
     {
         log.debug("Start asynchronous processing of: {}", transformationBean);
         AsyncResult<Void> asyncResult = new AsyncResult<>(null);
+        final String key = transformationBean.getKey();
         try
         {
-            Path path = idaInputArchiver.archiveFile(input, institution.getInstitutionName());
+            Path path = idaInputArchiver.archiveFile(input, processFileConfiguration.getFolder(ProcessStep.upload, key));
 
-            Path workingFormatFile = transformToWorkingFormat(path, institution);
-            path = idaInputArchiver.archiveFile(workingFormatFile, institution.getInstitutionName());
+            path = transformToWorkingFormat(path, institution, key);
+            path = idaInputArchiver.archiveFile(path, processFileConfiguration.getFolder(ProcessStep.workingFormat, key));
 
-            final Path transformedFile = transformToSolrFormat(institution, path);
-            path = idaInputArchiver.archiveFile(transformedFile, institution.getInstitutionName());
+            path = transformToSolrFormat(path, institution, key);
+            path = idaInputArchiver.archiveFile(path, processFileConfiguration.getFolder(ProcessStep.solrFormat, key));
 
             transformationBean.setTransformedFile(path);
             upateSolr(solr, transformationBean, path, institution);
 
+            archiver.archive(institution, transformationBean);
         } catch (TransformerException | IOException | SolrServerException | RemoteSolrException | NullPointerException e)
         {
             log.warn("Transformation failed: ", e);
@@ -90,26 +106,34 @@ public class AsyncProcessService
         return asyncResult;
     }
 
-    private Path transformToWorkingFormat(Path inputFile, IdaInstitutionBean institution) throws TransformerException, IOException
+    private Path transformToWorkingFormat(Path inputFile, IdaInstitutionBean institution, String key) throws TransformerException, IOException
     {
         log.info("Start transformation of: {} for: {} to working format", inputFile, institution);
         final long start = System.currentTimeMillis();
-        final Path unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        final Path transformedFile = transformationStrategy.transform(unzippedFile, institution);
+        final Path unzippedFile = idaInputArchiver.uncompressToTemporaryFile(inputFile);
+        Path workingFormatFile = processFileConfiguration.getPath(unzippedFile.getFileName().toString(), ProcessStep.workingFormat, key);
+        Files.createDirectories(workingFormatFile.getParent());
+        log.debug("Transform: {} to: {}", unzippedFile, workingFormatFile);
+        transformationStrategy.transform(unzippedFile, workingFormatFile, institution);
+        Files.deleteIfExists(unzippedFile);
         final long end = System.currentTimeMillis();
         log.info("Transformation of: {} for: {} to working format took: {} seconds", inputFile, institution, (end - start) / 1000);
-        return transformedFile;
+        return workingFormatFile;
     }
 
-    private Path transformToSolrFormat(IdaInstitutionBean institution, Path inputFile) throws TransformerException, IOException
+    private Path transformToSolrFormat(Path inputFile, IdaInstitutionBean institution, String key) throws TransformerException, IOException
     {
         log.info("Start transformation of: {} for: {} to Solr format", inputFile, institution);
         final long start = System.currentTimeMillis();
-        final Path unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
-        final Path transformedFile = workingFormatTransformer.transform(unzippedFile, institution);
+        final Path unzippedFile = idaInputArchiver.uncompressToTemporaryFile(inputFile);
+        Path solrFormatFile = processFileConfiguration.getPath(unzippedFile.getFileName().toString(), ProcessStep.solrFormat, key);
+        Files.createDirectories(solrFormatFile.getParent());
+        log.debug("Transform: {} to: {}", unzippedFile, solrFormatFile);
+        workingFormatTransformer.transform(unzippedFile, solrFormatFile, institution);
+        Files.deleteIfExists(unzippedFile);
         final long end = System.currentTimeMillis();
         log.info("Transformation of: {} for: {} to Solr format took: {} seconds", inputFile, institution, (end - start) / 1000);
-        return transformedFile;
+        return solrFormatFile;
     }
 
     private void upateSolr(SolrService solr, TransformationBean transformationBean, Path inputFile, IdaInstitutionBean institution) throws IOException, SolrServerException
@@ -117,7 +141,7 @@ public class AsyncProcessService
         log.info("Start Solr update of core: {} for: {} with file: {}", solr, institution, inputFile);
         final long start = System.currentTimeMillis();
 
-        final Path unzippedFile = idaInputArchiver.readArchivedFile(inputFile);
+        final Path unzippedFile = idaInputArchiver.uncompressToTemporaryFile(inputFile);
 
         if (!institution.isIncrementalUpdate())
         {
@@ -125,6 +149,7 @@ public class AsyncProcessService
         }
 
         String solrResult = solr.update(unzippedFile);
+        Files.deleteIfExists(unzippedFile);
         transformationBean.setSolrResponse(solrResult);
 
         final long end = System.currentTimeMillis();
@@ -132,5 +157,4 @@ public class AsyncProcessService
 
         log.debug("Solr result {}", solrResult);
     }
-
 }

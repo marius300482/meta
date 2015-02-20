@@ -16,10 +16,10 @@ public class TransformationStrategy implements IdaTransformer
     private IdaTransformer transformer;
 
     @Override
-    public Path transform(Path input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public void transform(Path input, Path output, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
         transformer = institutionBean.getTransformationStrategy();
-        return transformer.transform(input, institutionBean);
+        transformer.transform(input, output, institutionBean);
     }
 
     @Override

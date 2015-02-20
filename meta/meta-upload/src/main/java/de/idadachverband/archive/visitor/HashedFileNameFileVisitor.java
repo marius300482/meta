@@ -1,5 +1,6 @@
-package de.idadachverband.archive;
+package de.idadachverband.archive.visitor;
 
+import de.idadachverband.archive.HashService;
 import lombok.Getter;
 
 import javax.inject.Inject;

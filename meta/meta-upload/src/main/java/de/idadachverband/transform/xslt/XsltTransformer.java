@@ -32,25 +32,24 @@ public class XsltTransformer extends AbstractXsltTransformer
     }
 
     @Override
-    public Path transform(Path input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public void transform(Path input, Path output, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
-        return transform(input, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionName());
+        transform(input, output, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionName());
     }
 
     /**
      * Transforms input to to Ida standard format, only stored in temporary file, and then to Solr input xml.
      *
      * @param input           the input XML to be transformed
-     * @param institutionXsl  XSL for institution corresponding to input XML
-     * @param institutionName
-     * @return Solr input file. Can be added to Solr via update request
+     * @param outputFile
+     *@param institutionXsl  XSL for institution corresponding to input XML
+     * @param institutionName   @return Solr input file. Can be added to Solr via update request
      * @throws TransformerException
      * @throws IOException
      */
-    private Path transform(final Path input, Path institutionXsl, String institutionName) throws TransformerException, IOException
+    private void transform(final Path input, Path outputFile, Path institutionXsl, String institutionName) throws TransformerException, IOException
     {
-        final Path outputFile = getOutputFile(institutionName, "workingformat");
-
+        log.debug("Transform: {} to: {} using XSL: {}", input, outputFile, institutionXsl);
         @Cleanup
         InputStream in = Files.newInputStream(input, StandardOpenOption.READ);
         @Cleanup
@@ -59,6 +58,5 @@ public class XsltTransformer extends AbstractXsltTransformer
         transformInstitution(in, out, institutionXsl);
         log.info("Transformed to Working format");
 
-        return outputFile;
     }
 }

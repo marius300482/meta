@@ -27,10 +27,8 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
     }
 
     @Override
-    public Path transform(Path input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public void transform(Path input, Path outputFile, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
-        final Path outputFile = getOutputFile(institutionBean.getInstitutionName(), "solr");
-
         try
         {
             @Cleanup
@@ -45,8 +43,7 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
             throw e;
         }
 
-        log.info("Transformed to Solr format");
-        return outputFile;
+        log.info("Transformed to Solr format: {}", outputFile);
     }
 
     @Override

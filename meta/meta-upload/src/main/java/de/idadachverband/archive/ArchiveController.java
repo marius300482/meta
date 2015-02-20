@@ -1,5 +1,6 @@
 package de.idadachverband.archive;
 
+import de.idadachverband.archive.visitor.HashedFileNameFileVisitor;
 import de.idadachverband.solr.SolrService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
