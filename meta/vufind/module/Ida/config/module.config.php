@@ -91,6 +91,7 @@ $config = array(
     'view_helpers' => array(
         'factories' => array(
             'piwikanalytics' => array('Ida\View\Helper\Factory', 'getPiwikAnalytics'),
+            'facetEntryTranslation' => array('Ida\View\Helper\Factory', 'getFacetEntryTranslation')
         ),
     ),
 );
