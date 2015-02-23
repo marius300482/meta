@@ -44,6 +44,10 @@
               ? $this->highlight($summHighlightedAuthor)
               : $this->escapeHtml($summAuthor);
         ?></a>
+        <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
+        <? if (isset($authors['additional']) && !empty($authors['additional'])): ?>
+          [<a href="<?=$this->recordLink()->getUrl($this->driver)?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+        <? endif; ?>
       <?php else : ?>
         <? $editors = $this->driver->getEditors(); ?>
         <?php if (!empty($editors))  : ?>
