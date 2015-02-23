@@ -52,9 +52,11 @@
         <? $editors = $this->driver->getEditors(); ?>
         <?php if (!empty($editors))  : ?>
           <?=$this->transEsc('Editors')?>:
-          <? foreach ($editors as $editor): ?>
-            <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
-          <? endforeach; ?><br/>
+          <a href="<?= $this->record($this->driver)->getLink('editor', reset($editors)) ?>"><?= $this->escapeHtml(reset($editors)) ?></a>
+          <? if (1 < count($editors)): ?>
+              [<a href="<?=$this->recordLink()->getUrl($this->driver)?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+          <? endif; ?>
+          <br/>
         <?php endif; ?>
       <? endif; ?>
 
