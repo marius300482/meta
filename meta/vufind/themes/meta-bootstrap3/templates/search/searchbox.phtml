@@ -55,6 +55,7 @@
           </ul>
       </div>
      <div id="simple-search-body" class="<?= $this->isAdvancedSearch ? "hidden" : ""; ?>">
+        <span class="closer">[X]</span>
         <input class="form-control search-query<? if($this->searchbox()->autocompleteEnabled($this->searchClassId)):?> autocomplete searcher:<?=$this->escapeHtmlAttr($this->searchClassId) ?><? endif ?>" id="searchForm_lookfor" type="text" name="lookfor" value="<?=$this->escapeHtmlAttr($this->lookfor)?>"/>
         <?php $handlerCount = 0; ?><?php /* phe disable select field */ ?>
           <? if ($handlerCount > 1): ?>

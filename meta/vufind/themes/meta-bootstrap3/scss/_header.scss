@@ -101,6 +101,9 @@ header {
       background-color: $color-yellow-4;
       padding: 15px;
       box-shadow: $shadow-outer;
+      .closer {
+        cursor: pointer; // was added for [x]
+      }
       .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
@@ -110,11 +113,11 @@ header {
         vertical-align: top;
         @media (max-width: $device-xs-max-width) {
           margin-right: 10px;
-          width: 55%;
+          width: 52%; // was 55% before [x]
         }
         @media (max-width: $device-xxs-max-width) {
           margin-right: 5px;
-          width: 48%;
+          width: 41%; // was 48% before [x]
         }
         #searchForm_lookfor {
           border-radius: 0;
@@ -153,6 +156,12 @@ header {
     }
     input[type="text"] {
       font-size: 18px;
+      display: inline-block; // was added for [x]
+      width: calc(100% - 20px); // was added for [x]
+      margin-left: 3px; // was added for [x]
+    }
+    .closer {
+      cursor: pointer; // was added for [x]
     }
     .clearfix p {
       font-size: 18px;
