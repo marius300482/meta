@@ -1,1 +1,1 @@
-<?= $this->url('author-home') ?>?editor=<?= urlencode($this->lookfor) ?>
+<?=$this->url('search-results')?>?lookfor=<?=urlencode($this->lookfor)?>&amp;type=AllFields&amp;filter[]=editorStr:%22<?=urlencode($this->lookfor)?>%22

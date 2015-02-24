@@ -134,7 +134,7 @@
                       <? $fields = $subjects[strtolower($type)]; ?>
                       <? foreach (array_slice($fields, 0, $limit) as $subject): ?>
                         <a title="<?= $this->escapeHtml($subject) ?>"
-                           href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>">
+                           href="<?= $this->record($this->driver)->getLink(strtolower($type), $subject) ?>">
                             <?= $this->escapeHtml($subject) ?></a><?= $subject !== end($fields) ? ", " : "" ?>
                             <? // Keep above in one line to avoid unwanted whitespace ?>
                       <? endforeach; ?>
