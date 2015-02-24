@@ -31,7 +31,6 @@
   $this->headScript()->appendFile(
     isset($this->advancedSearchJsOverride) ? $this->advancedSearchJsOverride : 'advanced_search.js'
   );
-/* PHE this is too early. Done in results.phtml now
   // Step 3: Build the page
   $this->headScript()->appendScript(
     $this->partial(
@@ -39,7 +38,7 @@
       array('searchDetails' => $searchDetails)
     )
   );
-*/
+
 ?>
 
 <?=$this->flashmessages()?>

@@ -189,9 +189,14 @@
     the variables of a search are not available. */
 ?>
 <script type="text/javascript">
+$(function() {
     // Advanced search
     <?php $query = $this->params->getQuery(); ?>
     <?php if ($query instanceof VuFindSearch\Query\QueryGroup) : ?>
+        // Remove empty standard group
+        $("#group0").remove();
+        nextGroup = 0;
+        // Write new groups from the search query
         <? foreach ($query->getQueries() as $searchGroup): ?>
             <? $i = 0; foreach ($searchGroup->getQueries() as $search): ?>
                 <? if (++$i == 1): ?>
@@ -202,12 +207,9 @@
             <? endforeach; ?>
         <? endforeach; ?>
     <?php else : ?>
-        // Set up empty advanced search fields
-        var group = addGroup();
-        addSearch(group);
-        addSearch(group);
-        // Simple search
-        $("#searchForm_lookfor").val("<?=str_replace(array('\\', '"'), "", $lookfor); ?>");
+        // Set simple search string
+        $("#searchForm_lookfor").val("<?=str_replace('"', '\"', $lookfor); ?>");
     <?php endif; ?>
+});
 </script>
 
