@@ -182,3 +182,32 @@
 <div class="col-sm-12 row hidden-xs pagination-ld">
   <?=$this->paginationControl($paginator, 'Sliding', 'search/pagination.phtml', array('results' => $this->results))?>
 </div>
+
+<?php
+    /* PHE: THE following script blog is little hackish but it makes thinks much easier.
+    The info box is already loaded at this time and might also be shown on pages where
+    the variables of a search are not available. */
+?>
+<script type="text/javascript">
+    // Advanced search
+    <?php $query = $this->params->getQuery(); ?>
+    <?php if ($query instanceof VuFindSearch\Query\QueryGroup) : ?>
+        <? foreach ($query->getQueries() as $searchGroup): ?>
+            <? $i = 0; foreach ($searchGroup->getQueries() as $search): ?>
+                <? if (++$i == 1): ?>
+                    var new_group = addGroup('<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>', '<?=$searchGroup->isNegated() ? 'NOT' : $searchGroup->getOperator()?>');
+                <? else: ?>
+                    addSearch(new_group, '<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>');
+                <? endif; ?>
+            <? endforeach; ?>
+        <? endforeach; ?>
+    <?php else : ?>
+        // Set up empty advanced search fields
+        var group = addGroup();
+        addSearch(group);
+        addSearch(group);
+        // Simple search
+        $("#searchForm_lookfor").val("<?=str_replace(array('\\', '"'), "", $lookfor); ?>");
+    <?php endif; ?>
+</script>
+

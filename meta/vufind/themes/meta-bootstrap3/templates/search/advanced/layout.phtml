@@ -25,12 +25,13 @@
   }
 
   // Set up Javascript:
-  // Step 1: Define our search arrays so they are usuable in the javascript
+  // Step 1: Define our search arrays so they are usable in the JavaScript
   $this->headScript()->appendScript($this->render('search/advanced/globals.phtml'));
-  // Step 2: Call the javascript to make use of the above
+  // Step 2: Call the JavaScript to make use of the above
   $this->headScript()->appendFile(
     isset($this->advancedSearchJsOverride) ? $this->advancedSearchJsOverride : 'advanced_search.js'
   );
+/* PHE this is too early. Done in results.phtml now
   // Step 3: Build the page
   $this->headScript()->appendScript(
     $this->partial(
@@ -38,6 +39,7 @@
       array('searchDetails' => $searchDetails)
     )
   );
+*/
 ?>
 
 <?=$this->flashmessages()?>
