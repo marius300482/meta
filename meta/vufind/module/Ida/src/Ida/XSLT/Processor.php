@@ -6,7 +6,8 @@
  * @see \VuFind\XSLT\Processor
  */
 namespace Ida\XSLT;
-use DOMDocument;use XSLTProcessor;
+use DOMDocument;
+use XSLTProcessor;
 
 /**
  * VuFind XSLT wrapper
@@ -26,17 +27,19 @@ class Processor extends \VuFind\XSLT\Processor
      */
     public static function process($xslt, $xml, $params = array())
     {
-        $style = new DOMDocument();
-        // TODO: support local overrides
-        $style->load(APPLICATION_PATH . '/module/Ida/xsl/' . $xslt);
-        $xsl = new XSLTProcessor();
-        $xsl->importStyleSheet($style);
-        $doc = new DOMDocument();
-        if ($doc->loadXML($xml)) {
-            foreach ($params as $key => $value) {
-                $xsl->setParameter('', $key, $value);
+        if (0 < strlen($xml)) {
+            $style = new DOMDocument();
+            // TODO: support local overrides
+            $style->load(APPLICATION_PATH . '/module/Ida/xsl/' . $xslt);
+            $xsl = new XSLTProcessor();
+            $xsl->importStyleSheet($style);
+            $doc = new DOMDocument();
+            if ($doc->loadXML($xml)) {
+                foreach ($params as $key => $value) {
+                    $xsl->setParameter('', $key, $value);
+                }
+                return $xsl->transformToXML($doc);
             }
-            return $xsl->transformToXML($doc);
         }
         return '';
     }
