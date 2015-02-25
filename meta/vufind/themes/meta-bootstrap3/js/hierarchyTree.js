@@ -98,6 +98,9 @@ function buildJSONNodes(xml)
     var content = $(this).children('content');
     var id = content.children("name[class='JSTreeID']");
     var name = content.children('name[href]');
+      var ste = $(this).attr('state'), // "state" attribute
+          chldren = $(this).children('item'), // Children elements (acc. to "xml" arg)
+          hasChildren = 0 < chldren.length;
     jsonNode.push({
       'id': htmlEncodeId(id.text()),
       'text': name.text(),
@@ -109,7 +112,10 @@ function buildJSONNodes(xml)
         'title': name.text()
       },
       'type': name.attr('href').match(/\/Collection\//) ? 'collection' : 'record',
-      children: buildJSONNodes(this)
+        // Build subtree if
+        // a) children exist (in "xml") or
+        // b) children do not exist in xml representation but node has attribute "state='closed'"
+        children: hasChildren ? buildJSONNodes(this) : 'closed' === ste
     });
   });
   return jsonNode;
@@ -161,36 +167,46 @@ $(document).ready(function()
       }
     })
     .jstree({
-      'plugins': ['search','types'],
-      'core' : {
-        'data' : function (obj, cb) {
-          $.ajax({
-            'url': path + '/Hierarchy/GetTree',
-            'data': {
-              'hierarchyID': hierarchyID,
-              'id': recordID,
-              'context': context,
-              'mode': 'Tree'
-            },
-            'success': function(xml) {
-              var nodes = buildJSONNodes($(xml).find('root'));
-              cb.call(this, nodes);
-            }
-          });
-        },
-        'themes' : {
-          'url': path + '/themes/bootstrap3/js/vendor/jsTree/themes/default/style.css'
-        }
-      },
-      'types' : {
-        'record': {
-          'icon':'fa fa-file'
-        },
-        'collection': {
-          'icon':'fa fa-folder'
-        }
-      }
-    });
+          'plugins': ['search', 'types'],
+          'core': {
+              // Ajax mode (see http://www.jstree.com/docs/json/)
+              'data': function (obj, cb) {
+                  $.ajax({
+                      'url': path + '/Hierarchy/GetTree',
+                      'data': '#' === obj.id
+                          ? {
+                          'hierarchyID': hierarchyID,
+                          'id': recordID,
+                          'context': context,
+                          'mode': 'Tree'
+                      }
+                          : {
+                          // Load subtree
+                          'hierarchyID': obj.id,
+                          'subtree': 'true',
+                          'id': recordID,
+                          'context': context,
+                          'mode': 'Tree'
+                      },
+                      'success': function (xml) {
+                          var nodes = buildJSONNodes($(xml).find('root'));
+                          cb.call(this, nodes);
+                      }
+                  });
+              },
+              'themes': {
+                  'url': path + '/themes/bootstrap3/js/vendor/jsTree/themes/default/style.css'
+              }
+          },
+          'types': {
+              'record': {
+                  'icon': 'fa fa-file'
+              },
+              'collection': {
+                  'icon': 'fa fa-folder'
+              }
+          }
+      });
 
   $('#treeSearch').removeClass('hidden');
   $('#treeSearch [type=submit]').click(doTreeSearch);
