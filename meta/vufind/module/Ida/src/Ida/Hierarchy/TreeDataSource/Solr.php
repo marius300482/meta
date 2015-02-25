@@ -124,7 +124,7 @@ ROOT;
         if (0 < count($parents)) {
 
             // Use first parent entry
-            $parentId = array_shift(array_flip($record->getHierarchyPositionsInParents()));
+            $parentId = array_shift(array_flip($parents));
             $result = $this->searchService->retrieve('Solr', $parentId);
 
             // Traverse tree upwards
@@ -227,7 +227,7 @@ XML;
             $id = htmlspecialchars($uid);
             $title = htmlspecialchars($current->getTitle());
             $isCollection = $current->isCollection() ? "true" : "false";
-            $hasChildren = $this->_recordHasChildren($current) ? 'true' : 'false';
+            $hasChildren = $this->_recordHasChildren($uid) ? 'true' : 'false';
             // Placeholder for further children levels (see calling function)
             $replace = ($uid === $hookId) ? '%%%children%%%' : '';
 
