@@ -13,16 +13,10 @@ import javax.inject.Inject;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -44,30 +38,18 @@ public abstract class AbstractXsltTransformer implements IdaTransformer
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
-    protected void transformInstitution(InputStream inputStream, OutputStream outputStream, File institutionXsl) throws TransformerException
+    protected void transformInstitution(InputStream inputStream, OutputStream outputStream, Path institutionXsl) throws TransformerException
     {
         Transformer transformer = getTransformerInstance(institutionXsl);
         transformer.transform(new StreamSource(inputStream), new StreamResult(outputStream));
     }
 
-    private Transformer getTransformerInstance(File institutionXslt) throws TransformerConfigurationException
+    private Transformer getTransformerInstance(Path institutionXslt) throws TransformerConfigurationException
     {
         TransformerFactory factory = TransformerFactory.newInstance();
         factory.setErrorListener(new ErrorGatherer(getErrorList()));
-        Source xslt = new StreamSource(institutionXslt);
+        Source xslt = new StreamSource(institutionXslt.toFile());
         return factory.newTransformer(xslt);
-    }
-
-    protected File getOutputFile(String institutionName, String type) throws IOException
-    {
-        final Date now = new Date();
-        DateFormat df = new SimpleDateFormat("yyyyMMdd-hhmmss");
-        final String dateString = df.format(now);
-
-        Files.createDirectories(archivePath.resolve(institutionName));
-        final File file = Files.createFile(archivePath.resolve(dateString + "-" + type + ".xml")).toFile();
-        log.info("Create {} file {}", type, file);
-        return file;
     }
 
     /**

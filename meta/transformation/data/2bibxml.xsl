@@ -40,6 +40,7 @@
 				<xsl:for-each select="dataset/upcomingTitle"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/author"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/editor"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/contributor"><xsl:value-of select="." /></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/entity"/><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/reviewer"/><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/series" /><xsl:text> </xsl:text>
@@ -66,102 +67,7 @@
 
 			<field name="recordChangeDate"><xsl:value-of select="vufind/recordChangeDate" /></field>
 			
-			<field name="leader">
-				<!--<xsl:text>     </xsl:text>--><!--0-4-->
-				<xsl:text>     </xsl:text><!--0-4-->
-					<xsl:text>n</xsl:text><!--5-->
-					<xsl:choose><!--6-->
-						<xsl:when test="dataset/format[text()='Video/DVD']">
-							<xsl:text>g</xsl:text></xsl:when>
-						<xsl:otherwise>
-							<xsl:text>a</xsl:text></xsl:otherwise>
-						</xsl:choose>
-					<xsl:choose><!--7-->
-						<xsl:when test="dataset/format[text()='Zeitschrift']"><xsl:text>s</xsl:text></xsl:when>
-						<xsl:otherwise><xsl:text>m</xsl:text></xsl:otherwise>
-						</xsl:choose>
-					<xsl:text> </xsl:text><!--8-->
-					<xsl:text> </xsl:text><!--9-->
-					<xsl:text>2</xsl:text><!--10-->
-					<xsl:text>2</xsl:text><!--11-->
-					<!--<xsl:text>     </xsl:text>--><!--12-16-->
-					<xsl:text>     </xsl:text><!--12-16-->
-					<xsl:text>u</xsl:text><!--17-->
-					<xsl:text>u</xsl:text><!--18-->
-					<xsl:text> </xsl:text><!--19-->
-					<xsl:text>4500</xsl:text><!--20-23-->
-			</field>
 			
-			<field name="controlfield">
-					<!--00-05-->
-					<xsl:value-of select="substring(vufind/recordCreationDate, 3,2)"/>
-					<xsl:value-of select="substring(vufind/recordCreationDate, 6,2)"/>
-					<xsl:value-of select="substring(vufind/recordCreationDate, 9,2)"/>
-					<!--06-->
-					<xsl:text>|</xsl:text>
-					<!--07-10-->
-					<xsl:choose>
-						<xsl:when test="dataset/publishDate">
-							<xsl:value-of select="dataset/publishDate"/>
-							</xsl:when>
-						<xsl:when test="dataset/timeSpan">
-							<xsl:value-of select="dataset/timeSpan/timeSpanStart"/>
-							</xsl:when>
-						<xsl:otherwise>    </xsl:otherwise>
-						</xsl:choose>
-					<!--11-14-->
-					<xsl:choose>
-						<xsl:when test="dataset/timeSpan">
-							<xsl:value-of select="dataset/timeSpan/timeSpanEnd"/>
-							</xsl:when>
-						<xsl:otherwise>
-							<xsl:text>    </xsl:text>
-							</xsl:otherwise>
-						</xsl:choose>
-					<!--15-17-->
-					<xsl:text> </xsl:text>
-					<!--18-20-->
-					<xsl:text>|||</xsl:text>
-					<!--21-->
-					<xsl:text>|</xsl:text>
-					<!--22-->
-					<xsl:text>|</xsl:text>
-					<!--23-->
-					<xsl:text>|</xsl:text>
-					<!--24-27-->
-					<xsl:text>||||</xsl:text>
-					<!--28-->
-					<xsl:text>|</xsl:text>
-					<!--29-->
-					<xsl:choose>
-						<xsl:when test="(dataset/format[text()='Online-Artikel']) or (dataset/format[text()='Online-Zeitschrift '])">
-							<xsl:text>m</xsl:text>
-							</xsl:when>
-						<xsl:otherwise>
-							<xsl:text> </xsl:text>
-							</xsl:otherwise>
-					</xsl:choose>
-					<!--30-31-->
-					<xsl:text>||</xsl:text>
-					<!--32-->
-					<xsl:text>|</xsl:text>
-					<!--33-->
-					<xsl:text>|</xsl:text>
-					<!--34-->
-					<xsl:text>|</xsl:text>
-					<!--35-37-->
-					<xsl:variable name="lang1" select="dataset/language[1]"></xsl:variable>
-					<xsl:choose>
-						<xsl:when test="dataset/language!='o.A.'">
-							<xsl:value-of select="document('../anreicherung/language.xml')/root/language[@use=$lang1]/@code"/>
-							</xsl:when>
-						<xsl:otherwise>
-							<xsl:text>   </xsl:text>
-							</xsl:otherwise>
-					</xsl:choose>
-					<!--38-39-->
-					<xsl:text>||</xsl:text>
-				</field>
 		
 <!--institution-->
 		
@@ -242,6 +148,8 @@
                 			</xsl:if>
     			
 			<xsl:apply-templates select="dataset/contributor" />
+			
+			<xsl:apply-templates select="dataset/contributorNoFacet" />
     			
     			<xsl:if test="dataset/entity">
     				<field name="entity"><xsl:value-of select="dataset/entity"/></field>
@@ -569,6 +477,14 @@
 	<xsl:template match="contributor">
 		<xsl:for-each select=".">
 			<field name="contributor">
+				<xsl:value-of select="." />
+				</field>
+			</xsl:for-each>
+		</xsl:template>
+		
+	<xsl:template match="contributorNoFacet">
+		<xsl:for-each select=".">
+			<field name="contributorNoFacet">
 				<xsl:value-of select="." />
 				</field>
 			</xsl:for-each>

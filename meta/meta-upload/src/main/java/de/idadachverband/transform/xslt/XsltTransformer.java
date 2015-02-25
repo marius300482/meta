@@ -6,7 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 import javax.xml.transform.TransformerException;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 /**
  * Transforms XML files to Solr input format.
@@ -27,33 +32,31 @@ public class XsltTransformer extends AbstractXsltTransformer
     }
 
     @Override
-    public File transform(File input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public void transform(Path input, Path output, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
-        return transform(input, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionName());
+        transform(input, output, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionName());
     }
 
     /**
      * Transforms input to to Ida standard format, only stored in temporary file, and then to Solr input xml.
      *
      * @param input           the input XML to be transformed
-     * @param institutionXsl  XSL for institution corresponding to input XML
-     * @param institutionName
-     * @return Solr input file. Can be added to Solr via update request
+     * @param outputFile
+     *@param institutionXsl  XSL for institution corresponding to input XML
+     * @param institutionName   @return Solr input file. Can be added to Solr via update request
      * @throws TransformerException
      * @throws IOException
      */
-    private File transform(final File input, File institutionXsl, String institutionName) throws TransformerException, IOException
+    private void transform(final Path input, Path outputFile, Path institutionXsl, String institutionName) throws TransformerException, IOException
     {
-        final File file = getOutputFile(institutionName, "workingformat");
-
+        log.debug("Transform: {} to: {} using XSL: {}", input, outputFile, institutionXsl);
         @Cleanup
-        InputStream in = new FileInputStream(input);
-
+        InputStream in = Files.newInputStream(input, StandardOpenOption.READ);
         @Cleanup
-        OutputStream out = new FileOutputStream(file);
+        OutputStream out = Files.newOutputStream(outputFile, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+
         transformInstitution(in, out, institutionXsl);
         log.info("Transformed to Working format");
 
-        return file;
     }
 }

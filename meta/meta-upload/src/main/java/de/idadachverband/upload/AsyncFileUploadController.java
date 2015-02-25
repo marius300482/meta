@@ -18,8 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -105,16 +106,16 @@ public class AsyncFileUploadController
             {
                 MultipartFile file = uploadFormBean.getFile();
                 log.info("User: {} uploaded file: {}", authentication.getName(), file);
-                File tempFile;
+                Path tmpPath;
                 try
                 {
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
                     institution.setIncrementalUpdate(uploadFormBean.isIncremental());
                     SolrService solr = uploadFormBean.getSolr();
 
-                    tempFile = moveToTempFile(file, institution.getInstitutionName());
+                    tmpPath = moveToTempFile(file, institution.getInstitutionName());
 
-                    TransformationBean transformationBean = processService.process(tempFile, institution, solr, file.getOriginalFilename());
+                    TransformationBean transformationBean = processService.process(tmpPath, institution, solr, file.getOriginalFilename());
                     map.addAttribute("result", transformationBean.getKey());
 
                     return "redirect:result/success";
@@ -130,13 +131,13 @@ public class AsyncFileUploadController
         };
     }
 
-    private File moveToTempFile(MultipartFile file, String institutionName) throws IOException
+    private Path moveToTempFile(MultipartFile file, String institutionName) throws IOException
     {
         final String prefix = institutionName + "-" + dateFormat.format(new Date()) + "-upload-";
         final String suffix = file.getContentType().toLowerCase().equals("application/zip") ? ".tmp.zip" : ".tmp";
-        File tempFile = File.createTempFile(prefix, suffix);
-        file.transferTo(tempFile);
-        log.debug("Moved uploaded file: {} to: {}", file, tempFile);
-        return tempFile;
+        Path tmpPath = Files.createTempFile(prefix, suffix);
+        file.transferTo(tmpPath.toFile());
+        log.debug("Moved uploaded file: {} to: {}", file, tmpPath);
+        return tmpPath;
     }
 }

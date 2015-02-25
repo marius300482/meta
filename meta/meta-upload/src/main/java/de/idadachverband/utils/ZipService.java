@@ -4,14 +4,12 @@ import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Utility process to zip and unzip files
@@ -25,52 +23,17 @@ public class ZipService
      * @param input Either an uncompressed file or a zip archive with one entry
      * @return InputStream of infile. If infile is zip file, first found file from zip file
      */
-    public File unzip(File input) throws IOException
+    public Path unzip(final Path input) throws IOException
     {
-        if (input.getName().toLowerCase().endsWith(".zip"))
-        {
-            try
-            {
-                ZipFile zipFile = new ZipFile(input);
-                Enumeration<? extends ZipEntry> entries = zipFile.entries();
+        @Cleanup FileSystem zipfs = createZipFileSystem(input, false);
 
-                //noinspection LoopStatementThatDoesntLoop
-                while (entries.hasMoreElements())
-                {
-                    ZipEntry zipEntry = entries.nextElement();
-                    @Cleanup
-                    final InputStream inputStream = zipFile.getInputStream(zipEntry);
+        final Path root = zipfs.getPath("/");
+        final ZipFileVisitor zipFileVisitor = new ZipFileVisitor(input.getParent());
+        Files.walkFileTree(root, zipFileVisitor);
 
-                    final File unzipped = new File(stripZipSuffixFromPath(input));
-                    if (!unzipped.exists())
-                    {
-                        unzipped.createNewFile();
-                    }
-                    @Cleanup
-                    final FileOutputStream fileOutputStream = new FileOutputStream(unzipped);
-
-                    writeInputStreamToOutputStream(inputStream, fileOutputStream);
-
-                    // stop after first file
-                    return unzipped;
-                }
-            } catch (ZipException e)
-            {
-                log.debug("{} is no zip file ", input);
-            }
-        }
-        return input;
-    }
-
-    private void writeInputStreamToOutputStream(InputStream inputStream, FileOutputStream fileOutputStream) throws IOException
-    {
-        byte[] b = new byte[10000];
-        while (true)
-        {
-            int r = inputStream.read(b);
-            if (r == -1) break;
-            fileOutputStream.write(b, 0, r);
-        }
+        final Path extractedFilePath = zipFileVisitor.getExtractedFilePath();
+        log.debug("Extracted: {} from archive: {}", extractedFilePath, input);
+        return extractedFilePath;
     }
 
     protected String stripZipSuffixFromPath(File input)
@@ -80,37 +43,37 @@ public class ZipService
         return inputPath.substring(0, endIndex);
     }
 
-
     /**
      * @param infile     The file which should be zipped
      * @param zippedFile The zipped file
      * @throws IOException
      */
-    public void zip(File infile, File zippedFile) throws IOException
+    public void zip(Path infile, Path zippedFile) throws IOException
     {
         log.debug("Compressing {} to {}", infile, zippedFile);
-        long byteCount = 0;
 
-        try (FileInputStream in = new FileInputStream(infile);
-             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zippedFile)))
-        {
-            out.putNextEntry(new ZipEntry(infile.getName()));
-            byte[] buf = new byte[16000];
-            int read;
-            while ((read = in.read(buf)) != -1)
-            {
-                out.write(buf, 0, read);
-                byteCount += read;
-            }
+        @Cleanup FileSystem zipfs = createZipFileSystem(zippedFile, true);
 
-        } catch (IOException e)
+        /* Path inside ZIP File */
+        Path pathInZipfile = zipfs.getPath(infile.getFileName().toString());
+
+        /* Add file to archive */
+        Files.copy(infile, pathInZipfile);
+        log.debug("wrote {} bytes", Files.size(zippedFile));
+    }
+
+    private FileSystem createZipFileSystem(Path zipPath,
+                                           boolean create)
+            throws IOException
+    {
+        // convert the filename to a URI
+        final URI uri = URI.create("jar:file:" + zipPath.toUri().getPath());
+        final Map<String, String> env = new HashMap<>();
+        if (create)
         {
-            log.warn("Creation of Zipfile {} of {} failed", zippedFile, infile, e);
-            throw e;
+            env.put("create", "true");
         }
-
-        log.debug("read {} bytes", byteCount);
-        log.debug("wrote {} bytes", zippedFile.length());
+        return FileSystems.newFileSystem(uri, env);
     }
 
     /**
@@ -120,11 +83,12 @@ public class ZipService
      * @return The zipped file.
      * @throws IOException
      */
-    public File zip(File infile) throws IOException
+    public Path zip(Path infile) throws IOException
     {
-        final File zippedFile = new File(infile.getPath() + ".zip");
+        final Path zippedFile = Paths.get(infile.toString() + ".zip");
         zip(infile, zippedFile);
-        Files.delete(Paths.get(infile.toURI()));
+        Files.delete(infile);
         return zippedFile;
     }
+
 }

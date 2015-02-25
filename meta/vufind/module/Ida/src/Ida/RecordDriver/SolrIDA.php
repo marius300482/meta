@@ -91,6 +91,14 @@ abstract class SolrIDA extends SolrDefault
         return $this->getMultiValuedField("specificMaterialDesignation");
     }
 
+    public function getContributors()
+    {
+        return $this->getMultiValuedField("contributor");
+    }
+    public function getContributorsNoFacet()
+    {
+        return $this->getMultiValuedField("contributorNoFacet");
+    }
     public function getProvenances()
     {
         return $this->getMultiValuedField("provenance");

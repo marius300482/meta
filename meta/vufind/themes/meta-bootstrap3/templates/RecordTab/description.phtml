@@ -120,7 +120,26 @@
             </td>
         </tr>
     <? endif; ?>
+    
 
+    <? $contributors = $this->driver->getContributors();
+    if (!empty($contributors)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Contributor') ?>:</th>
+            <td><? foreach ($contributors as $contributor): ?><?= $this->escapeHtml($contributor) ?><?= $contributor !== end($contributors) ? ", " : "" ?><? endforeach; ?></td>
+        </tr>
+    <? endif; ?>
+    
+    <? $contributorsNoFacet = $this->driver->getContributorsNoFacet();
+    if (!empty($contributorsNoFacet)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Contributor') ?>:</th>
+            <td><? foreach ($contributorsNoFacet as $contributorNoFacet): ?><?= $this->escapeHtml($contributorNoFacet) ?><?= $contributorNoFacet !== end($contributorsNoFacet) ? ", " : "" ?><? endforeach; ?></td>
+        </tr>
+    <? endif; ?>
+    
     <? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
         <? $contentDisplayed = true; ?>

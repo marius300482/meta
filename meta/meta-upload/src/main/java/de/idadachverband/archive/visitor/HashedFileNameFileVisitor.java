@@ -1,5 +1,6 @@
-package de.idadachverband.archive;
+package de.idadachverband.archive.visitor;
 
+import de.idadachverband.archive.HashService;
 import lombok.Getter;
 
 import javax.inject.Inject;
@@ -30,11 +31,11 @@ public class HashedFileNameFileVisitor extends SimpleFileVisitor<Path>
     }
 
     @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attr)
+    public FileVisitResult visitFile(Path path, BasicFileAttributes attr)
     {
-        if (Files.isRegularFile(file))
+        if (Files.isRegularFile(path))
         {
-            fileMap.put(hashService.getHashedFileName(file.toFile()), file);
+            fileMap.put(hashService.getHashedFileName(path), path);
         }
         return FileVisitResult.CONTINUE;
     }

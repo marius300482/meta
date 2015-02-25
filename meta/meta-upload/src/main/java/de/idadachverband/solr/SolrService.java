@@ -11,7 +11,6 @@ import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.util.NamedList;
 
 import javax.inject.Inject;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,11 +49,11 @@ public class SolrService
      * @throws IOException
      * @throws SolrServerException
      */
-    public String update(File input) throws IOException, SolrServerException
+    public String update(Path input) throws IOException, SolrServerException
     {
         log.info("Update core: {} with file: {}", name, input);
         ContentStreamUpdateRequest request = new ContentStreamUpdateRequest("/update");
-        request.addFile(input, "text/xml");
+        request.addFile(input.toFile(), "text/xml");
         log.info("Send file {} with request {}{}", input, url, request.getPath());
         NamedList<Object> result = server.request(request);
         log.debug("Result for update of core: {} with: {} is:  {}", name, input, result);
@@ -94,7 +93,7 @@ public class SolrService
         for (Path path : files)
         {
             final Path tmpPath = tempDirectory.resolve(path.getFileName());
-            final File file = zipService.unzip(path.toFile());
+            final Path file = zipService.unzip(path);
             try
             {
                 update(file);

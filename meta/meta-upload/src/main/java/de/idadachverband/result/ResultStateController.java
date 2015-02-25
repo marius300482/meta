@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import java.io.File;
+import java.nio.file.Path;
 import java.util.concurrent.ExecutionException;
 
 import static de.idadachverband.transform.TransformationProgressState.DONE;
@@ -49,8 +49,8 @@ public class ResultStateController
         {
             try
             {
-                File file = transformationProgressService.getFile(key);
-                String hashedFileName = hashService.getHashedFileName(file);
+                Path path = transformationProgressService.getFile(key);
+                String hashedFileName = hashService.getHashedFileName(path);
                 result.add("filename", hashedFileName);
             } catch (TransformedFileException e)
             {

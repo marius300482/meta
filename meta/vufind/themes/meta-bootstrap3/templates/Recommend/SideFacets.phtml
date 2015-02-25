@@ -56,6 +56,7 @@
 <? if (!empty($sideFacetSet) && $results->getResultTotal() > 0): ?>
   <? foreach ($sideFacetSet as $title => $cluster): ?>
     <? $allowExclude = $this->recommend->excludeAllowed($title); ?>
+    <? $translateFacet = $this->facetEntryTranslation($cluster['label']);?>
     <ul class="list-group" id="side-panel-<?=$this->escapeHtmlAttr($title) ?>">
       <li class="list-group-item title<? if(in_array($title, $collapsedFacets)): ?> collapsed<? endif ?>" data-toggle="collapse" href="#side-collapse-<?=$this->escapeHtmlAttr($title) ?>">
         <?=$this->transEsc($cluster['label'])?>
@@ -135,9 +136,13 @@ JS;
               <? else: ?>
                 <span class="pull-right"><i class="fa fa-times"></i></span>
               <? endif; ?>
-              <?=$this->escapeHtml($thisFacet['displayText'])?>
+              <?php if ($translateFacet) : ?>
+                  <?=$this->escapeHtml($this->translate($thisFacet['displayText']))?>
+              <? else : ?>
+                  <?=$this->escapeHtml($thisFacet['displayText'])?>
+              <?php endif; ?>
               <span class="badge">
-              (<?=$this->number_format($thisFacet['count'], 0, ',', '.')?>)
+              (<?=number_format($thisFacet['count'], 0, ',', '.')?>)
             </span>
             </a>
           <? else: ?>
@@ -154,7 +159,11 @@ JS;
             <? if($thisFacet['operator'] == 'OR'): ?>
               <i class="fa fa-square-o"></i>
             <? endif; ?>
-            <?=$this->escapeHtml($thisFacet['displayText'])?>
+            <?php if ($translateFacet) : ?>
+                <?=$this->escapeHtml($this->translate($thisFacet['displayText']))?>
+            <? else : ?>
+                <?=$this->escapeHtml($thisFacet['displayText'])?>
+            <?php endif; ?>
             <span class="badge">
               (<?=number_format($thisFacet['count'], 0, ',', '.')?>)
               <? if ($allowExclude): ?>

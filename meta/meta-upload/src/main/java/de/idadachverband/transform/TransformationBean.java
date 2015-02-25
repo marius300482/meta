@@ -3,9 +3,8 @@ package de.idadachverband.transform;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.Date;
-import java.util.UUID;
 import java.util.concurrent.Future;
 
 /**
@@ -20,7 +19,7 @@ public class TransformationBean
     private final Date startTime;
     private final String institutionName;
     private final String originalFileName;
-    private File transformedFile;
+    private Path transformedFile;
     private Future<?> future;
     private String solrResponse;
     private Exception exception;
@@ -33,7 +32,7 @@ public class TransformationBean
         this.institutionName = institutionName;
         this.originalFileName = originalFileName;
         startTime = new Date();
-        this.key = UUID.randomUUID().toString();
+        this.key = System.currentTimeMillis() + ""; //UUID.randomUUID().toString();
     }
 
     public TransformationProgressState getProgressState()

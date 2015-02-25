@@ -1,4 +1,4 @@
-package de.idadachverband.archive;
+package de.idadachverband.archive.visitor;
 
 import lombok.Getter;
 

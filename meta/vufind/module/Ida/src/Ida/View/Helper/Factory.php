@@ -41,4 +41,24 @@ class Factory {
 
         return new PiwikAnalytics($trackerURL, $siteId);
     }
+
+    /**
+     * Construct Facet translation helper
+     *
+     * @param ServiceManager $sm
+     * @return FacetEntryTranslation
+     */
+    public static function getFacetEntryTranslation(ServiceManager $sm)
+    {
+        // Read config file
+        $config = $sm->getServiceLocator()->get('VuFind\Config')->get('facets');
+        $translatedFacets = array();
+
+        if (isset($config->TranslatedFacets->facets))
+        {
+            $translatedFacets = $config->TranslatedFacets->facets->toArray();
+        }
+
+        return new FacetEntryTranslation($translatedFacets);
+    }
 }

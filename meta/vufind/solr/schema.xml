@@ -178,6 +178,7 @@
    <field name="topic" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="topic_unstemmed" type="textProper" indexed="true" stored="false" multiValued="true"/>
    <field name="topic_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
+   <field name="contributor_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="typeOfRessource_facet" type="textFacet" indexed="true" stored="true" />
    <field name="topic_browse" type="string" indexed="true" stored="false" multiValued="true"/>
    <field name="author_browse" type="string" indexed="true" stored="false" multiValued="true"/>
@@ -218,6 +219,7 @@
    <field name="coverage" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="laufzeit" type="string" indexed="true" multiValued="true" stored="true"/>
    <field name="contributor" type="string" indexed="true" stored="true"  multiValued="true"/>
+   <field name="contributorNoFacet" type="string" indexed="true" stored="true"  multiValued="true"/>
    <field name="rel" type="string" indexed="true" stored="true"
    multiValued="true"/>
    <field name="toHost" type="text" indexed="true" stored="true" multiValued="true"/>
@@ -308,7 +310,14 @@
  <copyField source="allfields" dest="allfields_unstemmed"/>
  <copyField source="fulltext" dest="fulltext_unstemmed"/>
 <copyField source="topic"	dest="topic_facet"/>
+<copyField source="subjectGeographic" dest="topic_facet"/>
+<copyField source="subjectPerson" dest="topic_facet"/>
 <copyField source="typeOfRessource"	dest="typeOfRessource_facet"/>
+<copyField source="subjectPerson" dest="contributor_facet"/>
+<copyField source="author" dest="contributor_facet"/>
+<copyField source="author_additional" dest="contributor_facet"/>
+<copyField source="editor" dest="contributor_facet"/>
+<copyField source="contributor" dest="contributor_facet"/>
  <!-- CopyFields for Alphabetic Browse -->
  <copyField source="topic"    dest="topic_browse"/>
  <copyField source="author"    dest="author_browse"/>

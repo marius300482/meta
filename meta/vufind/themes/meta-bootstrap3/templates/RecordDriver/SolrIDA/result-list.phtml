@@ -12,7 +12,7 @@
   </div>
   <div class="col-xs-11">
 
-      <?=str_replace('class="', 'class="label label-info ', $this->record($this->driver)->getFormatList())?>
+      <?=str_replace('class="', 'class="label  label-info ', $this->record($this->driver)->getFormatList())?>
 
     <div>
       <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title">
@@ -44,13 +44,19 @@
               ? $this->highlight($summHighlightedAuthor)
               : $this->escapeHtml($summAuthor);
         ?></a>
+        <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
+        <? if (isset($authors['additional']) && !empty($authors['additional'])): ?>
+          [<a href="<?=$this->recordLink()->getUrl($this->driver)?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+        <? endif; ?>
       <?php else : ?>
         <? $editors = $this->driver->getEditors(); ?>
         <?php if (!empty($editors))  : ?>
           <?=$this->transEsc('Editors')?>:
-          <? foreach ($editors as $editor): ?>
-            <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
-          <? endforeach; ?><br/>
+          <a href="<?= $this->record($this->driver)->getLink('editor', reset($editors)) ?>"><?= $this->escapeHtml(reset($editors)) ?></a>
+          <? if (1 < count($editors)): ?>
+              [<a href="<?=$this->recordLink()->getUrl($this->driver)?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+          <? endif; ?>
+          <br/>
         <?php endif; ?>
       <? endif; ?>
 
@@ -71,6 +77,9 @@
           <?= $this->escapeHtml($summDate[0]); ?>
           <?php foreach ((array) $this->driver->getVolumes() as $volume) : ?>,
             <?= $this->transEsc('Volume'); ?> <?= $this->escapeHtml($volume); ?>
+          <?php endforeach; ?>
+           <?php foreach ((array) $this->driver->getIssues() as $issue) : ?>,
+            <?= $this->transEsc('Issue'); ?> <?= $this->escapeHtml($issue); ?>
           <?php endforeach; ?>
         <? endif; ?>
 
@@ -125,7 +134,7 @@
                       <? $fields = $subjects[strtolower($type)]; ?>
                       <? foreach (array_slice($fields, 0, $limit) as $subject): ?>
                         <a title="<?= $this->escapeHtml($subject) ?>"
-                           href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>">
+                           href="<?= $this->record($this->driver)->getLink(strtolower($type), $subject) ?>">
                             <?= $this->escapeHtml($subject) ?></a><?= $subject !== end($fields) ? ", " : "" ?>
                             <? // Keep above in one line to avoid unwanted whitespace ?>
                       <? endforeach; ?>

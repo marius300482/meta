@@ -2,7 +2,8 @@ package de.idadachverband.archive;
 
 import org.testng.annotations.Test;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,7 +17,7 @@ public class HashServiceTest
     public void testGetHashedString() throws Exception
     {
         String name = "institutionName";
-        File file = new File(name);
+        Path file = Paths.get(name);
         String first = cut.getHashedFileName(file);
         String second = cut.getHashedFileName(file);
         assertThat(first, equalTo(second));

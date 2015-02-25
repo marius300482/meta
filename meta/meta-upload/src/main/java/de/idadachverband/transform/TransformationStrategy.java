@@ -4,8 +4,8 @@ import de.idadachverband.institution.IdaInstitutionBean;
 
 import javax.inject.Named;
 import javax.xml.transform.TransformerException;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Created by boehm on 13.11.14.
@@ -16,10 +16,10 @@ public class TransformationStrategy implements IdaTransformer
     private IdaTransformer transformer;
 
     @Override
-    public File transform(File input, IdaInstitutionBean institutionBean) throws TransformerException, IOException
+    public void transform(Path input, Path output, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
         transformer = institutionBean.getTransformationStrategy();
-        return transformer.transform(input, institutionBean);
+        transformer.transform(input, output, institutionBean);
     }
 
     @Override

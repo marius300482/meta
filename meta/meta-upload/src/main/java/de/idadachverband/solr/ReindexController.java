@@ -1,6 +1,6 @@
 package de.idadachverband.solr;
 
-import de.idadachverband.archive.ArchiveFileVisitor;
+import de.idadachverband.archive.visitor.ArchiveFileVisitor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.Controller;
