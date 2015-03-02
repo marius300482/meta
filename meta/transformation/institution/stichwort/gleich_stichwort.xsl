@@ -482,6 +482,12 @@
 	<!--subjectTopic-->
 				<xsl:apply-templates select="Schlagw_x148x_rter_x032x__x040x_autom_x046x__x032x_aus_x032x_Deskr_x046x__x041x_"></xsl:apply-templates>
 
+<!--DETAILS FOR JOURNAL RELATED CONTENT-->
+
+	<!--issue Heft-->
+				<xsl:apply-templates select="Jg_x046x_" />
+	<!--volume Band-->
+				<xsl:apply-templates select="Band-Nr_x046x_" />
 <!--OTHER-->
 
 	<!--shelfMark-->		
@@ -511,13 +517,22 @@
 <!--Templates-->
 		
 		<xsl:template match="Band-Nr_x046x_">
-			<xsl:choose>
+				<issue>
+					<xsl:value-of select="." />
+					</issue>
+			
+			<!--<xsl:choose>
 				<xsl:when test="../Objektart='Zeitschriften'">
 					<issue>
 						<xsl:value-of select="." />
 						</issue>
 					</xsl:when>
-				</xsl:choose>
+				<xsl:when test="../Objektart=''Artikel in Zeitschriften'">
+					<issue>
+						<xsl:value-of select="." />
+						</issue>
+					</xsl:when>
+				</xsl:choose>-->
 			</xsl:template>
 		
 		<xsl:template match="Jg_x046x_">
