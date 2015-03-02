@@ -47,7 +47,8 @@
         <? /* Autor */ ?>
         <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
         <? if (isset($authors['main']) && !empty($authors['main'])): ?>
-            <a href="<?= $this->record($this->driver)->getLink('author', $authors['main']) ?>"><?= $this->escapeHtml($authors['main']) ?></a>
+           <?=$this->transEsc('Authors')?>:
+           <a href="<?= $this->record($this->driver)->getLink('author', $authors['main']) ?>"><?= $this->escapeHtml($authors['main']) ?></a>
         <? endif; ?>
         <? /* [weitere Link] */ ?>
         <? if (isset($authors['additional']) && !empty($authors['additional'])): ?>
@@ -58,13 +59,15 @@
         <? $editors = $this->driver->getEditors();
         if (!empty($editors) && empty($authors['main']) && empty($authors['additional'])):
             $mainEditor = array_shift($editors); ?>
-            <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Hrsg.') ?>)</a>
+            <?=$this->transEsc('Editors')?>:
+            <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> </a>
             <? if(!empty($editors)): ?>
                 [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
             <? endif; ?>
         <? endif; ?>
 
 <?php /* MZ entitiy not required in this view
+(<?= $this->transEsc('Hrsg.') ?>)
         //Körperschaft
         <? $entities = $this->driver->getEntities();
         if (!empty($entities)):
