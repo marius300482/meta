@@ -60,6 +60,7 @@
         <?php endif; ?>
       <? endif; ?>
 
+      
       <? if(!$this->driver->isCollection()): ?>
 
         <? $journalTitle = $this->driver->getContainerTitle(); $summDate = $this->driver->getPublicationDates(); ?>
@@ -80,7 +81,8 @@
           <?php endforeach; ?>
            <?php foreach ((array) $this->driver->getIssues() as $issue) : ?>,
             <?= $this->transEsc('Issue'); ?> <?= $this->escapeHtml($issue); ?>
-          <?php endforeach; ?>
+	    <?php endforeach; ?> 
+          
         <? endif; ?>
 
         <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
@@ -147,7 +149,7 @@
               <? endif; ?>
           <? endforeach; ?>
       <? endif; ?>
-
+      
     <?
     /* Display information on duplicate records if available */
     $dedupData = $this->driver->getDedupData();
