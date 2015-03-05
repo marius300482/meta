@@ -691,20 +691,26 @@ footer {
       font-size: 18px; }
     .detail-view-detail-row .institution strong {
       font-weight: 500; }
-  .detail-view-detail-row #detail-view-description th {
-    font-weight: 300;
-    padding: 0 10px 10px 0;
-    white-space: nowrap; }
-  .detail-view-detail-row #detail-view-description td {
-    font-weight: normal;
-    padding-bottom: 10px;
-    font-size: 16px; }
-    .detail-view-detail-row #detail-view-description td a {
-      font-size: 14px;
-      color: #990099; }
+  .detail-view-detail-row #detail-view-description {
+    margin-top: 20px; }
+    .detail-view-detail-row #detail-view-description th {
+      font-weight: 300;
+      padding: 0 10px 10px 0;
+      white-space: nowrap; }
+    .detail-view-detail-row #detail-view-description td {
+      font-weight: normal;
+      padding-bottom: 10px;
+      font-size: 16px; }
+      .detail-view-detail-row #detail-view-description td a {
+        font-size: 14px;
+        color: #990099; }
 
-#map-canvas img {
-  max-width: inherit; }
+#map-canvas {
+  width: 100%;
+  height: 300px;
+  margin: 20px 0; }
+  #map-canvas img {
+    max-width: inherit; }
 
 #treeSelector {
   display: none; }

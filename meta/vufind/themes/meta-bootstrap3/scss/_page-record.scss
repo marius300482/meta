@@ -71,6 +71,7 @@
   }
   // The lower description table
   #detail-view-description {
+    margin-top: 20px;
     th {
       font-weight: 300;
       padding: 0 10px 10px 0;
@@ -89,8 +90,13 @@
 }
 
 // Google map
-#map-canvas img {
-  max-width: inherit;
+#map-canvas {
+  width: 100%;
+  height: 300px;
+  margin: 20px 0; // was "-10px 0 20px" when map was on top
+  img {
+    max-width: inherit;
+  }
 }
 
 // The lower hierarchy tree
