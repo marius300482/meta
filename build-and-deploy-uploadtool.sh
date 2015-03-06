@@ -7,14 +7,14 @@ echo "git pull"
 git pull
 
 echo "Build package"
-mvn package
+mvn clean package
 [ $? -ne 0 ] && exit
 
 echo "Stop tomcat, requires sudo"
 sudo service tomcat7 stop
 
 echo "Backup old war"
-mv /var/lib/tomcat7/webapps/meta-upload.war /var/lib/tomcat7/webapps/meta-upload.war.´date +%Y%m%d-%H%M%S´
+mv /var/lib/tomcat7/webapps/meta-upload.war /var/lib/tomcat7/webapps/meta-upload.war.`date +%Y%m%d-%H%M%S`
 
 echo "Delete old webapp"
 sudo rm -r /var/lib/tomcat7/webapps/meta-upload
