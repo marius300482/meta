@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.startsWith;
 
 public class ArchiveServiceTest
 {
@@ -28,7 +28,7 @@ public class ArchiveServiceTest
     {
         final Map<String, List<Path>> actual = cut.findReindexPaths();
         assertThat(actual.keySet(), contains("corename"));
-        assertThat(actual.get("corename").get(0).toString(), endsWith("/institution1"));
+        assertThat(actual.get("corename").get(0).getFileName().toString(), startsWith("institution"));
     }
 
     @Test
