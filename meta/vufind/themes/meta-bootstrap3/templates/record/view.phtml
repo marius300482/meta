@@ -109,12 +109,13 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
     <?php /* PHE - END start next row, if previous row is full */ ?>
         <?php /* PHE - START of the institution details */ ?>
         <?php if ($institutionDetails != NULL) : ?>
+            <?php $institutionName = isset($institutionDetails["name"]) ? $institutionDetails["name"] : $institution; ?>
             <div class="col-sm-6 institution detail-view-detail-row">
                 <h4 data-toggle="collapse">
                     <?php echo $this->transEsc('Institution'); ?>
                 </h4>
                 <div class="collapsible">
-                    <h5><?= $this->escapeHtml($institution); ?></h5>
+                    <h5><?= strip_tags($institutionName, "<br>"); ?></h5>
                     <?php if (isset($institutionDetails["address"])) : ?>
                         <div id="institution-address"><?= strip_tags($institutionDetails["address"], '<br><strong><a>'); ?></div>
                     <?php endif; ?>
@@ -140,7 +141,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                                         new google.maps.InfoWindow({
                                             map: map,
                                             position: results[0].geometry.location,
-                                            content: "<strong><?= str_replace('"', '\"', $this->escapeHtml($institution)); ?></strong><br />" + address
+                                            content: "<strong><?= str_replace('"', '\"', strip_tags($institutionName, "<br>")); ?></strong><br />" + address
                                         });
                                     }
                                 });
