@@ -277,10 +277,12 @@ mark, .highlight {
     background-color: #d6d3de;
     height: 4px !important;
     border-radius: 0;
-    box-shadow: none; }
+    box-shadow: none;
+    filter: none; }
     .slider-container .slider-track .slider-selection, .slider-horizontal .slider-track .slider-selection {
       box-shadow: none;
-      background-color: #40395b; }
+      background-color: #40395b;
+      filter: none; }
     .slider-container .slider-track .slider-handle, .slider-container .slider-track .slider-handle:hover, .slider-horizontal .slider-track .slider-handle, .slider-horizontal .slider-track .slider-handle:hover {
       background-color: #40395b;
       border: 1px solid #40395b;
@@ -289,7 +291,8 @@ mark, .highlight {
       margin-left: -7px;
       margin-top: -5px;
       opacity: 1;
-      width: 14px; }
+      width: 14px;
+      filter: none; }
 
 .modal-content {
   border-radius: 0; }
