@@ -88,7 +88,7 @@ public class AsyncProcessService
             transformationBean.setTransformedFile(path);
             upateSolr(solr, transformationBean, path, institution);
 
-            archiver.archive(institution, transformationBean);
+            archiver.archive(institution, transformationBean, solr.getName());
         } catch (TransformerException | IOException | SolrServerException | RemoteSolrException | NullPointerException e)
         {
             log.warn("Transformation failed: ", e);

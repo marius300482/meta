@@ -12,7 +12,10 @@
 </head>
 <body>
 
-<h2>Re-indexing of ${core} done!</h2>
+<h2>Re-indexing ${"".equals(institution) ? "" : " of institution: " + institution} on Solr core ${core} done!</h2>
+
+<h3>Solr response</h3>
+${result}
 
 <%@include file="footer.jspf" %>
 </body>

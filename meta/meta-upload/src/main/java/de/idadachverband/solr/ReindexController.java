@@ -1,6 +1,5 @@
 package de.idadachverband.solr;
 
-import de.idadachverband.archive.visitor.ArchiveFileVisitor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -24,23 +22,26 @@ import java.nio.file.Path;
 public class ReindexController
 {
     private final Path archivePath;
+    private final SolrReindexService solrReindexService;
 
     @Inject
-    public ReindexController(Path archivePath)
+    public ReindexController(Path archivePath, SolrReindexService solrReindexService)
     {
         this.archivePath = archivePath;
+        this.solrReindexService = solrReindexService;
     }
 
     @RequestMapping(value = "/reindex/{solrService}", method = RequestMethod.GET)
-    public String reindex(@PathVariable SolrService solrService, ModelMap map)
+    public String reindexCore(@PathVariable("solrService") SolrService solrService,
+                              ModelMap map)
     {
         map.addAttribute("core", solrService.getName());
-        final Path solrPath = archivePath.resolve(solrService.getName());
-        final ArchiveFileVisitor archiveFileVisitor = new ArchiveFileVisitor();
+        map.addAttribute("institution", "");
+
         try
         {
-            Files.walkFileTree(solrPath, archiveFileVisitor);
-            solrService.reindex(archiveFileVisitor.getPaths());
+            final String result = solrReindexService.reindexCore(solrService);
+            map.addAttribute("result", result);
         } catch (IOException | SolrServerException e)
         {
             log.warn("Re-indexing of core {} failed", solrService.getName(), e);
@@ -50,13 +51,39 @@ public class ReindexController
             return "reindexFailureView";
         }
 
-        return "redirect:../reindexDone";
+        return "redirect:/solr/reindexDone";
+    }
+
+    @RequestMapping(value = "/reindex/{solrService}/{institution}", method = RequestMethod.GET)
+    public String reindexInstitution(
+            @PathVariable("solrService") SolrService solrService,
+            @PathVariable("institution") String institutionName,
+            ModelMap map)
+    {
+        map.addAttribute("core", solrService.getName());
+        map.addAttribute("institution", institutionName);
+
+        try
+        {
+            final String result = solrReindexService.reindexInstitutionOnCore(institutionName, solrService);
+            map.addAttribute("result", result);
+        } catch (IOException | SolrServerException e)
+        {
+            log.warn("Re-indexing of core {} for institution {} failed", solrService.getName(), institutionName, e);
+            map.addAttribute("cause", e.getCause());
+            map.addAttribute("message", e.getMessage());
+            map.addAttribute("stacktrace", e.getStackTrace());
+            return "reindexFailureView";
+        }
+
+        return "redirect:/solr/reindexDone";
     }
 
     @RequestMapping(value = "/reindexDone", method = RequestMethod.GET)
-    public String reindexDone(@RequestParam("core") String core, ModelMap map)
+    public String reindexDone(@RequestParam("core") String core, @RequestParam("institution") String institution, ModelMap map)
     {
         map.addAttribute("core", core);
+        map.addAttribute("institution", institution);
         return "reindexDoneView";
     }
 }

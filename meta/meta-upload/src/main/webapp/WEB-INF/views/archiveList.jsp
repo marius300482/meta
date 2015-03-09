@@ -15,6 +15,7 @@
 
 <h1>Archive</h1>
 
+<% /*
 <ul>
     <spring:url value="/files" var="filelink"/>
     <c:forEach var="entry" items="${fileMap}">
@@ -24,15 +25,27 @@
     </c:forEach>
 </ul>
 <br/>
+*/ %>
 
 <h2>Re-Index</h2>
 <ul>
     <spring:url value="/solr/reindex" var="reindexLink"/>
+    <c:forEach var="core" items="${reindexCoreMap}">
+        <li>Solr Core: <a href="${reindexLink}/${core.key}" target="_blank">${core.key}</a></li>
+        <ul>
+            <c:forEach var="institution" items="${core.value}">
+                <li>Institution: <a href="${reindexLink}/${core.key}/${institution.fileName}"
+                                    target="_blank">${institution.fileName}</a></li>
+            </c:forEach>
+        </ul>
+    </c:forEach>
+    <% /*
     <c:forEach var="entry" items="${solrSet}">
         <li>
             <a href="${reindexLink}/${entry}" target="_blank">${entry}</a>
         </li>
     </c:forEach>
+    */ %>
 </ul>
 <%@include file="footer.jspf" %>
 </body>

@@ -9,8 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,28 +21,28 @@ import java.util.Set;
 @RequestMapping("/archive")
 public class ArchiveController
 {
-    private final Path archivePath;
-
     private final Set<SolrService> solrServiceSet;
-
     private final HashedFileNameFileVisitor fileVisitor;
+    private final ArchiveService archiveService;
 
     @Inject
-    public ArchiveController(Path archivePath, Set<SolrService> solrServiceSet, HashedFileNameFileVisitor fileVisitor)
+    public ArchiveController(Set<SolrService> solrServiceSet, HashedFileNameFileVisitor fileVisitor, ArchiveService archiveService)
     {
-        this.archivePath = archivePath;
         this.solrServiceSet = solrServiceSet;
         this.fileVisitor = fileVisitor;
+        this.archiveService = archiveService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView list(ModelAndView mav) throws IOException
     {
         mav.setViewName("archiveList");
-        Files.createDirectories(archivePath);
+        final Map<String, List<Path>> reindexPaths = archiveService.findReindexPaths();
+        /*Files.createDirectories(archivePath);
         Files.walkFileTree(archivePath, fileVisitor);
         final Map<String, Path> fileMap = fileVisitor.getFileMap();
-        mav.addObject("fileMap", fileMap);
+        mav.addObject("fileMap", fileMap);*/
+        mav.addObject("reindexCoreMap", reindexPaths);
         mav.addObject("solrSet", solrServiceSet);
         return mav;
     }

@@ -33,7 +33,7 @@ public class Archiver
         this.archiveConfiguration = archiveConfiguration;
     }
 
-    public void archive(IdaInstitutionBean institution, TransformationBean transformationBean) throws IOException
+    public void archive(IdaInstitutionBean institution, TransformationBean transformationBean, String coreName) throws IOException
     {
         final String key = transformationBean.getKey();
         final String institutionName = institution.getInstitutionName();
@@ -41,9 +41,9 @@ public class Archiver
 
         log.info("Archive transformation: {} for institution: {}", key, institutionName);
 
-        archive(ProcessStep.upload, key, institutionName, incrementalUpdate);
-        archive(ProcessStep.workingFormat, key, institutionName, incrementalUpdate);
-        archive(ProcessStep.solrFormat, key, institutionName, incrementalUpdate);
+        archive(ProcessStep.upload, key, institutionName, coreName, incrementalUpdate);
+        archive(ProcessStep.workingFormat, key, institutionName, coreName, incrementalUpdate);
+        archive(ProcessStep.solrFormat, key, institutionName, coreName, incrementalUpdate);
 
         deleteProcessingFolder(key);
     }
@@ -54,12 +54,12 @@ public class Archiver
         Files.walkFileTree(resolve, new DeletingFileVisitor());
     }
 
-    private void archive(ProcessStep step, String key, String institutionName, boolean incrementalUpdate) throws IOException
+    private void archive(ProcessStep step, String key, String institutionName, String coreName, boolean incrementalUpdate) throws IOException
     {
         log.debug("Archive {} transformation: {} for institution: {}", step, key, institutionName);
         final Path source = processFileConfiguration.getFolder(step, key);
 
-        final Path targetPath = getTargetPath(step, institutionName, incrementalUpdate);
+        final Path targetPath = getTargetPath(step, institutionName, incrementalUpdate, coreName);
         if (!incrementalUpdate)
         {
             try
@@ -74,15 +74,15 @@ public class Archiver
         moveToArchive(source, targetPath);
     }
 
-    private Path getTargetPath(ProcessStep step, String institutionName, boolean incrementalUpdate) throws IOException
+    private Path getTargetPath(ProcessStep step, String institutionName, boolean incrementalUpdate, String coreName) throws IOException
     {
         Path target;
         if (incrementalUpdate)
         {
-            target = archiveConfiguration.getIncrementalFolder(step, institutionName);
+            target = archiveConfiguration.getIncrementalFolder(step, institutionName, coreName);
         } else
         {
-            target = archiveConfiguration.getFolder(step, institutionName);
+            target = archiveConfiguration.getFolder(step, institutionName, coreName);
         }
         return target;
     }
