@@ -43,7 +43,9 @@ function removeSelections($params, $removeSelections)
         if (isset($params['filter']) && is_array($params['filter'])) {
             foreach ($params['filter'] as $key => $current) {
                 list($currentField, $currentValue) = parseFilter($current);
-                if (strtolower($currentField) == strtolower($field) && strtolower($currentValue) == strtolower($value)) {
+                if (strtolower($currentField) == strtolower($field)
+                    && strtolower($currentValue) == strtolower($value))
+                {
                     unset($params['filter'][$key]);
                 }
             }
@@ -72,19 +74,12 @@ function buildQueryString($a, $escape = true)
     return $escape ? htmlspecialchars($retVal) : $retVal;
 }
 
-function getDeleteFacetURl($title, $value, $operator, $filterList, $urlQuery, $results)
+function getChildFacets($title, $filterList)
 {
+    $removeFacets = array();
+
     if ("typeOfRessource_facet" == $title)
     {
-        $removeFacets = array(
-            array(
-                'field' => $title,
-                'value'=> $value,
-                'escape'=> true,
-                'operator' => $operator
-            )
-        );
-
         foreach ($filterList as $key => $filters)
         {
             if ("Format" == $key)
@@ -99,17 +94,30 @@ function getDeleteFacetURl($title, $value, $operator, $filterList, $urlQuery, $r
                 }
             }
         }
-
-        return removeSelections($urlQuery, $removeFacets);
-    } else {
-        return $results->getUrlQuery()->removeFacet($title, $value, true, $operator);
     }
+
+    return $removeFacets;
 }
 
-//$method = new ReflectionMethod('VuFind\Search\UrlQueryHelper', 'getParamArray');
-//$method->setAccessible(true);
-//$urlQuery = $method->invoke($results->getUrlQuery());
-$urlQuery = $_REQUEST;
+function getDeleteFacetURl($title, $value, $operator, $filterList, $urlQuery)
+{
+    $facet = array(
+        array(
+            'field' => $title,
+            'value'=> $value,
+            'escape'=> true,
+            'operator' => $operator
+        )
+    );
+
+    $removeFacets = array_merge($facet, getChildFacets($title, $filterList));
+
+    return removeSelections($urlQuery, $removeFacets);
+}
+
+$method = new ReflectionMethod('VuFind\Search\UrlQueryHelper', 'getParamArray');
+$method->setAccessible(true);
+$urlQuery = $method->invoke($results->getUrlQuery()); // same as: $urlQuery = $_REQUEST; ???
 
 /* PH END */
 
@@ -251,7 +259,7 @@ JS;
             <a id="more-narrowGroupHidden-<?=$this->escapeHtmlAttr($title)?>" class="list-group-item" href="javascript:moreFacets('narrowGroupHidden-<?=$title ?>')"><?=$this->transEsc('more')?> ...</a>
           <? endif; ?>
           <? if ($thisFacet['isApplied']): ?>
-            <a class="list-group-item active <? if ($i>5): ?><?=$moreClass ?><?endif ?><? if ($thisFacet['operator'] == 'OR'): ?> facetOR applied<? endif ?>" href="<?=$this->currentPath().getDeleteFacetURl($title, $thisFacet['value'], $thisFacet['operator'], $filterList, $urlQuery, $results) ?>">
+            <a class="list-group-item active <? if ($i>5): ?><?=$moreClass ?><?endif ?><? if ($thisFacet['operator'] == 'OR'): ?> facetOR applied<? endif ?>" href="<?=$this->currentPath().getDeleteFacetURl($title, $thisFacet['value'], $thisFacet['operator'], $filterList, $urlQuery) ?>">
               <? if($thisFacet['operator'] == 'OR'): ?>
                 <i class="fa fa-check-square-o"></i>
               <? else: ?>
