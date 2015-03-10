@@ -1,7 +1,13 @@
 <?
 
-/* PH START */
+/* PH START #60 */
 
+/**
+ * Borrowed from VuFind
+ *
+ * @param $filter
+ * @return array
+ */
 function parseFilter($filter)
 {
     // Split the string and assign the parts to $field and $value
@@ -23,6 +29,35 @@ function parseFilter($filter)
     return array($field, $value);
 }
 
+/**
+ * Borrowed from VuFind
+ *
+ * @param $a
+ * @param bool $escape
+ * @return string
+ */
+function buildQueryString($a, $escape = true)
+{
+    $parts = array();
+    foreach ($a as $key => $value) {
+        if (is_array($value)) {
+            foreach ($value as $current) {
+                $parts[] = urlencode($key . '[]') . '=' . urlencode($current);
+            }
+        } else {
+            $parts[] = urlencode($key) . '=' . urlencode($value);
+        }
+    }
+    $retVal = implode('&', $parts);
+    return $escape ? htmlspecialchars($retVal) : $retVal;
+}
+
+/**
+ *
+ * @param $params
+ * @param $removeSelections
+ * @return string
+ */
 function removeSelections($params, $removeSelections)
 {
     foreach ($removeSelections as $selection)
@@ -58,22 +93,13 @@ function removeSelections($params, $removeSelections)
     return '?' . buildQueryString($params, $escape);
 }
 
-function buildQueryString($a, $escape = true)
-{
-    $parts = array();
-    foreach ($a as $key => $value) {
-        if (is_array($value)) {
-            foreach ($value as $current) {
-                $parts[] = urlencode($key . '[]') . '=' . urlencode($current);
-            }
-        } else {
-            $parts[] = urlencode($key) . '=' . urlencode($value);
-        }
-    }
-    $retVal = implode('&', $parts);
-    return $escape ? htmlspecialchars($retVal) : $retVal;
-}
-
+/**
+ * Get child facets of a facet
+ *
+ * @param $title
+ * @param $filterList
+ * @return array
+ */
 function getChildFacets($title, $filterList)
 {
     $removeFacets = array();
@@ -99,9 +125,35 @@ function getChildFacets($title, $filterList)
     return $removeFacets;
 }
 
+/**
+ * Determine weather a facet is a sub-facet and has to be hidden,
+ * because the parent facet has no selections yet
+ *
+ * @param $sideFacetSet
+ * @param $filterList
+ * @param $title
+ * @return bool
+ */
+function isFacetHidden($sideFacetSet, $filterList, $title)
+{
+    return isset($sideFacetSet['typeOfRessource_facet'])
+        && !isset($filterList["Material zum ..."])
+        && "format" === $title;
+}
+
+/**
+ * Get the URL to remove a facet and its child facets
+ *
+ * @param $title
+ * @param $value
+ * @param $operator
+ * @param $filterList
+ * @param $urlQuery
+ * @return string
+ */
 function getDeleteFacetURl($title, $value, $operator, $filterList, $urlQuery)
 {
-    $facet = array(
+    $currentFacet = array(
         array(
             'field' => $title,
             'value'=> $value,
@@ -110,16 +162,28 @@ function getDeleteFacetURl($title, $value, $operator, $filterList, $urlQuery)
         )
     );
 
-    $removeFacets = array_merge($facet, getChildFacets($title, $filterList));
+    $removeFacets = array_merge($currentFacet, getChildFacets($title, $filterList));
 
     return removeSelections($urlQuery, $removeFacets);
 }
 
-$method = new ReflectionMethod('VuFind\Search\UrlQueryHelper', 'getParamArray');
-$method->setAccessible(true);
-$urlQuery = $method->invoke($results->getUrlQuery()); // same as: $urlQuery = $_REQUEST; ???
+/**
+ * Get the params from the current request
+ *
+ * TODO same as: $urlQuery = $_REQUEST; ???
+ * @param $params
+ * @return mixed
+ */
+function getUrlParameters($params) {
+    $method = new ReflectionMethod('VuFind\Search\UrlQueryHelper', 'getParamArray');
+    $method->setAccessible(true);
 
-/* PH END */
+    return $method->invoke($params);
+}
+
+$urlQuery = getUrlParameters($results->getUrlQuery());
+
+/* PH END #60 */
 
 ?>
 
@@ -181,9 +245,9 @@ $urlQuery = $method->invoke($results->getUrlQuery()); // same as: $urlQuery = $_
 <? $sideFacetSet = $this->recommend->getFacetSet(); $rangeFacets = $this->recommend->getAllRangeFacets(); ?>
 <? if (!empty($sideFacetSet) && $results->getResultTotal() > 0): ?>
   <? foreach ($sideFacetSet as $title => $cluster): ?>
-    <?php /* PHE START: Hide format facet until a type in the type facet was selected */ ?>
-    <?php if (isset($sideFacetSet['typeOfRessource_facet']) && !isset($filterList["Material zum ..."]) && "format" === $title) continue; ?>
-    <?php /* PHE END: Hide format facet until a type in the type facet was selected */ ?>
+    <?php /* PHE START #60: Hide format facet until a type in the type facet was selected */ ?>
+    <?php if (isFacetHidden($sideFacetSet, $filterList, $title)) continue; ?>
+    <?php /* PHE END #60: Hide format facet until a type in the type facet was selected */ ?>
     <? $allowExclude = $this->recommend->excludeAllowed($title); ?>
     <? $translateFacet = $this->facetEntryTranslation($cluster['label']);?>
     <ul class="list-group" id="side-panel-<?=$this->escapeHtmlAttr($title) ?>">
@@ -259,7 +323,9 @@ JS;
             <a id="more-narrowGroupHidden-<?=$this->escapeHtmlAttr($title)?>" class="list-group-item" href="javascript:moreFacets('narrowGroupHidden-<?=$title ?>')"><?=$this->transEsc('more')?> ...</a>
           <? endif; ?>
           <? if ($thisFacet['isApplied']): ?>
+            <?php /* PHE START #60: Remove facet selection AND SUBFACET SELECTIONS from the URL */ ?>
             <a class="list-group-item active <? if ($i>5): ?><?=$moreClass ?><?endif ?><? if ($thisFacet['operator'] == 'OR'): ?> facetOR applied<? endif ?>" href="<?=$this->currentPath().getDeleteFacetURl($title, $thisFacet['value'], $thisFacet['operator'], $filterList, $urlQuery) ?>">
+            <?php /* PHE END #60: Remove facet selection AND SUBFACET SELECTIONS from the URL */ ?>
               <? if($thisFacet['operator'] == 'OR'): ?>
                 <i class="fa fa-check-square-o"></i>
               <? else: ?>
