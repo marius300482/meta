@@ -2,6 +2,8 @@
 
 /* PH START #60 */
 
+// TODO move the following #60 to a separate class
+
 /**
  * Borrowed from VuFind
  *
@@ -10,23 +12,15 @@
  */
 function parseFilter($filter)
 {
-    // Split the string and assign the parts to $field and $value
-    $temp = explode(':', $filter, 2);
-    $field = array_shift($temp);
-    $value = count($temp) > 0 ? $temp[0] : '';
+    // Initialize PluginManager with nothing...
+    $pluginManager = new VuFind\Config\PluginManager();
+    $params = new VuFind\Search\Base\Params(
+        new VuFind\Search\Combined\Options($pluginManager),
+        $pluginManager
+    );
 
-    // Remove quotes from the value if there are any
-    if (substr($value, 0, 1)  == '"') {
-        $value = substr($value, 1);
-    }
-    if (substr($value, -1, 1) == '"') {
-        $value = substr($value, 0, -1);
-    }
-    // One last little clean on whitespace
-    $value = trim($value);
-
-    // Send back the results:
-    return array($field, $value);
+    // Use the class
+    return $params->parseFilter($filter);
 }
 
 /**
@@ -104,11 +98,11 @@ function getChildFacets($title, $filterList)
 {
     $removeFacets = array();
 
-    if ("typeOfRessource_facet" == $title)
+    if ("typeOfRessource_facet" == $title) // TODO move title to a facets.ini
     {
         foreach ($filterList as $key => $filters)
         {
-            if ("Format" == $key)
+            if ("Format" == $key) // TODO also move sub-facet key to facets.ini
             {
                 foreach ($filters as $filter) {
                     $removeFacets[] = array(
@@ -136,9 +130,9 @@ function getChildFacets($title, $filterList)
  */
 function isFacetHidden($sideFacetSet, $filterList, $title)
 {
-    return isset($sideFacetSet['typeOfRessource_facet'])
-        && !isset($filterList["Material zum ..."])
-        && "format" === $title;
+    return isset($sideFacetSet['typeOfRessource_facet']) // TODO move to factes.ini
+        && !isset($filterList["Material zum ..."]) // TODO move to factes.ini
+        && "format" === $title; // TODO move to factes.ini
 }
 
 /**
@@ -170,7 +164,6 @@ function getDeleteFacetURl($title, $value, $operator, $filterList, $urlQuery)
 /**
  * Get the params from the current request
  *
- * TODO same as: $urlQuery = $_REQUEST; ???
  * @param $params
  * @return mixed
  */
@@ -178,6 +171,7 @@ function getUrlParameters($params) {
     $method = new ReflectionMethod('VuFind\Search\UrlQueryHelper', 'getParamArray');
     $method->setAccessible(true);
 
+    // TODO same as: $urlQuery = $_REQUEST; ???
     return $method->invoke($params);
 }
 
