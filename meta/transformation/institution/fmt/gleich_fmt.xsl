@@ -256,6 +256,27 @@
 <!--PUBLISHING-->
 	
 	<!--display publishDate Jahresangabe-->
+					
+					<displayPublishDate>
+						<xsl:value-of select="substring-before(Bestand_x058x_,':')"/>
+						<xsl:text> - </xsl:text>
+						
+						<xsl:for-each select="tokenize(substring-before(substring-after(Bestand_x058x_,'-'),':'),'-')">
+							<xsl:if test="string-length(.) &gt; 3">
+								<xsl:value-of select="normalize-space(.)"/>
+								</xsl:if>
+							</xsl:for-each>
+						</displayPublishDate>
+					<publishDate>
+						<xsl:value-of select="substring-before(Bestand_x058x_,':')"/>
+						</publishDate>
+					<xsl:for-each select="tokenize(substring-before(substring-after(Bestand_x058x_,'-'),':'),'-')">
+							<xsl:if test="string-length(.) &gt; 3">
+								<publishDate><xsl:value-of select="normalize-space(.)"/></publishDate>
+								</xsl:if>
+							</xsl:for-each>
+					
+					<!--
 					<xsl:choose>
 						<xsl:when test="Erstersch_x046x_-Jahr_x058x_">
 							<timeSpan>
@@ -273,7 +294,8 @@
 								<timeSpanEnd/>
 							</timeSpan>
 						</xsl:when>
-					</xsl:choose>
+					</xsl:choose>-->
+	
 	<!--placeOfPublication Ortsangabe-->
 					<xsl:apply-templates select="Ort_x058x_"/>
 	<!--publisher Verlagsangabe-->
@@ -979,14 +1001,16 @@
 			</xsl:when>
 		</xsl:choose>-->
 	</xsl:template>
+	
 	<xsl:template match="Jahr_x058x_">
 		<displayPublishDate>
 			<xsl:value-of select="."/>
-		</displayPublishDate>
+			</displayPublishDate>
 		<publishDate>
 			<xsl:value-of select="."/>
-		</publishDate>
+			</publishDate>
 	</xsl:template>
+	
 	<xsl:template match="AutorInnen_x058x_">
 		<xsl:for-each select=".">
 			<author>
