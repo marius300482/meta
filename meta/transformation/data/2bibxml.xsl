@@ -187,9 +187,11 @@
     				<field name="displayPublishDate"><xsl:value-of select="dataset/displayPublishDate"></xsl:value-of></field>
     				</xsl:if>
     			
+    			<xsl:apply-templates select="dataset/publishDate[1]" />
+    			<!--
     			<xsl:if test="dataset/publishDate">
                     			<field name="publishDate"><xsl:value-of select="dataset/publishDate"/></field>
-                			</xsl:if>
+                			</xsl:if>-->
                 		
                 		<xsl:if test="dataset/timeSpan">
                     			<field name="timeSpanStart"><xsl:value-of select="dataset/timeSpan/timeSpanStart"/></field>
@@ -450,6 +452,32 @@
 </add>
 </xsl:template>
 
+	<xsl:template match="publishDate">
+		<xsl:variable name="the_max">
+     			<xsl:for-each select="../publishDate">
+       			<xsl:sort data-type="number" order="descending"/>
+       				<xsl:if test="position()=1">
+       					<xsl:value-of select="."/>
+       					</xsl:if>
+     				</xsl:for-each>
+   			</xsl:variable>
+		<xsl:variable name="the_min">
+     			<xsl:for-each select="../publishDate">
+       				<xsl:sort data-type="number" order="ascending"/>
+       				<xsl:if test="position()=1">
+       					<xsl:value-of select="."/>
+       					</xsl:if>
+     				</xsl:for-each>
+   			</xsl:variable>
+		
+		<field name="publishDateMax">
+				<xsl:value-of select="$the_max" />
+				</field>
+		<field name="publishDateMin">
+				<xsl:value-of select="$the_min" />
+				</field>
+		</xsl:template>
+	
 	<xsl:template match="provenance">
 		<xsl:for-each select=".">
 			<field name="provenance">
