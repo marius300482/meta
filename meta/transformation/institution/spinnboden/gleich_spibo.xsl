@@ -875,7 +875,7 @@
 					<xsl:value-of select="." />
 					</displayPublishDate>
 				<publishDate>
-					<xsl:value-of select="." />
+					<xsl:value-of select="translate(.[1], translate(.,'0123456789', ''), '')" />
 					</publishDate>
 				
 				<!--<xsl:variable name="jear" select=".[1]"/>
