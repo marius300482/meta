@@ -28,7 +28,8 @@
         }
       ?>
       </a>
-    </div>
+         
+    </div>	
 
     <div>
       <? if($this->driver->isCollection()): ?>
@@ -60,9 +61,18 @@
         <?php endif; ?>
       <? endif; ?>
 
+       <? $sourceInfo = $this->driver->getSourceInfos(); ?>
+        <? if (!empty($sourceInfo)): ?>
+           <br />  Quelle:
+            <? foreach($sourceInfo as $info): ?>
+              <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
+            <? endforeach; ?>
+        <? endif; ?>
+      
       <? if(!$this->driver->isCollection()): ?>
 
         <? $journalTitle = $this->driver->getContainerTitle(); $summDate = $this->driver->getPublicationDates(); ?>
+       
         <? if (!empty($journalTitle)): ?>
           <?=!empty($summAuthor) ? '<br />' : ''?>
           <?=/* TODO: handle highlighting more elegantly here */
@@ -83,13 +93,7 @@
 	      <?php endforeach; ?>
         <? endif; ?>
 
-        <? $sourceInfo = $this->driver->getSourceInfos(); ?>
-        <? if (!empty($sourceInfo)): ?>
-            <br /> In:
-            <? foreach($sourceInfo as $info): ?>
-              <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
-            <? endforeach; ?>
-        <? endif; ?>
+       
 
         <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
         <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
