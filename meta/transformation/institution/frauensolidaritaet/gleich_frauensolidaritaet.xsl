@@ -251,10 +251,22 @@
 					</publishDate>
 				</xsl:when>
 			<xsl:when test="datafield[@tag='425'][@ind1='c']">
-					<timeSpan>
+				<displayPublishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='b']" />
+					<xsl:text> - </xsl:text>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='b']" />
+					</publishDate>
+				<publishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />
+					</publishDate>	
+					
+					<!--<timeSpan>
 						<timeSpanStart><xsl:value-of select="datafield[@tag='425'][@ind1='b']" /></timeSpanStart>
 						<timeSpanEnd><xsl:value-of select="datafield[@tag='425'][@ind1='c']" /></timeSpanEnd>
-					</timeSpan>
+					</timeSpan>-->
 					</xsl:when>
 			<xsl:otherwise>
 				<displayPublishDate>
@@ -1060,10 +1072,22 @@
 					</publishDate>
 				</xsl:when>
 			<xsl:when test="datafield[@tag='425'][@ind1='c']">
-					<timeSpan>
+				<displayPublishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='b']" />
+					<xsl:text> - </xsl:text>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='b']" />
+					</publishDate>
+				<publishDate>
+					<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />
+					</publishDate>	
+					
+					<!--<timeSpan>
 						<timeSpanStart><xsl:value-of select=".[@ind1='b']" /></timeSpanStart>
 						<timeSpanEnd><xsl:value-of select=".[@ind1='c']" /></timeSpanEnd>
-					</timeSpan>
+					</timeSpan>-->
 					</xsl:when>
 			<xsl:otherwise>
 				<displayPublishDate>
