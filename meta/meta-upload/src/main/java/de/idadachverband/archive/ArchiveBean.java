@@ -16,7 +16,8 @@ public class ArchiveBean
     private final Path folder;
 
     @Getter
-    private Map<ArchiveBean, List<Path>> archive = new HashMap<>();
+    private Map<ArchiveBean, List<Path>> archive =
+            new HashMap<>();
 
     public ArchiveBean(Path folder)
     {
