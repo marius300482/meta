@@ -147,3 +147,23 @@ $(document).ready(function() {
         advancedSearchBody.addClass("hidden");
     });
 });
+
+/**
+ * Allow advanced search, if at least X chars have
+ * been entered in one of the advanced search fields
+ */
+$(window).load(function() {
+    $('#advSearchForm').submit(function() {
+        var minRequiredChars = 1,
+            textFields = $(this).find("input[type='text']"),
+            filled = 0 == textFields.length;
+
+        $.each(textFields, function(i, textField) {
+            if (minRequiredChars <= $(textField).val().length) {
+                filled = true;
+            }
+        });
+
+        return filled;
+    });
+});

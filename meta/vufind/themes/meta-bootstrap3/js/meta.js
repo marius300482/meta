@@ -22,3 +22,17 @@ $(window).load(function() {
         $(obj.target).closest('form').first().submit();
     });
 });
+
+// Allow simple search, if at least X chars have been entered
+$(window).load(function() {
+    $('#searchForm').submit(function() {
+        var minRequiredChars = 1,
+            textField = $(this).find("#searchForm_lookfor");
+
+        if (textField.length) {
+            return minRequiredChars <= textField.val().length;
+        }
+
+        return true;
+    });
+});
