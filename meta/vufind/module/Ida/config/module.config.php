@@ -49,6 +49,7 @@ $config = array(
         ),
         'invokables' => array(
             'idaoai' => 'Ida\Controller\IdaOaiController',
+            'search' => 'Ida\Controller\SearchController'
         ),
     ),
     'router' => array(

@@ -7,7 +7,7 @@ namespace Ida\Controller;
  * @author PHE
  * @package Ida\Controller
  */
-class SearchController extends VuFind\Controller\SearchController
+class SearchController extends \VuFind\Controller\SearchController
 {
     /**
      * Helper function to check if the current search is empty #71
