@@ -729,16 +729,25 @@ footer {
     width: 100%;
     display: table;
     box-sizing: content-box !important; }
-  #hierarchyTreeHolder .btn[type="submit"] {
-    font-weight: 700;
-    padding: 4px 13px; }
   #hierarchyTreeHolder #treeSearchText {
     display: inline;
+    padding: 3px 6px;
+    vertical-align: middle;
     width: 100%; }
   #hierarchyTreeHolder #treeSearchType {
     display: inline;
     margin: 0 10px;
     width: auto; }
+  #hierarchyTreeHolder #treeSearchButtonWrapper {
+    display: table-cell;
+    width: 90px;
+    padding-left: 10px;
+    text-align: right; }
+    #hierarchyTreeHolder #treeSearchButtonWrapper input[type="submit"] {
+      font-weight: 700;
+      padding: 4px 13px;
+      vertical-align: middle;
+      width: 100%; }
   #hierarchyTreeHolder .jstree-node {
     background: transparent none;
     font-weight: inherit;

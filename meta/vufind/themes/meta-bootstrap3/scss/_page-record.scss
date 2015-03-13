@@ -115,18 +115,28 @@
     display: table;
     box-sizing: content-box !important; // overwrite global style
   }
-  .btn[type="submit"] {
-    font-weight: 700;
-    padding: 4px 13px;
-  }
   #treeSearchText {
     display: inline;
+    padding: 3px 6px;
+    vertical-align: middle;
     width: 100%;
   }
   #treeSearchType {
     display: inline;
     margin: 0 10px;
     width: auto;
+  }
+  #treeSearchButtonWrapper {
+    display: table-cell;
+    width: 90px;
+    padding-left: 10px;
+    text-align: right;
+    input[type="submit"] {
+      font-weight: 700;
+      padding: 4px 13px;
+      vertical-align: middle;
+      width: 100%;
+    }
   }
   .jstree-node {
     background: transparent none;
