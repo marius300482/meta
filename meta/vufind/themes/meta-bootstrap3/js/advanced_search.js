@@ -159,7 +159,7 @@ $(window).load(function() {
             filled = 0 == textFields.length;
 
         $.each(textFields, function(i, textField) {
-            if (minRequiredChars <= $(textField).val().length) {
+            if (minRequiredChars <= $(textField).val().trim().length) {
                 filled = true;
             }
         });

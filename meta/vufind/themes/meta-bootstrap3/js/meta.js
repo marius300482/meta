@@ -30,7 +30,7 @@ $(window).load(function() {
             textField = $(this).find("#searchForm_lookfor");
 
         if (textField.length) {
-            return minRequiredChars <= textField.val().length;
+            return minRequiredChars <= textField.val().trim().length;
         }
 
         return true;
