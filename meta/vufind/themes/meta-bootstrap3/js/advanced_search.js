@@ -149,7 +149,7 @@ $(document).ready(function() {
 });
 
 /**
- * Allow advanced search, if at least X chars have
+ * PHE: Allow advanced search, if at least X chars have
  * been entered in one of the advanced search fields
  */
 $(window).load(function() {
