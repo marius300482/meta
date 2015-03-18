@@ -22,10 +22,12 @@ class SearchController extends \VuFind\Controller\SearchController
 
         // Iterate over all query values
         foreach ($searchQuery as $attribute => $values) {
-            // All search query attributes start with "lookfor"
+            // All text search query attributes start with "lookfor"
             // and can end with an integer value. E.g. "lookfor123"
             $isSearchAttribute = 1 === preg_match('/^lookfor\d*$/', $attribute);
-            if ($isSearchAttribute) {
+            // Valid search queries can also be (facet) filters
+            $isFilterAttribute = 1 === preg_match('/^filter$/', $attribute);
+            if ($isSearchAttribute || $isFilterAttribute) {
                 // Transform simple search queries into
                 // the same format as advanced search queries.
                 // This allows us the do the same validation
@@ -37,6 +39,8 @@ class SearchController extends \VuFind\Controller\SearchController
                     $valueLength = strlen(trim($value));
                     if (is_string($value) && $minValueLength <= $valueLength) {
                         $isEmptySearch = false;
+                        // Finish inner and outer loop
+                        break 2;
                     }
                 }
             }
