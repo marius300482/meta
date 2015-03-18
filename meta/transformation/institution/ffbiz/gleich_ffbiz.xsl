@@ -1188,17 +1188,29 @@
 			<xsl:value-of select="." />
 			</displayPublishDate>
 		<publishDate>
-			<xsl:value-of select="." />
+			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
 			</publishDate>
 		</xsl:template>
 	
 	<xsl:template match="Bestandslaufzeit">
-		<xsl:choose>
+		<xsl:choose>	
 			<xsl:when test="contains(.,'-')">
-				<timeSpan>
+				<displayPublishDate>
+					<xsl:value-of select="normalize-space(substring-before(.,'-'))" />
+					<xsl:text> - </xsl:text>
+					<xsl:value-of select="normalize-space(substring-after(.,'-'))" />
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="normalize-space(substring-before(.,'-'))" />
+					</publishDate>
+				<publishDate>
+					<xsl:value-of select="normalize-space(substring-after(.,'-'))" />
+					</publishDate>
+				
+				<!--<timeSpan>
 					<timeSpanStart><xsl:value-of select="normalize-space(substring-before(.,'-'))" /></timeSpanStart>
 					<timeSpanEnd><xsl:value-of select="normalize-space(substring-after(.,'-'))" /></timeSpanEnd>
-					</timeSpan>
+					</timeSpan>-->
 				</xsl:when>
 			<xsl:otherwise>
 				<displayPublishDate>
@@ -1220,10 +1232,21 @@
 	<xsl:template match="Jahr_x047x_Datierung">
 		<xsl:choose>
 			<xsl:when test="contains(.,'-')">
-				<timeSpan>
+				<displayPublishDate>
+					<xsl:value-of select="normalize-space(substring-before(.,'-'))" />
+					<xsl:text> - </xsl:text>
+					<xsl:value-of select="normalize-space(substring-after(.,'-'))" />
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="normalize-space(substring-before(.,'-'))" />
+					</publishDate>
+				<publishDate>
+					<xsl:value-of select="normalize-space(substring-after(.,'-'))" />
+					</publishDate>
+				<!--<timeSpan>
 					<timeSpanStart><xsl:value-of select="normalize-space(substring-before(.,'-'))" /></timeSpanStart>
 					<timeSpanEnd><xsl:value-of select="normalize-space(substring-after(.,'-'))" /></timeSpanEnd>
-					</timeSpan>
+					</timeSpan>-->
 				</xsl:when>
 			<xsl:otherwise>
 				<displayPublishDate>

@@ -42,7 +42,7 @@ function changeLimitReachedLabel(display)
 
 function htmlEncodeId(id)
 {
-  return id.replace(/[^\wß]/g, "-"); // Also change Hierarchy/TreeRenderer/JSTree.php
+  return id.replace(/[^\wßäöüÄÖÜ]/g, "-"); // Also change Hierarchy/TreeRenderer/JSTree.php
 }
 
 var searchAjax = false;

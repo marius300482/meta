@@ -168,16 +168,26 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
         var maxMobileWidth = 768; // px
         var headlines = $(".detail-view-detail-row h4[data-toggle], .detail-view-sidebar h4");
         var sections = $(".detail-view-detail-row .collapsible, .detail-view-sidebar ul");
+        var lastWidth = -1;
+        var documentWidth;
         // Hide sections on mobile devices
-        $(window).bind("load resize", function (e) {
-            ($(document).width() <= maxMobileWidth) ? sections.hide() : sections.show();
-            headlines.removeClass("open");
+        $(window).bind("load resize", function () {
+            documentWidth = $(document).width();
+            if (lastWidth !== documentWidth) { // ignore height resize
+                if (documentWidth <= maxMobileWidth) {
+                    sections.hide()
+                } else {
+                    sections.show();
+                }
+                headlines.removeClass("open");
+                lastWidth = documentWidth;
+            }
         });
         // Make sections toggleable on mobile devices
         headlines.click(function () {
-            if (($(document).width() <= maxMobileWidth)) {
+            if (documentWidth <= maxMobileWidth) {
                 var $this = $(this);
-                $this.next().slideToggle("normal", function (e) {
+                $this.next().slideToggle("normal", function () {
                     $this.toggleClass("open");
                 });
             }

@@ -98,10 +98,43 @@
 				<xsl:value-of select="ZDB-ID"></xsl:value-of>
 				<xsl:text>:zdbid</xsl:text>
 			
-			<xsl:text> publishDate:</xsl:text>
+			<xsl:text> displayPublishDate:</xsl:text>
 				<xsl:value-of select="J_"></xsl:value-of>
 				<xsl:value-of select="Jahr"></xsl:value-of>
-				<xsl:text>:publishDate</xsl:text>
+				<xsl:text>:displayPublishDate</xsl:text>
+			
+			<xsl:text> publishDate:</xsl:text>
+				<xsl:value-of select="J_"></xsl:value-of>
+				<!--<xsl:value-of select="Jahr"></xsl:value-of>-->
+				
+				<xsl:variable name="year" select="Jahr"/>
+					<!--<xsl:value-of select="$year"/>-->
+						<xsl:choose>
+							<xsl:when test="(string-length($year) &gt; 7) and (not(contains($year, ';')))">
+								<xsl:value-of select="normalize-space(substring-before($year, '/'))"/>
+								<xsl:text>;</xsl:text>
+								<xsl:value-of select="normalize-space(substring-after($year, '/'))"/>
+								</xsl:when>
+							<xsl:when test="(matches($year,'/'))">
+								<xsl:value-of select="normalize-space(substring-before($year, '/'))"/>
+								<xsl:text>;</xsl:text>
+								<xsl:value-of select="normalize-space(substring($year, 1,2))"/>
+								<xsl:value-of select="normalize-space(substring-after($year, '/'))"/>
+								</xsl:when>
+							<xsl:when test="(contains($year, '[')) or (contains($year, '(')) or (contains($year, 'ca'))">
+								<xsl:value-of select="normalize-space(translate($year, translate(.,'0123456789', ''), ''))"/>
+								</xsl:when>
+							<xsl:when test="matches($year,'[a-z]')">
+								<xsl:text>0000</xsl:text>
+								</xsl:when>
+							<xsl:when test="$year=''">
+								<xsl:text>0000</xsl:text>
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="normalize-space($year)"/>		
+								</xsl:otherwise>
+							</xsl:choose>		
+					<xsl:text>:publishDate</xsl:text>
 			
 			<xsl:text> ausgabe:</xsl:text>
 				<xsl:value-of select="Ausgabe"></xsl:value-of>
@@ -1186,7 +1219,14 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 					</xsl:choose>	
 
 	<!--timeSpan Laufzeit / Publishdate-->
-				<xsl:choose>
+				
+				<xsl:for-each select="J_">
+					<publishDate>
+						<xsl:value-of select="normalize-space(.)"/>
+						</publishDate>
+					</xsl:for-each>
+				
+				<!--<xsl:choose>
 					<xsl:when test="J_[2]">
 						<timeSpan>
 							<timeSpanStart>
@@ -1202,7 +1242,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 							<xsl:value-of select="J_[1]"/>
 							</publishDate>
 						</xsl:otherwise>
-					</xsl:choose>	
+					</xsl:choose>	-->
 
 	<!--placeOfPublication Ortsangabe-->	
 					<xsl:apply-templates select="Ersch_-ort[1]"/>
@@ -1610,7 +1650,11 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 <xsl:if test="contains(objektart,'Einzeltitel')">
 
 <xsl:element name="dataset">
-
+	
+	<connect>
+	<xsl:value-of select="$connect"/>
+		</connect>
+		
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
@@ -1620,6 +1664,8 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				<format><xsl:text>Artikel</xsl:text></format>
 	
 	<!--documentType Objektartinformationen-->
+
+				<enrichYear><xsl:text>true</xsl:text></enrichYear>
 
 <!--TITLE-->
 			
@@ -1676,15 +1722,32 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 <!--PUBLISHING-->
 
 	<!--displayDate-->
+				<xsl:if test="substring(substring-after($connect,'displayPublishDate:'),1,1)!=':'">
+					<displayPublishDate>
+						<xsl:value-of select="substring-before(substring-after($connect,'displayPublishDate:'),':displayPublishDate')" />
+						</displayPublishDate>
+					
+					<xsl:variable name="publishDate" select="substring-before(substring-after($connect,'publishDate:'),':publishDate')" />
+						<xsl:for-each select="tokenize($publishDate,';')">
+							<publishDate>
+								<xsl:value-of select="normalize-space(.)"/>
+								</publishDate>
+							</xsl:for-each>
+					</xsl:if>
 				
-				<xsl:choose>
-					<xsl:when test="substring(substring-after($connect,'publishDate:'),1,1)!=':'">
+				
+				<!--<xsl:choose>
+					<xsl:when test="substring(substring-after($connect,'displayPublishDate:'),1,1)!=':'">
 						<displayPublishDate>
-							<xsl:value-of select="substring-before(substring-after($connect,'publishDate:'),':publishDate')" />
+							<xsl:value-of select="substring-before(substring-after($connect,'displayPublishDate:'),':displayPublishDate')" />
 							</displayPublishDate>
-						<publishDate>
-							<xsl:value-of select="substring-before(substring-after($connect,'publishDate:'),':publishDate')" />
-							</publishDate>
+						
+						<xsl:variable name="publishDate" select="substring-before(substring-after($connect,'publishDate:'),':publishDate')" />
+							<xsl:for-each select="tokenize($publishDate,';')">
+								<publishDate>
+									<xsl:value-of select="."/>
+									</publishDate>
+								</xsl:for-each>
 						</xsl:when>
 					<xsl:otherwise>
 						<xsl:variable name="ausgabe" select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
@@ -1695,7 +1758,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 							<xsl:value-of select="substring-after(substring-before($ausgabe,')'),'(')"></xsl:value-of>
 							</publishDate>
 						</xsl:otherwise>
-					</xsl:choose>
+					</xsl:choose>-->
 				
 	<!--placeOfPublication angabe-->
 				<xsl:if test="substring(substring-after($connect,'placeOfPublication:'),1,1)!=':'">
@@ -2406,7 +2469,58 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		</xsl:template>
 
 <!--Template Jahr-->
-	<xsl:template match="Jahr[1]">
+
+<xsl:template match="Jahr">
+		<xsl:variable name="year" select="."/>
+			<xsl:choose>
+				<xsl:when test="contains($year,';')">
+					<xsl:for-each select="tokenize($year,';')">
+							<publishDate>
+								<xsl:value-of select="normalize-space(.)"/>
+								</publishDate>
+							</xsl:for-each>
+					</xsl:when>
+				<xsl:when test="string-length($year) &gt; 7">
+					<publishDate>
+						<xsl:value-of select="normalize-space(substring-before(.[1], '/'))"/>
+						</publishDate>
+					<publishDate>
+						<xsl:value-of select="normalize-space(substring-after(.[1], '/'))"/>
+						</publishDate>
+					</xsl:when>
+				<xsl:when test="Jahr[1]=''">
+					<publishDate>
+						<xsl:text>0000</xsl:text>
+						</publishDate>
+					</xsl:when>
+				<xsl:when test="(contains(.[1], '[')) or (contains(.[1], '(')) or (contains(.[1], 'ca'))">
+					<publishDate>
+						<xsl:value-of select="normalize-space(translate(.[1], translate(.,'0123456789', ''), ''))"/>
+						</publishDate>
+					</xsl:when>
+				<xsl:when test="matches(.[1],'[a-z]')">
+					<publishDate>
+						<xsl:text>0000</xsl:text>
+						</publishDate>
+					</xsl:when>
+				<xsl:when test="(matches(.[1],'/'))">
+					<publishDate>
+						<xsl:value-of select="normalize-space(substring-before(.[1], '/'))"/>
+						</publishDate>
+					<publishDate>
+						<xsl:value-of select="normalize-space(substring(.[1], 1,2))"/>
+						<xsl:value-of select="normalize-space(substring-after(.[1], '/'))"/>
+						</publishDate>
+					</xsl:when>
+				<xsl:otherwise>
+					<publishDate>
+						<xsl:value-of select="normalize-space(.[1])"/>
+						</publishDate>
+					</xsl:otherwise>
+				</xsl:choose>
+		</xsl:template>
+
+	<!--<xsl:template match="Jahr[1]">
 		<xsl:variable name="jear" select=".[1]"/>
 			<xsl:choose>
 				<xsl:when test="string-length($jear) &gt; 7">
@@ -2447,7 +2561,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 						</publishDate>
 					</xsl:otherwise>
 				</xsl:choose>
-		</xsl:template>
+		</xsl:template>-->
 
 <!--Template Ausleihe-->
 	<xsl:template match="Ausleihe_an[1]">
