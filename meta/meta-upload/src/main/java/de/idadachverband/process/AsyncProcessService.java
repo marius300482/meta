@@ -24,8 +24,6 @@ import java.nio.file.Path;
 import java.util.Date;
 import java.util.concurrent.Future;
 
-import static org.apache.solr.client.solrj.impl.HttpSolrServer.RemoteSolrException;
-
 /**
  * Created by boehm on 08.10.14.
  */
@@ -89,7 +87,7 @@ public class AsyncProcessService
             upateSolr(solr, transformationBean, path, institution);
 
             archiver.archive(institution, transformationBean, solr.getName());
-        } catch (TransformerException | IOException | SolrServerException | RemoteSolrException | NullPointerException e)
+        } catch (Exception e)
         {
             log.warn("Transformation failed: ", e);
             transformationBean.setException(e);
