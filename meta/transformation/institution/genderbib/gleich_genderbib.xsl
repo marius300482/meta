@@ -2224,9 +2224,11 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 <!--Template Herausgeberinnen-->
 	<xsl:template match="Hrsg_">
 		<xsl:for-each select="tokenize(., ';')">
+			<xsl:if test="(not(contains(.,'o. A.'))) and not(contains(.,'u.a.'))">
 			<editor>
 				<xsl:value-of select="normalize-space(.)"/>
 				</editor>
+				</xsl:if>
 			</xsl:for-each>
 		</xsl:template>
 	
