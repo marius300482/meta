@@ -18,7 +18,7 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 
-			<xsl:if test="objektart[text()!='NutzerIn']">
+			<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()!='Zeitschrift'])">
 			
 			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Zeitschrift/Heftitel'])">-->
 			<!--<xsl:if test="contains(objektart,'Einzeltitel')">-->
@@ -2213,9 +2213,11 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 <!--Template Autorin-->	
 	<xsl:template match="Autorin">
 		<xsl:for-each select="tokenize(., ';')">
-			<author>
-				<xsl:value-of select="normalize-space(.)"/>
-				</author>
+			<xsl:if test="(not(contains(.,'o. A.'))) and not(contains(.,'u.a.'))">
+				<author>
+					<xsl:value-of select="normalize-space(.)"/>
+					</author>
+				</xsl:if>
 			</xsl:for-each>
 		</xsl:template>
 
