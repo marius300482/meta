@@ -63,7 +63,7 @@
 
        <? $sourceInfo = $this->driver->getSourceInfos(); ?>
         <? if (!empty($sourceInfo)): ?>
-           <br />  Quelle: 
+           <br />  In: 
             <? foreach($sourceInfo as $info): ?>
               <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
             <? endforeach; ?>
@@ -147,13 +147,7 @@
             <? endforeach; ?>
         <? endif; ?>
 
-      <? $sourceInfo = $this->driver->getSourceInfos(); ?>
-        <? if (!empty($sourceInfo)): ?>
-          <br /> In: 
-            <? $secondLineNotEmpty = true; ?>
-            <? foreach($sourceInfo as $info): ?>
-                <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
-       
+     
        <? endforeach; ?>
         <? endif; ?>
         
