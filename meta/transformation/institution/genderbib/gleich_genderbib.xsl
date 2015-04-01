@@ -1680,9 +1680,11 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<!--editor Herausgeberinneninformationen-->
 				<xsl:if test="substring(substring-after($connect,'editor:'),1,1)!=':'">
 					<xsl:for-each select="tokenize(substring-before(substring-after($connect,'editor:'),':editor'), ';')">
+					<xsl:if test="(not(contains(.,'o. A.'))) and not(contains(.,'u.a.'))">
 					<editor>
 						<xsl:value-of select="normalize-space(.)" />
 						</editor>
+						</xsl:if>
 						</xsl:for-each>
 					</xsl:if>
 				
