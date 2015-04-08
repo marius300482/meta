@@ -6,6 +6,7 @@ import de.idadachverband.archive.ProcessFileConfiguration;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.result.NotificationException;
 import de.idadachverband.result.ResultNotifier;
+import de.idadachverband.solr.SolrReindexService;
 import de.idadachverband.solr.SolrService;
 import de.idadachverband.transform.IdaTransformer;
 import de.idadachverband.transform.TransformationBean;
@@ -24,8 +25,6 @@ import java.nio.file.Path;
 import java.util.Date;
 import java.util.concurrent.Future;
 
-import static org.apache.solr.client.solrj.impl.HttpSolrServer.RemoteSolrException;
-
 /**
  * Created by boehm on 08.10.14.
  */
@@ -42,7 +41,10 @@ public class AsyncProcessService
     final private WorkingFormatToSolrDocumentTransformer workingFormatTransformer;
 
     final private ProcessFileConfiguration processFileConfiguration;
+
     final private Archiver archiver;
+
+    final private SolrReindexService solrReindexService;
 
 
     @Inject
@@ -51,7 +53,8 @@ public class AsyncProcessService
                                ResultNotifier resultMailSender,
                                IdaInputArchiver idaInputArchiver,
                                ProcessFileConfiguration processFileConfiguration,
-                               Archiver archiver)
+                               Archiver archiver,
+                               SolrReindexService solrReindexService)
     {
         this.transformationStrategy = transformationStrategy;
         this.resultMailSender = resultMailSender;
@@ -59,6 +62,7 @@ public class AsyncProcessService
         this.workingFormatTransformer = workingFormatTransformer;
         this.processFileConfiguration = processFileConfiguration;
         this.archiver = archiver;
+        this.solrReindexService = solrReindexService;
     }
 
     /**
@@ -89,7 +93,7 @@ public class AsyncProcessService
             upateSolr(solr, transformationBean, path, institution);
 
             archiver.archive(institution, transformationBean, solr.getName());
-        } catch (TransformerException | IOException | SolrServerException | RemoteSolrException | NullPointerException e)
+        } catch (Exception e)
         {
             log.warn("Transformation failed: ", e);
             transformationBean.setException(e);
@@ -98,7 +102,10 @@ public class AsyncProcessService
             transformationBean.setEndTime(new Date());
             final String transformationMessagesFromUpload = transformationStrategy.getTransformationMessages();
             final String transformationMessagesToSolrFormat = workingFormatTransformer.getTransformationMessages();
-            transformationBean.setTransformationMessages(" - Transformation to working format: " + transformationMessagesFromUpload + "\n - Transformation to solr format: " + transformationMessagesToSolrFormat);
+            transformationBean.setTransformationMessages(" - Transformation to working format: "
+                    + transformationMessagesFromUpload
+                    + "\n - Transformation to solr format: "
+                    + transformationMessagesToSolrFormat);
             resultMailSender.notify(transformationBean);
         }
 
@@ -148,7 +155,17 @@ public class AsyncProcessService
             solr.deleteInstitution(institution.getInstitutionName());
         }
 
-        String solrResult = solr.update(unzippedFile);
+        String solrResult = "";
+        try
+        {
+            solrResult = solr.update(unzippedFile);
+        } catch (IOException | SolrServerException e)
+        {
+            log.warn("Update of solr {} failed for institution {}. Start rollback", solr, institution);
+            final String result = solrReindexService.reindexInstitutionOnCore(institution.getInstitutionName(), solr);
+            log.info("Result of reindexing is: {}", result);
+            throw e;
+        }
         Files.deleteIfExists(unzippedFile);
         transformationBean.setSolrResponse(solrResult);
 

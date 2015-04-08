@@ -461,21 +461,21 @@
        					</xsl:if>
      				</xsl:for-each>
    			</xsl:variable>
-		<xsl:variable name="the_min">
+		<!--<xsl:variable name="the_min">
      			<xsl:for-each select="../publishDate">
        				<xsl:sort data-type="number" order="ascending"/>
        				<xsl:if test="position()=1">
        					<xsl:value-of select="."/>
        					</xsl:if>
      				</xsl:for-each>
-   			</xsl:variable>
+   			</xsl:variable>-->
 		
-		<field name="publishDateMax">
+		<field name="publishDateSort">
 				<xsl:value-of select="$the_max" />
 				</field>
-		<field name="publishDateMin">
+		<!--<field name="publishDateMin">
 				<xsl:value-of select="$the_min" />
-				</field>
+				</field>-->
 		</xsl:template>
 	
 	<xsl:template match="provenance">

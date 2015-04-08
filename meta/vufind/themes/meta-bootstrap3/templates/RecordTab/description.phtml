@@ -180,28 +180,7 @@
         </tr>
     <? endif; ?>
 
-    <!-- Mini Kontext -->
-    <? $belongsTo = $this->driver->getBelongsTo();
-    if (!empty($belongsTo)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?= $this->transEsc('Belongs to') ?>:</th>
-            <td>
-                <a href="<?= $this->url('record') . $belongsTo[0] ?>"><?= $belongsTo[1] ?></a>
-            </td>
-        </tr>
-    <? endif; ?>
 
-    <? $belongsToTop = $this->driver->getBelongsToTop();
-    if (!empty($belongsToTop)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?= $this->transEsc('Belongs to Top') ?>:</th>
-            <td>
-                <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
-            </td>
-        </tr>
-    <? endif; ?>
 
 
 

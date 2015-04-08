@@ -206,7 +206,7 @@
                     <? endforeach; ?>
         <? endif; ?>-->
         
-    <? $isbns = $this->driver->getISBNs(); ?>
+  <!--  <? $isbns = $this->driver->getISBNs(); ?>
         <? if (!empty($isbns)): ?>
             <? if ($secondLineNotEmpty): ?>
                   
@@ -219,7 +219,7 @@
                 <span property="isbn"><nobr>ISBN: <?= $this->escapeHtml($isbn) ?></nobr></span><?= $isbn !== end($isbns) ? ", " : ""; ?>
            
             <? endforeach; ?>
-        <? endif; ?>
+        <? endif; ?>-->
         
      <? $issns = $this->driver->getISSNs(); ?>
         <? if (!empty($issns)): ?>

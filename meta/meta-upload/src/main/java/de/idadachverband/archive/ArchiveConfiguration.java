@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -19,10 +21,11 @@ class ArchiveConfiguration
     private final ProcessFileConfiguration processFileConfiguration;
 
     @Inject
-    public ArchiveConfiguration(Path archivePath)
+    public ArchiveConfiguration(Path archivePath) throws IOException
     {
         this.basePath = archivePath;
         this.processFileConfiguration = new ProcessFileConfiguration(archivePath);
+        Files.createDirectories(this.basePath);
     }
 
     public Path getFolder(ProcessStep step, String institution, String coreName)

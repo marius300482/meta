@@ -42,6 +42,7 @@ public abstract class AbstractXsltTransformer implements IdaTransformer
     {
         Transformer transformer = getTransformerInstance(institutionXsl);
         transformer.transform(new StreamSource(inputStream), new StreamResult(outputStream));
+        transformer.reset();
     }
 
     private Transformer getTransformerInstance(Path institutionXslt) throws TransformerConfigurationException

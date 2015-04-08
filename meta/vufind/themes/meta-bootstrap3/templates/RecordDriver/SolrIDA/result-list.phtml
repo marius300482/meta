@@ -63,7 +63,7 @@
 
        <? $sourceInfo = $this->driver->getSourceInfos(); ?>
         <? if (!empty($sourceInfo)): ?>
-           <br />  Quelle:
+           <br />  In: 
             <? foreach($sourceInfo as $info): ?>
               <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
             <? endforeach; ?>
@@ -92,7 +92,62 @@
             <?= $this->transEsc('Issue'); ?> <?= $this->escapeHtml($issue); ?>
 	      <?php endforeach; ?>
         <? endif; ?>
+<br>
+ <? $publishers = $this->driver->getPublishers(); ?>
+        <? if (!empty($publishers)): ?>
+            <? if ($placeOfPublicationSet): ?>
+                :
+            <? endif; ?>
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($publishers as $publisher): ?>
+                <span property="publisher" typeof="Organization"><?= $this->escapeHtml($publisher) ?></span><?= $publisher !== end($publishers) ? ", " : "" ?>
+            <? endforeach; ?>
+        <? endif; ?>
+        <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
+        <? if (isset($publicationDate)): ?>
+            <? if ($secondLineNotEmpty): ?>
+                ,
+            <? elseif ($placeOfPublicationSet): ?>
+                :
+            <? endif; ?>
+            <? $secondLineNotEmpty = true; ?>
+            <span property="publicationDate"><?= $this->escapeHtml($publicationDate) ?></span>
+        <? endif; ?>
 
+    <? $issues = $this->driver->getIssues(); ?>
+    <? if (!empty($issues)): ?>
+        <? $contentDisplayed = true; ?>
+   /
+            <? foreach($issues as $issue): ?>
+                <?= $this->escapeHtml($issue) ?><?= $issue !== end($issues) ? ", " : "" ?>
+            <? endforeach; ?>
+    <? endif; ?>
+
+    <? $volumes = $this->driver->getVolumes(); ?>
+    <? if (!empty($volumes)): ?>
+        <? $contentDisplayed = true; ?>
+            <?=$this->transEsc('Volume')?>:
+            <? foreach($volumes as $volume): ?>
+                <?= $this->escapeHtml($volume) ?><?= $volume !== end($volumes) ? ", " : "" ?>
+            <? endforeach; ?>
+    <? endif; ?>
+
+        <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
+        <? if (!empty($physicals)): ?>
+            <? if ($secondLineNotEmpty): ?>
+                ,
+            <? elseif ($placeOfPublicationSet): ?>
+                :
+            <? endif; ?>
+            <? $secondLineNotEmpty = true; ?>
+            <? foreach($physicals as $physical): ?>
+                
+                <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physical !== end($physicals) ? ", " : ""; ?>
+                S.
+            <? endforeach; ?>
+        <? endif; ?>
+
+        
         <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
         <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
         <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
@@ -140,7 +195,7 @@
           <? foreach(array("Topic" => 20, "Person" => 5, "Geo" => 0) as $type => $limit): ?>
               <? if (isset($subjects[strtolower($type)]) && 0 < $limit): ?>
                   <div>
-                      <?= $this->transEsc('result' . $type) ?>:
+                      Weitere Suchen:
                       <? $fields = $subjects[strtolower($type)]; ?>
                       <? foreach (array_slice($fields, 0, $limit) as $subject): ?>
                         <a title="<?= $this->escapeHtml($subject) ?>"
