@@ -195,7 +195,7 @@
           <? foreach(array("Topic" => 20, "Person" => 5, "Geo" => 0) as $type => $limit): ?>
               <? if (isset($subjects[strtolower($type)]) && 0 < $limit): ?>
                   <div>
-                      Weitere Suchen:
+                      <?= $this->transEsc('Subjects ' . $type); ?>:
                       <? $fields = $subjects[strtolower($type)]; ?>
                       <? foreach (array_slice($fields, 0, $limit) as $subject): ?>
                         <a title="<?= $this->escapeHtml($subject) ?>"
