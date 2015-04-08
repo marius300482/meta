@@ -47,6 +47,7 @@
                 <? if (isset($authors['additional']) && !empty($authors['additional'])): ?>
                     [<a href="<?=$this->recordLink()->getUrl($this->driver)?>#tabnav"><?=$this->transEsc("weitere")?></a>]
                 <? endif; ?>
+                <br />
 
             <?php else : ?>
 
@@ -64,53 +65,34 @@
 
             <? $sourceInfo = $this->driver->getSourceInfos(); ?>
             <? if (!empty($sourceInfo)): ?>
-                <br />In:
+                In:
                 <? foreach($sourceInfo as $info): ?>
                     <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
                 <? endforeach; ?>
+                <br />
             <? endif; ?>
 
             <? if(!$this->driver->isCollection()): ?>
 
                 <? $journalTitle = $this->driver->getContainerTitle(); ?>
                 <? $summDate = $this->driver->getPublicationDates(); ?>
+                <? $publishers = (array) $this->driver->getPublishers(); ?>
+                <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
+                <? $issues = (array) $this->driver->getIssues(); ?>
+                <? $volumes = (array) $this->driver->getVolumes(); ?>
+                <? $physicals = (array) $this->driver->getPhysicalDescriptions(); ?>
+                <? $showPublished = !empty($journalTitle) || !empty($publishers) || !empty($publicationDate) || !empty($issues) || !empty($volumes) || !empty($physicals); ?>
 
-                <? if (!empty($journalTitle)): ?>
-
-                    <?=!empty($summAuthor) ? '<br />' : ''?>
-                    <?=/* TODO: handle highlighting more elegantly here */
-                    $this->transEsc('Published in') . ' <a href="' . $this->record($this->driver)->getLink('journaltitle', str_replace(array('{{{{START_HILITE}}}}', '{{{{END_HILITE}}}}'), '', $journalTitle)) . '">' . $this->highlight($journalTitle) . '</a>';?>
-                    <?=!empty($summDate) ? ' (' . $this->escapeHtml($summDate[0]) . ')' : ''?>
-
-                <? elseif (!empty($summDate)): ?>
-
-                    <?php $publishers = (array) $this->driver->getPublishers(); ?>
-                    <?php $volumes = (array) $this->driver->getVolumes(); ?>
-                    <?php $issues = (array) $this->driver->getIssues() ?>
-
-                    <?php if (!empty($publishers) || !empty($volumes) || !empty($issues) || !empty($summDate[0])) : ?>
-                        <?=!empty($summAuthor) ? '<br />' : ''?>
-                        <?= $this->transEsc('Published'); ?>:
-                    <?php endif; ?>
-
-                    <?php foreach ($publishers as $publisher) : ?>
-                        <?= $this->escapeHtml($publisher); ?>
-                    <?php endforeach; ?>
-
-                        <?= $this->escapeHtml($summDate[0]); ?>
-                    <?php foreach ($volumes as $volume) : ?>,
-                        <?= $this->transEsc('Volume'); ?> <?= $this->escapeHtml($volume); ?>
-                    <?php endforeach; ?>
-
-                    <?php foreach ($issues as $issue) : ?>,
-                        <?= $this->transEsc('Issue'); ?> <?= $this->escapeHtml($issue); ?>
-                    <?php endforeach; ?>
-
+                <? if ($showPublished) : ?>
+                    <?= $this->transEsc('Published'); ?>:
                 <? endif; ?>
 
-                <br>
+                <? if (!empty($journalTitle)): ?>
+                    <?/* TODO: handle highlighting more elegantly here */ ?>
+                    <?= $this->transEsc('Published in') . ' <a href="' . $this->record($this->driver)->getLink('journaltitle', str_replace(array('{{{{START_HILITE}}}}', '{{{{END_HILITE}}}}'), '', $journalTitle)) . '">' . $this->highlight($journalTitle) . '</a>';?>
+                    <?=!empty($summDate) ? ' (' . $this->escapeHtml($summDate[0]) . ')' : ''?>
+                <? endif; ?>
 
-                <? $publishers = $this->driver->getPublishers(); ?>
                 <? if (!empty($publishers)): ?>
                     <? if ($placeOfPublicationSet): ?>
                         :
@@ -121,7 +103,6 @@
                     <? endforeach; ?>
                 <? endif; ?>
 
-                <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
                 <? if (isset($publicationDate)): ?>
                     <? if ($secondLineNotEmpty): ?>
                         ,
@@ -132,7 +113,6 @@
                     <span property="publicationDate"><?= $this->escapeHtml($publicationDate) ?></span>
                 <? endif; ?>
 
-                <? $issues = $this->driver->getIssues(); ?>
                 <? if (!empty($issues)): ?>
                     <? $contentDisplayed = true; ?>
                     /
@@ -141,7 +121,6 @@
                     <? endforeach; ?>
                 <? endif; ?>
 
-                <? $volumes = $this->driver->getVolumes(); ?>
                 <? if (!empty($volumes)): ?>
                     <? $contentDisplayed = true; ?>
                     <?=$this->transEsc('Volume')?>:
@@ -150,7 +129,6 @@
                     <? endforeach; ?>
                 <? endif; ?>
 
-                <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
                 <? if (!empty($physicals)): ?>
                     <? if ($secondLineNotEmpty): ?>
                         ,
@@ -162,6 +140,10 @@
                         <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physical !== end($physicals) ? ", " : ""; ?>
                         S.
                     <? endforeach; ?>
+                <? endif; ?>
+
+                <? if ($showPublished) : ?>
+                    <br />
                 <? endif; ?>
 
                 <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
@@ -176,7 +158,8 @@
                         <? endif ?>
                     <? elseif (isset($timeSpanEnd)): ?>
                         <?= $this->escapeHtml($timeSpanEnd) ?>
-                    <? endif; ?><br />
+                    <? endif; ?>
+                    <br />
                 <? endif; ?>
 
                 <? $summInCollection = $this->driver->getContainingCollections(); ?>
