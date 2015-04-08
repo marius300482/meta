@@ -81,7 +81,9 @@
                 <? $issues = (array) $this->driver->getIssues(); ?>
                 <? $volumes = (array) $this->driver->getVolumes(); ?>
                 <? $physicals = (array) $this->driver->getPhysicalDescriptions(); ?>
-                <? $showPublished = !empty($journalTitle) || !empty($publishers) || !empty($publicationDate) || !empty($issues) || !empty($volumes) || !empty($physicals); ?>
+                <? $issn = $this->driver->getCleanISSN(); ?>
+                <? $isbn = $this->driver->getCleanISBN(); ?>
+                <? $showPublished = !empty($journalTitle) || !empty($publishers) || !empty($publicationDate) || !empty($issues) || !empty($volumes) || !empty($physicals) || !empty($issn) || !empty($isbn); ?>
 
                 <? if ($showPublished) : ?>
                     <?= $this->transEsc('Published'); ?>:
@@ -140,6 +142,26 @@
                         <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physical !== end($physicals) ? ", " : ""; ?>
                         S.
                     <? endforeach; ?>
+                <? endif; ?>
+
+                <? if (!empty($issn)): ?>
+                    <? if ($secondLineNotEmpty): ?>
+                        ,
+                    <? endif; ?>
+                    <? $secondLineNotEmpty = true; ?>
+                    ISBN <span property="issn"><?= $this->escapeHtml($issn); ?></span>
+                <? endif; ?>
+
+                <? if (!empty($issn) && !empty($isbn)): ?>
+                    /
+                <? endif; ?>
+
+                <? if (!empty($isbn)): ?>
+                    <? if ($secondLineNotEmpty): ?>
+                        ,
+                    <? endif; ?>
+                    <? $secondLineNotEmpty = true; ?>
+                    ISSN <span property="isbn"><?= $this->escapeHtml($isbn); ?></span>
                 <? endif; ?>
 
                 <? if ($showPublished) : ?>
