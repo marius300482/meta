@@ -586,6 +586,8 @@ footer {
     font-size: 14px;
     font-weight: 300;
     padding: 0; }
+  .result p {
+    margin: 0; }
   .result a {
     color: #990099;
     font-weight: 400; }
