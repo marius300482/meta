@@ -304,8 +304,8 @@
 		
 	<!--subject Deskriptoren-->
 			<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-			<xsl:apply-templates select="Kontinent" />
-			<xsl:apply-templates select="Land_x047x_Region" />
+			<!--<xsl:apply-templates select="Kontinent" />-->
+			<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 			<xsl:apply-templates select="Person" />
 	
 	<!--language Sprachangaben-->
@@ -396,8 +396,8 @@
 	
 	<!--subject Deskriptoren-->
 				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-				<xsl:apply-templates select="Kontinent" />
-				<xsl:apply-templates select="Land_x047x_Region" />
+				<!--<xsl:apply-templates select="Kontinent" />-->
+				<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 				<xsl:apply-templates select="Person" />
 				
 	<!--description-->
@@ -466,8 +466,8 @@
 	
 	<!--subject Deskriptoren-->
 				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-				<xsl:apply-templates select="Kontinent" />
-				<xsl:apply-templates select="Land_x047x_Region" />
+				<!--<xsl:apply-templates select="Kontinent" />-->
+				<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 				<xsl:apply-templates select="Person" />
 				
 	<!--description-->
@@ -537,8 +537,8 @@
 	
 	<!--subject Deskriptoren-->
 				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-				<xsl:apply-templates select="Kontinent" />
-				<xsl:apply-templates select="Land_x047x_Region" />
+				<!--<xsl:apply-templates select="Kontinent" />-->
+				<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 				<xsl:apply-templates select="Person" />
 				
 	<!--description-->
@@ -601,8 +601,8 @@
 	
 	<!--subject Deskriptoren-->
 				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-				<xsl:apply-templates select="Kontinent" />
-				<xsl:apply-templates select="Land_x047x_Region" />
+				<!--<xsl:apply-templates select="Kontinent" />-->
+				<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 				<xsl:apply-templates select="Person" />
 				
 	<!--description-->
@@ -672,8 +672,8 @@
 	
 	<!--subject Deskriptoren-->
 				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-				<xsl:apply-templates select="Kontinent" />
-				<xsl:apply-templates select="Land_x047x_Region" />
+				<!--<xsl:apply-templates select="Kontinent" />-->
+				<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 				<xsl:apply-templates select="Person" />
 				
 	<!--description-->
@@ -734,8 +734,8 @@
 	
 	<!--subject Deskriptoren-->
 				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-				<xsl:apply-templates select="Kontinent" />
-				<xsl:apply-templates select="Land_x047x_Region" />
+				<!--<xsl:apply-templates select="Kontinent" />-->
+				<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 				<xsl:apply-templates select="Person" />
 				
 	<!--description-->
@@ -830,8 +830,8 @@
 	
 	<!--subject Deskriptoren-->
 				<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
-				<xsl:apply-templates select="Kontinent" />
-				<xsl:apply-templates select="Land_x047x_Region" />
+				<!--<xsl:apply-templates select="Kontinent" />-->
+				<!--<xsl:apply-templates select="Land_x047x_Region" />-->
 				<xsl:apply-templates select="Person" />
 	<!--description-->
 				<xsl:apply-templates select="Vorwort"/>	
@@ -1104,9 +1104,11 @@
 	
 	<xsl:template match="Schlagworte_x032x_Archiv">
 		<xsl:for-each select=".">
+			<!--<xsl:if test="not(contains(.,'Europa'))">-->
 			<subjectTopic>
 				<xsl:value-of select="." />
 				</subjectTopic>
+				<!--</xsl:if>-->
 			</xsl:for-each>
 		</xsl:template>
 	
