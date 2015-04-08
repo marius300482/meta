@@ -86,9 +86,25 @@
         </div>
         <div class="head">
             <!-- Veroeffentlicht -->
-            <? $placeOfPublicationSet = false; ?>
+            <? $sourceInfo = $this->driver->getSourceInfos(); ?>
+            <? if (!empty($sourceInfo)): ?>
+                In:
+                <? foreach($sourceInfo as $info): ?>
+                    <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
+                <? endforeach; ?>
+                <br />
+            <? endif; ?>
+
             <? $secondLineNotEmpty = false; ?>
+            <? $placeOfPublicationSet = false; ?>
             <? $placesOfPublication = $this->driver->getPlacesOfPublication(); ?>
+            <? $publishers = $this->driver->getPublishers(); ?>
+            <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
+            <? $issues = $this->driver->getIssues(); ?>
+            <? $volumes = $this->driver->getVolumes(); ?>
+            <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
+            <? $showPublished = !empty($placesOfPublication) || !empty($publishers) || !empty($publicationDate) || !empty($issues) || !empty($volumes) || !empty($physicals); ?>
+
             <? if (!empty($placesOfPublication)):
                 $placeOfPublicationSet = true;
                 foreach($placesOfPublication as $placeOfPublication): ?>
@@ -96,7 +112,6 @@
                 <? endforeach; ?>
             <? endif; ?>
 
-            <? $publishers = $this->driver->getPublishers(); ?>
             <? if (!empty($publishers)): ?>
                 <? if ($placeOfPublicationSet): ?>
                     :
@@ -107,8 +122,7 @@
                 <? endforeach; ?>
             <? endif; ?>
 
-            <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
-            <? if (isset($publicationDate)): ?>
+            <? if (!empty($publicationDate)): ?>
                 <? if ($secondLineNotEmpty): ?>
                     ,
                 <? elseif ($placeOfPublicationSet): ?>
@@ -118,7 +132,6 @@
                 <span property="publicationDate"><?= $this->escapeHtml($publicationDate) ?></span>
             <? endif; ?>
 
-            <? $issues = $this->driver->getIssues(); ?>
             <? if (!empty($issues)): ?>
                 <? $contentDisplayed = true; ?>
                     /
@@ -127,7 +140,6 @@
                 <? endforeach; ?>
             <? endif; ?>
 
-            <? $volumes = $this->driver->getVolumes(); ?>
             <? if (!empty($volumes)): ?>
                 <? $contentDisplayed = true; ?>
                     <?=$this->transEsc('Volume')?>:
@@ -136,7 +148,6 @@
                     <? endforeach; ?>
             <? endif; ?>
 
-            <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
             <? if (!empty($physicals)): ?>
                 <? if ($secondLineNotEmpty): ?>
                     ,
@@ -150,13 +161,7 @@
                 <? endforeach; ?>
             <? endif; ?>
 
-            <? $sourceInfo = $this->driver->getSourceInfos(); ?>
-            <? if (!empty($sourceInfo)): ?>
-                In:
-                <? $secondLineNotEmpty = true; ?>
-                <? foreach($sourceInfo as $info): ?>
-                    <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
-                <? endforeach; ?>
+            <? if ($showPublished) : ?>
                 <br />
             <? endif; ?>
 
