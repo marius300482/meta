@@ -142,6 +142,8 @@
     background: transparent none;
     font-weight: inherit; // Overwrite search highlight style
     font-style: inherit; // Overwrite search highlight style
+    line-height: inherit;
+    min-height: inherit;
   }
   .jstree-clicked, .jstree-hovered {
     background-color: $color-yellow-4;
@@ -173,9 +175,10 @@
       white-space: normal;
       &.jstree-anchor {
         height: auto;
-        padding: 5px 10px 3px 20px;
+        padding: 5px;
         border: 1px solid $color-blue-5;
         font: inherit;
+        margin-left: 25px;
         line-height: 1.2em;
       }
     }
@@ -184,13 +187,13 @@
     .jstree-open {
       .jstree-ocl:before {
         font-family: icomoon;
-        font-size: 12px;
+        font-size: 18px;
         font-style: normal;
         content: "\e602"; // Child
       }
       &> .jstree-ocl:before {
         font-family: icomoon;
-        font-size: 9px;
+        font-size: 12px;
         font-style: normal;
         content: "\e600"; // Root
       }
@@ -198,7 +201,7 @@
     .jstree-closed {
       &> .jstree-ocl:before {
         font-family: icomoon;
-        font-size: 12px;
+        font-size: 14px;
         font-style: normal;
         content: "\e601"; // Root
       }

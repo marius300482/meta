@@ -317,10 +317,10 @@ header {
     position: absolute;
     background-color: #ffce67;
     width: 100%;
-    height: 220px; }
+    height: 212px; }
     @media (max-width: 768px) {
       header .header-background {
-        height: 300px; } }
+        height: 292px; } }
   header > .navbar {
     border: 0 none;
     margin-bottom: -40px; }
@@ -753,7 +753,9 @@ footer {
   #hierarchyTreeHolder .jstree-node {
     background: transparent none;
     font-weight: inherit;
-    font-style: inherit; }
+    font-style: inherit;
+    line-height: inherit;
+    min-height: inherit; }
   #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
     background-color: #ffefcc;
     border: 1px solid #e6e5eb !important;
@@ -779,23 +781,24 @@ footer {
       white-space: normal; }
       #hierarchyTreeHolder li a.jstree-anchor {
         height: auto;
-        padding: 5px 10px 3px 20px;
+        padding: 5px;
         border: 1px solid #f7f6f8;
         font: inherit;
+        margin-left: 25px;
         line-height: 1.2em; }
   #hierarchyTreeHolder .jstree-default .jstree-open .jstree-ocl:before {
     font-family: icomoon;
-    font-size: 12px;
+    font-size: 18px;
     font-style: normal;
     content: "\e602"; }
   #hierarchyTreeHolder .jstree-default .jstree-open > .jstree-ocl:before {
     font-family: icomoon;
-    font-size: 9px;
+    font-size: 12px;
     font-style: normal;
     content: "\e600"; }
   #hierarchyTreeHolder .jstree-default .jstree-closed > .jstree-ocl:before {
     font-family: icomoon;
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     content: "\e601"; }
 
