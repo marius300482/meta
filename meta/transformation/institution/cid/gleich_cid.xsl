@@ -63,7 +63,7 @@
 		<institution>
 			
 			<institutionShortname><xsl:text>Cid Fraen an Gender</xsl:text></institutionShortname>
-			<institutionFullname><xsl:text>Frauen- und Genderbibliothek Cid</xsl:text></institutionFullname>
+			<institutionFull><xsl:text>Frauen- und Genderbibliothek Cid</xsl:text></institutionFull>
 			<collection><xsl:text>CID</xsl:text></collection>
 			<isil><xsl:text>ZDB-LU-100</xsl:text></isil>
 			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/luxemburg/cid-fraen-an-gender/</xsl:text></link>
@@ -431,7 +431,7 @@
 	
 	<xsl:template match="marc:datafield[@tag='509']">
 		<alternativeTitle>
-			<xsl:value-of select="marc:subfield[@code='t']" />
+			<xsl:value-of select="translate(marc:subfield[@code='t'][1],'&gt;&gt;&lt;&lt;','')" />
 			</alternativeTitle>
 		</xsl:template>		
 		
