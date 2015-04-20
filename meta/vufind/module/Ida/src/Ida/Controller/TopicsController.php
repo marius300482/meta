@@ -67,6 +67,7 @@ class TopicsController extends BrowseController
     {
         $view = $this->createViewModel('topics/home');
         $view->topics = $this->getTagCloud();
+        $view->institutions = $this->getInstitutions();
         $view->driver = new SolrDefault();
         return $view;
     }
@@ -91,6 +92,12 @@ class TopicsController extends BrowseController
         }
 
         return $topics;
+    }
+
+    public function getInstitutions()
+    {
+        require_once APPLICATION_PATH . "/module/Ida/data/institutionList.php";
+        return $institutionList;
     }
 
     protected function createViewModel($template = null, $params = null)

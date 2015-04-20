@@ -9,6 +9,7 @@
 
 // Set page title.
 $this->headTitle($this->translate('Home'));
+$rowOneInstitutionCount = 15;
 ?>
 <div id="topicsPage">
     <div class="missionStatement col-md-12">
@@ -26,10 +27,36 @@ $this->headTitle($this->translate('Home'));
             STATISTIC
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" id="institutionList">
         <h2><?= $this->transEsc('Inventory of the institutions'); ?></h2>
         <div class="body">
-            INSTITUTIONS
+            <?php  ?>
+            <div class="col-md-4">
+                <h3><?= $this->transEsc('Germany'); ?></h3>
+                <ul>
+                    <?php for ($i = 0; $i < $rowOneInstitutionCount; $i++) : ?>
+                        <li><?= $institutions["Germany"][$i]; ?></li>
+                    <?php endfor; ?>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul>
+                    <?php for ($i = $rowOneInstitutionCount; $i < count($institutions["Germany"]); $i++) : ?>
+                        <li><?= $institutions["Germany"][$i]; ?></li>
+                    <?php endfor; ?>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <?php foreach ($institutions as $country => $institutionsInCountry) : ?>
+                    <?if ("Germany" == $country) continue; ?>
+                    <h3><?= $this->transEsc($country); ?></h3>
+                    <ul>
+                        <?php foreach ($institutionsInCountry as $institutionName) : ?>
+                            <li><?= $institutionName; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
     <div class="col-md-8">
