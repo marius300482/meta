@@ -65,10 +65,13 @@ class TopicsController extends BrowseController
 
     public function homeAction()
     {
-        return $this->cloudAction();
+        $view = $this->createViewModel('topics/home');
+        $view->topics = $this->getTagCloud();
+        $view->driver = new SolrDefault();
+        return $view;
     }
 
-    public function cloudAction()
+    public function getTagCloud()
     {
         $topics = $this->getTopics();
 
@@ -87,10 +90,7 @@ class TopicsController extends BrowseController
             });
         }
 
-        $view = $this->createViewModel('topics/cloud');
-        $view->topics = $topics;
-        $view->driver = new SolrDefault();
-        return $view;
+        return $topics;
     }
 
     protected function createViewModel($template = null, $params = null)
