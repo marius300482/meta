@@ -2,7 +2,7 @@
 
 <!-- New document created with EditiX at Wed Feb 27 13:46:04 CET 2013 -->
 
-<xsl:stylesheet version="1.0" 
+<xsl:stylesheet version="2.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:fn="http://www.w3.org/2005/xpath-functions"
@@ -14,10 +14,19 @@
 	<xsl:output method="xml" indent="yes"/>
 
 
-<xsl:template match="marc:record">	
+<!--root knoten-->
+	<xsl:template match="/" >
+		<xsl:element name="catalog">
+			<xsl:apply-templates select="//marc:record" />
+			</xsl:element>
+	</xsl:template>
+	
+	  <xsl:template match="responseDate" mode="non-editor-note"/>
+	
+	<xsl:template match="marc:record">	
 
 		<xsl:variable name="id" select="substring-before(marc:controlfield[@tag='001'],':')" />
-		<xsl:element name="add">
+		<xsl:element name="record">
 			<!--<xsl:attribute name="id"><xsl:value-of select="$id"></xsl:value-of></xsl:attribute>	-->
 		
 	
@@ -32,85 +41,45 @@
 <!--vufind_______________________________vufind_______________________________vufind-->
 <!--vufind_______________________________vufind_______________________________vufind-->
 		
-		
-		
-<xsl:element name="doc">
-		
-	<!--allfields-->
-				<field name="allfields">
-					<xsl:value-of select="marc:datafield[@tag='100']/marc:subfield[@code='a']" /><xsl:text> </xsl:text>
-					<xsl:value-of select="marc:datafield[@tag='509']/marc:subfield[@code='a']" /><xsl:text> </xsl:text>
-					<xsl:value-of select="marc:datafield[@tag='245']/marc:subfield[@code='a']" /><xsl:text> </xsl:text>
-					<xsl:value-of select="marc:datafield[@tag='245']/marc:subfield[@code='b']" /><xsl:text> </xsl:text>
-					<xsl:value-of select="marc:datafield[@tag='700']/marc:subfield[@code='a']" /><xsl:text> </xsl:text>
-					<xsl:value-of select="marc:datafield[@tag='500']/marc:subfield[@code='a']" /><xsl:text> </xsl:text>
-					<!--<xsl:value-of select="marc:datafield[@tag='260']/marc:subfield[@code='c']" /><xsl:text> </xsl:text>-->
-					<xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a']" /><xsl:text> </xsl:text>
-					<xsl:value-of select="substring(marc:controlfield[@tag='008'],8,4)" /><xsl:text> </xsl:text>
-					<xsl:for-each select="marc:datafield[@tag='650']">
-						<xsl:for-each select="marc:subfield[@code='a']">
-							<xsl:value-of select="." />
-							<xsl:text> </xsl:text>
-							</xsl:for-each>
-						</xsl:for-each>
-					<xsl:for-each select="marc:datafield[@tag='690']">
-						<xsl:for-each select="marc:subfield[@code='a']">
-							<xsl:value-of select="." />
-							<xsl:text> </xsl:text>
-							</xsl:for-each>
-						</xsl:for-each>
-					</field>
-		
-	<!--Identifikator-->
-				<field name="id">
-					<xsl:value-of select="$id"></xsl:value-of>
-					<xsl:text>cid</xsl:text>
-					</field>
-
-	<!--recordType-->
-				<field name="recordtype"><xsl:text>library</xsl:text></field>
-
-	<!--recordCreationDate-->
-	
-				<field name="recordCreationDate"><xsl:text>2015-03-11T08:41:18.508Z</xsl:text></field>
-      				<field name="recordChangeDate"><xsl:text>2015-03-11T08:41:18.508Z</xsl:text></field>
-				<!--<field name="recordCreationDate">
-					<xsl:value-of select="current-dateTime()"/>
-					</field>-->
-					
-	<!--recordChangeDate-->
-				<!--<field name="recordChangeDate">
-					<xsl:value-of select="current-dateTime()"/>
-					</field>-->
-	
-	<!--institutionShortname-->			
-				<field name="institution">
-					<xsl:text>Cid Fraen an Gender</xsl:text>
-					</field>
-	
-	<!--institutionFullname-->			
-				<field name="institutionFull">
-					<xsl:text>Frauen- und Genderbibliothek Cid</xsl:text>
-					</field>
+		<vufind>
+			<id>
+				<xsl:value-of select="$id" /><xsl:text>cid</xsl:text>
+				</id>
 			
-	<!--collection-->				
-				<field name="collection"><xsl:text>Cid Fraen an Gender</xsl:text></field>
+			<recordCreationDate>
+				<xsl:value-of select="current-dateTime()"/>
+				</recordCreationDate>
+			
+			<recordChangeDate>
+				<xsl:value-of select="current-dateTime()"/>
+				</recordChangeDate>
 	
-	<!--isil-->
-				<field name="recordContentSource"><xsl:text>ZDB-LU-100</xsl:text></field>
-	
-	<!--linkToWebpage-->	
-				<!--<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/luxemburg/cid-fraen-an-gender/</xsl:text></link>-->
-	
-	<!--geoLocation-->				
-				<!--<geoLocation>
-					<latitude>0</latitude>
-					<longitude>0</longitude>
-					</geoLocation>-->
-	
-				 <field name="typeOfRessource">
+			<recordType>
+				<xsl:text>library</xsl:text>
+				</recordType>			
+			
+			</vufind>
+		
+		<institution>
+			
+			<institutionShortname><xsl:text>Cid Fraen an Gender</xsl:text></institutionShortname>
+			<institutionFull><xsl:text>Frauen- und Genderbibliothek Cid</xsl:text></institutionFull>
+			<collection><xsl:text>CID</xsl:text></collection>
+			<isil><xsl:text>ZDB-LU-100</xsl:text></isil>
+			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/luxemburg/cid-fraen-an-gender/</xsl:text></link>
+			<geoLocation>
+				<latitude>49.6115690</latitude>
+				<longitude>6.1274660</longitude>
+				</geoLocation>
+			
+			</institution>
+		
+		<dataset>
+			
+	<!--FORMAT-->
+			
+			 <typeOfRessource>
 				 	<xsl:choose>
-				 		
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='BK'">
 				 			<xsl:text>text</xsl:text>
 				 			</xsl:when>
@@ -133,9 +102,9 @@
 				 			<xsl:value-of select="marc:datafield[@tag='949']/marc:subfield[@code='3']" />
 				 			</xsl:otherwise>-->
 				 		</xsl:choose>
-				 	</field>
+				 	</typeOfRessource>
 				 
-				 <field name="format">
+				 <format>
 				 	<xsl:choose>
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='BK'">
 				 			<xsl:text>Buch</xsl:text>
@@ -159,72 +128,82 @@
 				 			<xsl:value-of select="marc:datafield[@tag='949']/marc:subfield[@code='3']" />
 				 			</xsl:otherwise>-->
 				 		</xsl:choose>
-				 	</field>
+				 	</format>
 	
 				<xsl:apply-templates select="marc:controlfield[@tag='008']" />
-	
-<!--TITLE-->	
-	
-	<!--title Titelinformationen-->		
+		
+	<!--TITLE-->
+			
+			<!--title Titelinformationen-->		
 				<xsl:apply-templates select="marc:datafield[@tag='245']" />
 				<xsl:apply-templates select="marc:datafield[@tag='509']" />
-	
-<!--RESPONSIBLE-->	
-
-	<!--author Autorinneninformation-->
+			
+	<!--RESPONSIBLE-->	
+			
+			<!--author Autorinneninformation-->
 				<xsl:apply-templates select="marc:datafield[@tag='100']" />
 				<xsl:apply-templates select="marc:datafield[@tag='700']" />
 				<xsl:apply-templates select="marc:datafield[@tag='511']" />
 				
-	<!--entity Körperschaft-->
+			<!--entity Körperschaft-->
 				<xsl:apply-templates select="marc:datafield[@tag='710']" />
 				
-	<!--series-->
+			<!--series-->
 				<xsl:apply-templates select="marc:datafield[@tag='490']" />
 		
-	<!--edition Ausgabe-->
+			<!--edition Ausgabe-->
 				<xsl:apply-templates select="marc:datafield[@tag='250']" />
-		
-<!--IDENTIFIER-->
+	<!--IDENTIFIER-->
 
-	<!--ISBN / ISSN-->
+		<!--ISBN / ISSN-->
 				<xsl:apply-templates select="marc:datafield[@tag='020']" />
 
-<!--PUBLISHING-->			
+	<!--PUBLISHING-->			
 
-	<!--display / publishDate Jahresangabe-->
-	<!--placeOfPublication Ortsangabe-->	
-	<!--publisher Verlag-->
+		<!--display / publishDate Jahresangabe-->
+		<!--placeOfPublication Ortsangabe-->	
+		<!--publisher Verlag-->
 				<xsl:apply-templates select="marc:datafield[@tag='260']" />
-	<!--sourceInfo Quelle-->
+	
+		<!--sourceInfo Quelle-->
 				<xsl:apply-templates select="marc:datafield[@tag='773']" />
 				
-<!--PHYSICAL INFORMATION-->	
+	<!--PHYSICAL INFORMATION-->	
 	
-	<!--physical Seitenangabe-->		
+		<!--physical Seitenangabe-->		
 				<xsl:apply-templates select="marc:datafield[@tag='300']" />
 			
 				
-<!--CONTENTRELATED INFORMATION-->	
+	<!--CONTENTRELATED INFORMATION-->	
 				<xsl:apply-templates select="marc:datafield[@tag='650']" />
 				<xsl:apply-templates select="marc:datafield[@tag='690']" />
 				<xsl:apply-templates select="marc:datafield[@tag='600']" />
 				
-	<!--description Beschreibung-->
+		<!--description Beschreibung-->
 				<xsl:apply-templates select="marc:datafield[@tag='500'][1]" />
 				
-<!--OTHER-->
+	<!--OTHER-->
 				
-	<!--shelfMark Signatur-->	
+		<!--shelfMark Signatur-->	
 				<xsl:apply-templates select="marc:datafield[@tag='691'][1]" />
+		
+		
+			</dataset>
+			
+			
+			
+		
+	
+	
 				
+		
 				
 </xsl:element>	
 
 <!--<commit/>
    <optimize/>-->
 
-	</xsl:element>
+	
 	</xsl:template>
 	
 	
@@ -248,12 +227,12 @@
 <!--Templates-->
 	
 	<xsl:template match="marc:controlfield[@tag='008']">
-		<field name="displayPublishDate">
+		<displayPublishDate>
 			<xsl:value-of select="substring(.,8,4)" />
-			</field>
-		<field name="publishDateSort">
+			</displayPublishDate>
+		<publishDate>
 			<xsl:value-of select="substring(.,8,4)" />
-			</field>
+			</publishDate>
 		<!--<field name="language_code">
 			<xsl:value-of select="substring(.,36,3)"></xsl:value-of>
 			</field>-->
@@ -261,7 +240,7 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='773']">
-		<field name="sourceInfo"><xsl:value-of select="marc:subfield[@code='t']" /></field>
+		<sourceInfo><xsl:value-of select="marc:subfield[@code='t']" /></sourceInfo>
 		<!--<xsl:if test="(not(../marc:datafield[@tag='260'])) and (marc:subfield[@code='1'])">
 			<field name="displayPublishDate">
 				<xsl:value-of select="marc:subfield[@code='1']"></xsl:value-of>
@@ -271,98 +250,99 @@
 				</field>
 			</xsl:if>	-->
 		<xsl:if test="not(../marc:datafield[@tag='300'])">
-			<field name="physical">
+			<physical>
 				<xsl:value-of select="normalize-space(substring-after(marc:subfield[@code='g'],'p.'))"></xsl:value-of>
-				</field>
+				</physical>
 			</xsl:if>	
 		<xsl:if test="marc:subfield[@code='4']">
-			<field name="issue">
+			<issue>
 				<xsl:value-of select="marc:subfield[@code='4']" />
-				</field>
+				</issue>
 			</xsl:if>			
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='250']">
 		<xsl:for-each select="marc:subfield[@code='a']">
-			<field name="edition"><xsl:value-of select="." /></field>		
+			<edition><xsl:value-of select="." /></edition>		
 			</xsl:for-each>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='500']">
-		<field name="description">
+		<description>
 			<xsl:for-each select="../marc:datafield[@tag='500']/marc:subfield">		
 				<xsl:value-of select="." /><xsl:text> </xsl:text>
 				</xsl:for-each>
-			</field>		
+			</description>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='710']">
 		<xsl:for-each select="marc:subfield[@code='a']">
-			<field name="entity"><xsl:value-of select="." /></field>		
+			<entity><xsl:value-of select="." /></entity>		
 			</xsl:for-each>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='691']">
-		<field name="shelfMark"><xsl:for-each select="../marc:datafield[@tag='691']/marc:subfield[@code='8']">
+		<shelfMark><xsl:for-each select="../marc:datafield[@tag='691']/marc:subfield[@code='8']">
 			<xsl:value-of select="." /><xsl:text> / </xsl:text>
-			</xsl:for-each>		</field>		
+			</xsl:for-each>		
+			</shelfMark>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='490']">
 		<xsl:for-each select="marc:subfield[@code='a']">
-			<field name="series"><xsl:value-of select="." /></field>		
+			<series><xsl:value-of select="." /></series>		
 			</xsl:for-each>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='600']">
 		<xsl:for-each select="marc:subfield[@code='a']">
-			<field name="subjectPerson"><xsl:value-of select="." /></field>		
+			<subjectPerson><xsl:value-of select="." /></subjectPerson>			
 			</xsl:for-each>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='690']">
 		<xsl:for-each select="marc:subfield[@code='a']">
-			<field name="topic"><xsl:value-of select="." /></field>		
+			<subjectTopic><xsl:value-of select="." /></subjectTopic>		
 			</xsl:for-each>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='650']">
 		<xsl:for-each select="marc:subfield[@code='a']">
-			<field name="topic"><xsl:value-of select="." /></field>		
+			<subjectTopic><xsl:value-of select="." /></subjectTopic>		
 			</xsl:for-each>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='300']">
 		<xsl:if test="../marc:controlfield[@tag='FMT']='BK'">
-			<field name="physical">
-				<xsl:value-of select="normalize-space(substring-before(marc:subfield[@code='a'],'p.'))" />
-					</field>
+			<physical>
+				<xsl:value-of select="normalize-space(substring-before(marc:subfield[@code='a'][1],'p.'))" />
+					</physical>
 			</xsl:if>
 		<xsl:if test="../marc:controlfield[@tag='FMT']='MU'">
-			<field name="physical">
+			<physical>
 				<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
 					<xsl:if test="marc:subfield[@code='e']">
 						<xsl:text> + </xsl:text>
 						<xsl:value-of select="marc:subfield[@code='e']" />
 						</xsl:if>
-				</field>
+				</physical>
 			</xsl:if>
 		<xsl:if test="../marc:controlfield[@tag='FMT']='CF'">
-			<field name="physical">
+			<physical>
 				<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
-				</field>
+				</physical>
 			</xsl:if>
 		<xsl:if test="../marc:controlfield[@tag='FMT']='MX'">
-			<field name="physical">
+			<physical>
 				<xsl:for-each select="marc:subfield">
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text>
 					</xsl:for-each>
-				</field>
+				</physical>
 			</xsl:if>
 		<xsl:if test="marc:subfield[@code='c']">
-			<field name="dimension">
+			<dimension>
 				<xsl:value-of select="marc:subfield[@code='c']" />
-				</field>
+				</dimension>
 			</xsl:if>
 		</xsl:template>
 	
@@ -373,34 +353,34 @@
 		<field name="publishDateSort">
 			<xsl:value-of select="translate(marc:subfield[@code='c'], translate(.,'0123456789', ''), '')" />
 			</field>-->
-		<field name="placeOfPublication">
+		<placeOfPublication>
 			<xsl:value-of select="marc:subfield[@code='a']" />
-			</field>
-		<field name="publisher">
+			</placeOfPublication>
+		<publisher>
 			<xsl:value-of select="marc:subfield[@code='b']" />
-			</field>
+			</publisher>
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='020']">
-		<field name="isbn">
+		<isbn>
 			<xsl:value-of select="normalize-space(.)" />
-			</field>
+			</isbn>
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='511']">
-		<field name="contributor">
+		<contributor>
 			<xsl:value-of select="marc:subfield[@code='a']" />
-			</field>
+			</contributor>
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='100']">
-		<field name="author">
+		<author>
 			<xsl:value-of select="marc:subfield[@code='a']" />
 			<xsl:if test="marc:subfield[@code='b']">
 				<xsl:text> - </xsl:text>
 				<xsl:value-of select="marc:subfield[@code='b']" />
 					</xsl:if>
-					</field>
+					</author>
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='700']">
@@ -414,9 +394,9 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='245']">
-		<field name="title">
+		<title>
 					<!--<xsl:value-of select="replace(replace(marc:subfield[@code='a'],'&gt;&gt;',''),'&lt;&lt;','')" /> XSLT 2.0-->
-					<xsl:value-of select="translate(marc:subfield[@code='a'],'&gt;&gt;&lt;&lt;','')" />
+					<xsl:value-of select="translate(marc:subfield[@code='a'][1],'&gt;&gt;&lt;&lt;','')" />
 					<xsl:if test="marc:subfield[@code='h']">
 						<xsl:text> [</xsl:text>
 						<xsl:value-of select="marc:subfield[@code='h']" />
@@ -429,30 +409,32 @@
 						</xsl:if>
 					<xsl:if test="marc:subfield[@code='i']">
 						<xsl:text> ; </xsl:text>
-						<xsl:value-of select="translate(marc:subfield[@code='i'],'&gt;&gt;&lt;&lt;','')" />
+						<xsl:value-of select="translate(marc:subfield[@code='i'][1],'&gt;&gt;&lt;&lt;','')" />
 						</xsl:if>
-					</field>
+					</title>
 				<xsl:if test="marc:subfield[@code='b']">
-					<field name="title_sub">
+					<title_sub>
 						<!--<xsl:value-of select="marc:subfield[@code='b']" />-->
-						<xsl:value-of select="translate(marc:subfield[@code='b'],'&gt;&gt;&lt;&lt;','')" />
-						</field>
+						<xsl:value-of select="translate(marc:subfield[@code='b'][1],'&gt;&gt;&lt;&lt;','')" />
+						</title_sub>
 					</xsl:if>
-				<field name="title_short">
-					<xsl:value-of select="translate(marc:subfield[@code='a'],'&gt;&gt;&lt;&lt;','')" />
+				<title_short>
+					<xsl:value-of select="translate(marc:subfield[@code='a'][1],'&gt;&gt;&lt;&lt;','')" />
 					<xsl:if test="marc:subfield[@code='h']">
 						<xsl:text> [</xsl:text>
 						<xsl:value-of select="marc:subfield[@code='h']" />
 						<xsl:text>]</xsl:text>
 						</xsl:if>
-					<!--<xsl:value-of select="marc:subfield[@code='a']" />--></field>
+					<!--<xsl:value-of select="marc:subfield[@code='a']" />--></title_short>
 
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='509']">
-		<field name="alternativeTitle">
-			<xsl:value-of select="marc:subfield[@code='t']" />
-			</field>
+		<alternativeTitle>
+			<xsl:value-of select="translate(marc:subfield[@code='t'][1],'&gt;&gt;&lt;&lt;','')" />
+			</alternativeTitle>
 		</xsl:template>		
 		
+
+	
 </xsl:stylesheet>
