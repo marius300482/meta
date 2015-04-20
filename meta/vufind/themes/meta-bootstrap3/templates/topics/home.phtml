@@ -1,0 +1,52 @@
+<?
+/**
+ * THIS IS HOW TO MAKE THIS PAGE THE DEFAULT (landing) PAGE
+ *
+ * 1. Open "/vufind2/config/vufind/config.ini".
+ * 2. Replace the value of "defaultModule" with "Search".
+ * 3. When calling "/vufind/Index" in the browser, this page should be shown.
+ */
+
+// Set page title.
+$this->headTitle($this->translate('Home'));
+?>
+<div id="topicsPage">
+    <div class="missionStatement col-md-12">
+        <h1><?= $this->transEsc('Mission statement') ?></h1>
+    </div>
+    <div class="col-md-8">
+        <h2><?= $this->transEsc('Participating institutions'); ?></h2>
+        <div>
+            MAP
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h2><?= $this->transEsc('Inventory by document types'); ?>:</h2>
+        <div>
+            STATISTIC
+        </div>
+    </div>
+    <div class="col-md-12">
+        <h2><?= $this->transEsc('Inventory of the institutions'); ?></h2>
+        <div class="body">
+            INSTITUTIONS
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h2><?= $this->transEsc('Theme overview'); ?>:</h2>
+        <ul class="body tag_cloud">
+            <? foreach ($topics as $topic): ?>
+                <li>
+                    <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
+                        href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </div>
+    <div class="body col-md-4">
+        <h2><?= $this->transEsc('Perhaps interesting?'); ?></h2>
+        <div class="body">
+            BOOKS
+        </div>
+    </div>
+</div>

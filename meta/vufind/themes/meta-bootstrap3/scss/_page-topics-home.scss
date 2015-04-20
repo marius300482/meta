@@ -4,16 +4,16 @@
     font-family: "Libre Baskerville",serif;
     font-weight: 500;
     text-align: center;
+    margin: 0 0 3%;
     @media (min-width: $device-xs-max-width) {
       font-size: 24px;
-      margin: 0 15%;
+      margin: 0 15% 3%;
     }
   }
   h2 {
     font-size: 18px;
     border-bottom: 5px solid #d6d3de;
     font-weight: 500;
-    margin-top: 20px;
     padding-bottom: 10px;
   }
   // Tag cloud
