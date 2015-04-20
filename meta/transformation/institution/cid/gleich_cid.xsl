@@ -110,7 +110,7 @@
 				 			<xsl:text>Buch</xsl:text>
 				 			</xsl:when>
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='CF'">
-				 			<xsl:text>Elektronische Medien</xsl:text>
+				 			<xsl:text>Datenträger</xsl:text>
 				 			</xsl:when>
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='MU'">
 				 			<xsl:text>Tonträger</xsl:text>
@@ -119,17 +119,31 @@
 				 			<xsl:text>Zeitschrift</xsl:text>
 				 			</xsl:when>
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='VM'">
-				 			<xsl:text>Visuelles Material</xsl:text>
+				 			<xsl:choose>
+				 				<xsl:when test="contains(marc:datafield[@tag='245'],'Film')">	
+				 					<xsl:text>Film</xsl:text>
+				 					</xsl:when>
+				 				<xsl:otherwise>
+				 					<xsl:text>Buch</xsl:text>
+				 					</xsl:otherwise>
+				 				</xsl:choose>
 				 			</xsl:when>
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='MX'">
-				 			<xsl:text>Gemischtes Material</xsl:text>
+				 			<xsl:text>Buch</xsl:text>
 				 			</xsl:when>
 				 		<!--<xsl:otherwise>
 				 			<xsl:value-of select="marc:datafield[@tag='949']/marc:subfield[@code='3']" />
 				 			</xsl:otherwise>-->
 				 		</xsl:choose>
 				 	</format>
-	
+					
+					<xsl:if test="marc:controlfield[@tag='FMT']='VM'">
+					<documentType>
+						<xsl:text>Visuelles Material</xsl:text>
+						</documentType>
+						</xsl:if>
+					
+					
 				<xsl:apply-templates select="marc:controlfield[@tag='008']" />
 		
 	<!--TITLE-->
@@ -149,6 +163,7 @@
 				<xsl:apply-templates select="marc:datafield[@tag='710']" />
 				
 			<!--series-->
+				
 				<xsl:apply-templates select="marc:datafield[@tag='490']" />
 		
 			<!--edition Ausgabe-->
@@ -163,6 +178,11 @@
 		<!--display / publishDate Jahresangabe-->
 		<!--placeOfPublication Ortsangabe-->	
 		<!--publisher Verlag-->
+				<xsl:choose>
+					<xsl:when test="marc:datafield[@tag='260']">
+						
+						</xsl:when>
+					</xsl:choose>
 				<xsl:apply-templates select="marc:datafield[@tag='260']" />
 	
 		<!--sourceInfo Quelle-->
@@ -175,7 +195,14 @@
 			
 				
 	<!--CONTENTRELATED INFORMATION-->	
-				<xsl:apply-templates select="marc:datafield[@tag='650']" />
+				
+			<xsl:for-each select="distinct-values(marc:datafield[@tag='650']/marc:subfield[@code='a']/text())">
+				<xsl:element name="subjectTopic">
+					<xsl:value-of select="."></xsl:value-of>
+				</xsl:element>
+			</xsl:for-each>
+				
+				<!--<xsl:apply-templates select="marc:datafield[@tag='650']" />-->
 				<xsl:apply-templates select="marc:datafield[@tag='690']" />
 				<xsl:apply-templates select="marc:datafield[@tag='600']" />
 				
@@ -190,10 +217,40 @@
 		
 			</dataset>
 			
-			
-			
+			<xsl:if test="(marc:datafield[@tag='PLK']) and (not(marc:datafield[@tag='490']/marc:subfield[@code='w']))">
+			<functions>
+				<hierarchyFields>
+				
+					<hierarchy_top_id><xsl:value-of select="$id" /><xsl:text>cid</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="marc:datafield[@tag='245']" /></hierarchy_top_title>
+				
+					<is_hierarchy_id><xsl:value-of select="$id" /><xsl:text>cid</xsl:text></is_hierarchy_id>
+					<is_hierarchy_title><xsl:value-of select="marc:datafield[@tag='245']" /></is_hierarchy_title>
+				
+					<hierarchy_sequence><xsl:value-of select="substring(marc:datafield[@tag='245'],1,3)"/></hierarchy_sequence>
+				
+					</hierarchyFields>
+				</functions>
+				</xsl:if>
 		
-	
+			<xsl:if test="marc:datafield[@tag='490']/marc:subfield[@code='w']">
+			<functions>
+				<hierarchyFields>
+				
+					<hierarchy_top_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w']" /><xsl:text>cid</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a']" /></hierarchy_top_title>
+					
+					<hierarchy_parent_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w']" /><xsl:text>cid</xsl:text></hierarchy_parent_id>
+					<hierarchy_parent_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a']" /></hierarchy_parent_title>
+				
+					<is_hierarchy_id><xsl:value-of select="$id" /><xsl:text>cid</xsl:text></is_hierarchy_id>
+					<is_hierarchy_title><xsl:value-of select="marc:datafield[@tag='245']" /></is_hierarchy_title>
+				
+					<hierarchy_sequence><xsl:value-of select="substring(marc:datafield[@tag='245'],1,3)"/></hierarchy_sequence>
+				
+					</hierarchyFields>
+				</functions>
+				</xsl:if>
 	
 				
 		
@@ -307,13 +364,16 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='650']">
-		<xsl:for-each select="marc:subfield[@code='a']">
+		<!--<xsl:for-each select="marc:subfield[@code='a']">-->
+		<!--<xsl:value-of select="distinct-values((1, 2, 3, 1, 2))"></xsl:value-of>-->
+		<!--<xsl:for-each select="distinct-values((marc:subfield[@code='a']/text()))">-->
+		<xsl:for-each select="distinct-values(marc:subfield[@code='a']/text())">
 			<subjectTopic><xsl:value-of select="." /></subjectTopic>		
 			</xsl:for-each>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='300']">
-		<xsl:if test="../marc:controlfield[@tag='FMT']='BK'">
+		<xsl:if test="(../marc:controlfield[@tag='FMT']='BK') and (marc:subfield[@code='a'])">
 			<physical>
 				<xsl:value-of select="normalize-space(substring-before(marc:subfield[@code='a'][1],'p.'))" />
 					</physical>
@@ -353,12 +413,16 @@
 		<field name="publishDateSort">
 			<xsl:value-of select="translate(marc:subfield[@code='c'], translate(.,'0123456789', ''), '')" />
 			</field>-->
-		<placeOfPublication>
-			<xsl:value-of select="marc:subfield[@code='a']" />
-			</placeOfPublication>
-		<publisher>
-			<xsl:value-of select="marc:subfield[@code='b']" />
-			</publisher>
+		<xsl:if test="marc:subfield[@code='a']">
+			<placeOfPublication>
+				<xsl:value-of select="marc:subfield[@code='a']" />
+				</placeOfPublication>
+			</xsl:if>
+		<xsl:if test="marc:subfield[@code='b']">
+			<publisher>
+				<xsl:value-of select="marc:subfield[@code='b']" />
+				</publisher>
+			</xsl:if>
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='020']">
@@ -368,9 +432,20 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='511']">
-		<contributor>
+		<xsl:choose>
+			<xsl:when test="../marc:controlfield[@tag='FMT']='MU'">
+				 </xsl:when>
+			<xsl:otherwise>
+				<contributor>
+					<xsl:value-of select="marc:subfield[@code='a']" />
+					</contributor>
+				</xsl:otherwise>
+			</xsl:choose>
+		
+	
+		<!--<contributor>
 			<xsl:value-of select="marc:subfield[@code='a']" />
-			</contributor>
+			</contributor>-->
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='100']">
