@@ -18,7 +18,28 @@ $rowOneInstitutionCount = 15;
     <div class="col-md-8">
         <h2><?= $this->transEsc('Participating institutions'); ?></h2>
         <div>
-            MAP
+            <!-- Start google maps -->
+            <div id="topic-map-canvas"></div>
+            <script src="https://maps.googleapis.com/maps/api/js?language=de"></script>
+            <script>
+                google.maps.event.addDomListener(window, 'load', function () {
+                    var mapOptions = {zoom: 15, zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM }};
+                    var map = new google.maps.Map(document.getElementById('topic-map-canvas'), mapOptions);
+                    var address = <?= json_encode("Berlin"); ?>;
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({'address': address}, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            new google.maps.InfoWindow({
+                                map: map,
+                                position: results[0].geometry.location,
+                                content: "<strong><?= "This is"; ?></strong><br />" + address
+                            });
+                        }
+                    });
+                });
+            </script>
+            <!-- END google maps -->
         </div>
     </div>
     <div class="col-md-4">
