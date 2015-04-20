@@ -853,7 +853,8 @@ footer {
   line-height: 46px;
   font-size: 16px;
   background-color: #F8F5F0;
-  margin-top: -10px; }
+  margin-top: -10px;
+  padding: 20px; }
   #topicsPage .tag_cloud li {
     display: inline-block; }
   #topicsPage .tag_cloud .w19, #topicsPage .tag_cloud .w20, #topicsPage .tag_cloud .w21 {
