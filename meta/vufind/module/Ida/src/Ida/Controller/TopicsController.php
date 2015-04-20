@@ -68,6 +68,7 @@ class TopicsController extends BrowseController
         $view = $this->createViewModel('topics/home');
         $view->topics = $this->getTagCloud();
         $view->institutions = $this->getInstitutions();
+        $view->inventoryFacet = $this->getInventoryfacet();
         $view->driver = new SolrDefault();
         return $view;
     }
@@ -92,6 +93,27 @@ class TopicsController extends BrowseController
         }
 
         return $topics;
+    }
+
+    public function getInventoryfacet() {
+        $colors = array(
+            "#990099", "#29AAE3", "#01009A",
+            "#FF931E", "#C1272D", "#8CC53F"
+        );
+        // Get content of the format cell as array
+        $facetContent = $this->getFacetList('format', 'format', 'count', '*');
+        // Add values which are required for presentation
+        for ($i = 0; $i < count($facetContent); $i++) {
+            // Add percentage
+            $maxCount = $facetContent[0]['count'];
+            $currentCount = $facetContent[$i]['count'];
+            $percent = 0 < $maxCount ? (100 / $maxCount) * $currentCount : 0;
+            $facetContent[$i]['percent'] = round($percent, 2);
+            // Add color
+            $facetContent[$i]['color'] = $i < count($colors) ? $colors[$i] : "#000000";
+        }
+
+        return $facetContent;
     }
 
     public function getInstitutions()

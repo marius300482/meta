@@ -16,6 +16,28 @@
     font-weight: 500;
     padding-bottom: 10px;
   }
+  // Inventory facet
+  #inventoryFacet {
+    .format {
+      text-align: right;
+      display: inline-block;
+      padding-right: 5px;
+      width: 49%;
+      vertical-align: middle;
+      .count {
+        color: $color-grey-dark;
+      }
+    }
+    .barWrapper {
+      display: inline-block;
+      width: 50%;
+      vertical-align: middle;
+      .bar {
+        width: 100%;
+        height: 16px;
+      }
+    }
+  }
   // Institution list
   #institutionList {
     h3 {

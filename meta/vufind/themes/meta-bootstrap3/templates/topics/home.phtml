@@ -23,9 +23,21 @@ $rowOneInstitutionCount = 15;
     </div>
     <div class="col-md-4">
         <h2><?= $this->transEsc('Inventory by document types'); ?>:</h2>
-        <div>
-            STATISTIC
-        </div>
+        <ul id="inventoryFacet">
+            <?php foreach ($inventoryFacet as $entry) : ?>
+                <li>
+                    <div class="format">
+                        <?= $entry['displayText']; ?>
+                        <span class="count">
+                            (<?= number_format($entry['count'], 0, ',', '.'); ?>)
+                        </span>
+                    </div>
+                    <div class="barWrapper">
+                        <div class="bar" style="background-color: <?= $entry['color']; ?>; width: <?= max(1, $entry['percent']); ?>%"></div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
     <div class="col-md-12" id="institutionList">
         <h2><?= $this->transEsc('Inventory of the institutions'); ?></h2>
