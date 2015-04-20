@@ -237,11 +237,11 @@
 			<functions>
 				<hierarchyFields>
 				
-					<hierarchy_top_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w']" /><xsl:text>cid</xsl:text></hierarchy_top_id>
-					<hierarchy_top_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a']" /></hierarchy_top_title>
+					<hierarchy_top_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w'][1]" /><xsl:text>cid</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a'][1]" /></hierarchy_top_title>
 					
-					<hierarchy_parent_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w']" /><xsl:text>cid</xsl:text></hierarchy_parent_id>
-					<hierarchy_parent_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a']" /></hierarchy_parent_title>
+					<hierarchy_parent_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w'][1]" /><xsl:text>cid</xsl:text></hierarchy_parent_id>
+					<hierarchy_parent_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a'][1]" /></hierarchy_parent_title>
 				
 					<is_hierarchy_id><xsl:value-of select="$id" /><xsl:text>cid</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="marc:datafield[@tag='245']" /></is_hierarchy_title>
