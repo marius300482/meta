@@ -22,22 +22,26 @@ $rowOneInstitutionCount = 15;
             <div id="topic-map-canvas"></div>
             <script src="https://maps.googleapis.com/maps/api/js?language=de"></script>
             <script>
-                google.maps.event.addDomListener(window, 'load', function () {
-                    var mapOptions = {zoom: 15, zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM }};
-                    var map = new google.maps.Map(document.getElementById('topic-map-canvas'), mapOptions);
-                    var address = <?= json_encode("Berlin"); ?>;
-                    var geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({'address': address}, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            map.setCenter(results[0].geometry.location);
-                            new google.maps.InfoWindow({
-                                map: map,
-                                position: results[0].geometry.location,
-                                content: "<strong><?= "This is"; ?></strong><br />" + address
-                            });
-                        }
-                    });
+                var marker, i, infowindow, locations, map;
+                infowindow = new google.maps.InfoWindow();
+                locations = [['Berlin', 52.5200070, 13.4049540]];
+                map = new google.maps.Map(document.getElementById('topic-map-canvas'), {
+                    zoom: 5,
+                    center: new google.maps.LatLng(51.1656910, 10.4515260),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
+                for (i = 0; i < locations.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map
+                    });
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infowindow.setContent(locations[i][0]);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
             </script>
             <!-- END google maps -->
         </div>
