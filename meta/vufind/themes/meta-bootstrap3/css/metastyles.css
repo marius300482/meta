@@ -871,6 +871,12 @@ footer {
   padding-left: 0; }
 #topicsPage #institutionList .col-md-4:last-child {
   padding-right: 0; }
+  @media (max-width: 992px) {
+    #topicsPage #institutionList .col-md-4:last-child {
+      margin-top: 20px; } }
+@media (max-width: 992px) {
+  #topicsPage #institutionList .col-md-4 {
+    padding: 0; } }
 #topicsPage #institutionList li {
   padding-left: 20px; }
   #topicsPage #institutionList li:before {

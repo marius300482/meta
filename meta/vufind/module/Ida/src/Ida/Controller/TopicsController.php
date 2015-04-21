@@ -7,8 +7,10 @@
 
 namespace Ida\Controller;
 
-
-use VuFind\Controller\BrowseController;use VuFind\RecordDriver\SolrDefault;use Zend\Config\Config;use Zend\View\Model\ViewModel;
+use VuFind\Controller\BrowseController;
+use VuFind\RecordDriver\SolrDefault;
+use Zend\Config\Config;
+use Zend\View\Model\ViewModel;
 
 class TopicsController extends BrowseController
 {
