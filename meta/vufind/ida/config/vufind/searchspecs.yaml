@@ -278,7 +278,7 @@ JournalTitle:
 
 Title:
   DismaxFields:
-    - title_short^500
+    - title_short^750
     - title_full_unstemmed^450
     - title_full^400
     - title^300
@@ -334,25 +334,26 @@ Series:
 
 AllFields:
   DismaxFields:
-    - title_short^750
-    - title_full_unstemmed^600
-    - title_full^400
-    - title^500
+    - title_short^1000
+    - title_full_unstemmed^750
+    - title_full^750
+    - title^750
     - title_alt^200
     - title_new^100
     - series^50
     - series2^30
-    - author^300
-    - author_fuller^150
+    - author^30
+    - author_fuller^30
     - contents^10
-    - topic_unstemmed^550
-    - topic^500
+    - topic_unstemmed^200
+    - topic^150
     - geographic^300
     - genre^300
     - allfields_unstemmed^10
     - fulltext_unstemmed^10
     - allfields
     - fulltext
+    - description
     - isbn
     - issn
   QueryFields:
@@ -406,6 +407,8 @@ AllFields:
     allfields:
       - [or, ~]
     fulltext:
+      - [or, ~]
+    description:
       - [or, ~]
     isbn:
       - [onephrase, ~]
@@ -581,3 +584,10 @@ allContributors:
     - author_additional
     - editor
     - contributor
+editorStr:
+  DismaxFields:
+    - editor
+
+zdbid:
+  DismaxFields:
+    - zdbId
