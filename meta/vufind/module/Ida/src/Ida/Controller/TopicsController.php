@@ -71,7 +71,8 @@ class TopicsController extends BrowseController
         $view->topics = $this->getTagCloud();
         $view->institutions = $this->getInstitutions();
         $view->inventoryFacet = $this->getInventoryfacet();
-        $view->driver = new SolrDefault();
+        $view->solrDriver = new SolrDefault();
+        $view->randomBooks = $this->getRandomBooks();
         return $view;
     }
 
@@ -118,7 +119,17 @@ class TopicsController extends BrowseController
         return $facetContent;
     }
 
-    public function getInstitutions()
+    protected function getRandomBooks()
+    {
+        // TODO
+        return array(
+            $this->getRecordLoader()->load("000097724frso", "Solr"),
+            $this->getRecordLoader()->load("28378fmt", "Solr"),
+            $this->getRecordLoader()->load("17535fmt", "Solr")
+        );
+    }
+
+    protected function getInstitutions()
     {
         require_once APPLICATION_PATH . "/module/Ida/data/institutionList.php";
         return $institutionList;

@@ -102,15 +102,20 @@ $rowOneInstitutionCount = 15;
             <? foreach ($topics as $topic): ?>
                 <li>
                     <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
-                        href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+                        href="<?= $this->record($this->solrDriver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
                 </li>
             <? endforeach; ?>
         </ul>
     </div>
     <div class="body col-md-4">
         <h2><?= $this->transEsc('Perhaps interesting?'); ?></h2>
-        <div class="body">
-            BOOKS
-        </div>
+        <ul class="body">
+            <?php foreach ($this->randomBooks as $book) : ?>
+                <?php $this->driver = $book; // Make template reusable ?>
+                <li>
+                    <? include "../RecordDriver/SolrIDA/result-list.phtml"; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
 </div>
