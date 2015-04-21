@@ -217,7 +217,7 @@
 		
 			</dataset>
 			
-			<xsl:if test="(marc:datafield[@tag='PLK']) and (not(marc:datafield[@tag='490']/marc:subfield[@code='w']))">
+			<!--<xsl:if test="(marc:datafield[@tag='PLK']) and (not(marc:datafield[@tag='490']/marc:subfield[@code='w']))">
 			<functions>
 				<hierarchyFields>
 				
@@ -233,15 +233,15 @@
 				</functions>
 				</xsl:if>
 		
-			<xsl:if test="marc:datafield[@tag='490']/marc:subfield[@code='w']">
+			<xsl:if test="marc:datafield[@tag='490']/marc:subfield[@code='w'][1]">
 			<functions>
 				<hierarchyFields>
 				
-					<hierarchy_top_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w'][1]" /><xsl:text>cid</xsl:text></hierarchy_top_id>
-					<hierarchy_top_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a'][1]" /></hierarchy_top_title>
+					<hierarchy_top_id><xsl:text>00</xsl:text><xsl:value-of select="marc:datafield[@tag='490'][1]/marc:subfield[@code='w']" /><xsl:text>cid</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="marc:datafield[@tag='490'][1]/marc:subfield[@code='a']" /></hierarchy_top_title>
 					
-					<hierarchy_parent_id><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='w'][1]" /><xsl:text>cid</xsl:text></hierarchy_parent_id>
-					<hierarchy_parent_title><xsl:value-of select="marc:datafield[@tag='490']/marc:subfield[@code='a'][1]" /></hierarchy_parent_title>
+					<hierarchy_parent_id><xsl:text>00</xsl:text><xsl:value-of select="marc:datafield[@tag='490'][1]/marc:subfield[@code='w']" /><xsl:text>cid</xsl:text></hierarchy_parent_id>
+					<hierarchy_parent_title><xsl:value-of select="marc:datafield[@tag='490'][1]/marc:subfield[@code='a']" /></hierarchy_parent_title>
 				
 					<is_hierarchy_id><xsl:value-of select="$id" /><xsl:text>cid</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="marc:datafield[@tag='245']" /></is_hierarchy_title>
@@ -250,7 +250,7 @@
 				
 					</hierarchyFields>
 				</functions>
-				</xsl:if>
+				</xsl:if>-->
 	
 				
 		
@@ -459,13 +459,13 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='700']">
-		<field name="contributor">
+		<contributor>
 			<xsl:value-of select="marc:subfield[@code='a']" />
 			<xsl:if test="marc:subfield[@code='b']">
 				<xsl:text> - </xsl:text>
 				<xsl:value-of select="marc:subfield[@code='b']" />
 					</xsl:if>
-					</field>
+					</contributor>
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='245']">
