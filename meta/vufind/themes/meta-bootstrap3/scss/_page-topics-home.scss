@@ -32,7 +32,7 @@
       text-align: right;
       display: inline-block;
       padding-right: 5px;
-      width: 49%;
+      width: 48%;
       vertical-align: middle;
       .count {
         color: $color-grey-dark;
@@ -71,6 +71,15 @@
       }
       &:last-child {
         padding-right: 0;
+      }
+    }
+    li {
+      padding-left: 20px;
+      &:before {
+        content: "\e609";
+        color: $color-purple;
+        font-family: 'icomoon';
+        margin: 0 7px 0 -20px;
       }
     }
   }

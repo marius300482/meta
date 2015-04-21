@@ -844,7 +844,7 @@ footer {
     text-align: right;
     display: inline-block;
     padding-right: 5px;
-    width: 49%;
+    width: 48%;
     vertical-align: middle; }
     #topicsPage #inventoryFacet .format .count {
       color: #767086; }
@@ -871,6 +871,13 @@ footer {
   padding-left: 0; }
 #topicsPage #institutionList .col-md-4:last-child {
   padding-right: 0; }
+#topicsPage #institutionList li {
+  padding-left: 20px; }
+  #topicsPage #institutionList li:before {
+    content: "\e609";
+    color: #990099;
+    font-family: 'icomoon';
+    margin: 0 7px 0 -20px; }
 #topicsPage .tag_cloud {
   text-align: center;
   line-height: normal;
