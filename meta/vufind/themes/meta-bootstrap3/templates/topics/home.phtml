@@ -113,7 +113,7 @@ $rowOneInstitutionCount = 15;
             <?php foreach ($this->randomBooks as $book) : ?>
                 <?php $this->driver = $book; // Make template reusable ?>
                 <li>
-                    <? include "../RecordDriver/SolrIDA/result-list.phtml"; ?>
+                    <? include dirname(__DIR__) . "/RecordDriver/SolrIDA/result-list.phtml"; ?>
                 </li>
             <?php endforeach; ?>
         </ul>
