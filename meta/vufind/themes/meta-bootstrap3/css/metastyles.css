@@ -912,6 +912,15 @@ footer {
   #topicsPage .tag_cloud .w46, #topicsPage .tag_cloud .w47, #topicsPage .tag_cloud .w48, #topicsPage .tag_cloud .w49, #topicsPage .tag_cloud .w50 {
     font-size: 46px;
     color: #990099; }
+#topicsPage #randomBooks {
+  padding-top: 10px; }
+  @media (min-width: 992px) {
+    #topicsPage #randomBooks .col-xs-1 {
+      padding-left: 0;
+      width: 25%; }
+    #topicsPage #randomBooks .col-xs-11 {
+      padding-left: 0;
+      width: 75%; } }
 
 .browse.list-group:last-child {
   padding-right: 0; }

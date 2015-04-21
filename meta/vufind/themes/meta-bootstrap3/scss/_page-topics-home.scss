@@ -128,4 +128,18 @@
       color: $color-purple;
     }
   }
+  // Random books
+  #randomBooks {
+    padding-top: 10px;
+    @media (min-width: $device-md-max-width) {
+      .col-xs-1 {
+        padding-left: 0;
+        width: 25%;
+      }
+      .col-xs-11 {
+        padding-left: 0;
+        width: 75%;
+      }
+    }
+  }
 }

@@ -107,12 +107,12 @@ $rowOneInstitutionCount = 15;
             <? endforeach; ?>
         </ul>
     </div>
-    <div class="body col-md-4">
+    <div class="col-md-4">
         <h2><?= $this->transEsc('Perhaps interesting?'); ?></h2>
-        <ul class="body">
+        <ul class="body" id="randomBooks">
             <?php foreach ($this->randomBooks as $book) : ?>
-                <?php $this->driver = $book; // Make template reusable ?>
-                <li>
+                <?php $this->driver = $book; // Make "result-list.phtml" template reusable ?>
+                <li class="result row">
                     <? include dirname(__DIR__) . "/RecordDriver/SolrIDA/result-list.phtml"; ?>
                 </li>
             <?php endforeach; ?>
