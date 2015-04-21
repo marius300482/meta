@@ -581,3 +581,10 @@ allContributors:
     - author_additional
     - editor
     - contributor
+editorStr:
+  DismaxFields:
+    - editor
+
+zdbid:
+  DismaxFields:
+    - zdbId
