@@ -50,42 +50,42 @@
   }
   // Institution list
   #institutionList {
-    h3 {
-      font-size: 16px;
-      font-family: "Libre Baskerville",serif;
-      font-weight: 500;
-      text-transform: uppercase;
-      color: #979797;
-      letter-spacing: 2px;
-      margin: 20px 0 7px;
-      &:first-child {
-        margin-top: 0;
-      }
-    }
     .body {
       margin-top: 30px;
-    }
-    .col-md-4 {
-      &:first-child {
-        padding-left: 0;
-      }
-      &:last-child {
-        padding-right: 0;
-        @media (max-width: $device-md-max-width) {
-          margin-top: 20px;
+      .col-md-4 {
+        &:first-child {
+          padding-left: 0;
         }
-      }
-      @media (max-width: $device-md-max-width) {
-        padding: 0;
-      }
-    }
-    li {
-      padding-left: 20px;
-      &:before {
-        content: "\e609";
-        color: $color-purple;
-        font-family: 'icomoon';
-        margin: 0 7px 0 -20px;
+        &:last-child {
+          padding-right: 0;
+          @media (max-width: $device-md-max-width) {
+            margin-top: 20px;
+          }
+        }
+        @media (max-width: $device-md-max-width) {
+          padding: 0;
+        }
+        h3 {
+          font-size: 16px;
+          font-family: "Libre Baskerville",serif;
+          font-weight: 500;
+          text-transform: uppercase;
+          color: #979797;
+          letter-spacing: 2px;
+          margin: 20px 0 7px;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+        .institution {
+          padding-left: 20px;
+          &:before {
+            content: "\e609";
+            color: $color-purple;
+            font-family: 'icomoon';
+            margin: 0 7px 0 -20px;
+          }
+        }
       }
     }
   }

@@ -9,7 +9,25 @@
 
 // Set page title.
 $this->headTitle($this->translate('Home'));
-$rowOneInstitutionCount = 15;
+
+// Set number of institutions in col
+$institutionColOneCount = 5;
+$institutionColTwoCount = 6;
+
+// Sort institutions in 3 columns
+$institutionsCols = array(array(), array(), array());
+foreach ($institutions as $country => $institutionsInCountry) {
+    foreach ($institutionsInCountry as $institution) {
+        if (count($institutionsCols[0]) < $institutionColOneCount) {
+            $institutionsCols[0][] = $institution;
+        } else if (count($institutionsCols[1]) < $institutionColTwoCount) {
+            $institutionsCols[1][] = $institution;
+        } else {
+            $institutionsCols[2][] = $institution;
+        }
+    }
+}
+
 ?>
 <div id="topicsPage">
     <div class="missionStatement col-md-12">
@@ -67,19 +85,22 @@ $rowOneInstitutionCount = 15;
     <div class="col-md-12" id="institutionList">
         <h2><?= $this->transEsc('Inventory of the institutions'); ?></h2>
         <div class="body">
-            <?php for ($col = 0; $col < 3; $col++) : ?>
+            <?php $lastCountry = ""; ?>
+            <?php foreach ($institutionsCols as $column) : ?>
                 <div class="col-md-4">
-                    <?php foreach ($institutions as $country => $institutionsInCountry) : ?>
-                        <?if ("Germany" == $country) continue; ?>
-                        <h3><?= $this->transEsc($country); ?></h3>
-                        <ul>
-                            <?php foreach ($institutionsInCountry as $institutionName) : ?>
-                                <li><a href=""><? var_dump($institutionName); ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
+                    <?php foreach ($column as $institution) : ?>
+                        <?php if ($lastCountry !== $institution["country"]) : ?>
+                            <?php $lastCountry = $institution["country"]; ?>
+                            <h3><?= $this->transEsc($institution["country"]); ?></h3>
+                        <?php endif; ?>
+                        <div class="institution">
+                            <a href="<?= $institution["id"]; ?>">
+                                <?= $institution["name"]; ?>
+                            </a>
+                        </div>
                     <?php endforeach; ?>
                 </div>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </div>
     </div>
     <div class="col-md-8">

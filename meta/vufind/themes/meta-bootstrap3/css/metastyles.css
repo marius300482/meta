@@ -855,35 +855,35 @@ footer {
     #topicsPage #inventoryFacet .barWrapper .bar {
       width: 100%;
       height: 16px; }
-#topicsPage #institutionList h3 {
-  font-size: 16px;
-  font-family: "Libre Baskerville",serif;
-  font-weight: 500;
-  text-transform: uppercase;
-  color: #979797;
-  letter-spacing: 2px;
-  margin: 20px 0 7px; }
-  #topicsPage #institutionList h3:first-child {
-    margin-top: 0; }
 #topicsPage #institutionList .body {
   margin-top: 30px; }
-#topicsPage #institutionList .col-md-4:first-child {
-  padding-left: 0; }
-#topicsPage #institutionList .col-md-4:last-child {
-  padding-right: 0; }
+  #topicsPage #institutionList .body .col-md-4:first-child {
+    padding-left: 0; }
+  #topicsPage #institutionList .body .col-md-4:last-child {
+    padding-right: 0; }
+    @media (max-width: 992px) {
+      #topicsPage #institutionList .body .col-md-4:last-child {
+        margin-top: 20px; } }
   @media (max-width: 992px) {
-    #topicsPage #institutionList .col-md-4:last-child {
-      margin-top: 20px; } }
-@media (max-width: 992px) {
-  #topicsPage #institutionList .col-md-4 {
-    padding: 0; } }
-#topicsPage #institutionList li {
-  padding-left: 20px; }
-  #topicsPage #institutionList li:before {
-    content: "\e609";
-    color: #990099;
-    font-family: 'icomoon';
-    margin: 0 7px 0 -20px; }
+    #topicsPage #institutionList .body .col-md-4 {
+      padding: 0; } }
+  #topicsPage #institutionList .body .col-md-4 h3 {
+    font-size: 16px;
+    font-family: "Libre Baskerville",serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #979797;
+    letter-spacing: 2px;
+    margin: 20px 0 7px; }
+    #topicsPage #institutionList .body .col-md-4 h3:first-child {
+      margin-top: 0; }
+  #topicsPage #institutionList .body .col-md-4 .institution {
+    padding-left: 20px; }
+    #topicsPage #institutionList .body .col-md-4 .institution:before {
+      content: "\e609";
+      color: #990099;
+      font-family: 'icomoon';
+      margin: 0 7px 0 -20px; }
 #topicsPage .tag_cloud {
   text-align: center;
   line-height: normal;
