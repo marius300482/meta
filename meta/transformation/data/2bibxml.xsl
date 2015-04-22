@@ -274,7 +274,7 @@
                 		
                 		<xsl:if test="dataset/description">
                 			<field name="description">
-                				<xsl:value-of select="dataset/description" />
+                				<xsl:value-of select="dataset/description" disable-output-escaping="no" />
                 				</field>
                 			</xsl:if>
                 		
@@ -508,9 +508,9 @@
 		</xsl:template>
 	
 	<xsl:template match="contributor">
-		<xsl:for-each select=".">
+		<xsl:for-each select="tokenize(.,';')">
 			<field name="contributor">
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				</field>
 			</xsl:for-each>
 		</xsl:template>

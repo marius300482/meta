@@ -203,9 +203,11 @@
 			<xsl:apply-templates select="Band" />
 			
 	<!--Herkunft-->
-			<xsl:apply-templates select="Provenienz" />
+			<!--<xsl:apply-templates select="Provenienz" />-->
 
 <!--IDENTIFIER-->
+	<!--ISBN-->
+			<xsl:apply-templates select="ISBN" />
 
 <!--PUBLISHING-->
 
@@ -231,9 +233,10 @@
 	<!--subjectTopic Deskriptoren-->
 			<xsl:apply-templates select="Schlagwort_x032x_Bibliothek" />
 			<xsl:apply-templates select="Person" />
+			<xsl:apply-templates select="Beitr_x132x_ge_x032x_von[1]" />
 			
 	<!--description-->
-			<xsl:apply-templates select="Bemerkung" />
+			<!--<xsl:apply-templates select="Bemerkung" />-->
 
 <!--OTHER-->
 
@@ -887,6 +890,32 @@
 	</xsl:template>
 	
 <!--Templates-->
+	
+	<xsl:template match="Beitr_x132x_ge_x032x_von">
+		<xsl:for-each select="../Beitr_x132x_ge_x032x_von">
+			<contributor>
+				<xsl:value-of select="normalize-space(substring-before(.,':'))" />
+				</contributor>
+			</xsl:for-each>	
+		<!--<description>
+			<xsl:for-each select="../Beitr_x132x_ge_x032x_von">
+				<xsl:value-of select="." />
+				</xsl:for-each>
+			</description>-->
+		
+		<xsl:for-each select="../Beitr_x132x_ge_x032x_von">
+			<listOfContents>
+				<xsl:value-of select="." />
+				</listOfContents>
+			</xsl:for-each>
+			
+		</xsl:template>
+	
+	<xsl:template match="ISBN">
+		<isbn>
+			<xsl:value-of select="." />
+			</isbn>
+		</xsl:template>
 	
 	<xsl:template match="AdressatIn">
 		<description>
