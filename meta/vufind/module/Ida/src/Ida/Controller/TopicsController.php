@@ -131,6 +131,7 @@ class TopicsController extends BrowseController
             $ini = (array) $reader->fromFile($idSourceFile);
             // Get the item ids if there are any in the .ini file
             $itemIds = isset($ini['item']) ? $ini['item'] : array();
+            shuffle($itemIds);
             // Get 3 array keys randomly from the $itemIds array
             $randomIds = $maxItems < count($itemIds) ? array_rand($itemIds, $maxItems) : $itemIds;
         } catch (\Zend\Config\Exception\RuntimeException $error) {}
