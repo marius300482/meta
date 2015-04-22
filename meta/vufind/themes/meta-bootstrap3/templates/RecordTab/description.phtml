@@ -127,16 +127,23 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?= $this->transEsc('Contributor') ?>:</th>
-            <td><? foreach ($contributors as $contributor): ?><?= $this->escapeHtml($contributor) ?><?= $contributor !== end($contributors) ? ", " : "" ?><? endforeach; ?></td>
+            <td><? foreach ($contributors as $contributor): ?><?= $this->escapeHtml($contributor) ?><?= $contributor !== end($contributors) ? " <br /> " : "" ?><? endforeach; ?></td>
         </tr>
     <? endif; ?>
+    
+   
     
     <? $contributorsNoFacet = $this->driver->getContributorsNoFacet();
     if (!empty($contributorsNoFacet)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?= $this->transEsc('Contributor') ?>:</th>
-            <td><? foreach ($contributorsNoFacet as $contributorNoFacet): ?><?= $this->escapeHtml($contributorNoFacet) ?><?= $contributorNoFacet !== end($contributorsNoFacet) ? ", " : "" ?><? endforeach; ?></td>
+            <td>
+	      <? foreach ($contributorsNoFacet as $contributorNoFacet): ?>
+		<?= $this->escapeHtml($contributorNoFacet) ?>
+		<?= $contributorNoFacet !== end($contributorsNoFacet) ? ", " : "" ?>
+		<? endforeach; ?>
+	      </td>
         </tr>
     <? endif; ?>
     
@@ -153,14 +160,21 @@
         </tr>
     <? endif; ?>
 
-    <? $reviewer = $this->driver->getReviewer(); ?>
-    <? if (isset($reviewer)): ?>
+    <? $reviewers = $this->driver->getReviewer(); ?>
+    <? if (isset($reviewers)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Reviewer')?>: </th>
-            <td property="reviewer"><?= $this->escapeHtml($reviewer); ?></td>
+            <td property="reviewer">
+	      <? foreach ($reviewers as $reviewer): ?>
+		<?= $this->escapeHtml($reviewer) ?>
+		<?= $reviewer !== end($reviewers) ? ";  " : "" ?>
+            <? endforeach; ?>
+            </td>
         </tr>
     <? endif; ?>
+    
+
 
     <? $shelfMark = $this->driver->getShelfMark(); ?>
     <? if (isset($shelfMark)): ?>
@@ -433,7 +447,20 @@
             <td property="description" colspan="2"><?= $this->escapeHtml($description) ?></td>
         </tr>
     <? endif; ?>
-
+    
+     <? $listOfContents = $this->driver->getListOfContents();
+    if (!empty($listOfContents)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th colspan="2"><?= $this->transEsc('Inhaltsangabe') ?>:</th>
+          </tr>
+          <tr valign="top">
+            <td property="description" colspan="2"><? foreach ($listOfContents as $listOfContent): ?>
+            <li style="list-style-type: none; diplay:block; margin-bottom:.5em">
+            <?= $this->escapeHtml($listOfContent) ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?></li><? endforeach; ?></td>
+        </tr>
+    <? endif; ?>
+    
     <? $creationdate = $this->driver->getRecordCreationDate(); ?>
     <? if (isset($creationdate)): ?>
         <? $contentDisplayed = true; ?>
