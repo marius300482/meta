@@ -121,12 +121,28 @@ class TopicsController extends BrowseController
 
     protected function getRandomBooks()
     {
-        // TODO
-        return array(
-            $this->getRecordLoader()->load("000097724frso", "Solr"),
-            $this->getRecordLoader()->load("28378fmt", "Solr"),
-            $this->getRecordLoader()->load("17535fmt", "Solr")
-        );
+        $idSourceFile = APPLICATION_PATH . "/module/Ida/data/randomItems.ini";
+        $maxItems = 3;
+        $randomIds = array();
+        $result = array();
+        try {
+            // Read the .ini file
+            $reader = new \Zend\Config\Reader\Ini();
+            $ini = (array) $reader->fromFile($idSourceFile);
+            // Get the item ids if there are any in the .ini file
+            $itemIds = isset($ini['item']) ? $ini['item'] : array();
+            // Get 3 array keys randomly from the $itemIds array
+            $randomIds = $maxItems < count($itemIds) ? array_rand($itemIds, $maxItems) : $itemIds;
+        } catch (\Zend\Config\Exception\RuntimeException $error) {}
+
+        // Read items from Solr
+        foreach ($randomIds as $randomId) {
+            try {
+                $result[] = $this->getRecordLoader()->load($itemIds[$randomId], "Solr");
+            } catch (\VuFind\Exception\RecordMissing $error) {}
+        }
+
+        return $result;
     }
 
     protected function getInstitutions()
