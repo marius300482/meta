@@ -67,33 +67,19 @@ $rowOneInstitutionCount = 15;
     <div class="col-md-12" id="institutionList">
         <h2><?= $this->transEsc('Inventory of the institutions'); ?></h2>
         <div class="body">
-            <?php  ?>
-            <div class="col-md-4">
-                <h3><?= $this->transEsc('Germany'); ?></h3>
-                <ul>
-                    <?php for ($i = 0; $i < $rowOneInstitutionCount; $i++) : ?>
-                        <li><a href=""><?= $institutions["Germany"][$i]; ?></a></li>
-                    <?php endfor; ?>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul>
-                    <?php for ($i = $rowOneInstitutionCount; $i < count($institutions["Germany"]); $i++) : ?>
-                        <li><a href=""><?= $institutions["Germany"][$i]; ?></a></li>
-                    <?php endfor; ?>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <?php foreach ($institutions as $country => $institutionsInCountry) : ?>
-                    <?if ("Germany" == $country) continue; ?>
-                    <h3><?= $this->transEsc($country); ?></h3>
-                    <ul>
-                        <?php foreach ($institutionsInCountry as $institutionName) : ?>
-                            <li><a href=""><?= $institutionName; ?></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endforeach; ?>
-            </div>
+            <?php for ($col = 0; $col < 3; $col++) : ?>
+                <div class="col-md-4">
+                    <?php foreach ($institutions as $country => $institutionsInCountry) : ?>
+                        <?if ("Germany" == $country) continue; ?>
+                        <h3><?= $this->transEsc($country); ?></h3>
+                        <ul>
+                            <?php foreach ($institutionsInCountry as $institutionName) : ?>
+                                <li><a href=""><? var_dump($institutionName); ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endforeach; ?>
+                </div>
+            <?php endfor; ?>
         </div>
     </div>
     <div class="col-md-8">
