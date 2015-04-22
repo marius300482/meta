@@ -233,6 +233,7 @@
 	<!--subjectTopic Deskriptoren-->
 			<xsl:apply-templates select="Schlagwort_x032x_Bibliothek" />
 			<xsl:apply-templates select="Person" />
+			<xsl:apply-templates select="Beitr_x132x_ge_x032x_von" />
 			
 	<!--description-->
 			<!--<xsl:apply-templates select="Bemerkung" />-->
@@ -889,6 +890,12 @@
 	</xsl:template>
 	
 <!--Templates-->
+	
+	<xsl:template match="Beitr_x132x_ge_x032x_von">
+		<subjectPerson>
+			<xsl:value-of select="normalize-space(substring-before(.,':'))"></xsl:value-of>
+			</subjectPerson>
+		</xsl:template>
 	
 	<xsl:template match="ISBN">
 		<isbn>
