@@ -104,6 +104,19 @@ pre {
 b, strong {
   font-weight: 500; }
 
+@media (max-width: 768px) {
+  *[data-section-toggle],
+  *[data-sidebar-toggle] h4 {
+    cursor: pointer; }
+    *[data-section-toggle]:after,
+    *[data-sidebar-toggle] h4:after {
+      font-family: icomoon;
+      float: right;
+      content: "\e605"; }
+    *[data-section-toggle].open:after,
+    *[data-sidebar-toggle] h4.open:after {
+      content: "\e606"; } }
+
 .main > .container {
   padding-left: 30px;
   padding-right: 30px; }
@@ -680,15 +693,6 @@ footer {
     padding-bottom: 10px;
     font-weight: 500;
     margin-top: 20px; }
-    @media (max-width: 768px) {
-      .detail-view-detail-row h4 {
-        cursor: pointer; }
-        .detail-view-detail-row h4:after {
-          font-family: icomoon;
-          float: right;
-          content: "\e605"; }
-        .detail-view-detail-row h4.open:after {
-          content: "\e606"; } }
   .detail-view-detail-row .institution {
     font-weight: 300; }
     .detail-view-detail-row .institution h5 {
@@ -804,16 +808,9 @@ footer {
 
 @media (max-width: 768px) {
   .detail-view-sidebar h4 {
-    cursor: pointer;
     margin-top: 20px;
     padding-bottom: 10px;
     border-bottom: 5px solid #d6d3de; }
-    .detail-view-sidebar h4:after {
-      font-family: icomoon;
-      float: right;
-      content: "\e605"; }
-    .detail-view-sidebar h4.open:after {
-      content: "\e606"; }
   .detail-view-sidebar .list-group-item:first-child, .detail-view-sidebar .list-group-item:hover:first-child {
     border-top-width: 0; } }
 
@@ -857,17 +854,17 @@ footer {
       height: 16px; }
 #topicsPage #institutionList .body {
   margin-top: 30px; }
-  #topicsPage #institutionList .body .col-md-4:first-child {
+  #topicsPage #institutionList .body .col-sm-4:first-child {
     padding-left: 0; }
-  #topicsPage #institutionList .body .col-md-4:last-child {
+  #topicsPage #institutionList .body .col-sm-4:last-child {
     padding-right: 0; }
     @media (max-width: 992px) {
-      #topicsPage #institutionList .body .col-md-4:last-child {
+      #topicsPage #institutionList .body .col-sm-4:last-child {
         margin-top: 20px; } }
   @media (max-width: 992px) {
-    #topicsPage #institutionList .body .col-md-4 {
+    #topicsPage #institutionList .body .col-sm-4 {
       padding: 0; } }
-  #topicsPage #institutionList .body .col-md-4 h3 {
+  #topicsPage #institutionList .body .col-sm-4 h3 {
     font-size: 16px;
     font-family: "Libre Baskerville",serif;
     font-weight: 500;
@@ -875,11 +872,11 @@ footer {
     color: #979797;
     letter-spacing: 2px;
     margin: 20px 0 7px; }
-    #topicsPage #institutionList .body .col-md-4 h3:first-child {
+    #topicsPage #institutionList .body .col-sm-4 h3:first-child {
       margin-top: 0; }
-  #topicsPage #institutionList .body .col-md-4 .institution {
+  #topicsPage #institutionList .body .col-sm-4 .institution {
     padding-left: 20px; }
-    #topicsPage #institutionList .body .col-md-4 .institution:before {
+    #topicsPage #institutionList .body .col-sm-4 .institution:before {
       content: "\e609";
       color: #990099;
       font-family: 'icomoon';

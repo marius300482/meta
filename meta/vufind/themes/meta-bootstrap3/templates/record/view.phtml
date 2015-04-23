@@ -91,9 +91,9 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
         <?php foreach (array_reverse($this->tabs) as $tab => $obj): ?>
             <div class="col-sm-6">
                 <?php if ($tab == "Details") : ?>
-                    <h4 data-toggle="collapse" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>
+                    <h4 data-section-toggle="true" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>
                 <?php elseif ($tab == "HierarchyTree") : ?>
-                    <h4 data-toggle="collapse"><?php echo $this->transEsc('Context'); ?></h4>
+                    <h4 data-section-toggle="true"><?php echo $this->transEsc('Context'); ?></h4>
                 <?php endif; ?>
                 <div class="collapsible">
                     <?php echo $this->record($this->driver)->getTab($obj) ?>
@@ -111,7 +111,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
         <?php if ($institutionDetails != NULL) : ?>
             <?php $institutionName = isset($institutionDetails["name"]) ? $institutionDetails["name"] : $institution; ?>
             <div class="col-sm-6 institution detail-view-detail-row">
-                <h4 data-toggle="collapse">
+                <h4 data-section-toggle="true">
                     <?php echo $this->transEsc('Institution'); ?>
                 </h4>
                 <div class="collapsible">
@@ -151,41 +151,8 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
     </div>
 </div>
 
-<div class="sidebar col-md-3 hidden-print detail-view-sidebar">
+<div class="sidebar col-md-3 hidden-print detail-view-sidebar" data-sidebar-toggle="true">
     <?php foreach ($this->related()->getList($this->driver) as $current): ?>
         <?= $this->related()->render($current) ?>
     <?php endforeach; ?>
 </div>
-
-<script type="text/javascript">
-    // Allow search result section toggling
-    $(document).ready(function () {
-        var maxMobileWidth = 768; // px
-        var headlines = $(".detail-view-detail-row h4[data-toggle], .detail-view-sidebar h4");
-        var sections = $(".detail-view-detail-row .collapsible, .detail-view-sidebar ul");
-        var lastWidth = -1;
-        var documentWidth;
-        // Hide sections on mobile devices
-        $(window).bind("load resize", function () {
-            documentWidth = $(document).width();
-            if (lastWidth !== documentWidth) { // ignore height resize
-                if (documentWidth <= maxMobileWidth) {
-                    sections.hide()
-                } else {
-                    sections.show();
-                }
-                headlines.removeClass("open");
-                lastWidth = documentWidth;
-            }
-        });
-        // Make sections toggleable on mobile devices
-        headlines.click(function () {
-            if (documentWidth <= maxMobileWidth) {
-                var $this = $(this);
-                $this.next().slideToggle("normal", function () {
-                    $this.toggleClass("open");
-                });
-            }
-        });
-    });
-</script>

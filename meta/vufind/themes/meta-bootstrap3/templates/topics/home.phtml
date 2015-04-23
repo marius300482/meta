@@ -38,10 +38,10 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
 
 ?>
 <div id="topicsPage">
-    <div class="missionStatement col-md-12">
+    <div class="missionStatement col-sm-12">
         <h1><?= $this->transEsc('Mission statement') ?></h1>
     </div>
-    <div class="col-md-8">
+    <div class="col-sm-8">
         <h2><?= $this->transEsc('Participating institutions'); ?></h2>
         <div>
             <!-- Start google maps -->
@@ -92,7 +92,7 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
             <!-- END google maps -->
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-4">
         <h2><?= $this->transEsc('Inventory by document types'); ?>:</h2>
         <ul id="inventoryFacet">
             <?php foreach ($inventoryFacet as $entry) : ?>
@@ -112,12 +112,12 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
             <?php endforeach; ?>
         </ul>
     </div>
-    <div class="col-md-12" id="institutionList">
+    <div class="col-sm-12" id="institutionList">
         <h2><?= $this->transEsc('Inventory of the institutions'); ?></h2>
         <div class="body">
             <?php $lastCountry = ""; ?>
             <?php foreach ($institutionsCols as $column) : ?>
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     <?php foreach ($column as $institution) : ?>
                         <?php if ($lastCountry !== $institution["country"]) : ?>
                             <?php $lastCountry = $institution["country"]; ?>
@@ -133,8 +133,8 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="col-md-8">
-        <h2><?= $this->transEsc('Theme overview'); ?>:</h2>
+    <div class="col-sm-8">
+        <h2 data-section-toggle><?= $this->transEsc('Theme overview'); ?>:</h2>
         <ul class="body tag_cloud">
             <? foreach ($topics as $topic): ?>
                 <li>
@@ -144,8 +144,8 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
             <? endforeach; ?>
         </ul>
     </div>
-    <div class="col-md-4">
-        <h2><?= $this->transEsc('Perhaps interesting?'); ?></h2>
+    <div class="col-sm-4">
+        <h2 data-section-toggle="true"><?= $this->transEsc('Perhaps interesting?'); ?></h2>
         <ul class="body" id="randomBooks">
             <?php foreach ($this->randomBooks as $book) : ?>
                 <?php $this->driver = $book; // Make "result-list.phtml" template reusable ?>

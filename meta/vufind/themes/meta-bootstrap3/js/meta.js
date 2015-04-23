@@ -36,3 +36,36 @@ $(window).load(function() {
         return true;
     });
 });
+
+// Make sections collapsible in mobile view
+$(document).ready(function () {
+    var maxMobileWidth = 758; // px
+    var headlines = $("*[data-section-toggle], *[data-sidebar-toggle] h4");
+    var sections = headlines.next();
+    var lastWidth = -1;
+    var documentWidth;
+    if (headlines.length) {
+        // Hide sections on mobile devices
+        $(window).bind("load resize", function () {
+            documentWidth = $(document).width();
+            if (lastWidth !== documentWidth) { // ignore height resize
+                if (documentWidth <= maxMobileWidth) {
+                    sections.hide()
+                } else {
+                    sections.show();
+                }
+                headlines.removeClass("open");
+                lastWidth = documentWidth;
+            }
+        });
+        // Make sections toggleable on mobile devices
+        headlines.click(function () {
+            if (documentWidth <= maxMobileWidth) {
+                var $this = $(this);
+                $this.next().slideToggle("normal", function () {
+                    $this.toggleClass("open");
+                });
+            }
+        });
+    }
+});
