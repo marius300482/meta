@@ -1,4 +1,4 @@
-<div class="<?=$this->driver->supportsAjaxStatus()?'ajaxItem ':''?>col-xs-12">
+  <div class="<?=$this->driver->supportsAjaxStatus()?'ajaxItem ':''?>col-xs-12">
     <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getUniqueID())?>" class="hiddenId" />
     <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getResourceSource())?>" class="hiddenSource" />
     <div class="col-xs-1">
@@ -117,7 +117,7 @@
 
                 <? if (!empty($issues)): ?>
                     <? $contentDisplayed = true; ?>
-                    /
+                    Heft:
                     <? foreach($issues as $issue): ?>
                         <?= $this->escapeHtml($issue) ?><?= $issue !== end($issues) ? ", " : "" ?>
                     <? endforeach; ?>
@@ -149,7 +149,7 @@
                         ,
                     <? endif; ?>
                     <? $secondLineNotEmpty = true; ?>
-                    ISBN <span property="issn"><?= $this->escapeHtml($issn); ?></span>
+                    ISSN <span property="issn"><?= $this->escapeHtml($issn); ?></span>
                 <? endif; ?>
 
                 <? if (!empty($issn) && !empty($isbn)): ?>
@@ -161,7 +161,7 @@
                         ,
                     <? endif; ?>
                     <? $secondLineNotEmpty = true; ?>
-                    ISSN <span property="isbn"><?= $this->escapeHtml($isbn); ?></span>
+                    ISBN <span property="isbn"><?= $this->escapeHtml($isbn); ?></span>
                 <? endif; ?>
 
                 <? if ($showPublished) : ?>
