@@ -42,7 +42,9 @@ foreach ($institutions as $country => $institutionsInCountry) {
             <script>
                 var marker, i, infowindow, locations, map;
                 infowindow = new google.maps.InfoWindow();
-                locations = [['Berlin', 52.5200070, 13.4049540]];
+                locations = [
+                    ['Berlin', 52.5200070, 13.4049540]
+                ];
                 map = new google.maps.Map(document.getElementById('topic-map-canvas'), {
                     zoom: 5,
                     center: new google.maps.LatLng(51.1656910, 10.4515260),
@@ -94,7 +96,7 @@ foreach ($institutions as $country => $institutionsInCountry) {
                             <h3><?= $this->transEsc($institution["country"]); ?></h3>
                         <?php endif; ?>
                         <div class="institution">
-                            <a href="<?= $institution["id"]; ?>">
+                            <a href="<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=institution%3A<?= urlencode($institution["id"]); ?>">
                                 <?= $institution["name"]; ?>
                             </a>
                         </div>
