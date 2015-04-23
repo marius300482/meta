@@ -17,15 +17,13 @@
  */
 function getInstitutionCols($institutions, $colOneCount, $colTwoCount) {
     $institutionsCols = array(array(), array(), array());
-    foreach ($institutions as $country => $institutionsInCountry) {
-        foreach ($institutionsInCountry as $institution) {
-            if (count($institutionsCols[0]) < $colOneCount) {
-                $institutionsCols[0][] = $institution;
-            } else if (count($institutionsCols[1]) < $colTwoCount) {
-                $institutionsCols[1][] = $institution;
-            } else {
-                $institutionsCols[2][] = $institution;
-            }
+    foreach ($institutions as $institution) {
+        if (count($institutionsCols[0]) < $colOneCount) {
+            $institutionsCols[0][] = $institution;
+        } else if (count($institutionsCols[1]) < $colTwoCount) {
+            $institutionsCols[1][] = $institution;
+        } else {
+            $institutionsCols[2][] = $institution;
         }
     }
 
@@ -50,19 +48,19 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
             <div id="topic-map-canvas"></div>
             <script src="https://maps.googleapis.com/maps/api/js?language=de"></script>
             <script>
-                var marker, i, infowindow, locations, map;
+                var marker, i, infowindow, locations, map, url;
                 infowindow = new google.maps.InfoWindow();
                 locations = [
-                    <?php for ($i = 0; $i < count($institutionsCols); $i++) : ?>
-                        <?php for ($n = 0; $n < count($institutionsCols[$i]); $n++) : ?>
-                            [
-                                <? $institution = $institutionsCols[$i][$n]; ?>
-                                <?= json_encode($institution['name']); ?>,
-                                <?= (float) $institution['latitude']; ?>,
-                                <?= (float) $institution['longitude']; ?>
-                            ]
-                            <?php if ($i != count($institutionsCols) - 1 || $n != count($institutionsCols[$i]) - 1) : ?>,<?php endif; ?>
-                        <?php endfor; ?>
+                    <?php for ($i = 0; $i < count($institutions); $i++) : ?>
+                        [
+                            <? $institution = $institutions[$i]; ?>
+                            <?= json_encode($institution['name']); ?>,
+                            <?= (float) $institution['latitude']; ?>,
+                            <?= (float) $institution['longitude']; ?>,
+                            <?= json_encode($institution['id']); ?>,
+                            <?= json_encode($institution['address']); ?>
+                        ]
+                        <?php if ($i != count($institutions) - 1) : ?>,<?php endif; ?>
                     <?php endfor; ?>
                 ];
                 map = new google.maps.Map(document.getElementById('topic-map-canvas'), {
@@ -77,7 +75,12 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
                     });
                     google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
-                            infowindow.setContent(locations[i][0]);
+                            url = '<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=institution%3A' + locations[i][3];
+                            infowindow.setContent(
+                                '<strong>' + locations[i][0] + '</strong><br />' +
+                                locations[i][4] + '<br />' +
+                                '<a href="' + url + '" style="text-decoration: underline"><?= $this->translate('See  the inventory') ?></a>'
+                            );
                             infowindow.open(map, marker);
                         }
                     })(marker, i));

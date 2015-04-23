@@ -93,18 +93,24 @@ class Institution
             $sortArray[$k] = $a[$key];
         }
 
-        array_multisort($sortArray, SORT_ASC, SORT_NUMERIC, $array);
+        array_multisort($sortArray, SORT_ASC, SORT_STRING, $array);
 
         return $array;
     }
 
-    public function getAllInstitutions()
+    /**
+     * Get all institutions from .ini files and sort them by country and name
+     *
+     * @param string $sortFirst
+     * @param string $sortSecond
+     * @return array
+     */
+    public function getAllInstitutions($sortFirst = "country", $sortSecond = "name")
     {
         $institutionDirContent = scandir($this->institutionDir);
         $fileEnding = "_" . $this->language . ".ini";
         $fileEndingIndex = -1 * strlen($fileEnding);
         $institutions = array();
-        $result = array();
 
         // Get all institutions for the current language
         foreach ($institutionDirContent as $file)
@@ -118,14 +124,12 @@ class Institution
         }
 
         // Sort the institutions by name
-        $institutions = $this->sortBySubArrayValue($institutions, "name");
+        $institutions = $this->sortBySubArrayValue($institutions, $sortSecond);
 
-        // Group the institutions by country
-        foreach ($institutions as $institution) {
-            $result[$institution['country']][] = $institution;
-        }
+        // Sort the institutions by country
+        $institutions = $this->sortBySubArrayValue($institutions, $sortFirst);
 
-        return $result;
+        return $institutions;
     }
 
     /**
