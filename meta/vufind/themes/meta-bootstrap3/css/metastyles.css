@@ -447,6 +447,7 @@ header {
           background-color: white !important;
           height: 32px;
           max-width: inherit;
+          padding-right: 28px;
           box-shadow: 0 0 4px rgba(64, 57, 91, 0.3) inset;
           width: 100%;
           font-size: 18px; }
@@ -470,6 +471,7 @@ header {
       font-weight: 500; }
     header #advSearchForm input[type="text"] {
       font-size: 18px;
+      padding-right: 28px;
       width: 100%; }
     header #advSearchForm .clearfix p {
       font-size: 18px;
