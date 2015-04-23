@@ -26,6 +26,10 @@ function addSearch(group, term, field)
   $("#group" + group + "Holder").before(newSearch);
   // Show x
   $('#group'+group+' .search .delete').removeClass('hidden');
+  // Add empty field listener
+  $('#group'+group+' .closer:last').click(function () {
+      $(this).parent().find("input:visible").first().val("");
+  });
 }
 
 function deleteSearch(group, eq)

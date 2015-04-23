@@ -6,7 +6,7 @@ $(function(){
 // Register "closer" element to clear search fields
 // And advanced search from when clicking the reset button
 $(window).load(function() {
-    $(".closer").click(function () {
+    $("#simple-search-body").find(".closer").click(function () {
         $(this).parent().find("input:visible").first().val("");
     });
     $("input[type='reset']").click(function () {
