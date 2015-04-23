@@ -7,26 +7,36 @@
  * 3. When calling "/vufind/Index" in the browser, this page should be shown.
  */
 
+/**
+ * Sort all institutions into 3 columns
+ *
+ * @param $institutions
+ * @param $colOneCount
+ * @param $colTwoCount
+ * @return array
+ */
+function getInstitutionCols($institutions, $colOneCount, $colTwoCount) {
+    $institutionsCols = array(array(), array(), array());
+    foreach ($institutions as $country => $institutionsInCountry) {
+        foreach ($institutionsInCountry as $institution) {
+            if (count($institutionsCols[0]) < $colOneCount) {
+                $institutionsCols[0][] = $institution;
+            } else if (count($institutionsCols[1]) < $colTwoCount) {
+                $institutionsCols[1][] = $institution;
+            } else {
+                $institutionsCols[2][] = $institution;
+            }
+        }
+    }
+
+    return $institutionsCols;
+}
+
 // Set page title.
 $this->headTitle($this->translate('Home'));
 
-// Set number of institutions in col
-$institutionColOneCount = 5;
-$institutionColTwoCount = 6;
-
-// Sort institutions in 3 columns
-$institutionsCols = array(array(), array(), array());
-foreach ($institutions as $country => $institutionsInCountry) {
-    foreach ($institutionsInCountry as $institution) {
-        if (count($institutionsCols[0]) < $institutionColOneCount) {
-            $institutionsCols[0][] = $institution;
-        } else if (count($institutionsCols[1]) < $institutionColTwoCount) {
-            $institutionsCols[1][] = $institution;
-        } else {
-            $institutionsCols[2][] = $institution;
-        }
-    }
-}
+// Set number of institutions in 3 columns
+$institutionsCols = getInstitutionCols($institutions, 5, 6);
 
 ?>
 <div id="topicsPage">
@@ -43,7 +53,17 @@ foreach ($institutions as $country => $institutionsInCountry) {
                 var marker, i, infowindow, locations, map;
                 infowindow = new google.maps.InfoWindow();
                 locations = [
-                    ['Berlin', 52.5200070, 13.4049540]
+                    <?php for ($i = 0; $i < count($institutionsCols); $i++) : ?>
+                        <?php for ($n = 0; $n < count($institutionsCols[$i]); $n++) : ?>
+                            [
+                                <? $institution = $institutionsCols[$i][$n]; ?>
+                                <?= json_encode($institution['name']); ?>,
+                                <?= (float) $institution['latitude']; ?>,
+                                <?= (float) $institution['longitude']; ?>
+                            ]
+                            <?php if ($i != count($institutionsCols) - 1 || $n != count($institutionsCols[$i]) - 1) : ?>,<?php endif; ?>
+                        <?php endfor; ?>
+                    <?php endfor; ?>
                 ];
                 map = new google.maps.Map(document.getElementById('topic-map-canvas'), {
                     zoom: 5,
