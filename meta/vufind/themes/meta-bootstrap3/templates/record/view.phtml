@@ -134,16 +134,11 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                                 var mapOptions = {zoom: 15, zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM }};
                                 var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
                                 var address = <?= json_encode(strip_tags($institutionDetails["address"], "<br>")); ?>.replace("<br>", ", ");
-                                var geocoder = new google.maps.Geocoder();
-                                geocoder.geocode({'address': address}, function (results, status) {
-                                    if (status == google.maps.GeocoderStatus.OK) {
-                                        map.setCenter(results[0].geometry.location);
-                                        new google.maps.InfoWindow({
-                                            map: map,
-                                            position: results[0].geometry.location,
-                                            content: "<strong><?= str_replace('"', '\"', strip_tags($institutionName, "<br>")); ?></strong><br />" + address
-                                        });
-                                    }
+                                map.setCenter(new google.maps.LatLng(<?= (float) $institutionDetails["latitude"]; ?>, <?= (float) $institutionDetails["longitude"]; ?>));
+                                new google.maps.InfoWindow({
+                                    map: map,
+                                    position: new google.maps.LatLng(<?= (float) $institutionDetails["latitude"]; ?>, <?= (float) $institutionDetails["longitude"]; ?>),
+                                    content: "<strong><?= str_replace('"', '\"', strip_tags($institutionName, "<br>")); ?></strong><br />" + address
                                 });
                             });
                         </script>
