@@ -79,7 +79,9 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
                             infowindow.setContent(
                                 '<strong>' + locations[i][0] + '</strong><br />' +
                                 locations[i][4] + '<br />' +
-                                '<a href="' + url + '" style="text-decoration: underline"><?= $this->translate('See  the inventory') ?></a>'
+                                '<a href="' + url + '" style="text-decoration: underline">' +
+                                '<?= $this->translate('See  the inventory') ?>'
+                                +'</a>'
                             );
                             infowindow.open(map, marker);
                         }
@@ -95,7 +97,9 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
             <?php foreach ($inventoryFacet as $entry) : ?>
                 <li>
                     <div class="format">
-                        <?= $entry['displayText']; ?>
+                        <a href="<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
+                            <?= $entry['displayText']; ?>
+                        </a>
                         <span class="count">
                             (<?= number_format($entry['count'], 0, ',', '.'); ?>)
                         </span>
