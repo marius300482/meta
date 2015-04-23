@@ -378,6 +378,16 @@ header {
         height: 80px; } }
   header .searchbox.hidden-lg {
     display: none; }
+  header .closer {
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 3px; }
+    header .closer:before {
+      content: "\e607";
+      color: #d6d3de;
+      font-family: 'icomoon';
+      font-size: 20px; }
   header #searchForm {
     display: block;
     float: none !important;
@@ -413,23 +423,25 @@ header {
       background-color: #ffefcc;
       padding: 15px;
       box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6); }
-      header #searchForm #simple-search-body .closer {
-        cursor: pointer; }
+      header #searchForm #simple-search-body .simple-search-input-wrapper {
+        display: inline-block;
+        margin-right: 10px;
+        position: relative;
+        vertical-align: top;
+        width: 70%; }
+        @media (max-width: 768px) {
+          header #searchForm #simple-search-body .simple-search-input-wrapper {
+            width: 58%; } }
+        @media (max-width: 400px) {
+          header #searchForm #simple-search-body .simple-search-input-wrapper {
+            width: 46%; } }
       header #searchForm #simple-search-body .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
-        width: 70%;
         display: inline-block !important;
-        margin-right: 15px;
+        width: 100%;
+        position: relative;
         vertical-align: top; }
-        @media (max-width: 768px) {
-          header #searchForm #simple-search-body .twitter-typeahead {
-            margin-right: 10px;
-            width: 52%; } }
-        @media (max-width: 400px) {
-          header #searchForm #simple-search-body .twitter-typeahead {
-            margin-right: 5px;
-            width: 41%; } }
         header #searchForm #simple-search-body .twitter-typeahead #searchForm_lookfor {
           border-radius: 0;
           background-color: white !important;
@@ -443,7 +455,8 @@ header {
         padding-top: 3px;
         padding-bottom: 3px;
         font-weight: 500;
-        font-size: 19px; }
+        font-size: 19px;
+        vertical-align: top; }
         header #searchForm #simple-search-body .btn-primary i {
           display: none; }
   header #advSearchForm {
@@ -457,11 +470,7 @@ header {
       font-weight: 500; }
     header #advSearchForm input[type="text"] {
       font-size: 18px;
-      display: inline-block;
-      width: calc(100% - 20px);
-      margin-left: 3px; }
-    header #advSearchForm .closer {
-      cursor: pointer; }
+      width: 100%; }
     header #advSearchForm .clearfix p {
       font-size: 18px;
       font-weight: 500; }
@@ -479,8 +488,13 @@ header {
       padding: 15px; }
     header #advSearchForm .delete, header #advSearchForm .close {
       text-align: right;
-      opacity: inherit;
-      font-weight: normal; }
+      opacity: inherit; }
+      header #advSearchForm .delete:before, header #advSearchForm .close:before {
+        content: "\e608";
+        color: black;
+        font-family: 'icomoon';
+        font-size: 16px;
+        font-weight: normal; }
       header #advSearchForm .delete:hover, header #advSearchForm .close:hover {
         text-decoration: none; }
     header #advSearchForm .add-seach-criteria {
@@ -490,6 +504,8 @@ header {
       font-weight: 500;
       font-size: 19px; }
     header #advSearchForm .fa-plus-circle:before {
+      content: none; }
+    header #advSearchForm .add-seach-criteria .fa-plus-circle:before {
       content: "+";
       font-weight: 700;
       font-size: 20px; }
@@ -501,6 +517,9 @@ header {
       font-weight: normal;
       line-height: 30px;
       height: 30px; }
+    @media (min-width: 768px) {
+      header #advSearchForm .closer {
+        right: 20px; } }
     @media (max-width: 768px) {
       header #advSearchForm .col-xs-12, header #advSearchForm .col-xs-11, header #advSearchForm .col-xs-1, header #advSearchForm .col-sm-6 {
         padding: 0; }

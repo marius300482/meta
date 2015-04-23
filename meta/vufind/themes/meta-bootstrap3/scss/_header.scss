@@ -60,6 +60,18 @@ header {
   .searchbox.hidden-lg {
     display: none; // Hide the second search box for small devices
   }
+  .closer {
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    &:before {
+      content: "\e607";
+      color: $color-grey-border;
+      font-family: 'icomoon';
+      font-size: 20px;
+    }
+  }
   // Top search form
   #searchForm {
     display: block;
@@ -101,24 +113,27 @@ header {
       background-color: $color-yellow-4;
       padding: 15px;
       box-shadow: $shadow-outer;
-      .closer {
-        cursor: pointer; // was added for [x]
+      .simple-search-input-wrapper {
+        display: inline-block;
+        margin-right: 10px;
+        position: relative; // for (x) button
+        vertical-align: top;
+        width: 70%;
+        @media (max-width: $device-xs-max-width) {
+          width: 58%;
+        }
+        @media (max-width: $device-xxs-max-width) {
+          width: 46%;
+        }
       }
       .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
-        width: 70%;
         display: inline-block !important;
-        margin-right: 15px;
+        width: 100%;
+        position: relative;
         vertical-align: top;
-        @media (max-width: $device-xs-max-width) {
-          margin-right: 10px;
-          width: 52%; // was 55% before [x]
-        }
-        @media (max-width: $device-xxs-max-width) {
-          margin-right: 5px;
-          width: 41%; // was 48% before [x]
-        }
+
         #searchForm_lookfor {
           border-radius: 0;
           background-color: $color-white !important; // Overwrite "style" attribute
@@ -135,6 +150,7 @@ header {
         padding-bottom: 3px;
         font-weight: 500;
         font-size: 19px;
+        vertical-align: top;
         i {
           display: none;
         }
@@ -156,12 +172,7 @@ header {
     }
     input[type="text"] {
       font-size: 18px;
-      display: inline-block; // was added for [x]
-      width: calc(100% - 20px); // was added for [x]
-      margin-left: 3px; // was added for [x]
-    }
-    .closer {
-      cursor: pointer; // was added for [x]
+      width: 100%;
     }
     .clearfix p {
       font-size: 18px;
@@ -189,7 +200,13 @@ header {
     .delete, .close {
       text-align: right;
       opacity: inherit;
-      font-weight: normal;
+      &:before {
+        content: "\e608";
+        color: $color-black;
+        font-family: 'icomoon';
+        font-size: 16px;
+        font-weight: normal;
+      }
       &:hover {
         text-decoration: none;
       }
@@ -203,6 +220,9 @@ header {
       font-size: 19px;
     }
     .fa-plus-circle:before {
+      content: none;
+    }
+    .add-seach-criteria .fa-plus-circle:before {
       content: "+";
       font-weight: 700;
       font-size: 20px;
@@ -215,6 +235,11 @@ header {
       font-weight: normal;
       line-height: 30px;
       height: 30px;
+    }
+    @media (min-width: $device-xs-max-width) {
+      .closer {
+        right: 20px;
+      }
     }
     @media (max-width: $device-xs-max-width) {
       .col-xs-12, .col-xs-11, .col-xs-1, .col-sm-6 {

@@ -11,7 +11,7 @@ function addSearch(group, term, field)
   // Build the new search
   var inputIndex = $('#group'+group+' input').length;
   var inputID = group+'_'+$('#group'+group+' input').length;
-  var newSearch = '<div class="search" id="search'+inputID+'"><div class=""><div class="col-sm-7 col-xs-12"><span class="closer">[x]</span><input id="search_lookfor'+inputID+'" class="form-control" type="text" name="lookfor'+group+'[]" value="'+term+'"/></div>'
+  var newSearch = '<div class="search" id="search'+inputID+'"><div class=""><div class="col-sm-7 col-xs-12"><input id="search_lookfor'+inputID+'" class="form-control" type="text" name="lookfor'+group+'[]" value="'+term+'"/><span class="closer"></span></div>'
     + '<div class="col-sm-4 col-xs-11"><select id="search_type'+inputID+'" name="type'+group+'[]" class="form-control">';
   for (var key in searchFields) {
     newSearch += '<option value="' + key + '"';
@@ -20,7 +20,7 @@ function addSearch(group, term, field)
     }
     newSearch += ">" + searchFields[key] + "</option>";
   }
-  newSearch += '</select></div><div class="col-xs-1"><a class="help-block delete" href="#" onClick="deleteSearch('+group+','+inputIndex+')" class="delete">X</a></div></div>';
+  newSearch += '</select></div><div class="col-xs-1"><a class="help-block delete" href="#" onClick="deleteSearch('+group+','+inputIndex+')" class="delete"></a></div></div>';
 
   // Insert it
   $("#group" + group + "Holder").before(newSearch);
@@ -59,7 +59,7 @@ function addGroup(firstTerm, firstField, join)
       '</div>'
     + '<div class="col-sm-6">'
     + '<label for="search_bool'+nextGroup+'">'+searchMatch+':&nbsp;</label>'
-    + '<a href="#" onClick="deleteGroup('+nextGroup+')" class="close hidden" title="'+deleteSearchGroupString+'">X</a>'
+    + '<a href="#" onClick="deleteGroup('+nextGroup+')" class="close hidden" title="'+deleteSearchGroupString+'"></a>'
     + '<select id="search_bool'+nextGroup+'" name="bool'+nextGroup+'[]" class="form-control">'
     + '<option value="AND"';
   if(join == 'AND') {
