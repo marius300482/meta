@@ -66,6 +66,7 @@ header {
     right: 5px;
     top: 3px;
     &:before {
+      background-color: #FFFFFF;
       content: "\e607";
       color: $color-grey-border;
       font-family: 'icomoon';
