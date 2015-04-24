@@ -77,6 +77,14 @@ class TopicsController extends BrowseController
         return $view;
     }
 
+    public function topicsAction()
+    {
+        $view = $this->createViewModel('topics/topics');
+        $view->topics = $this->getTagCloud();
+        $view->driver = new SolrDefault();
+        return $view;
+    }
+
     public function getTagCloud()
     {
         $topics = $this->getTopics();

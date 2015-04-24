@@ -75,6 +75,16 @@ $config = array(
                             )
                         )
                     ),
+                    'topics' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route'    => '/Topics/Topics',
+                            'defaults' => array(
+                                'controller' => 'Topics',
+                                'action'     => 'Topics',
+                            )
+                        )
+                    )
                 ),
             ),
             'idaoai' => array(

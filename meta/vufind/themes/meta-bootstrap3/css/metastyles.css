@@ -903,33 +903,9 @@ footer {
       font-family: 'icomoon';
       margin: 0 4px 0 -20px; }
 #topicsPage .tag_cloud {
-  text-align: center;
-  line-height: normal;
-  font-size: 16px;
   background-color: #F8F5F0;
   margin-top: -10px;
   padding: 20px; }
-  #topicsPage .tag_cloud li {
-    display: inline-block; }
-  #topicsPage .tag_cloud .w19, #topicsPage .tag_cloud .w20, #topicsPage .tag_cloud .w21 {
-    font-size: 19px; }
-  #topicsPage .tag_cloud .w22, #topicsPage .tag_cloud .w23, #topicsPage .tag_cloud .w24 {
-    font-size: 22px; }
-  #topicsPage .tag_cloud .w25, #topicsPage .tag_cloud .w26, #topicsPage .tag_cloud .w27 {
-    font-size: 25px; }
-  #topicsPage .tag_cloud .w28, #topicsPage .tag_cloud .w29, #topicsPage .tag_cloud .w30, #topicsPage .tag_cloud .w31, #topicsPage .tag_cloud .w32 {
-    font-size: 28px; }
-  #topicsPage .tag_cloud .w33, #topicsPage .tag_cloud .w34, #topicsPage .tag_cloud .w35, #topicsPage .tag_cloud .w36, #topicsPage .tag_cloud .w37 {
-    font-size: 31px; }
-  #topicsPage .tag_cloud .w38, #topicsPage .tag_cloud .w39, #topicsPage .tag_cloud .w40, #topicsPage .tag_cloud .w41, #topicsPage .tag_cloud .w42 {
-    font-size: 40px;
-    color: #641373; }
-  #topicsPage .tag_cloud .w43, #topicsPage .tag_cloud .w44, #topicsPage .tag_cloud .w45 {
-    font-size: 43px;
-    color: #7E0A86; }
-  #topicsPage .tag_cloud .w46, #topicsPage .tag_cloud .w47, #topicsPage .tag_cloud .w48, #topicsPage .tag_cloud .w49, #topicsPage .tag_cloud .w50 {
-    font-size: 46px;
-    color: #990099; }
 #topicsPage #randomBooks {
   padding-top: 10px; }
   @media (min-width: 992px) {
@@ -939,6 +915,32 @@ footer {
     #topicsPage #randomBooks .col-xs-11 {
       padding-left: 0;
       width: 75%; } }
+
+.tag_cloud {
+  text-align: center;
+  line-height: normal;
+  font-size: 16px; }
+  .tag_cloud li {
+    display: inline-block; }
+  .tag_cloud .w19, .tag_cloud .w20, .tag_cloud .w21 {
+    font-size: 19px; }
+  .tag_cloud .w22, .tag_cloud .w23, .tag_cloud .w24 {
+    font-size: 22px; }
+  .tag_cloud .w25, .tag_cloud .w26, .tag_cloud .w27 {
+    font-size: 25px; }
+  .tag_cloud .w28, .tag_cloud .w29, .tag_cloud .w30, .tag_cloud .w31, .tag_cloud .w32 {
+    font-size: 28px; }
+  .tag_cloud .w33, .tag_cloud .w34, .tag_cloud .w35, .tag_cloud .w36, .tag_cloud .w37 {
+    font-size: 31px; }
+  .tag_cloud .w38, .tag_cloud .w39, .tag_cloud .w40, .tag_cloud .w41, .tag_cloud .w42 {
+    font-size: 40px;
+    color: #641373; }
+  .tag_cloud .w43, .tag_cloud .w44, .tag_cloud .w45 {
+    font-size: 43px;
+    color: #7E0A86; }
+  .tag_cloud .w46, .tag_cloud .w47, .tag_cloud .w48, .tag_cloud .w49, .tag_cloud .w50 {
+    font-size: 46px;
+    color: #990099; }
 
 .browse.list-group:last-child {
   padding-right: 0; }

@@ -1,0 +1,12 @@
+<?
+// Set page title.
+$this->headTitle($this->translate('Topics'));
+?>
+<ul class="tag_cloud col-xs-12">
+    <? foreach ($topics as $topic): ?>
+        <li>
+            <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
+               href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+        </li>
+    <? endforeach; ?>
+</ul>
