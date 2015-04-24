@@ -54,12 +54,12 @@ $institutionsCols = $this->distributeToArrays($institutions, array(5, 6, 99));
                         });
                         google.maps.event.addListener(marker, 'click', (function(marker, i) {
                             return function() {
-                                url = '<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=institution%3A' + locations[i][3];
+                                url = '<?= $this->url('search-results'); ?>?limit=20&filter[]=institution%3A' + locations[i][3];
                                 infoWindow.setContent(
                                     '<strong>' + locations[i][0] + '</strong><br />' +
                                     locations[i][4] + '<br />' +
                                     '<a href="' + url + '" style="text-decoration: underline">' +
-                                    '<?= $this->translate('See  the inventory') ?>'
+                                    '<?= $this->translate('See the inventory') ?>'
                                     +'</a>'
                                 );
                                 infoWindow.open(map, marker);
@@ -77,7 +77,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(5, 6, 99));
             <?php foreach ($inventoryFacet as $entry) : ?>
                 <li>
                     <div class="format">
-                        <a href="<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
+                        <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
                             <?= $entry['displayText']; ?>
                         </a>
                         <span class="count">
@@ -103,7 +103,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(5, 6, 99));
                             <h3><?= $this->transEsc($institution["country"]); ?></h3>
                         <?php endif; ?>
                         <div class="institution">
-                            <a href="<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=institution%3A<?= urlencode($institution["id"]); ?>">
+                            <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=institution%3A<?= urlencode($institution["id"]); ?>">
                                 <?= $institution["name"]; ?>
                             </a>
                         </div>
