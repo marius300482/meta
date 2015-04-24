@@ -48,46 +48,48 @@ $institutionsCols = getInstitutionCols($institutions, 5, 6);
             <div id="topic-map-canvas"></div>
             <script src="https://maps.googleapis.com/maps/api/js?language=de"></script>
             <script>
-                var marker, i, infowindow, locations, map, url;
-                infowindow = new google.maps.InfoWindow();
-                locations = [
-                    <?php for ($i = 0; $i < count($institutions); $i++) : ?>
-                        [
-                            <? $institution = $institutions[$i]; ?>
-                            <?= json_encode($institution['name']); ?>,
-                            <?= (float) $institution['latitude']; ?>,
-                            <?= (float) $institution['longitude']; ?>,
-                            <?= json_encode($institution['id']); ?>,
-                            <?= json_encode($institution['address']); ?>
-                        ]
-                        <?php if ($i != count($institutions) - 1) : ?>,<?php endif; ?>
-                    <?php endfor; ?>
-                ];
-                map = new google.maps.Map(document.getElementById('topic-map-canvas'), {
-                    zoom: 5,
-                    center: new google.maps.LatLng(51.1656910, 10.4515260),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                });
-                for (i = 0; i < locations.length; i++) {
-                    marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        map: map,
-                        icon: '<?= $this->url('home') . "themes/meta-bootstrap3/images/marker.png"; ?>'
+                (function(){
+                    var marker, i, infoWindow, locations, map, url;
+                    infoWindow = new google.maps.InfoWindow();
+                    locations = [
+                        <?php for ($i = 0; $i < count($institutions); $i++) : ?>
+                            [
+                                <? $institution = $institutions[$i]; ?>
+                                <?= json_encode($institution['name']); ?>,
+                                <?= (float) $institution['latitude']; ?>,
+                                <?= (float) $institution['longitude']; ?>,
+                                <?= json_encode($institution['id']); ?>,
+                                <?= json_encode($institution['address']); ?>
+                            ]
+                            <?php if ($i != count($institutions) - 1) : ?>,<?php endif; ?>
+                        <?php endfor; ?>
+                    ];
+                    map = new google.maps.Map(document.getElementById('topic-map-canvas'), {
+                        zoom: 5,
+                        center: new google.maps.LatLng(51.1656910, 10.4515260),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
                     });
-                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                        return function() {
-                            url = '<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=institution%3A' + locations[i][3];
-                            infowindow.setContent(
-                                '<strong>' + locations[i][0] + '</strong><br />' +
-                                locations[i][4] + '<br />' +
-                                '<a href="' + url + '" style="text-decoration: underline">' +
-                                '<?= $this->translate('See  the inventory') ?>'
-                                +'</a>'
-                            );
-                            infowindow.open(map, marker);
-                        }
-                    })(marker, i));
-                }
+                    for (i = 0; i < locations.length; i++) {
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                            map: map,
+                            icon: '<?= $this->url('home') . "themes/meta-bootstrap3/images/marker.png"; ?>'
+                        });
+                        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                            return function() {
+                                url = '<?= $this->url('search-results'); ?>?type=AllFields&limit=20&filter[]=institution%3A' + locations[i][3];
+                                infoWindow.setContent(
+                                    '<strong>' + locations[i][0] + '</strong><br />' +
+                                    locations[i][4] + '<br />' +
+                                    '<a href="' + url + '" style="text-decoration: underline">' +
+                                    '<?= $this->translate('See  the inventory') ?>'
+                                    +'</a>'
+                                );
+                                infoWindow.open(map, marker);
+                            }
+                        })(marker, i));
+                    }
+                })();
             </script>
             <!-- END google maps -->
         </div>
