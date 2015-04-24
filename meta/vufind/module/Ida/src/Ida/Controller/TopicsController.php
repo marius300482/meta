@@ -87,7 +87,8 @@ class TopicsController extends BrowseController
 
     public function getTagCloud()
     {
-        $topics = $this->getTopics();
+        // Remove some entries for better distribution
+        $topics = array_slice($this->getTopics(), 6);
 
         $max_font = $this->config->TopicsCloud->fontsize != null ? $this->config->TopicsCloud->fontsize : 50;
         $maxcount=reset($topics);

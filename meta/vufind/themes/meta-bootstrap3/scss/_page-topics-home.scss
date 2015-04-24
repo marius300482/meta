@@ -114,36 +114,63 @@
 // Tag cloud
 .tag_cloud {
   text-align: center;
-  line-height: normal;
-  font-size: 16px;
+  font-size: 12px;
   li {
     display: inline-block;
   }
   .w19, .w20, .w21 {
-    font-size: 19px;
+    font-size: 13px;
   }
   .w22, .w23, .w24 {
-    font-size: 22px;
+    font-size: 14px;
   }
   .w25, .w26, .w27 {
-    font-size: 25px;
+    font-size: 15px;
   }
   .w28, .w29, .w30, .w31, .w32 {
-    font-size: 28px;
+    font-size: 16px;
   }
   .w33, .w34, .w35, .w36, .w37 {
-    font-size: 31px;
+    font-size: 18px;
   }
   .w38, .w39, .w40, .w41, .w42 {
-    font-size: 40px;
+    font-size: 20px;
     color: #641373; // Special color
   }
   .w43, .w44, .w45 {
-    font-size: 43px;
+    font-size: 22px;
     color: #7E0A86; // Special color
   }
   .w46, .w47, .w48, .w49, .w50 {
-    font-size: 46px;
+    font-size: 23px;
     color: $color-purple;
+    line-height: 1em;
+  }
+  @media (min-width: $device-xs-max-width) {
+    font-size: 16px;
+    .w19, .w20, .w21 {
+      font-size: 19px;
+    }
+    .w22, .w23, .w24 {
+      font-size: 22px;
+    }
+    .w25, .w26, .w27 {
+      font-size: 25px;
+    }
+    .w28, .w29, .w30, .w31, .w32 {
+      font-size: 28px;
+    }
+    .w33, .w34, .w35, .w36, .w37 {
+      font-size: 31px;
+    }
+    .w38, .w39, .w40, .w41, .w42 {
+      font-size: 40px;
+    }
+    .w43, .w44, .w45 {
+      font-size: 43px;
+    }
+    .w46, .w47, .w48, .w49, .w50 {
+      font-size: 46px;
+    }
   }
 }
