@@ -7,34 +7,11 @@
  * 3. When calling "/vufind/Index" in the browser, this page should be shown.
  */
 
-/**
- * Sort all institutions into 3 columns
- *
- * @param $institutions
- * @param $colOneCount
- * @param $colTwoCount
- * @return array
- */
-function getInstitutionCols($institutions, $colOneCount, $colTwoCount) {
-    $institutionsCols = array(array(), array(), array());
-    foreach ($institutions as $institution) {
-        if (count($institutionsCols[0]) < $colOneCount) {
-            $institutionsCols[0][] = $institution;
-        } else if (count($institutionsCols[1]) < $colTwoCount) {
-            $institutionsCols[1][] = $institution;
-        } else {
-            $institutionsCols[2][] = $institution;
-        }
-    }
-
-    return $institutionsCols;
-}
-
 // Set page title.
 $this->headTitle($this->translate('Home'));
 
-// Set number of institutions in 3 columns
-$institutionsCols = getInstitutionCols($institutions, 5, 6);
+// Distribute institutions to 3 arrays which can be used to populate 3 columns
+$institutionsCols = $this->distributeToArrays($institutions, array(5, 6, 99));
 
 ?>
 <div id="topicsPage">

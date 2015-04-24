@@ -102,7 +102,8 @@ $config = array(
     'view_helpers' => array(
         'factories' => array(
             'piwikanalytics' => array('Ida\View\Helper\Factory', 'getPiwikAnalytics'),
-            'facetEntryTranslation' => array('Ida\View\Helper\Factory', 'getFacetEntryTranslation')
+            'facetEntryTranslation' => array('Ida\View\Helper\Factory', 'getFacetEntryTranslation'),
+            'distributeToArrays' => array('Ida\View\Helper\Factory', 'getDistributeToArrays')
         ),
     ),
 );
