@@ -71,7 +71,7 @@ class TopicsController extends BrowseController
         $view = $this->createViewModel('topics/home');
         $view->topics = $this->getTagCloud();
         $view->institutions = $this->getInstitutions();
-        $view->inventoryFacet = $this->getInventoryfacet();
+        $view->inventoryFacet = $this->getInventoryFacet();
         $view->solrDriver = new SolrDefault();
         $view->randomBooks = $this->getRandomItems();
         return $view;
@@ -88,7 +88,7 @@ class TopicsController extends BrowseController
     public function getTagCloud()
     {
         // Remove some entries for better distribution
-        $topics = array_slice($this->getTopics(), 6);
+        $topics = array_slice($this->getTopics(), 5);
 
         $max_font = $this->config->TopicsCloud->fontsize != null ? $this->config->TopicsCloud->fontsize : 50;
         $maxcount=reset($topics);
@@ -108,7 +108,7 @@ class TopicsController extends BrowseController
         return $topics;
     }
 
-    public function getInventoryfacet() {
+    public function getInventoryFacet() {
         $colors = array(
             "#990099", "#29AAE3", "#01009A",
             "#FF931E", "#C1272D", "#8CC53F"
