@@ -568,6 +568,17 @@ footer {
       footer .col-sm-3:first-child {
         margin-top: 0; } }
 
+.spellingSuggestions {
+  font-size: 16px;
+  margin-top: -70px; }
+  .spellingSuggestions br {
+    display: none; }
+  .spellingSuggestions .alert {
+    background-color: transparent;
+    border: 0 none; }
+  .spellingSuggestions a {
+    color: #990099; }
+
 .search-result-count {
   font-size: 20px;
   font-weight: normal; }

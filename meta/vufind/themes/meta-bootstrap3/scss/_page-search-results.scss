@@ -1,3 +1,19 @@
+// Spelling suggestions
+.spellingSuggestions {
+  font-size: 16px;
+  margin-top: -70px; // lift above standard top margin
+  br {
+    display: none; // no <br> wanted
+  }
+  .alert {
+    background-color: transparent;
+    border: 0 none;
+  }
+  a {
+    color: $color-purple;
+  }
+}
+
 // Sentence which contains search result matches
 .search-result-count {
   font-size: 20px;
