@@ -104,19 +104,6 @@ pre {
 b, strong {
   font-weight: 500; }
 
-@media (max-width: 768px) {
-  *[data-section-toggle],
-  *[data-sidebar-toggle] h4 {
-    cursor: pointer; }
-    *[data-section-toggle]:after,
-    *[data-sidebar-toggle] h4:after {
-      font-family: icomoon;
-      float: right;
-      content: "\e605"; }
-    *[data-section-toggle].open:after,
-    *[data-sidebar-toggle] h4.open:after {
-      content: "\e606"; } }
-
 .main > .container {
   padding-left: 30px;
   padding-right: 30px; }
@@ -226,6 +213,9 @@ select.form-control {
       float: none; }
   .list-group a[href*=moreFacets], .list-group a[href*=lessFacets] {
     color: #990099; }
+  .list-group .showAll {
+    color: #990099;
+    margin-left: 20px; }
 
 .badge {
   background-color: transparent;
@@ -322,6 +312,19 @@ mark, .highlight {
   border-radius: 0; }
 .tt-suggestion.tt-cursor {
   background-color: #2e264d; }
+
+@media (max-width: 768px) {
+  *[data-section-toggle],
+  *[data-sidebar-toggle] h4 {
+    cursor: pointer; }
+    *[data-section-toggle]:after,
+    *[data-sidebar-toggle] h4:after {
+      font-family: icomoon;
+      float: right;
+      content: "\e605"; }
+    *[data-section-toggle].open:after,
+    *[data-sidebar-toggle] h4.open:after {
+      content: "\e606"; } }
 
 header {
   margin-bottom: 100px;

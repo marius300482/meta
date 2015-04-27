@@ -137,6 +137,10 @@ select.form-control {
   a[href*=moreFacets], a[href*=lessFacets] {
     color: $color-purple;
   }
+  .showAll {
+    color: $color-purple;
+    margin-left: 20px;
+  }
 }
 
 // Bullet label e.g.: (112)
@@ -267,5 +271,21 @@ mark, .highlight {
   }
   &.tt-cursor {
     background-color: $color-blue-1;
+  }
+}
+
+// Toggle
+*[data-section-toggle],
+*[data-sidebar-toggle] h4 {
+  @media (max-width: $device-xs-max-width) {
+    cursor: pointer;
+    &:after {
+      font-family: icomoon;
+      float: right;
+      content: "\e605";
+    }
+    &.open:after {
+      content: "\e606";
+    }
   }
 }

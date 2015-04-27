@@ -78,4 +78,9 @@ class SearchController extends \VuFind\Controller\SearchController
         // Default case -- standard behavior.
         return parent::resultsAction();
     }
+
+    public function contributorsAction()
+    {
+
+    }
 }

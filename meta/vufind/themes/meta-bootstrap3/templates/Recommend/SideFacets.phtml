@@ -179,7 +179,22 @@ JS;
 
           <? endif; ?>
         <? endforeach; ?>
-          <? if ($i > 5): ?><a class="list-group-item <?=$moreClass ?>" href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')"><?=$this->transEsc('less')?> ...</a><? endif; ?>
+          <? if ($i > 5): ?>
+                <span class="list-group-item <?=$moreClass ?>">
+                    <?php if ('contributor_facet' === $title) : ?>
+                        <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
+                            <?=$this->transEsc('Show less')?>
+                        </a>
+                        <a class="showAll" href="<?= $this->url('search-contributors') . $results->getUrlQuery()->getParams(); ?>">
+                            <?=$this->transEsc('Show all')?>
+                        </a>
+                    <?php else : ?>
+                        <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
+                            <?=$this->transEsc('less')?> ...
+                        </a>
+                    <?php endif; ?>
+                </span>
+            <? endif; ?>
         <? endif; ?>
       </div>
     </ul>

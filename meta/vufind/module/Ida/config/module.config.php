@@ -97,6 +97,16 @@ $config = array(
                     ),
                 ),
             ),
+            'search-contributors' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/Search/Contributors',
+                    'defaults' => array(
+                        'controller' => 'Search',
+                        'action'     => 'Contributors'
+                    )
+                )
+            ),
         ),
     ),
     'view_helpers' => array(
