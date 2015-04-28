@@ -7,8 +7,11 @@
 
 namespace Ida\Controller;
 
-
-use VuFind\Controller\BrowseController;use VuFind\RecordDriver\SolrDefault;use Zend\Config\Config;use Zend\View\Model\ViewModel;
+use Ida\Institution\Institution;
+use VuFind\Controller\BrowseController;
+use VuFind\RecordDriver\SolrDefault;
+use Zend\Config\Config;
+use Zend\View\Model\ViewModel;
 
 class TopicsController extends BrowseController
 {
@@ -65,12 +68,27 @@ class TopicsController extends BrowseController
 
     public function homeAction()
     {
-        return $this->cloudAction();
+        $view = $this->createViewModel('topics/home');
+        $view->topics = $this->getTagCloud();
+        $view->institutions = $this->getInstitutions();
+        $view->inventoryFacet = $this->getInventoryFacet();
+        $view->solrDriver = new SolrDefault();
+        $view->randomBooks = $this->getRandomItems();
+        return $view;
     }
 
-    public function cloudAction()
+    public function topicsAction()
     {
-        $topics = $this->getTopics();
+        $view = $this->createViewModel('topics/topics');
+        $view->topics = $this->getTagCloud();
+        $view->driver = new SolrDefault();
+        return $view;
+    }
+
+    public function getTagCloud()
+    {
+        // Remove some entries for better distribution
+        $topics = array_slice($this->getTopics(), 5);
 
         $max_font = $this->config->TopicsCloud->fontsize != null ? $this->config->TopicsCloud->fontsize : 50;
         $maxcount=reset($topics);
@@ -87,10 +105,65 @@ class TopicsController extends BrowseController
             });
         }
 
-        $view = $this->createViewModel('topics/cloud');
-        $view->topics = $topics;
-        $view->driver = new SolrDefault();
-        return $view;
+        return $topics;
+    }
+
+    public function getInventoryFacet() {
+        $colors = array(
+            "#990099", "#29AAE3", "#01009A",
+            "#FF931E", "#C1272D", "#8CC53F"
+        );
+        // Get content of the format cell as array
+        $facetContent = $this->getFacetList('format', 'format', 'count', '*');
+        // Add values which are required for presentation
+        for ($i = 0; $i < count($facetContent); $i++) {
+            // Add percentage
+            $maxCount = $facetContent[0]['count'];
+            $currentCount = $facetContent[$i]['count'];
+            $percent = 0 < $maxCount ? (100 / $maxCount) * $currentCount : 0;
+            $facetContent[$i]['percent'] = round($percent, 2);
+            // Add color
+            $facetContent[$i]['color'] = $i < count($colors) ? $colors[$i] : "#000000";
+        }
+
+        return $facetContent;
+    }
+
+    protected function getRandomItems()
+    {
+        $idSourceFile = APPLICATION_PATH . "/module/Ida/data/randomItems.ini";
+        $maxItems = 3;
+        $randomIds = array();
+        $result = array();
+        try {
+            // Read the .ini file
+            $reader = new \Zend\Config\Reader\Ini();
+            $ini = (array) $reader->fromFile($idSourceFile);
+            // Get the item ids if there are any in the .ini file
+            $itemIds = isset($ini['item']) ? $ini['item'] : array();
+            shuffle($itemIds);
+            // Get 3 array keys randomly from the $itemIds array
+            $randomIds = $maxItems < count($itemIds) ? array_rand($itemIds, $maxItems) : $itemIds;
+        } catch (\Zend\Config\Exception\RuntimeException $error) {}
+
+        // Read items from Solr
+        foreach ($randomIds as $randomId) {
+            try {
+                $result[] = $this->getRecordLoader()->load($itemIds[$randomId], "Solr");
+            } catch (\VuFind\Exception\RecordMissing $error) {}
+        }
+
+        return $result;
+    }
+
+    protected function getInstitutions()
+    {
+        $language = $this->getServiceLocator()->has('VuFind\Translator')
+            ? $this->getServiceLocator()->get('VuFind\Translator')->getLocale()
+            : 'de';
+        $institution = new \Ida\Institution\Institution(null, $language);
+
+        return $institution->getAllInstitutions();
     }
 
     protected function createViewModel($template = null, $params = null)

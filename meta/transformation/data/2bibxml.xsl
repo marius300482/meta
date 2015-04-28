@@ -46,6 +46,7 @@
 				<xsl:value-of select="dataset/series" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/isbn" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/issn" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/issue" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/zdbId" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/displayPublishDate" /><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/subjectTopic[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
@@ -85,7 +86,7 @@
 				<field name="typeOfRessource"><xsl:value-of select="dataset/typeOfRessource" /></field>
     				</xsl:if>
     			
-    			<field name="format"><xsl:value-of select="dataset/format"/></field>
+    			<xsl:apply-templates select="dataset/format" />
     			
     			<xsl:if test="dataset/documentType">
     				<field name="documentType"><xsl:value-of select="dataset/documentType" /></field>
@@ -273,7 +274,7 @@
                 		
                 		<xsl:if test="dataset/description">
                 			<field name="description">
-                				<xsl:value-of select="dataset/description" />
+                				<xsl:value-of select="dataset/description" disable-output-escaping="no" />
                 				</field>
                 			</xsl:if>
                 		
@@ -447,11 +448,15 @@
 	
 	</xsl:for-each>
 	<commit/>
- 	<optimize/>
+ 	<!--<optimize/>-->
 	
 </add>
 </xsl:template>
-
+	
+	<xsl:template match="format">
+		<field name="format"><xsl:value-of select="."/></field>
+		</xsl:template>
+	
 	<xsl:template match="publishDate">
 		<xsl:variable name="the_max">
      			<xsl:for-each select="../publishDate">
@@ -503,9 +508,9 @@
 		</xsl:template>
 	
 	<xsl:template match="contributor">
-		<xsl:for-each select=".">
+		<xsl:for-each select="tokenize(.,';')">
 			<field name="contributor">
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				</field>
 			</xsl:for-each>
 		</xsl:template>

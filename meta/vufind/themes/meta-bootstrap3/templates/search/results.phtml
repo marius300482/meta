@@ -47,7 +47,9 @@
 
 ?>
 
-  <?=$this->search()->renderSpellingSuggestions('<strong>' . $this->transEsc('spell_suggest') . '</strong>:', $this->results, $this); ?>
+<div class="spellingSuggestions">
+    <?=$this->search()->renderSpellingSuggestions($this->transEsc('spell_suggest') . ': ', $this->results, $this); ?>
+</div>
 
   <? if (($recordTotal = $this->results->getResultTotal()) > 0): // only display these at very top if we have results ?>
 <?php /* PHE not required, but surrounding "if" is required
@@ -61,9 +63,9 @@
     <div class="search-result-count">
       <? if ($recordTotal > 0): ?>
         <?=$this->transEsc("Showing")?>
-          <strong><?=number_format($this->results->getStartRecord())?></strong> - <strong><?=number_format($this->results->getEndRecord())?></strong>
+          <?=number_format($this->results->getStartRecord())?> - <?=number_format($this->results->getEndRecord())?>
         <? if (!isset($this->skipTotalCount)): ?>
-            <?=$this->transEsc('of')?> <strong><?=number_format($recordTotal, 0, ',', '.')?></strong>
+            <?=$this->transEsc('of')?> <?=number_format($recordTotal, 0, ',', '.')?>
         <? endif; ?>
 <?php /* PHE always show the search query
         <? if (isset($this->overrideSearchHeading)): ?>
@@ -72,7 +74,7 @@
           <?=$this->transEsc('for search')?>: '<?=$this->escapeHtml($lookfor)?>',
         <? endif; ?>
 */ ?>
-        <?=$this->transEsc('for search')?>: '<?=$this->escapeHtml($lookfor)?>'
+        <?=$this->transEsc('for')?> <strong><?=$this->escapeHtml($lookfor)?></strong>
 
 <?php /* PHE is not required
         <? if ($qtime = $this->results->getQuerySpeed()): ?>

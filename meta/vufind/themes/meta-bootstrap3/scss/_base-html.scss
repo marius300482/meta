@@ -54,3 +54,18 @@ pre {
 b, strong {
   font-weight: 500;
 }
+
+*[data-section-toggle],
+*[data-sidebar-toggle] h4 {
+  @media (max-width: $device-xs-max-width) {
+    cursor: pointer;
+    &:after {
+      font-family: icomoon;
+      float: right;
+      content: "\e605";
+    }
+    &.open:after {
+      content: "\e606";
+    }
+  }
+}

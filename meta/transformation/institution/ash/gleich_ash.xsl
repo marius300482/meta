@@ -1,10 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><!-- New document created with EditiX at Wed Feb 27 13:46:04 CET 2013 --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:err="http://www.w3.org/2005/xqt-errors" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xdt="http://www.w3.org/2005/xpath-datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xdt err fn" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- New document created with EditiX at Wed Feb 27 13:46:04 CET 2013 --><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:err="http://www.w3.org/2005/xqt-errors" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xdt="http://www.w3.org/2005/xpath-datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs xdt err fn" version="2.0">
 	<xsl:output indent="yes" method="xml"/>
 	<!-- Leere Knoten werden entfernt-->
 	<!--<xsl:template match="@*[.='']"/>
 	<xsl:template match="*[not(node())]"/>-->
 	<!--Nicht dargestellte Zeichen (sog. "Whitespace")  werden im XML Dokument entfernt um Speicherplatz zu sparen-->
 	<xsl:strip-space elements="*"/>
+
+	
 
 	
 <!--root knoten-->
@@ -23,15 +26,14 @@
 				(objektart[text()='Publikationen_Buch'])  or
 				(objektart[text()='Publikationen_Diplomarbeiten'])  or
 				(objektart[text()='Publikationen_Graue'])  or
-				(objektart[text()='Publikationen_Zeitschriften_Heft'])  or
-				(objektart[text()='Fotos/Dias']) ">
+				(objektart[text()='Publikationen_Zeitschriften_Heft']) ">
 		
 		
 	
 		<xsl:variable name="id" select="id"/>
 			<xsl:element name="record">
 				<xsl:attribute name="id">
-					<xsl:value-of select="$id"/><xsl:text>ash</xsl:text>
+					<xsl:value-of select="$id"/>
 					</xsl:attribute>
 				
 <!--Variablen_______________________________________________________Variablen-->
@@ -105,8 +107,8 @@
 <!--linkToWebpage-->			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/alice-salomon-archiv/</xsl:text></link>
 	
 <!--geoLocation-->				<geoLocation>
-							<latitude>0</latitude>
-							<longitude>0</longitude>
+							<latitude>49.6115690</latitude>
+							<longitude>6.1274660</longitude>
 							</geoLocation>
 			
 </xsl:element>
@@ -369,7 +371,7 @@
 			
 <!--Akten__________________________Akten___________________________Akten-->
 
-<xsl:if test="objektart[text()='Akten']">
+<xsl:if test="(objektart[text()='Akten']) and (Titel_Akte)">
 
 <xsl:element name="dataset">
 
@@ -424,14 +426,30 @@
 				
 	<!--subjectTopic Deskriptoren-->
 			<xsl:if test="Enthält">
-				<xsl:for-each select="tokenize(Enthält,';')">
-					<subjectTopic>
-						<xsl:value-of select="normalize-space(.)" />
-						</subjectTopic>
-			</xsl:for-each>
+				<xsl:choose>
+					<xsl:when test="contains(Enthält,';')">
+						<xsl:for-each select="tokenize(Enthält,';')">
+							<subjectTopic>
+								<xsl:value-of select="normalize-space(translate(.,'_','-'))" />
+								</subjectTopic>
+							</xsl:for-each>
+						</xsl:when>
+					<xsl:when test="contains(Enthält,',')">
+						<xsl:for-each select="tokenize(Enthält,',')">
+							<subjectTopic>
+								<xsl:value-of select="normalize-space(translate(.,'_','-'))" />
+								</subjectTopic>
+							</xsl:for-each>
+						</xsl:when>
+					</xsl:choose>
+				
 				</xsl:if>
 			
+	<!--subjectPerson-->	
+			<xsl:apply-templates select="AnderePersonen_1" />
+		
 	<!--description-->
+			<xsl:if test="(Bemerkg_) or (Inhalt)">
 			<description>
 				<!--<xsl:if test="Umfang">
 					<xsl:value-of select="Umfang" />
@@ -445,6 +463,7 @@
 					<xsl:value-of select="Inhalt"/>
 					</xsl:if>
 				</description>
+				</xsl:if>
 			<xsl:apply-templates select="Personen" />
 			
 <!--OTHER-->
@@ -454,10 +473,10 @@
 		
 		</xsl:element>	
 	
-	<xsl:if test="Graue_REF">
+	<xsl:if test="(Graue_REF) or (Foto_REF) or (Aufsatz-Artikel_REF)">
 		<functions>
+		
 			<hierarchyFields>
-				
 				
 				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>ash</xsl:text></hierarchy_top_id>
 				<hierarchy_top_title><xsl:value-of select="Titel_Akte" /></hierarchy_top_title>
@@ -486,6 +505,8 @@
 <!--Publikationen_Aufsatz/Artikel__________________________Publikationen_Aufsatz/Artikel___________________________Publikationen_BuchPublikationen_Aufsatz/Artikel-->
 
 <xsl:if test="objektart[text()='Publikationen_Aufsatz/Artikel']">
+
+<xsl:variable name="titelHeft" select="//datensatz[id=$ref_zs-heft]/Titel_Heft"></xsl:variable>
 
 <xsl:element name="dataset">
 
@@ -524,8 +545,59 @@
 	<!--displayDate-->
 	<!--publishDate Jahresangabe-->
 	<!--placeOfPublication publisher Verlagsangabe-->
-			<xsl:apply-templates select="Erschienen_in" />
-		
+			<xsl:choose>
+				<xsl:when test="Erschienen_in">
+					<xsl:apply-templates select="Erschienen_in" />
+					</xsl:when>
+				<xsl:when test="//datensatz[id=$ref_zs-heft]/Jahr[last()]">
+						<displayPublishDate>
+							<xsl:value-of select="//datensatz[id=$ref_zs-heft]/Jahr[last()]"/>
+							</displayPublishDate>
+						<publishDate>
+							<xsl:value-of select="//datensatz[id=$ref_zs-heft]/Jahr[last()]"/>
+							</publishDate>
+					</xsl:when>
+				<xsl:when test="contains($titelHeft,'&lt;')">
+					<displayPublishDate>
+						<xsl:value-of select="substring-before(substring-after($titelHeft,'&lt;'),'.')"></xsl:value-of>
+						</displayPublishDate>
+					<publishDate>
+						<xsl:value-of select="substring-before(substring-after($titelHeft,'&lt;'),'.')"></xsl:value-of>
+						</publishDate>
+					</xsl:when>
+				</xsl:choose>
+			<!--<xsl:apply-templates select="Erschienen_in" />-->
+	<!--sourceInfo-->
+			<xsl:if test="ZS_Heft_REF">
+				
+				<sourceInfo>
+					<xsl:choose>
+						<xsl:when test="contains($titelHeft,'&lt;')">
+							<xsl:value-of select="normalize-space(substring-before($titelHeft,'&lt;'))"></xsl:value-of>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$titelHeft" />
+							</xsl:otherwise>
+						</xsl:choose>
+					</sourceInfo>
+				
+				<xsl:if test="contains($titelHeft,'&lt;')">
+					<issue>
+					
+					<xsl:choose>
+						<xsl:when test="contains(substring-after(substring-after(substring-before(titelHeft,'&gt;'),'&lt;'),'.'),'H')">
+							<xsl:value-of select="substring-after(substring-after(substring-before(titelHeft,'&gt;'),'&lt;'),'.H')"/>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-before(substring-after(substring-after($titelHeft,'&lt;'),'.'),'&gt;')"/>
+							<!--<xsl:value-of select="substring-after(substring-after(substring-before(titelHeft,'&gt;'),'&lt;'),'.')"/>-->
+							</xsl:otherwise>
+						</xsl:choose>
+						
+						<!--<xsl:value-of select="substring-after(substring-after(substring-before($titelHeft,'&gt;'),'&lt;'),'.H')"></xsl:value-of>-->
+						</issue>
+					</xsl:if>
+				</xsl:if>
 	
 <!--PHYSICAL INFORMATION-->
 					
@@ -543,7 +615,7 @@
 			<xsl:apply-templates select="Sign_" />
 		
 		</xsl:element>	
-		</xsl:if>
+		
 
 	<xsl:if test="ZS_Heft_REF">
 		<functions>
@@ -586,8 +658,8 @@
 			</functions>
 		</xsl:if>
 		
-	<xsl:variable name="ref_akte" select="translate(Aufsatz-Artikel_REF[1], translate(.,'0123456789', ''), '')"/>
-	<xsl:if test="Aufsatz-Artikel_REF">
+	<xsl:variable name="ref_akte" select="translate(Akte_REF[1], translate(.,'0123456789', ''), '')"/>
+	<xsl:if test="Akte_REF">
 		<functions>
 			<hierarchyFields>
 				
@@ -608,7 +680,7 @@
 		</xsl:if>
 
 
-
+</xsl:if>
 
 
 
@@ -660,7 +732,7 @@
 			<xsl:apply-templates select="Jahr" />
 	<!--publishDate Jahresangabe-->
 	<!--placeOfPublication publisher Verlagsangabe-->
-				<xsl:apply-templates select="Erschienen" />
+			<xsl:apply-templates select="Erschienen" />
 	
 	<!--issue Heftangabe-->
 			<xsl:apply-templates select="Heft_Nr_" />
@@ -774,6 +846,27 @@
 			<xsl:apply-templates select="Sign_" />
 		
 		</xsl:element>	
+		
+	<xsl:if test="Akte_REF">
+		<functions>
+			<hierarchyFields>
+				
+				<hierarchy_top_id><xsl:value-of select="//datensatz[id=$ref_akte]/id"/><xsl:text>ash</xsl:text></hierarchy_top_id>
+				<hierarchy_top_title><xsl:value-of select="//datensatz[id=$ref_akte]/Titel_Akte" /></hierarchy_top_title>
+				
+				<hierarchy_parent_id><xsl:value-of select="//datensatz[id=$ref_akte]/id"/><xsl:text>ash</xsl:text></hierarchy_parent_id>
+				<hierarchy_parent_title><xsl:value-of select="//datensatz[id=$ref_akte]/Titel_Akte" /></hierarchy_parent_title>
+				
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>ash</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title><xsl:value-of select="Titel_Aufsatz-Artikel" /></is_hierarchy_title>
+				
+				<hierarchy_sequence><xsl:value-of select="substring(Titel_Aufsatz-Artikel,1,3)"/></hierarchy_sequence>
+				
+				</hierarchyFields>
+	
+			</functions>
+		</xsl:if>
+		
 		</xsl:if>
 
 
@@ -796,6 +889,14 @@
 
 <!--Templates-->
 	
+	<xsl:template match="AnderePersonen_1">
+		<xsl:for-each select="tokenize(.,';')">
+			<subjectPerson>
+				<xsl:value-of select="normalize-space(.)" />
+				</subjectPerson>
+			</xsl:for-each>
+		</xsl:template>
+	
 	<xsl:template match="Format">
 		<dimension>
 			<xsl:value-of select="."/>
@@ -806,11 +907,30 @@
 		<description>
 			<xsl:value-of select="."/>
 			</description>
+			<xsl:if test="(../objektart[text()='Fotos/Dias']) and not(../Titel-Gegenstand_Foto)">
+				<title>
+					<xsl:value-of select="substring(.,1,70)" />
+					<xsl:text>[...]</xsl:text>
+					</title>	
+				<title_short>
+					<xsl:value-of select="substring(.,1,70)" />
+					<xsl:text>[...]</xsl:text>
+					</title_short>			
+				</xsl:if>
+			
 		</xsl:template>
 	
 	<xsl:template match="UrheberIn_FotografIn">
-		<contributor>
-			<xsl:value-of select="."/>
+		<contributor><xsl:choose>
+				<xsl:when test="contains(.,'Alice-Salomon-Archiv')">
+					<xsl:text>Alice Salomon Archiv, Berlin (ASA, Berlin)?</xsl:text>
+					</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(.)" />
+					</xsl:otherwise>
+				</xsl:choose>
+		
+			<!--<xsl:value-of select="."/>-->
 			</contributor>
 		<!--<xsl:if test="contains(.,':')">
 			<placeOfPublication>
@@ -829,7 +949,8 @@
 		</xsl:template>
 	
 	<xsl:template match="Heft_Nr_">
-		<xsl:if test="not(contains(../Titel_Heft,'&lt;'))">
+		<!--<xsl:if test="not(contains(../Titel_Heft,'&lt;')) and (contains(../Sign_,'&lt;'))">-->
+		<xsl:if test="not(contains(../Titel_Heft,'&lt;')) and (not(contains(../Sign_,'&lt;')))">
 		<xsl:for-each select="tokenize(.,',')">
 			<xsl:if test="contains(.,'Nr.')">
 				<issue>
@@ -875,14 +996,14 @@
 			<xsl:when test="contains(.,'/')">
 				<xsl:for-each select="tokenize(.,'/')">
 					<subjectTopic>
-						<xsl:value-of select="normalize-space(.)" />
+						<xsl:value-of select="normalize-space(translate(.,'_','-'))" />
 						</subjectTopic>
 					</xsl:for-each>		
 				</xsl:when>
 			<xsl:when test="contains(.,',')">
 				<xsl:for-each select="tokenize(.,',')">
 					<subjectTopic>
-						<xsl:value-of select="normalize-space(.)" />
+						<xsl:value-of select="normalize-space(translate(.,'_','-'))" />
 						</subjectTopic>
 					</xsl:for-each>		
 				</xsl:when>
@@ -931,14 +1052,28 @@
 			<xsl:when test="contains(.,';')">
 				<xsl:for-each select="tokenize(.,';')">
 					<contributor>
-						<xsl:value-of select="normalize-space(.)" />
+						<xsl:choose>
+							<xsl:when test="contains(.,'Alice-Salomon-Archiv, Berlin (ASA, Berlin)?')">
+								<xsl:text>Alice Salomon Archiv, Berlin (ASA, Berlin)?</xsl:text>
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="normalize-space(.)" />
+								</xsl:otherwise>
+							</xsl:choose>
 						</contributor>
 					</xsl:for-each>
 				</xsl:when>
 			<xsl:when test="contains(.,'/')">
 				<xsl:for-each select="tokenize(.,'/')">
 					<contributor>
-						<xsl:value-of select="normalize-space(.)" />
+						<xsl:choose>
+							<xsl:when test="contains(.,'Alice-Salomon-Archiv, Berlin (ASA, Berlin)?')">
+								<xsl:text>Alice Salomon Archiv, Berlin (ASA, Berlin)?</xsl:text>
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="normalize-space(.)" />
+								</xsl:otherwise>
+							</xsl:choose>
 						</contributor>
 					</xsl:for-each>
 				</xsl:when>
@@ -958,6 +1093,7 @@
 		</xsl:template>
 	
 	<xsl:template match="Erschienen_in">
+		
 		<xsl:for-each select="tokenize(.,',')">
 			<xsl:if test="contains(.,'Jg.')">
 				<volume>
@@ -970,11 +1106,26 @@
 					</issue>
 				</xsl:if>
 			</xsl:for-each>
-			<sourceInfo>
-				<xsl:value-of select="substring-before(.,',')"/>
-				</sourceInfo>
 			
-			<xsl:variable name="date" select="tokenize(translate(., translate(.,'0123456789', ''), ''),',')[last()]" />
+			<!--<sourceInfo>
+				<xsl:value-of select="."/>
+				</sourceInfo>-->
+			
+			<xsl:if test="matches(.,'[0-9]')">
+				<xsl:variable name="erschienen" select="translate(., translate(.,'0123456789', ''), '')"/>
+				<xsl:for-each select="document('../../anreicherung/year.xml')/root/child/year">
+					<xsl:if test="contains($erschienen,.)">
+						<displayPublishDate>
+							<xsl:value-of select="." />
+							</displayPublishDate>
+						<publishDate>
+							<xsl:value-of select="." />
+							</publishDate>	
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:if>
+				
+			<!--<xsl:variable name="date" select="tokenize(translate(., translate(.,'0123456789', ''), ''),',')[last()]" />
 			<xsl:variable name="string-length-date" select="string-length($date)" />
 			<xsl:variable name="string-postion-start" select="$string-length-date - 3"/>
 			<displayPublishDate>
@@ -982,13 +1133,36 @@
 				</displayPublishDate>
 			<publishDate>
 				<xsl:value-of select="substring($date,$string-postion-start,$string-length-date)"/>
-				</publishDate>
+				</publishDate>-->
 						
 		</xsl:template>
 	
 	<xsl:template match="Erschienen">
-		<xsl:choose>
-		<xsl:when test="contains(.,':')">
+			
+		<xsl:if test="matches(.,'[0-9]')">
+		<xsl:variable name="erschienen" select="translate(., translate(.,'0123456789', ''), '')"/>
+
+			<xsl:for-each select="document('../../anreicherung/year.xml')/root/child/year">
+				<xsl:if test="contains(.,$erschienen)">
+					<displayPublishDate>
+						<xsl:value-of select="." />
+						</displayPublishDate>
+					<publishDate>
+						<xsl:value-of select="." />
+						</publishDate>	
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:if>
+			
+			<xsl:if test="contains(.,':')">
+				<placeOfPublication>
+					<xsl:value-of select="normalize-space(substring-before(.,':'))"></xsl:value-of>
+					</placeOfPublication>
+					</xsl:if>
+	
+
+<!--<xsl:choose>
+	<xsl:when test="contains(.,':')">
 		<xsl:choose>
 			<xsl:when test="contains(substring-after(.,':'),',')">
 				<displayPublishDate>
@@ -1023,24 +1197,25 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:when>
-		<xsl:otherwise>
-			<placeOfPublication>
-				<xsl:value-of select="normalize-space(.)" />
-				</placeOfPublication>	
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:otherwise>
+		<placeOfPublication>
+			<xsl:value-of select="normalize-space(.)" />
+			</placeOfPublication>	
+		</xsl:otherwise>
+	</xsl:choose>-->
 	
 		</xsl:template>
 	
 	<xsl:template match="GutachterInnen">
-		<xsl:for-each select="tokenize(.,';')">
+		<!--<xsl:for-each se="tokenize(.,';')">-->
 			<reviewer>
 				<xsl:value-of select="normalize-space(.)" />
 				</reviewer>
-			</xsl:for-each>	
-		</xsl:template>
+			<!--</xsl:for-each>-->			</xsl:template>
 	
 	<xsl:template match="AutorIn-Hrsg_">
+		<xsl:choose>
+		<xsl:when test="contains(.,';')">
 		<xsl:for-each select="tokenize(.,';')">
 			<xsl:choose>
 				<xsl:when test="contains(.,'(Hg.)')">
@@ -1057,6 +1232,27 @@
 						</xsl:otherwise>
 				</xsl:choose>
 			</xsl:for-each>
+			</xsl:when>	
+		<xsl:when test="contains(.,'/')">
+		<xsl:for-each select="tokenize(.,'/')">
+			<xsl:choose>
+				<xsl:when test="contains(.,'(Hg.)')">
+					<editor>
+						<xsl:value-of select="normalize-space(substring-before(.,'(Hg.)'))"/>
+						</editor>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:if test="not(contains(.,'o. A.'))">
+						<author>
+							<xsl:value-of select="normalize-space(.)" />
+							</author>
+							</xsl:if>
+						</xsl:otherwise>
+				</xsl:choose>
+			</xsl:for-each>
+			</xsl:when>
+			</xsl:choose>
+		
 		</xsl:template>
 	
 	<xsl:template match="vSIGN">
@@ -1069,6 +1265,21 @@
 		<shelfMark>
 			<xsl:value-of select="." />
 			</shelfMark>
+		
+		<xsl:if test="(not(../Erschienen)) and (not(matches(../Titel_Heft,'&lt;'))) and (contains(.,'&lt;'))">
+			<displayPublishDate>
+					<xsl:variable name="lt" select="substring-after(.,'&lt;')" />
+					<xsl:value-of select="substring-before($lt,'.')"></xsl:value-of>
+					</displayPublishDate>
+				<publishDate>
+					<xsl:variable name="lt" select="substring-after(.,'&lt;')" />
+					<xsl:value-of select="substring-before($lt,'.')"></xsl:value-of>	
+					</publishDate>
+				<issue>
+					<xsl:value-of select="substring-after(substring-after(substring-before(.,'&gt;'),'&lt;'),'.H')"/>
+					</issue>
+			</xsl:if>
+		
 		</xsl:template>
 	
 	<xsl:template match="Titel_Akte">
@@ -1224,6 +1435,7 @@
 		</xsl:template>
 		
 		<xsl:template match="Titel_Heft">
+		<xsl:variable name="lt" select="substring-after(.,'&lt;')" />
 		<xsl:choose>
 			<xsl:when test="contains(.,'&lt;')">
 				<title>
@@ -1233,14 +1445,38 @@
 					<xsl:value-of select="normalize-space(substring-before(.,'&lt;'))"/>
 					</title_short>
 				<displayPublishDate>
-					<xsl:value-of select="substring-after(substring-before(.,'.'),'&lt;')"/>
+					<xsl:choose>
+						<xsl:when test="contains($lt,'.')">
+							<xsl:value-of select="substring-before($lt,'.')"></xsl:value-of>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-before($lt,'&gt;')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					<!--<xsl:value-of select="substring-before($lt,'.')"></xsl:value-of>-->
 					</displayPublishDate>
 				<publishDate>
-					<xsl:value-of select="substring-after(substring-before(.,'.'),'&lt;')"/>		
+					<xsl:choose>
+						<xsl:when test="contains($lt,'.')">
+							<xsl:value-of select="substring-before($lt,'.')"></xsl:value-of>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-before($lt,'&gt;')"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</publishDate>
+				<xsl:if test="contains($lt,'.')">
 				<issue>
-					<xsl:value-of select="substring-after(substring-after(substring-before(.,'&gt;'),'&lt;'),'.H')"/>
+					<xsl:choose>
+						<xsl:when test="contains(substring-after(substring-after(substring-before(.,'&gt;'),'&lt;'),'.'),'H')">
+							<xsl:value-of select="substring-after(substring-after(substring-before(.,'&gt;'),'&lt;'),'.H')"/>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="substring-after(substring-after(substring-before(.,'&gt;'),'&lt;'),'.')"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</issue>
+					</xsl:if>
 				</xsl:when>
 			<xsl:when test="contains(.,':')">
 				<title>
@@ -1263,5 +1499,7 @@
 				</xsl:otherwise>				
 			</xsl:choose>
 		</xsl:template>
+
+
 
 </xsl:stylesheet>

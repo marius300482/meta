@@ -75,6 +75,16 @@ $config = array(
                             )
                         )
                     ),
+                    'topics' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route'    => '/Topics',
+                            'defaults' => array(
+                                'controller' => 'Topics',
+                                'action'     => 'Topics',
+                            )
+                        )
+                    )
                 ),
             ),
             'idaoai' => array(
@@ -92,7 +102,8 @@ $config = array(
     'view_helpers' => array(
         'factories' => array(
             'piwikanalytics' => array('Ida\View\Helper\Factory', 'getPiwikAnalytics'),
-            'facetEntryTranslation' => array('Ida\View\Helper\Factory', 'getFacetEntryTranslation')
+            'facetEntryTranslation' => array('Ida\View\Helper\Factory', 'getFacetEntryTranslation'),
+            'distributeToArrays' => array('Ida\View\Helper\Factory', 'getDistributeToArrays')
         ),
     ),
 );

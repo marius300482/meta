@@ -61,4 +61,13 @@ class Factory {
 
         return new FacetEntryTranslation($translatedFacets);
     }
+
+    /**
+     * Construct new function which distributes array elements to sub-arrays
+     *
+     * @return DistributeToArrays
+     */
+    public static function getDistributeToArrays() {
+        return new DistributeToArrays();
+    }
 }

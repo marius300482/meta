@@ -1,36 +1,176 @@
+#topicsPage {
+  h1 {
+    font-size: 16px;
+    font-family: "Libre Baskerville",serif;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 0 3%;
+    @media (min-width: $device-xs-max-width) {
+      font-size: 24px;
+      margin: 0 15% 3%;
+    }
+  }
+  h2 {
+    font-size: 18px;
+    border-bottom: 5px solid #d6d3de;
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
+  // Google map
+  #topic-map-canvas {
+    height: 330px;
+    margin-top: -10px;
+    width: 100%;
+    img {
+      max-width: initial;
+    }
+  }
+  // Inventory facet
+  #inventoryFacet {
+    margin-top: 30px;
+    .format {
+      text-align: right;
+      display: inline-block;
+      padding-right: 5px;
+      width: 48%;
+      vertical-align: middle;
+      .count {
+        color: $color-grey-dark;
+      }
+    }
+    .barWrapper {
+      display: inline-block;
+      width: 50%;
+      vertical-align: middle;
+      .bar {
+        width: 100%;
+        height: 16px;
+      }
+    }
+  }
+  // Institution list
+  #institutionList {
+    .body {
+      margin-top: 30px;
+      .col-sm-4 {
+        &:first-child {
+          padding-left: 0;
+        }
+        &:last-child {
+          padding-right: 0;
+          @media (max-width: $device-md-max-width) {
+            margin-top: 20px;
+          }
+        }
+        @media (max-width: $device-md-max-width) {
+          padding: 0;
+        }
+        h3 {
+          font-size: 16px;
+          font-family: "Libre Baskerville",serif;
+          font-weight: 500;
+          text-transform: uppercase;
+          color: #979797;
+          letter-spacing: 2px;
+          margin: 20px 0 7px;
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+        .institution {
+          padding-left: 20px;
+          &:before {
+            content: "\e609";
+            color: $color-purple;
+            font-family: 'icomoon';
+            margin: 0 4px 0 -20px;
+          }
+        }
+      }
+    }
+  }
+  // Tag cloud
+  .tag_cloud {
+    background-color: #F8F5F0;
+    margin-top: -10px;
+    padding: 20px;
+  }
+  // Random books
+  #randomBooks {
+    padding-top: 10px;
+    @media (min-width: $device-md-max-width) {
+      .col-xs-1 {
+        padding-left: 0;
+        width: 25%; // Overwrite re-used template
+      }
+      .col-xs-11 {
+        padding-left: 0;
+        width: 75%; // Overwrite re-used template
+      }
+    }
+  }
+}
+
 // Tag cloud
 .tag_cloud {
   text-align: center;
-  line-height: 46px;
-  font-size: 16px;
+  font-size: 12px;
   li {
     display: inline-block;
   }
   .w19, .w20, .w21 {
-    font-size: 19px;
+    font-size: 13px;
   }
   .w22, .w23, .w24 {
-    font-size: 22px;
+    font-size: 14px;
   }
   .w25, .w26, .w27 {
-    font-size: 25px;
+    font-size: 15px;
   }
   .w28, .w29, .w30, .w31, .w32 {
-    font-size: 28px;
+    font-size: 16px;
   }
   .w33, .w34, .w35, .w36, .w37 {
-    font-size: 31px;
+    font-size: 18px;
   }
   .w38, .w39, .w40, .w41, .w42 {
-    font-size: 40px;
+    font-size: 20px;
     color: #641373; // Special color
   }
   .w43, .w44, .w45 {
-    font-size: 43px;
+    font-size: 22px;
     color: #7E0A86; // Special color
   }
   .w46, .w47, .w48, .w49, .w50 {
-    font-size: 46px;
+    font-size: 23px;
     color: $color-purple;
+    line-height: 1em;
+  }
+  @media (min-width: $device-xs-max-width) {
+    font-size: 16px;
+    .w19, .w20, .w21 {
+      font-size: 19px;
+    }
+    .w22, .w23, .w24 {
+      font-size: 22px;
+    }
+    .w25, .w26, .w27 {
+      font-size: 25px;
+    }
+    .w28, .w29, .w30, .w31, .w32 {
+      font-size: 28px;
+    }
+    .w33, .w34, .w35, .w36, .w37 {
+      font-size: 31px;
+    }
+    .w38, .w39, .w40, .w41, .w42 {
+      font-size: 40px;
+    }
+    .w43, .w44, .w45 {
+      font-size: 43px;
+    }
+    .w46, .w47, .w48, .w49, .w50 {
+      font-size: 46px;
+    }
   }
 }
