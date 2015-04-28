@@ -1,0 +1,40 @@
+<?php
+$lookFor = $this->results->getUrlQuery()->isQuerySuppressed() ? '' : $this->params->getDisplayQuery();
+
+?>
+<div class="col-sm-8">
+
+    <div class="search-result-count">
+        <?= number_format($this->results->getStartRecord())?> - <?=number_format($this->results->getEndRecord()); ?>
+        <? if (!isset($this->skipTotalCount)): ?>
+            <?=$this->transEsc('of')?> <?=number_format($this->resultCount, 0, ',', '.'); ?>
+        <? endif; ?>
+        <?= $this->transEsc('for')?> <strong><?=$this->escapeHtml($lookFor)?></strong>
+    </div>
+
+    <?php if (0 < count($this->contributorFacet)) : ?>
+        <ul>
+            <?php foreach ($this->contributorFacet['list'] as $entry) : ?>
+                <li>
+                    <a href="<?= $this->url('search-results').$this->results->getUrlQuery()->addFacet($this->contributorKey, $entry['value'], $entry['operator']); ?>">
+                        <?= $entry['displayText']?>
+                    </a>
+                    <span class="badge">
+                        <?= number_format($entry['count']); ?>
+                    </span>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <?= $this->paginationControl($this->paginator, 'Sliding', 'search/pagination.phtml', array('results' => $this->contributorFacet['list'])); ?>
+
+</div>
+
+<? /* Narrow Search Options */ ?>
+    <div id="facets" class="sidebar col-sm-4 hidden-print">
+        <? foreach ($this->results->getRecommendations('side') as $current): ?>
+            <?=$this->recommend($current)?>
+        <? endforeach; ?>
+    </div>
+<? /* End Narrow Search Options */ ?>

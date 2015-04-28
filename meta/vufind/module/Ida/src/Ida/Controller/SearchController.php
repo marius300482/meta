@@ -81,6 +81,29 @@ class SearchController extends \VuFind\Controller\SearchController
 
     public function contributorsAction()
     {
+        $resultView = $this->resultsAction();
+        $resultView->contributorKey = 'contributor_facet';
+        $resultView->resultCount = 0;
 
+        // Get contributor facet
+        $resultView->contributorFacet = array();
+        foreach ($resultView->results->getRecommendations('side') as $recommendations) {
+            foreach($recommendations->getFacetSet() as $facetKey => $facet) {
+                if ($resultView->contributorKey === $facetKey) {
+                    $resultView->contributorFacet = $facet;
+                    $resultView->resultCount = count($facet['list']);
+                }
+            }
+        }
+
+        // Set up paginator
+        $nullAdapter = "\Zend\Paginator\Adapter\Null";
+        $paginator = new \Zend\Paginator\Paginator(new $nullAdapter($resultView->resultCount));
+        $paginator->setCurrentPageNumber($resultView->results->getParams()->getPage())
+            ->setItemCountPerPage($resultView->results->getParams()->getLimit())
+            ->setPageRange(11);
+        $resultView->paginator = $paginator;
+
+        return $resultView;
     }
 }
