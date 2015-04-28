@@ -81,28 +81,27 @@ class SearchController extends \VuFind\Controller\SearchController
 
     public function contributorsAction()
     {
+        // Get result view for side facet
         $resultView = $this->resultsAction();
-        $resultView->contributorKey = 'contributor_facet';
-        $resultView->resultCount = 0;
 
         // Get contributor facet
-        $resultView->contributorFacet = array();
-        foreach ($resultView->results->getRecommendations('side') as $recommendations) {
-            foreach($recommendations->getFacetSet() as $facetKey => $facet) {
-                if ($resultView->contributorKey === $facetKey) {
-                    $resultView->contributorFacet = $facet;
-                    $resultView->resultCount = count($facet['list']);
-                }
-            }
+        $facets = $resultView->results->getfacetList();
+        $contributorFacetKey = 'contributor_facet';
+
+        if (!isset($facets[$contributorFacetKey])) {
+            throw new \Exception('Facet "' . $contributorFacetKey . '" does not exist!');
+        } else {
+            $resultView->contributorFacet = $facets[$contributorFacetKey];
         }
 
         // Set up paginator
-        $nullAdapter = "\Zend\Paginator\Adapter\Null";
-        $paginator = new \Zend\Paginator\Paginator(new $nullAdapter($resultView->resultCount));
+        $adapter = new \Zend\Paginator\Adapter\ArrayAdapter($resultView->contributorFacet['list']);
+        $paginator = new \Zend\Paginator\Paginator($adapter);
         $paginator->setCurrentPageNumber($resultView->results->getParams()->getPage())
             ->setItemCountPerPage($resultView->results->getParams()->getLimit())
-            ->setPageRange(11);
+            ->setPageRange(5);
         $resultView->paginator = $paginator;
+        $resultView->pages = $paginator->getPages();
 
         return $resultView;
     }

@@ -982,6 +982,30 @@ footer {
   padding: 0 15px 5px;
   text-align: left; }
 
+#contributors h2.search-result-count {
+  margin: 0 0 25px 0; }
+#contributors h3.involvedPersons {
+  font-size: 16px;
+  margin: 0 0 15px 0; }
+#contributors .badge {
+  color: #767086; }
+#contributors .backToResults {
+  margin-left: -15px; }
+  #contributors .backToResults:before {
+    color: #2e264d;
+    content: "\e605";
+    display: inline-block;
+    font-family: icomoon;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: normal;
+    margin-right: -4px;
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    vertical-align: baseline; }
+  #contributors .backToResults a {
+    color: #990099; }
+
 #browse-go-back {
   color: #990099;
   cursor: pointer;
