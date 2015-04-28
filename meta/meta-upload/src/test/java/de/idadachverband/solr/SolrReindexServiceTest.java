@@ -2,6 +2,10 @@ package de.idadachverband.solr;
 
 import de.idadachverband.archive.ArchiveService;
 import de.idadachverband.archive.IdaInputArchiver;
+import de.idadachverband.institution.IdaInstitutionBean;
+import de.idadachverband.institution.IdaInstitutionConverter;
+import de.idadachverband.job.JobExecutionService;
+
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -22,6 +26,15 @@ public class SolrReindexServiceTest
 
     @Mock
     private ArchiveService archiveService;
+    
+    @Mock
+    private JobExecutionService jobExecutionService;
+    
+    @Mock
+    private IdaInstitutionConverter idaInstitutionConverter;
+    
+    @Mock
+    private IdaInstitutionBean institution;
 
     private SolrReindexService cut;
 
@@ -30,7 +43,7 @@ public class SolrReindexServiceTest
     {
         MockitoAnnotations.initMocks(this);
         final Path archivePath = Paths.get(this.getClass().getClassLoader().getResource("archive").toURI());
-        cut = new SolrReindexService(archiveService, idaInputArchiver);
+        cut = new SolrReindexService(archiveService, idaInputArchiver, jobExecutionService, idaInstitutionConverter);
     }
 
     @Test
@@ -41,6 +54,7 @@ public class SolrReindexServiceTest
         when(solrService.getName()).thenReturn(coreName);
         when(idaInputArchiver.uncompressToTemporaryFile(Mockito.any(Path.class))).thenReturn(Files.createTempFile(this.getClass().getSimpleName(), ".tmp"));
         final String institutionName = "institution1";
+        when(institution.getInstitutionName()).thenReturn(institutionName);
         final ArrayList<Path> solrFiles = new ArrayList<>();
         final Path archivePath = Paths.get(this.getClass().getClassLoader().getResource("archive").toURI());
         final Path solr = archivePath.resolve(coreName).resolve(institutionName).resolve("solr");
@@ -48,9 +62,9 @@ public class SolrReindexServiceTest
         solrFiles.add(solr.resolve("incremental").resolve("a.zip"));
         solrFiles.add(solr.resolve("incremental").resolve("b.zip"));
 
-        when(archiveService.findSolrFiles(institutionName, coreName)).thenReturn(solrFiles);
+        //when(archiveService.findLatestSolrFiles(coreName, institutionName)).thenReturn(solrFiles);
 
-        cut.reindexInstitutionOnCore(institutionName, solrService);
+        cut.rollbackInstitutionIndex(solrService, institution);
 
         verify(solrService, times(1)).deleteInstitution(institutionName);
         verify(idaInputArchiver, times(3)).uncompressToTemporaryFile(Mockito.any(Path.class));

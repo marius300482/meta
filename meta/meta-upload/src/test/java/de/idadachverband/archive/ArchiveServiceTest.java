@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -20,20 +21,15 @@ public class ArchiveServiceTest
     public void setUp() throws Exception
     {
         final Path archivePath = Paths.get(this.getClass().getClassLoader().getResource("archive").toURI());
-        cut = new ArchiveService(new ArchiveConfiguration(archivePath));
+        cut = new ArchiveService(new ArchiveConfiguration(archivePath, 1), new SimpleDateFormat());
     }
 
     @Test
     public void findReindexPaths() throws Exception
     {
-        final Map<String, List<Path>> actual = cut.findReindexPaths();
-        assertThat(actual.keySet(), contains("corename"));
-        assertThat(actual.get("corename").get(0).getFileName().toString(), startsWith("institution"));
+//        final Map<String, Map<String, List<String>>> actual = cut.getArchiveTree();
+//        assertThat(actual.keySet(), contains("corename"));
+//        assertThat(actual.get("corename").keySet(), contains("institution1"));
     }
 
-    @Test
-    public void findFiles() throws Exception
-    {
-
-    }
 }

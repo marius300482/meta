@@ -1,6 +1,5 @@
 package de.idadachverband.archive;
 
-import de.idadachverband.archive.visitor.ArchiveFileVisitor;
 import de.idadachverband.utils.ZipService;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 /**
  * Created by boehm on 19.02.15.
@@ -21,8 +18,6 @@ public class AbstractIdaArchiver
 {
     private final ZipService zipService;
 
-    private final SimpleDateFormat dateFormat;
-
     @Getter
     @Setter
     private boolean zip = true;
@@ -31,10 +26,9 @@ public class AbstractIdaArchiver
      * @param zipService
      * @param dateFormat
      */
-    public AbstractIdaArchiver(ZipService zipService, SimpleDateFormat dateFormat)
+    public AbstractIdaArchiver(ZipService zipService)
     {
         this.zipService = zipService;
-        this.dateFormat = dateFormat;
     }
 
     /**
@@ -46,23 +40,19 @@ public class AbstractIdaArchiver
     public Path archiveFile(Path input, Path targetFolder) throws IOException
     {
         log.debug("Archive file: {} to folder: {}", input, targetFolder);
+        Files.createDirectories(targetFolder);
         final Path path;
         if (!zip || inputIsZip(input))
         {
             path = targetFolder.resolve(input.getFileName());
-            log.info("Zip disabled or file: {} is a zip file. Move to: {}", input, path);
-            Files.createDirectories(path.getParent());
-            Files.move(input, path);
-            log.debug("Moved: {} to:  {}", input, path);
+            log.info("Zip disabled or file: {} is a zip file. Copy to: {}", input, path);
+            Files.copy(input, path);
+            log.debug("Copied: {} to:  {}", input, path);
         } else
         {
             path = targetFolder.resolve(input.getFileName() + ".zip");
-            log.debug("Create folder (if not exists) for file: {}", path);
-            Files.createDirectories(path.getParent());
             zipService.zip(input, path);
             log.debug("Zipped: {} as: {}", input, path);
-            Files.deleteIfExists(input);
-            log.debug("Deleted: {}", input);
         }
         log.debug("Archived: {} to: {}", input, path);
         return path;
@@ -78,37 +68,42 @@ public class AbstractIdaArchiver
 
     /**
      * @param input The archived file. May be zipped or uncompressed.
+     * @param targetFolder target for uncompressed file
+     * @return path to uncompressed file. Should be deleted on exit of JVM. Rather delete earlier.
+     * @throws IOException
+     */
+    public Path uncompressFile(Path input, Path targetFolder) throws IOException
+    {
+        Path targetFile;
+        Files.createDirectories(targetFolder);
+
+        if (!zip || !inputIsZip(input))
+        {
+            targetFile = targetFolder.resolve(input.getFileName());
+            Files.copy(input, targetFile, StandardCopyOption.REPLACE_EXISTING);
+        } else
+        {
+            targetFile = zipService.unzip(input, targetFolder);
+        }
+        return targetFile;
+    }
+    
+    /**
+     * @param input The archived file. May be zipped or uncompressed.
      * @return path to temporary uncompressed file. Should be deleted on exit of JVM. Rather delete earlier.
      * @throws IOException
      */
     public Path uncompressToTemporaryFile(Path input) throws IOException
     {
-        final Path tempDirectory = Files.createTempDirectory("unzip");
-        final Path tempFile = Files.createTempFile(tempDirectory, "" + System.currentTimeMillis(), ".xml");
+        final Path tempFile = Files.createTempFile("ida-unzip-" + System.currentTimeMillis(), ".xml");
 
-        if (!zip)
+        if (!zip || !inputIsZip(input))
         {
             Files.copy(input, tempFile, StandardCopyOption.REPLACE_EXISTING);
         } else
         {
-            final Path unzip = zipService.unzip(input);
-            Files.move(unzip, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            zipService.unzip(input, tempFile);
         }
         return tempFile;
-    }
-
-    private void deleteOldFiles(Path currentPath) throws IOException
-    {
-        final Path parent = currentPath.getParent();
-        final ArchiveFileVisitor archiveFileVisitor = new ArchiveFileVisitor();
-        Files.walkFileTree(parent, archiveFileVisitor);
-        final List<Path> list = archiveFileVisitor.getPaths();
-        for (Path path : list)
-        {
-            if (!path.equals(currentPath))
-            {
-                Files.deleteIfExists(path);
-            }
-        }
     }
 }

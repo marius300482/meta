@@ -2,10 +2,11 @@ package de.idadachverband.upload;
 
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.institution.IdaInstitutionConverter;
+import de.idadachverband.process.ProcessJobBean;
 import de.idadachverband.process.ProcessService;
 import de.idadachverband.solr.SolrService;
-import de.idadachverband.transform.TransformationBean;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -110,13 +112,13 @@ public class AsyncFileUploadController
                 try
                 {
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
-                    institution.setIncrementalUpdate(uploadFormBean.isIncremental());
                     SolrService solr = uploadFormBean.getSolr();
 
                     tmpPath = moveToTempFile(file, institution.getInstitutionName());
 
-                    TransformationBean transformationBean = processService.process(tmpPath, institution, solr, file.getOriginalFilename());
-                    map.addAttribute("result", transformationBean.getKey());
+                    ProcessJobBean jobBean = 
+                            processService.processAsync(tmpPath, institution, solr, file.getOriginalFilename(), uploadFormBean.isIncremental());
+                    map.addAttribute("result", jobBean.getJobId());
 
                     return "redirect:result/success";
                 } catch (IOException e)

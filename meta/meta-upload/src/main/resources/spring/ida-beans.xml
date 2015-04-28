@@ -130,6 +130,10 @@
     </bean>
 
     <bean id="dateFormat" class="java.text.SimpleDateFormat">
-        <constructor-arg value="yyyyMMdd_hhmmss"/>
+        <constructor-arg value="yyyyMMdd_HHmmss"/>
+    </bean>
+    
+    <bean id="maxArchivedVersions" class="java.lang.Integer">
+    	<constructor-arg value="2"/>
     </bean>
 </beans>

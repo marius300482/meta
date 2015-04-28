@@ -20,7 +20,6 @@ public class ProcessFileConfiguration
     final private String uploadFolder = "upload";
     final private String workingFormatFolder = "workingformat";
     final private String solrFormatFolder = "solr";
-    final private String incremental = "incremental";
 
     @Inject
     public ProcessFileConfiguration(Path processBasePath) throws IOException
@@ -28,6 +27,7 @@ public class ProcessFileConfiguration
         this.basePath = processBasePath;
         Files.createDirectories(this.basePath);
     }
+    
 
     public Path getPath(String fileName, ProcessStep step, String key)
     {

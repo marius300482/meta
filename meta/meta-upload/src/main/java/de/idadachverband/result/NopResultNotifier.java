@@ -1,6 +1,6 @@
 package de.idadachverband.result;
 
-import de.idadachverband.transform.TransformationBean;
+import de.idadachverband.job.JobBean;
 
 /**
  * Created by boehm on 09.10.14.
@@ -8,7 +8,7 @@ import de.idadachverband.transform.TransformationBean;
 public class NopResultNotifier implements ResultNotifier
 {
     @Override
-    public void notify(TransformationBean transformationBean) throws NotificationException
+    public void notify(JobBean transformationBean) throws NotificationException
     {
 
     }

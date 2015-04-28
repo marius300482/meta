@@ -26,7 +26,9 @@ class ZipFileVisitor extends SimpleFileVisitor<Path>
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
     {
         log.debug("Try to extract {}", file);
-        final Path destFile = destinationPath.resolve(file.getFileName().toString());
+        final Path destFile = (Files.isDirectory(destinationPath))
+                ? destinationPath.resolve(file.getFileName().toString())
+                : destinationPath;
         log.info("Extracting file {} to {}", file, destFile);
         Files.copy(file, destFile, StandardCopyOption.REPLACE_EXISTING);
         // Stop after first file

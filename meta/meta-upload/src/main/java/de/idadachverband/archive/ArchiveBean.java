@@ -1,37 +1,47 @@
 package de.idadachverband.archive;
 
 import lombok.Getter;
-
+import lombok.NonNull;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by boehm on 25.02.15.
  */
+@Getter
 public class ArchiveBean
 {
-    @Getter
-    private final Path folder;
+    
+    private ArchiveBean parent;
+   
+    private final String name;
 
-    @Getter
-    private Map<ArchiveBean, List<Path>> archive =
-            new HashMap<>();
-
-    public ArchiveBean(Path folder)
+    private final List<ArchiveBean> entries = new ArrayList<>();
+    
+    public ArchiveBean(@NonNull String name) 
     {
-        this.folder = folder;
+        this.name = name;
     }
-
-    public void add(ArchiveBean archiveBean, List<Path> paths)
+    
+    public Path getPath() 
     {
-        archive.put(archiveBean, paths);
+        return (parent == null)
+                ? Paths.get(name)
+                : parent.getPath().resolve(name);
     }
-
+    
+    public void add(ArchiveBean child)
+    {
+        entries.add(child);
+        child.parent = this;
+    }
+    
     @Override
-    public String toString()
+    public String toString() 
     {
-        return folder + " " + archive.keySet();
+        return name;
     }
+    
 }

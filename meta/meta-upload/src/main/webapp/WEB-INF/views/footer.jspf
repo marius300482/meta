@@ -2,7 +2,7 @@
     <a href="${url}">Upload file</a>
     <a href="${archive}">Archiv</a>
     <sec:authorize access="hasAuthority('admin')">
-        <a href="${transformationsUrl}">Transformations</a>
+        <a href="${jobsUrl}">Jobs</a>
     </sec:authorize>
     <a href="${logoutUrl}">Logout</a>
 </div>

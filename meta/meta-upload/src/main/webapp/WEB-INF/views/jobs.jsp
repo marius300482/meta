@@ -11,10 +11,10 @@
     <title>Status</title>
 </head>
 <body>
-<h2>Transformations</h2>
+<h2>Jobs</h2>
 <ul>
-    <c:forEach var="entry" items="${transformations}">
-        <li>${entry.value}: ${entry.value.progressState}
+    <c:forEach var="entry" items="${jobs}">
+        <li>(${entry.value.startTime}) ${entry.value}: ${entry.value.progressState}
             <c:if test="${entry.value.progressState == 'PROCESSING'}">
                 <a href="cancel/${entry.key}">Cancel</a>
             </c:if>
@@ -23,7 +23,7 @@
 </ul>
 
 <c:if test="${removedTransformations != null}">
-    <h2>Removed Transformations</h2>
+    <h2>Removed Jobs</h2>
     <ul>
         <c:forEach var="entry" items="${removedTransformations}">
             <li>${entry.value}: ${entry.value.progressState}</li>

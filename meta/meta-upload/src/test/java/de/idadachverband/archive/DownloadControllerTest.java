@@ -32,27 +32,27 @@ public class DownloadControllerTest
     {
         MockitoAnnotations.initMocks(this);
     }
-
-    @Test(expectedExceptions = FileNotFoundException.class)
-    public void downloadEmptyFilename() throws Exception
-    {
-        cut.download(" ", response);
-    }
-
-    @Test
-    public void downloadSuccess() throws Exception
-    {
-        when(hashedFileService.findFile("institutionName")).thenReturn(mock(File.class));
-
-        FileSystemResource actual = cut.download("institutionName", response);
-        assertThat(actual, notNullValue());
-    }
-
-    @Test(expectedExceptions = FileNotFoundException.class)
-    public void downloadFailure() throws Exception
-    {
-        when(hashedFileService.findFile("institutionName")).thenThrow(FileNotFoundException.class);
-        cut.download("institutionName", response);
-    }
+//
+//    @Test(expectedExceptions = FileNotFoundException.class)
+//    public void downloadEmptyFilename() throws Exception
+//    {
+//        cut.download(" ", response);
+//    }
+//
+//    @Test
+//    public void downloadSuccess() throws Exception
+//    {
+//        when(hashedFileService.findFile("institutionName")).thenReturn(mock(File.class));
+//
+//        FileSystemResource actual = cut.download("institutionName", response);
+//        assertThat(actual, notNullValue());
+//    }
+//
+//    @Test(expectedExceptions = FileNotFoundException.class)
+//    public void downloadFailure() throws Exception
+//    {
+//        when(hashedFileService.findFile("institutionName")).thenThrow(FileNotFoundException.class);
+//        cut.download("institutionName", response);
+//    }
 
 }

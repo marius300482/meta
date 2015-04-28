@@ -1,4 +1,4 @@
-package de.idadachverband.transform;
+package de.idadachverband.job;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -8,34 +8,34 @@ import java.util.concurrent.Future;
  * Created by boehm on 02.10.14.
  */
 @Slf4j
-public enum TransformationProgressState
+public enum JobProgressState
 {
     DONE, NOTFOUND, PROCESSING, CANCELLED, FAILURE, NOTSTARTED;
 
     /**
      * Get current state by key
      *
-     * @param transformationBean
-     * @return State of transformation
+     * @param jobBean
+     * @return State of job
      */
-    public static TransformationProgressState getState(TransformationBean transformationBean)
+    public static JobProgressState getState(JobBean jobBean)
     {
-        if (transformationBean == null)
+        if (jobBean == null)
         {
             return NOTFOUND;
         }
 
-        if (transformationBean.getException() != null)
+        if (jobBean.getException() != null)
         {
-            log.debug("Transformation {} failed.", transformationBean);
+            log.debug("Job {} failed.", jobBean);
             return FAILURE;
         }
 
-        Future<?> future = transformationBean.getFuture();
+        Future<?> future = jobBean.getFuture();
 
         if (future == null)
         {
-            log.warn("Probably not started '{}' in '{}'.", transformationBean);
+            log.warn("Probably not started '{}' in '{}'.", jobBean);
             return NOTSTARTED;
         } else
         {

@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h2>Re-processing of ${core} failed!</h2>
+<h2>Re-processing of upload ${version} for ${institution} on ${core} failed!</h2>
 
 <h1>Failure</h1>
 

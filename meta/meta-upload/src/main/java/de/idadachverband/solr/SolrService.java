@@ -1,6 +1,5 @@
 package de.idadachverband.solr;
 
-import de.idadachverband.utils.ZipService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.solr.client.solrj.SolrServer;
@@ -10,13 +9,8 @@ import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.util.NamedList;
 
-import javax.inject.Inject;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by boehm on 26.08.14.
@@ -31,8 +25,6 @@ public class SolrService
 
     private final String url;
 
-    @Inject
-    private ZipService zipService;
 
     public SolrService(String name, String url)
     {
@@ -71,44 +63,11 @@ public class SolrService
     public String deleteInstitution(String institution) throws IOException, SolrServerException
     {
         log.info("Delete all documents on core {} for institution {}", name, institution);
-        final UpdateResponse updateResponse = server.deleteByQuery("institution:" + institution);
-        final NamedList<Object> response = updateResponse.getResponse();
+        final UpdateResponse deletionResponse = server.deleteByQuery("institution:" + institution);
+        final UpdateResponse commitResponse = server.commit();
+        final String response = deletionResponse.getResponse() + ", " + commitResponse.getResponse();
         log.info("Result of deleting all documents on core {} for institution {}: {}", name, institution, response);
-        return response.toString();
-    }
-
-    /**
-     * Deletes everything from Solr core and add files
-     *
-     * @param files to add
-     * @throws IOException
-     * @throws SolrServerException
-     */
-    public void reindex(List<Path> files) throws IOException, SolrServerException
-    {
-        log.info("Reindex on core: {} with: {}", name, files);
-        deleteAll();
-        Map<Path, Exception> failedUpdates = new HashMap<>();
-        final Path tempDirectory = Files.createTempDirectory("index-");
-        for (Path path : files)
-        {
-            final Path tmpPath = tempDirectory.resolve(path.getFileName());
-            final Path file = zipService.unzip(path);
-            try
-            {
-                update(file);
-            } catch (SolrServerException e)
-            {
-                failedUpdates.put(path, e);
-            } finally
-            {
-                Files.deleteIfExists(tmpPath);
-            }
-        }
-        if (!failedUpdates.isEmpty())
-        {
-            throw new SolrServerException(failedUpdates.toString());
-        }
+        return response;
     }
 
     /**
@@ -120,8 +79,9 @@ public class SolrService
     public void deleteAll() throws IOException, SolrServerException
     {
         log.info("Delete all documents on core {}", name);
-        final UpdateResponse updateResponse = server.deleteByQuery("*:*");
-        log.info("Deleted all documents {}", updateResponse);
+        final UpdateResponse deletionResponse = server.deleteByQuery("*:*");
+        final UpdateResponse commitResponse = server.commit();
+        log.info("Deleted all documents, result: {}, {}", deletionResponse.getResponse(), commitResponse.getResponse());
     }
 
     @Override

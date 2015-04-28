@@ -15,22 +15,21 @@
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 </head>
 <body>
-<h1>You successfully uploaded one file</h1>
-<spring:url value="/files/solrFormat/" var="fileUrl"/>
+<h1>You successfully started the re-indexing of the latest archived upload for ${institution} on ${core}.</h1>
+<spring:url value="/files/" var="fileUrl"/>
 <spring:url value="/result/getResult" var="stateUrl"/>
 <spring:url value="/resources/images/waiting.gif" var="waiting"/>
 
-<h2>Job Id: ${result}</h2>
+<h2>Job Id: ${jobId}</h2>
 
 <div id="waiting">
     <img src="${waiting}">
     <br/>
-    <span>Die Verarbeitung kann etwas lÃ¤nger dauern. Sie werden per E-Mail Ã¼ber das Ergebnis informiert.</span>
+    <span>Die Verarbeitung kann etwas länger dauern. Sie werden per E-Mail über das Ergebnis informiert.</span>
 </div>
 
-<div id="filelink" style="display: none;">
+<div id="success" style="display: none;">
     <h2>Fertig</h2>
-    <a href="${fileUrl}" target="_blank">Transformiertes XML-File</a>
 </div>
 <div id="failure" style="display: none;">
     <h2>Fehler!</h2>
@@ -44,10 +43,7 @@
     successCallback = function (v) {
         console.log(v);
         if (v.state === "<%= JobProgressState.DONE %>") {
-            var link = jQuery("#filelink").find("a");
-            var url = link.attr("href");
-            link.attr("href", url + v.path);
-            jQuery("#filelink").toggle();
+            jQuery("#success").toggle();
             done();
         }
         else if (v.state === "<%= JobProgressState.FAILURE %>") {
@@ -66,7 +62,7 @@
     poll = function () {
         jQuery.getJSON(
                 "${stateUrl}",
-                {"result": "${result}"},
+                {"result": "${jobId}"},
                 successCallback
         );
     };
