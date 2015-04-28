@@ -86,12 +86,12 @@ class SearchController extends \VuFind\Controller\SearchController
 
         // Get contributor facet
         $facets = $resultView->results->getfacetList();
-        $contributorFacetKey = 'contributor_facet';
+        $resultView->contributorFacetKey = 'contributor_facet';
 
-        if (!isset($facets[$contributorFacetKey])) {
-            throw new \Exception('Facet "' . $contributorFacetKey . '" does not exist!');
+        if (!isset($facets[$resultView->contributorFacetKey])) {
+            throw new \Exception('Facet "' . $resultView->contributorFacetKey . '" does not exist!');
         } else {
-            $resultView->contributorFacet = $facets[$contributorFacetKey];
+            $resultView->contributorFacet = $facets[$resultView->contributorFacetKey];
         }
 
         // Set up paginator

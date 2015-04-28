@@ -15,7 +15,7 @@
     <ul>
         <?php foreach ($this->paginator as $entry) : ?>
             <li>
-                <a href="<?= $this->url('search-results').$this->results->getUrlQuery()->addFacet($this->contributorKey, $entry['value'], $entry['operator']); ?>">
+                <a href="<?= $this->url('search-results').$this->results->getUrlQuery()->addFacet($this->contributorFacetKey, $entry['value'], $entry['operator']); ?>">
                     <?= $entry['displayText']?>
                 </a>
                 <span class="badge">
