@@ -96,9 +96,10 @@ class SearchController extends \VuFind\Controller\SearchController
 
         // Set up paginator
         $adapter = new \Zend\Paginator\Adapter\ArrayAdapter($resultView->contributorFacet['list']);
+        $pageLimit = max($resultView->results->getParams()->getLimit(), 20);
         $paginator = new \Zend\Paginator\Paginator($adapter);
         $paginator->setCurrentPageNumber($resultView->results->getParams()->getPage())
-            ->setItemCountPerPage($resultView->results->getParams()->getLimit())
+            ->setItemCountPerPage($pageLimit)
             ->setPageRange(5);
         $resultView->paginator = $paginator;
         $resultView->pages = $paginator->getPages();

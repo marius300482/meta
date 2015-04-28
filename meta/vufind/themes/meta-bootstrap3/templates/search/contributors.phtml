@@ -67,9 +67,39 @@
 </div>
 
 <? /* Narrow Search Options */ ?>
-    <div id="facets" class="sidebar col-sm-4 hidden-print">
-        <? foreach ($this->results->getRecommendations('side') as $current): ?>
-            <?=$this->recommend($current)?>
-        <? endforeach; ?>
-    </div>
+<div id="facets" class="sidebar col-sm-4 hidden-print">
+    <? foreach ($this->results->getRecommendations('side') as $current): ?>
+        <?=$this->recommend($current)?>
+    <? endforeach; ?>
+</div>
 <? /* End Narrow Search Options */ ?>
+
+<?php
+/* PHE: THE following script blog is little hackish but it makes thinks much easier.
+The info box is already loaded at this time and might also be shown on pages where
+the variables of a search are not available. */
+?>
+<script type="text/javascript">
+$(function() {
+    // Advanced search
+    <?php $query = $this->params->getQuery(); ?>
+    <?php if ($query instanceof VuFindSearch\Query\QueryGroup) : ?>
+        // Remove empty standard group
+        $("#group0").remove();
+        nextGroup = 0;
+        // Write new groups from the search query
+        <? foreach ($query->getQueries() as $searchGroup): ?>
+            <? $i = 0; foreach ($searchGroup->getQueries() as $search): ?>
+                <? if (++$i == 1): ?>
+                    var new_group = addGroup('<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>', '<?=$searchGroup->isNegated() ? 'NOT' : $searchGroup->getOperator()?>');
+                <? else: ?>
+                    addSearch(new_group, '<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>');
+                <? endif; ?>
+            <? endforeach; ?>
+        <? endforeach; ?>
+    <?php else : ?>
+        // Set simple search string
+        $("#searchForm_lookfor").val("<?=str_replace('"', '\"', $lookFor); ?>");
+    <?php endif; ?>
+});
+</script>
