@@ -71,7 +71,7 @@ class SearchController extends \VuFind\Controller\SearchController
 
     public function contributorsAction()
     {
-// TODO - PHE START: Make this code obsolete. Re-use this->resultsAction() and set facet limit in there
+// TODO - PHE START: Make this code obsolete. Re-use this->resultsAction() instead and set facet limit in there
         // PHE START: Empty search is forbidden #71
         if ($this->isEmptySearch()) {
             return $this->forwardTo('Error', 'Search');
@@ -80,7 +80,7 @@ class SearchController extends \VuFind\Controller\SearchController
         $view = $this->createViewModel();
         $results = $this->getResultsManager()->get($this->searchClassId);
         $params = $results->getParams();
-        $params->setFacetLimit(999999); // PHE change the limit
+        $params->setFacetLimit(999999); // PHE change the limit to get all facet entries
         $noRecommend = $this->params()->fromQuery('noRecommend', false);
         $params->recommendationsEnabled(!$noRecommend);
         $params->initFromRequest(
@@ -106,7 +106,7 @@ class SearchController extends \VuFind\Controller\SearchController
                 throw $e;
             }
         }
-// TODO - PHE END: Make this code obsolete. Re-use this->resultsAction() and set facet limit in there
+// TODO - PHE END: Make this code obsolete. Re-use this->resultsAction() instead and set facet limit in there
 
         // Get contributor facet
         $facets = $view->results->getfacetList();
