@@ -95,6 +95,7 @@
                     <?=!empty($summDate) ? ' (' . $this->escapeHtml($summDate[0]) . ')' : ''?>
                 <? endif; ?>
 
+                <? $secondLineNotEmpty = false; ?>
                 <? if (!empty($publishers)): ?>
                     <? $secondLineNotEmpty = true; ?>
                     <? foreach($publishers as $publisher): ?>
