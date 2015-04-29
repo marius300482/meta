@@ -121,6 +121,7 @@ JS;
           <? endif; ?>
         <? else: ?>
           <? foreach ($cluster['list'] as $i=>$thisFacet): ?>
+            <?php if (30 <= $i) break; // PHE added this line for /Search/Contributors where all facet entries are returned ?>
             <?
               if(strlen($thisFacet['displayText']) == 0) {
                 $thisFacet['displayText'] = "-";
@@ -181,20 +182,22 @@ JS;
           <? endif; ?>
         <? endforeach; ?>
           <? if ($i > 5): ?>
-                <span class="list-group-item <?=$moreClass ?>">
-                    <?php if ('contributor_facet' === $title) : ?>
-                        <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
-                            <?=$this->transEsc('Show less')?>
-                        </a>
+            <span class="list-group-item <?=$moreClass ?>">
+                <?php if ('contributor_facet' === $title) : ?>
+                    <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
+                        <?=$this->transEsc('Show less')?>
+                    </a>
+                    <?php if (30 <= count($cluster['list'])) : ?>
                         <a class="showAll" href="<?= $this->url('search-contributors') . $results->getUrlQuery()->setPage(1); ?>">
                             <?=$this->transEsc('Show all')?>
                         </a>
-                    <?php else : ?>
-                        <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
-                            <?=$this->transEsc('less')?> ...
-                        </a>
                     <?php endif; ?>
-                </span>
+                <?php else : ?>
+                    <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
+                        <?=$this->transEsc('less')?> ...
+                    </a>
+                <?php endif; ?>
+            </span>
             <? endif; ?>
         <? endif; ?>
       </div>
