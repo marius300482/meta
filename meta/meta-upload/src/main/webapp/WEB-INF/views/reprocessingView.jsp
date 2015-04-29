@@ -62,7 +62,7 @@
     poll = function () {
         jQuery.getJSON(
                 "${stateUrl}",
-                {"result": "${jobId}"},
+                {"jobId": "${jobId}"},
                 successCallback
         );
     };

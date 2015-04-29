@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import de.idadachverband.archive.ArchiveException;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.job.BatchJobBean;
 
 import javax.inject.Inject;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 /**
@@ -44,7 +44,7 @@ public class ReindexController
         {
             final BatchJobBean jobBean = solrReindexService.reindexCoreAsync(solrService);
             map.addAttribute("jobId", jobBean.getJobId());
-        } catch (IOException e)
+        } catch (ArchiveException e)
         {
             log.warn("Re-indexing of core {} failed", solrService.getName(), e);
             map.addAttribute("exception", e.getClass().getSimpleName());
@@ -70,7 +70,7 @@ public class ReindexController
         {
             ReindexJobBean reindexJobBean = solrReindexService.reindexInstitutionAsync(solrService, institution);
             map.addAttribute("jobId", reindexJobBean.getJobId());
-        } catch (IOException e)
+        } catch (ArchiveException e)
         {
             log.warn("Re-indexing of core {} for institution {} failed", solrService.getName(), institution.getInstitutionName(), e);
             map.addAttribute("exception", e.getClass().getSimpleName());

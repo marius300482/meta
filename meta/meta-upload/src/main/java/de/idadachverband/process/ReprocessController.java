@@ -1,8 +1,5 @@
 package de.idadachverband.process;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import de.idadachverband.archive.ArchiveException;
 import de.idadachverband.archive.ArchiveService;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.job.BatchJobBean;
@@ -35,7 +33,7 @@ public class ReprocessController
     @RequestMapping(value = "reprocess/{solrService}", method = RequestMethod.GET)
     public String reprocessCore(
             @PathVariable("solrService") SolrService solrService,
-            ModelMap map) throws FileNotFoundException
+            ModelMap map) throws ArchiveException
     {
         BatchJobBean jobBean = reprocessService.reprocessCoreAsync(solrService);
         map.addAttribute("core", solrService.getName());
@@ -61,7 +59,7 @@ public class ReprocessController
             ReprocessJobBean jobBean = reprocessService.reprocessInstitutionAsync(solrService, institution);
             map.addAttribute("version", jobBean.getVersion());
             map.addAttribute("jobId", jobBean.getJobId());
-        } catch (IOException e)
+        } catch (ArchiveException e)
         {
             log.warn("Re-processing of core {} for institution {} failed", solrService.getName(), institution.getInstitutionName(), e);
             map.addAttribute("exception", e.getClass().getSimpleName());
@@ -99,7 +97,7 @@ public class ReprocessController
             ReprocessJobBean jobBean = reprocessService.reprocessVersionAsync(solrService, institution, versionId, upToUpdateId);
             map.addAttribute("version", jobBean.getVersion());
             map.addAttribute("jobId", jobBean.getJobId());
-        } catch (IOException e)
+        } catch (ArchiveException e)
         {
             log.warn("Re-processing of upload {}.{} for institution {} on core {} failed", 
                     versionId, upToUpdateId, institution.getInstitutionName(), solrService.getName(), e);

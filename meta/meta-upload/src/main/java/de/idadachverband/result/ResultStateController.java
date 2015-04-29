@@ -40,18 +40,18 @@ public class ResultStateController
 
     @RequestMapping(value = "getResult", produces = "application/json")
     @ResponseBody
-    public String getResult(@RequestParam("result") String key) throws ExecutionException, InterruptedException
+    public String getResult(@RequestParam("jobId") String jobId) throws ExecutionException, InterruptedException
     {
-        log.debug("Query for result of job '{}'.", key);
+        log.debug("Query for result of job '{}'.", jobId);
 
-        JobProgressState state = jobProgressService.getState(key);
+        JobProgressState state = jobProgressService.getState(jobId);
 
         JsonObjectBuilder result = Json.createObjectBuilder();
-        result.add("key", key);
+        result.add("jobId", jobId);
 
         if (state == DONE)
         {
-            JobBean jobBean = jobProgressService.getJob(key);
+            JobBean jobBean = jobProgressService.getJob(jobId);
             if (jobBean != null && jobBean instanceof ProcessJobBean)
             {
                 TransformationBean transformationBean = ((ProcessJobBean) jobBean).getTransformation();
@@ -65,7 +65,7 @@ public class ResultStateController
         }
         if (state == FAILURE)
         {
-            Exception e = jobProgressService.getException(key);
+            Exception e = jobProgressService.getException(jobId);
             if (e != null)
             {
                 result.add("exception", e.toString());

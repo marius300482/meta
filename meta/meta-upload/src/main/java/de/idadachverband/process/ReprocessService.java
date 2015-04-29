@@ -1,8 +1,6 @@
 package de.idadachverband.process;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,10 +9,11 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.solr.client.solrj.SolrServerException;
 
+import de.idadachverband.archive.ArchiveException;
 import de.idadachverband.archive.ArchiveService;
-import de.idadachverband.archive.Archiver;
+import de.idadachverband.archive.bean.ArchiveUpdateBean;
+import de.idadachverband.archive.bean.ArchiveVersionBean;
 import de.idadachverband.institution.IdaInstitutionBean;
-import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.job.JobCallable;
 import de.idadachverband.job.JobExecutionService;
 import de.idadachverband.job.BatchJobBean;
@@ -38,28 +37,22 @@ public class ReprocessService
     private ArchiveService archiveService;
     
     @Inject
-    private Archiver archiver;
-    
-    @Inject
     private JobExecutionService jobExecutionService;
-    
-    @Inject
-    private IdaInstitutionConverter idaInstitutionConverter;
     
     
     /**
      * Asynchronously re-processes latest uploads of all institution in a Solr core 
      * @param solr
      * @return batch job waiting for all re-processes jobs (one job per institution)
-     * @throws FileNotFoundException
+     * @throws ArchiveException
      */
-    public BatchJobBean reprocessCoreAsync(SolrService solr) throws FileNotFoundException
+    public BatchJobBean reprocessCoreAsync(SolrService solr) throws ArchiveException
     {
         final String coreName = solr.getName();
         final BatchJobBean batchJob = new BatchJobBean(String.format("Re-process archived uploads for all institutions on %s", coreName));
-        for (String institutionName : archiveService.getInstitutionNames(coreName))
+        for (IdaInstitutionBean institution : archiveService.findArchivedInstitutions(coreName))
         {
-            batchJob.addChildJob(reprocessInstitutionAsync(solr, idaInstitutionConverter.convert(institutionName)));
+            batchJob.addChildJob(reprocessInstitutionAsync(solr, institution));
         }
         jobExecutionService.executeBatchAsynchronous(batchJob);
         return batchJob;
@@ -70,13 +63,11 @@ public class ReprocessService
      * @param solr
      * @param institution
      * @return the bean of the enqueued re-process job
-     * @throws FileNotFoundException
+     * @throws ArchiveException
      */
-    public ReprocessJobBean reprocessInstitutionAsync(SolrService solr, IdaInstitutionBean institution) throws FileNotFoundException
+    public ReprocessJobBean reprocessInstitutionAsync(SolrService solr, IdaInstitutionBean institution) throws ArchiveException
     {
-        return reprocessVersionAsync(solr, institution, 
-                                     archiveService.getLatestVersionId(solr.getName(), institution.getInstitutionName()),
-                                     ArchiveService.LATEST_UPDATE);
+        return reprocessVersionAsync(solr, institution, ArchiveService.LATEST_VERSION, ArchiveService.LATEST_UPDATE);
     }
     
     /**
@@ -86,26 +77,20 @@ public class ReprocessService
      * @param versionId
      * @param upToUpdateId
      * @return the bean of the enqueued re-process job
-     * @throws FileNotFoundException
+     * @throws ArchiveException
      */
-    public ReprocessJobBean reprocessVersionAsync(SolrService solr, IdaInstitutionBean institution, String versionId, String upToUpdateId) throws FileNotFoundException
+    public ReprocessJobBean reprocessVersionAsync(SolrService solr, IdaInstitutionBean institution, String versionId, String upToUpdateId) throws ArchiveException
     {
-        final String coreName = solr.getName();
-        final String institutionName = institution.getInstitutionName();
         log.info("Start re-processing of version: {}.{} for institution: {} on Solr core: {}", 
                 versionId, upToUpdateId, institution.getInstitutionName(), solr.getName());
         
-        Path versionFile = 
-                archiveService.findFile(ProcessStep.upload, coreName, institutionName, versionId, ArchiveService.NO_UPDATE);
-        int versionNumber = archiveService.getVersionNumber(versionId);
-        ReprocessJobBean reprocessJobBean = new ReprocessJobBean(solr, institution, versionFile, versionNumber);
+        ArchiveVersionBean versionBean = archiveService.getVersion(solr.getName(), institution.getInstitutionName(), versionId);
+        ReprocessJobBean reprocessJobBean = 
+                new ReprocessJobBean(solr, institution, versionBean.getUploadFile(), versionBean.getVersionNumber());
         
-        for (String updateId : archiveService.getUpdateIdsUpTo(coreName, institutionName, versionId, upToUpdateId))
+        for (ArchiveUpdateBean updateBean : versionBean.getUpdatesUpTo(upToUpdateId))
         {
-            Path updateFile =
-                    archiveService.findFile(ProcessStep.upload, coreName, institutionName, versionId, updateId);
-            int updateNumber = archiveService.getUpdateNumber(updateId);
-            reprocessJobBean.addIncrementalTransformation(updateFile, updateNumber);
+            reprocessJobBean.addIncrementalTransformation(updateBean.getUploadFile(), updateBean.getUpdateNumber());
         }
         
         jobExecutionService.executeAsynchronous(reprocessJobBean, new JobCallable<ReprocessJobBean>()
@@ -120,25 +105,25 @@ public class ReprocessService
         return reprocessJobBean;
     }
     
-    private void reprocess(ReprocessJobBean jobBean) throws IOException, SolrServerException, TransformerException
+    private void reprocess(ReprocessJobBean jobBean) throws IOException, SolrServerException, TransformerException, ArchiveException
     {
-        List<TransformationBean> transformationBatch = jobBean.getTransformations();
+        List<TransformationBean> transformations = jobBean.getTransformations();
         try
         {
-            for (TransformationBean transformationBean : transformationBatch)
+            for (TransformationBean transformationBean : transformations)
             {
                 processService.transform(transformationBean);
                 processService.updateSolr(transformationBean);
             }
 
             // archive only after success
-            for (TransformationBean transformationBean : transformationBatch)
+            for (TransformationBean transformationBean : transformations)
             {
-                archiver.archive(transformationBean);
+                archiveService.archive(transformationBean);
             }
         } finally
         {
-            for (TransformationBean transformationBean : transformationBatch)
+            for (TransformationBean transformationBean : transformations)
             {
                 processService.deleteProcessingFolder(transformationBean.getKey());
             }

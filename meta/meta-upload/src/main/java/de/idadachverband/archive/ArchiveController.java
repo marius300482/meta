@@ -1,6 +1,5 @@
 package de.idadachverband.archive;
 
-import de.idadachverband.archive.visitor.HashedFileNameFileVisitor;
 import de.idadachverband.solr.SolrService;
 
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,7 @@ public class ArchiveController
     private final ArchiveService archiveService;
 
     @Inject
-    public ArchiveController(Set<SolrService> solrServiceSet, HashedFileNameFileVisitor fileVisitor, ArchiveService archiveService)
+    public ArchiveController(Set<SolrService> solrServiceSet, ArchiveService archiveService)
     {
         this.solrServiceSet = solrServiceSet;
         this.archiveService = archiveService;
@@ -37,7 +36,7 @@ public class ArchiveController
     public ModelAndView list(ModelAndView mav) throws IOException
     {
         mav.setViewName("archiveList");
-        mav.addObject("archiveTree", archiveService.getArchiveTree());
+        mav.addObject("coreList", archiveService.getCores());
         mav.addObject("solrSet", solrServiceSet);
         return mav;
     }

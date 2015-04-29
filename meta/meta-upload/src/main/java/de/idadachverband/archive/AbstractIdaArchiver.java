@@ -61,7 +61,8 @@ public class AbstractIdaArchiver
     private boolean inputIsZip(Path input) throws IOException
     {
         final String contentType = Files.probeContentType(input);
-        final boolean zipContentType = contentType.contains("zip") || input.endsWith(".zip");
+        final boolean zipContentType = input.toString().endsWith(".zip")
+                || (contentType != null && contentType.contains("zip"));
         log.debug("File: {} {} zip file.", input, zipContentType ? "is a" : " is not a");
         return zipContentType;
     }

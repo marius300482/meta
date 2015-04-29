@@ -1,6 +1,7 @@
 package de.idadachverband.process;
 
-import de.idadachverband.archive.Archiver;
+import de.idadachverband.archive.ArchiveException;
+import de.idadachverband.archive.ArchiveService;
 import de.idadachverband.archive.Directories;
 import de.idadachverband.archive.IdaInputArchiver;
 import de.idadachverband.archive.ProcessFileConfiguration;
@@ -39,8 +40,8 @@ public class ProcessService
     final private WorkingFormatToSolrDocumentTransformer workingFormatTransformer;
 
     final private ProcessFileConfiguration processFileConfiguration;
-
-    final private Archiver archiver;
+    
+    final private ArchiveService archiveService;
 
     final private SolrReindexService solrReindexService;
 
@@ -50,14 +51,14 @@ public class ProcessService
                                WorkingFormatToSolrDocumentTransformer workingFormatTransformer,
                                IdaInputArchiver idaInputArchiver,
                                ProcessFileConfiguration processFileConfiguration,
-                               Archiver archiver,
+                               ArchiveService archiveService,
                                SolrReindexService solrReindexService,
                                JobExecutionService jobExecutionService)
     {
         this.idaInputArchiver = idaInputArchiver;
         this.workingFormatTransformer = workingFormatTransformer;
         this.processFileConfiguration = processFileConfiguration;
-        this.archiver = archiver;
+        this.archiveService = archiveService;
         this.solrReindexService = solrReindexService;
         this.jobExecutionService = jobExecutionService;
     }
@@ -88,8 +89,9 @@ public class ProcessService
      * @throws IOException 
      * @throws TransformerException 
      * @throws SolrServerException 
+     * @throws ArchiveException 
      */
-    public void process(TransformationBean transformationBean) throws TransformerException, IOException, SolrServerException
+    public void process(TransformationBean transformationBean) throws TransformerException, IOException, SolrServerException, ArchiveException
     {
         final String key = transformationBean.getKey();
         try
@@ -98,7 +100,7 @@ public class ProcessService
             
             updateSolr(transformationBean);
 
-            archiver.archive(transformationBean);
+            archiveService.archive(transformationBean);
             
         } finally
         {
@@ -159,7 +161,7 @@ public class ProcessService
         return solrFormatFile;
     }
 
-    public void updateSolr(IndexRequestBean indexRequestBean) throws IOException, SolrServerException
+    public void updateSolr(IndexRequestBean indexRequestBean) throws IOException, SolrServerException, ArchiveException
     {
         final SolrService solr = indexRequestBean.getSolrService();
         final IdaInstitutionBean institution = indexRequestBean.getInstitution();
@@ -179,7 +181,7 @@ public class ProcessService
         } catch (IOException | SolrServerException e)
         {
             log.warn("Update of solr {} failed for institution {}. Start rollback", solr, institution);
-            final String result = solrReindexService.rollbackInstitutionIndex(solr, institution);
+            final String result = solrReindexService.reindexInstitution(solr, institution);
             log.info("Result of reindexing is: {}", result);
             throw e;
         }

@@ -13,8 +13,6 @@ import de.idadachverband.job.JobBean;
 @Data
 public class ReindexJobBean extends JobBean
 {
-    private final IndexRequestBean indexRequest;
-    
     private final List<IndexRequestBean> indexRequests = new ArrayList<>();
     
     private final int versionNumber;
@@ -24,17 +22,27 @@ public class ReindexJobBean extends JobBean
     
     public ReindexJobBean(SolrService solrService, IdaInstitutionBean institution, Path solrInput, int versionNumber) 
     {
-        indexRequest = new IndexRequestBean(solrService, institution, false);
+        IndexRequestBean indexRequest = new IndexRequestBean(solrService, institution, false);
         indexRequest.setSolrInput(solrInput);
         indexRequests.add(indexRequest);
         this.versionNumber = versionNumber;
         this.upToUpdateNumber = 0;
     }
     
+    public SolrService getSolrService() 
+    {
+        return indexRequests.get(0).getSolrService();
+    }
+    
+    public IdaInstitutionBean getInstitution()
+    {
+        return indexRequests.get(0).getInstitution();
+    }
+    
     public IndexRequestBean addIncrementalIndexRequest(Path solrInput, int updateNumber)
     {
         final IndexRequestBean incrementalIndexRequest = 
-                new IndexRequestBean(indexRequest.getSolrService(), indexRequest.getInstitution(), true);
+                new IndexRequestBean(getSolrService(), getInstitution(), true);
         incrementalIndexRequest.setSolrInput(solrInput);
         this.indexRequests.add(incrementalIndexRequest);
         this.upToUpdateNumber = updateNumber;
@@ -44,11 +52,20 @@ public class ReindexJobBean extends JobBean
     @Override
     public String toString()
     {
-        return String.format("Re-index archived upload: %s, %d.%d", indexRequest.getInstitutionName(), versionNumber, upToUpdateNumber);
+        return String.format("Re-index archived upload: %s, %d.%d", getInstitution().getInstitutionName(), versionNumber, upToUpdateNumber);
     }
     
     public String getVersion()
     {
         return String.format("%d.%d", versionNumber, upToUpdateNumber);
+    }
+
+    @Override
+    public void buildResultMessage(StringBuilder sb)
+    {
+        for (IndexRequestBean indexRequest : indexRequests)
+        {
+            indexRequest.buildResultMessage(sb);
+        }
     }
 }

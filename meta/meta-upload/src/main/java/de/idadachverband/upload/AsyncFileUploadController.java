@@ -118,7 +118,7 @@ public class AsyncFileUploadController
 
                     ProcessJobBean jobBean = 
                             processService.processAsync(tmpPath, institution, solr, file.getOriginalFilename(), uploadFormBean.isIncremental());
-                    map.addAttribute("result", jobBean.getJobId());
+                    map.addAttribute("jobId", jobBean.getJobId());
 
                     return "redirect:result/success";
                 } catch (IOException e)

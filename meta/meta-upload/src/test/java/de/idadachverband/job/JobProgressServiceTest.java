@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 
-public class TransformationProgressServiceTest
+public class JobProgressServiceTest
 {
 
     @Mock
@@ -83,23 +83,4 @@ public class TransformationProgressServiceTest
 
         assertThat(actual, is(DONE));
     }
-
-//    @Test
-//    public void getFileSucces() throws Exception
-//    {
-//        Path expected = Paths.get("");
-//        jobBean.getTransformation().setTransformedFile(expected);
-//        cut.add(jobBean);
-//        Path actual = cut.getFile(jobBean.getJobId());
-//
-//        assertThat(actual, is(expected));
-//    }
-
-//    @Test(expectedExceptions = TransformedFileException.class)
-//    public void getFileFailure() throws Exception
-//    {
-//        when(future.get()).thenThrow(new ExecutionException(new Throwable()));
-//        cut.add(jobBean);
-//        cut.getFile(jobBean.getJobId());
-//    }
 }

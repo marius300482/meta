@@ -20,12 +20,12 @@
 <spring:url value="/result/getResult" var="stateUrl"/>
 <spring:url value="/resources/images/waiting.gif" var="waiting"/>
 
-<h2>Job Id: ${result}</h2>
+<h2>Job Id: ${jobId}</h2>
 
 <div id="waiting">
     <img src="${waiting}">
     <br/>
-    <span>Die Verarbeitung kann etwas lÃ¤nger dauern. Sie werden per E-Mail Ã¼ber das Ergebnis informiert.</span>
+    <span>Die Verarbeitung kann etwas länger dauern. Sie werden per E-Mail über das Ergebnis informiert.</span>
 </div>
 
 <div id="filelink" style="display: none;">
@@ -66,7 +66,7 @@
     poll = function () {
         jQuery.getJSON(
                 "${stateUrl}",
-                {"result": "${result}"},
+                {"jobId": "${jobId}"},
                 successCallback
         );
     };

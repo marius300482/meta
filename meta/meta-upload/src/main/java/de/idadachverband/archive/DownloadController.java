@@ -14,9 +14,7 @@ import de.idadachverband.process.ProcessStep;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Provides access to files based on hashed file names.
@@ -26,36 +24,14 @@ import java.io.IOException;
 @Slf4j
 @Controller
 public class DownloadController
-{
-//    @Setter
-//    @Inject
-//    private HashedFileService archiveHashedFileService;
+{    
+    private ArchiveService archiveService;
     
-    @Inject 
-    ArchiveService archiveService;
-    
-    
-    /**
-     * @param filename
-     * @return
-     * @throws FileNotFoundException
-     */
-//    @RequestMapping(value = "/files/{filename:.+}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public FileSystemResource download(@PathVariable("filename") String filename, HttpServletResponse response) throws IOException
-//    {
-//        if ((null == filename) || (filename.trim().length() == 0))
-//        {
-//            log.warn("Found no file for empty filename");
-//            throw new FileNotFoundException();
-//        }
-//        File path = archiveHashedFileService.findFile(filename);
-//        response.setContentType("application/zip");
-//        response.setHeader("content-Disposition", "attachment; filename=" + path.getName());
-//
-//        return new FileSystemResource(path);
-//    }
-//
+    @Inject
+    public DownloadController(ArchiveService archiveService)
+    {
+        this.archiveService = archiveService;
+    }
     
     @RequestMapping(value = "/files/{step}/{core}/{institution}/{version}", method = RequestMethod.GET)
     @ResponseBody
@@ -64,31 +40,26 @@ public class DownloadController
             @PathVariable("core") String coreName,
             @PathVariable("institution") String institutionName,
             @PathVariable("version") String versionId,
-            HttpServletResponse response) throws IOException
+            HttpServletResponse response) throws ArchiveException
     {
-        ProcessStep step = ProcessStep.valueOf(stepName);
-        File path = archiveService.findFile(step, coreName, institutionName, versionId, ArchiveService.NO_UPDATE).toFile();
-        response.setContentType("application/zip");
-        response.setHeader("content-Disposition", "attachment; filename=" + path.getName());
-
-        return new FileSystemResource(path);
+        return download(stepName, coreName, institutionName, versionId, ArchiveService.NO_UPDATE, response);
     }
     
     @RequestMapping(value = "/files/{step}/{core}/{institution}/{version}/{update}", method = RequestMethod.GET)
     @ResponseBody
-    public FileSystemResource downloadUpdate(
+    public FileSystemResource download(
             @PathVariable("step") String stepName, 
             @PathVariable("core") String coreName,
             @PathVariable("institution") String institutionName,
             @PathVariable("version") String versionId,
             @PathVariable("update") String updateId,
-            HttpServletResponse response) throws IOException
+            HttpServletResponse response) throws ArchiveException
     {
         ProcessStep step = ProcessStep.valueOf(stepName);
-        File path = archiveService.findFile(step, coreName, institutionName, versionId, updateId).toFile();
+        Path path = archiveService.findFile(step, coreName, institutionName, versionId, updateId);
         response.setContentType("application/zip");
-        response.setHeader("content-Disposition", "attachment; filename=" + path.getName());
+        response.setHeader("content-Disposition", "attachment; filename=" + path.getFileName());
 
-        return new FileSystemResource(path);
+        return new FileSystemResource(path.toString());
     }
 }
