@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ResultPageController
 {
     @RequestMapping("success")
-    public String success(@RequestParam("result") String result, ModelMap map)
+    public String success(@RequestParam("jobId") String jobId, ModelMap map)
     {
-        map.addAttribute("result", result);
+        map.addAttribute("jobId", jobId);
         return "uploadSuccess";
     }
 

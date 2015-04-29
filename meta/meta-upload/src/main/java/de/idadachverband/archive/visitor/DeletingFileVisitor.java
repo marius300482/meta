@@ -12,7 +12,8 @@ import java.nio.file.attribute.BasicFileAttributes;
 @Slf4j
 public class DeletingFileVisitor extends SimpleFileVisitor<Path>
 {
-
+    public static final DeletingFileVisitor INSTANCE = new DeletingFileVisitor();
+    
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attributes)
             throws IOException

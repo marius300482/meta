@@ -5,10 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.text.SimpleDateFormat;
 
 /**
- * Archives Solr input files. By default zipped and historic files will be deleted.
+ * Archives Solr input files.
  * Created by boehm on 30.10.14.
  */
 @Named
@@ -20,8 +19,8 @@ public class IdaInputArchiver extends AbstractIdaArchiver
      * @param dateFormat
      */
     @Inject
-    public IdaInputArchiver(ZipService zipService, SimpleDateFormat dateFormat)
+    public IdaInputArchiver(ZipService zipService)
     {
-        super(zipService, dateFormat);
+        super(zipService);
     }
 }
