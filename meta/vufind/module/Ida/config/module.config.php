@@ -30,14 +30,14 @@ $config = array(
             'Ida\RecordDriver\SolrIDA' => array(
                 'tabs' => array (
                     //'Holdings' => 'HoldingsILS',
-                    //'Description' => 'Description',
                     'TOC' => 'TOC',
                     //'UserComments' => 'UserComments',
                     'Reviews' => 'Reviews',
                     'Excerpt' => 'Excerpt',
                     'HierarchyTree' => 'HierarchyTree',
                     'Map' => 'Map',
-                    'Details' => 'StaffViewArray',
+                    //'Details' => 'StaffViewArray',
+                    'Description' => 'Description',
                 ),
                 'defaultTab' => null,
             ),
