@@ -1,0 +1,31 @@
+#contributors {
+  h2.search-result-count {
+    margin: 0 0 25px 0;
+  }
+  h3.involvedPersons {
+    font-size: 16px;
+    margin: 0 0 15px 0;
+  }
+  .badge {
+    color: $color-grey-dark;
+  }
+  .backToResults {
+    margin-left: -15px;
+    &:before {
+      color: $color-blue-1;
+      content: "\e605";
+      display: inline-block;
+      font-family: icomoon;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: normal;
+      margin-right: -4px;
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+      vertical-align: baseline;
+    }
+    a {
+      color: $color-purple;
+    }
+  }
+}

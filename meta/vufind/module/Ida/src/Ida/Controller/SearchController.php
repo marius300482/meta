@@ -1,6 +1,10 @@
 <?php
 namespace Ida\Controller;
 
+use Zend\Stdlib\Parameters;
+use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator;
+
 /**
  * Class IDA SearchController
  *
@@ -57,25 +61,54 @@ class SearchController extends \VuFind\Controller\SearchController
      */
     public function resultsAction()
     {
-        // Special case -- redirect tag searches.
-        $tag = $this->params()->fromQuery('tag');
-        if (!empty($tag)) {
-            $query = $this->getRequest()->getQuery();
-            $query->set('lookfor', $tag);
-            $query->set('type', 'tag');
-        }
-
         // PHE START: Empty search is forbidden #71
         if ($this->isEmptySearch()) {
             return $this->forwardTo('Error', 'Search');
         }
         // PHE END: Empty search is forbidden #71
 
-        if ($this->params()->fromQuery('type') == 'tag') {
-            return $this->forwardTo('Tag', 'Home');
-        }
-
         // Default case -- standard behavior.
         return parent::resultsAction();
+    }
+
+    public function contributorsAction()
+    {
+        // Do search with huge facet limit, to get all facet entries
+        $results = $this->getResultsManager()->get($this->searchClassId);
+        $results->getParams()->setFacetLimit(99999);
+        $params = $results->getParams();
+        $params->recommendationsEnabled(true);
+        $params->initFromRequest(
+            new Parameters($this->getRequest()->getQuery()->toArray() + $this->getRequest()->getPost()->toArray())
+        );
+        $results->performAndProcessSearch();
+
+        // Get contributor facet
+        $facets = $results->getfacetList();
+        $contributorKey = 'contributor_facet';
+        if (!isset($facets[$contributorKey])) {
+            throw new \Exception('Facet "' . $contributorKey . '" does not exist!');
+        } else {
+            $contributorFacet = $facets[$contributorKey];
+        }
+
+        // Set up pagination
+        $adapter = new ArrayAdapter($contributorFacet['list']);
+        $pageLimit = max($results->getParams()->getLimit(), 20);
+        $paginator = new Paginator\Paginator($adapter);
+        $paginator->setCurrentPageNumber($results->getParams()->getPage())
+            ->setItemCountPerPage($pageLimit)
+            ->setPageRange(5);
+
+        // Create view
+        $view = $this->createViewModel();
+        $view->paginator = $paginator;
+        $view->pages = $paginator->getPages();
+        $view->results = $results;
+        $view->params = $params;
+        $view->contributorFacetKey = $contributorKey;
+        $view->contributorFacet = $contributorFacet;
+
+        return $view;
     }
 }

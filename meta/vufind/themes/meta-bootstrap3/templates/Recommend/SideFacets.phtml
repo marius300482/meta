@@ -1,4 +1,5 @@
 <? $results = $this->recommend->getResults(); ?>
+<? $resultBasePath = $this->url("search-results"); // Was "$resultBasePath" which is wrong if facets are shown in other views ?>
 <? if ($results->getResultTotal() > 0): ?>
   <h4><?=$this->transEsc(isset($this->overrideSideFacetCaption) ? $this->overrideSideFacetCaption : 'Narrow Search')?></h4>
 <? endif; ?>
@@ -34,9 +35,9 @@
               unset($collapsedFacets[$index]); // Open if we have a match
           }
           if (isset($filter['specialType']) && $filter['specialType'] == 'keyword') {
-            $removeLink = $this->currentPath().$results->getUrlQuery()->replaceTerm($filter['value'], '');
+            $removeLink = $resultBasePath.$results->getUrlQuery()->replaceTerm($filter['value'], '');
           } else {
-            $removeLink = $this->currentPath().$results->getUrlQuery()->removeFacet($filter['field'], $filter['value'], true, $filter['operator']);
+            $removeLink = $resultBasePath.$results->getUrlQuery()->removeFacet($filter['field'], $filter['value'], true, $filter['operator']);
           }
           if ($filter['displayText'] == '[* TO *]') {
             $filter['displayText'] = $this->translate('filter_wildcard');
@@ -120,6 +121,7 @@ JS;
           <? endif; ?>
         <? else: ?>
           <? foreach ($cluster['list'] as $i=>$thisFacet): ?>
+            <?php if (30 <= $i) break; // PHE added this line for /Search/Contributors where all facet entries are returned ?>
             <?
               if(strlen($thisFacet['displayText']) == 0) {
                 $thisFacet['displayText'] = "-";
@@ -130,7 +132,7 @@ JS;
             <a id="more-narrowGroupHidden-<?=$this->escapeHtmlAttr($title)?>" class="list-group-item" href="javascript:moreFacets('narrowGroupHidden-<?=$title ?>')"><?=$this->transEsc('more')?> ...</a>
           <? endif; ?>
           <? if ($thisFacet['isApplied']): ?>
-            <a class="list-group-item active <? if ($i>5): ?><?=$moreClass ?><?endif ?><? if ($thisFacet['operator'] == 'OR'): ?> facetOR applied<? endif ?>" href="<?=$this->currentPath().$results->getUrlQuery()->removeFacet($title, $thisFacet['value'], true, $thisFacet['operator']) ?>">
+            <a class="list-group-item active <? if ($i>5): ?><?=$moreClass ?><?endif ?><? if ($thisFacet['operator'] == 'OR'): ?> facetOR applied<? endif ?>" href="<?=$resultBasePath.$results->getUrlQuery()->removeFacet($title, $thisFacet['value'], true, $thisFacet['operator']) ?>">
               <? if($thisFacet['operator'] == 'OR'): ?>
                 <i class="fa fa-check-square-o"></i>
               <? else: ?>
@@ -146,7 +148,7 @@ JS;
             </span>
             </a>
           <? else: ?>
-            <? $addURL = $this->currentPath().$results->getUrlQuery()->addFacet($title, $thisFacet['value'], $thisFacet['operator']); ?>
+            <? $addURL = $resultBasePath.$results->getUrlQuery()->addFacet($title, $thisFacet['value'], $thisFacet['operator']); ?>
             <? if ($allowExclude): ?>
               <li class="list-group-item facet<?=$thisFacet['operator'] ?><? if ($i>5): ?> <?=$moreClass ?><?endif ?>">
             <? else: ?>
@@ -167,7 +169,7 @@ JS;
             <span class="badge">
               (<?=number_format($thisFacet['count'], 0, ',', '.')?>)
               <? if ($allowExclude): ?>
-                <a href="<?=$this->currentPath().$results->getUrlQuery()->addFacet($title, $thisFacet['value'], 'NOT') ?>" title="<?=$this->transEsc('exclude_facet') ?>"><i class="fa fa-times"></i></a>
+                <a href="<?=$resultBasePath.$results->getUrlQuery()->addFacet($title, $thisFacet['value'], 'NOT') ?>" title="<?=$this->transEsc('exclude_facet') ?>"><i class="fa fa-times"></i></a>
               <? endif; ?>
             </span>
             <? if ($allowExclude): ?>
@@ -179,7 +181,24 @@ JS;
 
           <? endif; ?>
         <? endforeach; ?>
-          <? if ($i > 5): ?><a class="list-group-item <?=$moreClass ?>" href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')"><?=$this->transEsc('less')?> ...</a><? endif; ?>
+          <? if ($i > 5): ?>
+            <span class="list-group-item <?=$moreClass ?>">
+                <?php if ('contributor_facet' === $title) : ?>
+                    <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
+                        <?=$this->transEsc('Show less')?>
+                    </a>
+                    <?php if (30 <= count($cluster['list'])) : ?>
+                        <a class="showAll" href="<?= $this->url('search-contributors') . $results->getUrlQuery()->setPage(1); ?>">
+                            <?=$this->transEsc('Show all')?>
+                        </a>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <a href="javascript:lessFacets('narrowGroupHidden-<?=$title ?>')">
+                        <?=$this->transEsc('less')?> ...
+                    </a>
+                <?php endif; ?>
+            </span>
+            <? endif; ?>
         <? endif; ?>
       </div>
     </ul>

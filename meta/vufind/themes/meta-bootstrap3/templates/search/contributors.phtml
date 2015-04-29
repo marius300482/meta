@@ -1,0 +1,105 @@
+<?php $lookFor = $this->results->getUrlQuery()->isQuerySuppressed() ? '' : $this->params->getDisplayQuery(); ?>
+<div id="contributors" class="col-sm-8">
+    <h2 class="search-result-count">
+        <span class="backToResults">
+            <a href="<?=$this->url("search-results") . $this->results->getUrlQuery()->getParams(); ?>"><?= $this->transEsc('All results'); ?></a>
+        </span>
+        <?= $this->pages->firstItemNumber; ?> -
+        <?= $this->pages->lastItemNumber; ?>
+        <?= $this->transEsc('of'); ?>
+        <?= number_format($this->pages->totalItemCount, 0, ',', '.'); ?>
+        <?= $this->transEsc('for'); ?>
+        <strong><?= $this->escapeHtml($lookFor); ?></strong>
+    </h2>
+    <h3 class="involvedPersons"><?=$this->transEsc('All persons involved')?></h3>
+    <ul>
+        <?php foreach ($this->paginator as $entry) : ?>
+            <li>
+                <a href="<?= $this->url('search-results').$this->results->getUrlQuery()->addFacet($this->contributorFacetKey, $entry['value'], $entry['operator']); ?>">
+                    <?= $entry['displayText']?>
+                </a>
+                <span class="badge">
+                    (<?= number_format($entry['count']); ?>)
+                </span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <? if ($this->pages->totalItemCount): ?>
+        <ul class="pagination">
+            <? if (isset($this->pages->lastPageInRange)): ?>
+                <li class="hidden-xs hidden-sm">
+                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage(1)?>">1</a>
+                </li>
+                <li class="paging-label">
+                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pages->previous)?>">
+                        &laquo; <?=$this->transEsc('Prev')?>
+                    </a>
+                </li>
+            <? endif; ?>
+            <? if (count($this->pages->pagesInRange) > 1): ?>
+                <? foreach ($this->pages->pagesInRange as $page): ?>
+                    <? if ($page != $this->pages->current): ?>
+                        <li class="hidden-xs">
+                            <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($page)?>">
+                                <?=$page?>
+                            </a>
+                        </li>
+                    <? else: ?>
+                        <li class="active">
+                            <span><?=$page?></span>
+                        </li>
+                    <? endif; ?>
+                <? endforeach; ?>
+            <? endif; ?>
+            <? if (isset($this->pages->next)): ?>
+                <li class="paging-label">
+                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pages->next)?>">
+                        <?=$this->transEsc('Next');?> &raquo;</a>
+                </li>
+                <li class="hidden-xs hidden-sm">
+                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pages->pageCount)?>">
+                        <?=$this->pages->pageCount?>
+                    </a>
+                </li>
+            <? endif; ?>
+        </ul>
+    <? endif; ?>
+</div>
+
+<? /* Narrow Search Options */ ?>
+<div id="facets" class="sidebar col-sm-4 hidden-print">
+    <? foreach ($this->results->getRecommendations('side') as $current): ?>
+        <?=$this->recommend($current)?>
+    <? endforeach; ?>
+</div>
+<? /* End Narrow Search Options */ ?>
+
+<?php
+/* PHE: THE following script blog is little hackish but it makes thinks much easier.
+The info box is already loaded at this time and might also be shown on pages where
+the variables of a search are not available. */
+?>
+<script type="text/javascript">
+$(function() {
+    // Advanced search
+    <?php $query = $this->params->getQuery(); ?>
+    <?php if ($query instanceof VuFindSearch\Query\QueryGroup) : ?>
+        // Remove empty standard group
+        $("#group0").remove();
+        nextGroup = 0;
+        // Write new groups from the search query
+        <? foreach ($query->getQueries() as $searchGroup): ?>
+            <? $i = 0; foreach ($searchGroup->getQueries() as $search): ?>
+                <? if (++$i == 1): ?>
+                    var new_group = addGroup('<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>', '<?=$searchGroup->isNegated() ? 'NOT' : $searchGroup->getOperator()?>');
+                <? else: ?>
+                    addSearch(new_group, '<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>');
+                <? endif; ?>
+            <? endforeach; ?>
+        <? endforeach; ?>
+    <?php else : ?>
+        // Set simple search string
+        $("#searchForm_lookfor").val("<?=str_replace('"', '\"', $lookFor); ?>");
+    <?php endif; ?>
+});
+</script>
