@@ -71,10 +71,11 @@ public class SolrService
     public String deleteInstitution(String institution) throws IOException, SolrServerException
     {
         log.info("Delete all documents on core {} for institution {}", name, institution);
-        final UpdateResponse updateResponse = server.deleteByQuery("institution:" + institution);
-        final NamedList<Object> response = updateResponse.getResponse();
+        final UpdateResponse deletionResponse = server.deleteByQuery("institution:" + institution);
+        final UpdateResponse commitResponse = server.commit();
+        final String response = deletionResponse.getResponse() + ", " + commitResponse.getResponse();
         log.info("Result of deleting all documents on core {} for institution {}: {}", name, institution, response);
-        return response.toString();
+        return response;
     }
 
     /**
@@ -120,8 +121,9 @@ public class SolrService
     public void deleteAll() throws IOException, SolrServerException
     {
         log.info("Delete all documents on core {}", name);
-        final UpdateResponse updateResponse = server.deleteByQuery("*:*");
-        log.info("Deleted all documents {}", updateResponse);
+        final UpdateResponse deletionResponse = server.deleteByQuery("*:*");
+        final UpdateResponse commitResponse = server.commit();
+        log.info("Deleted all documents, result: {}, {}", deletionResponse.getResponse(), commitResponse.getResponse());
     }
 
     @Override
