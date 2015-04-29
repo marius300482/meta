@@ -2,6 +2,8 @@
 namespace Ida\Controller;
 
 use Zend\Stdlib\Parameters;
+use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator;
 
 /**
  * Class IDA SearchController
@@ -71,62 +73,41 @@ class SearchController extends \VuFind\Controller\SearchController
 
     public function contributorsAction()
     {
-// TODO - PHE START: Make this code obsolete. Re-use this->resultsAction() instead and set facet limit in there
-        // PHE START: Empty search is forbidden #71
-        if ($this->isEmptySearch()) {
-            return $this->forwardTo('Error', 'Search');
-        }
-        // PHE END: Empty search is forbidden #71
-        $view = $this->createViewModel();
+        // Do search with huge facet limit, to get all facet entries
         $results = $this->getResultsManager()->get($this->searchClassId);
+        $results->getParams()->setFacetLimit(99999);
         $params = $results->getParams();
-        $params->setFacetLimit(999999); // PHE change the limit to get all facet entries
-        $noRecommend = $this->params()->fromQuery('noRecommend', false);
-        $params->recommendationsEnabled(!$noRecommend);
+        $params->recommendationsEnabled(true);
         $params->initFromRequest(
-            new Parameters(
-                $this->getRequest()->getQuery()->toArray()
-                + $this->getRequest()->getPost()->toArray()
-            )
+            new Parameters($this->getRequest()->getQuery()->toArray() + $this->getRequest()->getPost()->toArray())
         );
-        $view->params = $params;
-        try {
-            $results->performAndProcessSearch();
-            $view->results = $results;
-            if ($this->resultScrollerActive()) {
-                $this->resultScroller()->init($results);
-            }
-        } catch (\VuFindSearch\Backend\Exception\BackendException $e) {
-            if ($e->hasTag('VuFind\Search\ParserError')) {
-                $view->parseError = true;
-                $view->results = $this->getResultsManager()->get('EmptySet');
-                $view->results->setParams($params);
-                $view->results->performAndProcessSearch();
-            } else {
-                throw $e;
-            }
-        }
-// TODO - PHE END: Make this code obsolete. Re-use this->resultsAction() instead and set facet limit in there
+        $results->performAndProcessSearch();
 
         // Get contributor facet
-        $facets = $view->results->getfacetList();
-        $view->contributorFacetKey = 'contributor_facet';
-
-        if (!isset($facets[$view->contributorFacetKey])) {
-            throw new \Exception('Facet "' . $view->contributorFacetKey . '" does not exist!');
+        $facets = $results->getfacetList();
+        $contributorKey = 'contributor_facet';
+        if (!isset($facets[$contributorKey])) {
+            throw new \Exception('Facet "' . $contributorKey . '" does not exist!');
         } else {
-            $view->contributorFacet = $facets[$view->contributorFacetKey];
+            $contributorFacet = $facets[$contributorKey];
         }
 
-        // Set up paginator
-        $adapter = new \Zend\Paginator\Adapter\ArrayAdapter($view->contributorFacet['list']);
-        $pageLimit = max($view->results->getParams()->getLimit(), 20);
-        $paginator = new \Zend\Paginator\Paginator($adapter);
-        $paginator->setCurrentPageNumber($view->results->getParams()->getPage())
+        // Set up pagination
+        $adapter = new ArrayAdapter($contributorFacet['list']);
+        $pageLimit = max($results->getParams()->getLimit(), 20);
+        $paginator = new Paginator\Paginator($adapter);
+        $paginator->setCurrentPageNumber($results->getParams()->getPage())
             ->setItemCountPerPage($pageLimit)
             ->setPageRange(5);
+
+        // Create view
+        $view = $this->createViewModel();
         $view->paginator = $paginator;
         $view->pages = $paginator->getPages();
+        $view->results = $results;
+        $view->params = $params;
+        $view->contributorFacetKey = $contributorKey;
+        $view->contributorFacet = $contributorFacet;
 
         return $view;
     }
