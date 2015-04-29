@@ -73,7 +73,7 @@ class SearchController extends \VuFind\Controller\SearchController
 
     public function contributorsAction()
     {
-        // Do search with huge facet limit, to get all facet entries
+        // Do search with huge facet limit, to get all facet entries.
         $results = $this->getResultsManager()->get($this->searchClassId);
         $results->getParams()->setFacetLimit(99999);
         $params = $results->getParams();
