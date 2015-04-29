@@ -26,7 +26,7 @@
     </ul>
     <? if ($this->pages->totalItemCount): ?>
         <ul class="pagination">
-            <? if (isset($this->pages->lastPageInRange)): ?>
+            <? if (isset($this->pages->previous)): ?>
                 <li class="hidden-xs hidden-sm">
                     <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage(1)?>">1</a>
                 </li>
