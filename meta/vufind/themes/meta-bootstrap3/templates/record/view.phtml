@@ -48,7 +48,6 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
 <?php /*PHE not required
 <?=$this->record($this->driver)->getToolbar()?>
 */ ?>
-
 <div class="col-md-9">
     <div class="record recordId source<?= $this->escapeHtmlAttr($this->driver->getResourceSource()) ?>" id="record">
         <input type="hidden" value="<?= $this->escapeHtmlAttr($this->driver->getUniqueId()) ?>" class="hiddenId" id="record_id"/>
@@ -90,7 +89,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
         <?php $tabCount = 0; ?>
         <?php foreach (array_reverse($this->tabs) as $tab => $obj): ?>
             <div class="col-sm-6">
-                <?php if ($tab == "Details") : ?>
+                <?php if ($tab == "Description") : ?>
                     <h4 data-section-toggle="true" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>
                 <?php elseif ($tab == "HierarchyTree") : ?>
                     <h4 data-section-toggle="true"><?php echo $this->transEsc('Context'); ?></h4>
