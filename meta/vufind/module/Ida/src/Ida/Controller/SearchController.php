@@ -73,31 +73,24 @@ class SearchController extends \VuFind\Controller\SearchController
 
     public function contributorsAction()
     {
-        // Do search with huge facet limit, to get all facet entries
-        $results = $this->getResultsManager()->get($this->searchClassId);
-        $results->getParams()->setFacetLimit(9999);
-        $params = $results->getParams();
-        $params->recommendationsEnabled(true);
-        $params->initFromRequest(
-            new Parameters($this->getRequest()->getQuery()->toArray() + $this->getRequest()->getPost()->toArray())
-        );
-        $results->performAndProcessSearch();
-
-        // Get contributor facet
-        $facets = $results->getfacetList();
-        $contributorKey = 'contributor_facet';
-        if (!isset($facets[$contributorKey])) {
-            throw new \Exception('Facet "' . $contributorKey . '" does not exist!');
-        } else {
-            $contributorFacet = $facets[$contributorKey];
+        // PHE START: Empty search is forbidden #71
+        if ($this->isEmptySearch()) {
+            return $this->forwardTo('Error', 'Search');
         }
+        // PHE END: Empty search is forbidden #71
+
+        // Start a search with a huge facet limit
+        $results = $this->performLimitedSearch(9999);
+
+        // Get the contributor facet
+        $contributorKey = 'contributor_facet';
+        $contributorFacet = $this->getFacetFromSearchResult($results, $contributorKey);
 
         // Set up pagination
         $adapter = new ArrayAdapter($contributorFacet['list']);
-        $pageLimit = max($results->getParams()->getLimit(), 20);
         $paginator = new Paginator\Paginator($adapter);
         $paginator->setCurrentPageNumber($results->getParams()->getPage())
-            ->setItemCountPerPage($pageLimit)
+            ->setItemCountPerPage($results->getParams()->getLimit())
             ->setPageRange(5);
 
         // Create view
@@ -105,10 +98,52 @@ class SearchController extends \VuFind\Controller\SearchController
         $view->paginator = $paginator;
         $view->pages = $paginator->getPages();
         $view->results = $results;
-        $view->params = $params;
+        $view->params = $results->getParams();
         $view->contributorFacetKey = $contributorKey;
         $view->contributorFacet = $contributorFacet;
 
         return $view;
+    }
+
+    /**
+     * Perform search with huge facet limit, to get all facet entries
+     *
+     * @param $limit
+     * @return mixed
+     */
+    protected function performLimitedSearch($limit)
+    {
+        $results = $this->getResultsManager()->get($this->searchClassId);
+        $results->getParams()->setFacetLimit($limit);
+        $params = $results->getParams();
+        $params->recommendationsEnabled(true);
+        $params->initFromRequest(
+            new Parameters(
+                $this->getRequest()->getQuery()->toArray() +
+                $this->getRequest()->getPost()->toArray()
+            )
+        );
+        $results->performAndProcessSearch();
+
+        return $results;
+    }
+
+    /**
+     * Extract a facet from a search result
+     *
+     * @param $searchResult
+     * @param $facetKey
+     * @return mixed
+     * @throws \Exception
+     */
+    protected function getFacetFromSearchResult($searchResult, $facetKey)
+    {
+        $facets = $searchResult->getfacetList();
+
+        if (!isset($facets[$facetKey])) {
+            throw new \Exception('Facet "' . $facetKey . '" does not exist!');
+        }
+
+        return $facets[$facetKey];
     }
 }
