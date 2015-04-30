@@ -45,6 +45,9 @@
   $extraFilters = isset($this->extraSideFacetFilters) ? $this->extraSideFacetFilters : array();
   $filterList = array_merge($this->results->getParams()->getFilterList(true), $extraFilters);
 
+  // Topic facet key
+  $topicFacetKey = 'topic_facet';
+
 ?>
 
 <div class="spellingSuggestions">
@@ -86,20 +89,44 @@
       <? endif; ?>
 
     </div>
-    <div class="search-result-used-filters ">
-      <? foreach ($filterList as $field => $filters): ?>
-        <?=$this->transEsc($field)?>:
+    <? foreach ($filterList as $field => $filters): ?>
         <? foreach ($filters as $i => $filter): ?>
-          <? if ($filter['displayText'] == '[* TO *]') : ?>
-            <? $filter['displayText'] = $this->translate('filter_wildcard'); ?>
-          <? endif; ?>
-          <strong>
-            <?=$this->escapeHtml($filter['displayText'])?><?= $filter !== end($filters) ? ", " : "" ?>
-            <? // Keep above in one line to avoid unwanted whitespace ?>
-          </strong>
-        <? endforeach; ?>
-        <br />
-      <? endforeach; ?>
+            <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
+                <div class="search-result-restriction-info">
+                    <?= $this->transEsc('Restricted by') ?>
+                    <span class="info" title="<?= $this->escapeHtmlAttr($this->transEsc('SearchResultRestrictionInfoText'));?>">i</span>
+                </div>
+                <?php break 2; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    <div class="search-result-used-filters">
+          <table>
+              <? foreach ($filterList as $field => $filters): ?>
+                  <tr>
+                      <td><?= $this->transEsc($field) ?>:</td>
+                      <td>
+                          <? foreach ($filters as $i => $filter): ?>
+                              <? if ($filter['displayText'] == '[* TO *]') : ?>
+                                  <? $filter['displayText'] = $this->translate('filter_wildcard'); ?>
+                              <? endif; ?>
+                              <strong>
+                                  <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
+                                      <?= $this->escapeHtml($filter['displayText']) ?>
+                                      <a href="<?= $this->escapeHtmlAttr(''); ?>">
+                                          <?= $this->transEsc('open search') ?>
+                                      </a>
+                                      <br/>
+                                  <?php else: ?>
+                                      <?= $this->escapeHtml($filter['displayText']) ?><?= $filter !== end($filters) ? ", " : "" ?>
+                                      <? // Keep above in one line to avoid unwanted whitespace ?>
+                                  <?php endif; ?>
+                              </strong>
+                          <? endforeach; ?>
+                      </td>
+                  </tr>
+              <? endforeach; ?>
+          </table>
     </div>
   </div>
 
@@ -109,9 +136,6 @@
         <?=$this->transEsc('Narrow Search')?>
       </a>
     </div>
-  <? endif; ?>
-
-  <? if ($recordTotal > 0): ?>
     <div class="col-sm-4 text-right result-sort-options">
       <?=$this->render('search/controls/limit.phtml')?>
       <?=$this->render('search/controls/sort.phtml')?>
