@@ -104,7 +104,7 @@
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
          <bean id="kfgv" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" name="institutionName" value="KölnerFrauengeschichtsverein"/>
+        <constructor-arg index="0" name="institutionName" value="KoelnerFrauengeschichtsverein"/>
         <constructor-arg index="1" name="transformationRecipeFile"
                          value="${xslt.basePath}/institution/kfgv/gleich_kfgv.xsl"/>
         <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
