@@ -97,7 +97,7 @@
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
      <bean id="helenelange" class="de.idadachverband.institution.IdaInstitutionBean">
-        <constructor-arg index="0" name="institutionName" value="Helene Lange Archiv"/>
+        <constructor-arg index="0" name="institutionName" value="HeleneLangeArchiv"/>
         <constructor-arg index="1" name="transformationRecipeFile"
                          value="${xslt.basePath}/institution/hla/gleich_hla.xsl"/>
         <constructor-arg index="2" name="transformationStrategy" ref="xsltTransformer"/>
