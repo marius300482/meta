@@ -131,24 +131,27 @@ $(function(){
 /**
  * PHE: Toggling of the simple and advanced search
  */
-$(document).ready(function() {
-    var simpleSearchTab = $("#advanceSearchTab"),
-        simpleSearchBody = $("#simple-search-body"),
-        advancedSearchTab = $("#simpleSearchTab"),
-        advancedSearchBody = $("#advSearchForm");
+function showAdvancedSearch() {
+    $("#simpleSearchTab").removeClass("active");
+    $("#simple-search-body").addClass("hidden");
+    $("#advanceSearchTab").addClass("active");
+    $("#advSearchForm").removeClass("hidden");
+}
 
-    simpleSearchTab.click(function () {
-        simpleSearchTab.addClass("active");
-        advancedSearchTab.removeClass("active");
-        simpleSearchBody.addClass("hidden");
-        advancedSearchBody.removeClass("hidden");
+function showSimpleSearch() {
+    $("#simpleSearchTab").addClass("active");
+    $("#simple-search-body").removeClass("hidden");
+    $("#advanceSearchTab").removeClass("active");
+    $("#advSearchForm").addClass("hidden");
+}
+
+$(document).ready(function() {
+    $("#simpleSearchTab").click(function () {
+        showSimpleSearch();
     });
 
-    advancedSearchTab.click(function () {
-        simpleSearchTab.removeClass("active");
-        advancedSearchTab.addClass("active");
-        simpleSearchBody.removeClass("hidden");
-        advancedSearchBody.addClass("hidden");
+    $("#advanceSearchTab").click(function () {
+        showAdvancedSearch();
     });
 });
 

@@ -21,6 +21,7 @@
                     <? endif; ?>
                 <? endforeach; ?>
             <? endforeach; ?>
+            showAdvancedSearch();
         <?php else : ?>
             // Populate simple search
             $("#searchForm_lookfor").val("<?=str_replace('"', '\"', $this->lookFor); ?>");
