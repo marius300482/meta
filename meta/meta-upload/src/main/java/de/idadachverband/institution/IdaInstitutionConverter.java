@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by boehm on 23.09.14.
  */
 @Named
-final public class IdaInstitutionConverter implements Converter<String, IdaInstitutionBean>
+public class IdaInstitutionConverter implements Converter<String, IdaInstitutionBean>
 {
     @Inject
     private Set<IdaInstitutionBean> institutionSet;

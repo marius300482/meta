@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <spring:url value="/upload" var="url"/>
-<spring:url value="/transformations/status" var="transformationsUrl"/>
+<spring:url value="/jobs/status" var="jobsUrl"/>
 <spring:url value="/j_spring_security_logout" var="logoutUrl"/>
 <spring:url value="/archive" var="archive"/>
 <%--

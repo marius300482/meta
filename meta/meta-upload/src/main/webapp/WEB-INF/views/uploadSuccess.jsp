@@ -1,5 +1,5 @@
 <%@ include file="header.jspf" %>
-<%@ page import="de.idadachverband.transform.TransformationProgressState" %>
+<%@ page import="de.idadachverband.job.JobProgressState" %>
 <%--
   Created by IntelliJ IDEA.
   User: boehm
@@ -16,16 +16,16 @@
 </head>
 <body>
 <h1>You successfully uploaded one file</h1>
-<spring:url value="/files/" var="fileUrl"/>
+<spring:url value="/files/solrFormat/" var="fileUrl"/>
 <spring:url value="/result/getResult" var="stateUrl"/>
 <spring:url value="/resources/images/waiting.gif" var="waiting"/>
 
-<h2>Job Id: ${result}</h2>
+<h2>Job Id: ${jobId}</h2>
 
 <div id="waiting">
     <img src="${waiting}">
     <br/>
-    <span>Die Verarbeitung kann etwas lÃ¤nger dauern. Sie werden per E-Mail Ã¼ber das Ergebnis informiert.</span>
+    <span>Die Verarbeitung kann etwas länger dauern. Sie werden per E-Mail über das Ergebnis informiert.</span>
 </div>
 
 <div id="filelink" style="display: none;">
@@ -43,14 +43,14 @@
 <script type="application/javascript">
     successCallback = function (v) {
         console.log(v);
-        if (v.state === "<%= TransformationProgressState.DONE %>") {
+        if (v.state === "<%= JobProgressState.DONE %>") {
             var link = jQuery("#filelink").find("a");
             var url = link.attr("href");
-            link.attr("href", url + v.filename);
+            link.attr("href", url + v.path);
             jQuery("#filelink").toggle();
             done();
         }
-        else if (v.state === "<%= TransformationProgressState.FAILURE %>") {
+        else if (v.state === "<%= JobProgressState.FAILURE %>") {
             var failure = jQuery("#failure");
             jQuery("#exception").text(v.exception);
             failure.toggle();
@@ -66,7 +66,7 @@
     poll = function () {
         jQuery.getJSON(
                 "${stateUrl}",
-                {"result": "${result}"},
+                {"jobId": "${jobId}"},
                 successCallback
         );
     };

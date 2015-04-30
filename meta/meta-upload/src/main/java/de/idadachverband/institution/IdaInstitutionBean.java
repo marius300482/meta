@@ -31,10 +31,11 @@ public class IdaInstitutionBean
      */
     private boolean incrementalUpdateAllowed = false;
     /**
-     * Do incremental upload or not. Defaults to true.
+     * Do incremental upload by default.
      */
     private boolean incrementalUpdate = true;
 
+    
     public IdaInstitutionBean(String institutionName, String transformationRecipeFile, IdaTransformer transformationStrategy)
     {
         this.institutionName = institutionName;

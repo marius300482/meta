@@ -21,14 +21,15 @@ public class ZipService
 {
     /**
      * @param input Either an uncompressed file or a zip archive with one entry
-     * @return InputStream of infile. If infile is zip file, first found file from zip file
+     * @param target path to target folder or file
+     * @return path of infile. If infile is zip file, first found file from zip file
      */
-    public Path unzip(final Path input) throws IOException
+    public Path unzip(final Path input, final Path target) throws IOException
     {
         @Cleanup FileSystem zipfs = createZipFileSystem(input, false);
 
         final Path root = zipfs.getPath("/");
-        final ZipFileVisitor zipFileVisitor = new ZipFileVisitor(input.getParent());
+        final ZipFileVisitor zipFileVisitor = new ZipFileVisitor(target);
         Files.walkFileTree(root, zipFileVisitor);
 
         final Path extractedFilePath = zipFileVisitor.getExtractedFilePath();
