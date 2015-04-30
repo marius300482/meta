@@ -146,8 +146,22 @@
 	      </td>
         </tr>
     <? endif; ?>
-    
+  
     <? $entities = $this->driver->getEntities(); ?>
+    <? if (!empty($entities)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+          <th><?=$this->transEsc('Entities')?>: </th>
+            <td property="entity">
+            <? foreach ($entities as $entity): ?>
+	    <?= $this->escapeHtml($entity) ?>
+	    <?= $entity !== end($entities) ? "; " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+  
+    <!--ENTFERNT VON MARIUS<? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
@@ -158,7 +172,7 @@
             <? endforeach; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 
     <? $reviewers = $this->driver->getReviewer(); ?>
     <? if (isset($reviewers)): ?>
