@@ -24,46 +24,7 @@
             </li>
         <?php endforeach; ?>
     </ul>
-    <? if ($this->pages->totalItemCount): ?>
-        <ul class="pagination">
-            <? if (isset($this->pages->previous)): ?>
-                <li class="hidden-xs hidden-sm">
-                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage(1)?>">1</a>
-                </li>
-                <li class="paging-label">
-                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pages->previous)?>">
-                        &laquo; <?=$this->transEsc('Prev')?>
-                    </a>
-                </li>
-            <? endif; ?>
-            <? if (count($this->pages->pagesInRange) > 1): ?>
-                <? foreach ($this->pages->pagesInRange as $page): ?>
-                    <? if ($page != $this->pages->current): ?>
-                        <li class="hidden-xs">
-                            <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($page)?>">
-                                <?=$page?>
-                            </a>
-                        </li>
-                    <? else: ?>
-                        <li class="active">
-                            <span><?=$page?></span>
-                        </li>
-                    <? endif; ?>
-                <? endforeach; ?>
-            <? endif; ?>
-            <? if (isset($this->pages->next)): ?>
-                <li class="paging-label">
-                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pages->next)?>">
-                        <?=$this->transEsc('Next');?> &raquo;</a>
-                </li>
-                <li class="hidden-xs hidden-sm">
-                    <a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pages->pageCount)?>">
-                        <?=$this->pages->pageCount?>
-                    </a>
-                </li>
-            <? endif; ?>
-        </ul>
-    <? endif; ?>
+    <?=$this->paginationControl($this->paginator, 'Sliding', 'search/pagination.phtml', array('results' => $this->results))?>
 </div>
 
 <? /* Narrow Search Options */ ?>
