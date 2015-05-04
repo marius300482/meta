@@ -113,7 +113,7 @@
                               <strong>
                                   <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
                                       <?= $this->escapeHtml($filter['displayText']) ?>
-                                      <a href="<?= $this->escapeHtmlAttr(''); ?>">
+                                      <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
                                           <?= $this->transEsc('open search') ?>
                                       </a>
                                       <br/>
