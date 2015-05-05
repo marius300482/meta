@@ -4,8 +4,8 @@
         <span class="backToResults">
             <a href="<?=$this->url("search-results") . $this->results->getUrlQuery()->getParams(); ?>"><?= $this->transEsc('All results'); ?></a>
         </span>
-        <?= $this->pages->firstItemNumber; ?> -
-        <?= $this->pages->lastItemNumber; ?>
+        <?= number_format($this->pages->firstItemNumber, 0, ',', '.'); ?> -
+        <?= number_format($this->pages->lastItemNumber, 0, ',', '.'); ?>
         <?= $this->transEsc('of'); ?>
         <?= number_format($this->pages->totalItemCount, 0, ',', '.'); ?>
         <?= $this->transEsc('for'); ?>
