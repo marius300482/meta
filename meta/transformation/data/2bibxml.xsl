@@ -76,6 +76,8 @@
 			
 			<field name="institutionFull"><xsl:value-of select="institution/institutionFull" /></field>
 			
+			<field name="institutionID"><xsl:value-of select="institution/institutionID" /></field>
+			
 			<field name="collection"><xsl:value-of select="institution/collection" /></field>
 			
 			<field name="recordContentSource"><xsl:value-of select="institution/isil" /></field>
