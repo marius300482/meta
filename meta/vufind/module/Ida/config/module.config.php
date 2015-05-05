@@ -37,7 +37,8 @@ $config = array(
                     'Description' => 'Description',
                     //'Details' => 'StaffViewArray',
                     'HierarchyTree' => 'HierarchyTree',
-                    //'Map' => 'Map',
+                    //'Map' => 'Map', // <-- This is NOT the institution
+                    // The INSTITUTION is not tab, but part of the record/view.phtml template.
                 ),
                 'defaultTab' => null,
             ),
