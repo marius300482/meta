@@ -121,7 +121,6 @@ JS;
           <? endif; ?>
         <? else: ?>
           <? foreach ($cluster['list'] as $i=>$thisFacet): ?>
-            <?php if (30 <= $i) break; // PHE added this line for /Search/Contributors where all facet entries are returned ?>
             <?
               if(strlen($thisFacet['displayText']) == 0) {
                 $thisFacet['displayText'] = "-";
