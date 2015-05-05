@@ -117,6 +117,7 @@
    <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="institution_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="institutionFull" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="institutionID" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="collection" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="building" type="string" indexed="true" stored="true" multiValued="true"/>
    <!-- Generic Fields -->
