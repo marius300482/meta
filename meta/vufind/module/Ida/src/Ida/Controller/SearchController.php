@@ -52,9 +52,10 @@ class SearchController extends \VuFind\Controller\SearchController
         // Perform normal search
         $view = parent::resultsAction();
 
-        // Perform search for the contributor facet with extended limit
-        $maxItems = 99999;
-        $contributorKey = 'contributor_facet';
+        // Perform search for the contributor facet with limit from config
+        $config = $this->getServiceLocator()->get('VuFind\Config')->get('config');
+        $maxItems = isset($config->Contributors->limit) ? $config->Contributors->limit : 999;
+        $contributorKey = isset($config->Contributors->facetKey) ? $config->Contributors->facetKey : 'contributor_facet';
         $contributorFacet = $this->getFacetList($contributorKey, 'alphabetical', $maxItems);
         $view->contributorFacetKey = $contributorKey;
         $view->contributorFacet = $contributorFacet;
