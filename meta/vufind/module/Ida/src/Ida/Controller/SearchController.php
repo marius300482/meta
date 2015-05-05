@@ -14,6 +14,68 @@ use Zend\Paginator;
 class SearchController extends \VuFind\Controller\SearchController
 {
     /**
+     * VuFind results action.
+     *
+     * @overwrite
+     * @return mixed
+     */
+    public function resultsAction()
+    {
+        // PHE START: Empty search is forbidden #71
+        if ($this->isEmptySearch()) {
+            if (!$this->loadLatestSearch()) {
+                return $this->forwardTo('Error', 'Search');
+            }
+        }
+        // PHE END: Empty search is forbidden #71
+
+        // Default case -- standard behavior.
+        return parent::resultsAction();
+    }
+
+    /**
+     * Custom view for contributor paging
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function contributorsAction()
+    {
+        // PHE START: Empty search is forbidden #71
+        if ($this->isEmptySearch()) {
+            if (!$this->loadLatestSearch()) {
+                return $this->forwardTo('Error', 'Search');
+            }
+        }
+        // PHE END: Empty search is forbidden #71
+
+        // Start a search with a huge facet limit
+        $results = $this->performLimitedSearch(9999);
+
+        // Get the contributor facet
+        $contributorKey = 'contributor_facet';
+        $contributorFacet = $this->getFacetFromSearchResult($results, $contributorKey);
+
+        // Set up pagination
+        $adapter = new ArrayAdapter($contributorFacet['list']);
+        $paginator = new Paginator\Paginator($adapter);
+        $paginator->setCurrentPageNumber($results->getParams()->getPage())
+            ->setItemCountPerPage($results->getParams()->getLimit())
+            ->setPageRange(5);
+
+        // Create view
+        $view = $this->createViewModel();
+        $view->paginator = $paginator;
+        $view->pages = $paginator->getPages();
+        $view->results = $results;
+        $view->params = $results->getParams();
+        $view->contributorFacetKey = $contributorKey;
+        $view->contributorFacet = $contributorFacet;
+
+        return $view;
+    }
+
+    /**
      * Helper function to check if the current search is empty #71
      *
      * @param int $minValueLength Minimum length of the longest search value
@@ -54,55 +116,39 @@ class SearchController extends \VuFind\Controller\SearchController
     }
 
     /**
-     * VuFind functionResults action.
+     * Get the whole search history of the current user
      *
-     * @overwrite
      * @return mixed
      */
-    public function resultsAction()
+    protected function getUserSearchHistory()
     {
-        // PHE START: Empty search is forbidden #71
-        if ($this->isEmptySearch()) {
-            return $this->forwardTo('Error', 'Search');
-        }
-        // PHE END: Empty search is forbidden #71
+        $allSearches = $this->getTable('Search');
+        $userSessionId = $this->getServiceLocator()->get('VuFind\SessionManager')->getId();
 
-        // Default case -- standard behavior.
-        return parent::resultsAction();
+        return $allSearches->getSearches($userSessionId);
     }
 
-    public function contributorsAction()
+    /**
+     * Load the latest non-empty search of the current user
+     */
+    protected function loadLatestSearch()
     {
-        // PHE START: Empty search is forbidden #71
-        if ($this->isEmptySearch()) {
-            return $this->forwardTo('Error', 'Search');
+        $lastSearchLoaded = false;
+        $currentCount = 1;
+        $searchHistory = $this->getUserSearchHistory();
+        $lastEntryCount = $searchHistory->count();
+
+        // The only way to get the last search is to iterate over all searches
+        foreach ($searchHistory as $search) {
+            if($lastEntryCount === $currentCount) {
+                $lastSearchLoaded = true;
+                $searchId = $search->getSearchObject()->id;
+                $this->redirectToSavedSearch($searchId);
+            }
+            $currentCount++;
         }
-        // PHE END: Empty search is forbidden #71
 
-        // Start a search with a huge facet limit
-        $results = $this->performLimitedSearch(9999);
-
-        // Get the contributor facet
-        $contributorKey = 'contributor_facet';
-        $contributorFacet = $this->getFacetFromSearchResult($results, $contributorKey);
-
-        // Set up pagination
-        $adapter = new ArrayAdapter($contributorFacet['list']);
-        $paginator = new Paginator\Paginator($adapter);
-        $paginator->setCurrentPageNumber($results->getParams()->getPage())
-            ->setItemCountPerPage($results->getParams()->getLimit())
-            ->setPageRange(5);
-
-        // Create view
-        $view = $this->createViewModel();
-        $view->paginator = $paginator;
-        $view->pages = $paginator->getPages();
-        $view->results = $results;
-        $view->params = $results->getParams();
-        $view->contributorFacetKey = $contributorKey;
-        $view->contributorFacet = $contributorFacet;
-
-        return $view;
+        return $lastSearchLoaded;
     }
 
     /**
