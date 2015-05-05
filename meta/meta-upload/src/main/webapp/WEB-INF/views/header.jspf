@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: boehm
+  Date: 27.01.15
+  Time: 12:57
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -7,11 +14,12 @@
 <spring:url value="/jobs/status" var="jobsUrl"/>
 <spring:url value="/j_spring_security_logout" var="logoutUrl"/>
 <spring:url value="/archive" var="archive"/>
-<%--
-  Created by IntelliJ IDEA.
-  User: boehm
-  Date: 27.01.15
-  Time: 12:57
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<head>
+    <meta charset="utf-8">
+    <title>Daten-Upload Metadaten-Katalog</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+</head>

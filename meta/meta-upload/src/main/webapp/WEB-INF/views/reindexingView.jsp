@@ -1,5 +1,3 @@
-<%@ include file="header.jspf" %>
-<%@ page import="de.idadachverband.job.JobProgressState" %>
 <%--
   Created by IntelliJ IDEA.
   User: boehm
@@ -7,69 +5,64 @@
   Time: 15:09
   To change this template use File | Settings | File Templates.
 --%>
+<!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-</head>
+<%@ include file="header.jspf" %>
+<%@ page import="de.idadachverband.job.JobProgressState" %>
 <body>
-<h1>You successfully started the re-indexing of the latest archived upload for ${institution} on ${core}.</h1>
-<spring:url value="/files/" var="fileUrl"/>
-<spring:url value="/result/getResult" var="stateUrl"/>
-<spring:url value="/resources/images/waiting.gif" var="waiting"/>
+    <%@include file="menu.jspf" %>
+    <h1>You successfully started the re-indexing of the latest archived upload for ${institution} on ${core}.</h1>
+    <spring:url value="/files/" var="fileUrl"/>
+    <spring:url value="/result/getResult" var="stateUrl"/>
+    <spring:url value="/resources/images/waiting.gif" var="waiting"/>
 
-<h2>Job Id: ${jobId}</h2>
+    <h2>Job Id: ${jobId}</h2>
 
-<div id="waiting">
-    <img src="${waiting}">
-    <br/>
-    <span>Die Verarbeitung kann etwas länger dauern. Sie werden per E-Mail über das Ergebnis informiert.</span>
-</div>
+    <div id="waiting">
+        <img src="${waiting}">
+        <br/>
+        <span>Die Verarbeitung kann etwas l&auml;nger dauern. Sie werden per E-Mail &uuml;ber das Ergebnis informiert.</span>
+    </div>
 
-<div id="success" style="display: none;">
-    <h2>Fertig</h2>
-</div>
-<div id="failure" style="display: none;">
-    <h2>Fehler!</h2>
+    <div id="success" style="display: none;">
+        <h2>Fertig</h2>
+    </div>
+    <div id="failure" style="display: none;">
+        <h2>Fehler!</h2>
+        <div id="exception"></div>
+    </div>
 
-    <div id="exception"></div>
+    <script type="application/javascript">
+        successCallback = function (v) {
+            console.log(v);
+            if (v.state === "<%= JobProgressState.DONE %>") {
+                jQuery("#success").toggle();
+                done();
+            }
+            else if (v.state === "<%= JobProgressState.FAILURE %>") {
+                var failure = jQuery("#failure");
+                jQuery("#exception").text(v.exception);
+                failure.toggle();
+                done();
+            }
+        };
 
-</div>
+        done = function () {
+            clearInterval(pollInterval);
+            jQuery("#waiting").toggle();
+        };
 
-
-<script type="application/javascript">
-    successCallback = function (v) {
-        console.log(v);
-        if (v.state === "<%= JobProgressState.DONE %>") {
-            jQuery("#success").toggle();
-            done();
-        }
-        else if (v.state === "<%= JobProgressState.FAILURE %>") {
-            var failure = jQuery("#failure");
-            jQuery("#exception").text(v.exception);
-            failure.toggle();
-            done();
-        }
-    };
-
-    done = function () {
-        clearInterval(pollInterval);
-        jQuery("#waiting").toggle();
-    };
-
-    poll = function () {
-        jQuery.getJSON(
+        poll = function () {
+            jQuery.getJSON(
                 "${stateUrl}",
                 {"jobId": "${jobId}"},
                 successCallback
-        );
-    };
+            );
+        };
 
-    pollInterval = setInterval(poll, 15000);
-</script>
+        pollInterval = setInterval(poll, 15000);
+    </script>
 
-<%@include file="footer.jspf" %>
+    <%@include file="footer.jspf" %>
 </body>
 </html>

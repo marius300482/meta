@@ -1,0 +1,20 @@
+<div id="menu">
+    <ul class="tabs">
+        <li>
+            <a href="${url}">Upload file</a>
+        </li>
+        <li>
+            <a href="${archive}">Archiv</a>
+        </li>
+        <sec:authorize access="hasAuthority('admin')">
+            <li>
+                <a href="${jobsUrl}">Jobs</a>
+            </li>
+        </sec:authorize>
+    </ul>
+    <ul id="userStatus">
+        <li>Hello ${user}!</li>
+        <li class="divider"></li>
+        <li><a href="${logoutUrl}">Logout</a></li>
+    </ul>
+</div>
