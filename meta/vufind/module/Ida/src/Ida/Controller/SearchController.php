@@ -49,28 +49,24 @@ class SearchController extends \VuFind\Controller\SearchController
         }
         // PHE END: Empty search is forbidden #71
 
-        // Start a search with a huge facet limit
-        $results = $this->performLimitedSearch(9999);
+        // Perform normal search
+        $view = parent::resultsAction();
 
-        // Get the contributor facet
+        // Perform search for the contributor facet with extended limit
+        $maxItems = 99999;
         $contributorKey = 'contributor_facet';
-        $contributorFacet = $this->getFacetFromSearchResult($results, $contributorKey);
-
-        // Set up pagination
-        $adapter = new ArrayAdapter($contributorFacet['list']);
-        $paginator = new Paginator\Paginator($adapter);
-        $paginator->setCurrentPageNumber($results->getParams()->getPage())
-            ->setItemCountPerPage($results->getParams()->getLimit())
-            ->setPageRange(5);
-
-        // Create view
-        $view = $this->createViewModel();
-        $view->paginator = $paginator;
-        $view->pages = $paginator->getPages();
-        $view->results = $results;
-        $view->params = $results->getParams();
+        $contributorFacet = $this->getFacetList($contributorKey, 'alphabetical', $maxItems);
         $view->contributorFacetKey = $contributorKey;
         $view->contributorFacet = $contributorFacet;
+
+        // Set up special pagination for the contributor facet
+        $adapter = new ArrayAdapter($contributorFacet);
+        $paginator = new Paginator\Paginator($adapter);
+        $paginator->setCurrentPageNumber($view->results->getParams()->getPage())
+            ->setItemCountPerPage($view->results->getParams()->getLimit())
+            ->setPageRange(5);
+        $view->paginator = $paginator;
+        $view->pages = $paginator->getPages();
 
         return $view;
     }
@@ -152,44 +148,36 @@ class SearchController extends \VuFind\Controller\SearchController
     }
 
     /**
-     * Perform search with huge facet limit, to get all facet entries
+     * Get a list of items from a facet.
      *
-     * @param $limit
-     * @return mixed
+     * @param string $facet    The facet we're searching in
+     * @param string $sort     How are we sorting these?
+     * @param int $limit       Max entries we request from the DB. Keep memory limit in mind!
+     *
+     * @return array           Array indexed by value with text of displayText and count
      */
-    protected function performLimitedSearch($limit)
-    {
+    protected function getFacetList($facet, $sort = 'count', $limit = 30) {
         $results = $this->getResultsManager()->get($this->searchClassId);
-        $results->getParams()->setFacetLimit($limit);
         $params = $results->getParams();
-        $params->recommendationsEnabled(true);
+        // Use GET and POST variables
         $params->initFromRequest(
             new Parameters(
                 $this->getRequest()->getQuery()->toArray() +
                 $this->getRequest()->getPost()->toArray()
             )
         );
-        $results->performAndProcessSearch();
-
-        return $results;
-    }
-
-    /**
-     * Extract a facet from a search result
-     *
-     * @param $searchResult
-     * @param $facetKey
-     * @return mixed
-     * @throws \Exception
-     */
-    protected function getFacetFromSearchResult($searchResult, $facetKey)
-    {
-        $facets = $searchResult->getfacetList();
-
-        if (!isset($facets[$facetKey])) {
-            throw new \Exception('Facet "' . $facetKey . '" does not exist!');
+        $params->addFacet($facet);
+        $params->getOptions()->disableHighlighting();
+        $params->getOptions()->spellcheckEnabled(false);
+        $params->recommendationsEnabled(false);
+        $params->setFacetLimit($limit);
+        // Facet prefix
+        if ($this->params()->fromQuery('facet_prefix')) {
+            $params->setFacetPrefix($this->params()->fromQuery('facet_prefix'));
         }
+        $params->setFacetSort($sort);
+        $result = $results->getFacetList();
 
-        return $facets[$facetKey];
+        return isset($result[$facet]) ? $result[$facet]['list'] : array();
     }
 }
