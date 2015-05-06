@@ -1,0 +1,40 @@
+// Paths
+
+$theme-path-fonts: './fonts'; // fonts have to be in CSS folder. Otherwise .htaccess excludes them
+$theme-path-images: '../images';
+
+// Responsive breakpoints (same as bootstrap!!!!)
+
+$device-xxs-max-width: 400px;
+$device-xs-max-width: 768px;
+$device-md-max-width: 992px;
+$device-lg-max-width: 1200px;
+
+// Colors
+
+$color-yellow-1: #FFAD00;
+$color-yellow-2: #FFCE67;
+$color-yellow-3: #FFDE99;
+$color-yellow-4: #FFEFCC;
+$color-yellow-5: #F8F4F0;
+
+$color-blue-1: #2E264D;
+$color-blue-2: #645E78;
+$color-blue-3: #B8B3C6;
+$color-blue-4: #E6E5EB;
+$color-blue-5: #F7F6F8;
+
+$color-orange: #F3971E;
+$color-purple: #990099;
+
+$color-white: #FFFFFF;
+$color-black: #000000;
+$color-black-logo: #371C04;
+$color-grey-dark: #767086;
+$color-blue-button: #40395B;
+$color-grey-border: #D6D3DE;
+
+// Shadows
+
+$shadow-outer: 0 1px 2px rgba(64, 57, 91, 0.6);
+$shadow-inner: 0 0 4px rgba(64, 57, 91, 0.3) inset;

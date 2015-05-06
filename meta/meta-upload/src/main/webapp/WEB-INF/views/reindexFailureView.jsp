@@ -7,27 +7,27 @@
 --%>
 <!DOCTYPE html>
 <html>
-<%@include file="header.jspf" %>
+<%@include file="head.jspf" %>
 <body>
     <%@include file="menu.jspf" %>
+    <div class="main">
+        <h2>Re-processing of ${core} failed!</h2>
 
-    <h2>Re-processing of ${core} failed!</h2>
+        <h1>Failure</h1>
 
-    <h1>Failure</h1>
+        <h2>Exception:</h2> ${exception}
 
-    <h2>Exception:</h2> ${exception}
+        <h2>Cause:</h2>
+        ${cause}
 
-    <h2>Cause:</h2>
-    ${cause}
+        <h2>Message:</h2>
+        ${message}
 
-    <h2>Message:</h2>
-    ${message}
-
-    <h2>Stacktrace:</h2>
-    <c:forEach var="trace" items="${stacktrace}">
-        ${trace} <br/>
-    </c:forEach>
-
+        <h2>Stacktrace:</h2>
+        <c:forEach var="trace" items="${stacktrace}">
+            ${trace} <br/>
+        </c:forEach>
+    </div>
     <%@include file="footer.jspf" %>
 </body>
 </html>

@@ -1,20 +1,27 @@
-<div id="menu">
-    <ul class="tabs">
-        <li>
-            <a href="${url}">Upload file</a>
-        </li>
-        <li>
-            <a href="${archive}">Archiv</a>
-        </li>
-        <sec:authorize access="hasAuthority('admin')">
-            <li>
-                <a href="${jobsUrl}">Jobs</a>
+<header>
+    <div id="slogan">
+        Daten-Upload<br />Metadaten-Katalog
+    </div>
+    <div id="logo">
+    </div>
+    <div id="mainMenu">
+        <ul id="menuTabs">
+            <li class="active">
+                <a href="${url}">Upload file</a>
             </li>
-        </sec:authorize>
-    </ul>
-    <ul id="userStatus">
-        <li>Hello ${user}!</li>
-        <li class="divider"></li>
-        <li><a href="${logoutUrl}">Logout</a></li>
-    </ul>
-</div>
+            <li>
+                <a href="${archive}">Archiv</a>
+            </li>
+            <sec:authorize access="hasAuthority('admin')">
+                <li>
+                    <a href="${jobsUrl}">Jobs</a>
+                </li>
+            </sec:authorize>
+        </ul>
+        <ul id="userStatus">
+            <li class="userName">Hello ${user}!</li>
+            <li class="divider"></li>
+            <li><a href="${logoutUrl}">Logout</a></li>
+        </ul>
+    </div>
+</header>
