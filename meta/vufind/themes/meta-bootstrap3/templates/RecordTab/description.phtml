@@ -173,8 +173,18 @@
             </td>
         </tr>
     <? endif; ?>-->
-
+    
     <? $reviewers = $this->driver->getReviewer(); ?>
+    <? if (isset($reviewers)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Reviewer')?>: </th>
+            <td property="shelfmark"><?= $this->escapeHtml($reviewers) ?></td>
+        </tr>
+    <? endif; ?>
+    
+    
+    <!--<? $reviewers = $this->driver->getReviewer(); ?>
     <? if (isset($reviewers)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
@@ -186,7 +196,7 @@
             <? endforeach; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
     
 
 
@@ -329,7 +339,7 @@
         </tr>
     <? endif; ?>
 
-    <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
+   <!-- <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
     <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
     <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
         <? $contentDisplayed = true; ?>
@@ -347,7 +357,7 @@
             <? endif; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 <?php /* Not required
     <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
     <? if (!empty($physicals)): ?>
