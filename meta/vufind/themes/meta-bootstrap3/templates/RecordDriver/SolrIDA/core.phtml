@@ -134,7 +134,7 @@
 
             <? if (!empty($issues)): ?>
                 <? $contentDisplayed = true; ?>
-                    /
+                    <?=$this->transEsc('Issue')?>:
                 <? foreach($issues as $issue): ?>
                     <?= $this->escapeHtml($issue) ?><?= $issue !== end($issues) ? ", " : "" ?>
                 <? endforeach; ?>
