@@ -162,7 +162,7 @@
                     <br />
                 <? endif; ?>
 
-                <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
+                <!--<? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
                 <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
                 <? if (!empty($timeSpanStart) || !empty($timeSpanEnd)): ?>
                     <?=$this->transEsc('Time span')?>:
@@ -176,7 +176,7 @@
                         <?= $this->escapeHtml($timeSpanEnd) ?>
                     <? endif; ?>
                     <br />
-                <? endif; ?>
+                <? endif; ?>-->
 
                 <? $summInCollection = $this->driver->getContainingCollections(); ?>
                 <?php if (!empty($summInCollection)): ?>
