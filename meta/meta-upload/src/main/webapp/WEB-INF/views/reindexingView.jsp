@@ -22,14 +22,15 @@
         <div id="waiting">
             <img src="${waiting}"><br />
             <br/>
-            <span>Die Verarbeitung kann etwas l&auml;nger dauern. Sie werden per E-Mail &uuml;ber das Ergebnis informiert.</span>
+            <span>Processing may take a little longer. You will be informed by e-mail about the outcome.</span>
         </div>
 
         <div id="success" style="display: none;">
-            <h2>Fertig</h2>
+            <h2>Done</h2>
         </div>
+
         <div id="failure" style="display: none;">
-            <h2>Fehler!</h2>
+            <h2>Error!</h2>
             <div id="exception"></div>
         </div>
 

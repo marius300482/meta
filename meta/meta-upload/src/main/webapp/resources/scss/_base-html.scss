@@ -81,13 +81,18 @@ select {
 
 select {
   background-color: $color-grey-border;
-  border: 1px solid $color-grey-border;
-  border-radius: 0;
   box-shadow: none;
-  &:focus {
-    height: auto;
-    padding: 2px 6px;
-    border: 1px solid $color-grey-border;
-    box-shadow: $shadow-inner;
-  }
+  padding: 2px 6px;
+}
+
+.infoBubble {
+  background-color: $color-blue-4;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  font-style: italic;
+  font-family: serif;
+  font-weight: bold;
+  text-align: center;
+  width: 18px;
 }

@@ -10,7 +10,7 @@
                 <a href="${url}">Upload file</a>
             </li>
             <li>
-                <a href="${archive}">Archiv</a>
+                <a href="${archive}">Archive</a>
             </li>
             <sec:authorize access="hasAuthority('admin')">
                 <li>
@@ -19,9 +19,12 @@
             </sec:authorize>
         </ul>
         <ul id="userStatus">
-            <li class="userName">Hello ${user}!</li>
-            <li class="divider"></li>
-            <li><a href="${logoutUrl}">Logout</a></li>
+            <li class="userName">
+                <a id="username">Hello ${user}!</a>
+            </li>
+            <li>
+                <a href="${logoutUrl}">Logout</a>
+            </li>
         </ul>
     </div>
 </header>

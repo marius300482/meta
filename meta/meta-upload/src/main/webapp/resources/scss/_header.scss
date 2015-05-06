@@ -32,22 +32,23 @@ header {
       li {
         display: inline-block;
         font-weight: 700;
+        padding: 12px 0;
         &.active {
           background-color: $color-white;
         }
-        &.divider {
-          border-right: 1px solid $color-blue-1;
-          height: 22px;
-          vertical-align: middle;
-        }
         &.userName {
           font-family: "Libre Baskerville",serif;
-          margin-right: 30px;
         }
         a {
           display: inline-block;
-          padding: 12px 30px;
+          padding: 0 30px;
           text-decoration: none;
+          border-right: 1px solid $color-blue-1;
+        }
+        &:last-child, &.active {
+          a {
+            border-right: 0 none;
+          }
         }
       }
     }

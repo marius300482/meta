@@ -16,10 +16,11 @@
 // Normal button
 .btn, .btn:hover {
   background-color: $color-blue-button;
-  display: inline-block;
   border: 0 none;
   border-radius: 0;
+  cursor: pointer;
   color: $color-white;
+  display: inline-block;
   padding: 5px 30px;
   text-align: center;
   text-decoration: none;

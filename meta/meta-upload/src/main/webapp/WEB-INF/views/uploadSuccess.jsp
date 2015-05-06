@@ -22,16 +22,16 @@
         <div id="waiting">
             <img src="${waiting}"><br />
             <br/>
-            <span>Die Verarbeitung kann etwas l&auml;nger dauern. Sie werden per E-Mail &uuml;ber das Ergebnis informiert.</span>
+            <span>Processing may take a little longer. You will be informed by e-mail about the outcome.</span>
         </div>
 
         <div id="filelink" style="display: none;">
-            <h2>Fertig</h2>
-            <a href="${fileUrl}" target="_blank">Transformiertes XML-File</a>
+            <h2>Done</h2>
+            <a href="${fileUrl}" target="_blank">Transformed XML file</a>
         </div>
 
         <div id="failure" style="display: none;">
-            <h2>Fehler!</h2>
+            <h2>Error!</h2>
             <div id="exception"></div>
         </div>
 
@@ -60,9 +60,9 @@
 
             poll = function () {
                 jQuery.getJSON(
-                        "${stateUrl}",
-                        {"jobId": "${jobId}"},
-                        successCallback
+                    "${stateUrl}",
+                    {"jobId": "${jobId}"},
+                    successCallback
                 );
             };
 

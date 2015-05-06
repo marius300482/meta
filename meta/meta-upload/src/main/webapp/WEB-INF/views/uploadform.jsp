@@ -25,7 +25,8 @@
                 <br/>
             </div>
             <c:if test="${allowIncremental}">
-                <form:checkbox path="incremental" value="${incrementalDefault}" label="Inkrementelles Update"/><br />
+                <form:checkbox path="incremental" value="${incrementalDefault}" label="Incremental update"/>
+                <span class="infoBubble" title="An incremental update is one that provides the changes since the last incremental update.">i</span><br />
                 <br/>
             </c:if>
             <input type="submit" value="Upload" class="btn" />

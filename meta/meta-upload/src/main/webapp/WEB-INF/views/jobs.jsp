@@ -23,7 +23,7 @@
             </c:forEach>
         </ul>
         <c:if test="${removedTransformations != null}">
-            <h2>Removed Jobs</h2>
+            <h2>Removed jobs</h2>
             <ul class="jobs">
                 <c:forEach var="entry" items="${removedTransformations}">
                     <li>${entry.value}: ${entry.value.progressState}</li>
