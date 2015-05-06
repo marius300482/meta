@@ -91,7 +91,11 @@
 <!--institutionFullname-->			<institutionFull>
 							<xsl:text>STICHWORT, Archiv der Frauen- und Lesbenbewegung, Bibliothek · Dokumentation · Multimedia</xsl:text>
 							</institutionFull>
-			
+						
+						<institutionID>
+							<xsl:text>stichwort</xsl:text>
+							</institutionID>
+						
 <!--collection-->				<collection><xsl:text>Stichwort</xsl:text></collection>
 	
 <!--isil-->					<isil><xsl:text>AT-STICHWORT</xsl:text></isil>
@@ -373,6 +377,7 @@
 	<!--physical-->
 				<xsl:apply-templates select="Seiten" />
 	<!--sourceInfo-->
+				<xsl:if test="Reihe[string-length() != 0]">
 				<sourceInfo>
 					<xsl:value-of select="Reihe" />
 					<!--<xsl:text> (</xsl:text>
@@ -380,6 +385,7 @@
 					<xsl:text>)</xsl:text>
 					<xsl:value-of select="Band-Nr_x046x_" />-->
 					</sourceInfo>
+					</xsl:if>
 
 <!--CONTENTRELATED INFORMATION-->
 	
