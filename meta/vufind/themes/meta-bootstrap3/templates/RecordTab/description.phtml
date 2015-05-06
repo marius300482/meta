@@ -474,7 +474,16 @@
             <?= $this->escapeHtml($listOfContent) ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?></li><? endforeach; ?></td>
         </tr>
     <? endif; ?>
-    
+   
+    <? $collectionHolding = $this->driver->getCollectionHolding(); ?>
+    <? if (isset($collectionHolding)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Bestand')?>:</th>
+            <td property="collectionHolding" colspan="2"><?= $this->escapeHtmlAllowBr($collectionHolding) ?></td>
+        </tr>
+    <? endif; ?>
+   
     <? $creationdate = $this->driver->getRecordCreationDate(); ?>
     <? if (isset($creationdate)): ?>
         <? $contentDisplayed = true; ?>
