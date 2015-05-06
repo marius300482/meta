@@ -35,6 +35,7 @@ header {
         padding: 12px 0;
         &.active {
           background-color: $color-white;
+          margin-left: -4px; // Hide border from left element by overlapping it
         }
         &.userName {
           font-family: "Libre Baskerville",serif;

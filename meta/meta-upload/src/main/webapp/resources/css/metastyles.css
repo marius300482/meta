@@ -198,7 +198,8 @@ header {
         font-weight: 700;
         padding: 12px 0; }
         header #mainMenu #menuTabs li.active, header #mainMenu #userStatus li.active {
-          background-color: white; }
+          background-color: white;
+          margin-left: -4px; }
         header #mainMenu #menuTabs li.userName, header #mainMenu #userStatus li.userName {
           font-family: "Libre Baskerville",serif; }
         header #mainMenu #menuTabs li a, header #mainMenu #userStatus li a {
