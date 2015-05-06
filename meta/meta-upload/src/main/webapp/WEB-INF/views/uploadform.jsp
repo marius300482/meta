@@ -5,12 +5,12 @@
     <%@include file="menu.jspf" %>
     <div class="main" id="page-upload">
         <sec:authentication property="principal.username" var="user"/>
-        <h2>
+        <h1>
             Please upload a file.
             <sec:authorize access="hasAuthority('admin')">
                 You are admin!
             </sec:authorize>
-        </h2>
+        </h1>
         <br />
         <form:form method="post" action="upload" enctype="multipart/form-data" modelAttribute="transformation">
             <form:label path="file">File to upload</form:label>
@@ -29,7 +29,7 @@
                 <br/>
             </c:if>
             <input type="submit" value="Upload" class="btn" />
-            Click button to upload the file!
+            <label class="buttonDescription">Click the button to upload the file!</label>
         </form:form>
     </div>
     <%@include file="footer.jspf" %>

@@ -10,9 +10,10 @@
 <%@include file="head.jspf" %>
 <body>
     <%@include file="menu.jspf" %>
-    <div class="main">
-        <h2>Jobs</h2>
-        <ul>
+    <div class="main" id="page-jobs">
+        <h1>Jobs</h1>
+        <br />
+        <ul class="jobs">
             <c:forEach var="entry" items="${jobs}">
                 <li>(${entry.value.startTime}) ${entry.value}: ${entry.value.progressState}
                     <c:if test="${entry.value.progressState == 'PROCESSING'}">
@@ -21,16 +22,15 @@
                 </li>
             </c:forEach>
         </ul>
-
         <c:if test="${removedTransformations != null}">
             <h2>Removed Jobs</h2>
-            <ul>
+            <ul class="jobs">
                 <c:forEach var="entry" items="${removedTransformations}">
                     <li>${entry.value}: ${entry.value.progressState}</li>
                 </c:forEach>
             </ul>
         </c:if>
-
+        <br />
         <a href="clear" class="btn">Clear</a>
     </div>
     <%@include file="footer.jspf" %>

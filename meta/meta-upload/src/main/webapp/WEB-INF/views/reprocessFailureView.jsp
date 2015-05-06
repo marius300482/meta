@@ -11,9 +11,7 @@
 <body>
     <%@include file="menu.jspf" %>
     <div class="main">
-        <h2>Re-processing of upload ${version} for ${institution} on ${core} failed!</h2>
-
-        <h1>Failure</h1>
+        <h1>Re-processing of upload ${version} for ${institution} on ${core} failed!</h1>
 
         <h2>Exception:</h2> ${exception}
 
