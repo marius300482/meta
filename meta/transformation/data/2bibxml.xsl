@@ -185,6 +185,8 @@
 			<xsl:if test="dataset/zdbId">
 				<field name="zdbId"><xsl:value-of select="dataset/zdbId" /></field>
 				</xsl:if>
+				
+    			<xsl:apply-templates select="dataset/collectionHolding" />
     			
     			<xsl:if test="dataset/displayPublishDate">
     				<field name="displayPublishDate"><xsl:value-of select="dataset/displayPublishDate"></xsl:value-of></field>
@@ -454,6 +456,13 @@
 	
 </add>
 </xsl:template>
+	
+	
+	
+	
+	<xsl:template match="collectionHolding">
+		<field name="collectionHolding"><xsl:value-of select="."/></field>
+		</xsl:template>
 	
 	<xsl:template match="format">
 		<field name="format"><xsl:value-of select="."/></field>

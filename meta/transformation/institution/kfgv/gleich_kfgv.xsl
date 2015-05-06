@@ -133,17 +133,17 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-			<xsl:apply-templates select="titel" />	
-			<xsl:apply-templates select="titel2" />	
-			<xsl:apply-templates select="upcomingTitle" />	
+			<xsl:apply-templates select="titel[string-length() != 0]" />	
+			<xsl:apply-templates select="titel2[string-length() != 0]" />	
+			<xsl:apply-templates select="upcomingTitle[string-length() != 0]" />	
 				
 <!--RESPONSIBLE-->
 				
 <!--IDENTIFIER-->
 	
 	<!--ISBN / ISSN-->
-			<xsl:apply-templates select="issn" />
-			<xsl:apply-templates select="zdbid" />
+			<xsl:apply-templates select="issn[string-length() != 0]" />
+			<xsl:apply-templates select="zdbid[string-length() != 0]" />
 				
 <!--PUBLISHING-->
 	
@@ -152,15 +152,15 @@
 <!--CONTENTRELATED INFORMATION-->
 				
 	<!--subjectTopic Deskriptoren-->
-			<xsl:apply-templates select="schlagworte" />
+			<xsl:apply-templates select="schlagworte[string-length() != 0]" />
 	
 	<!--description-->
-			<xsl:apply-templates select="bestandsangabe" />
+			<xsl:apply-templates select="bestandsangabe[string-length() != 0]" />
 	
 <!--OTHER-->
 	<!--SHELFMARK-->
 			
-			<xsl:apply-templates select="Sign_" />
+			<xsl:apply-templates select="Sign_[string-length() != 0]" />
 		
 		</xsl:element>	
 		
@@ -194,9 +194,9 @@
 <!--Templates-->
 	
 	<xsl:template match="bestandsangabe">
-		<description>
+		<collectionHolding>
 			<xsl:value-of select="normalize-space(.)" />
-			</description>
+			</collectionHolding>
 		</xsl:template>
 	
 	<xsl:template match="schlagworte">
