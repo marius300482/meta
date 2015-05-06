@@ -154,6 +154,7 @@ select {
   color: inherit; }
 
 .btn, .btn:hover {
+  font-weight: 500;
   background-color: #40395b;
   border: 0 none;
   border-radius: 0;
@@ -163,6 +164,21 @@ select {
   padding: 5px 30px;
   text-align: center;
   text-decoration: none; }
+  .btn.btn-bright, .btn:hover.btn-bright {
+    color: inherit;
+    background-color: #d6d3de; }
+
+.delete {
+  text-decoration: none; }
+  .delete:hover {
+    text-decoration: none; }
+  .delete:before {
+    cursor: pointer;
+    content: "\e608";
+    color: black;
+    font-family: 'icomoon';
+    font-size: 16px;
+    font-weight: normal; }
 
 header {
   background-color: #ffce67;

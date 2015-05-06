@@ -33,19 +33,19 @@
                                         <li>Version ${versionUpload.versionNumber}.0:
                                             <a href="${uploadLink}/${versionUpload.path}">${versionUpload.uploadFile.fileName}</a>
                                             (${versionUpload.date})
-                                            <a href="${workingFormatLink}/${versionUpload.path}" class="btn">working format</a>
-                                            <a href="${solrLink}/${versionUpload.path}" class="btn">solr format</a>
+                                            <a href="${workingFormatLink}/${versionUpload.path}" class="btn btn-bright">working format</a>
+                                            <a href="${solrLink}/${versionUpload.path}" class="btn btn-bright">solr format</a>
                                             <a href="${reprocessLink}/${versionUpload.path}" class="btn">re-process</a>
-                                            <a href="${deleteLink}/${versionUpload.path}" class="btn">delete</a>
+                                            <a href="${deleteLink}/${versionUpload.path}" class="delete" title="delete"></a>
                                             <ul>
                                                 <c:forEach var="updateUpload" items="${versionUpload.entries}">
                                                     <li>Update ${versionUpload.versionNumber}.${updateUpload.updateNumber}:
                                                         <a href="${uploadLink}/${updateUpload.path}">${updateUpload.uploadFile.fileName}</a>
                                                         (${updateUpload.date})
-                                                        <a href="${workingFormatLink}/${updateUpload.path}" class="btn">working format</a>
-                                                        <a href="${solrLink}/${updateUpload.path}" class="btn">solr format</a>
-                                                        <a href="${reprocessLink}/${updateUpload.path}" class="btn">re-process</a>
-                                                        <a href="${deleteLink}/${updateUpload.path}" class="btn">delete</a>
+                                                        <a href="${workingFormatLink}/${updateUpload.path}" class="btn btn-bright">working format</a>
+                                                        <a href="${solrLink}/${updateUpload.path}" class="btn btn-bright">solr format</a>
+                                                        <a href="${reprocessLink}/${updateUpload.path}" class="btn btn-bright">re-process</a>
+                                                        <a href="${deleteLink}/${updateUpload.path}" class="delete" title="delete">delete</a>
                                                     </li>
                                                 </c:forEach>
                                             </ul>
