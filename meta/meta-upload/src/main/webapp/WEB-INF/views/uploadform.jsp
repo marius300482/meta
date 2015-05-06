@@ -4,7 +4,6 @@
 <body>
     <%@include file="menu.jspf" %>
     <div class="main" id="page-upload">
-        <sec:authentication property="principal.username" var="user"/>
         <h1>
             Please upload a file.
             <sec:authorize access="hasAuthority('admin')">

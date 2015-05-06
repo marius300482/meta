@@ -16,6 +16,7 @@
 <spring:url value="/archive" var="archive"/>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<sec:authentication property="principal.username" var="user"/>
 <head>
     <meta charset="utf-8">
     <title>File-Upload Metadaten-Katalog</title>
