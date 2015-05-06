@@ -26,10 +26,11 @@
         </div>
 
         <div id="success" style="display: none;">
-            <h2>Fertig</h2>
+            <h2>Done</h2>
         </div>
+
         <div id="failure" style="display: none;">
-            <h2>Fehler!</h2>
+            <h2>Error!</h2>
             <div id="exception"></div>
         </div>
 
