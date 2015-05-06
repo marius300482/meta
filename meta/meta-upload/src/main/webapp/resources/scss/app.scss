@@ -1,0 +1,16 @@
+// Global variables
+@import 'variables';
+// Global font definition
+@import 'fonts';
+
+// Basic HTML rules
+@import 'base-html';
+// Basic elements, used on various pages
+@import 'base-elements';
+// Page main header with simple and advanced search
+@import 'header';
+// Page main footer
+@import 'footer';
+
+
+@import "page-upload";

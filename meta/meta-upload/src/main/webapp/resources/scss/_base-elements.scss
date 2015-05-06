@@ -1,0 +1,26 @@
+// Main content divs
+.main {
+  margin: 70px 40px;
+}
+
+// Alert and error messages
+.alert, .error {
+  background-color: $color-yellow-4;
+  border: 1px solid $color-blue-5;
+  border-left: 0 none;
+  border-right: 0 none;
+  border-radius: 0;
+  color: inherit;
+}
+
+// Normal button
+.btn, .btn:hover {
+  background-color: $color-blue-button;
+  display: inline-block;
+  border: 0 none;
+  border-radius: 0;
+  color: $color-white;
+  padding: 5px 30px;
+  text-align: center;
+  text-decoration: none;
+}

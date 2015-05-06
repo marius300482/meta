@@ -1,0 +1,62 @@
+header {
+  background-color: $color-yellow-2;
+  position: relative;
+  #slogan {
+    color: #371c04;
+    display: inline-block;
+    float: none;
+    font-family: "Libre Baskerville",serif;
+    font-size: 23px;
+    height: auto;
+    letter-spacing: 2px;
+    line-height: 35px;
+    margin: 20px 0 4px 40px;
+    text-transform: uppercase;
+  }
+  #logo {
+    background: url($theme-path-images + "/logo_ida_blau.png") no-repeat scroll 0 0 $color-white;
+    background-size: cover;
+    box-shadow: $shadow-outer;
+    display: inline-block;
+    height: 95px;
+    width: 342px;
+    position: absolute;
+    right: 30px;
+    top: 0;
+  }
+  #mainMenu {
+    margin-top: 60px;
+    position: relative;
+    #menuTabs, #userStatus {
+      display: inline;
+      li {
+        display: inline-block;
+        font-weight: 700;
+        &.active {
+          background-color: $color-white;
+        }
+        &.divider {
+          border-right: 1px solid $color-blue-1;
+          height: 22px;
+          vertical-align: middle;
+        }
+        &.userName {
+          font-family: "Libre Baskerville",serif;
+          margin-right: 30px;
+        }
+        a {
+          display: inline-block;
+          padding: 15px 30px;
+          text-decoration: none;
+        }
+      }
+    }
+    #menuTabs {
+      margin-left: 20px;
+    }
+    #userStatus {
+      float: right;
+      margin-right: 20px;
+    }
+  }
+}

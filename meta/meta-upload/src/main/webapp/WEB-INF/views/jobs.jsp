@@ -7,31 +7,32 @@
 --%>
 <!DOCTYPE html>
 <html>
-<%@include file="header.jspf" %>
+<%@include file="head.jspf" %>
 <body>
     <%@include file="menu.jspf" %>
-    <h2>Jobs</h2>
-    <ul>
-        <c:forEach var="entry" items="${jobs}">
-            <li>(${entry.value.startTime}) ${entry.value}: ${entry.value.progressState}
-                <c:if test="${entry.value.progressState == 'PROCESSING'}">
-                    <a href="cancel/${entry.key}">Cancel</a>
-                </c:if>
-            </li>
-        </c:forEach>
-    </ul>
-
-    <c:if test="${removedTransformations != null}">
-        <h2>Removed Jobs</h2>
+    <div class="main">
+        <h2>Jobs</h2>
         <ul>
-            <c:forEach var="entry" items="${removedTransformations}">
-                <li>${entry.value}: ${entry.value.progressState}</li>
+            <c:forEach var="entry" items="${jobs}">
+                <li>(${entry.value.startTime}) ${entry.value}: ${entry.value.progressState}
+                    <c:if test="${entry.value.progressState == 'PROCESSING'}">
+                        <a href="cancel/${entry.key}">Cancel</a>
+                    </c:if>
+                </li>
             </c:forEach>
         </ul>
-    </c:if>
 
-    <a href="clear">Clear</a>
+        <c:if test="${removedTransformations != null}">
+            <h2>Removed Jobs</h2>
+            <ul>
+                <c:forEach var="entry" items="${removedTransformations}">
+                    <li>${entry.value}: ${entry.value.progressState}</li>
+                </c:forEach>
+            </ul>
+        </c:if>
 
+        <a href="clear" class="btn">Clear</a>
+    </div>
     <%@include file="footer.jspf" %>
 </body>
 </html>

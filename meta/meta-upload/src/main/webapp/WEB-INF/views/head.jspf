@@ -19,6 +19,7 @@
 <head>
     <meta charset="utf-8">
     <title>Daten-Upload Metadaten-Katalog</title>
+    <link rel="stylesheet" href="/resources/css/metastyles.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
