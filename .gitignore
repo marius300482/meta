@@ -1,6 +1,10 @@
 .directory
 .idea
 atlassian-ide-plugin.xml
+meta/meta-upload/.settings/
+meta/meta-upload/.project
+meta/meta-upload/.classpath
+meta/meta-upload/target/
 meta/vufind/module/VuDL/
 meta/vufind/module/VuFind/
 meta/vufind/module/VuFindAdmin/
