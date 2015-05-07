@@ -481,7 +481,7 @@
           <tr valign="top">
             <td property="description" colspan="2"><? foreach ($listOfContents as $listOfContent): ?>
             <li style="list-style-type: none; diplay:block; margin-bottom:.5em">
-            <?= $this->escapeHtml($listOfContent) ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?></li><? endforeach; ?></td>
+            <?= $this->escapeHtmlAllowBr($listOfContent) ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?></li><? endforeach; ?></td>
         </tr>
     <? endif; ?>
    
