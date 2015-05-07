@@ -63,11 +63,20 @@ class Factory {
     }
 
     /**
-     * Construct new function which distributes array elements to sub-arrays
+     * Construct new helper which distributes array elements to sub-arrays
      *
      * @return DistributeToArrays
      */
     public static function getDistributeToArrays() {
         return new DistributeToArrays();
+    }
+
+    /**
+     * Construct new helper which escapes HTML but leaves <br>s intact
+     *
+     * @return EscapeHtmlAllowBr
+     */
+    public static function getEscapeHtmlAllowBr() {
+        return new EscapeHtmlAllowBr();
     }
 }

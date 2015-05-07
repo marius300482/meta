@@ -650,14 +650,19 @@ Datensätzen ausgelesen, um welche Art von Hochschularbeit es sich handelt-->
 <!--PHYSICAL INFORMATION-->
 
 	<!--physical Seitenangabe-->
-				<xsl:apply-templates select="Seitenzahlen" />
+				<xsl:if test="Seitenzahlen">
+					<physical>
+						<xsl:value-of select="translate(Seitenzahlen, translate(.,'0123456789', ''), '')"/>
+						</physical>
+					</xsl:if>
+				<!--<xsl:apply-templates select="Seitenzahlen" />-->
 
 <!--CONTENTRELATED INFORMATION-->
 
 	<!--language Sprachangaben-->
 				<xsl:choose>
 					<xsl:when test="Sprache[1]"><xsl:apply-templates select="Sprache[1]"/></xsl:when>
-					<xsl:otherwise><language>o. A.</language></xsl:otherwise>
+					<!--<xsl:otherwise><language>o. A.</language></xsl:otherwise>-->
 					</xsl:choose>
 	
 	<!--subjectTopic Deskriptoren-->
@@ -799,7 +804,9 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 					</xsl:choose>
 	<!--publishDate Jahresangabe-->
 				<xsl:choose>
-					<xsl:when test="Jahr[1]"><xsl:apply-templates select="Jahr[1]"/></xsl:when>
+					<xsl:when test="Jahr[1]">
+						<xsl:apply-templates select="Jahr[1]"/>
+						</xsl:when>
 					<xsl:otherwise>
 						<publishDate>
 							<xsl:value-of select="J_[1]"/>
@@ -1046,7 +1053,16 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 <!--PUBLISHING-->
 	
 	<!--displayDate-->
-				<xsl:choose>
+				<displayPublishDate>
+					<xsl:value-of select="J_[1]"/>
+					
+					<xsl:if test="J_[1]!=J_[last()]">
+						<xsl:text> - </xsl:text>
+						<xsl:value-of select="J_[last()]"/>
+						</xsl:if>
+					</displayPublishDate>
+				
+				<!--<xsl:choose>
 					<xsl:when test="J_[2]">
 						<displayPublishDate>
 							<xsl:value-of select="J_[1]"/>
@@ -1059,10 +1075,16 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 							<xsl:value-of select="J_[1]"/>
 							</displayPublishDate>	
 						</xsl:otherwise>
-					</xsl:choose>	
+					</xsl:choose>	-->
 
 	<!--timeSpan Laufzeit / Publishdate-->
-				<xsl:choose>
+				
+				<xsl:if test="J_">
+				<publishDate>
+					<xsl:value-of select="J_[last()]"/>
+					</publishDate>
+					</xsl:if>
+				<!--<xsl:choose>
 					<xsl:when test="J_[2]">
 						<timeSpan>
 							<timeSpanStart>
@@ -1078,7 +1100,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 							<xsl:value-of select="J_[1]"/>
 							</publishDate>
 						</xsl:otherwise>
-					</xsl:choose>	
+					</xsl:choose>	-->
 
 	<!--placeOfPublication Ortsangabe-->						
 				<xsl:apply-templates select="Ort"/>
@@ -1333,7 +1355,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				
 					<xsl:if test="Inhalt-Thema">
 						<title_sub>
-							<xsl:value-of select="Inhalt-Thema"/>
+							<xsl:value-of select="replace(Inhalt-Thema[1],'_','')"/>
 							<!--<xsl:if test="Ausgabe">
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="Ausgabe" />
@@ -1366,9 +1388,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 								</issn>
 							</xsl:when>
 						<xsl:otherwise>
-							<issn>
+							<!--<issn>
 								<xsl:text>o. A.</xsl:text>
-								</issn>
+								</issn>-->
 							</xsl:otherwise>
 						</xsl:choose>
 
@@ -1388,9 +1410,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 								</zdbId>
 							</xsl:when>
 						<xsl:otherwise>
-							<zdbId>
+							<!--<zdbId>
 								<xsl:text>o. A.</xsl:text>
-								</zdbId>
+								</zdbId>-->
 							</xsl:otherwise>
 						</xsl:choose>
 
@@ -1412,9 +1434,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 								</publisher>
 							</xsl:when>
 						<xsl:otherwise>
-							<publisher>
+							<!--<publisher>
 								<xsl:text>o. A.</xsl:text>
-								</publisher>
+								</publisher>-->
 							</xsl:otherwise>
 						</xsl:choose>
 					
@@ -1434,9 +1456,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 								</placeOfPublication>
 							</xsl:when>
 						<xsl:otherwise>
-							<placeOfPublication>
+							<!--<placeOfPublication>
 								<xsl:text>o. A.</xsl:text>
-								</placeOfPublication>
+								</placeOfPublication>-->
 							</xsl:otherwise>
 						</xsl:choose>
 					
@@ -1764,9 +1786,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				
 	<!--placeOfPublication angabe-->
 				<xsl:if test="substring(substring-after($connect,'placeOfPublication:'),1,1)!=':'">
-					<zdbId>
+					<placeOfPublication>
 						<xsl:value-of select="substring-before(substring-after($connect,'placeOfPublication:'),':placeOfPublication')" />
-						</zdbId>
+						</placeOfPublication>
 					</xsl:if>
 
 	<!--publisher Verlagsangabe-->
@@ -2051,9 +2073,11 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		
 	<xsl:template match="ISSN">
 		<xsl:for-each select=".">
+			<xsl:if test="not(contains(.,'o.A.'))">
 			<issn>
 				<xsl:value-of select="normalize-space(.)" />
 				</issn>
+				</xsl:if>
 			</xsl:for-each>
 		</xsl:template>
 

@@ -117,6 +117,7 @@
    <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="institution_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="institutionFull" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="institutionID" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="collection" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="building" type="string" indexed="true" stored="true" multiValued="true"/>
    <!-- Generic Fields -->
@@ -270,6 +271,7 @@
    <field name="blockingYear" type="text" indexed="true" stored="true" multiValued="true" />
    <field name="classification" type="text" indexed="true" stored="true" multiValued="true" />
     <field name="specificMaterialDesignation" type="text" indexed="true" stored="true" multiValued="true" />
+    <field name="collectionHolding" type="string" indexed="true" stored="true" />
     <field name="provenance" type="text" indexed="true" stored="true" multiValued="true" />
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
@@ -313,7 +315,7 @@
  <copyField source="fulltext" dest="fulltext_unstemmed"/>
 <copyField source="topic"	dest="topic_facet"/>
 <copyField source="subjectGeographic" dest="topic_facet"/>
-<copyField source="subjectPerson" dest="topic_facet"/>
+<!--<copyField source="subjectPerson" dest="topic_facet"/>-->
 <copyField source="typeOfRessource"	dest="typeOfRessource_facet"/>
 <copyField source="subjectPerson" dest="contributor_facet"/>
 <copyField source="author" dest="contributor_facet"/>

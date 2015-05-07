@@ -1,44 +1,37 @@
-<%@include file="header.jspf" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Welcome</title>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-</head>
+<%@include file="head.jspf" %>
 <body>
-<sec:authentication property="principal.username" var="user"/>
-<h1>Hello ${user}!</h1>
-
-<h2>Please upload a file!</h2>
-
-<form:form method="post" action="upload" enctype="multipart/form-data" modelAttribute="transformation">
-
-    File to upload:
-    <form:input path="file" type="file" name="file"/><br/>
-
-    <div style="display: none;">
-    <sec:authorize access="hasAuthority('admin')">
-        </div>
-        You are admin!
-        <div>
-    </sec:authorize>
-    <br/>
-    <form:label path="solr">Solr Core</form:label>
-    <form:select path="solr" items="${solrServices}"/>
-    <br/>
-    <form:label path="institution">Library/Archive</form:label>
-    <form:select path="institution" items="${institutions}"/>
-    <br/>
+    <%@include file="menu.jspf" %>
+    <div class="main" id="page-upload">
+        <h1>
+            Please upload a file.
+            <sec:authorize access="hasAuthority('admin')">
+                You are admin!
+            </sec:authorize>
+        </h1>
+        <br />
+        <form:form method="post" action="upload" enctype="multipart/form-data" modelAttribute="transformation">
+            <form:label path="file">File to upload</form:label>
+            <form:input path="file" type="file" name="file"/><br/>
+            <br />
+            <div style="display: none;"><sec:authorize access="hasAuthority('admin')"></div><div></sec:authorize>
+                <form:label path="solr">Solr Core</form:label>
+                <form:select path="solr" items="${solrServices}"/><br />
+                <br/>
+                <form:label path="institution">Library/Archive</form:label>
+                <form:select path="institution" items="${institutions}"/><br />
+                <br/>
+            </div>
+            <c:if test="${allowIncremental}">
+                <form:checkbox path="incremental" value="${incrementalDefault}" label="Incremental update"/>
+                <span class="infoBubble" title="An incremental update is one that provides the changes since the last incremental update.">i</span><br />
+                <br/>
+            </c:if>
+            <input type="submit" value="Upload" class="btn" />
+            <label class="buttonDescription">Click the button to upload the file!</label>
+        </form:form>
     </div>
-    <c:if test="${allowIncremental}">
-        <form:checkbox path="incremental" value="${incrementalDefault}" label="Inkrementelles Update"/>
-        <br/>
-    </c:if>
-
-    <input type="submit" value="Upload"/>
-    Click button to upload the file!
-</form:form>
-<%@include file="footer.jspf" %>
+    <%@include file="footer.jspf" %>
 </body>
 </html>

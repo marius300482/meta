@@ -22,10 +22,35 @@
   font-weight: normal;
 }
 
+.search-result-restriction-info {
+  margin: 10px 0 -8px 0;
+  .info {
+    background-color: $color-blue-4;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    font-style: italic;
+    font-family: serif;
+    font-weight: bold;
+    text-align: center;
+    width: 18px;
+  }
+}
+
 .search-result-used-filters {
   margin: 10px 0 40px;
   @media (max-width: $device-xs-max-width) {
     margin-bottom: 10px;
+  }
+  a {
+    margin-left: 5px;
+    color : $color-purple;
+  }
+  td {
+    vertical-align: top;
+    &:first-child {
+      padding-right: 5px;
+    }
   }
 }
 

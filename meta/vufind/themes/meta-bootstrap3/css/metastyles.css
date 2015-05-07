@@ -587,11 +587,31 @@ footer {
   font-size: 20px;
   font-weight: normal; }
 
+.search-result-restriction-info {
+  margin: 10px 0 -8px 0; }
+  .search-result-restriction-info .info {
+    background-color: #e6e5eb;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    font-style: italic;
+    font-family: serif;
+    font-weight: bold;
+    text-align: center;
+    width: 18px; }
+
 .search-result-used-filters {
   margin: 10px 0 40px; }
   @media (max-width: 768px) {
     .search-result-used-filters {
       margin-bottom: 10px; } }
+  .search-result-used-filters a {
+    margin-left: 5px;
+    color: #990099; }
+  .search-result-used-filters td {
+    vertical-align: top; }
+    .search-result-used-filters td:first-child {
+      padding-right: 5px; }
 
 .goToFacetsWrapper {
   padding: 0 15px; }

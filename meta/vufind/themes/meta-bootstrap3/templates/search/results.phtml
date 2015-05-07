@@ -45,6 +45,9 @@
   $extraFilters = isset($this->extraSideFacetFilters) ? $this->extraSideFacetFilters : array();
   $filterList = array_merge($this->results->getParams()->getFilterList(true), $extraFilters);
 
+  // Topic facet key
+  $topicFacetKey = 'topic_facet';
+
 ?>
 
 <div class="spellingSuggestions">
@@ -63,7 +66,8 @@
     <div class="search-result-count">
       <? if ($recordTotal > 0): ?>
         <?=$this->transEsc("Showing")?>
-          <?=number_format($this->results->getStartRecord())?> - <?=number_format($this->results->getEndRecord())?>
+          <?=number_format($this->results->getStartRecord(), 0, ',', '.')?> -
+          <?=number_format($this->results->getEndRecord(), 0, ',', '.')?>
         <? if (!isset($this->skipTotalCount)): ?>
             <?=$this->transEsc('of')?> <?=number_format($recordTotal, 0, ',', '.')?>
         <? endif; ?>
@@ -86,20 +90,44 @@
       <? endif; ?>
 
     </div>
-    <div class="search-result-used-filters ">
-      <? foreach ($filterList as $field => $filters): ?>
-        <?=$this->transEsc($field)?>:
+    <? foreach ($filterList as $field => $filters): ?>
         <? foreach ($filters as $i => $filter): ?>
-          <? if ($filter['displayText'] == '[* TO *]') : ?>
-            <? $filter['displayText'] = $this->translate('filter_wildcard'); ?>
-          <? endif; ?>
-          <strong>
-            <?=$this->escapeHtml($filter['displayText'])?><?= $filter !== end($filters) ? ", " : "" ?>
-            <? // Keep above in one line to avoid unwanted whitespace ?>
-          </strong>
-        <? endforeach; ?>
-        <br />
-      <? endforeach; ?>
+            <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
+                <div class="search-result-restriction-info">
+                    <?= $this->transEsc('Restricted by') ?>
+                    <span class="info" title="<?= $this->escapeHtmlAttr($this->transEsc('SearchResultRestrictionInfoText'));?>">i</span>
+                </div>
+                <?php break 2; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    <div class="search-result-used-filters">
+          <table>
+              <? foreach ($filterList as $field => $filters): ?>
+                  <tr>
+                      <td><?= $this->transEsc($field) ?>:</td>
+                      <td>
+                          <? foreach ($filters as $i => $filter): ?>
+                              <? if ($filter['displayText'] == '[* TO *]') : ?>
+                                  <? $filter['displayText'] = $this->translate('filter_wildcard'); ?>
+                              <? endif; ?>
+                              <strong>
+                                  <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
+                                      <?= $this->escapeHtml($filter['displayText']) ?>
+                                      <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
+                                          <?= $this->transEsc('open search') ?>
+                                      </a>
+                                      <br/>
+                                  <?php else: ?>
+                                      <?= $this->escapeHtml($filter['displayText']) ?><?= $filter !== end($filters) ? ", " : "" ?>
+                                      <? // Keep above in one line to avoid unwanted whitespace ?>
+                                  <?php endif; ?>
+                              </strong>
+                          <? endforeach; ?>
+                      </td>
+                  </tr>
+              <? endforeach; ?>
+          </table>
     </div>
   </div>
 
@@ -109,9 +137,6 @@
         <?=$this->transEsc('Narrow Search')?>
       </a>
     </div>
-  <? endif; ?>
-
-  <? if ($recordTotal > 0): ?>
     <div class="col-sm-4 text-right result-sort-options">
       <?=$this->render('search/controls/limit.phtml')?>
       <?=$this->render('search/controls/sort.phtml')?>
@@ -172,46 +197,20 @@
 </div>
 <? /* End Main Listing */ ?>
 
-<? /* Narrow Search Options */ ?>
+<? /* Side facets */ ?>
 <div id="facets" class="sidebar col-sm-4 hidden-print">
   <? foreach ($this->results->getRecommendations('side') as $current): ?>
     <?=$this->recommend($current)?>
   <? endforeach; ?>
 </div>
-<? /* End Narrow Search Options */ ?>
 
 <?php /* PHE duplicate pagination required. One for mobile view (above facets) and this one for the desktop view. */ ?>
 <div class="col-sm-12 row hidden-xs pagination-ld">
   <?=$this->paginationControl($paginator, 'Sliding', 'search/pagination.phtml', array('results' => $this->results))?>
 </div>
 
-<?php
-    /* PHE: THE following script blog is little hackish but it makes thinks much easier.
-    The info box is already loaded at this time and might also be shown on pages where
-    the variables of a search are not available. */
-?>
-<script type="text/javascript">
-$(function() {
-    // Advanced search
-    <?php $query = $this->params->getQuery(); ?>
-    <?php if ($query instanceof VuFindSearch\Query\QueryGroup) : ?>
-        // Remove empty standard group
-        $("#group0").remove();
-        nextGroup = 0;
-        // Write new groups from the search query
-        <? foreach ($query->getQueries() as $searchGroup): ?>
-            <? $i = 0; foreach ($searchGroup->getQueries() as $search): ?>
-                <? if (++$i == 1): ?>
-                    var new_group = addGroup('<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>', '<?=$searchGroup->isNegated() ? 'NOT' : $searchGroup->getOperator()?>');
-                <? else: ?>
-                    addSearch(new_group, '<?=addslashes($search->getString())?>', '<?=addslashes($search->getHandler())?>');
-                <? endif; ?>
-            <? endforeach; ?>
-        <? endforeach; ?>
-    <?php else : ?>
-        // Set simple search string
-        $("#searchForm_lookfor").val("<?=str_replace('"', '\"', $lookfor); ?>");
-    <?php endif; ?>
-});
-</script>
-
+<? /* Populate search */ ?>
+<?php echo $this->partial(
+    'search/setUpSearchFields.phtml',
+    array('query' => $this->params->getQuery(), 'lookFor' => $lookfor)
+); ?>

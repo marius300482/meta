@@ -30,14 +30,15 @@ $config = array(
             'Ida\RecordDriver\SolrIDA' => array(
                 'tabs' => array (
                     //'Holdings' => 'HoldingsILS',
-                    'TOC' => 'TOC',
+                    //'TOC' => 'TOC',
                     //'UserComments' => 'UserComments',
-                    'Reviews' => 'Reviews',
-                    'Excerpt' => 'Excerpt',
-                    'HierarchyTree' => 'HierarchyTree',
-                    'Map' => 'Map',
-                    //'Details' => 'StaffViewArray',
+                    //'Reviews' => 'Reviews',
+                    //'Excerpt' => 'Excerpt',
                     'Description' => 'Description',
+                    //'Details' => 'StaffViewArray',
+                    'HierarchyTree' => 'HierarchyTree',
+                    //'Map' => 'Map', // <-- This is NOT the institution
+                    // The INSTITUTION is not tab, but part of the record/view.phtml template.
                 ),
                 'defaultTab' => null,
             ),
@@ -113,7 +114,8 @@ $config = array(
         'factories' => array(
             'piwikanalytics' => array('Ida\View\Helper\Factory', 'getPiwikAnalytics'),
             'facetEntryTranslation' => array('Ida\View\Helper\Factory', 'getFacetEntryTranslation'),
-            'distributeToArrays' => array('Ida\View\Helper\Factory', 'getDistributeToArrays')
+            'distributeToArrays' => array('Ida\View\Helper\Factory', 'getDistributeToArrays'),
+            'escapeHtmlAllowBr' => array('Ida\View\Helper\Factory', 'getEscapeHtmlAllowBr')
         ),
     ),
 );
