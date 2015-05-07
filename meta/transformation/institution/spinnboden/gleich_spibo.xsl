@@ -100,7 +100,7 @@
 <!--CONTENTRELATED INFORMATION-->
 			
 			<!--language Sprachangaben-->
-					<xsl:apply-templates select="Sprache[string-length() != 0]" />
+					<!--<xsl:apply-templates select="Sprache[string-length() != 0]" />-->
 				
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptoren[string-length() != 0]" />
@@ -385,7 +385,13 @@
 <!--PHYSICAL INFORMATION-->
 		
 			<!--physical Seitenangabe-->
-					<xsl:apply-templates select="Umfang[1][string-length() != 0]" />
+				<xsl:if test="Umfang[string-length() != 0]">
+					<physical>
+						<xsl:value-of select="translate(Umfang[1], translate(.,'0123456789', ''), '')"/>
+						</physical>
+					</xsl:if>
+				
+				<!--<xsl:apply-templates select="Umfang[string-length() != 0]" />-->
 
 <!--CONTENTRELATED INFORMATION-->
 		
@@ -408,6 +414,7 @@
 					<xsl:apply-templates select="Jahrgang[string-length() != 0]" />
 			
 			<!--sourfo-->
+					<xsl:if test="s_x046x__x032x_ST[string-length() != 0]">
 					<sourceInfo>
 						<xsl:value-of select="//Objekt[id=$relatedID]/Sammeltitel_x032x_-Zs" />
 						<!--<xsl:text> </xsl:text>
@@ -425,13 +432,16 @@
 							<xsl:value-of select="Heftnummer_x032x_-Z" />
 							</xsl:if>-->
 						</sourceInfo>
+						</xsl:if>	
 					
 			
 						</xsl:element><!--closing tag dataset-->
 
 <!--FUNCTIONS-->	
 	
-					<xsl:apply-templates select="s_x046x__x032x_ST[string-length() != 0]" />		
+					<xsl:if test="s_x046x__x032x_ST[string-length() != 0]">
+					<xsl:apply-templates select="s_x046x__x032x_ST[string-length() != 0]" />	
+					</xsl:if>	
 						
 				
 					</xsl:element><!--closing tag record-->
@@ -588,7 +598,7 @@
 <!--CONTENTRELATED INFORMATION-->
 		
 			<!--language Sprachangaben-->
-					<xsl:apply-templates select="Sprache[string-length() != 0]" />
+					<!--<xsl:apply-templates select="Sprache[string-length() != 0]" />-->
 			
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptoren[string-length() != 0]" />
@@ -694,7 +704,7 @@
 <!--CONTENTRELATED INFORMATION-->
 			
 			<!--language Sprachangaben-->
-					<xsl:apply-templates select="Sprache[string-length() != 0]" />
+					<!--<xsl:apply-templates select="Sprache[string-length() != 0]" />-->
 				
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptor_x032x__[string-length() != 0]" />
@@ -805,7 +815,7 @@
 <!--CONTENTRELATED INFORMATION-->
 			
 			<!--language Sprachangaben-->
-					<xsl:apply-templates select="Sprache[string-length() != 0]" />
+					<!--<xsl:apply-templates select="Sprache[string-length() != 0]" />-->
 				
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptor_x032x__[string-length() != 0]" />
@@ -925,7 +935,7 @@
 <!--CONTENTRELATED INFORMATION-->
 			
 			<!--language Sprachangaben-->
-					<xsl:apply-templates select="Sprache[string-length() != 0]" />
+					<!--<xsl:apply-templates select="Sprache[string-length() != 0]" />-->
 				
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptor_x032x__[string-length() != 0]" />
@@ -1054,7 +1064,7 @@
 <!--CONTENTRELATED INFORMATION-->
 			
 			<!--language Sprachangaben-->
-					<xsl:apply-templates select="Sprache[string-length() != 0]" />
+					<!--<xsl:apply-templates select="Sprache[string-length() != 0]" />-->
 				
 			<!--subjectTopic Deskriptoren-->
 					<xsl:apply-templates select="Deskriptoren[string-length() != 0]" />
@@ -1393,7 +1403,8 @@
 			
 			<xsl:template match="Annotation[1]">
 				<description>
-					<xsl:value-of select="." />
+					<xsl:value-of select="normalize-space(replace(.,'&lt;NZ&gt;','&lt;br&gt;'))"/>
+					<!--<xsl:value-of select="." />-->
 					</description>
 				</xsl:template>
 			
