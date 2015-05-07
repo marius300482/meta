@@ -11,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -33,10 +31,10 @@ public class ArchiveController
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView list(ModelAndView mav) throws IOException
+    public ModelAndView list(ModelAndView mav) throws ArchiveException
     {
         mav.setViewName("archiveList");
-        mav.addObject("coreList", archiveService.getCores());
+        mav.addObject("coreList", archiveService.getArchivedCores());
         mav.addObject("solrSet", solrServiceSet);
         return mav;
     }
@@ -46,7 +44,7 @@ public class ArchiveController
             @PathVariable("core") String coreName,
             @PathVariable("institution") String institutionName,
             @PathVariable("version") String versionId,
-            ModelMap map) throws FileNotFoundException
+            ModelMap map) 
     {
         archiveService.deleteVersion(coreName, institutionName, versionId);
         return "redirect:/archive";
@@ -58,7 +56,7 @@ public class ArchiveController
             @PathVariable("institution") String institutionName,
             @PathVariable("version") String versionId,
             @PathVariable("update") String updateId,
-            ModelMap map) throws FileNotFoundException
+            ModelMap map) 
     {
         archiveService.deleteUpdate(coreName, institutionName, versionId, updateId);
         return "redirect:/archive";

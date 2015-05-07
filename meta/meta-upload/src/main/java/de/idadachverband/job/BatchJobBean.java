@@ -3,16 +3,13 @@ package de.idadachverband.job;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@EqualsAndHashCode(callSuper=true)
-@Data
+@Getter
 public class BatchJobBean extends JobBean
 {
-    private final String info;
-    
     private final List<JobBean> childJobBeans = new ArrayList<>();
+   
     
     public void addChildJob(JobBean jobBean) 
     {
@@ -27,10 +24,4 @@ public class BatchJobBean extends JobBean
             jobBean.buildResultMessage(sb);
         }
     } 
-    
-    @Override
-    public String toString()
-    {
-        return info;
-    }
 }

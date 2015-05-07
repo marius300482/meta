@@ -8,8 +8,7 @@ import de.idadachverband.archive.ProcessFileConfiguration;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.job.JobCallable;
 import de.idadachverband.job.JobExecutionService;
-import de.idadachverband.solr.IndexRequestBean;
-import de.idadachverband.solr.SolrReindexService;
+import de.idadachverband.solr.SolrUpdateService;
 import de.idadachverband.solr.SolrService;
 import de.idadachverband.transform.IdaTransformer;
 import de.idadachverband.transform.TransformationBean;
@@ -43,7 +42,7 @@ public class ProcessService
     
     final private ArchiveService archiveService;
 
-    final private SolrReindexService solrReindexService;
+    final private SolrUpdateService solrUpdateService;
 
 
     @Inject
@@ -52,22 +51,24 @@ public class ProcessService
                                IdaInputArchiver idaInputArchiver,
                                ProcessFileConfiguration processFileConfiguration,
                                ArchiveService archiveService,
-                               SolrReindexService solrReindexService,
+                               SolrUpdateService solrUpdateService,
                                JobExecutionService jobExecutionService)
     {
         this.idaInputArchiver = idaInputArchiver;
         this.workingFormatTransformer = workingFormatTransformer;
         this.processFileConfiguration = processFileConfiguration;
         this.archiveService = archiveService;
-        this.solrReindexService = solrReindexService;
+        this.solrUpdateService = solrUpdateService;
         this.jobExecutionService = jobExecutionService;
     }
 
     public ProcessJobBean processAsync(final Path input, final IdaInstitutionBean institution, final SolrService solr, String originalFileName, boolean incrementalUpdate) throws IOException
     {
-        log.info("Start processing of: {} for institution: {} on Solr core: {}", originalFileName, institution.getInstitutionName(), solr.getName());
-        final ProcessJobBean processJobBean = 
-                new ProcessJobBean(solr, institution, input, originalFileName, incrementalUpdate);
+        log.info("Start processing of: {} for institution: {} on Solr core: {}", originalFileName, institution, solr);
+        final ProcessJobBean processJobBean = new ProcessJobBean(
+                new TransformationBean(solr, institution, input, incrementalUpdate));
+        processJobBean.setJobName(String.format("Process upload: %s, %s", 
+                originalFileName, institution));
         
         jobExecutionService.executeAsynchronous(processJobBean, new JobCallable<ProcessJobBean>()
         {
@@ -98,7 +99,7 @@ public class ProcessService
         {
             transform(transformationBean);
             
-            updateSolr(transformationBean);
+            solrUpdateService.updateSolr(transformationBean, true);
 
             archiveService.archive(transformationBean);
             
@@ -159,38 +160,6 @@ public class ProcessService
         final long end = System.currentTimeMillis();
         log.info("Transformation of: {} for: {} to Solr format took: {} seconds", inputFile, institution, (end - start) / 1000);
         return solrFormatFile;
-    }
-
-    public void updateSolr(IndexRequestBean indexRequestBean) throws IOException, SolrServerException, ArchiveException
-    {
-        final SolrService solr = indexRequestBean.getSolrService();
-        final IdaInstitutionBean institution = indexRequestBean.getInstitution();
-        final Path inputFile = indexRequestBean.getSolrInput();
-        log.info("Start Solr update of core: {} for: {} with file: {}", solr, institution, inputFile);
-        final long start = System.currentTimeMillis();
-        
-        if (!indexRequestBean.isIncrementalUpdate())
-        {
-            solr.deleteInstitution(institution.getInstitutionName());
-        }
-
-        String solrResult = "";
-        try
-        {
-            solrResult = solr.update(inputFile);
-        } catch (IOException | SolrServerException e)
-        {
-            log.warn("Update of solr {} failed for institution {}. Start rollback", solr, institution);
-            final String result = solrReindexService.reindexInstitution(solr, institution);
-            log.info("Result of reindexing is: {}", result);
-            throw e;
-        }
-        indexRequestBean.setSolrResponse(solrResult);
-
-        final long end = System.currentTimeMillis();
-        log.info("Solr update of core: {} for: {} with file: {} took: {} seconds.", solr, institution, inputFile, (end - start) / 1000);
-
-        log.debug("Solr result {}", solrResult);
     }
     
     public void deleteProcessingFolder(String key)

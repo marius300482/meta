@@ -18,6 +18,8 @@ import java.nio.file.Path;
 @Slf4j
 public class SolrService
 {
+    private static final String INSTITUTION_ID = "institutionID";
+    
     private final SolrServer server;
 
     @Getter
@@ -55,18 +57,18 @@ public class SolrService
     /**
      * Deletes all documents of an institution.
      *
-     * @param institution Name of institution
+     * @param institutionId Name of institution
      * @return Response from Solr.
      * @throws IOException
      * @throws SolrServerException
      */
-    public String deleteInstitution(String institution) throws IOException, SolrServerException
+    public String deleteInstitution(String institutionId) throws IOException, SolrServerException
     {
-        log.info("Delete all documents on core {} for institution {}", name, institution);
-        final UpdateResponse deletionResponse = server.deleteByQuery("institution:" + institution);
+        log.info("Delete all documents on core {} for institution {}", name, institutionId);
+        final UpdateResponse deletionResponse = server.deleteByQuery(INSTITUTION_ID + ":" + institutionId);
         final UpdateResponse commitResponse = server.commit();
         final String response = deletionResponse.getResponse() + ", " + commitResponse.getResponse();
-        log.info("Result of deleting all documents on core {} for institution {}: {}", name, institution, response);
+        log.info("Result of deleting all documents on core {} for institution {}: {}", name, institutionId, response);
         return response;
     }
 

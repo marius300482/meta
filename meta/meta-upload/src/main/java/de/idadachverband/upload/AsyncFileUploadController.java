@@ -26,7 +26,9 @@ import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -42,7 +44,7 @@ public class AsyncFileUploadController
     private IdaInstitutionConverter idaInstitutionConverter;
 
     @Inject
-    private Set<IdaInstitutionBean> institutionsSet;
+    private Map<String, IdaInstitutionBean> institutionsMap;
 
     @Inject
     private Set<SolrService> solrServiceSet;
@@ -66,15 +68,15 @@ public class AsyncFileUploadController
 
         if ("admin".equals(authority.getAuthority()))
         {
-            mav.addObject("institutions", institutionsSet);
+            mav.addObject("institutions", institutionsMap);
             mav.addObject("solrServices", solrServiceSet);
             mav.addObject("allowIncremental", true);
             mav.addObject("incrementalDefault", true);
         } else
         {
-            Set<IdaInstitutionBean> idaInstitutions = new HashSet<>(1);
+            Map<String, IdaInstitutionBean> idaInstitutions = new HashMap<>(1);
             IdaInstitutionBean idaInstitutionBean = idaInstitutionConverter.convert(authority.getAuthority());
-            idaInstitutions.add(idaInstitutionBean);
+            idaInstitutions.put(idaInstitutionBean.getInstitutionId(), idaInstitutionBean);
             mav.addObject("institutions", idaInstitutions);
             Set<SolrService> solrServices = new HashSet<>(1);
             solrServices.add(defaultSolrUpdater);
@@ -114,7 +116,7 @@ public class AsyncFileUploadController
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
                     SolrService solr = uploadFormBean.getSolr();
 
-                    tmpPath = moveToTempFile(file, institution.getInstitutionName());
+                    tmpPath = moveToTempFile(file, institution.getInstitutionId());
 
                     ProcessJobBean jobBean = 
                             processService.processAsync(tmpPath, institution, solr, file.getOriginalFilename(), uploadFormBean.isIncremental());

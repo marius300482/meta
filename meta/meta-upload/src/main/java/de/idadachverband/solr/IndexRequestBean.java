@@ -32,7 +32,12 @@ public class IndexRequestBean
         return solrService.getName();
     }
     
-    public String getInstitutionName() 
+    public String getInstitutionId() 
+    {
+        return institution.getInstitutionId();
+    }
+    
+    public String getInstitutionName()
     {
         return institution.getInstitutionName();
     }

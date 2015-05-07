@@ -25,7 +25,7 @@
                     <a href="${reprocessLink}/${core.path}" class="btn">re-process latest</a>
                     <ul>
                         <c:forEach var="institution" items="${core.entries}">
-                            <li>Institution: ${institution}
+                            <li>Institution: ${institution.institutionName}
                                 <a href="${reindexLink}/${institution.path}" class="btn">re-index latest</a>
                                 <a href="${reprocessLink}/${institution.path}" class="btn">re-process latest</a>
                                 <ul>
@@ -36,7 +36,7 @@
                                             <a href="${workingFormatLink}/${versionUpload.path}" class="btn btn-bright">working format</a>
                                             <a href="${solrLink}/${versionUpload.path}" class="btn btn-bright">solr format</a>
                                             <a href="${reprocessLink}/${versionUpload.path}" class="btn">re-process</a>
-                                            <a href="${deleteLink}/${versionUpload.path}" class="delete" title="delete"></a>
+                                            <a href="${deleteLink}/${versionUpload.path}" class="delete" title="delete">delete</a>
                                             <ul>
                                                 <c:forEach var="updateUpload" items="${versionUpload.entries}">
                                                     <li>Update ${versionUpload.versionNumber}.${updateUpload.updateNumber}:

@@ -4,7 +4,6 @@ package de.idadachverband.job;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.job.JobProgressService;
 import de.idadachverband.job.JobProgressState;
-import de.idadachverband.process.ProcessJobBean;
 import de.idadachverband.solr.SolrService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -27,7 +26,7 @@ public class JobProgressServiceTest
     @Mock
     private IdaInstitutionBean institutionBean;
     
-    private ProcessJobBean jobBean = new ProcessJobBean(solrService, institutionBean, null, "", false);
+    private JobBean jobBean = new JobBean();
     private JobProgressService cut = new JobProgressService();
     @Mock
     private Future<File> future;

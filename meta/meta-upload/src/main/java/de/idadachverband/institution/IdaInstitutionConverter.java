@@ -4,28 +4,27 @@ import org.springframework.core.convert.converter.Converter;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.Set;
+
+import java.util.Map;
 
 /**
- * Provides {@link IdaInstitutionBean} from institutionName of institution
+ * Provides {@link IdaInstitutionBean} from institutionId of institution
  * Created by boehm on 23.09.14.
  */
 @Named
 public class IdaInstitutionConverter implements Converter<String, IdaInstitutionBean>
 {
     @Inject
-    private Set<IdaInstitutionBean> institutionSet;
-
+    private Map<String, IdaInstitutionBean> institutionsMap;
+    
     @Override
-    public IdaInstitutionBean convert(String name)
+    public IdaInstitutionBean convert(String id)
     {
-        for (IdaInstitutionBean institution : institutionSet)
+        IdaInstitutionBean bean = institutionsMap.get(id);
+        if (bean == null)
         {
-            if (institution.getInstitutionName().equals(name))
-            {
-                return institution;
-            }
+            throw new IllegalArgumentException("Did not find institution with institutionId " + id);
         }
-        throw new IllegalArgumentException("Did not find institution with institutionName " + name);
+        return bean;
     }
 }

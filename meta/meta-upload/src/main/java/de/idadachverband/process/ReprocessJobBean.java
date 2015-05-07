@@ -1,53 +1,29 @@
 package de.idadachverband.process;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import de.idadachverband.institution.IdaInstitutionBean;
-import de.idadachverband.solr.SolrService;
+import lombok.Getter;
+import lombok.NonNull;
+import de.idadachverband.job.JobBean;
 import de.idadachverband.transform.TransformationBean;
 
-@EqualsAndHashCode(callSuper=true)
-@Data
-public class ReprocessJobBean extends ProcessJobBean
+@Getter
+public class ReprocessJobBean extends JobBean
 {
-    private final List<TransformationBean> transformations = new ArrayList<>();
+    private final List<TransformationBean> transformations;
     
-    private final int versionNumber;
-    
-    private int upToUpdateNumber;
+    private final String versionString;
     
     public ReprocessJobBean(
-            SolrService solrService, 
-            IdaInstitutionBean institution, 
-            Path transformationInput,
-            int version)
+            @NonNull List<TransformationBean> transformations,
+            String versionString)
     {
-        super(solrService, institution, transformationInput, "", false);
-        this.transformations.add(transformation);
-        this.versionNumber = version;
-        this.upToUpdateNumber = 0;
-    }
-    
-    public TransformationBean addIncrementalTransformation(Path incrementalInput, int updateNumber)
-    {
-        TransformationBean incrementalTransformation = 
-                new TransformationBean(transformation.getSolrService(), transformation.getInstitution(), 
-                        incrementalInput, true);
-        this.transformations.add(incrementalTransformation);
-        this.upToUpdateNumber = updateNumber;
-        return incrementalTransformation;
+        this.transformations = transformations;
+        this.versionString = versionString;
+        setJobName(String.format("Re-process archived upload: %s, %s", 
+                transformations.get(0).getInstitutionName(), versionString));
     }
 
-    @Override
-    public String toString()
-    {
-        return String.format("Re-process archived upload: %s, %d.%d", getTransformation().getInstitutionName(), versionNumber, upToUpdateNumber);
-    }
-    
     @Override
     public void buildResultMessage(StringBuilder sb)
     {
@@ -55,11 +31,6 @@ public class ReprocessJobBean extends ProcessJobBean
         {
             transformationBean.buildResultMessage(sb);
         }
-    } 
-    
-    public String getVersion()
-    {
-        return String.format("%d.%d", versionNumber, upToUpdateNumber);
     }
     
 }

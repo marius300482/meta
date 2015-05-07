@@ -50,25 +50,28 @@ public class Directories
             }
         }
         log.error("Directory {} contains no files", dir);
-        throw new FileNotFoundException();
+        throw new FileNotFoundException(dir + " is empty");
     }
     
     public static List<String> listDirectoryNames(Path dir)
     {
         List<String> pathList = new ArrayList<>();
-        try (final DirectoryStream<Path> paths = Files.newDirectoryStream(dir))
-        {
-            for (Path path : paths)
+        if (Files.exists(dir)) {
+            try (final DirectoryStream<Path> paths = Files.newDirectoryStream(dir))
             {
-                if (Files.isDirectory(path))
+                for (Path path : paths)
                 {
-                    pathList.add(path.getFileName().toString());
+                    if (Files.isDirectory(path))
+                    {
+                        pathList.add(path.getFileName().toString());
+                    }
                 }
+            } catch (IOException e)
+            {
+                log.warn("Error while listing {}", dir, e);
             }
-        } catch (IOException e)
-        {
-            log.warn("Error while listing {}", dir, e);
         }
+       
         return pathList;
     }
     
