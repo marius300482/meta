@@ -614,8 +614,9 @@
 						<!--<xsl:for-each select="Inhaltsverzeichnis_x058x_[1]">-->
 		
 							<listOfContents>
-								<xsl:value-of select="normalize-space(.)"/>
-							</listOfContents>
+								<xsl:value-of select="normalize-space(replace(.,'&lt;p/&gt;','&lt;br/&gt;'))"/>
+								<!--<xsl:value-of select="normalize-space(Inhaltsverzeichnis_x058x_)"/>-->
+								</listOfContents>
 						
 					</xsl:if>
 
