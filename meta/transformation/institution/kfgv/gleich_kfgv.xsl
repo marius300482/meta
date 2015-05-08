@@ -89,6 +89,10 @@
 							<xsl:text>Kölner Frauengeschichtsverein e.V.</xsl:text>
 							</institutionFull>
 			
+						<institutionFull>
+							<xsl:text>kfgv</xsl:text>
+							</institutionFull>
+			
 <!--collection-->				<collection><xsl:text>kfgv</xsl:text></collection>
 	
 <!--isil-->					<isil><xsl:text>DE-Kn189</xsl:text></isil>
