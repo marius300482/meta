@@ -57,7 +57,7 @@ public class ResultStateController
                 TransformationBean transformationBean = ((ProcessJobBean) jobBean).getTransformation();
                 Path path = Paths.get(
                         transformationBean.getCoreName(), 
-                        transformationBean.getInstitutionName(), 
+                        transformationBean.getInstitutionId(), 
                         transformationBean.getArchivedVersionId(), 
                         transformationBean.getArchivedUpdateId());
                 result.add("path", path.toString());

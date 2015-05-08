@@ -22,19 +22,4 @@ public class ArchiveUpdateBean extends AbstractArchiveBean<ArchiveVersionBean, A
     {
         super(updateId, parent);
     }  
-    
-    public String getCoreName()
-    {
-        return parent.getCoreName();
-    }
-    
-    public String getInstitutionName()
-    {
-        return parent.getInstitutionName();
-    }
-    
-    public String getVersionId()
-    {
-        return parent.name;
-    }
 }

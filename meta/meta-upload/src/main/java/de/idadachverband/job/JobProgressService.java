@@ -1,15 +1,12 @@
 package de.idadachverband.job;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Named;
 
-import de.idadachverband.process.ProcessJobBean;
 import de.idadachverband.transform.TransformedFileException;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

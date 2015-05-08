@@ -13,9 +13,14 @@ import java.nio.file.Paths;
 @Data
 public class IdaInstitutionBean
 {
-
     /**
-     * The name of the institution. No special characters or white spaces should be used.
+     * The ID of the institution referencing the <institutionID> field in Solr.
+     * No special characters or white spaces should be used.
+     */
+    private final String institutionId;
+    
+    /**
+     * The name of the institution. 
      */
     private String institutionName;
     /**
@@ -36,8 +41,9 @@ public class IdaInstitutionBean
     private boolean incrementalUpdate = true;
 
     
-    public IdaInstitutionBean(String institutionName, String transformationRecipeFile, IdaTransformer transformationStrategy)
+    public IdaInstitutionBean(String institutionId, String institutionName, String transformationRecipeFile, IdaTransformer transformationStrategy)
     {
+        this.institutionId = institutionId;
         this.institutionName = institutionName;
         this.transformationRecipeFile = Paths.get(transformationRecipeFile);
         this.transformationStrategy = transformationStrategy;

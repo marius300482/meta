@@ -41,7 +41,7 @@ public class ArchiveVersionBean extends AbstractArchiveBean<ArchiveInstitutionBe
         {
             for (ArchiveUpdateBean update : entries) {
                 updates.add(update);
-                if (update.getName().equals(updateId))
+                if (update.getId().equals(updateId))
                 {
                     //stop here
                     break;
@@ -56,8 +56,8 @@ public class ArchiveVersionBean extends AbstractArchiveBean<ArchiveInstitutionBe
         return parent.getCoreName();
     }
     
-    public String getInstitutionName()
+    public String getInstitutionId()
     {
-        return parent.name;
+        return parent.id;
     }
 }

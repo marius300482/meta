@@ -25,12 +25,12 @@ import java.nio.file.Path;
 @RequestMapping("/solr")
 public class ReindexController
 {
-    private final SolrReindexService solrReindexService;
+    private final SolrUpdateService solrUpdateService;
 
     @Inject
-    public ReindexController(Path archivePath, SolrReindexService solrReindexService)
+    public ReindexController(Path archivePath, SolrUpdateService solrUpdateService)
     {
-        this.solrReindexService = solrReindexService;
+        this.solrUpdateService = solrUpdateService;
     }
 
     @RequestMapping(value = "/reindex/{solrService}", method = RequestMethod.GET)
@@ -42,7 +42,7 @@ public class ReindexController
 
         try
         {
-            final BatchJobBean jobBean = solrReindexService.reindexCoreAsync(solrService);
+            final BatchJobBean jobBean = solrUpdateService.reindexCoreAsync(solrService);
             map.addAttribute("jobId", jobBean.getJobId());
         } catch (ArchiveException e)
         {
@@ -68,7 +68,7 @@ public class ReindexController
 
         try
         {
-            ReindexJobBean reindexJobBean = solrReindexService.reindexInstitutionAsync(solrService, institution);
+            ReindexJobBean reindexJobBean = solrUpdateService.reindexInstitutionAsync(solrService, institution);
             map.addAttribute("jobId", reindexJobBean.getJobId());
         } catch (ArchiveException e)
         {

@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class AbstractArchiveBean
         <P extends AbstractArchiveBean<?, ?>, C extends AbstractArchiveBean<?, ?>>
 {
-    protected final String name;
+    protected final String id;
 
     protected final P parent;
     protected final List<C> entries = new ArrayList<>();
@@ -29,22 +29,22 @@ public abstract class AbstractArchiveBean
     public Path getPath()
     {
         return (parent == null)
-                ? Paths.get(name)
-                : parent.getPath().resolve(name);
+                ? Paths.get(id)
+                : parent.getPath().resolve(id);
     }
     
     @Override
     public String toString() 
     {
-        return name;
+        return id;
     }
     
-    public C get(String childName)
+    public C get(String childId)
     {
         // use linear search instead of a map access since sorted entries are more important than a fast get()
         for (C child : entries)
         {
-            if (child.name.equals(childName)) {
+            if (child.id.equals(childId)) {
                 return child;
             }
         }

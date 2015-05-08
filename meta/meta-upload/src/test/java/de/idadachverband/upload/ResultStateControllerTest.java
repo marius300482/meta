@@ -78,7 +78,7 @@ public class ResultStateControllerTest
         when(processService.getJob(jobId)).thenReturn(processJobBean);
         when(processJobBean.getTransformation()).thenReturn(transformation);
         when(transformation.getCoreName()).thenReturn("corename");
-        when(transformation.getInstitutionName()).thenReturn("institution");
+        when(transformation.getInstitutionId()).thenReturn("institution");
         when(transformation.getArchivedVersionId()).thenReturn("version");
         when(transformation.getArchivedUpdateId()).thenReturn("update");
 

@@ -22,7 +22,7 @@ import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.job.JobExecutionService;
 
-public class SolrReindexServiceTest
+public class SolrUpdateServiceTest
 {
     @Mock
     private IdaInputArchiver idaInputArchiver;
@@ -41,7 +41,7 @@ public class SolrReindexServiceTest
     @Mock 
     private SolrService solrService;
     
-    private final String institutionName = "institution1";
+    private final String institutionId = "institution1";
     
     @Mock
     private IdaInstitutionBean institution;
@@ -52,27 +52,27 @@ public class SolrReindexServiceTest
     @Mock
     private ArchiveUpdateBean updateBean1, updateBean2;
 
-    private SolrReindexService cut;
+    private SolrUpdateService cut;
 
     @BeforeMethod
     public void setUp() throws Exception
     {
         MockitoAnnotations.initMocks(this);
         //final Path archivePath = Paths.get(this.getClass().getClassLoader().getResource("archive").toURI());
-        when(institution.getInstitutionName()).thenReturn(institutionName);
+        when(institution.getInstitutionId()).thenReturn(institutionId);
         when(solrService.getName()).thenReturn(coreName);
         when(idaInputArchiver.uncompressToTemporaryFile(Mockito.any(Path.class))).thenReturn(Paths.get("uncompressed.tmp"));
         
-        cut = new SolrReindexService(archiveService, idaInputArchiver, jobExecutionService);
+        cut = new SolrUpdateService(archiveService, idaInputArchiver, jobExecutionService);
     }
 
     @Test
     public void reindexInstitution() throws Exception
     {
-        final Path versionPath = Paths.get("update.xml");
-        final Path updatePath1 = Paths.get("iupdate1.xml");
-        final Path updatePath2 = Paths.get("iupdate2.xml");
-        when(archiveService.getVersion(coreName, institutionName, ArchiveService.LATEST_VERSION)).thenReturn(versionBean);
+        final Path versionPath = Paths.get("update.xml.zip");
+        final Path updatePath1 = Paths.get("iupdate1.xml.zip");
+        final Path updatePath2 = Paths.get("iupdate2.xml.zip");
+        when(archiveService.getVersion(coreName, institutionId, ArchiveService.LATEST_VERSION)).thenReturn(versionBean);
         when(versionBean.getSolrFormatFile()).thenReturn(versionPath);
         when(versionBean.getVersionNumber()).thenReturn(1);
         when(versionBean.getEntries()).thenReturn(Arrays.asList(updateBean1, updateBean2));
@@ -83,11 +83,7 @@ public class SolrReindexServiceTest
         
         cut.reindexInstitution(solrService, institution);
 
-        verify(solrService, times(1)).deleteInstitution(institutionName);
-        verify(idaInputArchiver).uncompressToTemporaryFile(versionPath);
-        verify(idaInputArchiver).uncompressToTemporaryFile(updatePath1);
-        verify(idaInputArchiver).uncompressToTemporaryFile(updatePath2);
-
+        verify(solrService, times(1)).deleteInstitution(institutionId);
         verify(solrService, times(3)).update(Mockito.any(Path.class));
     }
 }

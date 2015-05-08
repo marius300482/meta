@@ -1,5 +1,6 @@
 package de.idadachverband.archive;
 
+import static org.mockito.Mockito.when;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.AfterClass;
@@ -10,6 +11,7 @@ import de.idadachverband.archive.bean.ArchiveCoreBean;
 import de.idadachverband.archive.bean.ArchiveInstitutionBean;
 import de.idadachverband.archive.bean.ArchiveUpdateBean;
 import de.idadachverband.archive.bean.ArchiveVersionBean;
+import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.process.ProcessStep;
 
@@ -31,6 +33,9 @@ public class ArchiveServiceTest
     
     @Mock
     private IdaInstitutionConverter idaInstitutionConverter;
+    
+    @Mock
+    private IdaInstitutionBean institutionBean1, institutionBean2;
     
     @Mock
     private IdaInputArchiver idaInputArchiver;
@@ -65,7 +70,7 @@ public class ArchiveServiceTest
     @Test
     public void getInstitutionNames() throws Exception
     {
-        List<String> actual = cut.getInstitutionNames("corename");
+        List<String> actual = cut.getInstitutionIds("corename");
         assertThat(actual, containsInAnyOrder("institution1", "institution2"));
     }
     
@@ -93,10 +98,15 @@ public class ArchiveServiceTest
     @Test
     public void getArchiveTree() throws Exception
     {
-        final List<ArchiveCoreBean> cores = cut.getCores();
+        when(idaInstitutionConverter.convert("institution1")).thenReturn(institutionBean1);
+        when(institutionBean1.getInstitutionId()).thenReturn("institution1");
+        when(idaInstitutionConverter.convert("institution2")).thenReturn(institutionBean2);
+        when(institutionBean2.getInstitutionId()).thenReturn("institution2");
+        
+        final List<ArchiveCoreBean> cores = cut.getArchivedCores();
         assertThat(cores.size(), is(equalTo(1)));
         final ArchiveCoreBean core = cores.get(0);
-        assertThat(core.getName(), is(equalTo("corename")));
+        assertThat(core.getId(), is(equalTo("corename")));
         final ArchiveInstitutionBean institution1 = core.get("institution1");
         assertThat(institution1, is(notNullValue()));
         

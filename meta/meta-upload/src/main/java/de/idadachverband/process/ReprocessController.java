@@ -57,11 +57,11 @@ public class ReprocessController
         try 
         {
             ReprocessJobBean jobBean = reprocessService.reprocessInstitutionAsync(solrService, institution);
-            map.addAttribute("version", jobBean.getVersion());
+            map.addAttribute("version", jobBean.getVersionString());
             map.addAttribute("jobId", jobBean.getJobId());
         } catch (ArchiveException e)
         {
-            log.warn("Re-processing of core {} for institution {} failed", solrService.getName(), institution.getInstitutionName(), e);
+            log.warn("Re-processing of core {} for institution {} failed", solrService, institution, e);
             map.addAttribute("exception", e.getClass().getSimpleName());
             map.addAttribute("cause", e.getCause());
             map.addAttribute("message", e.getMessage());
@@ -95,12 +95,12 @@ public class ReprocessController
         try
         {
             ReprocessJobBean jobBean = reprocessService.reprocessVersionAsync(solrService, institution, versionId, upToUpdateId);
-            map.addAttribute("version", jobBean.getVersion());
+            map.addAttribute("version", jobBean.getVersionString());
             map.addAttribute("jobId", jobBean.getJobId());
         } catch (ArchiveException e)
         {
             log.warn("Re-processing of upload {}.{} for institution {} on core {} failed", 
-                    versionId, upToUpdateId, institution.getInstitutionName(), solrService.getName(), e);
+                    versionId, upToUpdateId, institution, solrService, e);
             map.addAttribute("exception", e.getClass().getSimpleName());
             map.addAttribute("cause", e.getCause());
             map.addAttribute("message", e.getMessage());
