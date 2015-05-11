@@ -10,9 +10,10 @@
 <%@include file="head.jspf" %>
 <body>
     <%@include file="menu.jspf" %>
-    <div class="main">
+    <div class="main" id="page-archiveList">
         <h1>Archive</h1>
-        <ul>
+        <br />
+        <ul class="institutionList">
             <spring:url value="/solr/reindex" var="reindexLink"/>
             <spring:url value="/process/reprocess" var="reprocessLink"/>
             <spring:url value="/files/upload" var="uploadLink"/>
@@ -20,12 +21,14 @@
             <spring:url value="/files/solrFormat" var="solrLink"/>
             <spring:url value="/archive/delete" var="deleteLink"/>
             <c:forEach var="core" items="${coreList}">
-                <li>Solr Core: ${core}
+                <li>
+                    <strong>Solr Core: ${core}</strong>
                     <a href="${reindexLink}/${core.path}" class="btn">re-index latest</a>
                     <a href="${reprocessLink}/${core.path}" class="btn">re-process latest</a>
                     <ul>
                         <c:forEach var="institution" items="${core.entries}">
-                            <li>Institution: ${institution.institutionName}
+                            <li>
+                                <strong>Institution: ${institution.institutionName}</strong>
                                 <a href="${reindexLink}/${institution.path}" class="btn">re-index latest</a>
                                 <a href="${reprocessLink}/${institution.path}" class="btn">re-process latest</a>
                                 <ul>
@@ -36,7 +39,7 @@
                                             <a href="${workingFormatLink}/${versionUpload.path}" class="btn btn-bright">working format</a>
                                             <a href="${solrLink}/${versionUpload.path}" class="btn btn-bright">solr format</a>
                                             <a href="${reprocessLink}/${versionUpload.path}" class="btn">re-process</a>
-                                            <a href="${deleteLink}/${versionUpload.path}" class="delete" title="delete">delete</a>
+                                            <a href="${deleteLink}/${versionUpload.path}" class="delete" title="delete"></a>
                                             <ul>
                                                 <c:forEach var="updateUpload" items="${versionUpload.entries}">
                                                     <li>Update ${versionUpload.versionNumber}.${updateUpload.updateNumber}:
@@ -44,8 +47,8 @@
                                                         (${updateUpload.date})
                                                         <a href="${workingFormatLink}/${updateUpload.path}" class="btn btn-bright">working format</a>
                                                         <a href="${solrLink}/${updateUpload.path}" class="btn btn-bright">solr format</a>
-                                                        <a href="${reprocessLink}/${updateUpload.path}" class="btn btn-bright">re-process</a>
-                                                        <a href="${deleteLink}/${updateUpload.path}" class="delete" title="delete">delete</a>
+                                                        <a href="${reprocessLink}/${updateUpload.path}" class="btn">re-process</a>
+                                                        <a href="${deleteLink}/${updateUpload.path}" class="delete" title="delete"></a>
                                                     </li>
                                                 </c:forEach>
                                             </ul>

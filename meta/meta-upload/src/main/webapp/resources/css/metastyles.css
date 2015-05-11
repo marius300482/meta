@@ -231,6 +231,23 @@ header {
       float: right;
       margin-right: 20px; }
 
+#page-archiveList .institutionList > li {
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 30px;
+  padding-bottom: 30px; }
+  #page-archiveList .institutionList > li:last-child {
+    border: 0 none;
+    margin-bottom: 0;
+    padding-bottom: 0; }
+#page-archiveList a.btn {
+  line-height: 20px;
+  margin-left: 10px;
+  margin-right: 10px; }
+#page-archiveList a.delete {
+  margin-left: 15px; }
+#page-archiveList li {
+  line-height: 50px; }
+
 #page-jobs ul.jobs li {
   background-color: #d6d3de;
   padding: 5px 10px;

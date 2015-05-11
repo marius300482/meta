@@ -1,0 +1,23 @@
+#page-archiveList {
+  .institutionList > li {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    &:last-child {
+      border: 0 none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+  a.btn {
+    line-height: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  a.delete {
+    margin-left: 15px;
+  }
+  li {
+    line-height: 50px;
+  }
+}
