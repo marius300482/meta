@@ -122,6 +122,14 @@
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
+      <bean id="grauzone" class="de.idadachverband.institution.IdaInstitutionBean">
+     	<constructor-arg index="0" name="institutionId" value="grauzone"/>
+        <constructor-arg index="1" name="institutionName" value="GrauZone"/>
+        <constructor-arg index="2" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/grauzone/gleich_grauzone.xsl"/>
+        <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
     
     <util:map id="institutionsMap" map-class="java.util.TreeMap"
     		key-type="java.lang.String"
