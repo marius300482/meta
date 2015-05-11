@@ -99,15 +99,16 @@ b, strong {
   font-weight: 500; }
 
 h1, h2, h3, h4 {
-  font-family: "Libre Baskerville",serif;
   margin: 0 0 10px 0;
   font-weight: normal; }
 
 h1 {
-  font-size: 24px; }
+  font-family: "Libre Baskerville",serif;
+  font-size: 24px;
+  margin-bottom: 30px; }
 
 h2 {
-  font-size: 21px; }
+  font-size: 20px; }
 
 h3 {
   font-size: 18px; }

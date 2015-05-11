@@ -12,7 +12,6 @@
     <%@include file="menu.jspf" %>
     <div class="main" id="page-archiveList">
         <h1>Archive</h1>
-        <br />
         <ul class="institutionList">
             <spring:url value="/solr/reindex" var="reindexLink"/>
             <spring:url value="/process/reprocess" var="reprocessLink"/>

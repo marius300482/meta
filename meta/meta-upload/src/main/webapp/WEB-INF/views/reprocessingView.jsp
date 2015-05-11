@@ -20,9 +20,14 @@
         <h2>Job Id: ${jobId}</h2>
 
         <div id="waiting">
-            <img src="${waiting}"><br />
-            <br/>
-            <span>Processing may take a little longer. You will be informed by e-mail about the outcome.</span>
+            <div style="display: inline-block">
+                <img src="${waiting}">
+            </div>
+            <div style="display: inline-block; padding-left: 20px; vertical-align: top">
+                <h2>Job ID: ${jobId}</h2>
+                Processing may take a little longer. You can close this window.<br />
+                You will be informed by e-mail about the outcome.
+            </div>
         </div>
 
         <div id="success" style="display: none;">

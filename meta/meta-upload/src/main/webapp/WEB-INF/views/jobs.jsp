@@ -12,7 +12,6 @@
     <%@include file="menu.jspf" %>
     <div class="main" id="page-jobs">
         <h1>Jobs</h1>
-        <br />
         <ul class="jobs">
             <c:forEach var="entry" items="${jobs}">
                 <li>(${entry.value.startTime}) ${entry.value}: ${entry.value.progressState}

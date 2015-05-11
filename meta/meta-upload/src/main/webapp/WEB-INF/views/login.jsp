@@ -11,7 +11,6 @@
 </header>
 <div class="main">
     <h1>Login</h1>
-    <br />
     <form name='f' action='/j_spring_security_check' method='POST'>
         <input type='text' name='j_username' value='' placeholder="Username" style="width: 300px"  /><br />
         <br />

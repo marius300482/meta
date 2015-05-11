@@ -10,7 +10,6 @@
                 You are admin!
             </sec:authorize>
         </h1>
-        <br />
         <form:form method="post" action="upload" enctype="multipart/form-data" modelAttribute="transformation">
             <form:label path="file">File to upload</form:label>
             <form:input path="file" type="file" name="file"/><br/>
