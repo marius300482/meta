@@ -44,9 +44,6 @@ public class AsyncFileUploadController
     private IdaInstitutionConverter idaInstitutionConverter;
 
     @Inject
-    private Map<String, IdaInstitutionBean> institutionsMap;
-
-    @Inject
     private Set<SolrService> solrServiceSet;
 
     @Inject
@@ -68,7 +65,7 @@ public class AsyncFileUploadController
 
         if ("admin".equals(authority.getAuthority()))
         {
-            mav.addObject("institutions", institutionsMap);
+            mav.addObject("institutions", idaInstitutionConverter.getInstitutionsMap());
             mav.addObject("solrServices", solrServiceSet);
             mav.addObject("allowIncremental", true);
             mav.addObject("incrementalDefault", true);
