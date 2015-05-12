@@ -1,6 +1,6 @@
 package de.idadachverband.result;
 
-import de.idadachverband.transform.TransformationBean;
+import de.idadachverband.job.JobBean;
 
 /**
  * Notifies initiator of process about result
@@ -9,8 +9,8 @@ import de.idadachverband.transform.TransformationBean;
 public interface ResultNotifier
 {
     /**
-     * @param transformationBean
+     * @param jobBean
      * @throws NotificationException
      */
-    void notify(TransformationBean transformationBean) throws NotificationException;
+    void notify(JobBean jobBean) throws NotificationException;
 }

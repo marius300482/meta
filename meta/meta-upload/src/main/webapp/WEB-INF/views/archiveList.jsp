@@ -1,4 +1,3 @@
-<%@include file="header.jspf" %>
 <%--
   Created by IntelliJ IDEA.
   User: boehm
@@ -6,47 +5,69 @@
   Time: 16:21
   To change this template use File | Settings | File Templates.
 --%>
+<!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-</head>
+<%@include file="head.jspf" %>
 <body>
-<%@include file="footer.jspf" %>
-
-<h1>Archive</h1>
-
-<% /*
-<ul>
-    <spring:url value="/files" var="filelink"/>
-    <c:forEach var="entry" items="${fileMap}">
-        <li>
-            <a href="${filelink}/${entry.key}" target="_blank">${entry.value.fileName}</a>
-        </li>
-    </c:forEach>
-</ul>
-<br/>
-*/ %>
-
-<h2>Re-Index</h2>
-<ul>
-    <spring:url value="/solr/reindex" var="reindexLink"/>
-    <c:forEach var="core" items="${reindexCoreMap}">
-        <li>Solr Core: <a href="${reindexLink}/${core.key}" target="_blank">${core.key}</a></li>
-        <ul>
-            <c:forEach var="institution" items="${core.value}">
-                <li>Institution: <a href="${reindexLink}/${core.key}/${institution.fileName}"
-                                    target="_blank">${institution.fileName}</a></li>
+    <%@include file="menu.jspf" %>
+    <div class="main" id="page-archiveList">
+        <h1>Archive</h1>
+        <ul class="institutionList">
+            <spring:url value="/solr/reindex" var="reindexLink"/>
+            <spring:url value="/process/reprocess" var="reprocessLink"/>
+            <spring:url value="/files/upload" var="uploadLink"/>
+            <spring:url value="/files/workingFormat" var="workingFormatLink"/>
+            <spring:url value="/files/solrFormat" var="solrLink"/>
+            <spring:url value="/archive/delete" var="deleteLink"/>
+            <c:forEach var="core" items="${coreList}">
+                <li>
+                    <strong>Solr Core: ${core}</strong>
+                    <a href="${reindexLink}/${core.path}" class="btn">re-index latest</a>
+                    <a href="${reprocessLink}/${core.path}" class="btn">re-process latest</a>
+                    <ul>
+                        <c:forEach var="institution" items="${core.entries}">
+                            <li>
+                                <strong>Institution: ${institution.institutionName}</strong>
+                                <a href="${reindexLink}/${institution.path}" class="btn">re-index latest</a>
+                                <a href="${reprocessLink}/${institution.path}" class="btn">re-process latest</a>
+                                <ul>
+                                    <c:forEach var="versionUpload" items="${institution.entries}">
+                                        <li>Version ${versionUpload.versionNumber}.0:
+                                            <a href="${uploadLink}/${versionUpload.path}">${versionUpload.uploadFile.fileName}</a>
+                                            (${versionUpload.date})
+                                            <a href="${workingFormatLink}/${versionUpload.path}" class="btn btn-bright">working format</a>
+                                            <a href="${solrLink}/${versionUpload.path}" class="btn btn-bright">solr format</a>
+                                            <a href="${reprocessLink}/${versionUpload.path}" class="btn">re-process</a>
+                                            <a href="${deleteLink}/${versionUpload.path}" class="delete" title="delete"></a>
+                                            <ul>
+                                                <c:forEach var="updateUpload" items="${versionUpload.entries}">
+                                                    <li>Update ${versionUpload.versionNumber}.${updateUpload.updateNumber}:
+                                                        <a href="${uploadLink}/${updateUpload.path}">${updateUpload.uploadFile.fileName}</a>
+                                                        (${updateUpload.date})
+                                                        <a href="${workingFormatLink}/${updateUpload.path}" class="btn btn-bright">working format</a>
+                                                        <a href="${solrLink}/${updateUpload.path}" class="btn btn-bright">solr format</a>
+                                                        <a href="${reprocessLink}/${updateUpload.path}" class="btn">re-process</a>
+                                                        <a href="${deleteLink}/${updateUpload.path}" class="delete" title="delete"></a>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </li>
             </c:forEach>
+            <% /*
+            <c:forEach var="entry" items="${solrSet}">
+                <li>
+                    <a href="${reindexLink}/${entry}" target="_blank">${entry}</a>
+                </li>
+            </c:forEach>
+            */ %>
         </ul>
-    </c:forEach>
-    <% /*
-    <c:forEach var="entry" items="${solrSet}">
-        <li>
-            <a href="${reindexLink}/${entry}" target="_blank">${entry}</a>
-        </li>
-    </c:forEach>
-    */ %>
-</ul>
-<%@include file="footer.jspf" %>
+    </div>
+    <%@include file="footer.jspf" %>
 </body>
 </html>

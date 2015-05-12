@@ -22,10 +22,35 @@
   font-weight: normal;
 }
 
+.search-result-restriction-info {
+  margin: 10px 0 -8px 0;
+  .info {
+    background-color: $color-blue-4;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    font-style: italic;
+    font-family: serif;
+    font-weight: bold;
+    text-align: center;
+    width: 18px;
+  }
+}
+
 .search-result-used-filters {
   margin: 10px 0 40px;
   @media (max-width: $device-xs-max-width) {
     margin-bottom: 10px;
+  }
+  a {
+    margin-left: 5px;
+    color : $color-purple;
+  }
+  td {
+    vertical-align: top;
+    &:first-child {
+      padding-right: 5px;
+    }
   }
 }
 
@@ -106,59 +131,30 @@
   margin-bottom: 60px !important;
 }
 
-// Sidebar
-.detail-view-sidebar {
-  .list-group-item, .list-group-item:hover {
-    padding: 10px 0;
-    background-color: transparent;
-    font-weight: 300;
-    &:first-child {
-      border-top-width: 4px;
-    }
-    a {
-      font-size: 14px;
+// Sidebar facets
+#facets {
+  @media (max-width: $device-xs-max-width) {
+    padding-top: 10px; // For anchor
+    h4 {
+      position: relative;
+      margin: 0 0 35px 0; // For arrow
     }
   }
-  .fa {
+  .goUpFromFacetsWrapper {
+    float: right;
     &:before {
-      content: "";
+      background-color: $color-blue-1;
+      content: "\e606";
+      color: $color-white;
+      display: inline-block;
+      font-family: icomoon;
+      font-size: 12px;
+      font-weight: normal;
+      height: 32px;
+      line-height: 31px;
+      margin-top: -5px;
+      text-align: center;
+      width: 32px;
     }
-    float: left;
-    height: 25px;
-    margin: 0 10px 3px 0;
-    width: 20px;
-  }
-  .fa-akte {
-    background: url($theme-path-images + "/smaller/akte.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-artikel {
-    background: url($theme-path-images + "/smaller/artikel.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-artikelonline {
-    background: url($theme-path-images + "/smaller/artikelonline.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-buch {
-    background: url($theme-path-images + "/smaller/buch.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-hochschulschrift {
-    background: url($theme-path-images + "/smaller/hochschulschrift.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-monographie {
-    background: url($theme-path-images + "/smaller/monographie.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-sammelband {
-    background: url($theme-path-images + "/smaller/sammelband.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-videocd {
-    background: url($theme-path-images + "/smaller/videocd.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-systematik {
-    background: url($theme-path-images + "/smaller/systematik.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-zeitschrift {
-    background: url($theme-path-images + "/smaller/zeitschrift.png") no-repeat scroll 0 0 transparent;
-  }
-  .fa-zeitschriftenheft {
-    background: url($theme-path-images + "/smaller/zeitschriftenheft.png") no-repeat scroll 0 0 transparent;
   }
 }

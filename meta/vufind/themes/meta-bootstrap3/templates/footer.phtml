@@ -1,7 +1,7 @@
 <? if ($mobileViewLink = $this->mobileUrl()): // display 'return to mobile' link when applicable ?>
   <div class="mobileViewLink"><a href="<?=$this->escapeHtmlAttr($mobileViewLink)?>" class="btn btn-primary btn-lg"><?=$this->transEsc("mobile_link")?></a></div>
 <? endif; ?>
-<div class="col-sm-3"><div class="footer-brand">METADATEN-<br />KATALOG</div></div>
+<div class="col-sm-12"><div class="footer-brand">METADATEN-<br />KATALOG</div></div>
 <div class="col-sm-3"><p><strong><?=$this->transEsc('Search Options')?></strong></p>
 <ul>
   <li><a href="<?=$this->url('search-history')?>"><?=$this->transEsc('Search History')?></a></li>
@@ -28,5 +28,10 @@
   <li><a href="https://www.gender.hu-berlin.de/impressum"><?=$this->transEsc('Imprint')?></a></li>
   <li><a href="http://www2.gender.hu-berlin.de/genderbib"><?=$this->transEsc('Weblog')?></a></li>
 </ul>
+</div>
+<div class="col-sm-3">
+    <p class="sponsored"><?=$this->transEsc('Sponsored by')?>:</p>
+    <?php $bmfTitle ="Bundesministerium für Familie, Senioren, Frauen und Jugend"; ?>
+    <img class="sponsorLogo" title="<?= $bmfTitle; ?>" alt="<?= $bmfTitle; ?>" src="<?= $this->imageLink("bmfsfj-logo.png");?>" />
 </div>
 

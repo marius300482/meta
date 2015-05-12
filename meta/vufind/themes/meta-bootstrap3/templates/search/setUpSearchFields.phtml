@@ -1,0 +1,30 @@
+<script type="text/javascript">
+    $(function() {
+        <?php if ($this->query instanceof VuFindSearch\Query\QueryGroup) : ?>
+            // Populate advanced search
+            $("#group0").remove();
+            nextGroup = 0;
+            <? foreach ($query->getQueries() as $searchGroup): ?> // Write groups
+                <? $i = 0; foreach ($searchGroup->getQueries() as $search): ?>
+                    <? if (++$i == 1): ?>
+                        var new_group = addGroup(
+                            '<?=addslashes($search->getString())?>',
+                            '<?=addslashes($search->getHandler())?>',
+                            '<?=$searchGroup->isNegated() ? 'NOT' : $searchGroup->getOperator()?>'
+                        );
+                    <? else: ?>
+                        addSearch(
+                            new_group,
+                            '<?=addslashes($search->getString())?>',
+                            '<?=addslashes($search->getHandler())?>'
+                        );
+                    <? endif; ?>
+                <? endforeach; ?>
+            <? endforeach; ?>
+            showAdvancedSearch();
+        <?php else : ?>
+            // Populate simple search
+            $("#searchForm_lookfor").val("<?=str_replace('"', '\"', $this->lookFor); ?>");
+        <?php endif; ?>
+    });
+</script>

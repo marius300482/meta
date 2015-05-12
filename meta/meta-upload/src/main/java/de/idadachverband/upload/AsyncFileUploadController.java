@@ -2,10 +2,11 @@ package de.idadachverband.upload;
 
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.institution.IdaInstitutionConverter;
+import de.idadachverband.process.ProcessJobBean;
 import de.idadachverband.process.ProcessService;
 import de.idadachverband.solr.SolrService;
-import de.idadachverband.transform.TransformationBean;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -18,13 +19,16 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -40,7 +44,7 @@ public class AsyncFileUploadController
     private IdaInstitutionConverter idaInstitutionConverter;
 
     @Inject
-    private Set<IdaInstitutionBean> institutionsSet;
+    private Map<String, IdaInstitutionBean> institutionsMap;
 
     @Inject
     private Set<SolrService> solrServiceSet;
@@ -64,15 +68,15 @@ public class AsyncFileUploadController
 
         if ("admin".equals(authority.getAuthority()))
         {
-            mav.addObject("institutions", institutionsSet);
+            mav.addObject("institutions", institutionsMap);
             mav.addObject("solrServices", solrServiceSet);
             mav.addObject("allowIncremental", true);
             mav.addObject("incrementalDefault", true);
         } else
         {
-            Set<IdaInstitutionBean> idaInstitutions = new HashSet<>(1);
+            Map<String, IdaInstitutionBean> idaInstitutions = new HashMap<>(1);
             IdaInstitutionBean idaInstitutionBean = idaInstitutionConverter.convert(authority.getAuthority());
-            idaInstitutions.add(idaInstitutionBean);
+            idaInstitutions.put(idaInstitutionBean.getInstitutionId(), idaInstitutionBean);
             mav.addObject("institutions", idaInstitutions);
             Set<SolrService> solrServices = new HashSet<>(1);
             solrServices.add(defaultSolrUpdater);
@@ -110,13 +114,13 @@ public class AsyncFileUploadController
                 try
                 {
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
-                    institution.setIncrementalUpdate(uploadFormBean.isIncremental());
                     SolrService solr = uploadFormBean.getSolr();
 
-                    tmpPath = moveToTempFile(file, institution.getInstitutionName());
+                    tmpPath = moveToTempFile(file, institution.getInstitutionId());
 
-                    TransformationBean transformationBean = processService.process(tmpPath, institution, solr, file.getOriginalFilename());
-                    map.addAttribute("result", transformationBean.getKey());
+                    ProcessJobBean jobBean = 
+                            processService.processAsync(tmpPath, institution, solr, file.getOriginalFilename(), uploadFormBean.isIncremental());
+                    map.addAttribute("jobId", jobBean.getJobId());
 
                     return "redirect:result/success";
                 } catch (IOException e)

@@ -104,7 +104,11 @@
 <!--institutionFullname-->			<institutionFull>
 							<xsl:text>Frauensolidarität - Bibliothek und Dokumentationsstelle Frauen und "Dritte Welt"</xsl:text>
 							</institutionFull>
-			
+						
+						<institutionID>
+							<xsl:text>frso</xsl:text>
+							</institutionID>
+						
 <!--collection-->				<collection><xsl:text>FRSO</xsl:text></collection>
 	
 <!--isil-->					<isil><xsl:text>AT-FRSO</xsl:text></isil>
@@ -500,17 +504,25 @@
 	<!--publishDate-->
 			<xsl:choose>
 				<xsl:when test="datafield[@tag='425'][@ind1='b']">
-					<timeSpan>
-						<timeSpanStart><xsl:value-of select="datafield[@tag='425'][@ind1='b']" /></timeSpanStart>
-						<timeSpanEnd><xsl:value-of select="datafield[@tag='425'][@ind1='c']" /></timeSpanEnd>
-						</timeSpan>
+					<displayPublishDate>
+						<xsl:value-of select="datafield[@tag='425'][@ind1='b']" />
+						<xsl:if test="datafield[@tag='425'][@ind1='c']">
+							<xsl:text> - </xsl:text>
+							<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />
+							</xsl:if>
+						</displayPublishDate>
+					<publishDate>
+						<xsl:value-of select="translate(datafield[@tag='425'][@ind1='b'],translate(.,'0123456789', ''), '')"/>
+						<!--<xsl:value-of select="datafield[@tag='425'][@ind1='c']"/>-->
+						</publishDate>
 					</xsl:when>
 				<xsl:when test="datafield[@tag='425'][@ind1='a']">
 					<displayPublishDate>
 						<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
 						</displayPublishDate>
 					<publishDate>
-						<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>
+						<xsl:value-of select="translate(datafield[@tag='425'][@ind1='a'], translate(.,'0123456789', ''), '')"/>
+						<!--<xsl:value-of select="datafield[@tag='425'][@ind1='a']"/>-->
 						</publishDate>
 					</xsl:when>
 				<xsl:when test="datafield[@tag='425'][@ind1=' ']">
@@ -518,7 +530,8 @@
 						<xsl:value-of select="datafield[@tag='425'][@ind1=' ']"/>
 						</displayPublishDate>
 					<publishDate>
-						<xsl:value-of select="datafield[@tag='425'][@ind1=' ']"/>
+						<xsl:value-of select="translate(datafield[@tag='425'][@ind1=' '], translate(.,'0123456789', ''), '')"/>
+						<!--<xsl:value-of select="datafield[@tag='425'][@ind1=' ']"/>-->
 						</publishDate>
 					</xsl:when>
 				</xsl:choose>
@@ -1060,7 +1073,7 @@
 					<xsl:value-of select=".[@ind1='a']"/>
 					</displayPublishDate>
 				<publishDate>
-					<xsl:value-of select=".[@ind1='a']"/>
+					<xsl:value-of select="translate(.[@ind1='a'], translate(.,'0123456789', ''), '')"/>
 					</publishDate>
 				</xsl:when>
 			<xsl:when test=".[@ind1='b']">
@@ -1068,7 +1081,8 @@
 					<xsl:value-of select=".[@ind1='b']"/>
 					</displayPublishDate>
 				<publishDate>
-					<xsl:value-of select=".[@ind1='b']"/>
+					<xsl:value-of select="translate(.[@ind1='b'], translate(.,'0123456789', ''), '')"/>
+					<!--<xsl:value-of select=".[@ind1='b']"/>-->
 					</publishDate>
 				</xsl:when>
 			<xsl:when test="datafield[@tag='425'][@ind1='c']">
@@ -1078,10 +1092,12 @@
 					<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />
 					</displayPublishDate>
 				<publishDate>
-					<xsl:value-of select="datafield[@tag='425'][@ind1='b']" />
+					<xsl:value-of select="translate(.[@ind1='b'], translate(.,'0123456789', ''), '')"/>
+					<!--<xsl:value-of select="datafield[@tag='425'][@ind1='b']" />-->
 					</publishDate>
 				<publishDate>
-					<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />
+					<xsl:value-of select="translate(.[@ind1='c'], translate(.,'0123456789', ''), '')"/>
+					<!--<xsl:value-of select="datafield[@tag='425'][@ind1='c']" />-->
 					</publishDate>	
 					
 					<!--<timeSpan>

@@ -87,7 +87,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
 
     <div class="record row detail-view-detail-row">
         <?php $tabCount = 0; ?>
-        <?php foreach (array_reverse($this->tabs) as $tab => $obj): ?>
+        <?php foreach ($this->tabs as $tab => $obj): ?>
             <div class="col-sm-6">
                 <?php if ($tab == "Description") : ?>
                     <h4 data-section-toggle="true" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>

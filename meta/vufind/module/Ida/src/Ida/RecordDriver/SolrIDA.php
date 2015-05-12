@@ -210,6 +210,11 @@ abstract class SolrIDA extends SolrDefault
     {
         return $this->getSingleValuedField('signatur');
     }
+    
+    public function getCollectionHolding()
+    {
+        return $this->getSingleValuedField('collectionHolding');
+    }
 
     /**
     * Single valued

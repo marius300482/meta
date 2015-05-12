@@ -146,8 +146,22 @@
 	      </td>
         </tr>
     <? endif; ?>
-    
+  
     <? $entities = $this->driver->getEntities(); ?>
+    <? if (!empty($entities)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+          <th><?=$this->transEsc('Entities')?>: </th>
+            <td property="entity">
+            <? foreach ($entities as $entity): ?>
+	    <?= $this->escapeHtml($entity) ?>
+	    <?= $entity !== end($entities) ? "; " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+  
+    <!--ENTFERNT VON MARIUS<? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
@@ -158,9 +172,19 @@
             <? endforeach; ?>
             </td>
         </tr>
-    <? endif; ?>
-
+    <? endif; ?>-->
+    
     <? $reviewers = $this->driver->getReviewer(); ?>
+    <? if (isset($reviewers)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Reviewer')?>: </th>
+            <td property="shelfmark"><?= $this->escapeHtml($reviewers) ?></td>
+        </tr>
+    <? endif; ?>
+    
+    
+    <!--<? $reviewers = $this->driver->getReviewer(); ?>
     <? if (isset($reviewers)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
@@ -172,7 +196,7 @@
             <? endforeach; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
     
 
 
@@ -315,7 +339,7 @@
         </tr>
     <? endif; ?>
 
-    <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
+   <!-- <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
     <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
     <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
         <? $contentDisplayed = true; ?>
@@ -333,7 +357,7 @@
             <? endif; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 <?php /* Not required
     <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
     <? if (!empty($physicals)): ?>
@@ -444,7 +468,7 @@
             <th colspan="2"><?=$this->transEsc('Content')?>:</th>
         </tr>
         <tr valign="top">
-            <td property="description" colspan="2"><?= $this->escapeHtml($description) ?></td>
+            <td property="description" colspan="2"><?= $this->escapeHtmlAllowBr($description) ?></td>
         </tr>
     <? endif; ?>
     
@@ -457,10 +481,19 @@
           <tr valign="top">
             <td property="description" colspan="2"><? foreach ($listOfContents as $listOfContent): ?>
             <li style="list-style-type: none; diplay:block; margin-bottom:.5em">
-            <?= $this->escapeHtml($listOfContent) ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?></li><? endforeach; ?></td>
+            <?= $this->escapeHtmlAllowBr($listOfContent) ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?></li><? endforeach; ?></td>
         </tr>
     <? endif; ?>
-    
+   
+    <? $collectionHolding = $this->driver->getCollectionHolding(); ?>
+    <? if (isset($collectionHolding)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Bestand')?>:</th>
+            <td property="collectionHolding" colspan="2"><?= $this->escapeHtmlAllowBr($collectionHolding) ?></td>
+        </tr>
+    <? endif; ?>
+   
     <? $creationdate = $this->driver->getRecordCreationDate(); ?>
     <? if (isset($creationdate)): ?>
         <? $contentDisplayed = true; ?>

@@ -34,7 +34,7 @@ public class XsltTransformer extends AbstractXsltTransformer
     @Override
     public void transform(Path input, Path output, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
-        transform(input, output, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionName());
+        transform(input, output, institutionBean.getTransformationRecipeFile(), institutionBean.getInstitutionId());
     }
 
     /**
@@ -47,7 +47,7 @@ public class XsltTransformer extends AbstractXsltTransformer
      * @throws TransformerException
      * @throws IOException
      */
-    private void transform(final Path input, Path outputFile, Path institutionXsl, String institutionName) throws TransformerException, IOException
+    private void transform(final Path input, Path outputFile, Path institutionXsl, String institutionId) throws TransformerException, IOException
     {
         log.debug("Transform: {} to: {} using XSL: {}", input, outputFile, institutionXsl);
         @Cleanup

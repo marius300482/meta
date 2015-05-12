@@ -1,5 +1,3 @@
-<%@ include file="header.jspf" %>
-<%@ page import="de.idadachverband.transform.TransformationProgressState" %>
 <%--
   Created by IntelliJ IDEA.
   User: boehm
@@ -7,73 +5,73 @@
   Time: 15:09
   To change this template use File | Settings | File Templates.
 --%>
+<!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-</head>
+<%@ include file="head.jspf" %>
+<%@ page import="de.idadachverband.job.JobProgressState" %>
 <body>
-<h1>You successfully uploaded one file</h1>
-<spring:url value="/files/" var="fileUrl"/>
-<spring:url value="/result/getResult" var="stateUrl"/>
-<spring:url value="/resources/images/waiting.gif" var="waiting"/>
+    <%@include file="menu.jspf" %>
+    <div class="main">
+        <h1>You successfully uploaded one file</h1>
+        <spring:url value="/files/solrFormat/" var="fileUrl"/>
+        <spring:url value="/result/getResult" var="stateUrl"/>
+        <spring:url value="/resources/images/waiting.gif" var="waiting"/>
 
-<h2>Job Id: ${result}</h2>
+        <div id="waiting">
+            <div style="display: inline-block">
+                <img src="${waiting}">
+            </div>
+            <div style="display: inline-block; padding-left: 20px; vertical-align: top">
+                <h2>Job ID: ${jobId}</h2>
+                Processing may take a little longer. You can close this window.<br />
+                You will be informed by e-mail about the outcome.
+            </div>
+        </div>
 
-<div id="waiting">
-    <img src="${waiting}">
-    <br/>
-    <span>Die Verarbeitung kann etwas länger dauern. Sie werden per E-Mail über das Ergebnis informiert.</span>
-</div>
+        <div id="filelink" style="display: none;">
+            <h2>Done</h2>
+            <a href="${fileUrl}" target="_blank">Transformed XML file</a>
+        </div>
 
-<div id="filelink" style="display: none;">
-    <h2>Fertig</h2>
-    <a href="${fileUrl}" target="_blank">Transformiertes XML-File</a>
-</div>
-<div id="failure" style="display: none;">
-    <h2>Fehler!</h2>
+        <div id="failure" style="display: none;">
+            <h2>Error!</h2>
+            <div id="exception"></div>
+        </div>
 
-    <div id="exception"></div>
+        <script type="application/javascript">
+            successCallback = function (v) {
+                console.log(v);
+                if (v.state === "<%= JobProgressState.DONE %>") {
+                    var link = jQuery("#filelink").find("a");
+                    var url = link.attr("href");
+                    link.attr("href", url + v.path);
+                    jQuery("#filelink").toggle();
+                    done();
+                }
+                else if (v.state === "<%= JobProgressState.FAILURE %>") {
+                    var failure = jQuery("#failure");
+                    jQuery("#exception").text(v.exception);
+                    failure.toggle();
+                    done();
+                }
+            };
 
-</div>
+            done = function () {
+                clearInterval(pollInterval);
+                jQuery("#waiting").toggle();
+            };
 
+            poll = function () {
+                jQuery.getJSON(
+                    "${stateUrl}",
+                    {"jobId": "${jobId}"},
+                    successCallback
+                );
+            };
 
-<script type="application/javascript">
-    successCallback = function (v) {
-        console.log(v);
-        if (v.state === "<%= TransformationProgressState.DONE %>") {
-            var link = jQuery("#filelink").find("a");
-            var url = link.attr("href");
-            link.attr("href", url + v.filename);
-            jQuery("#filelink").toggle();
-            done();
-        }
-        else if (v.state === "<%= TransformationProgressState.FAILURE %>") {
-            var failure = jQuery("#failure");
-            jQuery("#exception").text(v.exception);
-            failure.toggle();
-            done();
-        }
-    };
-
-    done = function () {
-        clearInterval(pollInterval);
-        jQuery("#waiting").toggle();
-    };
-
-    poll = function () {
-        jQuery.getJSON(
-                "${stateUrl}",
-                {"result": "${result}"},
-                successCallback
-        );
-    };
-
-    pollInterval = setInterval(poll, 15000);
-</script>
-
-<%@include file="footer.jspf" %>
+            pollInterval = setInterval(poll, 15000);
+        </script>
+    </div>
+    <%@include file="footer.jspf" %>
 </body>
 </html>

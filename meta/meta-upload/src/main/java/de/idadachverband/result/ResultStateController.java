@@ -1,10 +1,12 @@
 package de.idadachverband.result;
 
-import de.idadachverband.archive.HashService;
-import de.idadachverband.transform.TransformationProgressService;
-import de.idadachverband.transform.TransformationProgressState;
-import de.idadachverband.transform.TransformedFileException;
+import de.idadachverband.job.JobBean;
+import de.idadachverband.job.JobProgressService;
+import de.idadachverband.job.JobProgressState;
+import de.idadachverband.process.ProcessJobBean;
+import de.idadachverband.transform.TransformationBean;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,11 +16,13 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
-import static de.idadachverband.transform.TransformationProgressState.DONE;
-import static de.idadachverband.transform.TransformationProgressState.FAILURE;
+import static de.idadachverband.job.JobProgressState.DONE;
+import static de.idadachverband.job.JobProgressState.FAILURE;
 
 /**
  * Created by boehm on 11.11.14.
@@ -28,40 +32,40 @@ import static de.idadachverband.transform.TransformationProgressState.FAILURE;
 @Slf4j
 public class ResultStateController
 {
-    @Inject
-    private HashService hashService;
+//    @Inject
+//    private HashService hashService;
 
     @Inject
-    private TransformationProgressService transformationProgressService;
+    private JobProgressService jobProgressService;
 
     @RequestMapping(value = "getResult", produces = "application/json")
     @ResponseBody
-    public String getResult(@RequestParam("result") String key) throws ExecutionException, InterruptedException
+    public String getResult(@RequestParam("jobId") String jobId) throws ExecutionException, InterruptedException
     {
-        log.debug("Query for result of job '{}'.", key);
+        log.debug("Query for result of job '{}'.", jobId);
 
-        TransformationProgressState state = transformationProgressService.getState(key);
+        JobProgressState state = jobProgressService.getState(jobId);
 
         JsonObjectBuilder result = Json.createObjectBuilder();
-        result.add("key", key);
+        result.add("jobId", jobId);
 
         if (state == DONE)
         {
-            try
+            JobBean jobBean = jobProgressService.getJob(jobId);
+            if (jobBean != null && jobBean instanceof ProcessJobBean)
             {
-                Path path = transformationProgressService.getFile(key);
-                String hashedFileName = hashService.getHashedFileName(path);
-                result.add("filename", hashedFileName);
-            } catch (TransformedFileException e)
-            {
-                state = FAILURE;
-                transformationProgressService.setException(key, e);
-                result.add("exception", e.toString());
+                TransformationBean transformationBean = ((ProcessJobBean) jobBean).getTransformation();
+                Path path = Paths.get(
+                        transformationBean.getCoreName(), 
+                        transformationBean.getInstitutionId(), 
+                        transformationBean.getArchivedVersionId(), 
+                        transformationBean.getArchivedUpdateId());
+                result.add("path", path.toString());
             }
         }
         if (state == FAILURE)
         {
-            Exception e = transformationProgressService.getException(key);
+            Exception e = jobProgressService.getException(jobId);
             if (e != null)
             {
                 result.add("exception", e.toString());

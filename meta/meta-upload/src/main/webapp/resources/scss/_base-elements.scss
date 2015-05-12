@@ -1,0 +1,48 @@
+// Main content divs
+.main {
+  margin: 70px 40px;
+}
+
+// Alert and error messages
+.alert, .error {
+  background-color: $color-yellow-4;
+  border: 1px solid $color-blue-5;
+  border-left: 0 none;
+  border-right: 0 none;
+  border-radius: 0;
+  color: inherit;
+}
+
+// Normal button
+.btn, .btn:hover {
+  font-weight: 500;
+  background-color: $color-blue-button;
+  border: 0 none;
+  border-radius: 0;
+  cursor: pointer;
+  color: $color-white;
+  display: inline-block;
+  padding: 5px 30px;
+  text-align: center;
+  text-decoration: none;
+  &.btn-bright {
+    color: inherit;
+    background-color: $color-grey-border;
+  }
+}
+
+// Huge X to delete items
+.delete {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+  &:before {
+    cursor: pointer;
+    content: "\e608";
+    color: $color-black;
+    font-family: 'icomoon';
+    font-size: 16px;
+    font-weight: normal;
+  }
+}

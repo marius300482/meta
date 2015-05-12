@@ -90,7 +90,7 @@ class TopicsController extends BrowseController
         // Remove some entries for better distribution
         $topics = array_slice($this->getTopics(), 5);
 
-        $max_font = $this->config->TopicsCloud->fontsize != null ? $this->config->TopicsCloud->fontsize : 50;
+        $max_font = isset($this->config->TopicsCloud->fontsize) ? $this->config->TopicsCloud->fontsize : 50;
         $maxcount=reset($topics);
         $keyword_weight_ratio = (float)($max_font / (float)$maxcount['count']);
 
@@ -98,8 +98,7 @@ class TopicsController extends BrowseController
             $topic['weight'] = round($topic['count'] * $keyword_weight_ratio);
         }
 
-        $alpha = $this->config->TopicsCloud->alpha;
-        if (!isset($alpha) || $alpha) {
+        if (!isset($this->config->TopicsCloud->alpha) || $this->config->TopicsCloud->alpha) {
             usort($topics, function ($a, $b) {
                 return $a['displayText'] > $b['displayText'];
             });

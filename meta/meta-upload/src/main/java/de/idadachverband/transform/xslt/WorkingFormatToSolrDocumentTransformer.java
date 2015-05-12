@@ -49,6 +49,6 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
     @Override
     public String getTransformationMessages()
     {
-        return null;
+        return "";
     }
 }

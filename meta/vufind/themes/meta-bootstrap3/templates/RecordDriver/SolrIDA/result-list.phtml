@@ -95,10 +95,8 @@
                     <?=!empty($summDate) ? ' (' . $this->escapeHtml($summDate[0]) . ')' : ''?>
                 <? endif; ?>
 
+                <? $secondLineNotEmpty = false; ?>
                 <? if (!empty($publishers)): ?>
-                    <? if ($placeOfPublicationSet): ?>
-                        :
-                    <? endif; ?>
                     <? $secondLineNotEmpty = true; ?>
                     <? foreach($publishers as $publisher): ?>
                         <span property="publisher" typeof="Organization"><?= $this->escapeHtml($publisher) ?></span><?= $publisher !== end($publishers) ? ", " : "" ?>
@@ -108,8 +106,6 @@
                 <? if (!empty($publicationDate)): ?>
                     <? if ($secondLineNotEmpty): ?>
                         ,
-                    <? elseif ($placeOfPublicationSet): ?>
-                        :
                     <? endif; ?>
                     <? $secondLineNotEmpty = true; ?>
                     <span property="publicationDate"><?= $this->escapeHtml($publicationDate) ?></span>
@@ -134,8 +130,6 @@
                 <? if (!empty($physicals)): ?>
                     <? if ($secondLineNotEmpty): ?>
                         ,
-                    <? elseif ($placeOfPublicationSet): ?>
-                        :
                     <? endif; ?>
                     <? $secondLineNotEmpty = true; ?>
                     <? foreach($physicals as $physical): ?>
@@ -168,7 +162,7 @@
                     <br />
                 <? endif; ?>
 
-                <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
+                <!--<? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
                 <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
                 <? if (!empty($timeSpanStart) || !empty($timeSpanEnd)): ?>
                     <?=$this->transEsc('Time span')?>:
@@ -182,7 +176,7 @@
                         <?= $this->escapeHtml($timeSpanEnd) ?>
                     <? endif; ?>
                     <br />
-                <? endif; ?>
+                <? endif; ?>-->
 
                 <? $summInCollection = $this->driver->getContainingCollections(); ?>
                 <?php if (!empty($summInCollection)): ?>
