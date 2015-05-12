@@ -237,14 +237,13 @@ public class ArchiveService
      * @return list of archived cores
      * @throws ArchiveException 
      */
-    public List<ArchiveCoreBean> getArchivedCores() throws ArchiveException
+    public List<ArchiveCoreBean> getArchivedCores()
     {
         final List<ArchiveCoreBean> archivedCores = new ArrayList<>();
         for (String coreName : getCoreNames())
         {
             log.debug("found core: {}", coreName);
-            archivedCores.add(
-                    buildCoreBean(coreName, true));
+            archivedCores.add(buildCoreBean(coreName, true, true));
         }
         return archivedCores;
     }
@@ -256,18 +255,12 @@ public class ArchiveService
      * @return list of archived institutions
      * @throws ArchiveException 
      */
-    public List<ArchiveInstitutionBean> getArchivedInstitutions(String coreName, boolean traverseVersions) throws ArchiveException
+    public List<ArchiveInstitutionBean> getArchivedInstitutions(String coreName, boolean traverseVersions)
     {
-        // build parent without traversing the archive
-        ArchiveCoreBean parent = buildCoreBean(coreName, false);
+        // build parent core 
+        ArchiveCoreBean parent = buildCoreBean(coreName, true, traverseVersions);
         
-        List<ArchiveInstitutionBean> archivedInstitutions = new ArrayList<>();
-        for  (String institutionId : getInstitutionIds(coreName))
-        {
-            archivedInstitutions.add(
-                    buildInstitutionBean(parent, institutionId, traverseVersions));
-        }
-        return archivedInstitutions;
+        return parent.getEntries();
     }
     
     /**
@@ -288,13 +281,13 @@ public class ArchiveService
         // build parent without traversing other versions
         ArchiveInstitutionBean parent = 
                 buildInstitutionBean(
-                        buildCoreBean(coreName, false), 
+                        buildCoreBean(coreName, false, false), 
                         institutionId, false);
         return buildVersionBean(parent, versionId);
     }
     
     
-    protected ArchiveCoreBean buildCoreBean(String coreName, boolean traverseInstitutions) throws ArchiveException
+    protected ArchiveCoreBean buildCoreBean(String coreName, boolean traverseInstitutions, boolean traverseVersions)
     {
         ArchiveCoreBean bean = new ArchiveCoreBean(coreName);
         
@@ -303,14 +296,21 @@ public class ArchiveService
             for (String institutionId : getInstitutionIds(coreName))
             {
                 log.debug("found institution: {}", institutionId);
-                bean.add(buildInstitutionBean(bean, institutionId, true));
+                try
+                {
+                    ArchiveInstitutionBean archivedInstitution = buildInstitutionBean(bean, institutionId, traverseVersions);
+                    bean.add(archivedInstitution);
+                } catch (Exception e)
+                {
+                    log.warn("Could not read archived institution {} from core {}", institutionId, coreName, e);
+                }
             }
         }
             
         return bean;
     }
     
-    protected ArchiveInstitutionBean buildInstitutionBean(ArchiveCoreBean parent, String institutionId, boolean traverseVersions) throws ArchiveException 
+    protected ArchiveInstitutionBean buildInstitutionBean(ArchiveCoreBean parent, String institutionId, boolean traverseVersions) 
     {
         IdaInstitutionBean institutionBean = idaInstitutionConverter.convert(institutionId);
         ArchiveInstitutionBean bean = new ArchiveInstitutionBean(institutionBean, parent);
@@ -322,7 +322,13 @@ public class ArchiveService
             for (String versionId : getVersionIds(coreName, institutionId))
             {
                 log.debug("found version: {}", versionId);
-                bean.add(buildVersionBean(bean, versionId));
+                try 
+                {
+                    bean.add(buildVersionBean(bean, versionId));
+                } catch (Exception e)
+                {
+                    log.warn("Could not read archived version {} of institution {} from core {}", versionId, institutionId, coreName, e);
+                }
             }
         }
        
