@@ -657,7 +657,8 @@
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
 			<!--format Objektartinformationen-->
-					<format><xsl:text>Graue Materialien</xsl:text></format>
+					<!--<format><xsl:text>Graue Materialien</xsl:text></format>-->
+					<format><xsl:text>Buch</xsl:text></format>
 			
 			<!--documentType-->
 					<xsl:apply-templates select="Dokumentenart[string-length() != 0]" />
@@ -879,7 +880,7 @@
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			
 			<!--format Objektartinformationen-->
-					<format><xsl:text>Plakate</xsl:text></format>
+					<format><xsl:text>Plakat</xsl:text></format>
 			
 			<!--documentType-->
 					<xsl:apply-templates select="Dokumentenart[string-length() != 0]" />
