@@ -1,7 +1,10 @@
 <? $results = $this->recommend->getResults(); ?>
 <? $resultBasePath = $this->url("search-results"); // Was "$resultBasePath" which is wrong if facets are shown in other views ?>
 <? if ($results->getResultTotal() > 0): ?>
-  <h4><?=$this->transEsc(isset($this->overrideSideFacetCaption) ? $this->overrideSideFacetCaption : 'Narrow Search')?></h4>
+  <h4>
+      <?=$this->transEsc(isset($this->overrideSideFacetCaption) ? $this->overrideSideFacetCaption : 'Narrow Search')?>
+      <a class="visible-xs goUpFromFacetsWrapper" href="#goToFacets"></a>
+  </h4>
 <? endif; ?>
 <? $checkboxFilters = $results->getParams()->getCheckboxFacets(); if (count($checkboxFilters) > 0): ?>
 <?

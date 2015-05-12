@@ -200,6 +200,17 @@
 
 //Sidebar
 .detail-view-sidebar {
+  .list-group-item, .list-group-item:hover {
+    padding: 10px 0;
+    background-color: transparent;
+    font-weight: 300;
+    &:first-child {
+      border-top-width: 4px;
+    }
+    a {
+      font-size: 14px;
+    }
+  }
   @media (max-width: $device-xs-max-width) {
     h4 {
       margin-top: 20px;
@@ -209,5 +220,47 @@
     .list-group-item:first-child, .list-group-item:hover:first-child {
       border-top-width: 0;
     }
+  }
+  .fa {
+    &:before {
+      content: "";
+    }
+    float: left;
+    height: 25px;
+    margin: 0 10px 3px 0;
+    width: 20px;
+  }
+  .fa-akte {
+    background: url($theme-path-images + "/smaller/akte.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-artikel {
+    background: url($theme-path-images + "/smaller/artikel.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-artikelonline {
+    background: url($theme-path-images + "/smaller/artikelonline.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-buch {
+    background: url($theme-path-images + "/smaller/buch.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-hochschulschrift {
+    background: url($theme-path-images + "/smaller/hochschulschrift.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-monographie {
+    background: url($theme-path-images + "/smaller/monographie.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-sammelband {
+    background: url($theme-path-images + "/smaller/sammelband.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-videocd {
+    background: url($theme-path-images + "/smaller/videocd.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-systematik {
+    background: url($theme-path-images + "/smaller/systematik.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-zeitschrift {
+    background: url($theme-path-images + "/smaller/zeitschrift.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-zeitschriftenheft {
+    background: url($theme-path-images + "/smaller/zeitschriftenheft.png") no-repeat scroll 0 0 transparent;
   }
 }
