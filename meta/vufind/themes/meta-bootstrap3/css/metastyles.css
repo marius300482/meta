@@ -675,43 +675,27 @@ footer {
 .row.result:last-child {
   margin-bottom: 60px !important; }
 
-.detail-view-sidebar .list-group-item, .detail-view-sidebar .list-group-item:hover {
-  padding: 10px 0;
-  background-color: transparent;
-  font-weight: 300; }
-  .detail-view-sidebar .list-group-item:first-child, .detail-view-sidebar .list-group-item:hover:first-child {
-    border-top-width: 4px; }
-  .detail-view-sidebar .list-group-item a, .detail-view-sidebar .list-group-item:hover a {
-    font-size: 14px; }
-.detail-view-sidebar .fa {
-  float: left;
-  height: 25px;
-  margin: 0 10px 3px 0;
-  width: 20px; }
-  .detail-view-sidebar .fa:before {
-    content: ""; }
-.detail-view-sidebar .fa-akte {
-  background: url("../images/smaller/akte.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-artikel {
-  background: url("../images/smaller/artikel.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-artikelonline {
-  background: url("../images/smaller/artikelonline.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-buch {
-  background: url("../images/smaller/buch.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-hochschulschrift {
-  background: url("../images/smaller/hochschulschrift.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-monographie {
-  background: url("../images/smaller/monographie.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-sammelband {
-  background: url("../images/smaller/sammelband.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-videocd {
-  background: url("../images/smaller/videocd.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-systematik {
-  background: url("../images/smaller/systematik.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-zeitschrift {
-  background: url("../images/smaller/zeitschrift.png") no-repeat scroll 0 0 transparent; }
-.detail-view-sidebar .fa-zeitschriftenheft {
-  background: url("../images/smaller/zeitschriftenheft.png") no-repeat scroll 0 0 transparent; }
+@media (max-width: 768px) {
+  #facets {
+    padding-top: 10px; }
+    #facets h4 {
+      position: relative;
+      margin: 0 0 35px 0; } }
+#facets .goUpFromFacetsWrapper {
+  float: right; }
+  #facets .goUpFromFacetsWrapper:before {
+    background-color: #2e264d;
+    content: "\e606";
+    color: white;
+    display: inline-block;
+    font-family: icomoon;
+    font-size: 12px;
+    font-weight: normal;
+    height: 32px;
+    line-height: 31px;
+    margin-top: -5px;
+    text-align: center;
+    width: 32px; }
 
 #record {
   font-weight: 300; }
@@ -863,6 +847,14 @@ footer {
     font-style: normal;
     content: "\e601"; }
 
+.detail-view-sidebar .list-group-item, .detail-view-sidebar .list-group-item:hover {
+  padding: 10px 0;
+  background-color: transparent;
+  font-weight: 300; }
+  .detail-view-sidebar .list-group-item:first-child, .detail-view-sidebar .list-group-item:hover:first-child {
+    border-top-width: 4px; }
+  .detail-view-sidebar .list-group-item a, .detail-view-sidebar .list-group-item:hover a {
+    font-size: 14px; }
 @media (max-width: 768px) {
   .detail-view-sidebar h4 {
     margin-top: 20px;
@@ -870,6 +862,35 @@ footer {
     border-bottom: 5px solid #d6d3de; }
   .detail-view-sidebar .list-group-item:first-child, .detail-view-sidebar .list-group-item:hover:first-child {
     border-top-width: 0; } }
+.detail-view-sidebar .fa {
+  float: left;
+  height: 25px;
+  margin: 0 10px 3px 0;
+  width: 20px; }
+  .detail-view-sidebar .fa:before {
+    content: ""; }
+.detail-view-sidebar .fa-akte {
+  background: url("../images/smaller/akte.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-artikel {
+  background: url("../images/smaller/artikel.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-artikelonline {
+  background: url("../images/smaller/artikelonline.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-buch {
+  background: url("../images/smaller/buch.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-hochschulschrift {
+  background: url("../images/smaller/hochschulschrift.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-monographie {
+  background: url("../images/smaller/monographie.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-sammelband {
+  background: url("../images/smaller/sammelband.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-videocd {
+  background: url("../images/smaller/videocd.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-systematik {
+  background: url("../images/smaller/systematik.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-zeitschrift {
+  background: url("../images/smaller/zeitschrift.png") no-repeat scroll 0 0 transparent; }
+.detail-view-sidebar .fa-zeitschriftenheft {
+  background: url("../images/smaller/zeitschriftenheft.png") no-repeat scroll 0 0 transparent; }
 
 #topicsPage h1 {
   font-size: 16px;
