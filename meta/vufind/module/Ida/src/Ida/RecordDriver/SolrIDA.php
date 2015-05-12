@@ -7,7 +7,7 @@
  */
 namespace Ida\RecordDriver;
 
-use VuFind\RecordDriver\SolrDefault,VuFind\View\Helper\Root\RecordLink, Ida\Institution\Institution;
+use Ida\Institution\Institution;use VuFind\RecordDriver\SolrDefault;use VuFind\View\Helper\Root\RecordLink;
 
 abstract class SolrIDA extends SolrDefault
 {
@@ -26,6 +26,30 @@ abstract class SolrIDA extends SolrDefault
             $amazonassociate = $this->mainConfig->Content->amazonassociate;;
         }
         return $amazonassociate;
+    }
+
+    /**
+    * Shorthand for record type
+    */
+    public function isLibrary()
+    {
+        return $this->getRecordType() === "library";
+    }
+
+    /**
+    * Shorthand for record type
+    */
+    public function isArchive()
+    {
+        return $this->getRecordType() === "archive";
+    }
+
+    /**
+    * Shorthand for record type
+    */
+    public function isSystematics()
+    {
+        return $this->getRecordType() === "systematics";
     }
 
      /**
