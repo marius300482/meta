@@ -131,22 +131,21 @@
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
     
-    <util:map id="institutionsMap" map-class="java.util.TreeMap"
-    		key-type="java.lang.String"
-              value-type="de.idadachverband.institution.IdaInstitutionBean">
-        <entry key="genderbib" value-ref="genderbib"/>
-        <entry key="fmt" value-ref="fmt"/>
-        <entry key="frso" value-ref="frso"/>
-        <entry key="ffbiz" value-ref="ffbiz"/>
-        <entry key="belladonna" value-ref="belladonna"/>
-        <entry key="spinnboden" value-ref="spinnboden"/>
-        <entry key="stichwort" value-ref="stichwort"/>
-        <entry key="ash" value-ref="ash"/>
-        <entry key="cid" value-ref="cid"/>
-        <entry key="schemaf" value-ref="schemaf"/>
-        <entry key="hla" value-ref="hla"/>
-        <entry key="kfgv" value-ref="kfgv"/>
-    </util:map>
+    <util:set id="institutionsSet" set-class="java.util.HashSet"
+    		  value-type="de.idadachverband.institution.IdaInstitutionBean">
+        <ref bean="genderbib"/>
+        <ref bean="fmt"/>
+        <ref bean="frso"/>
+        <ref bean="ffbiz"/>
+        <ref bean="belladonna"/>
+        <ref bean="spinnboden"/>
+        <ref bean="stichwort"/>
+        <ref bean="ash"/>
+        <ref bean="cid"/>
+        <ref bean="schemaf"/>
+        <ref bean="hla"/>
+        <ref bean="kfgv"/>
+    </util:set>
 
     <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer"
           scope="prototype">

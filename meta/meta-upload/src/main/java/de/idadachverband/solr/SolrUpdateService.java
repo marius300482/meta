@@ -171,14 +171,14 @@ public class SolrUpdateService
         {
             solrResult = solr.update(inputFile);
             
-        } catch (IOException | SolrServerException e)
+        } catch (Exception e)
         {
             if (rollbackOnError) {
                 log.warn("Update of solr {} failed for institution {}. Start rollback", solr, institution);
                 final String result = reindexInstitution(solr, institution);
                 log.info("Result of reindexing is: {}", result);
             }
-            throw e;
+            throw new SolrServerException("Invalid update", e);
         } finally
         {
             if (inputIsArchived) {
