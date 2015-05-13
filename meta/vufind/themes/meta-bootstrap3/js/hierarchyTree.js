@@ -3,6 +3,7 @@
 var hierarchyID, recordID, htmlID;
 var baseTreeSearchFullURL;
 
+
 function getRecord(recordID)
 {
   $.ajax({
@@ -48,7 +49,35 @@ function htmlEncodeId(id)
 var searchAjax = false;
 function doTreeSearch()
 {
-  $('#treeSearchLoadingImg').removeClass('hidden');
+    // todo: ajax loader icon
+
+    var keyword = $("#treeSearchText").val(),
+        type = $("#treeSearchType").val();
+
+    if (0 < keyword.length) {
+
+        if(searchAjax) {
+            searchAjax.abort();
+        }
+
+        searchAjax = $.ajax({
+            "url": path + '/Hierarchy/SearchTree?' + $.param({
+                'lookfor': keyword,
+                'hierarchyID': hierarchyID,
+                'type': $("#treeSearchType").val()
+            }) + "&format=true",
+            'success': function(data) {
+
+                var k = 0;
+
+                //if (0 < data.results.length) {}
+                for (; k < data.results.length; k++) {
+
+                }
+            }});
+    }
+    else {}
+  /*$('#treeSearchLoadingImg').removeClass('hidden');
   var keyword = $("#treeSearchText").val();
   var type = $("#treeSearchType").val();
   if(keyword.length == 0) {
@@ -70,25 +99,33 @@ function doTreeSearch()
       'success': function(data) {
         if(data.results.length > 0) {
           $('#hierarchyTree').find('.jstree-search').removeClass('jstree-search');
-          var tree = $('#hierarchyTree').jstree(true);
-          tree.close_all();
-          for(var i=data.results.length;i--;) {
-            var id = htmlEncodeId(data.results[i]);
-            tree._open_to(id);
-          }
+          var tree = $('#hierarchyTree').jstree(true),
+              i;
+          //tree.close_all();
+          //for(i=data.results.length;i--;) {
+          //  var id = htmlEncodeId(data.results[i]);
+          //  tree._open_to(id);
+          //}
+            //tree.close_node('1Bundesverband_def_addf');
+            //tree.disable_node(tree.get_node('43374addf'));
+            var nid='43374addf';
+            tree.delete_node(tree.get_node(nid));
+            tree.delete_node(nid);
           for(i=data.results.length;i--;) {
             var tid = htmlEncodeId(data.results[i]);
-            $('#hierarchyTree').find('#'+tid).addClass('jstree-search');
+              //tree.delete_node(tid);
+            //$('#hierarchyTree').find('#'+tid).addClass('jstree-search');
           }
           changeNoResultLabel(false);
-          changeLimitReachedLabel(data.limitReached);
+          //changeLimitReachedLabel(data.limitReached);
         } else {
           changeNoResultLabel(true);
         }
+          changeLimitReachedLabel(data.limitReached);
         $('#treeSearchLoadingImg').addClass('hidden');
       }
     });
-  }
+  }*/
 }
 
 function buildJSONNodes(xml)
@@ -169,6 +206,7 @@ $(document).ready(function()
     .jstree({
           'plugins': ['search', 'types'],
           'core': {
+              check_callback:true,
               // Ajax mode (see http://www.jstree.com/docs/json/)
               'data': function (obj, cb) {
                   $.ajax({
