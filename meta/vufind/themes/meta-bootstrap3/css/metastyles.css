@@ -336,7 +336,7 @@ header {
     height: 212px; }
     @media (max-width: 768px) {
       header .header-background {
-        height: 292px; } }
+        height: 262px; } }
   header > .navbar {
     border: 0 none;
     margin-bottom: -40px; }
@@ -345,17 +345,15 @@ header {
     font-family: 'Libre Baskerville', serif;
     font-size: 23px;
     display: inline-block;
-    height: auto;
+    height: 100px;
     line-height: 35px;
     letter-spacing: 2px;
     float: none;
     margin: 20px 0 4px 15px; }
     @media (max-width: 768px) {
       header .navbar-brand {
+        height: 60px;
         line-height: 30px; } }
-    @media (max-width: 400px) {
-      header .navbar-brand {
-        font-size: 17px; } }
   header .navbar-header {
     float: none; }
   header .navbar-toggle {
@@ -575,7 +573,7 @@ footer {
 .spellingSuggestions {
   font-size: 16px; }
   .spellingSuggestions div.alert {
-    margin-top: -40px; }
+    margin-top: -70px; }
   .spellingSuggestions br {
     display: none; }
   .spellingSuggestions .alert {
