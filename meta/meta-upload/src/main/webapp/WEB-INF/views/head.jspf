@@ -10,6 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<spring:url value="/resources/css/metastyles.css" var="metastyles"/>
 <spring:url value="/upload" var="url"/>
 <spring:url value="/jobs/status" var="jobsUrl"/>
 <spring:url value="/j_spring_security_logout" var="logoutUrl"/>
@@ -20,7 +21,7 @@
 <head>
     <meta charset="utf-8">
     <title>File-Upload Metadaten-Katalog</title>
-    <link rel="stylesheet" href="/resources/css/metastyles.css">
+    <link rel="stylesheet" href="${metastyles}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
