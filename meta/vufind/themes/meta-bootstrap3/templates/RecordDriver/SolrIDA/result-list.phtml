@@ -126,8 +126,8 @@
                         <?= $this->escapeHtml($volume) ?><?= $volume !== end($volumes) ? ", " : "" ?>
                     <? endforeach; ?>
                 <? endif; ?>
-
-                <? if (!empty($physicals)): ?>
+	<?php if ($this->driver->isLibrary()): ?>
+	  <? if (!empty($physicals)): ?>
                     <? if ($secondLineNotEmpty): ?>
                         ,
                     <? endif; ?>
@@ -137,7 +137,24 @@
                         S.
                     <? endforeach; ?>
                 <? endif; ?>
-
+	  <?php endif; ?>
+               
+		
+	<?php if ($this->driver->isArchive()): ?>
+	   <? if (!empty($physicals)): ?>
+                    <? if ($secondLineNotEmpty): ?>
+                        ,
+                    <? endif; ?>
+                    <? $secondLineNotEmpty = true; ?>
+                    <? foreach($physicals as $physical): ?>
+                        <span property="physical"><?= $this->escapeHtml($physical) ?></span><?= $physical !== end($physicals) ? ", " : ""; ?>
+                       
+                    <? endforeach; ?>
+                <? endif; ?>
+	  <?php endif; ?>
+		
+		 
+		
                 <? if (!empty($issn)): ?>
                     <? if ($secondLineNotEmpty): ?>
                         ,
