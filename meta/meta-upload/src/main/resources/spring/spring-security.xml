@@ -5,16 +5,22 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <!--debug/-->
+    <!-- debug/ -->
     <global-method-security pre-post-annotations="enabled"/>
 
     <http pattern="/logout" security="none"/>
     <http pattern="/favicon.ico" security="none"/>
     <http pattern="/login" security="none"/>
     <http pattern="/WEB-INF/views/login.jsp" security="none"/>
-
+    
+   
     <http use-expressions="true">
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/archive/**" access="hasAuthority('admin')"/>
+        <intercept-url pattern="/jobs/**" access="hasAuthority('admin')"/>
+        <intercept-url pattern="/process/**" access="hasAuthority('admin')"/>
+        <intercept-url pattern="/solr/**" access="hasAuthority('admin')"/>
+		<intercept-url pattern="/**" access="isAuthenticated()"/>
+		        
         <form-login	login-page="/login"
         	        authentication-failure-url="/login?auth=fail"/>
         <logout logout-success-url="/login?logout=success"/>
