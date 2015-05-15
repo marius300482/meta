@@ -9,15 +9,15 @@
             <li class="active">
                 <a href="${url}">Upload file</a>
             </li>
-            <li>
-                <a href="${archive}">Archive</a>
-            </li>
-            <sec:authorize access="hasAuthority('admin')">
-                <li>
-                    <a href="${jobsUrl}">Jobs</a>
-                </li>
-            </sec:authorize>
-        </ul>
+			<sec:authorize access="hasAuthority('admin')">
+				<li>
+					<a href="${archive}">Archive</a>
+				</li>
+				<li>
+					<a href="${jobsUrl}">Jobs</a>
+				</li>
+			</sec:authorize>
+		</ul>
         <ul id="userStatus">
             <li class="userName">
                 <a id="username">Hello ${user}!</a>
