@@ -119,14 +119,15 @@ class Institution
                 $this->institutionId = substr($file, 0, $fileEndingIndex);
                 $institution = $this->getInstitutionDetails();
                 $institution["id"] = $this->institutionId;
+                // Use case insensitive $sortSecond as first array element which is
+                // used in array_multisort() as second sort condition
+                $institution = array(strtoupper($institution[$sortSecond])) + $institution;
                 $institutions[] = $institution;
             }
         }
 
-        // Sort the institutions by name
-        $institutions = $this->sortBySubArrayValue($institutions, $sortSecond);
-
-        // Sort the institutions by country
+        // Sort the institutions by $sortFirst. Equal $sortFirst entries will
+        // automatically be sorted by $sortSecond in array_multisort()
         $institutions = $this->sortBySubArrayValue($institutions, $sortFirst);
 
         return $institutions;
