@@ -40,7 +40,7 @@ public class ArchiveController
     }
     
     @RequestMapping(value = "delete/{core}/{institution}/{version}", method = RequestMethod.GET)
-    public String reprocessVersion(
+    public String deleteVersion(
             @PathVariable("core") String coreName,
             @PathVariable("institution") String institutionName,
             @PathVariable("version") String versionId,
@@ -51,7 +51,7 @@ public class ArchiveController
     }
     
     @RequestMapping(value = "delete/{core}/{institution}/{version}/{update}", method = RequestMethod.GET)
-    public String reprocessUpdate(
+    public String deleteUpdate(
             @PathVariable("core") String coreName,
             @PathVariable("institution") String institutionName,
             @PathVariable("version") String versionId,

@@ -69,9 +69,9 @@ public class UserServiceTest
     }
 
     @Test
-    public void getRoles() throws Exception
+    public void getAuthorities() throws Exception
     {
-        final List<GrantedAuthority> actual = cut.getRoles();
+        final List<GrantedAuthority> actual = cut.getAuthorities();
 
         assertThat(actual.size(), is(1));
         assertThat(actual.get(0).getAuthority(), is(role));

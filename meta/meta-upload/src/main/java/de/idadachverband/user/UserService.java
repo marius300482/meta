@@ -1,6 +1,7 @@
 package de.idadachverband.user;
 
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Utility class to get UserDetails
@@ -23,7 +27,7 @@ public class UserService
 
     @Value("${result.mail.from}")
     private String mailFrom;
-
+    
     /**
      * @return username of authenticated user
      * @throws Exception
@@ -70,7 +74,7 @@ public class UserService
         return email;
     }
 
-    public List<GrantedAuthority> getRoles()
+    public List<GrantedAuthority> getAuthorities()
     {
 
         UserDetails userDetails;
@@ -79,7 +83,7 @@ public class UserService
             userDetails = getUserDetails();
         } catch (AuthenticationNotFoundException e)
         {
-            return null;
+            return Collections.emptyList();
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -95,7 +99,45 @@ public class UserService
         }
         return authorities;
     }
+    
+    public Set<String> getRoles()
+    {
+        UserDetails userDetails;
+        try
+        {
+            userDetails = getUserDetails();
+        } catch (AuthenticationNotFoundException e)
+        {
+            return Collections.emptySet();
+        }
 
+        Set<String> roles = new HashSet<String>(2);
+
+        final Collection<? extends GrantedAuthority> foundAuthorities = userDetails.getAuthorities();
+
+        for (GrantedAuthority authority : foundAuthorities)
+        {
+            String roleName = authority.getAuthority(); 
+            if (!roleName.contains("@"))
+            {
+                roles.add(roleName);
+            }
+        }
+        return roles;
+    }
+    
+    public boolean isAdmin()
+    {
+        return getRoles().contains("admin");
+    }
+    
+    public Set<String> getInstitutionIds() 
+    {
+        Set<String> roles = getRoles();
+        roles.remove("admin");
+        return roles;
+    }
+    
     protected UserDetails getUserDetails() throws AuthenticationNotFoundException
     {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

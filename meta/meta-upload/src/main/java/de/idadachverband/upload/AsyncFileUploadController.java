@@ -5,10 +5,10 @@ import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.process.ProcessJobBean;
 import de.idadachverband.process.ProcessService;
 import de.idadachverband.solr.SolrService;
+import de.idadachverband.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,11 +24,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -40,6 +40,9 @@ import java.util.concurrent.Callable;
 @Slf4j
 public class AsyncFileUploadController
 {
+    @Inject
+    private UserService userService;
+    
     @Inject
     private IdaInstitutionConverter idaInstitutionConverter;
 
@@ -56,30 +59,42 @@ public class AsyncFileUploadController
     private SimpleDateFormat dateFormat;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView prepareUploadForm(@AuthenticationPrincipal Authentication authentication)
+    public ModelAndView prepareUploadForm()
     {
         ModelAndView mav = new ModelAndView("uploadform");
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        GrantedAuthority authority = (GrantedAuthority) authorities.toArray()[0];
-
-        if ("admin".equals(authority.getAuthority()))
+        Map<String, IdaInstitutionBean> allInstitutions = 
+                idaInstitutionConverter.getInstitutionsMap();
+        
+        if (userService.isAdmin())
         {
-            mav.addObject("institutions", idaInstitutionConverter.getInstitutionsMap());
+            mav.addObject("institutions", allInstitutions);
             mav.addObject("solrServices", solrServiceSet);
             mav.addObject("allowIncremental", true);
             mav.addObject("incrementalDefault", true);
         } else
         {
-            Map<String, IdaInstitutionBean> idaInstitutions = new HashMap<>(1);
-            IdaInstitutionBean idaInstitutionBean = idaInstitutionConverter.convert(authority.getAuthority());
-            idaInstitutions.put(idaInstitutionBean.getInstitutionId(), idaInstitutionBean);
-            mav.addObject("institutions", idaInstitutions);
-            Set<SolrService> solrServices = new HashSet<>(1);
-            solrServices.add(defaultSolrUpdater);
-            mav.addObject("solrServices", solrServices);
-            mav.addObject("allowIncremental", idaInstitutionBean.isIncrementalUpdateAllowed());
-            mav.addObject("incrementalDefault", idaInstitutionBean.isIncrementalUpdate());
+            final Set<String> institutionIds = userService.getInstitutionIds();
+            final Map<String, IdaInstitutionBean> filteredInstitutions = new HashMap<>(1);
+            for (Entry<String, IdaInstitutionBean> entry : allInstitutions.entrySet())
+            {
+                if (institutionIds.contains(entry.getKey()))
+                {
+                    filteredInstitutions.put(entry.getKey(), entry.getValue());
+                }
+            }
+            mav.addObject("institutions", filteredInstitutions);
+            mav.addObject("solrServices", Collections.singleton(defaultSolrUpdater));
+            
+            if (institutionIds.size() == 1)
+            {
+                IdaInstitutionBean idaInstitutionBean = idaInstitutionConverter.convert(institutionIds.iterator().next());                
+                mav.addObject("allowIncremental", idaInstitutionBean.isIncrementalUpdateAllowed());
+                mav.addObject("incrementalDefault", idaInstitutionBean.isIncrementalUpdate());
+            } else
+            {
+                mav.addObject("allowIncremental", true);
+                mav.addObject("incrementalDefault", true);
+            }
         }
         mav.addObject("transformation", new UploadFormBean());
 

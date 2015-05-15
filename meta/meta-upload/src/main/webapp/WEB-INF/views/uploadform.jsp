@@ -18,6 +18,8 @@
                 <form:label path="solr">Solr Core</form:label>
                 <form:select path="solr" items="${solrServices}"/><br />
                 <br/>
+            </div>
+            <div style="display: none;"><c:if test="${institutions.size() gt 1}"></div><div></c:if>
                 <form:label path="institution">Library/Archive</form:label>
                 <form:select path="institution" items="${institutions}"/><br />
                 <br/>
