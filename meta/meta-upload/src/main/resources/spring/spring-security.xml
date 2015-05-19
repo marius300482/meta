@@ -22,7 +22,10 @@
 		<intercept-url pattern="/**" access="isAuthenticated()"/>
 		        
         <form-login	login-page="/login"
-        	        authentication-failure-url="/login?auth=fail"/>
+                       authentication-failure-url="/login?auth=fail"
+                       default-target-url="/upload"
+                       always-use-default-target="true"
+                />
         <logout logout-success-url="/login?logout=success"/>
     </http>
     <authentication-manager>
