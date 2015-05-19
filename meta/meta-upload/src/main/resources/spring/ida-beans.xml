@@ -187,6 +187,6 @@
     </bean>
     
     <bean id="maxArchivedVersions" class="java.lang.Integer">
-    	<constructor-arg value="2"/>
+    	<constructor-arg value="6"/>
     </bean>
 </beans>
