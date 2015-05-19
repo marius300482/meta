@@ -1,7 +1,5 @@
 package de.idadachverband.archive;
 
-import de.idadachverband.solr.SolrService;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 
-import java.util.Set;
-
 /**
  * Created by boehm on 30.10.14.
  */
@@ -20,13 +16,11 @@ import java.util.Set;
 @RequestMapping("/archive")
 public class ArchiveController
 {
-    private final Set<SolrService> solrServiceSet;
     private final ArchiveService archiveService;
 
     @Inject
-    public ArchiveController(Set<SolrService> solrServiceSet, ArchiveService archiveService)
+    public ArchiveController(ArchiveService archiveService)
     {
-        this.solrServiceSet = solrServiceSet;
         this.archiveService = archiveService;
     }
 
@@ -35,30 +29,17 @@ public class ArchiveController
     {
         mav.setViewName("archiveList");
         mav.addObject("coreList", archiveService.getArchivedCores());
-        mav.addObject("solrSet", solrServiceSet);
         return mav;
     }
     
-    @RequestMapping(value = "delete/{core}/{institution}/{version}", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{core}/{institution}/{version:.+}", method = RequestMethod.GET)
     public String deleteVersion(
             @PathVariable("core") String coreName,
-            @PathVariable("institution") String institutionName,
-            @PathVariable("version") String versionId,
-            ModelMap map) 
+            @PathVariable("institution") String institutionId,
+            @PathVariable("version") String version,
+            ModelMap map) throws ArchiveException 
     {
-        archiveService.deleteVersion(coreName, institutionName, versionId);
-        return "redirect:/archive";
-    }
-    
-    @RequestMapping(value = "delete/{core}/{institution}/{version}/{update}", method = RequestMethod.GET)
-    public String deleteUpdate(
-            @PathVariable("core") String coreName,
-            @PathVariable("institution") String institutionName,
-            @PathVariable("version") String versionId,
-            @PathVariable("update") String updateId,
-            ModelMap map) 
-    {
-        archiveService.deleteUpdate(coreName, institutionName, versionId, updateId);
+        archiveService.deleteVersion(coreName, institutionId, VersionKey.parse(version));
         return "redirect:/archive";
     }
 }

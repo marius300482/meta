@@ -3,12 +3,15 @@ package de.idadachverband.archive;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
+import de.idadachverband.archive.visitor.CopyFileVisitor;
 import de.idadachverband.archive.visitor.DeletingFileVisitor;
 
 @Slf4j
@@ -84,5 +87,10 @@ public class Directories
         {
             log.warn("Error while deleting {}", dir, e);
         }
+    }
+    
+    public static void copy(final Path sourcePath, final Path targetPath) throws IOException
+    {
+        Files.walkFileTree(sourcePath, new CopyFileVisitor(sourcePath, targetPath));
     }
 }

@@ -1,23 +1,26 @@
 package de.idadachverband.archive.bean;
 
-import de.idadachverband.institution.IdaInstitutionBean;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
-import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import de.idadachverband.archive.VersionKey;
+import de.idadachverband.institution.IdaInstitutionBean;
 
 @Getter
-public class ArchiveInstitutionBean extends AbstractArchiveBean<ArchiveCoreBean, ArchiveVersionBean>
+@RequiredArgsConstructor
+@ToString(of = "institutionBean", includeFieldNames = false)
+public class ArchiveInstitutionBean
 {
     private final IdaInstitutionBean institutionBean;
     
-    public ArchiveInstitutionBean(IdaInstitutionBean institutionBean, @NonNull ArchiveCoreBean parent)
-    {
-        super(institutionBean.getInstitutionId(), parent);
-        this.institutionBean = institutionBean;
-    }
+    private List<ArchiveBaseVersionBean> baseVersions = new ArrayList<>();
     
-    public String getCoreName()
+    public String getInstitutionId()
     {
-        return parent.id;
+        return institutionBean.getInstitutionId();
     }
     
     public String getInstitutionName()
@@ -25,10 +28,22 @@ public class ArchiveInstitutionBean extends AbstractArchiveBean<ArchiveCoreBean,
         return institutionBean.getInstitutionName();
     }
 
-    public ArchiveVersionBean getLatestVersion()
+    public ArchiveBaseVersionBean getLatestVersion()
     {
-        return (entries.isEmpty())
+        return (baseVersions.isEmpty())
                 ? null
-                : entries.get(entries.size() - 1);
+                : baseVersions.get(baseVersions.size() - 1);
+    }
+    
+    public ArchiveBaseVersionBean find(VersionKey version)
+    {
+        for (ArchiveBaseVersionBean baseVersion : baseVersions)
+        {
+            if (baseVersion.getVersion().equals(version))
+            {
+                return baseVersion;
+            }
+        }
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package de.idadachverband.upload;
 
+import de.idadachverband.archive.VersionKey;
 import de.idadachverband.job.JobProgressService;
 import de.idadachverband.process.ProcessJobBean;
 import de.idadachverband.result.ResultStateController;
@@ -79,14 +80,13 @@ public class ResultStateControllerTest
         when(processJobBean.getTransformation()).thenReturn(transformation);
         when(transformation.getCoreName()).thenReturn("corename");
         when(transformation.getInstitutionId()).thenReturn("institution");
-        when(transformation.getArchivedVersionId()).thenReturn("version");
-        when(transformation.getArchivedUpdateId()).thenReturn("update");
+        when(transformation.getArchivedVersion()).thenReturn(new VersionKey(1,0));
 
         String actual = cut.getResult(jobId);
 
         JsonObject jsonObject = Json.createReader(new StringReader(actual)).readObject();
         assertThat(jsonObject.getString("state"), Matchers.is(DONE.toString()));
         assertThat(jsonObject.getString("jobId"), Matchers.is(jobId));
-        assertThat(jsonObject.getString("path"), Matchers.equalTo(Paths.get("corename", "institution", "version", "update").toString()));
+        assertThat(jsonObject.getString("path"), Matchers.equalTo(Paths.get("corename", "institution", "1.0").toString()));
     }
 }

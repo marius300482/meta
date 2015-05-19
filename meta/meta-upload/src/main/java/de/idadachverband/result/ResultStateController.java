@@ -58,8 +58,7 @@ public class ResultStateController
                 Path path = Paths.get(
                         transformationBean.getCoreName(), 
                         transformationBean.getInstitutionId(), 
-                        transformationBean.getArchivedVersionId(), 
-                        transformationBean.getArchivedUpdateId());
+                        transformationBean.getArchivedVersion().toString());
                 result.add("path", path.toString());
             }
         }

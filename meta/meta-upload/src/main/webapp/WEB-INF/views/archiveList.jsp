@@ -21,33 +21,35 @@
             <spring:url value="/archive/delete" var="deleteLink"/>
             <c:forEach var="core" items="${coreList}">
                 <li>
-                    <strong>Solr Core: ${core}</strong>
-                    <a href="${reindexLink}/${core.path}" class="btn">re-index latest</a>
-                    <a href="${reprocessLink}/${core.path}" class="btn">re-process latest</a>
+                    <strong>Solr Core: ${core.coreName}</strong>
+                    <a href="${reprocessLink}/${core.coreName}" class="btn">re-process latest</a>
+                    <a href="${reindexLink}/${core.coreName}" class="btn">re-index latest</a>
                     <ul>
-                        <c:forEach var="institution" items="${core.entries}">
+                        <c:forEach var="institution" items="${core.institutions}">
                             <li>
                                 <strong>Institution: ${institution.institutionName}</strong>
-                                <a href="${reindexLink}/${institution.path}" class="btn">re-index latest</a>
-                                <a href="${reprocessLink}/${institution.path}" class="btn">re-process latest</a>
+                                <a href="${reprocessLink}/${core.coreName}/${institution.institutionId}" class="btn">re-process latest</a>
+                                <a href="${reindexLink}/${core.coreName}/${institution.institutionId}" class="btn">re-index latest</a>
                                 <ul>
-                                    <c:forEach var="versionUpload" items="${institution.entries}">
-                                        <li>Version ${versionUpload.versionNumber}.0:
-                                            <a href="${uploadLink}/${versionUpload.path}">${versionUpload.uploadFile.fileName}</a>
-                                            (${versionUpload.date})
-                                            <a href="${workingFormatLink}/${versionUpload.path}" class="btn btn-bright">working format</a>
-                                            <a href="${solrLink}/${versionUpload.path}" class="btn btn-bright">solr format</a>
-                                            <a href="${reprocessLink}/${versionUpload.path}" class="btn">re-process</a>
-                                            <a href="${deleteLink}/${versionUpload.path}" class="delete" title="delete"></a>
+                                    <c:forEach var="baseVersion" items="${institution.baseVersions}">
+                                        <li>Version ${baseVersion.version} (<fmt:formatDate value="${baseVersion.date}" pattern="yyyy-MM-dd HH:mm"/>)
+                                            <span class="infoBubble" title="${baseVersion.description}">i</span>
+                                            <a href="${uploadLink}/${core.coreName}/${institution.institutionId}/${baseVersion.version}" class="btn btn-bright">original format</a>
+                                            <a href="${workingFormatLink}/${core.coreName}/${institution.institutionId}/${baseVersion.version}" class="btn btn-bright">working format</a>
+                                            <a href="${solrLink}/${core.coreName}/${institution.institutionId}/${baseVersion.version}" class="btn btn-bright">solr format</a>
+                                            <a href="${reprocessLink}/${core.coreName}/${institution.institutionId}/${baseVersion.version}" class="btn">re-process</a>
+                                            <a href="${reindexLink}/${core.coreName}/${institution.institutionId}/${baseVersion.version}" class="btn">re-index</a>
+                                            <a href="${deleteLink}/${core.coreName}/${institution.institutionId}/${baseVersion.version}" class="delete" title="delete"></a>
                                             <ul>
-                                                <c:forEach var="updateUpload" items="${versionUpload.entries}">
-                                                    <li>Update ${versionUpload.versionNumber}.${updateUpload.updateNumber}:
-                                                        <a href="${uploadLink}/${updateUpload.path}">${updateUpload.uploadFile.fileName}</a>
-                                                        (${updateUpload.date})
-                                                        <a href="${workingFormatLink}/${updateUpload.path}" class="btn btn-bright">working format</a>
-                                                        <a href="${solrLink}/${updateUpload.path}" class="btn btn-bright">solr format</a>
-                                                        <a href="${reprocessLink}/${updateUpload.path}" class="btn">re-process</a>
-                                                        <a href="${deleteLink}/${updateUpload.path}" class="delete" title="delete"></a>
+                                                <c:forEach var="updateVersion" items="${baseVersion.incrementalUpdates}">
+                                                    <li>Update ${updateVersion.version} (<fmt:formatDate value="${updateVersion.date}" pattern="yyyy-MM-dd HH:mm"/>)
+                                                    	<span class="infoBubble" title="${updateVersion.description}">i</span>
+                                                    	<a href="${uploadLink}/${core.coreName}/${institution.institutionId}/${updateVersion.version}" class="btn btn-bright">original format</a>
+                                                        <a href="${workingFormatLink}/${core.coreName}/${institution.institutionId}/${updateVersion.version}" class="btn btn-bright">working format</a>
+			                                            <a href="${solrLink}/${core.coreName}/${institution.institutionId}/${updateVersion.version}" class="btn btn-bright">solr format</a>
+			                                            <a href="${reprocessLink}/${core.coreName}/${institution.institutionId}/${updateVersion.version}" class="btn">re-process</a>
+			                                            <a href="${reindexLink}/${core.coreName}/${institution.institutionId}/${updateVersion.version}" class="btn">re-index</a>
+			                                            <a href="${deleteLink}/${core.coreName}/${institution.institutionId}/${updateVersion.version}" class="delete" title="delete"></a>
                                                     </li>
                                                 </c:forEach>
                                             </ul>
@@ -59,13 +61,6 @@
                     </ul>
                 </li>
             </c:forEach>
-            <% /*
-            <c:forEach var="entry" items="${solrSet}">
-                <li>
-                    <a href="${reindexLink}/${entry}" target="_blank">${entry}</a>
-                </li>
-            </c:forEach>
-            */ %>
         </ul>
     </div>
     <%@include file="footer.jspf" %>

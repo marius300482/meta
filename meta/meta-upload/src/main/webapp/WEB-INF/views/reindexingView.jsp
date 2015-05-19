@@ -12,12 +12,10 @@
 <body>
     <%@include file="menu.jspf" %>
     <div class="main">
-        <h1>You successfully started the re-indexing of the latest archived upload for ${institution} on ${core}.</h1>
+        <h1>You successfully started the re-indexing of the archived upload version ${version} for ${institution} on ${core}.</h1>
         <spring:url value="/files/" var="fileUrl"/>
         <spring:url value="/result/getResult" var="stateUrl"/>
         <spring:url value="/resources/images/waiting.gif" var="waiting"/>
-
-        <h2>Job Id: ${jobId}</h2>
 
         <div id="waiting">
             <div style="display: inline-block">

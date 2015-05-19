@@ -1,63 +1,80 @@
 package de.idadachverband.archive.bean;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.Properties;
 
-import de.idadachverband.archive.ArchiveService;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import de.idadachverband.archive.ArchiveException;
+import de.idadachverband.archive.VersionKey;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Getter
-@Setter
-public class ArchiveVersionBean extends AbstractArchiveBean<ArchiveInstitutionBean, ArchiveUpdateBean>
+@Data
+@EqualsAndHashCode(of = "version")
+@ToString(of = "version", includeFieldNames = false)
+public class ArchiveVersionBean implements Comparable<ArchiveVersionBean>
 {
-    private int versionNumber;
-
-    private Date date;
-    
-    private Path uploadFile, workingFormatFile, solrFormatFile;
-
-    public ArchiveVersionBean(
-            String versionId, @NonNull ArchiveInstitutionBean parent)
-    {
-        super(versionId, parent);
-    }
-    
-    public ArchiveUpdateBean getLatestUpdate()
-    {
-        return (entries.isEmpty())
-                ? null
-                : entries.get(entries.size() - 1);
-    }
-    
-    public List<ArchiveUpdateBean> getUpdatesUpTo(String updateId)
-    {
-        final ArrayList<ArchiveUpdateBean> updates = new ArrayList<>();
+    protected final VersionKey version;
         
-        if (!ArchiveService.NO_UPDATE.equals(updateId))
-        {
-            for (ArchiveUpdateBean update : entries) {
-                updates.add(update);
-                if (update.getId().equals(updateId))
-                {
-                    //stop here
-                    break;
-                }
-            }
+    private Path uploadFile, workingFormatFile, solrFormatFile;
+    
+    private Date date = new Date();
+    
+    private VersionOrigin origin;
+    
+    private String userName;
+    
+    private VersionKey originalVersion;
+   
+    
+    public String getDescription()
+    {
+        switch (origin) {
+        case UPLOAD:
+            return userName + " uploaded file " + uploadFile.getFileName();
+        case REINDEX:
+            return userName + " re-indexed archived upload version " + originalVersion;
+        case REPROCESS:
+            return userName + " re-processed archived upload version " + originalVersion;
+        default:
+            return "";
         }
-        return updates;
+    } 
+    
+    public void storeProperties(Properties properties, SimpleDateFormat dateFormat)
+    {
+        properties.setProperty("origin", origin.toString());
+        properties.setProperty("user", userName);
+        properties.setProperty("date", dateFormat.format(date));
+        if (originalVersion != VersionKey.NO_VERSION) {
+            properties.setProperty("originalVersion", originalVersion.toString());
+        }
     }
     
-    public String getCoreName()
+    public void loadProperties(Properties properties, SimpleDateFormat dateFormat) throws ParseException, ArchiveException
     {
-        return parent.getCoreName();
+        this.origin = VersionOrigin.valueOf(properties.getProperty("origin"));
+        this.userName = properties.getProperty("user");
+        this.date = dateFormat.parse(properties.getProperty("date"));
+        this.originalVersion = VersionKey.parse(properties.getProperty("originalVersion", ""));  
+    }
+
+    @Override
+    public int compareTo(ArchiveVersionBean o)
+    {
+        return this.version.compareTo(o.version);
     }
     
-    public String getInstitutionId()
+    public int getBaseNumber()
     {
-        return parent.id;
+        return version.getBaseNumber();
+    }
+    
+    public int getUpdateNumber()
+    {
+        return version.getUpdateNumber();
     }
 }

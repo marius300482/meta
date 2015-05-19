@@ -17,8 +17,9 @@ import org.testng.annotations.Test;
 
 import de.idadachverband.archive.ArchiveService;
 import de.idadachverband.archive.IdaInputArchiver;
-import de.idadachverband.archive.bean.ArchiveUpdateBean;
+import de.idadachverband.archive.VersionKey;
 import de.idadachverband.archive.bean.ArchiveVersionBean;
+import de.idadachverband.archive.bean.ArchiveBaseVersionBean;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.job.JobExecutionService;
@@ -52,10 +53,10 @@ public class SolrUpdateServiceTest
     private IdaInstitutionBean institution;
     
     @Mock
-    private ArchiveVersionBean versionBean;
+    private ArchiveBaseVersionBean versionBean;
     
     @Mock
-    private ArchiveUpdateBean updateBean1, updateBean2;
+    private ArchiveVersionBean updateBean1, updateBean2;
 
     private SolrUpdateService cut;
 
@@ -70,7 +71,7 @@ public class SolrUpdateServiceTest
         
         // archived versions
         when(versionBean.getSolrFormatFile()).thenReturn(versionPath);
-        when(versionBean.getVersionNumber()).thenReturn(1);
+        when(versionBean.getBaseNumber()).thenReturn(1);
         
         when(updateBean1.getSolrFormatFile()).thenReturn(updatePath1);
         when(updateBean1.getUpdateNumber()).thenReturn(1);
@@ -83,9 +84,10 @@ public class SolrUpdateServiceTest
     @Test
     public void reindexInstitution() throws Exception
     {
-        
-        when(archiveService.getVersion(coreName, institutionId, ArchiveService.LATEST_VERSION)).thenReturn(versionBean);
-        when(versionBean.getEntries()).thenReturn(Arrays.asList(updateBean1, updateBean2));
+        VersionKey version = new VersionKey(1,2); 
+        when(archiveService.getLatestVersionKey(coreName, institutionId)).thenReturn(version);
+        when(archiveService.getArchivedBaseVersion(coreName, institutionId, version)).thenReturn(versionBean);
+        when(versionBean.getUpdatesUpTo(2)).thenReturn(Arrays.asList(updateBean1, updateBean2));
         
         cut.reindexInstitution(solrService, institution);
 
@@ -94,18 +96,19 @@ public class SolrUpdateServiceTest
     }
 
     @Test
-    public void updateSolrRollback() throws Exception {
-    	
-    	when(archiveService.getVersion(coreName, institutionId, ArchiveService.LATEST_VERSION)).thenReturn(versionBean);
+    public void updateSolrRollback() throws Exception 
+    {
+        VersionKey version = new VersionKey(1,0); 
+        when(archiveService.getLatestVersionKey(coreName, institutionId)).thenReturn(version);
+    	when(archiveService.getArchivedBaseVersion(coreName, institutionId, version)).thenReturn(versionBean);
     	
     	final Path invalidUpdatePath = Paths.get("invalidupdate.xml");
     	when(solrService.update(invalidUpdatePath)).thenThrow(new SolrServerException("updates fails"));
     	
-    	IndexRequestBean indexRequest = new IndexRequestBean(solrService, institution, false);
-    	indexRequest.setSolrInput(invalidUpdatePath);
+    	SolrUpdateBean solrUpdate = new SolrUpdateBean(solrService, institution, invalidUpdatePath, false);
     	try 
     	{
-    	    cut.updateSolr(indexRequest, true);
+    	    cut.updateSolr(solrUpdate, true);
     	} catch (SolrServerException e)
     	{
     	    // expected

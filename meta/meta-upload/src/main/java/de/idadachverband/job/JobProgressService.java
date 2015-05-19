@@ -106,10 +106,4 @@ public class JobProgressService
         }
         return removedTransformations;
     }
-
-//    private void removeResultFromMap(String jobId)
-//    {
-//        jobs.remove(jobId);
-//        log.debug("Map after removal '{}'.", jobs.jobIdSet());
-//    }
 }

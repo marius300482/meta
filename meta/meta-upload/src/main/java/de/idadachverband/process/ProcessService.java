@@ -5,6 +5,7 @@ import de.idadachverband.archive.ArchiveService;
 import de.idadachverband.archive.Directories;
 import de.idadachverband.archive.IdaInputArchiver;
 import de.idadachverband.archive.ProcessFileConfiguration;
+import de.idadachverband.archive.bean.VersionOrigin;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.job.JobCallable;
 import de.idadachverband.job.JobExecutionService;
@@ -43,6 +44,8 @@ public class ProcessService
     final private ArchiveService archiveService;
 
     final private SolrUpdateService solrUpdateService;
+    
+    
 
 
     @Inject
@@ -67,8 +70,8 @@ public class ProcessService
         log.info("Start processing of: {} for institution: {} on Solr core: {}", originalFileName, institution, solr);
         final ProcessJobBean processJobBean = new ProcessJobBean(
                 new TransformationBean(solr, institution, input, incrementalUpdate));
-        processJobBean.setJobName(String.format("Process upload: %s, %s", 
-                originalFileName, institution));
+        processJobBean.setJobName(String.format("Process file %s for %s, %s", 
+                originalFileName, solr.getName(), institution.getInstitutionName()));
         
         jobExecutionService.executeAsynchronous(processJobBean, new JobCallable<ProcessJobBean>()
         {
@@ -101,7 +104,7 @@ public class ProcessService
             
             solrUpdateService.updateSolr(transformationBean, true);
 
-            archiveService.archive(transformationBean);
+            archiveService.archive(transformationBean, VersionOrigin.UPLOAD);
             
         } finally
         {

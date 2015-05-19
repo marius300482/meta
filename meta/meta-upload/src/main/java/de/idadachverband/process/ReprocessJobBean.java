@@ -1,29 +1,35 @@
 package de.idadachverband.process;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import lombok.NonNull;
+import de.idadachverband.archive.VersionKey;
+import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.job.JobBean;
+import de.idadachverband.solr.SolrService;
 import de.idadachverband.transform.TransformationBean;
 
 @Getter
 public class ReprocessJobBean extends JobBean
 {
-    private final List<TransformationBean> transformations;
+    private final List<TransformationBean> transformations = new ArrayList<>();
     
-    private final String versionString;
+    private final SolrService solrService;
+    private final IdaInstitutionBean institution;
+    private final VersionKey version;
     
-    public ReprocessJobBean(
-            @NonNull List<TransformationBean> transformations,
-            String versionString)
-    {
-        this.transformations = transformations;
-        this.versionString = versionString;
-        setJobName(String.format("Re-process archived upload: %s, %s", 
-                transformations.get(0).getInstitutionName(), versionString));
-    }
 
+    public ReprocessJobBean(SolrService solrService,
+            IdaInstitutionBean institution, VersionKey version)
+    {
+        setJobName(String.format("Re-process archived upload version %s for %s, %s", 
+                version, transformations.get(0).getInstitutionName()));
+        this.solrService = solrService;
+        this.institution = institution;
+        this.version = version;
+    }
+    
     @Override
     public void buildResultMessage(StringBuilder sb)
     {
@@ -32,5 +38,4 @@ public class ReprocessJobBean extends JobBean
             transformationBean.buildResultMessage(sb);
         }
     }
-    
 }

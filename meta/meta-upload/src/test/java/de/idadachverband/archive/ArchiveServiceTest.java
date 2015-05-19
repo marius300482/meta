@@ -1,6 +1,7 @@
 package de.idadachverband.archive;
 
 import static org.mockito.Mockito.when;
+
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.AfterClass;
@@ -9,11 +10,12 @@ import org.testng.annotations.Test;
 
 import de.idadachverband.archive.bean.ArchiveCoreBean;
 import de.idadachverband.archive.bean.ArchiveInstitutionBean;
-import de.idadachverband.archive.bean.ArchiveUpdateBean;
 import de.idadachverband.archive.bean.ArchiveVersionBean;
+import de.idadachverband.archive.bean.ArchiveBaseVersionBean;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.process.ProcessStep;
+import de.idadachverband.user.UserService;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +41,9 @@ public class ArchiveServiceTest
     
     @Mock
     private IdaInputArchiver idaInputArchiver;
+    
+    @Mock
+    private UserService userService;
 
     @BeforeMethod
     public void setUp() throws Exception
@@ -46,11 +51,12 @@ public class ArchiveServiceTest
         MockitoAnnotations.initMocks(this);
         archivePath = Paths.get(this.getClass().getClassLoader().getResource("archive").toURI());
         processFilePath = Files.createTempDirectory("archiveTest");
+        when(userService.getUsername()).thenReturn("testUser");
         cut = new ArchiveService(
                 new ArchiveConfiguration(archivePath, 1), 
                 new ProcessFileConfiguration(processFilePath),
                 new SimpleDateFormat("yyyyMMdd_HHmmss"), 
-                idaInputArchiver, idaInstitutionConverter);
+                idaInputArchiver, idaInstitutionConverter, userService);
     }
     
     @AfterClass
@@ -77,15 +83,15 @@ public class ArchiveServiceTest
     @Test
     public void getVersionIds() throws Exception
     {
-        List<String> actual = cut.getVersionIds("corename", "institution2");
-        assertThat(actual, is(equalTo(Arrays.asList("v0002_20150427_080000", "v0003_20150428_080000"))));
+        List<String> actual = cut.getBaseIds("corename", "institution2");
+        assertThat(actual, is(equalTo(Arrays.asList("v0002", "v0003"))));
     }
     
     @Test
     public void getUpdateIds() throws Exception
     {
-        List<String> actual = cut.getUpdateIds("corename", "institution1", "v0001_20150428_083025");
-        assertThat(actual, is(equalTo(Arrays.asList("u0001_20150428_093025", "u0002_20150428_103025"))));
+        List<String> actual = cut.getUpdateIds("corename", "institution1", "v0001");
+        assertThat(actual, is(equalTo(Arrays.asList("u0001", "u0002"))));
     }
     
 //    @Test
@@ -106,55 +112,55 @@ public class ArchiveServiceTest
         final List<ArchiveCoreBean> cores = cut.getArchivedCores();
         assertThat(cores.size(), is(equalTo(1)));
         final ArchiveCoreBean core = cores.get(0);
-        assertThat(core.getId(), is(equalTo("corename")));
-        final ArchiveInstitutionBean institution1 = core.get("institution1");
-        assertThat(institution1, is(notNullValue()));
+        assertThat(core.getCoreName(), is(equalTo("corename")));
+        final ArchiveInstitutionBean institution1 = core.find("institution1");
+        assertThat(institution1.getInstitutionId(), is(equalTo("institution1")));
         
-        final List<ArchiveVersionBean> versions = institution1.getEntries();
+        final List<ArchiveBaseVersionBean> versions = institution1.getBaseVersions();
         assertThat(versions.size(), is(1));
 
-        final ArchiveVersionBean version = versions.get(0);
+        final ArchiveBaseVersionBean version = versions.get(0);
         assertThat(version.getUploadFile().getFileName().toString(), is(equalTo("update.zip")));
         
-        final List<ArchiveUpdateBean> updates = version.getEntries();
+        final List<ArchiveVersionBean> updates = version.getIncrementalUpdates();
         assertThat(updates.size(), is(2));
-        final ArchiveUpdateBean update2 = updates.get(1);
+        final ArchiveVersionBean update2 = updates.get(1);
         assertThat(update2.getUpdateNumber(), is(equalTo(2)));
         assertThat(update2.getUploadFile().getFileName().toString(), is(equalTo("iupdate2.zip")));
         
-        final ArchiveVersionBean version2 = core.get("institution2").getEntries().get(1);
-        assertThat(version2.getVersionNumber(), is(equalTo(3)));
+        final ArchiveBaseVersionBean version2 = core.find("institution2").getBaseVersions().get(1);
+        assertThat(version2.getBaseNumber(), is(equalTo(3)));
         assertThat(version2.getUploadFile().getFileName().toString(), is(equalTo("update3.zip")));
     }
     
     @Test
     public void findFile() throws Exception
     {
-        Path actual = cut.findFile(ProcessStep.upload, "corename", "institution1", "v0001_20150428_083025", ArchiveService.NO_UPDATE);
-        assertThat(actual, is(equalTo(archivePath.resolve("corename/institution1/v0001_20150428_083025/upload/update.zip"))));
+        Path actual = cut.findFile(ProcessStep.upload, "corename", "institution1", new VersionKey(1,0));
+        assertThat(actual, is(equalTo(archivePath.resolve("corename/institution1/v0001/upload/update.zip"))));
         
-        actual = cut.findFile(ProcessStep.solrFormat, "corename", "institution1", "v0001_20150428_083025", "u0001_20150428_093025");
-        assertThat(actual, is(equalTo(archivePath.resolve("corename/institution1/v0001_20150428_083025/incremental/u0001_20150428_093025/solr/iupdate1.zip"))));
+        actual = cut.findFile(ProcessStep.solrFormat, "corename", "institution1", new VersionKey(1,1));
+        assertThat(actual, is(equalTo(archivePath.resolve("corename/institution1/v0001/incremental/u0001/solr/iupdate1.zip"))));
     }
     
     @Test(expectedExceptions = ArchiveException.class)
     public void findFileFailsForMissingVersion() throws Exception
     {
-        cut.findFile(ProcessStep.upload, "corename", "institution1", "v0004_20150501_083000", ArchiveService.NO_UPDATE);
+        cut.findFile(ProcessStep.upload, "corename", "institution1", new VersionKey(4,0));
     }
     
     @Test
-    public void buildNextVersionId() throws Exception
+    public void createNextBaseVersionKey() throws Exception
     {
-        String actual = cut.buildNextVersionId("corename", "institution2");
-        assertThat(actual, startsWith("v0004_"));
+        VersionKey actual = cut.createNextVersionKey("corename", "institution2", false);
+        assertThat(actual, is(equalTo(new VersionKey(4,0))));
     }
     
     @Test
-    public void buildNextUpdateId() throws Exception
+    public void createNextIncrementalVersionKey() throws Exception
     {
-        String actual = cut.buildNextUpdateId("corename", "institution1", "v0001_20150428_083025");
-        assertThat(actual, startsWith("u0003_"));
+        VersionKey actual = cut.createNextVersionKey("corename", "institution1", true);
+        assertThat(actual, is(equalTo(new VersionKey(1,3))));
     }
 
 }

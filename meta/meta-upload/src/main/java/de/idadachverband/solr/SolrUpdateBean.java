@@ -3,13 +3,14 @@ package de.idadachverband.solr;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import de.idadachverband.archive.VersionKey;
 import de.idadachverband.institution.IdaInstitutionBean;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = "key")
-public class IndexRequestBean
+public class SolrUpdateBean
 {
     private final String key;
     private final SolrService solrService;
@@ -17,13 +18,18 @@ public class IndexRequestBean
     private final boolean incrementalUpdate;
     
     private Path solrInput;
-    private String solrResponse;
+    private String solrResponse = "";
     
-    public IndexRequestBean(SolrService solrService, IdaInstitutionBean institution, boolean incrementalUpdate)
+    // used for re-indexing of archived files
+    private VersionKey originalVersion = VersionKey.NO_VERSION;
+    private VersionKey archivedVersion = VersionKey.NO_VERSION;
+    
+    public SolrUpdateBean(SolrService solrService, IdaInstitutionBean institution, Path solrInput, boolean incrementalUpdate)
     {
         this.key = UUID.randomUUID().toString();
         this.solrService = solrService;
         this.institution = institution;
+        this.solrInput = solrInput;
         this.incrementalUpdate = incrementalUpdate;
     }
     

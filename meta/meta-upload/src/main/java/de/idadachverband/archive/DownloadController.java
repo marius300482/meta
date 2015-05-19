@@ -38,26 +38,13 @@ public class DownloadController
         this.userService = userService;
     }
     
-    @RequestMapping(value = "/files/{step}/{core}/{institution}/{version}", method = RequestMethod.GET)
+    @RequestMapping(value = "/files/{step}/{core}/{institution}/{version:.+}", method = RequestMethod.GET)
     @ResponseBody
     public FileSystemResource downloadVersion(
             @PathVariable("step") String stepName, 
             @PathVariable("core") String coreName,
             @PathVariable("institution") String institutionId,
-            @PathVariable("version") String versionId,
-            HttpServletResponse response) throws ArchiveException
-    {
-        return download(stepName, coreName, institutionId, versionId, ArchiveService.NO_UPDATE, response);
-    }
-    
-    @RequestMapping(value = "/files/{step}/{core}/{institution}/{version}/{update}", method = RequestMethod.GET)
-    @ResponseBody
-    public FileSystemResource download(
-            @PathVariable("step") String stepName, 
-            @PathVariable("core") String coreName,
-            @PathVariable("institution") String institutionId,
-            @PathVariable("version") String versionId,
-            @PathVariable("update") String updateId,
+            @PathVariable("version") String version,
             HttpServletResponse response) throws ArchiveException
     {
         if (!userService.isAdmin() && !userService.getInstitutionIds().contains(institutionId)) 
@@ -67,7 +54,7 @@ public class DownloadController
         }
         
         ProcessStep step = ProcessStep.valueOf(stepName);
-        Path path = archiveService.findFile(step, coreName, institutionId, versionId, updateId);
+        Path path = archiveService.findFile(step, coreName, institutionId, VersionKey.parse(version));
         response.setContentType("application/zip");
         response.setHeader("content-Disposition", "attachment; filename=" + path.getFileName());
 

@@ -49,23 +49,25 @@ public class DownloadControllerTest
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void downloadWithInvalidStep() throws Exception
     {
-        cut.download("wrongFormat", "core", "institution", "version", "update", response);
+        cut.downloadVersion("wrongFormat", "core", "institution", "1.0", response);
     }
     
     @Test
     public void downloadSuccess() throws Exception
     {
-        when(archiveService.findFile(ProcessStep.upload, "core", "institution", "version", "update")).thenReturn(mock(Path.class));
+        VersionKey version = new VersionKey(1,0);
+        when(archiveService.findFile(ProcessStep.upload, "core", "institution", version)).thenReturn(mock(Path.class));
 
-        FileSystemResource actual = cut.download("upload", "core", "institution", "version", "update", response);
+        FileSystemResource actual = cut.downloadVersion("upload", "core", "institution", "1.0", response);
         assertThat(actual, notNullValue());
     }
 
-    @Test(expectedExceptions = FileNotFoundException.class)
+    @Test(expectedExceptions = ArchiveException.class)
     public void downloadFailure() throws Exception
     {
-        when(archiveService.findFile(ProcessStep.upload, "core", "institution", "version", "update")).thenThrow(FileNotFoundException.class);
-        FileSystemResource actual = cut.download("upload", "core", "institution", "version", "update", response);
+        VersionKey version = new VersionKey(1,0);
+        when(archiveService.findFile(ProcessStep.upload, "core", "institution", version)).thenThrow(ArchiveException.class);
+        FileSystemResource actual = cut.downloadVersion("upload", "core", "institution", "1.0", response);
     }
     
     @Test(expectedExceptions = AccessDeniedException.class)
@@ -73,7 +75,7 @@ public class DownloadControllerTest
     {
         when(userService.isAdmin()).thenReturn(false);
         when(userService.getInstitutionIds()).thenReturn(Collections.singleton("otherInstitution"));
-        cut.download("upload", "core", "institution", "version", "update", response);
+        cut.downloadVersion("upload", "core", "institution", "1.0", response);
     }
 
 }
