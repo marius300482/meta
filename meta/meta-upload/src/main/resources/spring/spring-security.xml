@@ -12,8 +12,9 @@
     <http pattern="/favicon.ico" security="none"/>
     <http pattern="/login" security="none"/>
     <http pattern="/WEB-INF/views/login.jsp" security="none"/>
-    
+    <http pattern="/resources/**" security="none"/>
    
+
     <http use-expressions="true">
         <intercept-url pattern="/archive/**" access="hasAuthority('admin')"/>
         <intercept-url pattern="/jobs/**" access="hasAuthority('admin')"/>
