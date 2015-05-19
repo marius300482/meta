@@ -8,6 +8,7 @@ import de.idadachverband.solr.SolrService;
 import de.idadachverband.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -127,6 +128,12 @@ public class AsyncFileUploadController
                 {
                     IdaInstitutionBean institution = uploadFormBean.getInstitution();
                     SolrService solr = uploadFormBean.getSolr();
+                    if (!userService.isAdmin() && 
+                            (solr != defaultSolrUpdater || 
+                            !userService.getInstitutionIds().contains(institution.getInstitutionId())))
+                    {
+                        throw new AccessDeniedException(solr.getName() + "/" + institution.getInstitutionId());
+                    }
 
                     tmpPath = moveToTempFile(file, institution.getInstitutionId());
 
