@@ -34,11 +34,11 @@ public class ArchiveVersionBean implements Comparable<ArchiveVersionBean>
     {
         switch (origin) {
         case UPLOAD:
-            return userName + " uploaded file " + uploadFile.getFileName();
+            return "user '" + userName + "' uploaded file '" + uploadFile.getFileName() + "'";
         case REINDEX:
-            return userName + " re-indexed archived upload version " + originalVersion;
+            return "user '" + userName + "' re-indexed archived upload version " + originalVersion;
         case REPROCESS:
-            return userName + " re-processed archived upload version " + originalVersion;
+            return "user '" + userName + "' re-processed archived upload version " + originalVersion;
         default:
             return "";
         }

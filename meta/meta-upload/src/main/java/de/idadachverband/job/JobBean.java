@@ -16,6 +16,7 @@ public class JobBean
     private final String jobId;
     private final Date startTime;
     private String jobName;
+    private String userName;
     private Future<?> future;
     private Exception exception;
     private Date endTime;

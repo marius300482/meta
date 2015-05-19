@@ -75,7 +75,7 @@ public class ResultStateControllerTest
     @Test
     public void getResultDone() throws Exception
     {
-        when(processService.getState(jobId)).thenReturn(DONE);
+        when(processService.getState(jobId)).thenReturn(SUCCESS);
         when(processService.getJob(jobId)).thenReturn(processJobBean);
         when(processJobBean.getTransformation()).thenReturn(transformation);
         when(transformation.getCoreName()).thenReturn("corename");
@@ -85,7 +85,7 @@ public class ResultStateControllerTest
         String actual = cut.getResult(jobId);
 
         JsonObject jsonObject = Json.createReader(new StringReader(actual)).readObject();
-        assertThat(jsonObject.getString("state"), Matchers.is(DONE.toString()));
+        assertThat(jsonObject.getString("state"), Matchers.is(SUCCESS.toString()));
         assertThat(jsonObject.getString("jobId"), Matchers.is(jobId));
         assertThat(jsonObject.getString("path"), Matchers.equalTo(Paths.get("corename", "institution", "1.0").toString()));
     }

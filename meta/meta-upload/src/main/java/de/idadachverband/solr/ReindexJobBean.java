@@ -25,7 +25,7 @@ public class ReindexJobBean extends JobBean
         this.institution = institution;
         this.version = version;
         setJobName(String.format("Re-index archived upload version %s for %s, %s", 
-                version, getSolrService().getName(), getInstitution().getInstitutionName()));
+                version, solrService.getName(), institution.getInstitutionName()));
     }
     
     @Override

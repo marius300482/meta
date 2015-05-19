@@ -11,24 +11,24 @@
 <body>
     <%@include file="menu.jspf" %>
     <div class="main" id="page-jobs">
-        <h1>Jobs</h1>
+        <h1>Running Jobs</h1>
         <ul class="jobs">
-            <c:forEach var="entry" items="${jobs}">
-                <li>(${entry.value.startTime}) ${entry.value}: ${entry.value.progressState}
-                    <c:if test="${entry.value.progressState == 'PROCESSING'}">
-                        <a href="cancel/${entry.key}">Cancel</a>
-                    </c:if>
+            <c:forEach var="job" items="${runningJobs}">
+                <li>${job.jobName}
+                	<span class="infoBubble" title="started by user '${job.userName}' at <fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>">i</span>
+                	<a href="cancel/${job.jobId}" class="btn">Cancel</a>
                 </li>
             </c:forEach>
         </ul>
-        <c:if test="${removedTransformations != null}">
-            <h2>Removed jobs</h2>
-            <ul class="jobs">
-                <c:forEach var="entry" items="${removedTransformations}">
-                    <li>${entry.value}: ${entry.value.progressState}</li>
-                </c:forEach>
-            </ul>
-        </c:if>
+        <h1>Past Jobs</h1>
+        <ul class="jobs">
+            <c:forEach var="job" items="${stoppedJobs}">
+                <li>${job.jobName}: ${job.progressState} 
+                	<span class="infoBubble" title="started by user '${job.userName}' at <fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>">i</span>
+                	<a href="delete/${job.jobId}" class="delete" title="Delete"></a>
+                </li>
+            </c:forEach>
+        </ul>
         <br />
         <a href="clear" class="btn">Clear</a>
     </div>

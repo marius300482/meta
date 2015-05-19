@@ -5,6 +5,7 @@ import java.util.concurrent.Future;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.idadachverband.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Named
@@ -17,12 +18,16 @@ public class JobExecutionService
     @Inject
     private AsyncExecutionHelperService asyncExecutionService;
     
+    @Inject
+    private UserService userService;
+    
     public <B extends JobBean> void executeAsynchronous(B jobBean, JobCallable<B> callable)
     {
         if (jobBean.getProgressState() != JobProgressState.NOTSTARTED)
         {
             throw new IllegalArgumentException(jobBean + " was started before");
         }
+        jobBean.setUserName(userService.getUsername());
         jobProgressService.add(jobBean);
         
         log.debug("= Call async method for: {}", jobBean);

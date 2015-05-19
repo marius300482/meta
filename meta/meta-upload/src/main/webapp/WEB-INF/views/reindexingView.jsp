@@ -40,7 +40,7 @@
         <script type="application/javascript">
             successCallback = function (v) {
                 console.log(v);
-                if (v.state === "<%= JobProgressState.DONE %>") {
+                if (v.state === "<%= JobProgressState.SUCCESS %>") {
                     jQuery("#success").toggle();
                     done();
                 }

@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
-import static de.idadachverband.job.JobProgressState.DONE;
+import static de.idadachverband.job.JobProgressState.SUCCESS;
 import static de.idadachverband.job.JobProgressState.FAILURE;
 
 /**
@@ -49,7 +49,7 @@ public class ResultStateController
         JsonObjectBuilder result = Json.createObjectBuilder();
         result.add("jobId", jobId);
 
-        if (state == DONE)
+        if (state == SUCCESS)
         {
             JobBean jobBean = jobProgressService.getJob(jobId);
             if (jobBean != null && jobBean instanceof ProcessJobBean)

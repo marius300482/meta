@@ -252,8 +252,7 @@ header {
 #page-jobs ul.jobs li {
   background-color: #d6d3de;
   padding: 5px 10px;
-  margin-bottom: 9px;
-  max-width: 550px; }
+  margin-bottom: 9px; }
 
 #page-upload label.buttonDescription {
   margin-left: 10px;

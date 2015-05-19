@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 @Slf4j
 public enum JobProgressState
 {
-    DONE, NOTFOUND, PROCESSING, CANCELLED, FAILURE, NOTSTARTED;
+    SUCCESS, NOTFOUND, PROCESSING, CANCELLED, FAILURE, NOTSTARTED;
 
     /**
      * Get current state by key
@@ -25,31 +25,25 @@ public enum JobProgressState
             return NOTFOUND;
         }
 
-        if (jobBean.getException() != null)
-        {
-            log.debug("Job {} failed.", jobBean);
-            return FAILURE;
-        }
-
         Future<?> future = jobBean.getFuture();
-
         if (future == null)
         {
             log.warn("Probably not started '{}' in '{}'.", jobBean);
             return NOTSTARTED;
-        } else
+        } 
+        else if (future.isCancelled())
         {
-            if (future.isDone())
-            {
-                return DONE;
-            } else
-            {
-                if (future.isCancelled())
-                {
-                    return CANCELLED;
-                }
-            }
+            return CANCELLED;
         }
+        else if (future.isDone())
+        {
+            if (jobBean.getException() != null)
+            {
+                log.debug("Job {} failed.", jobBean);
+                return FAILURE;
+            }
+            return SUCCESS;
+        } 
         return PROCESSING;
     }
 }

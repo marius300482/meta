@@ -7,7 +7,10 @@ import javax.inject.Named;
 
 import de.idadachverband.transform.TransformedFileException;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -93,17 +96,77 @@ public class JobProgressService
         jobs.get(jobId).setException(e);
     }
 
-    public Map<String, JobBean> clear()
+    public JobBean deleteJob(String jobId)
     {
-        Map<String, JobBean> removedTransformations = new HashMap<>();
-        for (String jobId : jobs.keySet())
+        JobBean job = jobs.get(jobId);
+        if (job != null && job.getProgressState() != PROCESSING)
         {
-            final JobProgressState state = jobs.get(jobId).getProgressState();
-            if (state != PROCESSING)
+            return jobs.remove(job.getJobId());
+        }
+        return null;
+    }
+    
+    public JobBean cancelJob(String jobId)
+    {
+        final JobBean job = jobs.get(jobId);
+        if (job != null && job.getProgressState() == PROCESSING)
+        {
+            log.info("Trying to cancel job {}", job);
+            final Future<?> future = job.getFuture();
+            future.cancel(true);
+            return job;
+        }
+        return null;
+    }
+    
+    public List<JobBean> clear()
+    {
+        List<JobBean> removedJobs = new ArrayList<>();
+        for (JobBean job : getStoppedJobs())
+        {
+            jobs.remove(job.getJobId());
+            removedJobs.add(job);
+        }
+        return removedJobs;
+    }
+    
+    public List<JobBean> getRunningJobs()
+    {
+        List<JobBean> result = new ArrayList<JobBean>();
+        for (JobBean job : jobs.values())
+        {
+            if (job.getProgressState() == PROCESSING)
             {
-                removedTransformations.put(jobId, jobs.remove(jobId));
+                result.add(job);
             }
         }
-        return removedTransformations;
+        Collections.sort(result, new Comparator<JobBean>() {
+            @Override
+            public int compare(JobBean o1, JobBean o2)
+            {
+                return o1.getStartTime().compareTo(o2.getStartTime());
+            }
+        });
+        return result;
+    }
+    
+    public List<JobBean> getStoppedJobs()
+    {
+        List<JobBean> result = new ArrayList<JobBean>();
+        for (JobBean job : jobs.values())
+        {
+            if (job.getProgressState() != PROCESSING)
+            {
+                result.add(job);
+            }
+        }
+        Collections.sort(result, new Comparator<JobBean>() {
+            @Override
+            public int compare(JobBean o1, JobBean o2)
+            {
+                return o1.getStartTime().compareTo(o2.getStartTime());
+            }
+        });
+        return result;
     }
 }

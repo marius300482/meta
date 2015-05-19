@@ -48,15 +48,27 @@ public class ResultMailNotifier implements ResultNotifier
 
     public void notify(JobBean jobBean) throws NotificationException
     {
+        String result = "";
+        switch (jobBean.getProgressState()) 
+        {
+            case FAILURE: 
+                result = "Failure";
+                break;
+            case CANCELLED:
+                result = "Cancelled";
+                break;
+            default:
+                result = "Success";    
+        }
+        
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(userService.getEmail());
-        email.setSubject(subject);
+        email.setSubject(subject + " (" + result + ")");
         email.setFrom(mailFrom);
 
         Map<String, Object> model = new HashMap<>();
         model.put("user", userService.getUsername());
         model.put("t", jobBean);
-        final String result = (jobBean.getException() == null) ? "Success" : "Failure";
         model.put("result", result);
 
         try
