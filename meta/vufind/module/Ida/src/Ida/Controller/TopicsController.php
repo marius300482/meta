@@ -7,11 +7,7 @@
 
 namespace Ida\Controller;
 
-use Ida\Institution\Institution;
-use VuFind\Controller\BrowseController;
-use VuFind\RecordDriver\SolrDefault;
-use Zend\Config\Config;
-use Zend\View\Model\ViewModel;
+use VuFind\Controller\BrowseController;use VuFind\RecordDriver\SolrDefault;use Zend\Config\Config;use Zend\View\Model\ViewModel;
 
 class TopicsController extends BrowseController
 {
@@ -23,6 +19,7 @@ class TopicsController extends BrowseController
     protected $config;
     private $limit;
     private $alpha;
+    private $cloudBlacklist;
 
     public function __construct(Config $config)
     {
@@ -30,6 +27,7 @@ class TopicsController extends BrowseController
         $this->config = new Config($config->toArray(), true);
         $this->limit = $this->config->Browse->result_limit;
         $this->alpha = $this->config->Browse->alphabetical_order;
+        $this->cloudBlacklist = explode(",", $this->config->TopicsCloud->blacklist);
     }
 
     private function changeConfigForList()
@@ -87,8 +85,18 @@ class TopicsController extends BrowseController
 
     public function getTagCloud()
     {
-        // Remove some entries for better distribution
-        $topics = array_slice($this->getTopics(), 5);
+        // Fetch more results than required in case we get blacklisted results
+        $this->config->Browse->result_limit = $this->limit + count($this->cloudBlacklist);
+        $topics = $this->getTopics();
+
+        // Filter blacklisted entries
+        $topics = array_filter($topics, function($el) {return !in_array($el['value'], $this->cloudBlacklist);});
+
+        // Remove entries if too many
+        if (count($topics) > $this->limit)
+        {
+            $topics = array_slice($topics, 0, $this->limit);
+        }
 
         $max_font = isset($this->config->TopicsCloud->fontsize) ? $this->config->TopicsCloud->fontsize : 50;
         $maxcount=reset($topics);

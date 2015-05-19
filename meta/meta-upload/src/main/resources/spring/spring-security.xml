@@ -12,8 +12,9 @@
     <http pattern="/favicon.ico" security="none"/>
     <http pattern="/login" security="none"/>
     <http pattern="/WEB-INF/views/login.jsp" security="none"/>
-    
+    <http pattern="/resources/**" security="none"/>
    
+
     <http use-expressions="true">
         <intercept-url pattern="/archive/**" access="hasAuthority('admin')"/>
         <intercept-url pattern="/jobs/**" access="hasAuthority('admin')"/>
@@ -22,7 +23,10 @@
 		<intercept-url pattern="/**" access="isAuthenticated()"/>
 		        
         <form-login	login-page="/login"
-        	        authentication-failure-url="/login?auth=fail"/>
+                       authentication-failure-url="/login?auth=fail"
+                       default-target-url="/upload"
+                       always-use-default-target="true"
+                />
         <logout logout-success-url="/login?logout=success"/>
     </http>
     <authentication-manager>
