@@ -10,11 +10,9 @@ import de.idadachverband.archive.ArchiveException;
 import de.idadachverband.archive.VersionKey;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(of = "version")
-@ToString(of = "version", includeFieldNames = false)
 public class ArchiveVersionBean implements Comparable<ArchiveVersionBean>
 {
     protected final VersionKey version;
@@ -76,5 +74,11 @@ public class ArchiveVersionBean implements Comparable<ArchiveVersionBean>
     public int getUpdateNumber()
     {
         return version.getUpdateNumber();
+    }
+    
+    @Override 
+    public String toString()
+    {
+        return version.toString();
     }
 }

@@ -5,13 +5,11 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import de.idadachverband.archive.VersionKey;
 import de.idadachverband.institution.IdaInstitutionBean;
 
 @Getter
 @RequiredArgsConstructor
-@ToString(of = "institutionBean", includeFieldNames = false)
 public class ArchiveInstitutionBean
 {
     private final IdaInstitutionBean institutionBean;
@@ -45,5 +43,11 @@ public class ArchiveInstitutionBean
             }
         }
         return null;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return institutionBean.getInstitutionName();
     }
 }

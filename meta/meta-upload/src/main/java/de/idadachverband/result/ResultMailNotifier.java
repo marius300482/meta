@@ -1,6 +1,7 @@
 package de.idadachverband.result;
 
 import de.idadachverband.job.JobBean;
+import de.idadachverband.user.IdaUser;
 import de.idadachverband.user.UserService;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
@@ -32,18 +33,16 @@ public class ResultMailNotifier implements ResultNotifier
 
     private final Configuration freemarkerMailConfiguration;
 
-    private final UserService userService;
     @Value("${result.mail.from}")
     private String mailFrom;
     @Value("${result.mail.subject}")
     private String subject;
 
     @Inject
-    public ResultMailNotifier(MailSender mailSender, Configuration freemarkerMailConfiguration, UserService userService)
+    public ResultMailNotifier(MailSender mailSender, Configuration freemarkerMailConfiguration)
     {
         this.mailSender = mailSender;
         this.freemarkerMailConfiguration = freemarkerMailConfiguration;
-        this.userService = userService;
     }
 
     public void notify(JobBean jobBean) throws NotificationException
@@ -61,13 +60,14 @@ public class ResultMailNotifier implements ResultNotifier
                 result = "Success";    
         }
         
+        IdaUser user = jobBean.getUser();
         SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(userService.getEmail());
+        email.setTo(user.getEmail());
         email.setSubject(subject + " (" + result + ")");
         email.setFrom(mailFrom);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("user", userService.getUsername());
+        model.put("user", user.getUsername());
         model.put("t", jobBean);
         model.put("result", result);
 

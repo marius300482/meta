@@ -81,7 +81,7 @@ public class SolrUpdateService
             public void call(ReindexJobBean jobBean) throws Exception
             {
                 List<SolrUpdateBean> solrUpdates =
-                        reindex(solr, institution, version);
+                        reindex(solr, institution, version, jobBean.getUser().getUsername());
                 jobBean.getSolrUpdates().addAll(solrUpdates);
             }
         });
@@ -100,7 +100,7 @@ public class SolrUpdateService
     public String reindexInstitution(SolrService solr, IdaInstitutionBean institution) throws ArchiveException, SolrServerException, IOException
     {
         List<SolrUpdateBean> solrUpdates = reindex(solr, institution, 
-                archiveService.getLatestVersionKey(solr.getName(), institution.getInstitutionId()));
+                archiveService.getLatestVersionKey(solr.getName(), institution.getInstitutionId()), "");
         
         StringBuilder sb = new StringBuilder();
         for (SolrUpdateBean solrUpdate : solrUpdates)
@@ -130,7 +130,7 @@ public class SolrUpdateService
         return batchJob;
     }
 
-    protected List<SolrUpdateBean> reindex(SolrService solr, IdaInstitutionBean institution, VersionKey version) throws IOException, SolrServerException, ArchiveException 
+    protected List<SolrUpdateBean> reindex(SolrService solr, IdaInstitutionBean institution, VersionKey version, String username) throws IOException, SolrServerException, ArchiveException 
     {
         final String coreName = solr.getName();
         final String institutionId = institution.getInstitutionId();
@@ -162,7 +162,7 @@ public class SolrUpdateService
         {
             for (SolrUpdateBean solrUpdate : solrUpdates)
             {
-                archiveService.rearchive(coreName, institutionId, solrUpdate.getOriginalVersion(), VersionOrigin.REINDEX);
+                archiveService.rearchive(coreName, institutionId, solrUpdate.getOriginalVersion(), VersionOrigin.REINDEX, username);
             }
             archiveService.clearOldVersions(coreName, institutionId);
         }

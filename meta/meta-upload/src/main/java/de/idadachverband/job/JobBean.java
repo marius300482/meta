@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.Future;
 
+import de.idadachverband.user.IdaUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class JobBean
     private final String jobId;
     private final Date startTime;
     private String jobName;
-    private String userName;
+    private IdaUser user;
     private Future<?> future;
     private Exception exception;
     private Date endTime;

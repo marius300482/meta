@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.process.ProcessStep;
+import de.idadachverband.solr.SolrService;
+import de.idadachverband.user.IdaUser;
 import de.idadachverband.user.UserService;
 
 import javax.inject.Inject;
@@ -42,19 +45,20 @@ public class DownloadController
     @ResponseBody
     public FileSystemResource downloadVersion(
             @PathVariable("step") String stepName, 
-            @PathVariable("core") String coreName,
-            @PathVariable("institution") String institutionId,
+            @PathVariable("core") SolrService solr,
+            @PathVariable("institution") IdaInstitutionBean institution,
             @PathVariable("version") String version,
             HttpServletResponse response) throws ArchiveException
     {
-        if (!userService.isAdmin() && !userService.getInstitutionIds().contains(institutionId)) 
+        IdaUser user = userService.getUser();
+        if (!user.getSolrServiceSet().contains(solr) || !user.getInstitutionsSet().contains(institution)) 
         {
-            log.warn("User {} tried to access file of institution {}.", userService.getUsername(), institutionId);
-            throw new AccessDeniedException(institutionId);
+            log.warn("User {} tried to access file of {}, {}.", user, solr, institution);
+            throw new AccessDeniedException(solr.getName() + "/" + institution.getInstitutionId());
         }
         
         ProcessStep step = ProcessStep.valueOf(stepName);
-        Path path = archiveService.findFile(step, coreName, institutionId, VersionKey.parse(version));
+        Path path = archiveService.findFile(step, solr.getName(), institution.getInstitutionId(), VersionKey.parse(version));
         response.setContentType("application/zip");
         response.setHeader("content-Disposition", "attachment; filename=" + path.getFileName());
 

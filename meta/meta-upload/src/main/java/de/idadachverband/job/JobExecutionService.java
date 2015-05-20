@@ -27,7 +27,7 @@ public class JobExecutionService
         {
             throw new IllegalArgumentException(jobBean + " was started before");
         }
-        jobBean.setUserName(userService.getUsername());
+        jobBean.setUser(userService.getUser());
         jobProgressService.add(jobBean);
         
         log.debug("= Call async method for: {}", jobBean);

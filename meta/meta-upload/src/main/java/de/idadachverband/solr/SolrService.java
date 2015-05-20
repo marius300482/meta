@@ -1,7 +1,9 @@
 package de.idadachverband.solr;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
@@ -16,6 +18,7 @@ import java.nio.file.Path;
  * Created by boehm on 26.08.14.
  */
 @Slf4j
+@EqualsAndHashCode(of = "name")
 public class SolrService
 {
     private static final String INSTITUTION_ID = "institutionID";

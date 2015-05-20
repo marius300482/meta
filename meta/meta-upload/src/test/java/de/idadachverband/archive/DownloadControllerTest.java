@@ -8,12 +8,14 @@ import org.springframework.security.access.AccessDeniedException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.process.ProcessStep;
+import de.idadachverband.solr.SolrService;
+import de.idadachverband.user.IdaUser;
 import de.idadachverband.user.UserService;
 
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.Collections;
 
@@ -32,9 +34,15 @@ public class DownloadControllerTest
     
     @Mock
     private UserService userService;
-
-//    @Mock
-//    private HashedFileService hashedFileService;
+    
+    @Mock
+    private IdaUser user;
+    
+    @Mock 
+    private SolrService solrService;
+    
+    @Mock 
+    private IdaInstitutionBean institutionBean;
 
     @Mock
     private HttpServletResponse response;
@@ -43,13 +51,17 @@ public class DownloadControllerTest
     public void setUp() throws Exception
     {
         MockitoAnnotations.initMocks(this);
-        when(userService.isAdmin()).thenReturn(true);
+        when(userService.getUser()).thenReturn(user);
+        when(user.getSolrServiceSet()).thenReturn(Collections.singleton(solrService));
+        when(user.getInstitutionsSet()).thenReturn(Collections.singleton(institutionBean));
+        when(solrService.getName()).thenReturn("core");
+        when(institutionBean.getInstitutionId()).thenReturn("institution");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void downloadWithInvalidStep() throws Exception
     {
-        cut.downloadVersion("wrongFormat", "core", "institution", "1.0", response);
+        cut.downloadVersion("wrongFormat", solrService, institutionBean, "1.0", response);
     }
     
     @Test
@@ -58,7 +70,7 @@ public class DownloadControllerTest
         VersionKey version = new VersionKey(1,0);
         when(archiveService.findFile(ProcessStep.upload, "core", "institution", version)).thenReturn(mock(Path.class));
 
-        FileSystemResource actual = cut.downloadVersion("upload", "core", "institution", "1.0", response);
+        FileSystemResource actual = cut.downloadVersion("upload", solrService, institutionBean, "1.0", response);
         assertThat(actual, notNullValue());
     }
 
@@ -67,15 +79,14 @@ public class DownloadControllerTest
     {
         VersionKey version = new VersionKey(1,0);
         when(archiveService.findFile(ProcessStep.upload, "core", "institution", version)).thenThrow(ArchiveException.class);
-        FileSystemResource actual = cut.downloadVersion("upload", "core", "institution", "1.0", response);
+        cut.downloadVersion("upload", solrService, institutionBean, "1.0", response);
     }
     
     @Test(expectedExceptions = AccessDeniedException.class)
     public void downloadWrongInstitution() throws ArchiveException
     {
-        when(userService.isAdmin()).thenReturn(false);
-        when(userService.getInstitutionIds()).thenReturn(Collections.singleton("otherInstitution"));
-        cut.downloadVersion("upload", "core", "institution", "1.0", response);
+        when(user.getInstitutionsSet()).thenReturn(Collections.<IdaInstitutionBean>emptySet());
+        cut.downloadVersion("upload", solrService, institutionBean, "1.0", response);
     }
 
 }

@@ -45,9 +45,6 @@ public class ArchiveService
     
     private final IdaInstitutionConverter idaInstitutionConverter;
     
-    private final UserService userService;
-    
-
     @Inject
     public ArchiveService(ArchiveConfiguration archiveConfiguration,
                           ProcessFileConfiguration processFileConfiguration,
@@ -61,7 +58,6 @@ public class ArchiveService
         this.dateFormat = dateFormat;
         this.idaInputArchiver = idaInputArchiver;
         this.idaInstitutionConverter = idaInstitutionConverter;
-        this.userService = userService;
     }
     
     /**
@@ -98,7 +94,7 @@ public class ArchiveService
      * @throws IOException
      * @throws ArchiveException
      */
-    public ArchiveVersionBean archive(TransformationBean transformationBean, VersionOrigin origin) throws IOException, ArchiveException
+    public ArchiveVersionBean archive(TransformationBean transformationBean, VersionOrigin origin, String username) throws IOException, ArchiveException
     {
         final String key = transformationBean.getKey();
         final String coreName = transformationBean.getCoreName();
@@ -120,7 +116,7 @@ public class ArchiveService
         versionBean.setSolrFormatFile(
                 archive(ProcessStep.solrFormat, key, institutionId, coreName, version));
         
-        versionBean.setUserName(userService.getUsername());
+        versionBean.setUserName(username);
         versionBean.setOrigin(origin);
         versionBean.setOriginalVersion(transformationBean.getOriginalVersion());       
         
@@ -142,7 +138,7 @@ public class ArchiveService
      * @throws IOException 
      */
     public ArchiveVersionBean rearchive(String coreName, String institutionId, 
-            VersionKey originalVersion, VersionOrigin origin) throws ArchiveException, IOException
+            VersionKey originalVersion, VersionOrigin origin, String username) throws ArchiveException, IOException
     {
         final boolean incrementalUpdate = !originalVersion.isBaseVersion();
         
@@ -165,7 +161,7 @@ public class ArchiveService
                         findFile(ProcessStep.solrFormat, coreName, institutionId, originalVersion),
                         ProcessStep.solrFormat, coreName, institutionId, version));
         
-        versionBean.setUserName(userService.getUsername());
+        versionBean.setUserName(username);
         versionBean.setOrigin(origin);
         versionBean.setOriginalVersion(originalVersion);       
         

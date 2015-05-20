@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by boehm on 23.09.14.
  */
 @Named
-final public class IdaSolrConverter implements Converter<String, SolrService>
+public class IdaSolrConverter implements Converter<String, SolrService>
 {
 
     @Inject
