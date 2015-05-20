@@ -2,6 +2,7 @@ package de.idadachverband.institution;
 
 import de.idadachverband.transform.IdaTransformer;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +12,7 @@ import java.nio.file.Paths;
  * Created by boehm on 26.08.14.
  */
 @Data
+@EqualsAndHashCode(of = "institutionId")
 public class IdaInstitutionBean
 {
     /**

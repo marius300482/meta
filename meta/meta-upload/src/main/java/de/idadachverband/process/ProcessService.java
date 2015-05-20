@@ -78,7 +78,7 @@ public class ProcessService
             @Override
             public void call(ProcessJobBean jobBean) throws Exception
             {
-                process(jobBean.getTransformation());
+                process(jobBean.getTransformation(), jobBean.getUser().getUsername());
             }
         });
         return processJobBean;
@@ -95,7 +95,7 @@ public class ProcessService
      * @throws SolrServerException 
      * @throws ArchiveException 
      */
-    public void process(TransformationBean transformationBean) throws TransformerException, IOException, SolrServerException, ArchiveException
+    public void process(TransformationBean transformationBean, String username) throws TransformerException, IOException, SolrServerException, ArchiveException
     {
         final String key = transformationBean.getKey();
         try
@@ -104,7 +104,7 @@ public class ProcessService
             
             solrUpdateService.updateSolr(transformationBean, true);
 
-            archiveService.archive(transformationBean, VersionOrigin.UPLOAD);
+            archiveService.archive(transformationBean, VersionOrigin.UPLOAD, username);
             
         } finally
         {

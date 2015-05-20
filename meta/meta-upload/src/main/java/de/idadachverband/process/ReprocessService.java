@@ -104,7 +104,7 @@ public class ReprocessService
             public void call(ReprocessJobBean jobBean) throws Exception
             {
                 List<TransformationBean> transformations =
-                        reprocess(solr, institution, version);
+                        reprocess(solr, institution, version, jobBean.getUser().getUsername());
                 jobBean.getTransformations().addAll(transformations);
             }
         });
@@ -113,7 +113,7 @@ public class ReprocessService
     }
    
     protected List<TransformationBean> reprocess(SolrService solr, IdaInstitutionBean institution, 
-            VersionKey version) throws IOException, SolrServerException, TransformerException, ArchiveException
+            VersionKey version, String username) throws IOException, SolrServerException, TransformerException, ArchiveException
     {
         // prepare transformation beans
         List<TransformationBean> transformations = new ArrayList<>();
@@ -145,7 +145,7 @@ public class ReprocessService
             // archive only after success
             for (TransformationBean transformationBean : transformations)
             {
-                archiveService.archive(transformationBean, VersionOrigin.REPROCESS);
+                archiveService.archive(transformationBean, VersionOrigin.REPROCESS, username);
             }
         } finally
         {

@@ -8,12 +8,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import de.idadachverband.institution.IdaInstitutionBean;
+import de.idadachverband.solr.SolrService;
+
+import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -24,9 +26,89 @@ import java.util.Set;
 @Slf4j
 public class UserService
 {
+    public static final String ADMIN_ROLE = "admin"; 
+     
+    private Map<String, IdaInstitutionBean> institutionsMap;
+    
+    private Map<String, SolrService> solrServiceMap;
+
+    private SolrService defaultSolrUpdater;
 
     @Value("${result.mail.from}")
     private String mailFrom;
+    
+    @Inject
+    public UserService(Set<IdaInstitutionBean> institutionsSet,
+            Set<SolrService> solrServiceSet, SolrService defaultSolrUpdater)
+    {
+        this.institutionsMap = new HashMap<String, IdaInstitutionBean>(institutionsSet.size());
+        for (IdaInstitutionBean institution : institutionsSet) 
+        {
+            institutionsMap.put(institution.getInstitutionId(), institution);
+        }
+        this.solrServiceMap = new HashMap<String, SolrService>(solrServiceSet.size());
+        for (SolrService solrService : solrServiceSet) 
+        {
+            solrServiceMap.put(solrService.getName(), solrService);
+        }
+        this.defaultSolrUpdater = defaultSolrUpdater;
+    }
+
+    public IdaUser getUser()
+    {
+        UserDetails userDetails = getUserDetails();
+        IdaUser user = new IdaUser(userDetails.getUsername());
+        user.getSolrServiceSet().add(defaultSolrUpdater);
+        
+        for (GrantedAuthority authority : userDetails.getAuthorities())
+        {
+            String userDetail = authority.getAuthority();
+            if (userDetail.equals(ADMIN_ROLE))
+            {
+                user.setAdmin(true);
+                user.getInstitutionsSet().addAll(institutionsMap.values());
+                user.getSolrServiceSet().addAll(solrServiceMap.values());
+            }
+            else if (userDetail.contains("@"))
+            {
+                user.setEmail(userDetail);
+                log.debug("Found email {} for user {}", userDetail, user);
+            }
+            else if (userDetail.startsWith("#"))
+            {
+                String coreName = userDetail.substring(1);
+                SolrService solrService = solrServiceMap.get(coreName);
+                if (solrService != null)
+                {
+                    log.debug("Found solr service {} for user {}", solrService, user);
+                    user.getSolrServiceSet().add(solrService);
+                } else
+                {
+                    log.warn("Invalid solr core: {} in user roles.", coreName);
+                }
+            }
+            else
+            {
+                IdaInstitutionBean institution = institutionsMap.get(userDetail);
+                if (institution != null)
+                {
+                    log.debug("Found institution {} for user {}", institution, user);
+                    user.getInstitutionsSet().add(institution);
+                } else
+                {
+                    log.warn("Invalid institution ID: {} in user roles.", userDetail);
+                }
+            }
+        }
+        
+        if (user.getEmail() == null)
+        {
+            user.setEmail(mailFrom);
+            log.warn("Did not find email for user {}", user);
+        }
+        
+        return user;
+    }
     
     /**
      * @return username of authenticated user
@@ -46,98 +128,7 @@ public class UserService
         log.debug("User name is {}", username);
         return username;
     }
-
-    public String getEmail()
-    {
-        String email = mailFrom;
-
-        UserDetails userDetails = null;
-        try
-        {
-            userDetails = getUserDetails();
-        } catch (AuthenticationNotFoundException e)
-        {
-            log.warn("Did not find email for user {}", email, userDetails);
-            return email;
-        }
-
-        final Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        for (GrantedAuthority authority : authorities)
-        {
-            if (authority.getAuthority().contains("@"))
-            {
-                log.debug("Found email {} for user {}", email, userDetails);
-                return authority.getAuthority();
-            }
-        }
-        log.warn("Did not find email for user {}", email, userDetails);
-        return email;
-    }
-
-    public List<GrantedAuthority> getAuthorities()
-    {
-
-        UserDetails userDetails;
-        try
-        {
-            userDetails = getUserDetails();
-        } catch (AuthenticationNotFoundException e)
-        {
-            return Collections.emptyList();
-        }
-
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        final Collection<? extends GrantedAuthority> foundAuthorities = userDetails.getAuthorities();
-
-        for (GrantedAuthority authority : foundAuthorities)
-        {
-            if (!authority.getAuthority().contains("@"))
-            {
-                authorities.add(authority);
-            }
-        }
-        return authorities;
-    }
-    
-    public Set<String> getRoles()
-    {
-        UserDetails userDetails;
-        try
-        {
-            userDetails = getUserDetails();
-        } catch (AuthenticationNotFoundException e)
-        {
-            return Collections.emptySet();
-        }
-
-        Set<String> roles = new HashSet<String>(2);
-
-        final Collection<? extends GrantedAuthority> foundAuthorities = userDetails.getAuthorities();
-
-        for (GrantedAuthority authority : foundAuthorities)
-        {
-            String roleName = authority.getAuthority(); 
-            if (!roleName.contains("@"))
-            {
-                roles.add(roleName);
-            }
-        }
-        return roles;
-    }
-    
-    public boolean isAdmin()
-    {
-        return getRoles().contains("admin");
-    }
-    
-    public Set<String> getInstitutionIds() 
-    {
-        Set<String> roles = getRoles();
-        roles.remove("admin");
-        return roles;
-    }
-    
+      
     protected UserDetails getUserDetails() throws AuthenticationNotFoundException
     {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
