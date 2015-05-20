@@ -103,7 +103,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(7, 6, 99));
                             <h3><?= $this->transEsc($institution["country"]); ?></h3>
                         <?php endif; ?>
                         <div class="institution">
-                            <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=institution%3A<?= urlencode($institution["id"]); ?>">
+                            <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=institution%3A<?= urlencode($institution["short"]); ?>">
                                 <?= $institution["name"]; ?>
                             </a>
                         </div>
