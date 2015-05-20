@@ -52,9 +52,22 @@
 					</recordChangeDate>
 	
 	<!--recordType-->
-				<recordType>
-					<xsl:text>library</xsl:text>
-					</recordType>
+				<xsl:choose>
+					<xsl:when test="(contains(Dokumentart,'film')) or
+								(contains(Dokumentart,'DVD')) or
+								(contains(Dokumentart,'Video'))">
+							<recordType>
+								<xsl:text>archive</xsl:text>
+								</recordType>
+							</xsl:when>
+					<xsl:otherwise>
+						<recordType>
+							<xsl:text>library</xsl:text>
+							</recordType>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				
 				
 </xsl:element>
 
@@ -125,7 +138,9 @@
 									(contains(Dokumentart,'Zeitung')) ">
 							<format><xsl:text>Zeitschrift</xsl:text></format>
 							</xsl:when>
-						<xsl:when test="contains(Dokumentart,'Aufsatz')">
+						<xsl:when test="(contains(Dokumentart,'Aufsatz')) or
+									(contains(Dokumentart,'Interview')) or
+									(contains(Dokumentart,'Artikel'))">
 							<format><xsl:text>Artikel</xsl:text></format>
 							</xsl:when>
 						<xsl:when test="(contains(Dokumentart,'Diplomarbeit')) or
@@ -149,7 +164,14 @@
 							<format><xsl:text>Tonträger</xsl:text></format>
 							</xsl:when>
 						<xsl:otherwise>
-							<format><xsl:text>Buch</xsl:text></format>
+							<xsl:choose>
+								<xsl:when test="contains(Seitenangabe_der_Zeitschrift,'-')">
+									<format><xsl:text>Artikel</xsl:text></format>
+									</xsl:when>
+								<xsl:otherwise>
+									<format><xsl:text>Buch</xsl:text></format>
+									</xsl:otherwise>
+								</xsl:choose>
 							</xsl:otherwise>
 						</xsl:choose>
 					
@@ -450,7 +472,23 @@
 			<xsl:template match="HerausgeberIn_der_Zeitschrift">
 				<xsl:for-each select="tokenize(.,';')">
 				<editor>
-					<xsl:value-of select="normalize-space(.)" />
+					<xsl:choose>
+						<xsl:when test="contains(.,'FEMDOK')">
+							<xsl:text>Femdok</xsl:text>
+							</xsl:when>
+						<xsl:when test="contains(.,'femina politica e.V.')">
+							<xsl:text>Femina Politica e.V.</xsl:text>
+							</xsl:when>
+						<xsl:when test="contains(.,'Femina Politica e. V.')">
+							<xsl:text>Femina Politica e.V.</xsl:text>
+							</xsl:when>
+						<xsl:when test="contains(.,'femina politica e. V.')">
+							<xsl:text>Femina Politica e.V.</xsl:text>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="normalize-space(.)" />
+							</xsl:otherwise>
+						</xsl:choose>
 					</editor>
 					</xsl:for-each>
 				</xsl:template>
@@ -471,7 +509,7 @@
 				</xsl:template>
 			
 			<xsl:template match="Co-AutorIn">
-				<xsl:for-each select=".">
+				<xsl:for-each select="tokenize(.,';')">
 					<xsl:choose>
 						<xsl:when test="contains(.,'(Hrsg.)')">
 							<editor>
@@ -480,7 +518,23 @@
 							</xsl:when>
 						<xsl:otherwise>
 							<author>
-								<xsl:value-of select="normalize-space(.)" />
+								<xsl:choose>
+									<xsl:when test="contains(.,'FEMDOK')">
+										<xsl:text>Femdok</xsl:text>
+										</xsl:when>
+									<xsl:when test="contains(.,'femina politica e.V.')">
+										<xsl:text>Femina Politica e.V.</xsl:text>
+										</xsl:when>
+									<xsl:when test="contains(.,'Femina Politica e. V.')">
+										<xsl:text>Femina Politica e.V.</xsl:text>
+										</xsl:when>
+									<xsl:when test="contains(.,'femina politica e. V.')">
+										<xsl:text>Femina Politica e.V.</xsl:text>
+										</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="normalize-space(.)" />
+										</xsl:otherwise>
+									</xsl:choose>
 								</author>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -488,7 +542,7 @@
 				</xsl:template>
 			
 			<xsl:template match="AutorIn">
-				<xsl:for-each select=".">
+				<xsl:for-each select="tokenize(.,';')">
 					<xsl:choose>
 						<xsl:when test="contains(.,'(Hrsg.)')">
 							<editor>
@@ -501,6 +555,15 @@
 								<xsl:choose>
 									<xsl:when test="contains(.,'FEMDOK')">
 										<xsl:text>Femdok</xsl:text>
+										</xsl:when>
+									<xsl:when test="contains(.,'femina politica e.V.')">
+										<xsl:text>Femina Politica e.V.</xsl:text>
+										</xsl:when>
+									<xsl:when test="contains(.,'Femina Politica e. V.')">
+										<xsl:text>Femina Politica e.V.</xsl:text>
+										</xsl:when>
+									<xsl:when test="contains(.,'femina politica e. V.')">
+										<xsl:text>Femina Politica e.V.</xsl:text>
 										</xsl:when>
 									<xsl:otherwise>
 										<xsl:value-of select="normalize-space(.)" />
