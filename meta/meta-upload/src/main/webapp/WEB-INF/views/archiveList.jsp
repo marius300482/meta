@@ -8,8 +8,9 @@
 <!DOCTYPE html>
 <html>
 <%@include file="head.jspf" %>
-<body>
-    <%@include file="menu.jspf" %>
+<body>	
+	<c:set var="currentTab" value="archive"/>
+	<%@include file="menu.jspf" %>
     <div class="main" id="page-archiveList">
         <h1>Archive</h1>
         <ul class="institutionList">

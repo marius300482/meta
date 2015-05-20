@@ -9,6 +9,7 @@
 <html>
 <%@include file="head.jspf" %>
 <body>
+	<c:set var="currentTab" value="jobs"/>
     <%@include file="menu.jspf" %>
     <div class="main" id="page-jobs">
         <h1>Running Jobs</h1>

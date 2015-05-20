@@ -2,6 +2,7 @@
 <html>
 <%@include file="head.jspf" %>
 <body>
+    <c:set var="currentTab" value="upload"/>
     <%@include file="menu.jspf" %>
     <div class="main" id="page-upload">
         <h1>
