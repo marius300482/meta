@@ -470,6 +470,7 @@
 				</xsl:template>
 			
 			<xsl:template match="HerausgeberIn_der_Zeitschrift">
+				<xsl:if test="not(contains(../AutorIn,.))">
 				<xsl:for-each select="tokenize(.,';')">
 				<editor>
 					<xsl:choose>
@@ -491,6 +492,7 @@
 						</xsl:choose>
 					</editor>
 					</xsl:for-each>
+					</xsl:if>
 				</xsl:template>
 			
 			<xsl:template match="Originaltitel">
@@ -513,8 +515,13 @@
 					<xsl:choose>
 						<xsl:when test="contains(.,'(Hrsg.)')">
 							<editor>
-								<xsl:value-of select="normalize-space(.)" />
+								<xsl:value-of select="normalize-space(substring-before(replace(.,'u\.a\.',''),'(Hrsg.)'))" />
 								</editor>
+							</xsl:when>
+						<xsl:when test="contains(.,'(Red.)')">
+							<contributor>
+								<xsl:value-of select="normalize-space(substring-before(.,'(Red.)'))" />
+								</contributor>
 							</xsl:when>
 						<xsl:otherwise>
 							<author>
@@ -546,8 +553,13 @@
 					<xsl:choose>
 						<xsl:when test="contains(.,'(Hrsg.)')">
 							<editor>
-								<xsl:value-of select="normalize-space(.)" />
+								<xsl:value-of select="normalize-space(substring-before(replace(.,'u\.a\.',''),'(Hrsg.)'))" />
 								</editor>
+							</xsl:when>
+						<xsl:when test="contains(.,'(Red.)')">
+							<contributor>
+								<xsl:value-of select="normalize-space(substring-before(.,'(Red.)'))" />
+								</contributor>
 							</xsl:when>
 						<xsl:otherwise>
 							<xsl:if test="not(contains(.,'N.N.'))">
@@ -566,7 +578,7 @@
 										<xsl:text>Femina Politica e.V.</xsl:text>
 										</xsl:when>
 									<xsl:otherwise>
-										<xsl:value-of select="normalize-space(.)" />
+										<xsl:value-of select="normalize-space(replace(.,'u.a.',''))" />
 										</xsl:otherwise>
 									</xsl:choose>
 								</author>
