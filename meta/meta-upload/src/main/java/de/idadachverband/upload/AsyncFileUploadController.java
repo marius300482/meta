@@ -7,6 +7,7 @@ import de.idadachverband.solr.SolrService;
 import de.idadachverband.user.AuthenticationNotFoundException;
 import de.idadachverband.user.IdaUser;
 import de.idadachverband.user.UserService;
+import de.idadachverband.utils.ToStringIgnoringCaseComparator;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.security.access.AccessDeniedException;
@@ -24,9 +25,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -45,6 +47,9 @@ public class AsyncFileUploadController
 
     @Inject
     private SimpleDateFormat dateFormat;
+    
+    @Inject
+    private SolrService defaultSolrUpdater;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView prepareUploadForm() throws AuthenticationNotFoundException
@@ -52,20 +57,24 @@ public class AsyncFileUploadController
         ModelAndView mav = new ModelAndView("uploadform");
         IdaUser user = userService.getUser();
         
-        Map<String, IdaInstitutionBean> institutionsMap = new HashMap<String, IdaInstitutionBean>();
+        List<IdaInstitutionBean> institutions = new ArrayList<IdaInstitutionBean>(user.getInstitutionsSet());
+        Collections.sort(institutions, ToStringIgnoringCaseComparator.INSTANCE);
+        List<SolrService> solrServices = new ArrayList<SolrService>(user.getSolrServiceSet());
+        Collections.sort(solrServices, ToStringIgnoringCaseComparator.INSTANCE);
+   
         boolean allowIncremental = false;
         boolean incrementalDefault = false;
-        for (IdaInstitutionBean institution : user.getInstitutionsSet())
+        for (IdaInstitutionBean institution : institutions)
         {
-            institutionsMap.put(institution.getInstitutionId(), institution);
             allowIncremental = (institution.isIncrementalUpdateAllowed()) ? true : allowIncremental;
             incrementalDefault = (institution.isIncrementalUpdate()) ? true : incrementalDefault;
         }
         
-        mav.addObject("institutions", institutionsMap);
-        mav.addObject("solrServices", user.getSolrServiceSet());
+        mav.addObject("institutions", institutions);
+        mav.addObject("solrServices", solrServices);
+        mav.addObject("defaultSolrService", defaultSolrUpdater);
         mav.addObject("allowIncremental", allowIncremental);
-        mav.addObject("incrementalDefault", incrementalDefault);      
+        mav.addObject("incrementalDefault", incrementalDefault); 
         mav.addObject("transformation", new UploadFormBean());
 
         return mav;

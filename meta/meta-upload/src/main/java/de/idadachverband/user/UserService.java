@@ -58,7 +58,6 @@ public class UserService
     {
         UserDetails userDetails = getUserDetails();
         IdaUser user = new IdaUser(userDetails.getUsername());
-        user.getSolrServiceSet().add(defaultSolrUpdater);
         
         for (GrantedAuthority authority : userDetails.getAuthorities())
         {
@@ -105,6 +104,11 @@ public class UserService
         {
             user.setEmail(mailFrom);
             log.warn("Did not find email for user {}", user);
+        }
+        if (user.getSolrServiceSet().isEmpty())
+        {
+            user.getSolrServiceSet().add(defaultSolrUpdater);
+            log.debug("Set default solr service {} for user {}", defaultSolrUpdater, user);
         }
         
         return user;

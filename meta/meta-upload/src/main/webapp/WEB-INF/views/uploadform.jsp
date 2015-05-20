@@ -17,12 +17,27 @@
             <br />
             <div style="display: none;"><sec:authorize access="hasAuthority('admin')"></div><div></sec:authorize>
                 <form:label path="solr">Solr Core</form:label>
-                <form:select path="solr" items="${solrServices}"/><br />
+                <form:select path="solr">
+                	<c:forEach items="${solrServices}" var="solrService">
+    					<c:choose>
+    						<c:when test="${solrService eq defaultSolrService}">
+	    						<form:option value="${solrService}" selected="selected"/>
+	    					</c:when>
+	    					<c:otherwise>
+	    						<form:option value="${solrService}"/>
+	    					</c:otherwise>
+	    				</c:choose>
+					</c:forEach>
+                </form:select><br />
                 <br/>
             </div>
             <div style="display: none;"><c:if test="${institutions.size() gt 1}"></div><div></c:if>
                 <form:label path="institution">Library/Archive</form:label>
-                <form:select path="institution" items="${institutions}"/><br />
+                <form:select path="institution">
+                	<c:forEach items="${institutions}" var="institution">
+    					<form:option value="${institution.institutionId}" label="${institution.institutionName}"/>
+					</c:forEach>
+                </form:select><br />
                 <br/>
             </div>
             <c:if test="${allowIncremental}">

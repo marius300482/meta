@@ -5,11 +5,9 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 @Getter
 @RequiredArgsConstructor
-@ToString(of = "coreName", includeFieldNames = false)
 public class ArchiveCoreBean
 {
     private final String coreName;
@@ -26,5 +24,11 @@ public class ArchiveCoreBean
             }
         }
         return null;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return coreName;
     }
 }

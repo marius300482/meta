@@ -35,13 +35,13 @@ public enum JobProgressState
         {
             return CANCELLED;
         }
+        else if (jobBean.getException() != null)
+        {
+            log.debug("Job {} failed.", jobBean);
+            return FAILURE;
+        } 
         else if (future.isDone())
         {
-            if (jobBean.getException() != null)
-            {
-                log.debug("Job {} failed.", jobBean);
-                return FAILURE;
-            }
             return SUCCESS;
         } 
         return PROCESSING;
