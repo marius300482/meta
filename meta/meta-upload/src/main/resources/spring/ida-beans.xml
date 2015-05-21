@@ -138,7 +138,6 @@
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
-        </bean>
        <bean id="lette" class="de.idadachverband.institution.IdaInstitutionBean">
      	<constructor-arg index="0" name="institutionId" value="lette"/>
         <constructor-arg index="1" name="institutionName" value="Archiv des Lette-Vereins"/>
