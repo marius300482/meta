@@ -142,7 +142,7 @@
      	<constructor-arg index="0" name="institutionId" value="lette"/>
         <constructor-arg index="1" name="institutionName" value="Archiv des Lette-Vereins"/>
         <constructor-arg index="2" name="transformationRecipeFile"
-                         value="${xslt.basePath}/institution/saar/gleich_lette.xsl"/>
+                         value="${xslt.basePath}/institution/lette/gleich_lette.xsl"/>
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
