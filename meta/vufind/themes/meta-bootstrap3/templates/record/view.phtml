@@ -111,6 +111,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
             <?php $institutionName = isset($institutionDetails["name"]) ? $institutionDetails["name"] : $institution; ?>
             <div class="col-sm-6 institution detail-view-detail-row">
                 <h4 data-section-toggle="true">
+		    <a name="link"></a>
                     <?php echo $this->transEsc('Institution'); ?>
                 </h4>
                 <div class="collapsible">
@@ -131,8 +132,9 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                         <script>
                             (function(){
                                 google.maps.event.addDomListener(window, 'load', function () {
-                                    var mapOptions = {zoom: 15, zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM }};
+                                    var mapOptions = {zoom: 14, zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM }};
                                     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                                    
                                     var address = <?= json_encode(strip_tags($institutionDetails["address"], "<br>")); ?>.replace("<br>", ", ");
                                     map.setCenter(new google.maps.LatLng(<?= (float) $institutionDetails["latitude"]; ?>, <?= (float) $institutionDetails["longitude"]; ?>));
                                     new google.maps.InfoWindow({
