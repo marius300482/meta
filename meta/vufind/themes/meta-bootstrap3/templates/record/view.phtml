@@ -137,11 +137,17 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                                     
                                     var address = <?= json_encode(strip_tags($institutionDetails["address"], "<br>")); ?>.replace("<br>", ", ");
                                     map.setCenter(new google.maps.LatLng(<?= (float) $institutionDetails["latitude"]; ?>, <?= (float) $institutionDetails["longitude"]; ?>));
-                                    new google.maps.InfoWindow({
-                                        map: map,
+                                    marker = new google.maps.Marker({
                                         position: new google.maps.LatLng(<?= (float) $institutionDetails["latitude"]; ?>, <?= (float) $institutionDetails["longitude"]; ?>),
-                                        content: "<strong><?= str_replace('"', '\"', strip_tags($institutionName, "<br>")); ?></strong><br />" + address
+                                        map: map,
+                                        icon: '<?= $this->url('home') . "themes/meta-bootstrap3/images/marker.png"; ?>'
                                     });
+                                    google.maps.event.addListener(marker, 'click', (function() {
+                                        return function() {
+                                            url = "https://www.google.de/maps?q=loc:<?= (float) $institutionDetails["latitude"]; ?>+<?= (float) $institutionDetails["longitude"]; ?>";
+                                            window.open(url);
+                                        }
+                                    })());
                                 });
                             })();
                         </script>
