@@ -88,12 +88,17 @@
             <!-- Veroeffentlicht -->
             <? $sourceInfo = $this->driver->getSourceInfos(); ?>
             <? if (!empty($sourceInfo)): ?>
-                <? $top = $this->driver->getBelongsToTop()?>
+                <? $top = $this->driver->getBelongsToTop();
+                   $top2 = $this->driver->getBelongsTo(); ?>
                 In:
                 <? foreach($sourceInfo as $info): ?>
                     <? $inText = $this->escapeHtml($info) ?>
                     <? if ($info == $top[1]): ?>
                         <a href="<?= $this->recordLink()->getUrl($top[0]) ?>">
+                            <?= $inText ?>
+                        </a>
+                    <? elseif ($info == $top2[1]): ?>
+                        <a href="<?= $this->recordLink()->getUrl($top2[0]) ?>">
                             <?= $inText ?>
                         </a>
                     <? else: ?>
