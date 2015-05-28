@@ -35,15 +35,15 @@ class ArchiveConfiguration {
         this.maxArchivedVersions = maxArchivedVersions;
     }
     
-    public Path getFolder(ProcessStep step, String coreName, String institutionName, String versionId)
+    public Path getFolder(ProcessStep step, String coreName, String institutionId, String versionId)
     {
-        return checkPath(processFileConfiguration.getFolder(step, Paths.get(coreName, institutionName, versionId).toString()));
+        return checkPath(processFileConfiguration.getFolder(step, Paths.get(coreName, institutionId, versionId).toString()));
     }
     
-    public Path getIncrementalFolder(ProcessStep step, String coreName, String institutionName, String versionId, String updateId)
+    public Path getIncrementalFolder(ProcessStep step, String coreName, String institutionId, String versionId, String updateId)
     {
         return checkPath(processFileConfiguration.getFolder(step, 
-                Paths.get(coreName, institutionName, versionId, incrementalFolder, updateId).toString()));
+                Paths.get(coreName, institutionId, versionId, incrementalFolder, updateId).toString()));
     }
     
     public Path getInstitutionsBasePath(String coreName)
@@ -51,24 +51,24 @@ class ArchiveConfiguration {
         return checkPath(basePath.resolve(coreName));
     }
     
-    public Path getVersionsBasePath(String coreName, String institutionName) 
+    public Path getVersionsBasePath(String coreName, String institutionId) 
     {
-    	return checkPath(basePath.resolve(coreName).resolve(institutionName));
+    	return checkPath(basePath.resolve(coreName).resolve(institutionId));
     }
     
-    public Path getVersionFolder(String coreName, String institutionName, String versionId)
+    public Path getVersionFolder(String coreName, String institutionId, String versionId)
     {
-        return checkPath(basePath.resolve(coreName).resolve(institutionName).resolve(versionId));
+        return checkPath(basePath.resolve(coreName).resolve(institutionId).resolve(versionId));
     }
     
-    public Path getUpdatesBasePath(String coreName, String institutionName, String versionId) 
+    public Path getUpdatesBasePath(String coreName, String institutionId, String versionId) 
     {
-        return checkPath(basePath.resolve(coreName).resolve(institutionName).resolve(versionId).resolve(incrementalFolder));
+        return checkPath(basePath.resolve(coreName).resolve(institutionId).resolve(versionId).resolve(incrementalFolder));
     }
     
-    public Path getUpdateFolder(String coreName, String institutionName, String versionId, String updateId) 
+    public Path getUpdateFolder(String coreName, String institutionId, String versionId, String updateId) 
     {
-        return checkPath(basePath.resolve(coreName).resolve(institutionName).resolve(versionId).resolve(incrementalFolder).resolve(updateId));
+        return checkPath(basePath.resolve(coreName).resolve(institutionId).resolve(versionId).resolve(incrementalFolder).resolve(updateId));
     }
  
     

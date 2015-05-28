@@ -41,7 +41,7 @@
         <script type="application/javascript">
             successCallback = function (v) {
                 console.log(v);
-                if (v.state === "<%= JobProgressState.DONE %>") {
+                if (v.state === "<%= JobProgressState.SUCCESS %>") {
                     var link = jQuery("#filelink").find("a");
                     var url = link.attr("href");
                     link.attr("href", url + v.path);

@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <header>
     <div id="slogan">
         File-Upload<br />Metadaten-Katalog
@@ -6,17 +8,17 @@
     </div>
     <div id="mainMenu">
         <ul id="menuTabs">
-            <li class="active">
+            <li class="${(currentTab eq 'upload') ? ' active' : ''}">
                 <a href="${url}">Upload file</a>
             </li>
-			<!-- <sec:authorize access="hasAuthority('admin')"> -->
-				<li>
+			<sec:authorize access="hasAuthority('admin')">
+				<li class="${(currentTab eq 'archive') ? ' active' : ''}">
 					<a href="${archive}">Archive</a>
 				</li>
-				<li>
+				<li class="${(currentTab eq 'jobs') ? ' active' : ''}">
 					<a href="${jobsUrl}">Jobs</a>
 				</li>
-			<!-- </sec:authorize>-->
+			</sec:authorize>
 		</ul>
         <ul id="userStatus">
             <li class="userName">

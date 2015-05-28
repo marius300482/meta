@@ -2,36 +2,32 @@ package de.idadachverband.user;
 
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.solr.SolrService;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by boehm on 23.09.14.
  */
-public class IdaUser extends User
+@Data
+@EqualsAndHashCode(of = "username")
+public class IdaUser
 {
+    private final String username;
+     
+    private final Set<IdaInstitutionBean> institutionsSet = new HashSet<IdaInstitutionBean>();
 
-    @Getter
-    @Setter
-    private Set<IdaInstitutionBean> institutionSet;
-    @Getter
-    @Setter
-    private Set<SolrService> solrServiceSet;
-    @Getter
-    @Setter
+    private final Set<SolrService> solrServiceSet = new HashSet<SolrService>();
+    
     private String email;
 
-    @Getter
-    @Setter
     private boolean admin;
-
-    public IdaUser(String username, String password, Collection<? extends GrantedAuthority> authorities)
+    
+    @Override
+    public String toString()
     {
-        super(username, password, authorities);
+        return username;
     }
 }

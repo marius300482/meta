@@ -80,6 +80,6 @@ public class JobProgressServiceTest
         cut.add(jobBean);
         JobProgressState actual = cut.getState(jobBean);
 
-        assertThat(actual, is(DONE));
+        assertThat(actual, is(SUCCESS));
     }
 }

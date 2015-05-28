@@ -1,39 +1,35 @@
 package de.idadachverband.transform;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.nio.file.Path;
 
 import de.idadachverband.institution.IdaInstitutionBean;
-import de.idadachverband.solr.IndexRequestBean;
+import de.idadachverband.solr.SolrUpdateBean;
 import de.idadachverband.solr.SolrService;
 
 /**
  * Bean to hold transformation details.
  * Created by boehm on 09.10.14.
  */
-@EqualsAndHashCode(callSuper=true)
-@Data
-public class TransformationBean extends IndexRequestBean
+@Getter
+@Setter
+public class TransformationBean extends SolrUpdateBean
 {
     private final Path transformationInput;
     
     private String transformationWorkingFormatMessages;
     
     private String transformationSolrFormatMessages;
-   
-    private String archivedVersionId;
-   
-    private String archivedUpdateId;
-    
+      
     public TransformationBean(
                 SolrService solrService, 
                 IdaInstitutionBean institution, 
                 Path transformationInput, 
                 boolean incrementalUpdate)
     {
-        super(solrService, institution, incrementalUpdate);
+        super(solrService, institution, null, incrementalUpdate);
         this.transformationInput = transformationInput;
     }
 

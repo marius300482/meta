@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
+import de.idadachverband.archive.visitor.CopyFileVisitor;
 import de.idadachverband.archive.visitor.DeletingFileVisitor;
 
 @Slf4j
@@ -84,5 +85,10 @@ public class Directories
         {
             log.warn("Error while deleting {}", dir, e);
         }
+    }
+    
+    public static void copy(final Path sourcePath, final Path targetPath) throws IOException
+    {
+        Files.walkFileTree(sourcePath, new CopyFileVisitor(sourcePath, targetPath));
     }
 }
