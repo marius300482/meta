@@ -145,7 +145,8 @@ function buildJSONNodes(xml)
         'recordid': id.text()
       },
       'a_attr': {
-        'href': name.attr('href'),
+        'href': hasChildren ? 'javascript:' : name.attr('href'),
+        'onclick': hasChildren ? 'var anchorId = $(this).prev("i").click(); return false;' : '',
         'title': name.text()
       },
       'type': name.attr('href').match(/\/Collection\//) ? 'collection' : 'record',
