@@ -145,8 +145,8 @@ function buildJSONNodes(xml)
         'recordid': id.text()
       },
       'a_attr': {
-        'href': content.children("hasChildren").attr("value")===false ? name.attr('href') : 'javascript:',
-        'onclick': content.children("hasChildren").attr("value")===false ? '' : 'var anchorId = $(this).prev("i").click(); return false;',
+        'href': content.children("hasChildren").attr("value")==="false" ? name.attr('href') : 'javascript:',
+        'onclick': content.children("hasChildren").attr("value")==="false" ? '' : 'var anchorId = $(this).prev("i").click(); return false;',
         'title': name.text()
       },
       'type': name.attr('href').match(/\/Collection\//) ? 'collection' : 'record',
