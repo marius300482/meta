@@ -88,9 +88,18 @@
             <!-- Veroeffentlicht -->
             <? $sourceInfo = $this->driver->getSourceInfos(); ?>
             <? if (!empty($sourceInfo)): ?>
+                <? $top = $this->driver->getBelongsToTop()?>
                 In:
                 <? foreach($sourceInfo as $info): ?>
-                    <?= $this->escapeHtml($info) ?><?= $info !== end($sourceInfo) ? ", " : "" ?>
+                    <? $inText = $this->escapeHtml($info) ?>
+                    <? if ($info == $top[1]): ?>
+                        <a href="<?= $this->recordLink()->getUrl($top[0]) ?>">
+                            <?= $inText ?>
+                        </a>
+                    <? else: ?>
+                        <?= $inText ?>
+                    <? endif; ?>
+                    <?= $info !== end($sourceInfo) ? ", " : "" ?>
                 <? endforeach; ?>
                 <br />
             <? endif; ?>
