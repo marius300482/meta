@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template match="/">
         <root>
@@ -31,6 +31,7 @@
         </xsl:variable>
         <item state="{$hierarchyState}">
             <content>
+                <hasChildren value="{$hasChildren}" />
                 <name class="JSTreeID"><xsl:value-of select="$id"/></name>
                 <name href="{$baseURL}/{$baseModule}/{$id}/HierarchyTree?hierarchy={$collectionID}&amp;recordID={$id}" title="{$titleText}">
                     <xsl:value-of select="./content/name" />
