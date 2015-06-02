@@ -592,6 +592,12 @@
 					<xsl:value-of select="//datensatz[id=$ref_buch]/Titel_Buch"></xsl:value-of>
 					</sourceInfo>
 				</xsl:if>
+				
+			<xsl:if test="(Akte_REF) and (//datensatz[id=$ref_akte]/Titel_Akte)">
+				<sourceInfo>
+					<xsl:value-of select="//datensatz[id=$ref_akte]/Titel_Akte"></xsl:value-of>
+					</sourceInfo>
+				</xsl:if>
 			
 			<xsl:if test="ZS_Heft_REF">
 				
@@ -1277,9 +1283,11 @@
 			</xsl:for-each>
 			</xsl:when>
 			<xsl:otherwise>
+				<xsl:if test=".!='o. A.'">
 				<author>
 					<xsl:value-of select="." />
 					</author>
+					</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
 		
