@@ -102,6 +102,10 @@
 							<xsl:text>Alice Salomon Archiv der ASH Berlin</xsl:text>
 							</institutionFull>
 			
+						<institutionID>
+							<xsl:text>ash</xsl:text>
+							</institutionID>
+			
 <!--collection-->				<collection><xsl:text>ash</xsl:text></collection>
 	
 <!--isil-->					<isil><xsl:text>DE-B1591</xsl:text></isil>
