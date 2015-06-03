@@ -72,21 +72,20 @@ $institutionsCols = $this->distributeToArrays($institutions, array(8, 7, 99));
         </div>
     </div>
     <div class="col-sm-4">
-        <h2><?= $this->transEsc('Inventory by document types'); ?>:</h2>
+        <h2><?= $this->transEsc('Inventory by document types'); ?></h2>
         <ul id="inventoryFacet">
             <?php foreach ($inventoryFacet as $entry) : ?>
                 <li>
-                    <div class="format">
+                    <div class="col-md-6">
                         <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
-                            <?= $entry['displayText']; ?>
-                        </a>
-                        <span class="count">
+                            <h4><?= $entry['displayText']; ?></h4>
+                            <img src="<?= $entry['icon'] ?>" class="recordcover" alt="<?= $entry['displayText']; ?>" />
                             (<?= number_format($entry['count'], 0, ',', '.'); ?>)
-                        </span>
+                        </a>
                     </div>
-                    <div class="barWrapper">
+                    <!--div class="barWrapper">
                         <div class="bar" style="background-color: <?= $entry['color']; ?>; width: <?= max(1, $entry['percent']); ?>%"></div>
-                    </div>
+                    </div-->
                 </li>
             <?php endforeach; ?>
         </ul>
