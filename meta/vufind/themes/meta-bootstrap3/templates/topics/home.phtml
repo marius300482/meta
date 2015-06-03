@@ -78,7 +78,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(8, 7, 99));
                 <li>
                     <div class="col-md-6">
                         <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
-                            <h4><?= $entry['displayText']; ?></h4>
+                            <h5><?= $entry['displayText']; ?></h5>
                             <img src="<?= $entry['icon'] ?>" class="recordcover" alt="<?= $entry['displayText']; ?>" />
                             (<?= number_format($entry['count'], 0, ',', '.'); ?>)
                         </a>
