@@ -73,22 +73,21 @@ $institutionsCols = $this->distributeToArrays($institutions, array(8, 7, 99));
     </div>
     <div class="col-sm-4">
         <h2><?= $this->transEsc('Inventory by document types'); ?></h2>
-        <ul id="inventoryFacet">
-            <?php foreach ($inventoryFacet as $entry) : ?>
-                <li>
-                    <div class="col-md-6">
-                        <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
-                            <h5><?= $entry['displayText']; ?></h5>
+        <?php foreach ($inventoryFacet as $entry) : ?>
+            <div class="col-sm-6" style="padding-left: 5px; padding-right: 5px; padding-bottom: 5px;" >
+                <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
+                    <div class="media">
+                        <div class="media-left pull-left">
                             <img src="<?= $entry['icon'] ?>" class="recordcover" alt="<?= $entry['displayText']; ?>" />
-                            (<?= number_format($entry['count'], 0, ',', '.'); ?>)
-                        </a>
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading" style="margin-bottom: 0px;" ><?= $entry['displayText']; ?></h5>
+                            <span style="font-size: 12px;" >(<?= number_format($entry['count'], 0, ',', '.'); ?>)</span>
+                        </div>
                     </div>
-                    <!--div class="barWrapper">
-                        <div class="bar" style="background-color: <?= $entry['color']; ?>; width: <?= max(1, $entry['percent']); ?>%"></div>
-                    </div-->
-                </li>
-            <?php endforeach; ?>
-        </ul>
+                </a>
+            </div>
+        <?php endforeach; ?>
     </div>
     <div class="col-sm-12" id="institutionList">
         <h2><?= $this->transEsc('Inventory of the institutions'); ?></h2>
