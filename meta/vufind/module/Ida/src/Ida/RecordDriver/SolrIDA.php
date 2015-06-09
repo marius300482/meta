@@ -381,12 +381,9 @@ abstract class SolrIDA extends SolrDefault
      */
     public function getBelongsToTop()
     {
-        if(in_array('Artikel', $this->getFormats()))
+        if (isset($this->fields['hierarchy_top_id']) && isset($this->fields['hierarchy_top_title']))
         {
-            if (isset($this->fields['hierarchy_top_id']) && isset($this->fields['hierarchy_top_title']))
-            {
-                return array($this->fields['hierarchy_top_id'][0], $this->fields['hierarchy_top_title'][0]);
-            }
+            return array($this->fields['hierarchy_top_id'][0], $this->fields['hierarchy_top_title'][0]);
         }
         return array();
     }
