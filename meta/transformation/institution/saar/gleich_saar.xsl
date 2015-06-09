@@ -258,7 +258,7 @@
 			
 				
 			<!--subjectTopic Deskriptoren-->
-					<!--<xsl:apply-templates select="Buch-Desk[string-length() != 0]" />-->
+					<xsl:apply-templates select="Buch-Desk[string-length() != 0]" />
 			
 			<!--subjectPerson-->
 					<xsl:apply-templates select="Personen[string-length() != 0]" />
@@ -271,9 +271,9 @@
 						<xsl:when test="Kurzbeschreibung[string-length() != 0]">
 							<xsl:apply-templates select="Kurzbeschreibung[string-length() != 0]" />
 							</xsl:when>
-						<xsl:when test="Buch-Desk[string-length() != 0]">
+						<!--<xsl:when test="Buch-Desk[string-length() != 0]">
 							<xsl:apply-templates select="Buch-Desk[string-length() != 0]" />
-							</xsl:when>
+							</xsl:when>-->
 						</xsl:choose>
 					<!--<xsl:apply-templates select="Kurzreferat[string-length() != 0]" />-->
 
@@ -346,31 +346,32 @@
 				</xsl:template>-->
 		
 			<xsl:template match="Buch-Desk">
-				<description>
-					<xsl:text>Deskriptoren: </xsl:text>
-					<xsl:value-of select="normalize-space(.)" />
-					</description>
+				<xsl:for-each select=".">
+					<subjectTopic>
+						<xsl:value-of select="normalize-space(.)" />
+						</subjectTopic>
+					</xsl:for-each>
 				</xsl:template>
 			
 			
 			<xsl:template match="Kurzbeschreibung">
 				<description>
-					<xsl:if test="../Buch-Desk[string-length() != 0]">
+					<!--<xsl:if test="../Buch-Desk[string-length() != 0]">
 						<xsl:text>Deskriptoren: </xsl:text>
 						<xsl:value-of select="normalize-space(../Buch-Desk)" />
 						<xsl:text> - </xsl:text>
-						</xsl:if>
+						</xsl:if>-->
 					<xsl:value-of select="normalize-space(.)" />
 					</description>
 				</xsl:template>
 			
 			<xsl:template match="Kurzreferat">
 				<description>
-					<xsl:if test="../Buch-Desk[string-length() != 0]">
+					<!--<xsl:if test="../Buch-Desk[string-length() != 0]">
 						<xsl:text>Deskriptoren: </xsl:text>
 						<xsl:value-of select="normalize-space(../Buch-Desk)" />
 						<xsl:text> - </xsl:text>
-						</xsl:if>
+						</xsl:if>-->
 					<xsl:if test="../Kurzbeschreibung[string-length() != 0]">
 						<xsl:value-of select="normalize-space(../Kurzbeschreibung)" />
 						<xsl:text> - </xsl:text>
