@@ -1,0 +1,67 @@
+  <div class="<?=$this->driver->supportsAjaxStatus()?'ajaxItem ':''?>col-xs-12">
+    <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getUniqueID())?>" class="hiddenId" />
+    <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getResourceSource())?>" class="hiddenSource" />
+    <div class="col-xs-1">
+        <a href="<?=$this->recordLink()->getUrl($this->driver)?>">
+            <? if ($summThumb = $this->record($this->driver)->getThumbnail('medium')): ?>
+                <img class="recordcover" src="<?=$this->escapeHtmlAttr($summThumb)?>" alt="<?=$this->transEsc('Cover Image')?>"/>
+            <? else: ?>
+                <img class="recordcover" src="<?=$this->url('cover-unavailable')?>" alt="<?=$this->transEsc('No Cover Image')?>"/>
+            <? endif; ?>
+        </a>
+    </div>
+    <div class="col-xs-11">
+        <?= str_replace('class="', 'class="label  label-info ', $this->record($this->driver)->getFormatList()); ?>
+        <div>
+            <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title">
+                <?php
+                    $summHighlightedTitle = $this->driver->getHighlightedTitle();
+                    $summTitle = $this->driver->getDisplayTitle();
+                    if (!empty($summHighlightedTitle)) {
+                      echo $this->highlight($this->addEllipsis($summHighlightedTitle, $summTitle));
+                    } else if (!empty($summTitle)) {
+                      echo $this->escapeHtml($this->truncate($summTitle, 180));
+                    } else {
+                      echo $this->transEsc('Title not available');
+                    }
+                ?>
+            </a>
+        </div>
+        <div>
+            <? if($this->driver->isCollection()): ?>
+                <?=implode('<br>', $this->driver->getSummary()); ?>
+            <? endif; ?>
+
+            <? $summAuthor = $this->driver->getPrimaryAuthor();?>
+            <?php if (!empty($summAuthor)): ?>
+
+                <?=$this->transEsc('From')?>:
+                <a href="<?=$this->record($this->driver)->getLink('author', $summAuthor)?>"><?
+                    $summHighlightedAuthor = $this->driver->getHighlightedAuthor();
+                    echo !empty($summHighlightedAuthor)
+                      ? $this->highlight($summHighlightedAuthor)
+                      : $this->escapeHtml($summAuthor);
+                ?></a>
+
+                <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
+                <? if (isset($authors['additional']) && !empty($authors['additional'])): ?>
+                    [<a href="<?=$this->recordLink()->getUrl($this->driver)?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+                <? endif; ?>
+                <br />
+
+            <?php else : ?>
+
+                <? $editors = $this->driver->getEditors(); ?>
+                <?php if (!empty($editors)) : ?>
+                    <?=$this->transEsc('Editors')?>:
+                    <a href="<?= $this->record($this->driver)->getLink('editor', reset($editors)) ?>"><?= $this->escapeHtml(reset($editors)) ?></a>
+                    <? if (1 < count($editors)): ?>
+                        [<a href="<?=$this->recordLink()->getUrl($this->driver)?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+                    <? endif; ?>
+                    <br/>
+                <?php endif; ?>
+
+            <? endif; ?>
+
+    <?=$openUrl?'<span class="Z3988" title="'.$this->escapeHtmlAttr($openUrl).'"></span>':''?>
+</div>

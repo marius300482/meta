@@ -127,7 +127,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(8, 7, 99));
             <?php foreach ($this->randomBooks as $book) : ?>
                 <?php $this->driver = $book; // Make "result-list.phtml" template reusable ?>
                 <li class="result row">
-                    <? include dirname(__DIR__) . "/RecordDriver/SolrIDA/result-list.phtml"; ?>
+                    <? include dirname(__DIR__) . "/RecordDriver/SolrIDA/result-list-compact.phtml"; ?>
                 </li>
             <?php endforeach; ?>
         </ul>
