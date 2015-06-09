@@ -198,104 +198,6 @@
 
 
 
-<!--
-
-	<xsl:template match="Thesaurus_Klassifikation">
-		
-		<xsl:if test="not(.='0 Einleitung')">
-		
-		<xsl:element name="record">
-			
-		<vufind>
-				<id>
-					<xsl:value-of select="translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
-					<xsl:text>addf</xsl:text>
-					</id>
-				<recordCreationDate><xsl:value-of select="current-dateTime()"/></recordCreationDate>
-				<recordChangeDate><xsl:value-of select="current-dateTime()"/></recordChangeDate>
-				<recordType><xsl:text>systematics</xsl:text></recordType>	
-				
-				</vufind>
-
-		<institution>
-				<institutionShortname><xsl:text>Archiv der deutschen Frauenbewegung</xsl:text></institutionShortname>
-				<institutionFull><xsl:text>Stiftung Archiv der deutschen Frauenbewegung</xsl:text></institutionFull>
-				<institutionID><xsl:text>addf</xsl:text></institutionID>
-				<collection><xsl:text>ADDF</xsl:text></collection>
-				<isil><xsl:text>DE-Ks16</xsl:text></isil>
-				<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/archiv-der-deutschen-frauenbewegung/</xsl:text></link>
-				</institution>
-			
-		<dataset>
-				
-				 <typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
-				<title><xsl:value-of select="."/></title>
-				 <title_short><xsl:value-of select="."/></title_short>
-				 <xsl:if test="not(.='0 Einleitung')">
-					<sourceInfo><xsl:value-of select="//Datensatz[Thesaurus_Klassifikation='0 Einleitung']/Titel" /></sourceInfo>
-					</xsl:if>
-				 
-				</dataset>
-			
-		<functions>
-				
-				<hierarchyFields>
-		
-					<hierarchy_top_id>
-						<xsl:value-of select="//Datensatz[Thesaurus_Klassifikation='0 Einleitung']/id" />
-						<xsl:text>addf</xsl:text>
-						</hierarchy_top_id>
-					<hierarchy_top_title>
-						<xsl:value-of select="//Datensatz[Thesaurus_Klassifikation='0 Einleitung']/Titel" />
-						</hierarchy_top_title>
-					
-					<xsl:variable name="start" select="substring-before(.,' ')" />
-					<xsl:variable name="minus" select="string-length($start)-2"/>
-					<xsl:variable name="parent" select="substring(.,1,$minus)" />
-					
-					<xsl:choose>
-						<xsl:when test="contains(.,'.')">
-							<hierarchy_parent_id>
-								<xsl:value-of select="translate(//Datensatz/Thesaurus_Klassifikation[@id=$parent],'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
-								<xsl:text>addf</xsl:text>
-								</hierarchy_parent_id>
-							<hierarchy_parent_title>
-								<xsl:value-of select="//Datensatz/Thesaurus_Klassifikation[@id=$parent]" />
-								</hierarchy_parent_title>
-							</xsl:when>
-						<xsl:otherwise>
-							<hierarchy_parent_id>
-								<xsl:value-of select="//Datensatz[Thesaurus_Klassifikation='0 Einleitung']/id" />
-								<xsl:text>addf</xsl:text>
-								</hierarchy_parent_id>
-							<hierarchy_parent_title>
-								<xsl:value-of select="//Datensatz[Thesaurus_Klassifikation='0 Einleitung']/Titel" />
-								</hierarchy_parent_title>
-							</xsl:otherwise>
-						</xsl:choose>
-		
-					<is_hierarchy_id>
-						<xsl:value-of select="translate(.,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
-						<xsl:text>addf</xsl:text>
-						</is_hierarchy_id>
-					<is_hierarchy_title>
-						<xsl:value-of select="." />
-						</is_hierarchy_title>
-		
-					<hierarchy_sequence>
-						<xsl:value-of select="translate($start,'1234567890.','1234567890')" />
-						</hierarchy_sequence>
-					
-					</hierarchyFields>
-				</functions>
-				
-			</xsl:element>
-			</xsl:if>
-			
-		</xsl:template>
--->
-
-
 	<xsl:template match="Datum-Erfassung">
 		
 		<xsl:variable name="filename">
@@ -384,7 +286,7 @@
 					
 					
 					<hierarchy_sequence>
-						<xsl:value-of select="@id" />
+						<xsl:value-of select="translate(@id,'1234567890.','1234567890')" />
 						</hierarchy_sequence>
 						
 					</hierarchyFields>
