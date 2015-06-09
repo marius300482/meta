@@ -35,7 +35,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(9, 7, 99));
                                 <?= json_encode($institution['name']); ?>,
                                 <?= (float) $institution['latitude']; ?>,
                                 <?= (float) $institution['longitude']; ?>,
-                                <?= json_encode($institution['id']); ?>,
+                                <?= json_encode($institution['short']); ?>,
                                 <?= json_encode($institution['address']); ?>
                             ]
                             <?php if ($i != count($institutions) - 1) : ?>,<?php endif; ?>
