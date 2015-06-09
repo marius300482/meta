@@ -11,7 +11,7 @@
 $this->headTitle($this->translate('Home'));
 
 // Distribute institutions to 3 arrays which can be used to populate 3 columns
-$institutionsCols = $this->distributeToArrays($institutions, array(8, 7, 99));
+$institutionsCols = $this->distributeToArrays($institutions, array(9, 7, 99));
 
 ?>
 <div id="topicsPage">
@@ -127,7 +127,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(8, 7, 99));
             <?php foreach ($this->randomBooks as $book) : ?>
                 <?php $this->driver = $book; // Make "result-list.phtml" template reusable ?>
                 <li class="result row">
-                    <? include dirname(__DIR__) . "/RecordDriver/SolrIDA/result-list.phtml"; ?>
+                    <? include dirname(__DIR__) . "/RecordDriver/SolrIDA/result-list-compact.phtml"; ?>
                 </li>
             <?php endforeach; ?>
         </ul>
