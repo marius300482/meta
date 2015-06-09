@@ -143,7 +143,7 @@
 
 	<!--author Autorinneninformation-->
 				<xsl:apply-templates select="Autorin[string-length() != 0]"/>
-				<xsl:apply-templates select="übersetzt_von[string-length() != 0]"/>
+				<!--<xsl:apply-templates select="übersetzt_von[string-length() != 0]"/>-->
 
 <!--IDENTIFIER-->
 
@@ -221,7 +221,7 @@
 					<xsl:value-of select="."/>
 					</displayPublishDate>
 				<publishDate>
-					<xsl:value-of select="."/>
+					<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
 					</publishDate>
 				</xsl:when>
 			<xsl:otherwise>
@@ -251,28 +251,39 @@
 			</shelfMark>
 		</xsl:template>
 	
-	<xsl:template match="übersetzt_von">
+	<!--<xsl:template match="übersetzt_von">
 		<xsl:for-each select="tokenize(.,';')">
+		<xsl:if test="(.!='Dublette') and (.!='Doublette') and (.!='o.A.')">
 		<contributor>
 			<xsl:value-of select="."/>
 			</contributor>
+			</xsl:if>
 			</xsl:for-each>
-		</xsl:template>
+		</xsl:template>-->
 	
 	<xsl:template match="Autorin">
 		<xsl:for-each select="tokenize(.,';')">
+		<xsl:if test=".!=''">
 		<xsl:choose>
 			<xsl:when test="contains(.,'Hg.')">
 				<editor>
 					<xsl:value-of select="normalize-space(substring-before(.,'(Hg'))" />
 					</editor>
 				</xsl:when>
+			<xsl:when test="contains(.,'Hrsg.')">
+				<editor>
+					<xsl:value-of select="normalize-space(substring-before(.,'(Hrsg.'))" />
+					</editor>
+				</xsl:when>
 			<xsl:otherwise>
+				<xsl:if test=".!='o.A.'">
 				<author>
 					<xsl:value-of select="normalize-space(.)" />
 					</author>
+					</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
+			</xsl:if>
 			</xsl:for-each>
 		</xsl:template>
 	
