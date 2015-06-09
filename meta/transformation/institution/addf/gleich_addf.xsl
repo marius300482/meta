@@ -106,7 +106,11 @@
 						<xsl:value-of select="Sperrjahr"></xsl:value-of>
 						</blockingYear>
 					</xsl:if>
-			
+				
+				<xsl:if test="Bestandsbeschreibung">
+					<description><xsl:value-of select="Bestandsbeschreibung" /></description>
+					</xsl:if>	
+				
 				<xsl:if test="Enthält">
 					<description><xsl:value-of select="Enthält" /></description>
 					</xsl:if>	
