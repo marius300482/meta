@@ -340,7 +340,7 @@
 	<xsl:for-each select="tokenize(.,';')">
 	<xsl:choose>
 		<xsl:when test="contains(.,'ai')">
-			<author><xsl:text>amnesty international</xsl:text></author></xsl:when>
+			<author><xsl:text>AI - Amnesty International</xsl:text></author></xsl:when>
 		<xsl:otherwise>
 			<author>
 				<xsl:value-of select="normalize-space(.)" />
