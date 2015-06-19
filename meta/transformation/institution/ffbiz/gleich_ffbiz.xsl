@@ -23,9 +23,166 @@
 <!--Der Hauptknoten-->	
 	<xsl:template match="FFBIZ">
 		<xsl:element name="catalog">
-			<xsl:apply-templates/>
+			<xsl:apply-templates select="Objekt[1]/erfasstam" />
+			<xsl:apply-templates select="Objekt" />
 		</xsl:element>
 	</xsl:template>
+
+
+
+<xsl:template match="erfasstam">
+	
+	<xsl:for-each select="document('thesaurus.xml')/Thesaurus//concept">
+	
+	<xsl:if test="(notation|broader='1.1') or
+			(notation|broader='1.2') or
+			(notation|broader='1.3') or
+			(notation|broader='1.10')">
+		
+	
+	<xsl:element name="record">
+	
+	<vufind>
+			<id>
+				<xsl:value-of select="translate(prefTerm,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />	
+				<!--<xsl:value-of select="translate(notation, translate(.,'0123456789', ''), '')" />-->
+				<xsl:text>ffbiz</xsl:text>
+				</id>
+			<recordCreationDate><xsl:value-of select="current-dateTime()"/></recordCreationDate>
+			<recordChangeDate><xsl:value-of select="current-dateTime()"/></recordChangeDate>
+			<recordType>
+				<xsl:choose>
+					<xsl:when test="contains(broader,'.')">
+						<xsl:text>systematics</xsl:text>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>archive</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+			</recordType>	
+			</vufind>
+	
+	<institution>
+			<institutionShortname><xsl:text>FFBIZ-Archiv</xsl:text></institutionShortname>
+			<institutionFull><xsl:text>Frauenforschungs-, -bildungs- und -informationszentrum FFBIZ e.V.</xsl:text></institutionFull>
+			<institutionID><xsl:text>ffbiz</xsl:text></institutionID>
+			<collection><xsl:text>ffbiz</xsl:text></collection>
+			<isil><xsl:text>DE-B1535</xsl:text></isil>
+			</institution>
+	
+	<dataset>
+			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+			
+			<xsl:if test="not(contains(broader,'.'))">
+				<format><xsl:text>Bestandsübersicht</xsl:text></format>
+				</xsl:if>
+			
+			<title><xsl:value-of select="prefTerm" /></title>
+			<title_short><xsl:value-of select="prefTerm" /></title_short>
+			</dataset>
+	
+	<functions>
+		<xsl:variable name="broader" select="broader" />
+			<hierarchyFields>
+				
+				<hierarchy_top_id>
+					<xsl:choose>
+						<xsl:when test="contains(broader,'.')">
+							<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')"></xsl:value-of>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="translate(prefTerm,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')"></xsl:value-of>
+							</xsl:otherwise>
+						</xsl:choose>
+					<xsl:text>ffbiz</xsl:text>
+					</hierarchy_top_id>
+				<hierarchy_top_title>
+					<xsl:choose>
+						<xsl:when test="contains(broader,'.')">
+							<xsl:value-of select="//concept[notation=$broader]/prefTerm" />
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="prefTerm" />
+							</xsl:otherwise>
+						</xsl:choose>
+					</hierarchy_top_title>
+				
+				
+				<!--<hierarchy_top_id>
+					<xsl:value-of select="//concept[not(broader)]/notation" />
+					<xsl:text>ffbiz</xsl:text>
+					</hierarchy_top_id>
+				<hierarchy_top_title>
+					<xsl:value-of select="//concept[not(broader)]/notation" />
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="//concept[not(broader)]/prefTerm" />
+					</hierarchy_top_title>-->
+				
+				<xsl:if test="contains(broader,'.')">
+					
+					<hierarchy_parent_id>
+						<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />	
+						<xsl:text>ffbiz</xsl:text>
+						</hierarchy_parent_id>
+					
+					<hierarchy_parent_title>
+						<xsl:value-of select="//concept[notation=$broader]/prefTerm" />
+						</hierarchy_parent_title>
+					
+					</xsl:if>
+				
+				<!--<xsl:if test="broader">
+				<xsl:variable name="broader" select="broader"></xsl:variable>
+				<hierarchy_parent_id>
+					<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />	
+					<xsl:text>ffbiz</xsl:text>
+					</hierarchy_parent_id>
+				
+				<hierarchy_parent_title>
+					<xsl:value-of select="//concept[notation=$broader]/notation" />
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="//concept[notation=$broader]/prefTerm" />
+					</hierarchy_parent_title>
+					</xsl:if>-->
+				
+				<is_hierarchy_id>
+					<xsl:value-of select="translate(prefTerm,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />	
+					<!--<xsl:value-of select="translate(notation, translate(.,'0123456789', ''), '')" />-->
+					<xsl:text>ffbiz</xsl:text>
+					</is_hierarchy_id>
+				
+				<is_hierarchy_title>
+					<xsl:choose>
+						<xsl:when test="contains(prefTerm,'/')">
+							<xsl:value-of select="normalize-space(substring-after(prefTerm,'/'))" />
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="prefTerm" />
+							</xsl:otherwise>
+						</xsl:choose>
+					
+					</is_hierarchy_title>
+				
+				<hierarchy_sequence>
+					<xsl:value-of select="translate(notation, translate(.,'0123456789', ''), '')" />
+						</hierarchy_sequence>
+						
+					</hierarchyFields>
+				
+				
+				</functions>
+	
+		</xsl:element>
+		
+		</xsl:if>
+		
+		</xsl:for-each>
+		
+		
+	</xsl:template>
+
+
+
 
 
 <xsl:template match="Objekt">	
@@ -117,7 +274,9 @@
 <!--institutionFullname-->			<institutionFull>
 							<xsl:text>Frauenforschungs-, -bildungs- und -informationszentrum FFBIZ e.V.</xsl:text>
 							</institutionFull>
-			
+						
+						<institutionID><xsl:text>ffbiz</xsl:text></institutionID>
+						
 <!--collection-->				<collection><xsl:text>FFBIZ</xsl:text></collection>
 	
 <!--isil-->					<isil><xsl:text>DE-B1535</xsl:text></isil>
@@ -323,6 +482,52 @@
 			<xsl:apply-templates select="Signatur" />
 
 	</xsl:element>
+	
+	<functions>
+	
+		<xsl:variable name="bestand" select="Bestand" />
+		<xsl:variable name="broader" select="document('thesaurus.xml')/Thesaurus//concept[prefTerm=$bestand]/broader" />
+		<xsl:variable name="name" select="document('thesaurus.xml')/Thesaurus//concept[notation=$broader]/prefTerm" />
+		
+		<hierarchyFields>
+			
+			<hierarchy_top_id>
+				<xsl:value-of select="translate($name,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')"></xsl:value-of>
+				<xsl:text>ffbiz</xsl:text>
+				</hierarchy_top_id>
+			
+			<hierarchy_top_title>
+				<xsl:value-of select="$name" />
+				</hierarchy_top_title>	
+			
+			<hierarchy_parent_id>
+				<xsl:value-of select="translate(Bestand,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />	
+				<xsl:text>ffbiz</xsl:text>
+				</hierarchy_parent_id>
+				
+			<hierarchy_parent_title>
+				<xsl:value-of select="Bestand" />
+				</hierarchy_parent_title>
+				
+			<is_hierarchy_id>
+				<xsl:value-of select="id" />	
+				<xsl:text>ffbiz</xsl:text>
+				</is_hierarchy_id>
+				
+			<is_hierarchy_title>
+				<xsl:value-of select="Titel" />
+				</is_hierarchy_title>
+				
+			<hierarchy_sequence>
+				<xsl:value-of select="Titel" />
+				</hierarchy_sequence>
+						
+			</hierarchyFields>
+				
+				
+				</functions>
+	
+	
 	</xsl:if>
 
 
@@ -812,7 +1017,7 @@
 
 	<!--display / publishDate Jahresangabe-->
 			<xsl:apply-templates select="Bestandslaufzeit" />
-			<xsl:apply-templates select="Jahr_x047x_Datierung" />
+			<!--<xsl:apply-templates select="Jahr_x047x_Datierung" />-->
 			
 	<!--placeOfPublication Ortsangabe-->
 			<xsl:apply-templates select="Ort" />	
@@ -846,6 +1051,62 @@
 			<xsl:apply-templates select="Signatur" />
 
 		</xsl:element>
+
+
+	<functions>
+	
+		<xsl:variable name="bestand" select="Bestand" />
+		<xsl:variable name="broader" select="document('thesaurus.xml')/Thesaurus//concept[prefTerm=$bestand]/broader" />
+		<xsl:variable name="name" select="document('thesaurus.xml')/Thesaurus//concept[notation=$broader]/prefTerm" />
+		
+		<hierarchyFields>
+			
+			<hierarchy_top_id>
+				<xsl:value-of select="translate($name,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')"></xsl:value-of>
+				<xsl:text>ffbiz</xsl:text>
+				</hierarchy_top_id>
+			
+			<hierarchy_top_title>
+				<xsl:value-of select="$name" />
+				</hierarchy_top_title>	
+			
+			<!--<hierarchy_parent_id>
+				<xsl:value-of select="translate($name,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')"></xsl:value-of>
+				<xsl:text>ffbiz</xsl:text>
+				</hierarchy_parent_id>
+				
+			<hierarchy_parent_title>
+				<xsl:value-of select="$name" />
+				</hierarchy_parent_title>-->
+			
+			<hierarchy_parent_id>
+				<xsl:value-of select="translate(Bestand,'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />	
+				<xsl:text>ffbiz</xsl:text>
+				</hierarchy_parent_id>
+				
+			<hierarchy_parent_title>
+				<xsl:value-of select="Bestand" />
+				</hierarchy_parent_title>
+				
+			<is_hierarchy_id>
+				<xsl:value-of select="id" />	
+				<xsl:text>ffbiz</xsl:text>
+				</is_hierarchy_id>
+				
+			<is_hierarchy_title>
+				<xsl:value-of select="Titel" />
+				</is_hierarchy_title>
+				
+			<hierarchy_sequence>
+				<xsl:value-of select="Titel" />
+				</hierarchy_sequence>
+						
+			</hierarchyFields>
+				
+				
+				</functions>
+
+
 	</xsl:if>
 
 
