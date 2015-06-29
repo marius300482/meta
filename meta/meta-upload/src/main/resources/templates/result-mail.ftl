@@ -7,4 +7,4 @@ Failure ${t.exception}
 </#if>
 
 Message:
-${t.resultMessage}
+${message}

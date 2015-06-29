@@ -8,6 +8,8 @@
 	xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	xmlns:xdt="http://www.w3.org/2005/xpath-datatypes"
 	xmlns:err="http://www.w3.org/2005/xqt-errors"
+	xmlns:ida="http://ida-dachverband.de"
+	
 	exclude-result-prefixes="xs xdt err fn">
 
 	<xsl:output method="xml" indent="yes"/>
@@ -339,8 +341,92 @@
 					</field>
 					</xsl:for-each>
 				</xsl:if>
+			
+			<field name="groupID">
+				<xsl:choose>
+					<xsl:when test="dataset/format = 'Buch' or dataset/format = 'Artikel'">
+						<xsl:variable name="author">
+							<xsl:choose>
+								<xsl:when test="dataset/author[1]">
+									<xsl:value-of select="ida:normalize-author(dataset/author[1])"/>
+								</xsl:when>
+								<xsl:when test="dataset/editor[1]">
+									<xsl:value-of select="ida:normalize-author(dataset/editor[1])"/>
+								</xsl:when>
+								<xsl:when test="dataset/contributor[1]">
+									<xsl:value-of select="ida:normalize-author(dataset/contributor[1])"/>
+								</xsl:when>
+								<xsl:when test="dataset/publisher[1]">
+									<xsl:value-of select="ida:normalize-author(dataset/publisher[1])"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="''"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:variable name="title">
+							<xsl:choose>
+								<xsl:when test="dataset/title_short[1] and data/title_sub[1]">
+									<xsl:value-of select="ida:normalize-title(concat(dataset/title_short[1], ' ', data/title_sub[1]))"/>
+								</xsl:when>
+								<xsl:when test="dataset/title[1]">
+									<xsl:value-of select="ida:normalize-title(dataset/title[1])"/>
+								</xsl:when>
+								<xsl:when test="dataset/title_short[1]">
+									<xsl:value-of select="ida:normalize-title(dataset/title_short[1])"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="''"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:value-of select="ida:build-group-id(vufind/id, dataset/format, $author, $title)"/>		
+					</xsl:when>
+					<xsl:when test="dataset/format = 'Zeitschrift'">
+						<xsl:variable name="title">
+							<xsl:choose>
+								<xsl:when test="ida:normalize-title(dataset/title_short[1])">
+									<xsl:value-of select="dataset/title_short[1]"/>
+								</xsl:when>
+								<xsl:when test="ida:normalize-title(dataset/title[1])">
+									<xsl:value-of select="dataset/title[1]"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="''"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:variable name="issue">
+							<xsl:choose>
+								<xsl:when test="dataset/issue[1]">
+									<xsl:value-of select="dataset/issue[1]"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="''"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:variable name="publishDate">
+							<xsl:choose>
+								<xsl:when test="dataset/displayPublishDate[1]">
+									<xsl:value-of select="dataset/displayPublishDate[1]"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="''"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:value-of select="ida:build-group-id(vufind/id, dataset/format, $title, $publishDate, $issue)"/>		
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="vufind/id"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</field>
 				
 			<xsl:apply-templates select="dataset/edition" />
+			
+			
 			
 			<!--<xsl:apply-templates select="dataset/provenance" />-->
 			
@@ -444,6 +530,7 @@
 			<field name="hierarchy_sequence"><xsl:value-of select="functions/hierarchyFields/hierarchy_sequence"/></field>
 		</xsl:if>
 
+	
 	
 
 	</doc>

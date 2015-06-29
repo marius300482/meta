@@ -1,0 +1,22 @@
+{
+    "title": 
+    {
+        "lowercase":true,
+        "replacements": 
+        {
+            "ä":"ae", "ü":"ue", "ö":"oe", "ß":"ss"
+        },
+        "stripAccents":true,
+        "tokenizeOn":"LETTERS_AND_DIGITS"
+    },
+    "author":
+    {
+        "extends":"title",
+        "replacements":
+        {
+            "[red.]":""
+        },
+        "tokenizeOn":"LETTERS",
+        "stopWords":["von","van"]
+    }       
+}

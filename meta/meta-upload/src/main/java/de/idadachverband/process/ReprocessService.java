@@ -104,17 +104,17 @@ public class ReprocessService
             public void call(ReprocessJobBean jobBean) throws Exception
             {
                 List<TransformationBean> transformations =
-                        reprocess(solr, institution, version, jobBean.getUser().getUsername());
+                        prepareTransformations(solr, institution, version);
                 jobBean.getTransformations().addAll(transformations);
+                reprocess(transformations, jobBean.getUser().getUsername());
             }
         });
         
         return reprocessJobBean;
     }
    
-    protected List<TransformationBean> reprocess(SolrService solr, IdaInstitutionBean institution, 
-            VersionKey version, String username) throws IOException, SolrServerException, TransformerException, ArchiveException
-    {
+    protected List<TransformationBean> prepareTransformations(SolrService solr, IdaInstitutionBean institution, 
+            VersionKey version) throws ArchiveException {
         // prepare transformation beans
         List<TransformationBean> transformations = new ArrayList<>();
         
@@ -134,6 +134,11 @@ public class ReprocessService
             transformations.add(incrementalTransformation);
         }
         
+        return transformations;
+    }
+    
+    protected void reprocess(List<TransformationBean> transformations, String username) throws IOException, TransformerException, SolrServerException, ArchiveException
+    {
         try
         {
             for (TransformationBean transformationBean : transformations)
@@ -154,6 +159,5 @@ public class ReprocessService
                 processService.deleteProcessingFolder(transformationBean.getKey());
             }
         }
-        return transformations;
     }
 }

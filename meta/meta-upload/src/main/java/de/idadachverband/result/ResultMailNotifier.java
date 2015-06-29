@@ -70,6 +70,7 @@ public class ResultMailNotifier implements ResultNotifier
         model.put("user", user.getUsername());
         model.put("t", jobBean);
         model.put("result", result);
+        model.put("message", jobBean.getResultMessage());
 
         try
         {

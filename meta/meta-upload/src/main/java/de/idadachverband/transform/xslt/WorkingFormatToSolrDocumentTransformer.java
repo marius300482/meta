@@ -1,10 +1,14 @@
 package de.idadachverband.transform.xslt;
 
 import de.idadachverband.institution.IdaInstitutionBean;
+import de.idadachverband.transform.duplicate.DuplicateLookupTable;
+import de.idadachverband.transform.duplicate.FieldNormalizer;
+import de.idadachverband.transform.duplicate.GroupIdBuilder;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.transform.TransformerException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,9 +25,17 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
 {
     final private String gleichXsl;
 
-    public WorkingFormatToSolrDocumentTransformer(String gleichXsl)
+    final private String duplicateTable;
+    
+    final private String normalizerConfig;
+    
+    private GroupIdBuilder groupIdBuilder = null; 
+    
+    public WorkingFormatToSolrDocumentTransformer(String gleichXsl, String duplicateTable, String normalizerConfig) throws IOException
     {
         this.gleichXsl = gleichXsl;
+        this.duplicateTable = duplicateTable;
+        this.normalizerConfig = normalizerConfig;
     }
 
     @Override
@@ -31,6 +43,8 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
     {
         try
         {
+            if (this.groupIdBuilder == null) initGroupIdBuilder();
+            
             @Cleanup
             InputStream in = Files.newInputStream(input, StandardOpenOption.READ);
             @Cleanup
@@ -45,10 +59,20 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
 
         log.info("Transformed to Solr format: {}", outputFile);
     }
-
-    @Override
-    public String getTransformationMessages()
+    
+    protected void initGroupIdBuilder() throws IOException
     {
-        return "";
+        DuplicateLookupTable lookupTable = new DuplicateLookupTable();
+        lookupTable.load(Paths.get(duplicateTable));
+        
+        this.groupIdBuilder = new GroupIdBuilder(lookupTable);
+        this.groupIdBuilder.loadNormalizers(Paths.get(normalizerConfig));
+        
+        // register xsl extension functions
+        register(groupIdBuilder.asExtensionFunction());
+        for (FieldNormalizer normalizer : groupIdBuilder.getNormalizers())
+        {
+            register(normalizer.asExtensionFunction());
+        }
     }
 }

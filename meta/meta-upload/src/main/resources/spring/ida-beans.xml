@@ -158,6 +158,8 @@
     <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer"
           scope="prototype">
         <constructor-arg name="gleichXsl" value="${xslt.basePath}/data/2bibxml.xsl"/>
+        <constructor-arg name="duplicateTable" value="${xslt.basePath}/data/duplicates.json"/>
+        <constructor-arg name="normalizerConfig" value="${xslt.basePath}/data/normalizers.json"/>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
