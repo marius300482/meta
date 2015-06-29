@@ -122,6 +122,7 @@ class TopicsController extends BrowseController
         );
         // Get content of the format cell as array
         $facetContent = $this->getFacetList('format', 'format', 'count', '*');
+        $urlHelper = $this->getViewRenderer()->plugin('url');
         // Add values which are required for presentation
         for ($i = 0; $i < count($facetContent); $i++) {
             // Add percentage
@@ -131,10 +132,28 @@ class TopicsController extends BrowseController
             $facetContent[$i]['percent'] = round($percent, 2);
             // Add color
             $facetContent[$i]['color'] = $i < count($colors) ? $colors[$i] : "#000000";
+            $contentType= $this->getFormatForThumb($facetContent[$i]['value']);
+            $thumb = array('size' => 'small', 'contenttype' => $contentType);
+            $url = $urlHelper('cover-show') . '?' . http_build_query($thumb);
+            $facetContent[$i]['icon'] = $url;
         }
-
         return $facetContent;
     }
+
+    /**
+     * @return string
+     */
+    private function getFormatForThumb($contentType)
+    {
+        $formats = $this->config->Format2Thumbs->formats;
+        $format = null;
+        if (!empty($formats))
+        {
+            $format = $formats->get($contentType);
+        }
+        return $format;
+    }
+
 
     protected function getRandomItems()
     {

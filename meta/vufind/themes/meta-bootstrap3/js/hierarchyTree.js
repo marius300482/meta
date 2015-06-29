@@ -136,8 +136,8 @@ function buildJSONNodes(xml)
     var id = content.children("name[class='JSTreeID']");
     var name = content.children('name[href]');
       var ste = $(this).attr('state'), // "state" attribute
-          chldren = $(this).children('item'), // Children elements (acc. to "xml" arg)
-          hasChildren = 0 < chldren.length;
+          children = $(this).children('item'), // Children elements (acc. to "xml" arg)
+          hasChildren = 0 < children.length;
     jsonNode.push({
       'id': htmlEncodeId(id.text()),
       'text': name.text(),
@@ -145,7 +145,8 @@ function buildJSONNodes(xml)
         'recordid': id.text()
       },
       'a_attr': {
-        'href': name.attr('href'),
+        'href': content.children("hasChildren").attr("value")==="false" ? name.attr('href') : 'javascript:',
+        'onclick': content.children("hasChildren").attr("value")==="false" ? '' : 'var anchorId = $(this).prev("i").click(); return false;',
         'title': name.text()
       },
       'type': name.attr('href').match(/\/Collection\//) ? 'collection' : 'record',

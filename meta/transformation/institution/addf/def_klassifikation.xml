@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- New document created with EditiX at Mon Dec 02 15:03:05 CET 2013 -->
+
+
+<addf id="40802" title="Bestand Deutscher Evangelischer Frauenbund">
+
+	<data id="1" title="Bundesverband">
+	  
+		<data id="1.1" title="Bundesvorstand / Geschäftsführung">
+			<data id="1.1.1" title="Bundesvorstand"/>
+			<data id="1.1.2" title="Bundestagungen / Generalversammlungen / Ausschusssitzungen"/>
+			<data id="1.1.3" title="Geschäftsführung"/>
+			<data id="1.1.4" title="Mitglied- und Einzelmitgliedschaften"/>
+			<data id="1.1.5" title="Vereinsregister"/>
+		</data>
+		<data id="1.2" title="Programm und Struktur">
+			<data id="1.2.1" title="Satzungen / Geschäftsordnungen"/>
+			<data id="1.2.2" title="Programmatik"/>
+			<data id="1.2.3" title="Statistiken / Chroniken"/>
+			<data id="1.2.4" title="Ausstellungen"/>
+		</data>
+		<data id="1.3" title="Finanz- u. Personalwesen / Anlagevermögen">
+			<data id="1.3.1" title="Jahresabschlüsse und Jahresberichte"/>
+			<data id="1.3.2" title="Steuerunterlagen"/>
+			<data id="1.3.3" title="Buchungsjournale"/>
+			<data id="1.3.4" title="Belegwesen">
+				<data id="1.3.4.1" title="Kassenbücher"/>
+				<data id="1.3.4.2" title="Bankunterlagen, Belege und Rechnungen"/>
+			</data>
+			<data id="1.3.5" title="Personal">
+				<data id="1.3.5.1" title="Personalakten"/>
+				<data id="1.3.5.2" title="Allgemeine Personalangelegenheiten"/>
+				<data id="1.3.5.3" title="Lohnbuchhaltung"/>
+			</data>
+			<data id="1.3.6" title="Fördermittel"/>
+			<data id="1.3.7" title="Finanzanlagen"/>
+			<data id="1.3.8" title="Immobilie Wedekindstraße 26/27 in Hannover">
+				<data id="1.3.8.1" title="Bauunterlagen"/>
+				<data id="1.3.8.2" title="Finanzierung"/>
+				<data id="1.3.8.3" title="Bilanzen, Journale u. Belege"/>
+				<data id="1.3.8.4" title="Verwaltung"/>
+			</data>
+			<data id="1.3.9" title="Immobilie Gartenhaus, Wedekindstraße 26 a in Hannover">
+				<data id="1.3.9.1" title="Bauunterlagen"/>
+				<data id="1.3.9.2" title="Verwaltung"/>
+			</data>
+			<data id="1.3.10" title="Immobilie Harzhaus in Elend">
+				<data id="1.3.10.1" title="Bauunterlagen"/>
+				<data id="1.3.10.2" title="Finanzierung"/>
+				<data id="1.3.10.3" title="Verwaltung"/>
+			</data>
+			<data id="1.3.11" title="Immobilie Haus Eilenriede, Bödekerstraße 59 in Hannover">
+				<data id="1.3.11.1" title="Bauunterlagen"/>
+				<data id="1.3.11.2" title="Finanzierung"/>
+				<data id="1.3.11.3" title="Bilanzen, Journale u. Belege"/>
+				<data id="1.3.11.4" title="Verwaltung"/>
+			</data>
+			<data id="1.3.12" title="Immobilie Wohnheim Walderseestraße 20 in Hannover">
+				<data id="1.3.12.1" title="Bauunterlagen"/>
+				<data id="1.3.12.2" title="Finanzierung"/>
+				<data id="1.3.12.3" title="Verwaltung"/>
+			</data>
+			<data id="1.3.13" title="Einrichtungen des DEF"/>
+		</data>
+		<data id="1.4" title="Ausbildungsstätten"/>
+		<data id="1.5" title="Bildungsarbeit"/>
+		<data id="1.6" title="Verlagsarbeit"/>
+		<data id="1.7" title="Vernetzung / Kooperationen"/>
+		<data id="1.8" title="Arbeitsbereiche / Kommissionen">
+			<data id="1.8.1" title="Jugend"/>
+			<data id="1.8.2" title="Hausfrauen"/>
+			<data id="1.8.3" title="Frau und Beruf"/>
+			<data id="1.8.4" title="Dienstbotinnen"/>
+			<data id="1.8.5" title="Arbeiterinnen"/>
+			<data id="1.8.6" title="Internationale Arbeit"/>
+			<data id="1.8.7" title="Hebammen"/>
+			<data id="1.8.8" title="Beamte und Angestellte"/>
+			<data id="1.8.9" title="Mittelstand"/>
+			<data id="1.8.10" title="Frauenbewegung und Politik"/>
+			<data id="1.8.11" title="Kirche"/>
+			<data id="1.8.12" title="Schule und Bildung"/>
+			<data id="1.8.13" title="Alter"/>
+			<data id="1.8.14" title="Gesundheit und Soziales"/>
+			<data id="1.8.15" title="Sittlichkeit und Moral"/>
+			<data id="1.8.16" title="Alkohol und Sucht"/>
+			<data id="1.8.17" title="Wohnen"/>
+			<data id="1.8.18" title="Ehe und Familienfragen, Bevölkerungspolitik"/>
+			<data id="1.8.19" title="Recht"/>
+			<data id="1.8.20" title="Kriege und Kriegsfolgen"/>
+			<data id="1.8.21" title="Ehrenamt"/>
+		</data>
+	</data>
+
+	<data id="2" title="Landesverbände">
+		<data id="2.1" title="Baden-Württemberger Verband"/>
+		<data id="2.2" title="Badischer Verband"/>
+		<data id="2.3" title="Bayerischer Verband"/>
+		<data id="2.4" title="Berliner Verband"/>
+		<data id="2.5" title="Berlin-Brandenburger Verband"/>
+		<data id="2.6" title="Brandenburg-Mecklenburger Verband"/>
+		<data id="2.7" title="Hannoverscher Verband"/>
+		<data id="2.8" title="Hessischer Verband"/>
+		<data id="2.9" title="Mecklenburger Verband"/>
+		<data id="2.10" title="Mitteldeutscher Verband"/>
+		<data id="2.11" title="Niedersächsischer Verband"/>
+		<data id="2.12" title="Nordrhein"/>
+		<data id="2.13" title="Nordverband"/>
+		<data id="2.14" title="Nordwestdeutscher Verband"/>
+		<data id="2.15" title="Ostdeutscher Verband"/>
+		<data id="2.16" title="Pfälzer Verband"/>
+		<data id="2.17" title="Pommerscher Verband"/>
+		<data id="2.18" title="Preußischer Verband"/>
+		<data id="2.19" title="Rheinischer Verband"/>
+		<data id="2.20" title="Rheinland Süd"/>
+		<data id="2.21" title="Sächsischer Verband"/>
+		<data id="2.22" title="Sachsen-Anhalt Verband"/>
+		<data id="2.23" title="Südwestdeutscher Verband"/>
+		<data id="2.24" title="Westfälischer Verband"/>
+		<data id="2.25" title="Württembergischer Verband"/>
+		<data id="2.26" title="Arbeitsgemeinschaft Evangelischer Frauen in der DDR"/>
+		<data id="2.27" title="Allgemeines"/>
+	</data>
+
+	<data id="3" title="Ortsverbände">
+		<data id="3.1" title="Ortsverbände A"/>
+		<data id="3.2" title="Ortsverbände B"/>
+		<data id="3.3" title="Ortsverbände C - D"/>
+		<data id="3.4" title="Ortsverbände E"/>
+		<data id="3.5" title="Ortsverbände F"/>
+		<data id="3.6" title="Ortsverbände G"/>
+		<data id="3.7" title="Ortsverbände H"/>
+		<data id="3.8" title="Ortsverbände I - J"/>
+		<data id="3.9" title="Ortsverbände K"/>
+		<data id="3.10" title="Ortsverbände L"/>
+		<data id="3.11" title="Ortsverbände M"/>
+		<data id="3.12" title="Ortsverbände N"/>
+		<data id="3.13" title="Ortsverbände O"/>
+		<data id="3.14" title="Ortsverbände P - Q"/>
+		<data id="3.15" title="Ortsverbände R"/>
+		<data id="3.16" title="Ortsverbände S"/>
+		<data id="3.17" title="Ortsverbände T - V"/>
+		<data id="3.18" title="Ortsverbände W - Y"/>
+		<data id="3.19" title="Ortsverbände Z"/>
+	</data>
+
+	<data id="4" title="Bayerische Anschlussvereine">
+		<data id="4.1" title="Anschlussvereine 1918-1968"/>
+		<data id="4.2" title="Anschlussvereine A - K"/>
+		<data id="4.3" title="Anschlussvereine L - Z"/>
+	</data>
+
+	<data id="5" title="Nachlässe / Sammlungen">
+		<data id="5.1" title="Nachlass Meta Eyl"/>
+		<data id="5.2" title="Nachlass Gertrud Kappeller"/>
+		<data id="5.3" title="Nachlass Freda Niemann"/>
+		<data id="5.4" title="Nachlass Paula Mueller-Otfried"/>
+		<data id="5.5" title="Pressesammlung"/>
+	</data>
+
+	<data id="6" title="Arbeitsgemeinschaft Evangelischer Haushaltsführungskräfte">
+	  
+		<data id="6.1" title="Organisation und Geschäftsführung">
+			<data id="6.1.1" title="Satzung / Protokolle"/>
+			<data id="6.1.2" title="Geschäftsführung"/>
+			<data id="6.1.3" title="Korrespondenz mit den Bereichsvorsitzenden"/>
+			<data id="6.1.4" title="Ausschüsse / Gremien / Landesreferentinnen /AEH-Mitarbeiterinnen"/>
+		</data>
+		<data id="6.2" title="Öffentlichkeitsarbeit"/>
+		<data id="6.3" title="Tagungen"/>
+		<data id="6.4" title="Landesverbände">
+			<data id="6.4.1" title="Baden-Württemberg"/>
+			<data id="6.4.2" title="Bayern"/>
+			<data id="6.4.3" title="Berlin"/>
+			<data id="6.4.4" title="Bremen / Hamburg"/>
+			<data id="6.4.5" title="Hessen"/>
+			<data id="6.4.6" title="Niedersachsen"/>
+			<data id="6.4.7" title="Nordrhein-Westfalen"/>
+			<data id="6.4.8" title="Rheinland-Hessen-Nassau"/>
+			<data id="6.4.9" title="Rheinland-Pfalz"/>
+		</data>
+		<data id="6.5" title="Arbeitsschwerpunkt: Hauswirtschaftliche (Berufs-)Bildung">
+			<data id="6.5.1" title="Berufsbildungsausschüsse der Länder undPrüfungsausschüsse"/>
+			<data id="6.5.2" title="Bundesstelle für hauswirtschaftliche Berufsausbildung"/>
+			<data id="6.5.3" title="Arbeitsgemeinschaft Hauswirtschaft"/>
+			<data id="6.5.4" title="Landesarbeitsgemeinschaften in der Hauswirtschaft"/>
+			<data id="6.5.5" title="Bundesarbeitsgemeinschaft hauswirtschaftlicher Verbände in der dgh"/>
+			<data id="6.5.6" title="Hauswirtschaftliche Beratungsstelle Essen"/>
+			<data id="6.5.6" title="Projekt: Armutsprävention durch Stärkung von Haushaltsführungskompetenzen"/>
+		</data>
+		<data id="6.6" title="Arbeitsschwerpunkt: Umwelt- und verbraucherpolitische Arbeit">
+			<data id="6.6.1" title="Arbeitsgemeinschaft der Verbraucherverbände"/>
+			<data id="6.6.2" title="Verbraucherzentrale Bundesverband"/>
+			<data id="6.6.3" title="Verbraucherzentralen in den Bundesländern"/>
+		</data>
+	</data>
+
+	<data id="7" title="Objekte"/>
+
+	<data id="8" title="Nachlieferungen ab 2006"/>
+
+	  </addf>

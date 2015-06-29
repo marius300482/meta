@@ -157,7 +157,16 @@
 	<!--typeOfRessource-->
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	<!--format-->
-				<format><xsl:text>Buch</xsl:text></format>
+				<xsl:choose>
+					<xsl:when test="Gruppe='1D'">
+						<format><xsl:text>Hochschulschrift</xsl:text></format>
+						</xsl:when>
+					<xsl:otherwise>
+						<format><xsl:text>Buch</xsl:text></format>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				<!--<format><xsl:text>Buch</xsl:text></format>-->
 	<!--documentType-->
 				<xsl:choose>
 					<xsl:when test="enth_x132x_lt_x058x_!=''">

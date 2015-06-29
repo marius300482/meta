@@ -3,7 +3,7 @@
     <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getResourceSource())?>" class="hiddenSource" />
     <div class="col-xs-1">
         <a href="<?=$this->recordLink()->getUrl($this->driver)?>">
-            <? if ($summThumb = $this->record($this->driver)->getThumbnail()): ?>
+            <? if ($summThumb = $this->record($this->driver)->getThumbnail('medium')): ?>
                 <img class="recordcover" src="<?=$this->escapeHtmlAttr($summThumb)?>" alt="<?=$this->transEsc('Cover Image')?>"/>
             <? else: ?>
                 <img class="recordcover" src="<?=$this->url('cover-unavailable')?>" alt="<?=$this->transEsc('No Cover Image')?>"/>
@@ -83,9 +83,13 @@
                 <? $physicals = (array) $this->driver->getPhysicalDescriptions(); ?>
                 <? $issn = $this->driver->getCleanISSN(); ?>
                 <? $isbn = $this->driver->getCleanISBN(); ?>
-                <? $showPublished = !empty($journalTitle) || !empty($publishers) || !empty($publicationDate) || !empty($issues) || !empty($volumes) || !empty($physicals) || !empty($issn) || !empty($isbn); ?>
-
-                <? if ($showPublished) : ?>
+		<?php if ($this->driver->isLibrary()): ?>
+		  <? $showPublished = !empty($journalTitle) || !empty($publishers) || !empty($publicationDate) || !empty($issues) || !empty($volumes) || !empty($physicals) || !empty($issn) || !empty($isbn); ?>
+	          <?php endif; ?>
+          
+          <?php if ($this->driver->isLibrary()): ?>
+            
+            <? if ($showPublished) : ?>
                     <?= $this->transEsc('Published'); ?>:
                 <? endif; ?>
 
@@ -126,6 +130,26 @@
                         <?= $this->escapeHtml($volume) ?><?= $volume !== end($volumes) ? ", " : "" ?>
                     <? endforeach; ?>
                 <? endif; ?>
+	    <?php endif; ?>
+	
+	  
+	
+	   <?php if ($this->driver->isArchive()): ?>
+            
+            <? if ($showPublished) : ?>
+                    <?= $this->transEsc('Published'); ?>:
+                <? endif; ?>
+
+                <? if (!empty($publicationDate)): ?>
+                    <? if ($secondLineNotEmpty): ?>
+                        ,
+                    <? endif; ?>
+                    <? $secondLineNotEmpty = true; ?>
+                    <span property="publicationDate"><?= $this->escapeHtml($publicationDate) ?></span>
+                <? endif; ?>
+
+	    <?php endif; ?>
+	
 	<?php if ($this->driver->isLibrary()): ?>
 	  <? if (!empty($physicals)): ?>
                     <? if ($secondLineNotEmpty): ?>

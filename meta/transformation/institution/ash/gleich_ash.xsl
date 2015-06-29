@@ -44,6 +44,8 @@
 		<xsl:variable name="ref_grau" select="translate(Graue_REF[1], translate(.,'0123456789', ''), '')"/>
 		<xsl:variable name="ref_akte" select="translate(Akte_REF[1], translate(.,'0123456789', ''), '')"/>		
 		<xsl:variable name="ref_zs-heft" select="translate(ZS_Heft_REF[1], translate(.,'0123456789', ''), '')"/>	
+		<xsl:variable name="ref_zs-ref" select="translate(ZS_REF[1], translate(.,'0123456789', ''), '')"/>	
+		<xsl:variable name="ref_buch" select="translate(Buchtitel_REF[1], translate(.,'0123456789', ''), '')"/>
 				
 <!--vufind_______________________________vufind_______________________________vufind-->
 <!--vufind_______________________________vufind_______________________________vufind-->
@@ -99,6 +101,10 @@
 <!--institutionFullname-->			<institutionFull>
 							<xsl:text>Alice Salomon Archiv der ASH Berlin</xsl:text>
 							</institutionFull>
+			
+						<institutionID>
+							<xsl:text>ash</xsl:text>
+							</institutionID>
 			
 <!--collection-->				<collection><xsl:text>ash</xsl:text></collection>
 	
@@ -539,6 +545,12 @@
 	
 	<!--ISBN / ISSN-->
 			<xsl:apply-templates select="ISBN" />	
+			
+			<xsl:if test="(ZS_REF) and (//datensatz[id=$ref_zs-ref]/ZDB_ID)">
+				<zdbId>
+					<xsl:value-of select="//datensatz[id=$ref_zs-ref]/ZDB_ID"></xsl:value-of>
+					</zdbId>
+				</xsl:if>
 				
 <!--PUBLISHING-->
 
@@ -568,6 +580,25 @@
 				</xsl:choose>
 			<!--<xsl:apply-templates select="Erschienen_in" />-->
 	<!--sourceInfo-->
+			
+			<xsl:if test="(ZS_REF) and (//datensatz[id=$ref_zs-ref]/ZS_Titel)">
+				<sourceInfo>
+					<xsl:value-of select="//datensatz[id=$ref_zs-ref]/ZS_Titel"></xsl:value-of>
+					</sourceInfo>
+				</xsl:if>
+			
+			<xsl:if test="(Buchtitel_REF) and (//datensatz[id=$ref_buch]/Titel_Buch)">
+				<sourceInfo>
+					<xsl:value-of select="//datensatz[id=$ref_buch]/Titel_Buch"></xsl:value-of>
+					</sourceInfo>
+				</xsl:if>
+				
+			<xsl:if test="(Akte_REF) and (//datensatz[id=$ref_akte]/Titel_Akte)">
+				<sourceInfo>
+					<xsl:value-of select="//datensatz[id=$ref_akte]/Titel_Akte"></xsl:value-of>
+					</sourceInfo>
+				</xsl:if>
+			
 			<xsl:if test="ZS_Heft_REF">
 				
 				<sourceInfo>
@@ -1251,6 +1282,13 @@
 				</xsl:choose>
 			</xsl:for-each>
 			</xsl:when>
+			<xsl:otherwise>
+				<xsl:if test=".!='o. A.'">
+				<author>
+					<xsl:value-of select="." />
+					</author>
+					</xsl:if>
+				</xsl:otherwise>
 			</xsl:choose>
 		
 		</xsl:template>

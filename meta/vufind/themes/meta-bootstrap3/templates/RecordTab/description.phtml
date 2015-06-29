@@ -30,7 +30,7 @@
             <th><?=$this->transEsc('Institution')?>: </th>
             <td property="institution">
             <? foreach($institutions as $institution): ?>
-                <?= $this->escapeHtml($institution) ?><?= $institution !== end($institutions) ? ", " : "" ?>
+             <a href="#link"><?= $this->escapeHtml($institution) ?><?= $institution !== end($institutions) ? ", " : "" ?></a>
             <? endforeach; ?>
             </td>
         </tr>
@@ -209,14 +209,14 @@
         </tr>
     <? endif; ?>
 
-    <? $langs = $this->driver->getLanguages();
+    <!--<? $langs = $this->driver->getLanguages();
     if (!empty($langs)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?= $this->transEsc('Language') ?>:</th>
             <td><? foreach ($langs as $lang): ?><?= $this->escapeHtml($lang) ?><?= $lang !== end($langs) ? ", " : "" ?><? endforeach; ?></td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 
 
 
