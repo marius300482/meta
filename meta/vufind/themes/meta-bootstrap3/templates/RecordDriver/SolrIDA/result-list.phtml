@@ -1,19 +1,52 @@
-  <div class="<?=$this->driver->supportsAjaxStatus()?'ajaxItem ':''?>col-xs-12">
+<?php
+
+$hasSubRecords = $this->driver->hasSubRecords();
+$subRecords = $this->driver->getSubRecords();
+$subRecordsCount = count($subRecords);
+$isSubRecord = $this->driver->isSubRecord();
+$uniqueId = $this->driver->getUniqueId();
+
+$cssClasses = [];
+
+if ($this->driver->supportsAjaxStatus()) {
+
+    $cssClasses[] = 'ajaxItem';
+}
+
+if (true === $hasSubRecords) {
+
+    $cssClasses[] = 'has-subrecords';
+}
+
+if (true === $isSubRecord) {
+
+    array_push($cssClasses, 'is-subrecord', 'result', 'col-md-11', 'col-md-offset-1');
+}
+
+$cssClasses[] = 'col-xs-12';
+
+?>
+    <div class="<?= implode(' ', $cssClasses); ?>">
     <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getUniqueID())?>" class="hiddenId" />
     <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getResourceSource())?>" class="hiddenSource" />
     <div class="col-xs-1">
-        <a href="<?=$this->recordLink()->getUrl($this->driver)?>">
+        <a<?= true === $hasSubRecords ? ' data-toggle="collapse" data-target="#subrecords-' . $uniqueId . '"' : '' ?> href="<?=$this->recordLink()->getUrl($this->driver)?>">
             <? if ($summThumb = $this->record($this->driver)->getThumbnail('medium')): ?>
                 <img class="recordcover" src="<?=$this->escapeHtmlAttr($summThumb)?>" alt="<?=$this->transEsc('Cover Image')?>"/>
             <? else: ?>
                 <img class="recordcover" src="<?=$this->url('cover-unavailable')?>" alt="<?=$this->transEsc('No Cover Image')?>"/>
             <? endif; ?>
         </a>
+        <? if (true === $hasSubRecords): ?>
+            <a class="result-subrecords-count" data-toggle="collapse" data-target="#subrecords-<?= $uniqueId; ?>" href="">
+                <?= $subRecordsCount; ?>
+            </a>
+        <? endif; ?>
     </div>
     <div class="col-xs-11">
         <?= str_replace('class="', 'class="label  label-info ', $this->record($this->driver)->getFormatList()); ?>
         <div>
-            <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title">
+            <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title"<?= true === $hasSubRecords ? ' data-toggle="collapse" data-target="#subrecords-' . $uniqueId . '"' : '' ?>>
                 <?php
                     $summHighlightedTitle = $this->driver->getHighlightedTitle();
                     $summTitle = $this->driver->getDisplayTitle();
@@ -27,6 +60,7 @@
                 ?>
             </a>
         </div>
+        <? if (false === $hasSubRecords): ?>
         <div>
             <? if($this->driver->isCollection()): ?>
                 <?=implode('<br>', $this->driver->getSummary()); ?>
@@ -234,6 +268,9 @@
             <? endif; ?>
         </div>
 
+        <? // endif "false === $hasSubRecords" ?>
+        <? endif; ?>
+
         <?php /* PHE replaced with subjects below
         <? if(!$this->driver->isCollection()): ?>
             <? if ($snippet = $this->driver->getHighlightedSnippet()): ?>
@@ -249,7 +286,11 @@
 
         <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
         <? if (!empty($subjects)): ?>
-            <? foreach(array("Topic" => 20, "Person" => 5, "Geo" => 0) as $type => $limit): ?>
+            <? $subjectTypes = ["Topic" => 20,]; ?>
+            <? if (false === $hasSubRecords): ?>
+            <? $subjectTypes += ["Person" => 5, "Geo" => 0,]; ?>
+            <? endif; ?>
+            <? foreach ($subjectTypes as $type => $limit): ?>
                 <? if (isset($subjects[strtolower($type)]) && 0 < $limit): ?>
                     <div>
                         <?= $this->transEsc('Subjects ' . $type); ?>:
@@ -269,6 +310,8 @@
                 <? endif; ?>
             <? endforeach; ?>
         <? endif; ?>
+
+        <? if (false === $hasSubRecords): ?>
 
         <? /* Display information on duplicate records if available */ ?>
         <? $dedupData = $this->driver->getDedupData(); ?>
@@ -345,6 +388,8 @@
         <? endif; ?>
         <?=$this->record($this->driver)->getPreviews()?>
 
+        <? // endif "false === $hasSubRecords" ?>
+        <? endif; ?>
     </div>
 
     <?php /* PHE not required
@@ -392,3 +437,37 @@
 
     <?=$openUrl?'<span class="Z3988" title="'.$this->escapeHtmlAttr($openUrl).'"></span>':''?>
 </div>
+<? // DKU: display sub records ?>
+<? if (true === $hasSubRecords): ?>
+    <? // Closing parent <div> (parent tpl file) to get out of .result context. ?>
+    <? // Note also last closing <div> in this file is missing. ?>
+    </div>
+    <div class="subrecords-sep row">
+        <div class="col-xs-11 col-xs-offset-1">
+            <a class="subrecords-toggle arrow-down" data-toggle="collapse" data-target="#subrecords-<?= $uniqueId; ?>" href="">
+                Alle <?= $subRecordsCount; ?> Ergebnisse einblenden
+            </a>
+            <a class="subrecords-toggle arrow-up hidden" data-toggle="collapse" data-target="#subrecords-<?= $uniqueId; ?>" href="">
+                Ergebnisse ausblenden
+            </a>
+        </div>
+    </div>
+    <div class="subrecords-wrap collapse" id="subrecords-<?= $uniqueId; ?>">
+        <ul class="search-result-subrecords row">
+            <? $subRecords->rewind(); ?>
+            <? while ($subRecords->valid()): ?>
+                <? $this->driver = $subRecords->current(); ?>
+                <li>
+                    <?= $this->record($this->driver)->getSubRecord(); ?>
+                </li>
+                <? $subRecords->next(); ?>
+            <? endwhile; ?>
+        </ul>
+        <div class="subrecords-sep row">
+            <div class="col-xs-11 col-xs-offset-1">
+                <a class="subrecords-toggle arrow-up" data-toggle="collapse" data-target="#subrecords-<?= $uniqueId; ?>" href="">
+                    Ergebnisse ausblenden
+                </a>
+            </div>
+        </div>
+<? endif; ?>

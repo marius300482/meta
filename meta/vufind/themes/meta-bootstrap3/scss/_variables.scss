@@ -9,6 +9,7 @@ $device-xxs-max-width: 400px;
 $device-xs-max-width: 768px;
 $device-md-max-width: 992px;
 $device-lg-max-width: 1200px;
+$screen-lg-min: 993px;
 
 // Colors
 
@@ -23,6 +24,7 @@ $color-blue-2: #645E78;
 $color-blue-3: #B8B3C6;
 $color-blue-4: #E6E5EB;
 $color-blue-5: #F7F6F8;
+$color-blue-6: #40395B;
 
 $color-orange: #F3971E;
 $color-purple: #990099;
@@ -31,7 +33,7 @@ $color-white: #FFFFFF;
 $color-black: #000000;
 $color-black-logo: #371C04;
 $color-grey-dark: #767086;
-$color-blue-button: #40395B;
+$color-blue-button: $color-blue-6;
 $color-grey-border: #D6D3DE;
 
 // Shadows
