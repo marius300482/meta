@@ -60,7 +60,7 @@ public class GroupIdBuilder
             log.info("computing groupId: {} / groupString: \"{}\" for docId: {}, format: {}, parts: {}",
                     groupId, groupString, docId, format, Arrays.toString(parts));
         }
-        return lookupTable.lookupGroupId(docId, groupString);
+        return lookupTable.lookupGroupId(docId, groupId);
     }
     
     public void loadNormalizers(Path normalizerConfigPath) throws IOException

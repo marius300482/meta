@@ -343,6 +343,10 @@
 				</xsl:if>
 			
 			<field name="groupID">
+			<!-- 
+			     The groupID field is build using ida:build-group-id(<doc-id>,<format>,<normalized field>,<normalized field>,...) 
+			     Normalizer functions ida:normalize-<field-name>(<field value>) are configured in /meta/transformation/data/normalizers.json
+			-->
 				<xsl:choose>
 					<xsl:when test="dataset/format = 'Buch' or dataset/format = 'Artikel'">
 						<xsl:variable name="author">
