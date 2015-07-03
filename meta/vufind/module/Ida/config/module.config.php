@@ -24,6 +24,11 @@ $config = array(
                     'jstree' => 'Ida\Hierarchy\TreeRenderer\JSTree',
                 )
             ),
+            'search_backend' => array(
+                'factories' => array(
+                    'Solr' => 'Ida\Search\Factory\SolrDefaultBackendFactory',
+                )
+            ),
         ),
         'recorddriver_tabs' => array(
             // Disable Holdings, Comments and  Staff View

@@ -69,3 +69,38 @@ $(document).ready(function () {
         });
     }
 });
+
+(function ($) {
+
+    $(function () {
+
+        // Sub records (grouped records) handling
+        $('body')
+            .on('click', '.result a[data-toggle], .subrecords-sep a[data-toggle]', function (e) {
+
+                // Prevent default behaviour (for links)
+                e.preventDefault();
+            });
+
+        // Respond to "sub records hidden" event... (see http://getbootstrap.com/javascript/#collapse-usage)
+        $('.subrecords-wrap')
+            .on('hidden.bs.collapse', function () {
+
+                $(this)
+                    .prev('.subrecords-sep')
+                    .find('a.subrecords-toggle')
+                    .toggleClass('hidden');
+            });
+
+        // ... and "sub records shown" event
+        $('.subrecords-wrap')
+            .on('shown.bs.collapse', function () {
+
+                $(this)
+                    .prev('.subrecords-sep')
+                    .find('a.subrecords-toggle')
+                    .toggleClass('hidden');
+            });
+    });
+
+})(jQuery);

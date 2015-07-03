@@ -7,7 +7,9 @@
  */
 namespace Ida\RecordDriver;
 
-use Ida\Institution\Institution;use VuFind\RecordDriver\SolrDefault;use VuFind\View\Helper\Root\RecordLink;
+use Ida\Institution\Institution,
+    VuFind\RecordDriver\SolrDefault,
+    VuFind\View\Helper\Root\RecordLink;
 
 abstract class SolrIDA extends SolrDefault
 {
@@ -17,6 +19,26 @@ abstract class SolrIDA extends SolrDefault
     {
         $this->formats = $mainConfig->Format2Thumbs->formats;
         parent::__construct($mainConfig, $recordConfig, $searchSettings);
+    }
+
+    public function isSubRecord() {
+
+        return isset($this->fields['_isSubRecord']) ? $this->fields['_isSubRecord'] : false;
+    }
+
+    public function getSubRecords() {
+
+        return isset($this->fields['_subRecords']) ? $this->fields['_subRecords'] : null;
+    }
+
+    public function hasSubRecords() {
+
+        if (null !== ($collection = $this->getSubRecords())) {
+
+            return 0 < $collection->count();
+        }
+
+        return false;
     }
 
     public function getAmazonAffiliateId()
