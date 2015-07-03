@@ -3,59 +3,18 @@
 /**
  * Simple JSON-based factory for record collection.
  *
- * PHP version 5
- *
- * Copyright (C) Villanova University 2010.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * @category VuFind2
+ * @category Ida
  * @package  Search
- * @author   David Maus <maus@hab.de>
- * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     http://vufind.org
+ * @author   <dku@outermedia.de>
  */
 
 namespace Ida\Backend\Solr\Response\Json;
 
+use VuFindSearch\Backend\Solr\Response\Json\Record;
 use VuFindSearch\Response\RecordCollectionFactoryInterface;
 use VuFindSearch\Exception\InvalidArgumentException;
 
-/**
- * Simple JSON-based factory for record collection.
- *
- * @category VuFind2
- * @package  Search
- * @author   David Maus <maus@hab.de>
- * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     http://vufind.org
- */
-class RecordCollectionFactory implements RecordCollectionFactoryInterface
-{
-    /**
-     * Factory to turn data into a record object.
-     *
-     * @var Callable
-     */
-    protected $recordFactory;
-
-    /**
-     * Class of collection.
-     *
-     * @var string
-     */
-    protected $collectionClass;
+class RecordCollectionFactory implements RecordCollectionFactoryInterface {
 
     /**
      * Constructor.
@@ -67,20 +26,19 @@ class RecordCollectionFactory implements RecordCollectionFactoryInterface
      */
     public function __construct($recordFactory = null,
         $collectionClass = 'Ida\Backend\Solr\Response\Json\RecordCollection'
-//        $collectionClass = 'VuFindSearch\Backend\Solr\Response\Json\RecordCollection'
     ) {
+
         if (null === $recordFactory) {
+
             $this->recordFactory = function ($data) {
-//                return new \VuFind\RecordDriver\SolrDefault(null,$data);
-//                return new \Ida\RecordDriver\SolrArchive($data);
-//                return new \Ida\RecordDriver\SolrLibrary($data);
-                return new \VuFindSearch\Backend\Solr\Response\Json\Record($data);
-                //todo: use vufind record class?
-//                return new Record($data);
+                return new Record($data);
             };
+
         } else {
+
             $this->recordFactory = $recordFactory;
         }
+
         $this->collectionClass = $collectionClass;
     }
 
@@ -91,8 +49,8 @@ class RecordCollectionFactory implements RecordCollectionFactoryInterface
      *
      * @return RecordCollection
      */
-    public function factory($response)
-    {
+    public function factory($response) {
+
         if (!is_array($response)) {
             throw new InvalidArgumentException(
                 sprintf(
@@ -101,6 +59,7 @@ class RecordCollectionFactory implements RecordCollectionFactoryInterface
                 )
             );
         }
+
         $collection = new $this->collectionClass($response);
 
         // todo: unterscheide "has groups" oä, wichtig fuer record-ansicht, zb http://localhost/meta/Record/36855fmt
