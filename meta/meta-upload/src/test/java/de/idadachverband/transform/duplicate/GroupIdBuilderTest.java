@@ -17,14 +17,14 @@ public class GroupIdBuilderTest
         GroupIdBuilder cut = new GroupIdBuilder(new DuplicateLookupTable());
         
         String actual = cut.buildGroupId("id", "Buch", "author", "title", "2004");
-        String expected = /*DigestUtils.md5Hex(*/"Buch|author|title|2004"/*)*/;
+        String expected = DigestUtils.md5Hex("Buch|author|title|2004");
         assertThat(actual, equalTo(expected));
     }
     
     @Test
     public void buildGroupIdWithLookup()
     {
-        String assignedGroupId = /*DigestUtils.md5Hex(*/"assignedGroupId"/*)*/;
+        String assignedGroupId = DigestUtils.md5Hex("assignedGroupId");
         DuplicateLookupTable lookupTable = new DuplicateLookupTable();
         lookupTable.assign("id", assignedGroupId);
         
