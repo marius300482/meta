@@ -50,6 +50,7 @@
 			
 			<institutionShortname><xsl:text>Helene-Lange-Archiv</xsl:text></institutionShortname>
 			<institutionFullname><xsl:text>Helene-Lange-Archiv im Landesarchiv Berlin</xsl:text></institutionFullname>
+			<institutionID>hla</institutionID>
 			<collection><xsl:text>HLA Archiv</xsl:text></collection>
 			<isil><xsl:text>DE-B724</xsl:text></isil>
 			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/helene-lange-archiv/</xsl:text></link>
