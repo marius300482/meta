@@ -146,7 +146,11 @@
 					<!--<description><xsl:value-of select="archdesc/scopecontent/p"/></description>-->
 			
 					<!--<shelfMark><xsl:value-of select="archdesc/did/unitid" /></shelfMark>-->
-			
+					
+					<!--<sourceInfo>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						</sourceInfo>-->
+					
 					</dataset>
 					
 				<functions>
@@ -334,6 +338,10 @@
 					<title><xsl:value-of select="did/unittitle" /></title>
 					<title_short><xsl:value-of select="did/unittitle"/></title_short>
 					
+					<sourceInfo>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						</sourceInfo>
+					
 					<displayPublishDate>
 						<xsl:value-of select="did/unitdate" />
 						</displayPublishDate>
@@ -466,6 +474,10 @@
 			
 					<title><xsl:value-of select="did/unittitle" /></title>
 					<title_short><xsl:value-of select="did/unittitle"/></title_short>
+					
+					<sourceInfo>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						</sourceInfo>
 					
 					<displayPublishDate>
 						<xsl:value-of select="did/unitdate" />
