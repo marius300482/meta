@@ -59,7 +59,7 @@
 				<xsl:value-of select="dataset/sourceInfo" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/specificMaterialDesignation" /><xsl:text> </xsl:text>
                     				
-				</field><!-- ALLFIELDS alle Inhalte werden in ein Feld geschrieben -->
+				</field>
 <!--vufind-->
 		
 			<field name="id"><xsl:value-of select="vufind/id" /></field>
@@ -83,6 +83,10 @@
 			<field name="collection"><xsl:value-of select="institution/collection" /></field>
 			
 			<field name="recordContentSource"><xsl:value-of select="institution/isil" /></field>
+			
+			<field name="latitude"><xsl:value-of select="institution/geoLocation/latitude" /></field>
+			
+			<field name="longitude"><xsl:value-of select="institution/geoLocation/longitude" /></field>
 		
 <!--dataset-->
 		
@@ -547,8 +551,6 @@
 	
 </add>
 </xsl:template>
-	
-	
 	
 	
 	<xsl:template match="collectionHolding">
