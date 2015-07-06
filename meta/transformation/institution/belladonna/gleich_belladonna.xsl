@@ -244,6 +244,11 @@
 				<institutionFull>
 					<xsl:text>belladonna, Kultur, Bildung und Wirtschaft für Frauen e.V.</xsl:text>
 					</institutionFull>
+	
+				<institutionID>
+					<xsl:text>belladonna</xsl:text>
+					</institutionID>
+	
 	<!--collection-->
 				<collection>
 					<xsl:text>belladonna</xsl:text>
