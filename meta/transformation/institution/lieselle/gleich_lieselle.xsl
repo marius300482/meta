@@ -96,8 +96,8 @@
 <!--linkToWebpage-->			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/frauenbibliothek-lieselle/</xsl:text></link>
 	
 <!--geoLocation-->				<geoLocation>
-							<latitude>0</latitude>
-							<longitude>0</longitude>
+							<latitude>51.4471270</latitude>
+							<longitude>7.2650400</longitude>
 							</geoLocation>
 			
 </xsl:element>
