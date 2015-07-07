@@ -66,7 +66,7 @@ public class ResultStateController
         }
         if (state == FAILURE)
         {
-            Exception e = jobProgressService.getException(jobId);
+            Throwable e = jobProgressService.getException(jobId);
             if (e != null)
             {
                 result.add("exception", e.toString());

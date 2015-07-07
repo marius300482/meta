@@ -19,7 +19,7 @@ public class JobBean
     private String jobName;
     private IdaUser user;
     private Future<?> future;
-    private Exception exception;
+    private Throwable exception;
     private Date endTime;
     private String result;
 

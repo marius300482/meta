@@ -211,7 +211,7 @@ public class SolrUpdateService
                 final String rollbackResult = reindexInstitution(solr, institution);
                 log.info("Result of rollback is: {}", rollbackResult);
                 indexRequest.setSolrMessage(
-                        String.format("Failure!\n%s\nSolr rollback: \n%s", e.getMessage(), rollbackResult));
+                        String.format("Failure!\n%s\nSolr rollback: %s", e.getMessage(), rollbackResult));
             }
             else 
             {
@@ -230,6 +230,6 @@ public class SolrUpdateService
         final long end = System.currentTimeMillis();
         final long duration = (end - start) / 1000;
         log.info("Solr update of core: {} for: {} with file: {} took: {} seconds.", solr, institution, inputFile, duration);
-        indexRequest.setSolrMessage(String.format("Finished in %d seconds", duration));
+        indexRequest.setSolrMessage(String.format("Finished in %d seconds.", duration));
     }
 }

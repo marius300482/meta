@@ -35,7 +35,7 @@ public class AsyncExecutionHelperService
         {
             callable.call(jobBean);
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
             log.warn("Execution of {} failed: ", jobBean, e);
             jobBean.setException(e);
