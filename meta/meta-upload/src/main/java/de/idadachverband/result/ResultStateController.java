@@ -50,11 +50,8 @@ public class ResultStateController
         JsonObjectBuilder result = Json.createObjectBuilder();
         result.add("jobId", jobId);
         result.add("state", String.valueOf(state));
- 
-        if (state == SUCCESS || state == FAILURE)
-        {
-            result.add("message", (jobBean != null) ? jobBean.getResultMessage() : "");
-        }
+        result.add("message", (jobBean != null) ? jobBean.getResultMessage().replaceAll("\n", "<br/>") : "");
+        
         if (state == SUCCESS)
         {
             if (jobBean != null && jobBean instanceof ProcessJobBean)

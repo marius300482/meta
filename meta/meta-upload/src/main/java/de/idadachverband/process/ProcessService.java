@@ -116,52 +116,77 @@ public class ProcessService
     public void transform(TransformationBean transformationBean) throws IOException, TransformerException
     {
         final String key = transformationBean.getKey();
-        final IdaInstitutionBean institution = transformationBean.getInstitution();
-        try
-        {
-            Path path = idaInputArchiver.uncompressFile(
-                    transformationBean.getTransformationInput(), 
-                    processFileConfiguration.getFolder(ProcessStep.upload, key));
+        Path path = idaInputArchiver.uncompressFile(
+                transformationBean.getTransformationInput(), 
+                processFileConfiguration.getFolder(ProcessStep.upload, key));
 
-            path = transformToWorkingFormat(path, institution, key);
-            
-            path = transformToSolrFormat(path, institution, key);
-            
-            transformationBean.setSolrInput(path);
-
-        } finally
-        {
-            final String transformationMessagesFromUpload = institution.getTransformationStrategy().getTransformationMessages();
-            final String transformationMessagesToSolrFormat = workingFormatTransformer.getTransformationMessages();
-            transformationBean.setTransformationWorkingFormatMessages(transformationMessagesFromUpload);
-            transformationBean.setTransformationSolrFormatMessages(transformationMessagesToSolrFormat);
-        }
+        path = transformToWorkingFormat(path, transformationBean);
+        
+        path = transformToSolrFormat(path, transformationBean);
+        
+        transformationBean.setSolrInput(path);
     }
     
-    private Path transformToWorkingFormat(Path inputFile, IdaInstitutionBean institution, String key) throws TransformerException, IOException
+    private Path transformToWorkingFormat(Path inputFile, TransformationBean transformation) throws TransformerException, IOException
     {
+        final IdaInstitutionBean institution = transformation.getInstitution();
+        
         log.info("Start transformation of: {} for: {} to working format", inputFile, institution);
         final long start = System.currentTimeMillis();
-        Path workingFormatFile = processFileConfiguration.getFolder(ProcessStep.workingFormat, key).resolve(inputFile.getFileName());
+        transformation.setTransformationWorkingFormatMessages("Processing...");
+        
+        Path workingFormatFile = processFileConfiguration.getFolder(ProcessStep.workingFormat, transformation.getKey()).resolve(inputFile.getFileName());
         Files.createDirectories(workingFormatFile.getParent());
-        log.debug("Transform: {} to: {}", inputFile, workingFormatFile);
+       
         IdaTransformer transformationStrategy = institution.getTransformationStrategy();
-        transformationStrategy.transform(inputFile, workingFormatFile, institution);
+        try
+        {
+            transformationStrategy.transform(inputFile, workingFormatFile, institution);
+        }
+        catch (Exception e)
+        {
+            log.warn("Transformation of: {} for: {} to working format failed", inputFile, institution, e);
+            transformation.setTransformationWorkingFormatMessages("Failure!" + transformationStrategy.getTransformationMessages());
+            throw e;
+        }
+        
         final long end = System.currentTimeMillis();
-        log.info("Transformation of: {} for: {} to working format took: {} seconds", inputFile, institution, (end - start) / 1000);
+        final long duration = (end - start) / 1000;
+        log.info("Transformation of: {} for: {} to working format took: {} seconds", inputFile, institution, duration);
+        transformation.setTransformationWorkingFormatMessages(
+                String.format("Finished in %d seconds. %s", duration, transformationStrategy.getTransformationMessages()));
+        
         return workingFormatFile;
     }
 
-    private Path transformToSolrFormat(Path inputFile, IdaInstitutionBean institution, String key) throws TransformerException, IOException
+    private Path transformToSolrFormat(Path inputFile, TransformationBean transformation) throws TransformerException, IOException
     {
+        final IdaInstitutionBean institution = transformation.getInstitution();
+        
         log.info("Start transformation of: {} for: {} to Solr format", inputFile, institution);
         final long start = System.currentTimeMillis();
-        Path solrFormatFile = processFileConfiguration.getFolder(ProcessStep.solrFormat, key).resolve(inputFile.getFileName());
+        transformation.setTransformationSolrFormatMessages("Processing...");
+        
+        Path solrFormatFile = processFileConfiguration.getFolder(ProcessStep.solrFormat, transformation.getKey()).resolve(inputFile.getFileName());
         Files.createDirectories(solrFormatFile.getParent());
-        log.debug("Transform: {} to: {}", inputFile, solrFormatFile);
-        workingFormatTransformer.transform(inputFile, solrFormatFile, institution);
+
+        try 
+        {
+            workingFormatTransformer.transform(inputFile, solrFormatFile, institution);
+        }
+        catch (Exception e)
+        {
+            log.warn("Transformation of: {} for: {} to Solr format failed", inputFile, institution, e);
+            transformation.setTransformationSolrFormatMessages("Failure!" + workingFormatTransformer.getTransformationMessages());
+            throw e;
+        }
+        
         final long end = System.currentTimeMillis();
-        log.info("Transformation of: {} for: {} to Solr format took: {} seconds", inputFile, institution, (end - start) / 1000);
+        final long duration = (end - start) / 1000;
+        log.info("Transformation of: {} for: {} to Solr format took: {} seconds", inputFile, institution, duration);
+        transformation.setTransformationSolrFormatMessages(
+                String.format("Finished in %d seconds. %s", duration, workingFormatTransformer.getTransformationMessages()));
+        
         return solrFormatFile;
     }
     

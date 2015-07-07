@@ -61,7 +61,7 @@
                 }
                 if (v.message) {
                 	var jobMessage = jQuery("#jobMessage");
-	                jQuery("#message").text(v.message);
+	                jQuery("#message").html(v.message);
     	            jobMessage.toggle();
                 }
             };

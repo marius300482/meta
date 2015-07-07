@@ -15,7 +15,7 @@
         <h1>Running Jobs</h1>
         <ul class="jobs">
             <c:forEach var="job" items="${runningJobs}">
-                <li>()<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}
+                <li>(<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}
                 	<span class="infoBubble" title="Started by user '${job.user}', Job-ID: ${job.jobId}">i</span>
                 	<a href="cancel/${job.jobId}" class="btn">Cancel</a>
                 </li>
