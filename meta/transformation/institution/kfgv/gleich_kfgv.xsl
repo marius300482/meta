@@ -92,7 +92,9 @@
 						<institutionFull>
 							<xsl:text>kfgv</xsl:text>
 							</institutionFull>
-			
+						
+						<institutionID>kfgv</institutionID>
+						
 <!--collection-->				<collection><xsl:text>kfgv</xsl:text></collection>
 	
 <!--isil-->					<isil><xsl:text>DE-Kn189</xsl:text></isil>

@@ -50,6 +50,7 @@
 			
 			<institutionShortname><xsl:text>Helene-Lange-Archiv</xsl:text></institutionShortname>
 			<institutionFullname><xsl:text>Helene-Lange-Archiv im Landesarchiv Berlin</xsl:text></institutionFullname>
+			<institutionID>hla</institutionID>
 			<collection><xsl:text>HLA Archiv</xsl:text></collection>
 			<isil><xsl:text>DE-B724</xsl:text></isil>
 			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/helene-lange-archiv/</xsl:text></link>
@@ -122,6 +123,7 @@
 			
 					<institutionShortname><xsl:text>Helene-Lange-Archiv</xsl:text></institutionShortname>
 					<institutionFullname><xsl:text>Helene-Lange-Archiv im Landesarchiv Berlin</xsl:text></institutionFullname>
+					<institutionID>hla</institutionID>
 					<collection><xsl:text>HLA Archiv</xsl:text></collection>
 					<isil><xsl:text>DE-B724</xsl:text></isil>
 					<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/helene-lange-archiv/</xsl:text></link>
@@ -145,7 +147,11 @@
 					<!--<description><xsl:value-of select="archdesc/scopecontent/p"/></description>-->
 			
 					<!--<shelfMark><xsl:value-of select="archdesc/did/unitid" /></shelfMark>-->
-			
+					
+					<!--<sourceInfo>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						</sourceInfo>-->
+					
 					</dataset>
 					
 				<functions>
@@ -218,6 +224,7 @@
 			
 					<institutionShortname><xsl:text>Helene-Lange-Archiv</xsl:text></institutionShortname>
 					<institutionFullname><xsl:text>Helene-Lange-Archiv im Landesarchiv Berlin</xsl:text></institutionFullname>
+					<institutionID>hla</institutionID>
 					<collection><xsl:text>HLA Archiv</xsl:text></collection>
 					<isil><xsl:text>DE-B724</xsl:text></isil>
 					<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/helene-lange-archiv/</xsl:text></link>
@@ -315,6 +322,7 @@
 			
 					<institutionShortname><xsl:text>Helene-Lange-Archiv</xsl:text></institutionShortname>
 					<institutionFullname><xsl:text>Helene-Lange-Archiv im Landesarchiv Berlin</xsl:text></institutionFullname>
+					<institutionID>hla</institutionID>
 					<collection><xsl:text>HLA Archiv</xsl:text></collection>
 					<isil><xsl:text>DE-B724</xsl:text></isil>
 					<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/helene-lange-archiv/</xsl:text></link>
@@ -332,6 +340,10 @@
 			
 					<title><xsl:value-of select="did/unittitle" /></title>
 					<title_short><xsl:value-of select="did/unittitle"/></title_short>
+					
+					<sourceInfo>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						</sourceInfo>
 					
 					<displayPublishDate>
 						<xsl:value-of select="did/unitdate" />
@@ -448,6 +460,7 @@
 			
 					<institutionShortname><xsl:text>Helene-Lange-Archiv</xsl:text></institutionShortname>
 					<institutionFullname><xsl:text>Helene-Lange-Archiv im Landesarchiv Berlin</xsl:text></institutionFullname>
+					<institutionID>hla</institutionID>
 					<collection><xsl:text>HLA Archiv</xsl:text></collection>
 					<isil><xsl:text>DE-B724</xsl:text></isil>
 					<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/helene-lange-archiv/</xsl:text></link>
@@ -465,6 +478,10 @@
 			
 					<title><xsl:value-of select="did/unittitle" /></title>
 					<title_short><xsl:value-of select="did/unittitle"/></title_short>
+					
+					<sourceInfo>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						</sourceInfo>
 					
 					<displayPublishDate>
 						<xsl:value-of select="did/unitdate" />
