@@ -113,9 +113,9 @@ public class FieldNormalizer
                 tokenizer.split(output));
         tokens.removeAll(stopWords);
         output = composer.join(tokens);
-        if (log.isDebugEnabled())
+        if (log.isTraceEnabled())
         {
-            log.debug("normalize-{}: input: \"{}\", output: \"{}\"", name, input, output);
+            log.trace("normalize-{}: input: \"{}\", output: \"{}\"", name, input, output);
         }
         return output;
     }

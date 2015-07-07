@@ -19,9 +19,9 @@ public class TransformationBean extends SolrUpdateBean
 {
     private final Path transformationInput;
     
-    private String transformationWorkingFormatMessages;
+    private String transformationWorkingFormatMessages = "";
     
-    private String transformationSolrFormatMessages;
+    private String transformationSolrFormatMessages = "";
       
     public TransformationBean(
                 SolrService solrService, 
@@ -36,12 +36,18 @@ public class TransformationBean extends SolrUpdateBean
     @Override
     public void buildResultMessage(StringBuilder sb)
     {
+        if (!transformationWorkingFormatMessages.isEmpty())
+        {
+            sb.append("Errors and warnings from transformation to working format: \n");
+            sb.append(transformationWorkingFormatMessages);
+            sb.append('\n');
+        }
+        if (!transformationSolrFormatMessages.isEmpty())
+        {
+            sb.append("Errors and warnings from transformation to Solr format: \n");
+            sb.append(transformationSolrFormatMessages);
+            sb.append('\n');
+        }
         super.buildResultMessage(sb);
-        sb.append("Errors and warnings from transformation to working format: ");
-        sb.append(transformationWorkingFormatMessages);
-        sb.append('\n');
-        sb.append("Errors and warnings from transformation to solr format: ");
-        sb.append(transformationSolrFormatMessages);
-        sb.append('\n');
     }
 }

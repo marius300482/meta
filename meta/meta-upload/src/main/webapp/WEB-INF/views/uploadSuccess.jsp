@@ -37,6 +37,11 @@
             <h2>Error!</h2>
             <div id="exception"></div>
         </div>
+        
+        <div id="jobMessage" style="display: none;">
+            <h2>Job message: </h2>
+            <div id="message"></div>
+        </div>
 
         <script type="application/javascript">
             successCallback = function (v) {
@@ -53,6 +58,11 @@
                     jQuery("#exception").text(v.exception);
                     failure.toggle();
                     done();
+                }
+                if (v.message) {
+                	var jobMessage = jQuery("#jobMessage");
+	                jQuery("#message").text(v.message);
+    	            jobMessage.toggle();
                 }
             };
 

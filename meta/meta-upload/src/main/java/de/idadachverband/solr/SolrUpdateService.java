@@ -200,8 +200,15 @@ public class SolrUpdateService
         {
             if (rollbackOnError) {
                 log.warn("Update of solr {} failed for institution {}. Start rollback", solr, institution);
-                final String result = reindexInstitution(solr, institution);
-                log.info("Result of reindexing is: {}", result);
+                final String rollbackResult = reindexInstitution(solr, institution);
+                log.info("Result of rollback is: {}", rollbackResult);
+                indexRequest.setSolrMessage(
+                        String.format("Error reported by Solr server: %s ; Result of rollback: %s", e, rollbackResult));
+            }
+            else 
+            {
+                indexRequest.setSolrMessage(
+                        String.format("Error reported by Solr server: %s ; Rollback was disabled.", e));
             }
             throw new SolrServerException("Invalid update", e);
         } finally
@@ -210,7 +217,7 @@ public class SolrUpdateService
                 Files.deleteIfExists(inputFile);
             }
         }
-        indexRequest.setSolrResponse(solrResult);
+        //indexRequest.setSolrResponse(solrResult);
 
         final long end = System.currentTimeMillis();
         log.info("Solr update of core: {} for: {} with file: {} took: {} seconds.", solr, institution, inputFile, (end - start) / 1000);

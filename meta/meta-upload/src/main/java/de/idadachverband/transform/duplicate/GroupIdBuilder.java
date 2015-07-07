@@ -55,9 +55,9 @@ public class GroupIdBuilder
         final String groupString = sb.toString();
         final String groupId = DigestUtils.md5Hex(groupString);
         
-        if (log.isDebugEnabled())
+        if (log.isTraceEnabled())
         {
-            log.info("computing groupId: {} / groupString: \"{}\" for docId: {}, format: {}, parts: {}",
+            log.trace("computing groupId: {} / groupString: \"{}\" for docId: {}, format: {}, parts: {}",
                     groupId, groupString, docId, format, Arrays.toString(parts));
         }
         return lookupTable.lookupGroupId(docId, groupId);

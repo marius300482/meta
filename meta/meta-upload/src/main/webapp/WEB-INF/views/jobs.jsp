@@ -15,8 +15,8 @@
         <h1>Running Jobs</h1>
         <ul class="jobs">
             <c:forEach var="job" items="${runningJobs}">
-                <li>${job.jobName}
-                	<span class="infoBubble" title="started by user '${job.user}' at <fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>">i</span>
+                <li>()<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}
+                	<span class="infoBubble" title="Started by user '${job.user}', Job-ID: ${job.jobId}">i</span>
                 	<a href="cancel/${job.jobId}" class="btn">Cancel</a>
                 </li>
             </c:forEach>
@@ -24,8 +24,8 @@
         <h1>Past Jobs</h1>
         <ul class="jobs">
             <c:forEach var="job" items="${stoppedJobs}">
-                <li>${job.jobName}: ${job.progressState} 
-                	<span class="infoBubble" title="started by user '${job.user}' at <fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>">i</span>
+                <li>(<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}: ${job.progressState} 
+                	<span class="infoBubble" title="Started by user '${job.user}', Job-ID: ${job.jobId} <%out.println("");%>${job.resultMessage}">i</span>
                 	<a href="delete/${job.jobId}" class="delete" title="Delete"></a>
                 </li>
             </c:forEach>

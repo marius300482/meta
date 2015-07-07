@@ -45,13 +45,18 @@ public class ResultStateController
         log.debug("Query for result of job '{}'.", jobId);
 
         JobProgressState state = jobProgressService.getState(jobId);
-
+        JobBean jobBean = jobProgressService.getJob(jobId);
+        
         JsonObjectBuilder result = Json.createObjectBuilder();
         result.add("jobId", jobId);
-
+        result.add("state", String.valueOf(state));
+ 
+        if (state == SUCCESS || state == FAILURE)
+        {
+            result.add("message", (jobBean != null) ? jobBean.getResultMessage() : "");
+        }
         if (state == SUCCESS)
         {
-            JobBean jobBean = jobProgressService.getJob(jobId);
             if (jobBean != null && jobBean instanceof ProcessJobBean)
             {
                 TransformationBean transformationBean = ((ProcessJobBean) jobBean).getTransformation();
@@ -73,9 +78,7 @@ public class ResultStateController
                 result.add("exception", "Unknown failure");
             }
         }
-
-        result.add("state", String.valueOf(state));
-
+        
         JsonObject jsonObject = result.build();
         log.debug("Result of job is {}", jsonObject);
         return jsonObject.toString();

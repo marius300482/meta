@@ -97,7 +97,6 @@ public class ProcessService
      */
     public void process(TransformationBean transformationBean, String username) throws TransformerException, IOException, SolrServerException, ArchiveException
     {
-        final String key = transformationBean.getKey();
         try
         {
             transform(transformationBean);
@@ -106,9 +105,10 @@ public class ProcessService
 
             archiveService.archive(transformationBean, VersionOrigin.UPLOAD, username);
             
+            deleteProcessingFolder(transformationBean.getKey()); // keep folder if processing fails
+            
         } finally
         {
-            deleteProcessingFolder(key);
             Files.deleteIfExists(transformationBean.getTransformationInput());
         }
     }

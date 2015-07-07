@@ -370,8 +370,8 @@
 						</xsl:variable>
 						<xsl:variable name="title">
 							<xsl:choose>
-								<xsl:when test="dataset/title_short[1] and data/title_sub[1]">
-									<xsl:value-of select="ida:normalize-title(concat(dataset/title_short[1], ' ', data/title_sub[1]))"/>
+								<xsl:when test="dataset/title_short[1] and dataset/title_sub[1]">
+									<xsl:value-of select="ida:normalize-title(concat(dataset/title_short[1], ' ', dataset/title_sub[1]))"/>
 								</xsl:when>
 								<xsl:when test="dataset/title[1]">
 									<xsl:value-of select="ida:normalize-title(dataset/title[1])"/>
@@ -389,11 +389,11 @@
 					<xsl:when test="dataset/format = 'Zeitschrift'">
 						<xsl:variable name="title">
 							<xsl:choose>
-								<xsl:when test="ida:normalize-title(dataset/title_short[1])">
-									<xsl:value-of select="dataset/title_short[1]"/>
+								<xsl:when test="dataset/title_short[1]">
+									<xsl:value-of select="ida:normalize-title(dataset/title_short[1])"/>
 								</xsl:when>
-								<xsl:when test="ida:normalize-title(dataset/title[1])">
-									<xsl:value-of select="dataset/title[1]"/>
+								<xsl:when test="dataset/title[1]">
+									<xsl:value-of select="ida:normalize-title(dataset/title[1])"/>
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="''"/>

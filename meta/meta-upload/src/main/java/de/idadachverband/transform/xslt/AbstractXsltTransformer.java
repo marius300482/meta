@@ -8,12 +8,12 @@ import net.sf.saxon.TransformerFactoryImpl;
 import net.sf.saxon.lib.ErrorGatherer;
 import net.sf.saxon.lib.ExtensionFunctionDefinition;
 import net.sf.saxon.s9api.StaticError;
+import net.sf.saxon.trans.XPathException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
-import javax.inject.Inject;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -35,8 +35,6 @@ public abstract class AbstractXsltTransformer implements IdaTransformer
 
     @Getter
     final private List<StaticError> errorList = new ArrayList<>();
-    @Inject
-    protected Path archivePath;
     
     @Getter
     final private List<ExtensionFunctionDefinition> extensionFunctions = new ArrayList<>();
@@ -50,7 +48,7 @@ public abstract class AbstractXsltTransformer implements IdaTransformer
     {
         Transformer transformer = getTransformerInstance(institutionXsl);
         transformer.transform(new StreamSource(inputStream), new StreamResult(outputStream));
-        transformer.reset();
+        //transformer.reset();
     }
 
     private Transformer getTransformerInstance(Path institutionXslt) throws TransformerConfigurationException
@@ -58,7 +56,6 @@ public abstract class AbstractXsltTransformer implements IdaTransformer
         TransformerFactory factory = TransformerFactory.newInstance();
         if (factory instanceof TransformerFactoryImpl)
         {
-            log.debug("XSLT transformer supports extension functions.");
             Configuration config = 
                     ((TransformerFactoryImpl)factory).getConfiguration();
             for (ExtensionFunctionDefinition extensionFunction : extensionFunctions)
@@ -71,7 +68,8 @@ public abstract class AbstractXsltTransformer implements IdaTransformer
         {
             log.warn("XSLT transformer does NOT support extension functions!");
         }
-        factory.setErrorListener(new ErrorGatherer(getErrorList()));
+        errorList.clear();
+        factory.setErrorListener(new ErrorGatherer(errorList));
         Source xslt = new StreamSource(institutionXslt.toFile());
         return factory.newTransformer(xslt);
     }
@@ -84,7 +82,14 @@ public abstract class AbstractXsltTransformer implements IdaTransformer
         StringBuilder sb = new StringBuilder();
         for (StaticError e : errorList)
         {
-            sb.append(ExceptionUtils.getStackTrace(e.getUnderlyingException()));
+            sb.append(e.getMessage());
+            sb.append(" (line: ");
+            sb.append(e.getLineNumber());
+            sb.append(" column: ");
+            sb.append(e.getColoumnNumber());
+            sb.append(")");
+            sb.append(" cause: ");
+            sb.append(ExceptionUtils.getRootCauseMessage(e.getUnderlyingException()));
         }
         return sb.toString();
     }

@@ -18,7 +18,7 @@ public class SolrUpdateBean
     private final boolean incrementalUpdate;
     
     private Path solrInput;
-    private String solrResponse = "";
+    private String solrMessage = "";
     
     // used for re-indexing of archived files
     private VersionKey originalVersion = VersionKey.NO_VERSION;
@@ -57,8 +57,11 @@ public class SolrUpdateBean
 
     public void buildResultMessage(StringBuilder sb)
     {
-        sb.append("Solr result: ");
-        sb.append(solrResponse);
-        sb.append('\n');
+        if (!solrMessage.isEmpty())
+        {
+            sb.append("Errors from Solr update: \n");
+            sb.append(solrMessage);
+            sb.append('\n');
+        }
     }
 }
