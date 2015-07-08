@@ -11,6 +11,7 @@
 <body>
 	<c:set var="currentTab" value="jobs"/>
     <%@include file="menu.jspf" %>
+    <c:set var="newLine" value="&#10;"/>
     <div class="main" id="page-jobs">
         <h1>Running Jobs</h1>
         <ul class="jobs">
@@ -24,8 +25,8 @@
         <h1>Past Jobs</h1>
         <ul class="jobs">
             <c:forEach var="job" items="${stoppedJobs}">
-                <li>(<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}: ${job.progressState} 
-                	<span class="infoBubble" title="Started by user '${job.user}', Job-ID: ${job.jobId} <%out.println("");%>${job.resultMessage}">i</span>
+                <li>(<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/> - <fmt:formatDate value="${job.endTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}: ${job.progressState} 
+                	<span class="infoBubble" title="Started by user '${job.user}', Job-ID: ${job.jobId}${newLine}${job.resultMessage}${job.exception != null ? newLine.concat('Exception: ').concat(job.exception) : ''}">i</span>
                 	<a href="delete/${job.jobId}" class="delete" title="Delete"></a>
                 </li>
             </c:forEach>

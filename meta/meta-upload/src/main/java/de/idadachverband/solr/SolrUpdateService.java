@@ -225,7 +225,6 @@ public class SolrUpdateService
                 Files.deleteIfExists(inputFile);
             }
         }
-        //indexRequest.setSolrResponse(solrResult);
 
         final long end = System.currentTimeMillis();
         final long duration = (end - start) / 1000;
