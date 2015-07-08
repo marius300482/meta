@@ -108,8 +108,12 @@
     <? endif; ?>
 
      <!-- Herausgeber -->
-    <? $editors = $this->driver->getEditors(); ?>
-    <? if (!empty($editors) && empty($authors['main']) && empty($authors['additional'])): ?>
+    <? $editors = $this->driver->getEditors();   
+        if (!empty($editors)): ?>
+    
+    <!--<? $editors = $this->driver->getEditors(); ?>
+    <? if (!empty($editors) && empty($authors['main']) && empty($authors['additional'])): ?>-->
+    
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Editors')?>: </th>
