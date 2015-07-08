@@ -71,6 +71,11 @@ public class VersionKey implements Comparable<VersionKey>
         return updateNumber == 0;
     }
     
+    public boolean isMissing()
+    {
+        return baseNumber == 0;
+    }
+    
     public static VersionKey parse(String versionString) throws ArchiveException
     {
         if (versionString.isEmpty())

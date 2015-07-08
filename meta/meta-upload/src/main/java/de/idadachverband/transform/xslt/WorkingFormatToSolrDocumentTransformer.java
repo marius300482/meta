@@ -4,18 +4,13 @@ import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.transform.duplicate.DuplicateLookupTable;
 import de.idadachverband.transform.duplicate.FieldNormalizer;
 import de.idadachverband.transform.duplicate.GroupIdBuilder;
-import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.transform.TransformerException;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 /**
  * Created by boehm on 15.01.15.
@@ -41,22 +36,9 @@ public class WorkingFormatToSolrDocumentTransformer extends AbstractXsltTransfor
     @Override
     public void transform(Path input, Path outputFile, IdaInstitutionBean institutionBean) throws TransformerException, IOException
     {
-        try
-        {
-            if (this.groupIdBuilder == null) initGroupIdBuilder();
-            
-            @Cleanup
-            InputStream in = Files.newInputStream(input, StandardOpenOption.READ);
-            @Cleanup
-            OutputStream out = Files.newOutputStream(outputFile, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
-
-            transformInstitution(in, out, Paths.get(gleichXsl));
-        } catch (UnsupportedOperationException e)
-        {
-            log.warn("Transformation failed", e);
-            throw e;
-        }
-
+        if (this.groupIdBuilder == null) initGroupIdBuilder();
+        
+        transform(input, outputFile, Paths.get(gleichXsl));
         log.info("Transformed to Solr format: {}", outputFile);
     }
     

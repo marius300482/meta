@@ -59,7 +59,7 @@ public class SolrUpdateBean
     {
         if (!solrMessage.isEmpty())
         {
-            sb.append("Errors from Solr update: \n");
+            sb.append("Solr update: ");
             sb.append(solrMessage);
             sb.append('\n');
         }

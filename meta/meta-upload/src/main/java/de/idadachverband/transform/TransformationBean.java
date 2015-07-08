@@ -38,13 +38,13 @@ public class TransformationBean extends SolrUpdateBean
     {
         if (!transformationWorkingFormatMessages.isEmpty())
         {
-            sb.append("Errors and warnings from transformation to working format: \n");
+            sb.append("Transformation to working format: ");
             sb.append(transformationWorkingFormatMessages);
             sb.append('\n');
         }
         if (!transformationSolrFormatMessages.isEmpty())
         {
-            sb.append("Errors and warnings from transformation to Solr format: \n");
+            sb.append("Transformation to Solr format: ");
             sb.append(transformationSolrFormatMessages);
             sb.append('\n');
         }
