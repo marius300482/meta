@@ -25,14 +25,13 @@ return array(
         'common.js',*/
     ),
     'favicon' => 'favicon.ico',
+    /*
     'helpers' => array(
         'factories' => array(
-            // View helper to display a record
-            'record' => 'Ida\View\Helper\Root\Factory::getRecord',
-//            'layoutclass' => array('VuFind\View\Helper\Blueprint\Factory', 'getLayoutClass'),
+            'layoutclass' => array('VuFind\View\Helper\Blueprint\Factory', 'getLayoutClass'),
         ),
-//        'invokables' => array(
-//            'search' => 'VuFind\View\Helper\Blueprint\Search',
-//        )
-    ),
+        'invokables' => array(
+            'search' => 'VuFind\View\Helper\Blueprint\Search',
+        )
+    )*/
 );
