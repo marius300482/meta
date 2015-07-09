@@ -17,7 +17,7 @@
         <ul class="jobs">
             <c:forEach var="job" items="${runningJobs}">
                 <li>(<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}
-                	<span class="infoBubble" title="Started by user '${job.user}', Job-ID: ${job.jobId}${newLine}${job.resultMessage}">i</span>
+                	<span class="infoBubble" title="Started by '${job.user}', Job-ID: ${job.jobId}${newLine}${job.resultMessage}">i</span>
                 	<a href="cancel/${job.jobId}" class="btn">Cancel</a>
                 </li>
             </c:forEach>
@@ -26,7 +26,7 @@
         <ul class="jobs">
             <c:forEach var="job" items="${stoppedJobs}">
                 <li>(<fmt:formatDate value="${job.startTime}" pattern="yyyy-MM-dd HH:mm"/> - <fmt:formatDate value="${job.endTime}" pattern="yyyy-MM-dd HH:mm"/>) ${job.jobName}: ${job.progressState} 
-                	<span class="infoBubble" title="Started by user '${job.user}', Job-ID: ${job.jobId}${newLine}${job.resultMessage}${job.exception != null ? newLine.concat('Exception: ').concat(job.exception) : ''}">i</span>
+                	<span class="infoBubble" title="Started by '${job.user}', Job-ID: ${job.jobId}${newLine}${job.resultMessage}${job.exception != null ? newLine.concat('Exception: ').concat(job.exception) : ''}">i</span>
                 	<a href="delete/${job.jobId}" class="delete" title="Delete"></a>
                 </li>
             </c:forEach>
