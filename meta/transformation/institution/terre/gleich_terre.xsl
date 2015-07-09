@@ -288,7 +288,7 @@
 		<xsl:otherwise>
 			<xsl:for-each select="DATA[string-length() != 0]">
 				<xsl:choose>
-					<xsl:when test="contains(.,'FGC')">
+					<xsl:when test="contains(.,'FGM')">
 						<subjectTopic><xsl:text>Female circumcision</xsl:text></subjectTopic>
 						<subjectTopic><xsl:text>Female genital cutting (FGC)</xsl:text></subjectTopic>
 						<subjectTopic><xsl:text>Female genital mutilation</xsl:text></subjectTopic>
