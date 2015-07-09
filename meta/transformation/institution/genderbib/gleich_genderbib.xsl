@@ -247,6 +247,10 @@
 <!--institutionFullname-->			<institutionFull>
 							<xsl:text>Genderbibliothek am Zentrum für transdisziplinäre Geschlechterstudien</xsl:text>
 							</institutionFull>
+							
+						<institutionID>
+							<xsl:text>genderbib</xsl:text>
+							</institutionID>
 			
 <!--collection-->				<collection><xsl:text>GReTA</xsl:text></collection>
 	
