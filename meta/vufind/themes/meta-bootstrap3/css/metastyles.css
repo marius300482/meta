@@ -1109,4 +1109,9 @@ ul.search-result-subrecords {
   margin-bottom: 20px;
   font-weight: 500; }
 
+.is-subrecord {
+    background-color: #f7f6fa;
+    padding: 1em;
+}
+  
 /*# sourceMappingURL=metastyles.css.map */
