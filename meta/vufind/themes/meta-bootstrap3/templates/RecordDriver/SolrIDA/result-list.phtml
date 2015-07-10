@@ -45,6 +45,16 @@ $cssClasses[] = 'col-xs-12';
     </div>
     <div class="col-xs-11">
         <?= str_replace('class="', 'class="label  label-info ', $this->record($this->driver)->getFormatList()); ?>
+       
+       <? $issues = $this->driver->getInstitution(); ?>
+	<? if (!empty($issues)): ?>
+        <? $contentDisplayed = true; ?>
+        -
+            <? foreach($issues as $issue): ?>
+                <?= $this->escapeHtml($issue) ?><?= $issue !== end($issues) ? ", " : "" ?>
+            <? endforeach; ?>
+          <? endif; ?>
+       
         <div>
             <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title"<?= true === $hasSubRecords ? ' data-toggle="collapse" data-target="#subrecords-' . $uniqueId . '"' : '' ?>>
                 <?php
