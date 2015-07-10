@@ -194,7 +194,7 @@
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
-    <bean id="lopa" class="de.idadachverband.institution.IdaInstitutionBean">
+    <bean id="auszeiten" class="de.idadachverband.institution.IdaInstitutionBean">
      	<constructor-arg index="0" name="institutionId" value="auszeiten"/>
         <constructor-arg index="1" name="institutionName" value="ausZeiten"/>
         <constructor-arg index="2" name="transformationRecipeFile"
