@@ -1057,3 +1057,9 @@ footer {
     overflow: hidden;
     white-space: nowrap;
 }
+.is-subrecord {
+    background-color: #f7f6fa;
+    padding: 1em;
+}
+  
+/*# sourceMappingURL=metastyles.css.map */

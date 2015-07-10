@@ -277,6 +277,15 @@
 						<subjectTopic><xsl:text>Genitalbeschneidung</xsl:text></subjectTopic>
 						<subjectTopic><xsl:text>Genitale Verstümmelung</xsl:text></subjectTopic>
 						</xsl:when>
+					<xsl:when test="contains(.,'TDF')">
+						<subjectTopic><xsl:text>TERRE DES FEMMES</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Frauen')">
+						<subjectTopic><xsl:text>Frau</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Deutschland&gt;&gt; BRD')">
+						<subjectTopic><xsl:text>BRD</xsl:text></subjectTopic>
+						</xsl:when>
 					<xsl:otherwise>
 						<subjectTopic>
 							<xsl:value-of select="normalize-space(.)" />
@@ -295,6 +304,15 @@
 						<subjectTopic><xsl:text>Genitalverstümmelung &lt;weibliche&gt;</xsl:text></subjectTopic>
 						<subjectTopic><xsl:text>Genitalbeschneidung</xsl:text></subjectTopic>
 						<subjectTopic><xsl:text>Genitale Verstümmelung</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'TDF')">
+						<subjectTopic><xsl:text>TERRE DES FEMMES</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Frauen')">
+						<subjectTopic><xsl:text>Frau</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Deutschland&gt;&gt; BRD')">
+						<subjectTopic><xsl:text>BRD</xsl:text></subjectTopic>
 						</xsl:when>
 					<xsl:otherwise>
 						<subjectTopic>
