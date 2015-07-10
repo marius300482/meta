@@ -302,9 +302,21 @@
 		<xsl:for-each select=".">
 			<xsl:choose>
 				<xsl:when test="contains(.,',')">
-					<subjectPerson>
-						<xsl:value-of select="normalize-space(.)" />
-						</subjectPerson>
+					<xsl:choose>
+						<xsl:when test="(contains(.,'20. Jahrhundert')) or
+									(contains(.,'Neuzeit, frühe')) or
+									(contains(.,'Arbeit, unbezahlt')) or
+									(contains(.,'Arbeitsamt, Berufsberatung'))">
+							<subjectTopic>
+								<xsl:value-of select="normalize-space(.)" />
+								</subjectTopic>
+							</xsl:when>
+						<xsl:otherwise>
+							<subjectPerson>
+								<xsl:value-of select="normalize-space(.)" />
+								</subjectPerson>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
 				<xsl:otherwise>
 					<subjectTopic>
