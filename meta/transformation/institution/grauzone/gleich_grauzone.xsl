@@ -23,14 +23,15 @@
 				<xsl:if test="(objektart[text()='A(1) - Akten']) or
 				(objektart[text()='BA - Bücher/Artikel']) or
 				(objektart[text()='BS - Bücher/Sammeltitel']) or
-				(objektart[text()='F - Fotos/DIAS']) or
+				
 				(objektart[text()='P - Plakate']) or
 				(objektart[text()='V - Videos']) or
 				(objektart[text()='WA- wiss. Arbeiten/Studien']) or
 				(objektart[text()='Z - Zeitschriften (Heft)']) or
 				(objektart[text()='Z - Zeitschriften (Artikel)']) or
 				(objektart[text()='ZA- Artikel']) ">
-	
+		
+				<!--(objektart[text()='F - Fotos/DIAS']) or-->
 	
 	
 	<!--Akten-->		
@@ -100,7 +101,7 @@
 					<xsl:apply-templates select="Deskriptor[string-length() != 0]" />
 			
 			<!--subjectPerson-->
-					<xsl:apply-templates select="Personen[string-length() != 0]" />
+					<!--<xsl:apply-templates select="Personen[string-length() != 0]" />-->
 			
 			<!--description-->
 					<xsl:apply-templates select="Enthält[string-length() != 0]" />
@@ -239,7 +240,7 @@
 				<hierarchy_top_id><xsl:value-of select="normalize-space(objektnummer)"/><xsl:text>grauzone</xsl:text></hierarchy_top_id>
 				<hierarchy_top_title><xsl:value-of select="normalize-space(Sammeltitel)" /></hierarchy_top_title>
 				
-				<is_hierarchy_id><xsl:value-of select="normalize-space(objektnummer)"/><xsl:text>ash</xsl:text></is_hierarchy_id>
+				<is_hierarchy_id><xsl:value-of select="normalize-space(objektnummer)"/><xsl:text>grauzone</xsl:text></is_hierarchy_id>
 				<is_hierarchy_title><xsl:value-of select="normalize-space(Sammeltitel)" /></is_hierarchy_title>
 				
 				<hierarchy_sequence><xsl:value-of select="normalize-space(substring(Sammeltitel,1,4))"/></hierarchy_sequence>
