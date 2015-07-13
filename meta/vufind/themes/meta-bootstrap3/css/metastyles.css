@@ -1113,5 +1113,10 @@ ul.search-result-subrecords {
     background-color: #f7f6fa;
     padding: 1em;
 }
+
+.col-xs-offset-1 {
+    margin: -1.6em 0 2em 4em;
+    border: 0;
+}
   
 /*# sourceMappingURL=metastyles.css.map */
