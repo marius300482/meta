@@ -673,11 +673,11 @@ footer {
     background-color: #E6E5EB;
     content: "";
     display: block;
-    height: 2px;
+    height: 0px;
     margin-bottom: .5em; }
   .result .has-subrecords a.result-subrecords-count {
-    background-color: #40395B;
-    color: #fff;
+    background-color: #efeef2;
+    color: #40395b;
     display: block;
     font-family: 'Droid Serif', serif;
     font-size: 13px;
@@ -698,7 +698,7 @@ footer {
     background-color: #E6E5EB;
     content: "";
     display: block;
-    height: 2px;
+    height: 0px;
     margin-top: 28px;
     margin-bottom: 35px; }
   .subrecords-sep a.subrecords-toggle {
@@ -1112,6 +1112,11 @@ ul.search-result-subrecords {
 .is-subrecord {
     background-color: #f7f6fa;
     padding: 1em;
+}
+
+.col-xs-offset-1 {
+    margin: -1.6em 0 2em 4em;
+    border: 0;
 }
   
 /*# sourceMappingURL=metastyles.css.map */
