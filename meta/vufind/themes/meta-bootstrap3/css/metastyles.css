@@ -673,7 +673,7 @@ footer {
     background-color: #E6E5EB;
     content: "";
     display: block;
-    height: 2px;
+    height: 0px;
     margin-bottom: .5em; }
   .result .has-subrecords a.result-subrecords-count {
     background-color: #efeef2;
