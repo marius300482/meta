@@ -118,7 +118,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(9, 9, 99));
             <? foreach ($topics as $topic): ?>
                 <li>
                     <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
-                        href="<?= $this->record($this->solrDriver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+                        href="<?= $this->url('search-results')?>?lookfor=<?=urlencode($topic['value'])?>&amp;type=AllFields"><?= $topic['displayText'] ?></a>
                 </li>
             <? endforeach; ?>
         </ul>

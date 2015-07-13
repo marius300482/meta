@@ -6,7 +6,7 @@ $this->headTitle($this->translate('Topics'));
     <? foreach ($topics as $topic): ?>
         <li>
             <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
-               href="<?= $this->record($this->driver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+               href="<?= $this->url('search-results')?>?lookfor=<?=urlencode($topic['value'])?>&amp;type=AllFields"><?= $topic['displayText'] ?></a>
         </li>
     <? endforeach; ?>
 </ul>
