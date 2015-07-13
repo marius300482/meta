@@ -646,7 +646,7 @@ footer {
   .result.row .col-sm-1 {
     padding: 0; }
   .result .col-xs-1 {
-    padding: 0; }
+    padding: .2em 1em 0 0; }
   .result .label-info {
     color: inherit;
     background-color: transparent;
@@ -669,6 +669,63 @@ footer {
     @media (max-width: 768px) {
       .result a.title {
         font-size: 16px; } }
+  .result .has-subrecords:before {
+    background-color: #E6E5EB;
+    content: "";
+    display: block;
+    height: 0px;
+    margin-bottom: .5em; }
+  .result .has-subrecords a.result-subrecords-count {
+    background-color: #efeef2;
+    color: #40395b;
+    display: block;
+    font-family: 'Droid Serif', serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.85em;
+    text-align: center;
+    text-decoration: none; }
+
+.subrecords-sep {
+  margin-right: 0; }
+  @media (max-width: 992px) {
+    .subrecords-sep {
+      padding-left: 15px; } }
+  @media (min-width: 993px) {
+    .subrecords-sep {
+      margin-left: 0; } }
+  .subrecords-sep:after {
+    background-color: #E6E5EB;
+    content: "";
+    display: block;
+    height: 0px;
+    margin-top: 28px;
+    margin-bottom: 35px; }
+  .subrecords-sep a.subrecords-toggle {
+    text-decoration: none; }
+    .subrecords-sep a.subrecords-toggle:before {
+      font-family: icomoon;
+      font-size: 13px;
+      margin-right: .35em; }
+    .subrecords-sep a.subrecords-toggle.arrow-down:before {
+      content: "\e605"; }
+    .subrecords-sep a.subrecords-toggle.arrow-up:before {
+      content: "\e606"; }
+
+ul.search-result-subrecords {
+  margin: 0; }
+  @media (max-width: 992px) {
+    ul.search-result-subrecords li {
+      margin-left: -15px;
+      margin-right: -15px; } }
+  ul.search-result-subrecords li:before {
+    content: " ";
+    display: table; }
+  ul.search-result-subrecords li:after {
+    clear: both; }
+  @media (min-width: 993px) {
+    ul.search-result-subrecords li .is-subrecord {
+      padding-right: 0; } }
 
 .row.result:last-child {
   margin-bottom: 60px !important; }
@@ -1057,3 +1114,15 @@ footer {
     overflow: hidden;
     white-space: nowrap;
 }
+.is-subrecord {
+    background-color: #f7f6fa;
+    padding: 1em;
+}
+
+.col-xs-offset-1 {
+    margin: -1.6em 0 2em 4em;
+    border: 0;
+}
+  
+/*# sourceMappingURL=metastyles.css.map */
+>>>>>>> 5ecfc8f1bc69b177386b7e62f95b8f0deccd7806

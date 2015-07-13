@@ -80,11 +80,11 @@
 <xsl:element name="institution">
 	
 <!--institutionShortname-->			<institutionShortname>
-							<xsl:text>Terre des Femmes</xsl:text>
+							<xsl:text>TERRE DES FEMMES</xsl:text>
 							</institutionShortname>
 	
 <!--institutionFullname-->			<institutionFull>
-							<xsl:text>Terre des Femmes</xsl:text>
+							<xsl:text>TERRE DES FEMMES - Dokumentationsstelle</xsl:text>
 							</institutionFull>
 
 <!--institutionID-->				<institutionID>
@@ -265,11 +265,64 @@
 	</xsl:template>
 
 <xsl:template match="COL[21]">
-	<xsl:for-each select="DATA[string-length() != 0]">
-	<subjectTopic>
-		<xsl:value-of select="." />
-		</subjectTopic>
-		</xsl:for-each>
+	<xsl:choose>
+		<xsl:when test="contains(DATA[1],'/')">
+			<xsl:for-each select="tokenize(DATA[1],'/')">
+				<xsl:choose>
+					<xsl:when test="contains(.,'FGM')">
+						<subjectTopic><xsl:text>Female circumcision</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Female genital cutting (FGC)</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Female genital mutilation</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Genitalverstümmelung &lt;weibliche&gt;</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Genitalbeschneidung</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Genitale Verstümmelung</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'TDF')">
+						<subjectTopic><xsl:text>TERRE DES FEMMES</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Frauen')">
+						<subjectTopic><xsl:text>Frau</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Deutschland&gt;&gt; BRD')">
+						<subjectTopic><xsl:text>BRD</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:otherwise>
+						<subjectTopic>
+							<xsl:value-of select="normalize-space(.)" />
+							</subjectTopic>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:for-each>
+			</xsl:when>
+		<xsl:otherwise>
+			<xsl:for-each select="DATA[string-length() != 0]">
+				<xsl:choose>
+					<xsl:when test="contains(.,'FGM')">
+						<subjectTopic><xsl:text>Female circumcision</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Female genital cutting (FGC)</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Female genital mutilation</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Genitalverstümmelung &lt;weibliche&gt;</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Genitalbeschneidung</xsl:text></subjectTopic>
+						<subjectTopic><xsl:text>Genitale Verstümmelung</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'TDF')">
+						<subjectTopic><xsl:text>TERRE DES FEMMES</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Frauen')">
+						<subjectTopic><xsl:text>Frau</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:when test="contains(.,'Deutschland&gt;&gt; BRD')">
+						<subjectTopic><xsl:text>BRD</xsl:text></subjectTopic>
+						</xsl:when>
+					<xsl:otherwise>
+						<subjectTopic>
+							<xsl:value-of select="normalize-space(.)" />
+							</subjectTopic>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 <xsl:template match="COL[17]">
@@ -337,7 +390,34 @@
 	</xsl:template>
 		
 <xsl:template match="COL[4]">
-	<xsl:for-each select="tokenize(.,';')">
+	
+	<xsl:choose>
+		<xsl:when test="contains(.,';')">
+			<xsl:for-each select="tokenize(.,';')">
+				<xsl:choose>
+					<xsl:when test="contains(.,'ai')">
+						<author>
+							<xsl:text>AI - Amnesty International</xsl:text>
+							</author>
+						</xsl:when>
+					<xsl:otherwise>
+						<author>
+							<xsl:value-of select="normalize-space(.)" />
+							</author>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:for-each>
+			</xsl:when>
+		<xsl:when test="contains(.,'/')">
+			<xsl:for-each select="tokenize(.,'/')">
+				<author>
+					<xsl:value-of select="normalize-space(.)" />
+					</author>
+				</xsl:for-each>
+			</xsl:when>
+		</xsl:choose>
+
+	<!--<xsl:for-each select="tokenize(.,';')">
 	<xsl:choose>
 		<xsl:when test="contains(.,'ai')">
 			<author><xsl:text>AI - Amnesty International</xsl:text></author></xsl:when>
@@ -347,7 +427,7 @@
 				</author>
 		</xsl:otherwise>
 		</xsl:choose>
-		</xsl:for-each>
+		</xsl:for-each>-->
 	</xsl:template>
 
 <xsl:template match="ERRORCODE">
