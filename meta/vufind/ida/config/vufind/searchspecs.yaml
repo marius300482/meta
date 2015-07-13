@@ -522,7 +522,7 @@ publisher:
 
 year:
   DismaxFields:
-    - publishDate^100
+    - displayPublishDate^100
   QueryFields:
     publishDate:
       - [and, 100]
@@ -591,3 +591,7 @@ editorStr:
 zdbid:
   DismaxFields:
     - zdbId
+    
+issue:
+  DismaxFields:
+    - issue
