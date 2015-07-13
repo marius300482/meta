@@ -676,8 +676,8 @@ footer {
     height: 2px;
     margin-bottom: .5em; }
   .result .has-subrecords a.result-subrecords-count {
-    background-color: #40395B;
-    color: #fff;
+    background-color: #efeef2;
+    color: #40395b;
     display: block;
     font-family: 'Droid Serif', serif;
     font-size: 13px;
