@@ -646,7 +646,7 @@ footer {
   .result.row .col-sm-1 {
     padding: 0; }
   .result .col-xs-1 {
-    padding: 0; }
+    padding: .2em 1em 0 0; }
   .result .label-info {
     color: inherit;
     background-color: transparent;
