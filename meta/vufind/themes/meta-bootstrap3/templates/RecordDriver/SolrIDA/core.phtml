@@ -92,7 +92,7 @@
                 In:
                 <? foreach($sourceInfo as $info): ?>
                     <? $inText = $this->escapeHtml($info) ?>
-                    <? if ($info == $top[1]): ?>
+                    <? if (substr($top[1], 0, strlen($info)) === $info): ?>
                         <a href="<?= $this->recordLink()->getUrl($top[0]) ?>">
                             <?= $inText ?>
                         </a>
