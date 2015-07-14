@@ -469,7 +469,9 @@
             <th colspan="2"><?=$this->transEsc('Content')?>:</th>
         </tr>
         <tr valign="top">
-            <td property="description" colspan="2"><?= $this->escapeHtmlAllowBr($description) ?></td>
+            <!--<td property="description" colspan="2"><?= $this->escapeHtmlAllowBr($description) ?>-->
+            <?= $description; ?>
+            </td>
         </tr>
     <? endif; ?>
     
