@@ -6,7 +6,7 @@
   } else {
       $this->headTitle($this->translate('Search Results') . (empty($lookfor) ? '' : " - {$lookfor}"));
   }
-/* PHE The search box was already set up in "layout/layout.html" to be shown on every page
+/* PHE The search box was already set up in "layout/layout.html" to be shown on every page */
   // Set up search box:
   $this->layout()->searchbox = $this->context($this)->renderInContext(
       'search/searchbox.phtml',
@@ -22,7 +22,7 @@
         'selectedShards' => $this->params->getSelectedShards()
       )
   );
-*/
+  
   // Set up breadcrumbs:
   if (isset($this->overrideTitle)) {
     $this->layout()->breadcrumbs .= '<li class="active">' . $this->escapeHtml($this->overrideTitle) . '</li>';
