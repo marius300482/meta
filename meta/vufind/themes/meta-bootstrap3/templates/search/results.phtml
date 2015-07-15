@@ -90,7 +90,9 @@
       <? endif; ?>
 
     </div>
-    <? foreach ($filterList as $field => $filters): ?>
+   
+   
+    <!--<? foreach ($filterList as $field => $filters): ?>
         <? foreach ($filters as $i => $filter): ?>
             <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
                 <div class="search-result-restriction-info">
@@ -100,7 +102,9 @@
                 <?php break 2; ?>
             <?php endif; ?>
         <?php endforeach; ?>
-    <?php endforeach; ?>
+    <?php endforeach; ?>-->
+   
+   
     <div class="search-result-used-filters">
           <table>
               <? foreach ($filterList as $field => $filters): ?>
@@ -114,9 +118,9 @@
                               <strong>
                                   <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
                                       <?= $this->escapeHtml($filter['displayText']) ?>
-                                      <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
-                                          <?= $this->transEsc('open search') ?>
-                                      </a>
+                                     <!--  <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
+                                          <?= $this->transEsc('open search') ?>test
+                                      </a>-->
                                       <br/>
                                   <?php else: ?>
                                       <?= $this->escapeHtml($filter['displayText']) ?><?= $filter !== end($filters) ? ", " : "" ?>
