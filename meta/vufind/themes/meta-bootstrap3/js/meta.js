@@ -90,6 +90,13 @@ $(document).ready(function () {
                     .prev('.subrecords-sep')
                     .find('a.subrecords-toggle')
                     .toggleClass('hidden');
+                
+                // go back to the group head
+                $(this)
+	                .prev('.subrecords-sep')
+	                .prev('.result')
+	                .find('a.title')
+	                .focus();
             });
 
         // ... and "sub records shown" event
