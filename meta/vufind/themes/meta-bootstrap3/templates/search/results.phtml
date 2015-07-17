@@ -92,7 +92,7 @@
     </div>
    
    
-    <!--<? foreach ($filterList as $field => $filters): ?>
+   <!-- <? foreach ($filterList as $field => $filters): ?>
         <? foreach ($filters as $i => $filter): ?>
             <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
                 <div class="search-result-restriction-info">
@@ -103,35 +103,66 @@
             <?php endif; ?>
         <?php endforeach; ?>
     <?php endforeach; ?>-->
-   
-   
+ 
+    
+
+ 
    
     <div class="search-result-used-filters">
-   <table>
-        <? foreach ($filterList as $field => $filters): ?>
-                  <tr>
-                      <td><?= $this->transEsc($field) ?>:</td>
-                      <td>
-                          <? foreach ($filters as $i => $filter): ?>
-                              <? if ($filter['displayText'] == '[* TO *]') : ?>
-                                  <? $filter['displayText'] = $this->translate('filter_wildcard'); ?>
-                              <? endif; ?>
-                              <strong>
-                                  <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
-                                      <?= $this->escapeHtml($filter['displayText']) ?>
-                                     <!--  <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
-                                          <?= $this->transEsc('open search') ?>
-                                      </a>-->
-                                      <br/>
-                                  <?php else: ?>
-                                      <?= $this->escapeHtml($filter['displayText']) ?><?= $filter !== end($filters) ? ", " : "" ?>
-                                      <? // Keep above in one line to avoid unwanted whitespace ?>                                  <?php endif; ?>
-                              </strong>
-                          <? endforeach; ?>
-                      </td>
-                  </tr>
-              <? endforeach; ?>
-          </table>
+     
+         
+  
+  
+<table>
+  <? foreach ($filterList as $field => $filters): ?>
+    <tr>
+      <td><?= $this->transEsc($field) ?>:</td>
+      <td>
+	<? foreach ($filters as $i => $filter): ?>
+	<?
+          $index = isset($filter['field']) ? array_search($filter['field'], $collapsedFacets) : false;
+          if ($index !== false) {
+              unset($collapsedFacets[$index]); // Open if we have a match
+          }
+          if (isset($filter['specialType']) && $filter['specialType'] == 'keyword') {
+            $removeLink = $resultBasePath.$results->getUrlQuery()->replaceTerm($filter['value'], '');
+          } else {
+            $removeLink = $resultBasePath.$results->getUrlQuery()->removeFacet($filter['field'], $filter['value'], true, $filter['operator']);
+          }
+          if ($filter['displayText'] == '[* TO *]') {
+            $filter['displayText'] = $this->translate('filter_wildcard');
+          }
+        ?>
+          <span style="border-bottom: 1pt solid black; border-color:#e6e5eb">
+          
+          <strong><?=$this->escapeHtml($filter['displayText'])?></strong>  
+          
+          <a href="<?=$removeLink?>">
+	  <i class="fa fa-times"></i>&nbsp;<span class="pull-right"></span>
+          <? if ($filter['operator'] == 'NOT') echo $this->transEsc('NOT') . ' '; if ($filter['operator'] == 'OR' && $i > 0) echo $this->transEsc('OR') . ' '; ?>
+           <?= $this->transEsc('remove') ?>
+          </a>
+         
+          &nbsp;<font style="color:#c114c8">|</font>
+         
+          <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
+	    <i class="fa fa-search"></i>
+	    <?= $this->transEsc('search') ?>
+	    </a>
+	   </span>
+        </br>
+      
+	  <? endforeach; ?>
+	</td>
+       </tr>
+      <? endforeach; ?>
+     </table>
+
+          
+          
+          
+  
+  
     </div>
    
   
