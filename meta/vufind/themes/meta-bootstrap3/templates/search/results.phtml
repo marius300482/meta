@@ -107,7 +107,31 @@
    
    
     <div class="search-result-used-filters">
-      
+   <table>
+        <? foreach ($filterList as $field => $filters): ?>
+                  <tr>
+                      <td><?= $this->transEsc($field) ?>:</td>
+                      <td>
+                          <? foreach ($filters as $i => $filter): ?>
+                              <? if ($filter['displayText'] == '[* TO *]') : ?>
+                                  <? $filter['displayText'] = $this->translate('filter_wildcard'); ?>
+                              <? endif; ?>
+                              <strong>
+                                  <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
+                                      <?= $this->escapeHtml($filter['displayText']) ?>
+                                     <!--  <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
+                                          <?= $this->transEsc('open search') ?>
+                                      </a>-->
+                                      <br/>
+                                  <?php else: ?>
+                                      <?= $this->escapeHtml($filter['displayText']) ?><?= $filter !== end($filters) ? ", " : "" ?>
+                                      <? // Keep above in one line to avoid unwanted whitespace ?>                                  <?php endif; ?>
+                              </strong>
+                          <? endforeach; ?>
+                      </td>
+                  </tr>
+              <? endforeach; ?>
+          </table>
     </div>
    
   
