@@ -148,13 +148,13 @@
 	      <? if ($filter['operator'] == 'NOT') echo $this->transEsc('NOT') . ' '; if ($filter['operator'] == 'OR' && $i > 0) echo $this->transEsc('OR') . ' '; ?>
 	     
 	      </a>
-         
+         <!--
           &nbsp;<font style="color:#c114c8">|</font>
           
 	    <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
 	    <i class="fa fa-search"></i>
 	    
-	    </a>
+	    </a>-->
 	     </span>
             <br/>
            
