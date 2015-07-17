@@ -47,6 +47,8 @@
 
   // Topic facet key
   $topicFacetKey = 'topic_facet';
+  $contributorFacetKey = 'contributor_facet';
+  $recordtypeFacetKey = 'recordtype_facet';
 
 ?>
 
@@ -133,24 +135,42 @@
             $filter['displayText'] = $this->translate('filter_wildcard');
           }
         ?>
-          <span style="border-bottom: 1pt solid black; border-color:#e6e5eb">
+         
+
+         
           
-          <strong><?=$this->escapeHtml($filter['displayText'])?></strong>  
-          
-          <a href="<?=$removeLink?>">
-	  <i class="fa fa-times"></i>&nbsp;<span class="pull-right"></span>
-          <? if ($filter['operator'] == 'NOT') echo $this->transEsc('NOT') . ' '; if ($filter['operator'] == 'OR' && $i > 0) echo $this->transEsc('OR') . ' '; ?>
-           <?= $this->transEsc('remove') ?>
-          </a>
+          <?php if (isset($filter['field']) && $topicFacetKey === $filter['field'] || $contributorFacetKey === $filter['field']) : ?>
+	    
+	   <span style="border-bottom: 1pt solid black; border-color:#e6e5eb">
+	   <?=$this->escapeHtml($filter['displayText'])?>
+	      <a href="<?=$removeLink?>">
+	      <i class="fa fa-times"></i>&nbsp;<span class="pull-right"></span>
+	      <? if ($filter['operator'] == 'NOT') echo $this->transEsc('NOT') . ' '; if ($filter['operator'] == 'OR' && $i > 0) echo $this->transEsc('OR') . ' '; ?>
+	     
+	      </a>
          
           &nbsp;<font style="color:#c114c8">|</font>
-         
-          <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
+          
+	    <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
 	    <i class="fa fa-search"></i>
-	    <?= $this->transEsc('search') ?>
+	    
 	    </a>
-	   </span>
-        </br>
+	     </span>
+            <br/>
+           
+           <?php else: ?>
+	   
+	      <?=$this->escapeHtml($filter['displayText'])?>
+	      <a href="<?=$removeLink?>">
+	      
+	      <i class="fa fa-times"></i><? if ($filter['operator'] == 'NOT') echo $this->transEsc('NOT') . ' '; if ($filter['operator'] == 'OR' && $i > 0) echo $this->transEsc('OR') . ' '; ?></a>
+	   
+	    <? // Keep above in one line to avoid unwanted whitespace ?>
+	    <?php endif; ?>
+          
+          
+	  
+        
       
 	  <? endforeach; ?>
 	</td>
