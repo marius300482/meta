@@ -499,14 +499,14 @@
         </tr>
     <? endif; ?>
    
-    <? $creationdate = $this->driver->getRecordCreationDate(); ?>
+    <!--<? $creationdate = $this->driver->getRecordCreationDate(); ?>
     <? if (isset($creationdate)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Date')?>: </th>
             <td property="creationdate"><?= $this->escapeHtml($creationdate) ?></td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>
