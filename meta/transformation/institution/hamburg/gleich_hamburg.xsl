@@ -228,16 +228,16 @@
 	
 	<xsl:template match="Haupttitel">
 		<title>
-			<xsl:value-of select="."/>
+			<xsl:value-of select="normalize-space(.)" />
 			</title>
 		<title_short>
-			<xsl:value-of select="."/>
+			<xsl:value-of select="normalize-space(.)" />
 			</title_short>	
 		</xsl:template>
 		
 	<xsl:template match="Untertitel">
 		<title_sub>
-			<xsl:value-of select="."/>
+			<xsl:value-of select="normalize-space(.)" />
 			</title_sub>	
 		</xsl:template>
 	
@@ -315,9 +315,9 @@
 	
 	<xsl:template match="Autoren">
 		<xsl:for-each select="tokenize(.,';')">
-			<xsl:if test=".!='u.a'">
+			<xsl:if test="not(contains(.,'u.a.'))">
 			<author>
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				</author>
 				</xsl:if>
 			</xsl:for-each>
@@ -325,9 +325,9 @@
 	
 	<xsl:template match="Herausgeber">
 		<xsl:for-each select="tokenize(.,';')">
-			<xsl:if test=".!='u.a'">
+			<xsl:if test="not(contains(.,'u.a.'))">
 			<editor>
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				</editor>
 				</xsl:if>
 			</xsl:for-each>
