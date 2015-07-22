@@ -87,6 +87,8 @@
 			<field name="latitude"><xsl:value-of select="institution/geoLocation/latitude" /></field>
 			
 			<field name="longitude"><xsl:value-of select="institution/geoLocation/longitude" /></field>
+			
+			<xsl:apply-templates select="institution/location[string-length() != 0]" />
 		
 <!--dataset-->
 		
@@ -668,5 +670,11 @@
 			</field>
 		</xsl:template>
 	
+	<xsl:template match="location">
+		<field name="location">
+			<xsl:value-of select="." />
+			</field>
+		</xsl:template>
+
 
 </xsl:stylesheet>
