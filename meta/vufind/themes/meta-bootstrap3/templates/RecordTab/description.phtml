@@ -36,6 +36,15 @@
         </tr>
     <? endif; ?>
     
+    <? $location = $this->driver->getLocation(); ?>
+    <? if (isset($location)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Location')?>: </th>
+            <td property="location"><?= $this->escapeHtml($location); ?></td>
+        </tr>
+    <? endif; ?>
+    
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
         <? $contentDisplayed = true; ?>
