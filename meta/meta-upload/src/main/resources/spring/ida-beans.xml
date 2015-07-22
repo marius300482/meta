@@ -210,6 +210,14 @@
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
+      <bean id="basel" class="de.idadachverband.institution.IdaInstitutionBean">
+     	<constructor-arg index="0" name="institutionId" value="hamburg"/>
+        <constructor-arg index="1" name="institutionName" value="hamburger frauen*bibliothek"/>
+        <constructor-arg index="2" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/hamburg/gleich_hamburg.xsl"/>
+        <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
     
     <util:set id="institutionsSet" set-class="java.util.HashSet"
     		  value-type="de.idadachverband.institution.IdaInstitutionBean">
@@ -228,6 +236,7 @@
 	<ref bean="fnwien"/>
 	<ref bean="fsadresden"/>
 	<ref bean="basel" />
+	<ref bean="hamburg" />
     </util:set>
 
     <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer"
