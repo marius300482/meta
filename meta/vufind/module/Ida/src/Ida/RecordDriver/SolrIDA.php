@@ -203,7 +203,7 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('title_sub');
     }
     
-    public function getTitleSub()
+    public function getLocation()
     {
         return $this->getSingleValuedField('location');
     }
