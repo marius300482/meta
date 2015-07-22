@@ -315,17 +315,21 @@
 	
 	<xsl:template match="Autoren">
 		<xsl:for-each select="tokenize(.,';')">
+			<xsl:if test=".!='u.a'">
 			<author>
 				<xsl:value-of select="." />
 				</author>
+				</xsl:if>
 			</xsl:for-each>
 		</xsl:template>
 	
 	<xsl:template match="Herausgeber">
 		<xsl:for-each select="tokenize(.,';')">
+			<xsl:if test=".!='u.a'">
 			<editor>
 				<xsl:value-of select="." />
 				</editor>
+				</xsl:if>
 			</xsl:for-each>
 		</xsl:template>
 	
