@@ -152,7 +152,7 @@
 				
     			<xsl:apply-templates select="dataset/collectionHolding" />
     			
-    			<xsl:apply-templates select="dataset/displayPublishDate" />	
+    			<xsl:apply-templates select="dataset/displayPublishDate[1]" />	
     			
     			<xsl:apply-templates select="dataset/publishDate[1]" />
     			<!--
