@@ -95,9 +95,7 @@
     			
     			<xsl:apply-templates select="dataset/format" />
     			
-    			<xsl:if test="dataset/documentType">
-    				<field name="documentType"><xsl:value-of select="dataset/documentType" /></field>
-    				</xsl:if>
+    			<xsl:apply-templates select="dataset/documentType[1]" />
     	
     	<!--Titelangaben-->
     	
@@ -214,7 +212,7 @@
                 		
                 		<xsl:apply-templates select="dataset/description" />
                 		
-                		<xsl:apply-templates select="dataset/shelfMark" />
+                		<xsl:apply-templates select="dataset/shelfMark[1]" />
                 		
                 		<xsl:apply-templates select="dataset/issue" />
 			
@@ -458,10 +456,14 @@
 	<xsl:template match="typeOfRessource">
 		<field name="typeOfRessource"><xsl:value-of select="."/></field>
 		</xsl:template>
-		
-	<!--<xsl:template match="documentType">
-		<field name="documentType"><xsl:value-of select="*/"/></field>
-		</xsl:template>-->
+	
+	<xsl:template match="documentType">
+		<field name="documentType">
+			<xsl:for-each select="../documentType">
+				<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text>			
+				</xsl:for-each>
+			</field>
+		</xsl:template>
 	
 	<xsl:template match="publishDate">
 		<xsl:variable name="the_max">
@@ -729,7 +731,9 @@
 	
 	<xsl:template match="shelfMark">
 		<field name="shelfMark">
-			<xsl:value-of select="normalize-space(.)" />
+			<xsl:for-each select="../shelfMark">
+				<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text>			
+				</xsl:for-each>
 			</field>
 		</xsl:template>
 	
