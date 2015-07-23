@@ -343,7 +343,7 @@
             <th><?=$this->transEsc('Description')?>: </th>
             <td property="specificMaterialDesignations">
             <? foreach($specificMaterialDesignations as $specificMaterialDesignation): ?>
-                <?= $this->escapeHtml($specificMaterialDesignation) ?><?= $specificMaterialDesignation !== end($specificMaterialDesignations) ? ", " : "" ?>
+                 <?= $specificMaterialDesignation ?><?= $specificMaterialDesignation !== end($specificMaterialDesignations) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -402,7 +402,7 @@
             <th><?=$this->transEsc('Run Time')?>: </th>
             <td property="runTime">
             <? foreach ($runTimes as $runTime): ?>
-                <?=$this->escapeHtml($runTime)?><?= $runTime !== end($runTimes) ? ", " : "" ?>
+                 <?= $runTime ?><?= $runTime !== end($runTimes) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
