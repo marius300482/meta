@@ -260,7 +260,18 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-					<xsl:apply-templates select="Titel"/>		
+					<title>
+						<xsl:value-of select="Titel[1]" />
+						</title>
+					<title_short>
+						<xsl:value-of select="Titel[1]" />
+						</title_short>
+					
+					<xsl:for-each select="Titel[position()>=2]">
+						<title_alt>
+							<xsl:value-of select="." />
+							</title_alt>
+						</xsl:for-each>		
 					<xsl:apply-templates select="Untertitel"/>		
 
 <!--RESPONSIBLE-->
@@ -489,7 +500,20 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-					<xsl:apply-templates select="Titel"/>		
+					<title>
+						<xsl:value-of select="Titel[1]" />
+						</title>
+					<title_short>
+						<xsl:value-of select="Titel[1]" />
+						</title_short>
+					
+					<xsl:for-each select="Titel[position()>=2]">
+						<title_alt>
+							<xsl:value-of select="." />
+							</title_alt>
+						</xsl:for-each>
+					
+					<!--<xsl:apply-templates select="Titel"/>	-->	
 					<xsl:apply-templates select="Untertitel"/>		
 
 <!--RESPONSIBLE-->
@@ -674,12 +698,7 @@
 					<xsl:apply-templates select="Orte"/>
 					
 	<!--description-->
-					<description>
-					<xsl:for-each select="Titel">
-						<xsl:value-of select="." />
-						<xsl:text>&lt;br&gt;</xsl:text>
-						</xsl:for-each>
-						</description>
+					
 					<xsl:apply-templates select="Bemerkungen"/>
 					
 					<!--<xsl:if test="Bestand_x058x_">
@@ -788,12 +807,7 @@
 					<xsl:apply-templates select="Orte"/>
 					
 	<!--description-->
-					<description>
-					<xsl:for-each select="Titel">
-						<xsl:value-of select="." />
-						<xsl:text>&lt;br&gt;</xsl:text>
-						</xsl:for-each>
-						</description>
+					
 					<xsl:apply-templates select="Bemerkungen"/>
 					
 					<!--<xsl:if test="Bestand_x058x_">
@@ -828,24 +842,28 @@
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	<!--at Objektartinformationen-->
 					<format>
-						<!--<xsl:choose>
-							<xsl:when test="contains(Titel,.'CD')">
-								<xsl:text>Tonträger</xsl:text>
-								</xsl:when>
-							<xsl:when test="contains(Titel,.'DVD')">
-								<xsl:text>Film</xsl:text>
-								</xsl:when>
-							</xsl:choose>-->
-							<xsl:text>Plakat</xsl:text>
+						<xsl:text>Akte</xsl:text>
 						</format>
 	<!--documentType-->
-		<documentType><xsl:text>Grafik</xsl:text></documentType>
+					<documentType>
+						<xsl:value-of select="Bestand"></xsl:value-of>
+						</documentType>
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-					<xsl:apply-templates select="Titel"/>
-					<xsl:apply-templates select="Untertitel"/>		
-
+					<title>
+						<xsl:value-of select="Titel[1]" />
+						</title>
+					<title_short>
+						<xsl:value-of select="Titel[1]" />
+						</title_short>
+					
+					<xsl:for-each select="Titel[position()>=2]">
+						<title_alt>
+							<xsl:value-of select="." />
+							</title_alt>
+						</xsl:for-each>
+					
 <!--RESPONSIBLE-->
 
 	<!--author Autorinneninformation-->
@@ -859,6 +877,9 @@
 
 	<!--edtion Auflage-->
 					<xsl:apply-templates select="Auflage"/>
+					
+	<!--provenance-->
+					<xsl:apply-templates select="Provenienz"/>
 
 <!--IDENTIFIER-->
 
@@ -913,12 +934,12 @@
 					<xsl:apply-templates select="Orte"/>
 					
 	<!--description-->
-					<description>
+					<!--<description>
 					<xsl:for-each select="Titel">
 						<xsl:value-of select="." />
 						<xsl:text>&lt;br&gt;</xsl:text>
 						</xsl:for-each>
-						</description>
+						</description>-->
 					<xsl:apply-templates select="Bemerkungen"/>
 					
 					<!--<xsl:if test="Bestand_x058x_">
@@ -942,6 +963,14 @@
 		</xsl:element>
 		<!--</xsl:if>-->
 	</xsl:template>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 <!--Templates-->
 	
