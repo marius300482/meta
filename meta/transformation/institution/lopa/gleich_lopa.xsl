@@ -1069,7 +1069,20 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-					<xsl:apply-templates select="Titel"/>	
+					<title>
+						<xsl:value-of select="Titel[1]" />
+						</title>
+					<title_short>
+						<xsl:value-of select="Titel[1]" />
+						</title_short>
+					
+					<xsl:for-each select="Titel[position()>=2]">
+						<title_alt>
+							<xsl:value-of select="." />
+							</title_alt>
+						</xsl:for-each>		
+					<!--<xsl:apply-templates select="Untertitel"/>	
+					<xsl:apply-templates select="Titel"/>	-->
 		
 <!--RESPONSIBLE-->
 	
@@ -1107,10 +1120,10 @@
 							</xsl:when>
 						<xsl:otherwise>
 							<displayPublishDate>
-								<xsl:value-of  select="Laufzeit-Datierung-Jahr" />
+								<xsl:value-of  select="Laufzeit-Datierung-Jahr[1]" />
 								</displayPublishDate>
 							<publishDate>
-								<xsl:value-of select="translate(Laufzeit-Datierung-Jahr, translate(.,'0123456789-', ''), '')" />
+								<xsl:value-of select="translate(Laufzeit-Datierung-Jahr[1], translate(.,'0123456789-', ''), '')" />
 								</publishDate>
 							</xsl:otherwise>
 						</xsl:choose>
