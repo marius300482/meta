@@ -1091,15 +1091,15 @@
 		
 		<!--display publishDate Jahresangabe-->
 					<xsl:choose>
-						<xsl:when test="contains(Laufzeit-Datierung-Jahr,'-')">
+						<xsl:when test="contains(Laufzeit-Datierung-Jahr[1],'-')">
 							<displayPublishDate>
-								<xsl:value-of  select="Laufzeit-Datierung-Jahr" />
+								<xsl:value-of  select="Laufzeit-Datierung-Jahr[1]" />
 								</displayPublishDate>
 							<publishDate>
-								<xsl:value-of select="normalize-space(substring-before(Laufzeit-Datierung-Jahr,'-'))"/>
+								<xsl:value-of select="normalize-space(substring-before(Laufzeit-Datierung-Jahr[1],'-'))"/>
 								</publishDate>
 							<publishDate>
-								<xsl:value-of select="normalize-space(substring-after(Laufzeit-Datierung-Jahr,'-'))"/>
+								<xsl:value-of select="normalize-space(substring-after(Laufzeit-Datierung-Jahr[1],'-'))"/>
 								</publishDate>
 							</xsl:when>
 						<xsl:when test="not(Laufzeit-Datierung-Jahr)">
