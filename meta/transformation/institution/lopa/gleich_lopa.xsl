@@ -826,20 +826,20 @@
 
 	<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
-	<!--format Objektartinformationen-->
+	<!--at Objektartinformationen-->
 					<format>
-						<xsl:choose>
+						<!--<xsl:choose>
 							<xsl:when test="contains(Titel,.'CD')">
 								<xsl:text>Tonträger</xsl:text>
 								</xsl:when>
 							<xsl:when test="contains(Titel,.'DVD')">
 								<xsl:text>Film</xsl:text>
 								</xsl:when>
-							</xsl:choose>
+							</xsl:choose>-->
 							<xsl:text>Plakat</xsl:text>
 						</format>
 	<!--documentType-->
-					<documentType><xsl:text>Grafik</xsl:text></documentType>
+		<documentType><xsl:text>Grafik</xsl:text></documentType>
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
