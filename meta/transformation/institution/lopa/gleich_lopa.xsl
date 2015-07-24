@@ -56,6 +56,35 @@
 		
 	<!--Identifikator-->
 				<id>
+					<xsl:choose>
+					<xsl:when test="objektart[text()='Periodika']">
+						<xsl:text>periodika</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Akte']">
+						<xsl:text>akte</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Brief']">
+						<xsl:text>brief</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Foto']">
+						<xsl:text>foto</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Graphik']">
+						<xsl:text>graphik</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Neue Medien']">
+						<xsl:text>neuemedien</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Bibliothek']">
+						<xsl:text>bibliothtek</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Buch']">
+						<xsl:text>buch</xsl:text>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Zeitungs-/Zeitschriftenartikel']">
+						<xsl:text>artikel</xsl:text>
+						</xsl:when>
+					</xsl:choose>
 					<xsl:value-of select="id"></xsl:value-of>
 					<xsl:text>lopa</xsl:text>
 					</id>
@@ -74,9 +103,45 @@
 					</recordChangeDate>
 	
 	<!--recordType-->
-				<recordType>
-					<xsl:text>library</xsl:text>
-					</recordType>
+				<xsl:choose>
+					<xsl:when test="objektart[text()='Periodika']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Akte']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Brief']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Foto']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Graphik']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:when test="objektart[text()='Neue Medien']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:otherwise>
+						<recordType>
+							<xsl:text>library</xsl:text>
+							</recordType>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				
 				
 	
 </xsl:element>
@@ -127,6 +192,11 @@
 <!--dataset_______________________________dataset_______________________________dataset-->
 <!--dataset_______________________________dataset_______________________________dataset-->
 <!--dataset_______________________________dataset_______________________________dataset-->	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -241,6 +311,19 @@
 		</xsl:element>
 	</xsl:if>
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!--Akte___________Akte____________Akte-->
@@ -362,6 +445,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--Brief___________Brief____________Brief-->
 
 
@@ -479,6 +578,14 @@
 
 		</xsl:element>
 	</xsl:if>
+
+
+
+
+
+
+
+
 
 
 
@@ -610,6 +717,9 @@
 
 
 
+
+
+
 <!--Foto__________________________Foto___________________________Foto-->
 
 <xsl:if test="objektart[text()='Foto']">
@@ -721,6 +831,14 @@
 
 
 
+
+
+
+
+
+
+
+
 <!--Graphik__________________________Graphik___________________________Graphik-->
 
 <xsl:if test="objektart[text()='Graphik']">
@@ -826,6 +944,221 @@
 		</xsl:element>
 	</xsl:if>
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Periodika_____________________________Periodika____________________________________Periodika-->
+
+<xsl:if test="objektart[text()='Periodika']">
+	<xsl:element name="dataset">
+	
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	<!--at Objektartinformationen-->
+					<format>
+						<xsl:text>Zeitschrift</xsl:text>
+						</format>
+	<!--documentType-->
+	
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+					<xsl:apply-templates select="Periodikum" />
+		
+<!--RESPONSIBLE-->
+	
+		<!--editor Herausgeberinneninformationen-->
+					<xsl:apply-templates select="Herausgeber"/>
+
+<!--PUBLISHING-->
+
+		<!--display publishDate Jahresangabe-->
+					<xsl:choose>
+						<xsl:when test="contains(Laufzeit-Datierung-Jahr,'-')">
+							<displayPublishDate>
+								<xsl:value-of  select="Laufzeit-Datierung-Jahr" />
+								</displayPublishDate>
+							<publishDate>
+								<xsl:value-of select="normalize-space(substring-before(Laufzeit-Datierung-Jahr,'-'))"/>
+								</publishDate>
+							<publishDate>
+								<xsl:value-of select="normalize-space(substring-after(Laufzeit-Datierung-Jahr,'-'))"/>
+								</publishDate>
+							</xsl:when>
+						<xsl:when test="not(Laufzeit-Datierung-Jahr)">
+							
+							</xsl:when>
+						<xsl:otherwise>
+							<displayPublishDate>
+								<xsl:value-of  select="Laufzeit-Datierung-Jahr" />
+								</displayPublishDate>
+							<publishDate>
+								<xsl:value-of select="translate(Laufzeit-Datierung-Jahr, translate(.,'0123456789-', ''), '')" />
+								</publishDate>
+							</xsl:otherwise>
+						</xsl:choose>
+
+		<!--placeOfPublication Ortsangabe-->
+					<xsl:apply-templates select="Ersch__Ort"/>
+
+		<!--publisher Verlagsangabe-->
+					<xsl:apply-templates select="Verlag"/>
+
+<!--PHYSICAL INFORMATION-->
+
+		<!--physical Seitenangabe-->
+					<xsl:apply-templates select="Umfang"/>
+
+<!--CONTENTRELATED INFORMATION-->
+					
+	<!--description-->
+					<xsl:apply-templates select="Bemerkungen"/>
+
+	
+<!--OTHER-->
+
+	<!--SHELFMARK-->
+					<xsl:apply-templates select="Bib_Signatur"/>
+
+		</xsl:element>
+	</xsl:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Zeitungs-/Zeitschriftenartikel_____________________________Zeitungs-/Zeitschriftenartikel____________________________________Zeitungs-/Zeitschriftenartikel-->
+
+<xsl:if test="objektart[text()='Zeitungs-/Zeitschriftenartikel']">
+	<xsl:element name="dataset">
+	
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	<!--at Objektartinformationen-->
+					<format>
+						<xsl:text>Artikel</xsl:text>
+						</format>
+	<!--documentType-->
+	
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+					<xsl:apply-templates select="Titel"/>	
+		
+<!--RESPONSIBLE-->
+	
+		<!--author Autorinneninformation-->
+					<author>
+						<xsl:text>Otto, Louise</xsl:text>
+						</author>
+			
+		<!--editor Herausgeberinneninformationen-->
+					<editor>
+						<xsl:text>Hackländer, F. W.</xsl:text>
+						</editor>
+					<editor>
+						<xsl:text>Hoefer, Edmund</xsl:text>
+						</editor>
+				
+
+<!--PUBLISHING-->
+		
+		<!--display publishDate Jahresangabe-->
+					<xsl:choose>
+						<xsl:when test="contains(Laufzeit-Datierung-Jahr,'-')">
+							<displayPublishDate>
+								<xsl:value-of  select="Laufzeit-Datierung-Jahr" />
+								</displayPublishDate>
+							<publishDate>
+								<xsl:value-of select="normalize-space(substring-before(Laufzeit-Datierung-Jahr,'-'))"/>
+								</publishDate>
+							<publishDate>
+								<xsl:value-of select="normalize-space(substring-after(Laufzeit-Datierung-Jahr,'-'))"/>
+								</publishDate>
+							</xsl:when>
+						<xsl:when test="not(Laufzeit-Datierung-Jahr)">
+							
+							</xsl:when>
+						<xsl:otherwise>
+							<displayPublishDate>
+								<xsl:value-of  select="Laufzeit-Datierung-Jahr" />
+								</displayPublishDate>
+							<publishDate>
+								<xsl:value-of select="translate(Laufzeit-Datierung-Jahr, translate(.,'0123456789-', ''), '')" />
+								</publishDate>
+							</xsl:otherwise>
+						</xsl:choose>
+
+		
+		<!--placeOfPublication Ortsangabe-->
+					<xsl:apply-templates select="Ersch__Ort"/>
+
+		<!--publisher Verlagsangabe-->
+					<xsl:apply-templates select="Verlag"/>
+		
+		<!--sourceInfo-->	
+					<sourceInfo>
+						<xsl:text>Hausblätter</xsl:text>
+						</sourceInfo>
+		
+<!--PHYSICAL INFORMATION-->
+
+		<!--physical Seitenangabe-->
+					<physical>
+						<xsl:value-of select="Seite_von" />
+						<xsl:text> - </xsl:text>
+						<xsl:value-of select="bis" />
+						</physical>
+
+<!--CONTENTRELATED INFORMATION-->
+					
+	<!--description-->
+					<xsl:apply-templates select="Bemerkungen"/>
+
+	
+<!--OTHER-->
+
+	<!--SHELFMARK-->
+					<xsl:apply-templates select="Signatur"/>
+
+		</xsl:element>
+	</xsl:if>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1089,11 +1422,11 @@
 			</xsl:for-each>
 		</xsl:template>
 	
-	<!--<xsl:template match="Umfang">
+	<xsl:template match="Umfang">
 		<physical>
-			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789-', ''), ''))" />
+			<xsl:value-of select="normalize-space(.)" />
 			</physical>
-		</xsl:template>-->
+		</xsl:template>
 	
 	<xsl:template match="Verlag">
 		<publisher>
@@ -1130,9 +1463,18 @@
 	
 	<xsl:template match="Herausgeber">
 		<xsl:for-each select="tokenize(.,';')">
-			<editor>
-				<xsl:value-of select="normalize-space(.)" />
-				</editor>
+			<xsl:choose>
+				<xsl:when test="contains(.,'redigirt von Louise Otto')">
+					<editor>
+						<xsl:text>Otto, Louise</xsl:text>
+						</editor>
+					</xsl:when>
+				<xsl:otherwise>
+					<editor>
+						<xsl:value-of select="normalize-space(.)" />
+						</editor>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:for-each>
 		</xsl:template>
 	
@@ -1172,6 +1514,13 @@
 			</title_sub>
 		</xsl:template>
 	
-					
+	<xsl:template match="Periodikum">
+		<title>
+			<xsl:value-of select="normalize-space(.)"/>
+			</title>
+		<title_short>
+			<xsl:value-of select="normalize-space(.)"/>
+			</title_short>
+		</xsl:template>			
 		
 </xsl:stylesheet>
