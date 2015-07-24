@@ -31,7 +31,7 @@
 
 <xsl:template match="datensatz">	
 
-<xsl:if test="objektart[text()='Neue Medien']">
+<!--<xsl:if test="objektart[text()='Neue Medien']">-->
 
 
 		<xsl:variable name="id" select="id" />
@@ -111,8 +111,8 @@
 <!--linkToWebpage-->			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/louise-otto-peters-archiv/</xsl:text></link>
 	
 <!--geoLocation-->				<geoLocation>
-							<latitude>0</latitude>
-							<longitude>0</longitude>
+							<latitude>51.3379400</latitude>
+							<longitude>12.4057900</longitude>
 							</geoLocation>
 			
 </xsl:element>
@@ -836,7 +836,8 @@
 								<xsl:text>Film</xsl:text>
 								</xsl:when>
 							</xsl:choose>
-					<xsl:text>Plakat</xsl:text></format>
+							<xsl:text>Plakat</xsl:text>
+						</format>
 	<!--documentType-->
 					<documentType><xsl:text>Grafik</xsl:text></documentType>
 <!--TITLE-->
@@ -939,7 +940,7 @@
 
 
 		</xsl:element>
-		</xsl:if>
+		<!--</xsl:if>-->
 	</xsl:template>
 	
 <!--Templates-->
