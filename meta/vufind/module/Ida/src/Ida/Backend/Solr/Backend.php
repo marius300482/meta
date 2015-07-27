@@ -39,6 +39,7 @@ class Backend extends \VuFindSearch\Backend\Solr\Backend {
         $params->set('group', 'true'); // TODO: make configurable
         $params->set('group.field', 'groupID'); // TODO: make configurable
         $params->set('group.limit', 20); // TODO: make configurable
+        $params->set('group.ngroups', 'true');
 
         $response   = $this->connector->search($params);
         $collection = $this->createRecordCollection($response);
