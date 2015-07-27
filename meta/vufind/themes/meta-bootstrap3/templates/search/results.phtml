@@ -47,6 +47,8 @@
 
   // Topic facet key
   $topicFacetKey = 'topic_facet';
+  $contributorFacetKey = 'contributor_facet';
+  $recordtypeFacetKey = 'recordtype_facet';
 
 ?>
 
@@ -92,7 +94,7 @@
     </div>
    
    
-    <!--<? foreach ($filterList as $field => $filters): ?>
+   <!-- <? foreach ($filterList as $field => $filters): ?>
         <? foreach ($filters as $i => $filter): ?>
             <?php if (isset($filter['field']) && $topicFacetKey === $filter['field']) : ?>
                 <div class="search-result-restriction-info">
@@ -103,11 +105,84 @@
             <?php endif; ?>
         <?php endforeach; ?>
     <?php endforeach; ?>-->
-   
-   
+ 
+    
+
+ 
    
     <div class="search-result-used-filters">
+     
+         
+  
+  
+<table>
+  <? foreach ($filterList as $field => $filters): ?>
+    <tr>
+      <td><?= $this->transEsc($field) ?>:</td>
+      <td>
+	<? foreach ($filters as $i => $filter): ?>
+	<?
+          $index = isset($filter['field']) ? array_search($filter['field'], $collapsedFacets) : false;
+          if ($index !== false) {
+              unset($collapsedFacets[$index]); // Open if we have a match
+          }
+          if (isset($filter['specialType']) && $filter['specialType'] == 'keyword') {
+            $removeLink = $resultBasePath.$results->getUrlQuery()->replaceTerm($filter['value'], '');
+          } else {
+            $removeLink = $resultBasePath.$results->getUrlQuery()->removeFacet($filter['field'], $filter['value'], true, $filter['operator']);
+          }
+          if ($filter['displayText'] == '[* TO *]') {
+            $filter['displayText'] = $this->translate('filter_wildcard');
+          }
+        ?>
+         
+
+         
+          
+          <?php if (isset($filter['field']) && $topicFacetKey === $filter['field'] || $contributorFacetKey === $filter['field']) : ?>
+	    
+	   <!--<span style="border-bottom: 1pt solid black; border-color:#e6e5eb">-->
+	   <?=$this->escapeHtml($filter['displayText'])?>
+	      <a href="<?=$removeLink?>">
+	      <i class="fa fa-times"></i>&nbsp;<span class="pull-right"></span>
+	      <? if ($filter['operator'] == 'NOT') echo $this->transEsc('NOT') . ' '; if ($filter['operator'] == 'OR' && $i > 0) echo $this->transEsc('OR') . ' '; ?>
+	     
+	      </a>
+         <!--
+          &nbsp;<font style="color:#c114c8">|</font>
+          
+	    <a href="<?= $this->url("search-results") . "?type=AllFields&limit=20&lookfor=" . $this->escapeHtmlAttr($filter['value']); ?>">
+	    <i class="fa fa-search"></i>
+	    
+	    </a>-->
+	     <!--</span>-->
+            <br/>
+           
+           <?php else: ?>
+	   
+	      <?=$this->escapeHtml($filter['displayText'])?>
+	      <a href="<?=$removeLink?>">
+	      
+	      <i class="fa fa-times"></i><? if ($filter['operator'] == 'NOT') echo $this->transEsc('NOT') . ' '; if ($filter['operator'] == 'OR' && $i > 0) echo $this->transEsc('OR') . ' '; ?></a>
+	   
+	    <? // Keep above in one line to avoid unwanted whitespace ?>
+	    <?php endif; ?>
+          
+          
+	  
+        
       
+	  <? endforeach; ?>
+	</td>
+       </tr>
+      <? endforeach; ?>
+     </table>
+
+          
+          
+          
+  
+  
     </div>
    
   

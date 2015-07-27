@@ -120,7 +120,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                         <div id="institution-address"><?= strip_tags($institutionDetails["address"], '<br><strong><a>'); ?></div>
                     <?php endif; ?>
                     <?php if (isset($institutionDetails["addressExtra"])) : ?>
-                        <div class="address-extra"><?= strip_tags($institutionDetails["addressExtra"], '<br><strong><a>'); ?></div>
+                        <div class="address-extra"><?= strip_tags($institutionDetails["addressExtra"], '<br><strong><a>'); ?>&nbsp;<i class="fa fa-external-link"></i><br /><br /></div>
                     <?php endif; ?>
                     <?php if (isset($institutionDetails["openingHours"])) : ?>
                         <div class="opening-hours"><?= strip_tags($institutionDetails["openingHours"], '<br><strong><a>'); ?></div>
