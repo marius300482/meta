@@ -1,6 +1,8 @@
 package de.idadachverband.transform.duplicate;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -15,6 +17,7 @@ import javax.json.JsonString;
 import javax.json.JsonValue;
 import javax.json.JsonWriter;
 
+import lombok.Cleanup;
 import lombok.Getter;
 
 public class DuplicateLookupTable
@@ -59,9 +62,11 @@ public class DuplicateLookupTable
     public void load(Path inputPath) throws IOException 
     {
         if (!Files.exists(inputPath)) return;
-        JsonReader reader = Json.createReader(Files.newInputStream(inputPath, StandardOpenOption.READ));
+        @Cleanup 
+        InputStream in = Files.newInputStream(inputPath, StandardOpenOption.READ);
+        @Cleanup
+        JsonReader reader = Json.createReader(in);
         JsonObject documentToGroupIdJson = reader.readObject();
-        reader.close();
         // copy 
         for (Entry<String, JsonValue> entry : documentToGroupIdJson.entrySet())
         {
@@ -76,9 +81,10 @@ public class DuplicateLookupTable
         {
             documentToGroupIdBuilder.add(entry.getKey(), entry.getValue());
         }
-        JsonWriter writer = Json.createWriter(     
-                Files.newOutputStream(outputPath,  StandardOpenOption.CREATE, StandardOpenOption.WRITE));
+        @Cleanup
+        OutputStream out = Files.newOutputStream(outputPath,  StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        @Cleanup
+        JsonWriter writer = Json.createWriter(out);
         writer.writeObject(documentToGroupIdBuilder.build());
-        writer.close();
     }
 }
