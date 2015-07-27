@@ -186,7 +186,7 @@
 		
 			<!--display / publishDate Jahresangabe-->
 					<xsl:choose>
-						<xsl:when test="Jahr[1]">
+						<xsl:when test="Jahr[1][string-length() != 0]">
 							<xsl:apply-templates select="Jahr[1]" />
 							</xsl:when>
 						<xsl:when test="//Objekt[id=$relatedID]/Jahr[1][string-length() != 0]">
@@ -212,7 +212,15 @@
 							<xsl:value-of select="//Objekt[id=$relatedID]/Verlag" />
 							</publisher>
 						</xsl:if>
-
+			
+			<!--sourceInfo-->
+					<xsl:if test="s_x046x__x032x_Buchtitel">
+						<sourceInfo>
+							<xsl:value-of select="//Objekt[id=$relatedID]/Buchtitel" />
+							</sourceInfo>
+						</xsl:if>
+					
+			
 <!--PHYSICAL INFORMATION-->
 
 			<!--physical Seitenangabe-->
@@ -1266,7 +1274,7 @@
 					<is_hierarchy_title><xsl:value-of select="../Hefttitel_x032x_-Zh" /></is_hierarchy_title>
 					
 					<hierarchy_sequence>
-						<xsl:value-of select="substring-after(../Umfang,'S.')"></xsl:value-of>
+						<xsl:value-of select="../Hefttitel_x032x_-Zh"></xsl:value-of>
 					</hierarchy_sequence>
 					
 					</hierarchyFields>

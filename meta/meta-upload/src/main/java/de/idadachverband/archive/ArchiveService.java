@@ -11,12 +11,15 @@ import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.process.ProcessStep;
 import de.idadachverband.transform.TransformationBean;
 import de.idadachverband.user.UserService;
+import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
@@ -390,7 +393,9 @@ public class ArchiveService
         {
             Path folder = getVersionFolder(coreName, institutionId, versionKey);
             Properties properties = new Properties();
-            properties.load(Files.newInputStream(folder.resolve(VERSION_PROPERTIES)));
+            @Cleanup 
+            InputStream in = Files.newInputStream(folder.resolve(VERSION_PROPERTIES)); 
+            properties.load(in);
             versionBean.loadProperties(properties, dateFormat);
         } 
         catch (Exception e)
@@ -413,7 +418,9 @@ public class ArchiveService
         Path folder = getVersionFolder(coreName, institutionId, versionKey);
         Properties properties = new Properties();
         versionBean.storeProperties(properties, dateFormat);
-        properties.store(Files.newOutputStream(folder.resolve(VERSION_PROPERTIES)), "");
+        @Cleanup 
+        OutputStream out = Files.newOutputStream(folder.resolve(VERSION_PROPERTIES));
+        properties.store(out, "");
     }
     
     protected List<String> getCoreNames() {
