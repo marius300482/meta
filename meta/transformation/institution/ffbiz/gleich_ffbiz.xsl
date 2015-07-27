@@ -237,6 +237,11 @@
 							<xsl:text>archive</xsl:text>
 							</recordType>
 						</xsl:when>
+					<xsl:when test="objektart[text()='Nachlässe']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
 					<xsl:otherwise>
 						<recordType>
 							<xsl:text>library</xsl:text>
@@ -622,6 +627,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!--Fotografien________Fotografien____________Fotografien-->
 
 <xsl:if test="objektart[text()='Fotografien']">
@@ -761,6 +776,17 @@
 	</xsl:if>
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 <!--Filme________Filme____________Filme-->
 
@@ -824,6 +850,18 @@
 		</xsl:element>
 	</xsl:if>
 	
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -897,6 +935,20 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 <!--Autographen________Autographen____________Autographen-->
@@ -957,6 +1009,16 @@
 
 		</xsl:element>
 	</xsl:if>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -1111,6 +1173,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--Plakate________Plakate____________Plakate-->
 
 <xsl:if test="objektart[text()='Plakate']">
@@ -1130,7 +1205,7 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->	
-			<xsl:apply-templates select="Titel" />
+			<xsl:apply-templates select="Titel[1]" />
 
 <!--OTHER-->
 
