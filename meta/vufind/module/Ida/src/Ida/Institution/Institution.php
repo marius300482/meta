@@ -90,7 +90,7 @@ class Institution
         $sortArray = array();
 
         foreach($array as $k => $a) {
-            $sortArray[$k] = $a[$key];
+            $sortArray[$k] = $this->normalizeSortString($a[$key]);
         }
 
         array_multisort($sortArray, SORT_ASC, SORT_STRING, $array);
@@ -98,6 +98,15 @@ class Institution
         return $array;
     }
 
+    private function normalizeSortString($string)
+    {
+    	$string = strtoupper($string);
+    	$aSearch   = array("Ä","Ö","Ü","ß","-");
+    	$aReplace  = array("Ae","Oe","Ue","Ss"," ");
+    	$string = str_replace($aSearch, $aReplace, $string);
+    	return $string;
+    }
+    
     /**
      * Get all institutions from .ini files and sort them by country and name
      *
@@ -121,7 +130,7 @@ class Institution
                 $institution["id"] = $this->institutionId;
                 // Use case insensitive $sortSecond as first array element which is
                 // used in array_multisort() as second sort condition
-                $institution = array(strtoupper($institution[$sortSecond])) + $institution;
+                $institution = array($this->normalizeSortString($institution[$sortSecond])) + $institution;
                 $institutions[] = $institution;
             }
         }
