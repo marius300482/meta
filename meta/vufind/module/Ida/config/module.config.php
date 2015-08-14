@@ -58,6 +58,7 @@ $config = array(
     'controllers' => array(
         'factories' => array(
             'topics' => array('Ida\Factory', 'getTopicsController'),
+            'hierarchyhelper' => array('Ida\Factory', 'getHierarchyCacheHelperController'),
         ),
         'invokables' => array(
             'idaoai' => 'Ida\Controller\IdaOaiController',
@@ -106,6 +107,16 @@ $config = array(
                     'defaults' => array(
                         'controller' => 'idaoai',
                         'action'     => 'Server',
+                    ),
+                ),
+            ),
+            'hierarchyhelper' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/HierarchyHelper',
+                    'defaults' => array(
+                        'controller' => 'hierarchyhelper',
+                        'action'     => 'Delete',
                     ),
                 ),
             ),
