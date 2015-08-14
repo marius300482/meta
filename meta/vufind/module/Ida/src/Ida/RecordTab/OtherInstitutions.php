@@ -50,8 +50,8 @@ class OtherInstitutions extends \VuFind\RecordTab\AbstractBase
 		
 		if ($collection->getTotal() > 0) 
 		{
-			$records = ($collection->isGrouped()) ? 
-					$collection->first()->getSubRecords() : 
+			$records = ($collection->isGrouped() && $collection->first()->getSubRecords()) ? 
+					$collection->first()->getSubRecords()->getRecords() : 
 					$collection->getRecords();
 			
 			foreach ($records AS $record)
