@@ -29,6 +29,11 @@ $config = array(
                     'Solr' => 'Ida\Search\Factory\SolrDefaultBackendFactory',
                 )
             ),
+        	'recordtab' => array(
+        		'factories' => array(
+        			'OtherInstitutions' => 'Ida\RecordTab\TabFactory::getOtherInstitutions'
+        		)
+        	),
         ),
         'recorddriver_tabs' => array(
             // Disable Holdings, Comments and  Staff View
@@ -44,6 +49,7 @@ $config = array(
                     'HierarchyTree' => 'HierarchyTree',
                     //'Map' => 'Map', // <-- This is NOT the institution
                     // The INSTITUTION is not tab, but part of the record/view.phtml template.
+                    'OtherInstitutions' => 'OtherInstitutions'
                 ),
                 'defaultTab' => null,
             ),

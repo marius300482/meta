@@ -40,6 +40,11 @@ abstract class SolrIDA extends SolrDefault
 
         return false;
     }
+    
+    public function getGroupID()
+    {
+    	return $this->getSingleValuedField("groupID");
+    }
 
     public function getAmazonAffiliateId()
     {

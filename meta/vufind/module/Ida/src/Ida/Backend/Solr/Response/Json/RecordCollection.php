@@ -45,7 +45,7 @@ class RecordCollection extends \VuFindSearch\Backend\Solr\Response\Json\RecordCo
         $this->rewind();
     }
 
-    protected function isGrouped() {
+    public function isGrouped() {
 
         $groups = $this->getGroups();
 

@@ -1,0 +1,9 @@
+<ul>
+<?php foreach ($this->tab->getOtherInstitutions() as $institution => $record) : ?>
+	<li property="institution">
+		<a href="<?= $this->recordLink()->getUrl($record) ?>" style="font-size: 14px; color: #990099;">
+		<?= $this->transEsc($institution) ?>
+		</a>
+	</li>
+<?php endforeach;?>
+</ul>

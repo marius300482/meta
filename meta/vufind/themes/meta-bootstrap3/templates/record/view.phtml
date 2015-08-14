@@ -93,6 +93,8 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                     <h4 data-section-toggle="true" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>
                 <?php elseif ($tab == "HierarchyTree") : ?>
                     <h4 data-section-toggle="true"><?php echo $this->transEsc('Context'); ?></h4>
+                <?php elseif ($tab == "OtherInstitutions") : ?>
+                	<h4 data-section-toggle="true"><?php echo $this->transEsc('Also available in other institutions'); ?></h4>
                 <?php endif; ?>
                 <div class="collapsible">
                     <?php echo $this->record($this->driver)->getTab($obj) ?>
