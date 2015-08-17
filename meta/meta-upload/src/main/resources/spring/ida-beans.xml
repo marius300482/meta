@@ -283,4 +283,9 @@
     <bean id="maxArchivedVersions" class="java.lang.Integer">
     	<constructor-arg value="6"/>
     </bean>
+    
+    <bean id="hierarchyCacheDeleteMethod" class="de.idadachverband.hierarchy.HierarchyCacheDeleteMethod">
+     	<constructor-arg index="0" name="urlTemplate" value="http://meta-katalog.eu/HierarchyHelper?institution=$institutionId"/>
+        <constructor-arg index="1" name="institutionIdPlaceholder" value="$institutionId"/>
+    </bean>
 </beans>

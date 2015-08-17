@@ -8,6 +8,7 @@ import de.idadachverband.archive.bean.ArchiveInstitutionBean;
 import de.idadachverband.archive.bean.ArchiveVersionBean;
 import de.idadachverband.archive.bean.ArchiveBaseVersionBean;
 import de.idadachverband.archive.bean.VersionOrigin;
+import de.idadachverband.hierarchy.HierarchyCacheDeleteMethod;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.job.BatchJobBean;
 import de.idadachverband.job.JobCallable;
@@ -36,15 +37,19 @@ public class SolrUpdateService
     private final ArchiveService archiveService;
     private final IdaInputArchiver idaInputArchiver;
     private final JobExecutionService jobExecutionService;
+    private final HierarchyCacheDeleteMethod hierarchyCacheDeleteMethod;
+    
     @Inject
     public SolrUpdateService(
             ArchiveService archiveService, 
             IdaInputArchiver idaInputArchiver, 
-            JobExecutionService jobExecutionService)
+            JobExecutionService jobExecutionService,
+            HierarchyCacheDeleteMethod hierarchyCacheDeleteMethod)
     {
         this.archiveService = archiveService;
         this.idaInputArchiver = idaInputArchiver;
         this.jobExecutionService = jobExecutionService;
+        this.hierarchyCacheDeleteMethod = hierarchyCacheDeleteMethod;
     }
     
     /**
@@ -203,8 +208,8 @@ public class SolrUpdateService
         {
             String solrResult = solr.update(inputFile);
             log.debug("Solr result {}", solrResult);
-            
-        } catch (Exception e)
+        } 
+        catch (Exception e)
         {
             if (rollbackOnError) {
                 log.warn("Update of solr {} failed for institution {}. Start rollback.", solr, institution, e);
@@ -219,13 +224,15 @@ public class SolrUpdateService
                         String.format("Failure!\n%s", e.getMessage()));
             }
             throw new SolrServerException("Invalid update", e);
-        } finally
+        } 
+        finally
         {
             if (inputIsArchived) {
                 Files.deleteIfExists(inputFile);
             }
         }
-
+        hierarchyCacheDeleteMethod.deleteHierarchyCache(institution);
+        
         final long end = System.currentTimeMillis();
         final long duration = (end - start) / 1000;
         log.info("Solr update of core: {} for: {} with file: {} took: {} seconds.", solr, institution, inputFile, duration);

@@ -42,6 +42,7 @@ class CacheHelper extends XMLFile {
                 }
                 else
                 {
+                	error_log("deleted cache file {$file}");
                     array_push($deleted, $file);
                 }
             }

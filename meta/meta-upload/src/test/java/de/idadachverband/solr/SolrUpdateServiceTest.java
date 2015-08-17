@@ -20,6 +20,7 @@ import de.idadachverband.archive.IdaInputArchiver;
 import de.idadachverband.archive.VersionKey;
 import de.idadachverband.archive.bean.ArchiveVersionBean;
 import de.idadachverband.archive.bean.ArchiveBaseVersionBean;
+import de.idadachverband.hierarchy.HierarchyCacheDeleteMethod;
 import de.idadachverband.institution.IdaInstitutionBean;
 import de.idadachverband.institution.IdaInstitutionConverter;
 import de.idadachverband.job.JobExecutionService;
@@ -41,6 +42,9 @@ public class SolrUpdateServiceTest
     
     @Mock
     private IdaInstitutionConverter idaInstitutionConverter;
+    
+    @Mock
+    private HierarchyCacheDeleteMethod hierarchyCacheDeleteMethod; 
     
     private final String coreName = "corename";
     
@@ -78,7 +82,7 @@ public class SolrUpdateServiceTest
         when(updateBean2.getSolrFormatFile()).thenReturn(updatePath2);
         when(updateBean2.getUpdateNumber()).thenReturn(2);
         
-        cut = new SolrUpdateService(archiveService, idaInputArchiver, jobExecutionService);
+        cut = new SolrUpdateService(archiveService, idaInputArchiver, jobExecutionService, hierarchyCacheDeleteMethod);
     }
 
     @Test
