@@ -3,7 +3,7 @@ namespace Ida\Controller;
 
 use Zend\Stdlib\Parameters;
 use Zend\Paginator\Adapter\ArrayAdapter;
-use Zend\Paginator;
+use Ida\Paginator\AlphaPaginator;
 
 /**
  * Class IDA SearchController
@@ -62,7 +62,7 @@ class SearchController extends \VuFind\Controller\SearchController
 
         // Set up special pagination for the contributor facet
         $adapter = new ArrayAdapter($contributorFacet);
-        $paginator = new Paginator\Paginator($adapter);
+        $paginator = new AlphaPaginator($adapter);
         $paginator->setCurrentPageNumber($view->results->getParams()->getPage())
             ->setItemCountPerPage($view->results->getParams()->getLimit())
             ->setPageRange(5);
