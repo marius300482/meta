@@ -12,8 +12,8 @@ class AlphaPaginator extends Paginator\Paginator
 		$lastItem = $this->getItem(count($this->getItemsByPage($page)), $page);
 		for ($prefixLen = 2; $prefixLen <= 3; $prefixLen++)
 		{
-			$firstLetters = mb_substr ( $firstItem ['displayText'], 0, $prefixLen);
-			$lastLetters = mb_substr ( $lastItem ['displayText'], 0, $prefixLen);
+			$firstLetters = mb_substr ( $firstItem ['displayText'], 0, $prefixLen, 'UTF-8');
+			$lastLetters = mb_substr ( $lastItem ['displayText'], 0, $prefixLen, 'UTF-8');
 			if (strcmp($firstLetters, $lastLetters) < 0) break;
 		}
 		return $firstLetters . $glue . $lastLetters; 
@@ -28,7 +28,7 @@ class AlphaPaginator extends Paginator\Paginator
 		{
 			foreach ($this->getItemsByPage($page) as $item)
 			{
-				$prefix =  mb_substr($item['displayText'], 0, 1);
+				$prefix =  mb_substr($item['displayText'], 0, 1, 'UTF-8');
 				if (strcmp($lastPrefix, $prefix) != 0)
 				{
 					if (!empty($lastPrefix))
