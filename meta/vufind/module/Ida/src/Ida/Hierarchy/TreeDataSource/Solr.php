@@ -35,7 +35,7 @@ class Solr extends \VuFind\Hierarchy\TreeDataSource\Solr
         if (false === $loadSubtree) {
 
             // Lookup by record ID
-        	error_log("getXML(): retrieve id:{$id}");
+        	error_log("TreeDataSource\Solr: getXML(): retrieve id:{$id}");
             $result = $this->searchService->retrieve('Solr', $id);
 
             if (0 === $result->getTotal()) {
@@ -126,7 +126,7 @@ ROOT;
 
             // Use first parent entry
             $parentId = array_shift(array_flip($parents));
-            error_log("_getXMLParents(): retrieve id:{$parentId}");
+            error_log("TreeDataSource\Solr: _getXMLParents(): retrieve id:{$parentId}");
             $result = $this->searchService->retrieve('Solr', $parentId);
 
             // Traverse tree upwards
@@ -204,7 +204,7 @@ XML;
             'hierarchy_parent_id:"' . addcslashes($parentID, '"') . '"'
         );
 
-        error_log("getChildren(): search hierarchy_parent_id:{$parentID}");
+        error_log("TreeDataSource\Solr: getChildren(): search hierarchy_parent_id:{$parentID}");
         $results = $this->searchService->search(
             'Solr', $query, 0, 10000, new ParamBag(array('fq' => $this->filters))
         );
@@ -275,7 +275,7 @@ XML;
         $query = new Query('hierarchy_parent_id:"' . addcslashes($record, '"') . '"');
         $params = new ParamBag(array('fq' => $this->filters));
 
-        error_log("_recordHasChildren(): search hierarchy_parent_id:{$record}");
+        error_log("TreeDataSource\Solr: _recordHasChildren(): search hierarchy_parent_id:{$record}");
         return 0 < $this->searchService->search('Solr', $query, 0, 10000, $params)->getTotal();
     }
 }
