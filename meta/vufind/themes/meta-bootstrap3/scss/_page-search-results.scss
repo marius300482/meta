@@ -130,17 +130,20 @@
   // Result contains sub records
   .has-subrecords {
 
-    &:before {
-      background-color: $color-blue-4;
-      content: "";
-      display: block;
-      height: 2px;
-      margin-bottom: .5em;
-    }
+    // https://github.com/marius300482/meta/issues/161
+//    &:before {
+//      background-color: $color-blue-4;
+//      content: "";
+//      display: block;
+//      height: 2px;
+//      margin-bottom: .5em;
+//    }
 
     a.result-subrecords-count {
-      background-color: $color-blue-6;
-      color: #fff;
+      background-color: #efeef2; // https://github.com/marius300482/meta/issues/161
+      color: $color-blue-6; // https://github.com/marius300482/meta/issues/161
+//      background-color: $color-blue-6;
+//      color: #fff;
       display: block;
       font-family: 'Droid Serif', serif;
       font-size: 13px;
@@ -153,6 +156,7 @@
 }
 
 .subrecords-sep {
+  margin-top: -10px; // https://github.com/marius300482/meta/issues/161
 
   @media (max-width: $device-md-max-width) {
     padding-left: 15px;
@@ -164,12 +168,14 @@
   margin-right: 0;
 
   &:after {
-    background-color: $color-blue-4;
+    background-color: transparent; // https://github.com/marius300482/meta/issues/161
+    margin-bottom: 20px; // https://github.com/marius300482/meta/issues/161
+//    background-color: $color-blue-4;
     content: "";
     display: block;
     height: 2px;
     margin-top: 28px;
-    margin-bottom: 35px; // See .result
+//    margin-bottom: 35px; // See .result
   }
 
   a.subrecords-toggle {
