@@ -233,14 +233,29 @@
   .fa-akte {
     background: url($theme-path-images + "/smaller/akte.png") no-repeat scroll 0 0 transparent;
   }
+  .fa-ansichtskarte {
+    background: url($theme-path-images + "/smaller/ansichtskarten.png") no-repeat scroll 0 0 transparent;
+  }
   .fa-artikel {
     background: url($theme-path-images + "/smaller/artikel.png") no-repeat scroll 0 0 transparent;
   }
   .fa-artikelonline {
     background: url($theme-path-images + "/smaller/artikelonline.png") no-repeat scroll 0 0 transparent;
   }
+  .fa-autograf {
+    background: url($theme-path-images + "/smaller/autograf.png") no-repeat scroll 0 0 transparent;
+  }
   .fa-buch {
     background: url($theme-path-images + "/smaller/buch.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-buttonsundsticker {
+    background: url($theme-path-images + "/smaller/buttonsstickers.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-datentrger {
+    background: url($theme-path-images + "/smaller/datentraeger.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-fotografie {
+    background: url($theme-path-images + "/smaller/fotografien.png") no-repeat scroll 0 0 transparent;
   }
   .fa-hochschulschrift {
     background: url($theme-path-images + "/smaller/hochschulschrift.png") no-repeat scroll 0 0 transparent;
@@ -248,19 +263,29 @@
   .fa-monographie {
     background: url($theme-path-images + "/smaller/monographie.png") no-repeat scroll 0 0 transparent;
   }
+  .fa-nachlassvorlass {
+    background: url($theme-path-images + "/smaller/nachlass.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-plakat {
+    background: url($theme-path-images + "/smaller/plakate.png") no-repeat scroll 0 0 transparent;
+  }
   .fa-sammelband {
     background: url($theme-path-images + "/smaller/sammelband.png") no-repeat scroll 0 0 transparent;
   }
-  .fa-videocd {
-    background: url($theme-path-images + "/smaller/videocd.png") no-repeat scroll 0 0 transparent;
-  }
   .fa-systematik {
     background: url($theme-path-images + "/smaller/systematik.png") no-repeat scroll 0 0 transparent;
+  }
+  .fa-videocd {
+    background: url($theme-path-images + "/smaller/videocd.png") no-repeat scroll 0 0 transparent;
   }
   .fa-zeitschrift {
     background: url($theme-path-images + "/smaller/zeitschrift.png") no-repeat scroll 0 0 transparent;
   }
   .fa-zeitschriftenheft {
     background: url($theme-path-images + "/smaller/zeitschriftenheft.png") no-repeat scroll 0 0 transparent;
+  }
+  // Extend detailed "background" attribute of specific icon
+  .fa {
+    background-size: contain; // Do not cut icon
   }
 }
