@@ -2,7 +2,7 @@
 
 namespace Ida;
 
-use Ida\Controller\TopicsController;use Zend\ServiceManager\ServiceManager;
+use Ida\Controller\HierarchyCacheHelperController;use Ida\Controller\TopicsController;use Zend\ServiceManager\ServiceManager;
 
 class Factory
 {
@@ -50,6 +50,18 @@ class Factory
             $serviceLocator->get('VuFind\Config')->get('config'),
             null,
             $serviceLocator->get('VuFind\Config')->get('searches')
+        );
+    }
+
+    public static function getHierarchyCacheHelperController(ServiceManager $sm)
+    {
+        $serviceLocator = $sm->getServiceLocator();
+        $cacheDir = $sm->getServiceLocator()->get('VuFind\CacheManager')
+            ->getCacheDir(false);
+        return new HierarchyCacheHelperController(
+            $serviceLocator->get('VuFind\Config')->get('config'),
+            $serviceLocator->get('VuFind\Hierarchy\Driver\PluginManager'),
+            rtrim($cacheDir, '/') . '/hierarchy'
         );
     }
 }

@@ -93,6 +93,8 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                     <h4 data-section-toggle="true" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>
                 <?php elseif ($tab == "HierarchyTree") : ?>
                     <h4 data-section-toggle="true"><?php echo $this->transEsc('Context'); ?></h4>
+                <?php elseif ($tab == "OtherInstitutions") : ?>
+                	<h4 data-section-toggle="true"><?php echo $this->transEsc('Also available in other institutions'); ?></h4>
                 <?php endif; ?>
                 <div class="collapsible">
                     <?php echo $this->record($this->driver)->getTab($obj) ?>
@@ -120,7 +122,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                         <div id="institution-address"><?= strip_tags($institutionDetails["address"], '<br><strong><a>'); ?></div>
                     <?php endif; ?>
                     <?php if (isset($institutionDetails["addressExtra"])) : ?>
-                        <div class="address-extra"><?= strip_tags($institutionDetails["addressExtra"], '<br><strong><a>'); ?></div>
+                        <div class="address-extra"><?= strip_tags($institutionDetails["addressExtra"], '<br><strong><a>'); ?>&nbsp;<i class="fa fa-external-link"></i><br /><br /></div>
                     <?php endif; ?>
                     <?php if (isset($institutionDetails["openingHours"])) : ?>
                         <div class="opening-hours"><?= strip_tags($institutionDetails["openingHours"], '<br><strong><a>'); ?></div>

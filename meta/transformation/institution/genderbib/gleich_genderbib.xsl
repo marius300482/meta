@@ -247,6 +247,10 @@
 <!--institutionFullname-->			<institutionFull>
 							<xsl:text>Genderbibliothek am Zentrum für transdisziplinäre Geschlechterstudien</xsl:text>
 							</institutionFull>
+							
+						<institutionID>
+							<xsl:text>genderbib</xsl:text>
+							</institutionID>
 			
 <!--collection-->				<collection><xsl:text>GReTA</xsl:text></collection>
 	
@@ -1848,6 +1852,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 </xsl:element>
 
+<xsl:if test="s__Sachtitel">
 <xsl:element name="functions">
 	<!--<xsl:variable name="sachtitel" select="//datensatz[id=$s_sachtitel]/Sachtitel[1]" />
 	<xsl:variable name="heftthema" select="//datensatz[id=$s_sachtitel]/Inhalt-Thema" />
@@ -1905,6 +1910,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 	</xsl:element>
 </xsl:element>
+</xsl:if>
 </xsl:if>
 
 

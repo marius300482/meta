@@ -101,6 +101,8 @@
 <!--institutionFullname-->			<institutionFull>
 							<xsl:text>schema f</xsl:text>
 							</institutionFull>
+							
+						<institutionID><xsl:text>schemaf</xsl:text></institutionID>
 			
 <!--collection-->				<collection><xsl:text>schemaf</xsl:text></collection>
 	

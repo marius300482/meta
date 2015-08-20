@@ -64,6 +64,7 @@
 			
 			<institutionShortname><xsl:text>Cid Fraen an Gender</xsl:text></institutionShortname>
 			<institutionFull><xsl:text>Frauen- und Genderbibliothek Cid</xsl:text></institutionFull>
+			<institutionID><xsl:text>cid</xsl:text></institutionID>
 			<collection><xsl:text>CID</xsl:text></collection>
 			<isil><xsl:text>ZDB-LU-100</xsl:text></isil>
 			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/luxemburg/cid-fraen-an-gender/</xsl:text></link>
@@ -204,7 +205,15 @@
 				
 				<!--<xsl:apply-templates select="marc:datafield[@tag='650']" />-->
 				<xsl:apply-templates select="marc:datafield[@tag='690']" />
-				<xsl:apply-templates select="marc:datafield[@tag='600']" />
+				<!--<xsl:apply-templates select="marc:datafield[@tag='600']" />-->
+				
+				<xsl:if test="marc:datafield[@tag='600']">
+					<xsl:for-each select="distinct-values(marc:datafield[@tag='600']/marc:subfield[@code='a']/text())">
+						<subjectPerson>
+							<xsl:value-of select="." />
+							</subjectPerson>		
+						</xsl:for-each>
+					</xsl:if>
 				
 		<!--description Beschreibung-->
 				<xsl:apply-templates select="marc:datafield[@tag='500'][1]" />
@@ -351,11 +360,11 @@
 			</xsl:for-each>		
 		</xsl:template>
 	
-	<xsl:template match="marc:datafield[@tag='600']">
+	<!--<xsl:template match="marc:datafield[@tag='600']">
 		<xsl:for-each select="marc:subfield[@code='a']">
 			<subjectPerson><xsl:value-of select="." /></subjectPerson>			
 			</xsl:for-each>		
-		</xsl:template>
+		</xsl:template>-->
 	
 	<xsl:template match="marc:datafield[@tag='690']">
 		<xsl:for-each select="marc:subfield[@code='a']">

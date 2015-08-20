@@ -40,6 +40,11 @@ abstract class SolrIDA extends SolrDefault
 
         return false;
     }
+    
+    public function getGroupID()
+    {
+    	return $this->getSingleValuedField("groupID");
+    }
 
     public function getAmazonAffiliateId()
     {
@@ -169,6 +174,11 @@ abstract class SolrIDA extends SolrDefault
     {
         return $this->getMultiValuedField("institutionFull");
     }
+    
+    public function getInstitution()
+    {
+        return $this->getMultiValuedField("institution");
+    }
 
     public function getInstitutionDetails($institutionId, $language)
     {
@@ -196,6 +206,11 @@ abstract class SolrIDA extends SolrDefault
     public function getTitleSub()
     {
         return $this->getSingleValuedField('title_sub');
+    }
+    
+    public function getLocation()
+    {
+        return $this->getSingleValuedField('location');
     }
 
     public function getFormerTitles()

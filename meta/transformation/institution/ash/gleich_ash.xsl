@@ -46,6 +46,7 @@
 		<xsl:variable name="ref_zs-heft" select="translate(ZS_Heft_REF[1], translate(.,'0123456789', ''), '')"/>	
 		<xsl:variable name="ref_zs-ref" select="translate(ZS_REF[1], translate(.,'0123456789', ''), '')"/>	
 		<xsl:variable name="ref_buch" select="translate(Buchtitel_REF[1], translate(.,'0123456789', ''), '')"/>
+		<xsl:variable name="ref_artikel" select="translate(Aufsatz-Artikel_REF[1], translate(.,'0123456789', ''), '')"/>
 				
 <!--vufind_______________________________vufind_______________________________vufind-->
 <!--vufind_______________________________vufind_______________________________vufind-->
@@ -195,6 +196,25 @@
 			<xsl:apply-templates select="Sign_" />
 		
 		</xsl:element>	
+		
+<xsl:if test="Aufsatz-Artikel_REF">
+		<functions>
+			<hierarchyFields>
+				
+				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>ash</xsl:text></hierarchy_top_id>
+				<hierarchy_top_title><xsl:value-of select="Titel_Buch" /></hierarchy_top_title>
+				
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>ash</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title><xsl:value-of select="Titel_Buch" /></is_hierarchy_title>
+				
+				<hierarchy_sequence><xsl:value-of select="substring(Titel_Buch,1,3)"/></hierarchy_sequence>
+				
+				</hierarchyFields>
+	
+			</functions>
+		</xsl:if>		
+
+
 		</xsl:if>
 
 

@@ -11,7 +11,7 @@
 $this->headTitle($this->translate('Home'));
 
 // Distribute institutions to 3 arrays which can be used to populate 3 columns
-$institutionsCols = $this->distributeToArrays($institutions, array(9, 8, 99));
+$institutionsCols = $this->distributeToArrays($institutions, array(10, 9, 99));
 
 ?>
 <div id="topicsPage">
@@ -113,12 +113,12 @@ $institutionsCols = $this->distributeToArrays($institutions, array(9, 8, 99));
         </div>
     </div>
     <div class="col-sm-8">
-        <h2 data-section-toggle><?= $this->transEsc('Theme overview'); ?>:</h2>
+        <h2 data-section-toggle><?= $this->transEsc('Theme overview'); ?></h2>
         <ul class="body tag_cloud">
             <? foreach ($topics as $topic): ?>
                 <li>
                     <a title="<?= $topic['count'] ?> <?= $this->translate('Documents') ?>" class="w<?= $topic['weight'] ?>"
-                        href="<?= $this->record($this->solrDriver)->getLink('subject', $topic['value']) ?>"><?= $topic['displayText'] ?></a>
+                        href="<?= $this->url('search-results')?>?lookfor=<?=urlencode($topic['value'])?>&amp;type=AllFields"><?= $topic['displayText'] ?></a>
                 </li>
             <? endforeach; ?>
         </ul>

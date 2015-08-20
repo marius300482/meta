@@ -44,6 +44,10 @@
 				<collection><xsl:text>ADDF</xsl:text></collection>
 				<isil><xsl:text>DE-Ks16</xsl:text></isil>
 				<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/deutschland/archiv-der-deutschen-frauenbewegung/</xsl:text></link>
+				<geoLocation>
+					<latitude>51.3259450</latitude>
+					<longitude>9.5036040</longitude>
+					</geoLocation>
 				</institution>
 		
 		<dataset>

@@ -77,6 +77,7 @@ public class ResultStateControllerTest
     {
         when(processService.getState(jobId)).thenReturn(SUCCESS);
         when(processService.getJob(jobId)).thenReturn(processJobBean);
+        when(processJobBean.getResultMessage()).thenReturn("message");
         when(processJobBean.getTransformation()).thenReturn(transformation);
         when(transformation.getCoreName()).thenReturn("corename");
         when(transformation.getInstitutionId()).thenReturn("institution");
@@ -88,5 +89,6 @@ public class ResultStateControllerTest
         assertThat(jsonObject.getString("state"), Matchers.is(SUCCESS.toString()));
         assertThat(jsonObject.getString("jobId"), Matchers.is(jobId));
         assertThat(jsonObject.getString("path"), Matchers.equalTo(Paths.get("corename", "institution", "1.0").toString()));
+        assertThat(jsonObject.getString("message"), Matchers.equalTo("message"));
     }
 }

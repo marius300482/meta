@@ -186,6 +186,38 @@
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
+    <bean id="lopa" class="de.idadachverband.institution.IdaInstitutionBean">
+     	<constructor-arg index="0" name="institutionId" value="lopa"/>
+        <constructor-arg index="1" name="institutionName" value="Louise-Otto-Peters-Archiv"/>
+        <constructor-arg index="2" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/lopa/gleich_lopa.xsl"/>
+        <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
+    <bean id="auszeiten" class="de.idadachverband.institution.IdaInstitutionBean">
+     	<constructor-arg index="0" name="institutionId" value="auszeiten"/>
+        <constructor-arg index="1" name="institutionName" value="ausZeiten"/>
+        <constructor-arg index="2" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/auszeiten/gleich_auszeiten.xsl"/>
+        <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
+     <bean id="basel" class="de.idadachverband.institution.IdaInstitutionBean">
+     	<constructor-arg index="0" name="institutionId" value="basel"/>
+        <constructor-arg index="1" name="institutionName" value="frauen_bibliothek basel"/>
+        <constructor-arg index="2" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/basel/gleich_basel.xsl"/>
+        <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
+      <bean id="hamburg" class="de.idadachverband.institution.IdaInstitutionBean">
+     	<constructor-arg index="0" name="institutionId" value="hamburg"/>
+        <constructor-arg index="1" name="institutionName" value="hamburger frauen*bibliothek"/>
+        <constructor-arg index="2" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/hamburg/gleich_hamburg.xsl"/>
+        <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
     
     <util:set id="institutionsSet" set-class="java.util.HashSet"
     		  value-type="de.idadachverband.institution.IdaInstitutionBean">
@@ -203,6 +235,8 @@
         <ref bean="kfgv"/>
 	<ref bean="fnwien"/>
 	<ref bean="fsadresden"/>
+	<ref bean="basel" />
+	<ref bean="hamburg" />
     </util:set>
 
     <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer"
@@ -248,5 +282,10 @@
     
     <bean id="maxArchivedVersions" class="java.lang.Integer">
     	<constructor-arg value="6"/>
+    </bean>
+    
+    <bean id="hierarchyCacheDeleteMethod" class="de.idadachverband.hierarchy.HierarchyCacheDeleteMethod">
+     	<constructor-arg index="0" name="urlTemplate" value="http://meta-katalog.eu/HierarchyHelper?institution=$institutionId"/>
+        <constructor-arg index="1" name="institutionIdPlaceholder" value="$institutionId"/>
     </bean>
 </beans>

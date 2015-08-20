@@ -592,6 +592,10 @@
 			<xsl:template match="Titel">
 				<title>
 					<xsl:value-of select="normalize-space(.)" />
+					<xsl:if test="../Untertitel[string-length() != 0]">
+						<xsl:text> : </xsl:text>
+						<xsl:value-of select="normalize-space(../Untertitel)" />
+					</xsl:if>
 					</title>
 				<title_short>
 					<xsl:value-of select="normalize-space(.)" />

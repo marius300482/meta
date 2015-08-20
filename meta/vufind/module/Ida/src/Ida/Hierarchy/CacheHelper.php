@@ -14,28 +14,41 @@ use VuFind\Hierarchy\TreeDataSource\XMLFile;
 class CacheHelper extends XMLFile {
 
 
-    function __construct($hierarchyDriver)
+    function __construct($hierarchyDriver, $cacheDir)
     {
         $this->setHierarchyDriver($hierarchyDriver);
+        $this->cacheDir = $cacheDir;
     }
 
     public function delete($institution)
     {
-        $basePath=$this->getBasePath();
-        $scandir = scandir($basePath);
         $deleted = array();
+        if ($institution == null)
+        {
+            return $deleted;
+        }
+
+        $scandir = scandir($this->cacheDir);
+        $failure = array();
         foreach($scandir as $file)
         {
             if ($this->endsWith($file, $institution . ".xml"))
             {
-                unlink($file);
-                array_push($deleted, $file);
+                $path=$this->cacheDir . "/" . $file;
+                if(!unlink($path))
+                {
+                    echo "Failed to delete " . $path;
+                    array_push($failure, $file);
+                }
+                else
+                {
+                	error_log("deleted cache file {$file}");
+                    array_push($deleted, $file);
+                }
             }
-            echo $deleted;
         }
-        $view = $this->createViewModel('hierarchy/deleteResult');
-        $view->deleted = $deleted;
-        return $view;
+
+        return $deleted;
     }
 
     public function endsWith($string, $subString)

@@ -86,7 +86,7 @@ public class JobProgressService
         return jobs.get(jobId);
     }
 
-    public Exception getException(String jobId)
+    public Throwable getException(String jobId)
     {
         return jobs.get(jobId).getException();
     }

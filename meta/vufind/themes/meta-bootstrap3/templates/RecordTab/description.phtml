@@ -36,6 +36,15 @@
         </tr>
     <? endif; ?>
     
+    <? $location = $this->driver->getLocation(); ?>
+    <? if (isset($location)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Location')?>: </th>
+            <td property="location"><?= $this->escapeHtml($location); ?></td>
+        </tr>
+    <? endif; ?>
+    
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
         <? $contentDisplayed = true; ?>
@@ -108,8 +117,9 @@
     <? endif; ?>
 
      <!-- Herausgeber -->
-    <? $editors = $this->driver->getEditors(); ?>
-    <? if (!empty($editors) && empty($authors['main']) && empty($authors['additional'])): ?>
+    <? $editors = $this->driver->getEditors();   
+        if (!empty($editors)): ?>
+    
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Editors')?>: </th>
@@ -333,7 +343,7 @@
             <th><?=$this->transEsc('Description')?>: </th>
             <td property="specificMaterialDesignations">
             <? foreach($specificMaterialDesignations as $specificMaterialDesignation): ?>
-                <?= $this->escapeHtml($specificMaterialDesignation) ?><?= $specificMaterialDesignation !== end($specificMaterialDesignations) ? ", " : "" ?>
+                 <?= $specificMaterialDesignation ?><?= $specificMaterialDesignation !== end($specificMaterialDesignations) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -392,7 +402,7 @@
             <th><?=$this->transEsc('Run Time')?>: </th>
             <td property="runTime">
             <? foreach ($runTimes as $runTime): ?>
-                <?=$this->escapeHtml($runTime)?><?= $runTime !== end($runTimes) ? ", " : "" ?>
+                 <?= $runTime ?><?= $runTime !== end($runTimes) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -468,7 +478,11 @@
             <th colspan="2"><?=$this->transEsc('Content')?>:</th>
         </tr>
         <tr valign="top">
-            <td property="description" colspan="2"><?= $this->escapeHtmlAllowBr($description) ?></td>
+          <td property="description" colspan="2">
+            <!--<?= $this->escapeHtmlAllowBr($description) ?>-->
+                <?= $description ?>
+
+            </td>
         </tr>
     <? endif; ?>
     
@@ -494,14 +508,14 @@
         </tr>
     <? endif; ?>
    
-    <? $creationdate = $this->driver->getRecordCreationDate(); ?>
+    <!--<? $creationdate = $this->driver->getRecordCreationDate(); ?>
     <? if (isset($creationdate)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Date')?>: </th>
             <td property="creationdate"><?= $this->escapeHtml($creationdate) ?></td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>

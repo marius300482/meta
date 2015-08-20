@@ -29,6 +29,11 @@ $config = array(
                     'Solr' => 'Ida\Search\Factory\SolrDefaultBackendFactory',
                 )
             ),
+        	'recordtab' => array(
+        		'factories' => array(
+        			'OtherInstitutions' => 'Ida\RecordTab\TabFactory::getOtherInstitutions'
+        		)
+        	),
         ),
         'recorddriver_tabs' => array(
             // Disable Holdings, Comments and  Staff View
@@ -44,6 +49,7 @@ $config = array(
                     'HierarchyTree' => 'HierarchyTree',
                     //'Map' => 'Map', // <-- This is NOT the institution
                     // The INSTITUTION is not tab, but part of the record/view.phtml template.
+                    'OtherInstitutions' => 'OtherInstitutions'
                 ),
                 'defaultTab' => null,
             ),
@@ -52,6 +58,7 @@ $config = array(
     'controllers' => array(
         'factories' => array(
             'topics' => array('Ida\Factory', 'getTopicsController'),
+            'hierarchyhelper' => array('Ida\Factory', 'getHierarchyCacheHelperController'),
         ),
         'invokables' => array(
             'idaoai' => 'Ida\Controller\IdaOaiController',
@@ -100,6 +107,16 @@ $config = array(
                     'defaults' => array(
                         'controller' => 'idaoai',
                         'action'     => 'Server',
+                    ),
+                ),
+            ),
+            'hierarchyhelper' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/HierarchyHelper',
+                    'defaults' => array(
+                        'controller' => 'hierarchyhelper',
+                        'action'     => 'Delete',
                     ),
                 ),
             ),

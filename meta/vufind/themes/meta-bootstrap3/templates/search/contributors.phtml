@@ -24,7 +24,7 @@
             </li>
         <?php endforeach; ?>
     </ul>
-    <?=$this->paginationControl($this->paginator, 'Sliding', 'search/pagination.phtml', array('results' => $this->results))?>
+    <?=$this->paginationControl($this->paginator, 'Sliding', 'search/contributor-pagination.phtml', array('results' => $this->results, 'paginator' => $this->paginator))?>
 </div>
 
 <? /* Side facets */ ?>

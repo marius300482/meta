@@ -1,0 +1,34 @@
+<? if ($this->pageCount): ?>
+  <ul class="pagination">
+    <? foreach ($this->paginator->getAlphaPages() as $alpha => $pages): ?>
+    	<? if ($pages['first'] > $this->current || $pages['last'] < $this->current): ?>
+          <li><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($pages['first'])?>"><?=$alpha?></a></li>
+        <? else: ?>
+          <li class="active"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($pages['first'])?>"><?=$alpha?></a></li>
+        <? endif; ?>
+    <? endforeach; ?>
+  </ul>
+  
+  <ul class="pagination">
+    <? if (isset($this->previous)): ?>
+    <? /*  <li class="hidden-xs hidden-sm"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage(1)?>">1 (<?= $this->paginator->getLetters(1)?>)</a></li> */ ?>
+      <li class="paging-label"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->previous)?>">&laquo; <?=$this->transEsc('Prev')?></a></li>
+    <? endif; ?>
+
+    <? if (count($this->pagesInRange) > 1): ?>
+      <? foreach ($this->pagesInRange as $page): ?>
+        <? if ($page != $this->current): ?>
+          <li class="hidden-xs"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($page)?>"><?=$this->paginator->getLetters($page)?></a></li>
+        <? else: ?>
+          <li class="active"><span><?=$this->paginator->getLetters($page)?></span></li>
+        <? endif; ?>
+      <? endforeach; ?>
+    <? endif; ?>
+
+    <? if (isset($this->next)): ?>
+      <li class="paging-label"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->next)?>"><?=$this->transEsc('Next');?> &raquo;</a></li>
+     <? /* <li class="hidden-xs hidden-sm"><a href="<?=$this->currentPath() . $this->results->getUrlQuery()->setPage($this->pageCount)?>"><?=$this->pageCount?> (<?= $this->paginator->getLetters($this->pageCount)?>)</a></li>*/ ?>
+    <? endif; ?>
+  </ul>
+<? endif; ?>
+

@@ -223,6 +223,9 @@
 							<is_hierarchy_title>
 								<xsl:value-of select="Titel_x058x_[1]"/>
 							</is_hierarchy_title>
+							<hierarchy_sequence>
+								<xsl:value-of select="Titel_x058x_[1]"/>
+								</hierarchy_sequence>
 						</hierarchyFields>
 					</xsl:element>
 				</xsl:if>
@@ -419,7 +422,8 @@
 					<xsl:for-each select="//Datensatz[Signatur_x058x_=$rel]">
 			
 						<xsl:text> title:</xsl:text>
-							<xsl:value-of select="Zeitschriftentitel_x058x_"></xsl:value-of>
+							<xsl:value-of select="normalize-space(replace(Zeitschriftentitel_x058x_,'_',''))"/>
+							<!--<xsl:value-of select="Zeitschriftentitel_x058x_"></xsl:value-of>-->
 							<xsl:text>:title</xsl:text>
 							
 						<xsl:text> issn:</xsl:text>
@@ -473,10 +477,12 @@
 						</xsl:when>
 						<xsl:when test="Zeitschrift_x032x__x040x_Link_x041x__x058x_">
 							<title>
-								<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_"/>
+								<xsl:value-of select="normalize-space(replace(Zeitschrift_x032x__x040x_Link_x041x__x058x_,'_',''))"/>
+								<!--<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_"/>-->
 								</title>
 							<title_short>
-								<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_"/>
+								<xsl:value-of select="normalize-space(replace(Zeitschrift_x032x__x040x_Link_x041x__x058x_,'_',''))"/>
+								<!--<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_"/>-->
 								</title_short>
 						</xsl:when>
 						<xsl:otherwise>
@@ -727,7 +733,8 @@
 							<xsl:text>:id</xsl:text>
 						
 						<xsl:text> title:</xsl:text>
-							<xsl:value-of select="Titel_x058x_"></xsl:value-of>
+							<xsl:value-of select="normalize-space(replace(Titel_x058x_,'_',''))"/>
+							<!--<xsl:value-of select="Titel_x058x_"></xsl:value-of>-->
 							<xsl:text>:title</xsl:text>
 							
 						<xsl:text> issn:</xsl:text>
@@ -762,9 +769,9 @@
 					
 <!--FORMAT-->
 	
-	<test>
+	<!--<test>
 		<xsl:value-of select="$connect"></xsl:value-of>
-		</test>
+		</test>-->
 	
 	
 	<!--typeOfRessource-->
@@ -1551,10 +1558,10 @@
 	<xsl:template match="AutorInnen_x058x_">
 		<xsl:for-each select=".">
 			<author>
-				<xsl:value-of select="."/>
-			</author>
-		</xsl:for-each>
-	</xsl:template>
+				<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
+				</author>
+			</xsl:for-each>
+		</xsl:template>
 
 	<xsl:template match="Seiten_x058x_">
 		<physical>
