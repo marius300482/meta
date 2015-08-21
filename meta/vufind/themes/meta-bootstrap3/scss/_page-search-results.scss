@@ -130,7 +130,7 @@
   // Result contains sub records
   .has-subrecords {
 
-    // https://github.com/marius300482/meta/issues/161
+    // edit dku: https://github.com/marius300482/meta/issues/161
 //    &:before {
 //      background-color: $color-blue-4;
 //      content: "";
@@ -140,8 +140,8 @@
 //    }
 
     a.result-subrecords-count {
-      background-color: #efeef2; // https://github.com/marius300482/meta/issues/161
-      color: $color-blue-6; // https://github.com/marius300482/meta/issues/161
+      background-color: #efeef2; // edit dku: https://github.com/marius300482/meta/issues/161
+      color: $color-blue-6; // edit dku: https://github.com/marius300482/meta/issues/161
 //      background-color: $color-blue-6;
 //      color: #fff;
       display: block;
@@ -153,10 +153,20 @@
       text-decoration: none;
     }
   }
+
+  // Remove extra padding-right, if sidebar is displayed below result list
+  @media (max-width: $device-xs-max-width) {
+    > .col-xs-12 {
+
+      > .col-xs-11 {
+        padding-right: 0;
+      }
+    }
+  }
 }
 
 .subrecords-sep {
-  margin-top: -10px; // https://github.com/marius300482/meta/issues/161
+  margin-top: -10px; // edit dku: https://github.com/marius300482/meta/issues/161
 
   @media (max-width: $device-md-max-width) {
     padding-left: 15px;
@@ -168,8 +178,8 @@
   margin-right: 0;
 
   &:after {
-    background-color: transparent; // https://github.com/marius300482/meta/issues/161
-    margin-bottom: 20px; // https://github.com/marius300482/meta/issues/161
+    background-color: transparent; // edit dku: https://github.com/marius300482/meta/issues/161
+    margin-bottom: 20px; // edit dku: https://github.com/marius300482/meta/issues/161
 //    background-color: $color-blue-4;
     content: "";
     display: block;
@@ -224,11 +234,13 @@ ul.search-result-subrecords {
     }
 
     .is-subrecord {
-//      background-color: #ff8888; // tmp debug
+      background-color: #f7f6fa; // edit dku: https://github.com/marius300482/meta/issues/161
+      padding-top: 1em; // edit dku: https://github.com/marius300482/meta/issues/161
+      padding-bottom: 1em; // edit dku: https://github.com/marius300482/meta/issues/161
 
       // Remove doubled padding (sub .row)
       @media (min-width: $screen-lg-min) {
-        padding-right: 0;
+//        padding-right: 0; // edit dku: https://github.com/marius300482/meta/issues/161
       }
     }
   }

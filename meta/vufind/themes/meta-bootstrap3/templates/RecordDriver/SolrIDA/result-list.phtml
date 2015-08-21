@@ -27,6 +27,8 @@ $cssClasses[] = 'col-xs-12';
 
 ?>
     <div class="<?= implode(' ', $cssClasses); ?>">
+    <? // edit dku: https://github.com/marius300482/meta/issues/161 ?>
+    <? if (false && true === $isSubRecord): ?><div class="wrapppppppppp col-xs-12"><? endif; ?>
     <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getUniqueID())?>" class="hiddenId" />
     <input type="hidden" value="<?=$this->escapeHtmlAttr($this->driver->getResourceSource())?>" class="hiddenSource" />
     <div class="col-xs-1">
@@ -451,6 +453,8 @@ $cssClasses[] = 'col-xs-12';
     */ ?>
 
     <?=$openUrl?'<span class="Z3988" title="'.$this->escapeHtmlAttr($openUrl).'"></span>':''?>
+    <? // edit dku: https://github.com/marius300482/meta/issues/161 ?>
+    <? if (false && true === $isSubRecord): ?></div><? endif; ?>
 </div>
 <? // DKU: display sub records ?>
 <? if (true === $hasSubRecords): ?>

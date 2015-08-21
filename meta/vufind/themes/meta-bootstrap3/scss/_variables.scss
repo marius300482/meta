@@ -6,7 +6,7 @@ $theme-path-images: '../images';
 // Responsive breakpoints (same as bootstrap!!!!)
 
 $device-xxs-max-width: 400px;
-$device-xs-max-width: 768px;
+$device-xs-max-width: 768px; // Should be 767px
 $device-md-max-width: 992px;
 $device-lg-max-width: 1200px;
 $screen-lg-min: 993px;

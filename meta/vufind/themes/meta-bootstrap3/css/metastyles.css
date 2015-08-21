@@ -679,6 +679,9 @@ footer {
     line-height: 1.85em;
     text-align: center;
     text-decoration: none; }
+  @media (max-width: 768px) {
+    .result > .col-xs-12 > .col-xs-11 {
+      padding-right: 0; } }
 
 .subrecords-sep {
   margin-top: -10px;
@@ -718,9 +721,10 @@ ul.search-result-subrecords {
     display: table; }
   ul.search-result-subrecords li:after {
     clear: both; }
-  @media (min-width: 993px) {
-    ul.search-result-subrecords li .is-subrecord {
-      padding-right: 0; } }
+  ul.search-result-subrecords li .is-subrecord {
+    background-color: #f7f6fa;
+    padding-top: 1em;
+    padding-bottom: 1em; }
 
 .row.result:last-child {
   margin-bottom: 60px !important; }
