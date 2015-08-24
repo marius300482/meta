@@ -85,7 +85,23 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
       <span class="Z3988" title="<?=$this->escapeHtmlAttr($this->driver->getOpenURL())?>"></span>
     */ ?>
 
-   
+      <div class="record row detail-view-detail-row">
+        <?php $tabCount = 0; ?>
+        <?php foreach ($this->tabs as $tab => $obj): ?>
+            <div class="col-sm-6">
+                <?php if ($tab == "Description") : ?>
+                    <h4 data-section-toggle="true" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>
+                <?php elseif ($tab == "HierarchyTree") : ?>
+                    <h4 data-section-toggle="true"><?php echo $this->transEsc('Context'); ?></h4>
+                <?php elseif ($tab == "OtherInstitutions") : ?>
+                	<h4 data-section-toggle="true"><?php echo $this->transEsc('Also available in other institutions'); ?></h4>
+                <?php endif; ?>
+                <div class="collapsible">
+                    <?php echo $this->record($this->driver)->getTab($obj) ?>
+                </div>
+            </div>
+            <?php $tabCount++; ?>
+        <?php endforeach; ?>
 
     <?php /* PHE - START start next row, if previous row is full */ ?>
     <?php if ($institutionDetails != NULL && $tabCount > 1 && $tabCount % 2 == 0) : ?>
@@ -145,23 +161,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
         <?php /* PHE - END of the institution details */ ?>
         
         
-         <div class="record row detail-view-detail-row">
-        <?php $tabCount = 0; ?>
-        <?php foreach ($this->tabs as $tab => $obj): ?>
-            <div class="col-sm-6">
-                <?php if ($tab == "Description") : ?>
-                    <h4 data-section-toggle="true" id="tabnav"><?php echo $this->transEsc('further information'); ?></h4>
-                <?php elseif ($tab == "HierarchyTree") : ?>
-                    <h4 data-section-toggle="true"><?php echo $this->transEsc('Context'); ?></h4>
-                <?php elseif ($tab == "OtherInstitutions") : ?>
-                	<h4 data-section-toggle="true"><?php echo $this->transEsc('Also available in other institutions'); ?></h4>
-                <?php endif; ?>
-                <div class="collapsible">
-                    <?php echo $this->record($this->driver)->getTab($obj) ?>
-                </div>
-            </div>
-            <?php $tabCount++; ?>
-        <?php endforeach; ?>
+      
         
         
     </div>
