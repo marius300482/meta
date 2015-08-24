@@ -143,10 +143,9 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
             </div>
         <?php endif; ?>
         <?php /* PHE - END of the institution details */ ?>
-    </div>
-    
-    
-     <div class="record row detail-view-detail-row">
+        
+        
+         <div class="record row detail-view-detail-row">
         <?php $tabCount = 0; ?>
         <?php foreach ($this->tabs as $tab => $obj): ?>
             <div class="col-sm-6">
@@ -163,6 +162,12 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
             </div>
             <?php $tabCount++; ?>
         <?php endforeach; ?>
+        
+        
+    </div>
+    
+    
+    
     
 </div>
 
