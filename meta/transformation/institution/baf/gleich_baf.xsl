@@ -219,6 +219,7 @@
 	<!--SHELFMARK-->
 				<xsl:apply-templates select="Standort[1][string-length() != 0]"/>
 				<xsl:apply-templates select="Signatur[1][string-length() != 0]"/>
+			
 		
 		</xsl:element>	
 
@@ -250,9 +251,8 @@
 		<xsl:variable name="bestand" select="../Bestand[1]" />
 		<xsl:variable name="lfr"><xsl:text>Landesfrauenrat</xsl:text></xsl:variable>
 		<description>
-			<xsl:if test="contains($bestand,$lfr)">
-				<xsl:text>Landesfrauenrat Ba-Wü: </xsl:text>
-			</xsl:if>
+			<xsl:value-of select="../Bestand[1]"></xsl:value-of>
+			<xsl:text>: </xsl:text>
 			<xsl:for-each select="../Enthaelt">
 				<xsl:value-of select="normalize-space(.)" />
 				<xsl:text> </xsl:text>
@@ -269,9 +269,8 @@
 		<xsl:variable name="bestand" select="../Bestand[1]" />
 		<xsl:variable name="lfr"><xsl:text>Landesfrauenrat</xsl:text></xsl:variable>
 		<description>
-			<xsl:if test="contains($bestand,$lfr)">
-				<xsl:text>Landesfrauenrat Ba-Wü: </xsl:text>
-			</xsl:if>
+			<xsl:value-of select="../Bestand[1]"></xsl:value-of>
+			<xsl:text>: </xsl:text>
 			<xsl:for-each select="../Darin">
 				<xsl:value-of select="normalize-space(.)" />
 				<xsl:text> </xsl:text>
@@ -460,6 +459,12 @@
 		</xsl:template>
 		
 	<xsl:template match="Signatur">
+		<shelfMark>
+			<xsl:value-of select="normalize-space(.)" />
+			</shelfMark>
+		</xsl:template>
+	
+	<xsl:template match="InventarNeueFrauenbewegung">
 		<shelfMark>
 			<xsl:value-of select="normalize-space(.)" />
 			</shelfMark>
