@@ -131,7 +131,17 @@
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Buch</xsl:text></format>	
+				<xsl:choose>
+					<xsl:when test="ART='V'">
+						<format><xsl:text>Film</xsl:text></format>	
+						</xsl:when>
+					<xsl:when test="ART='A'">
+						<format><xsl:text>Tonträger</xsl:text></format>	
+						</xsl:when>
+					<xsl:otherwise>
+						<format><xsl:text>Buch</xsl:text></format>
+						</xsl:otherwise>
+					</xsl:choose>
 
 <!--TITLE-->
 
@@ -175,6 +185,9 @@
 				
 				<xsl:apply-templates select="SW0[string-length() != 0]"/>
 				
+	<!--description-->
+				<xsl:apply-templates select="UTIT[string-length() != 0]"/>
+	
 <!--OTHER-->
 	<!--SHELFMARK-->
 				<xsl:apply-templates select="SYST[1][string-length() != 0]"/>
@@ -217,6 +230,21 @@
 					<xsl:value-of select="normalize-space(substring-after(.,'p||'))" />
 					</subjectPerson>
 				</xsl:when>
+			<xsl:when test="contains(.,'f||')">
+				<subjectTopic>
+					<xsl:value-of select="normalize-space(substring-after(.,'f||'))" />
+					</subjectTopic>
+				</xsl:when>
+			<xsl:when test="contains(.,'h||')">
+				<subjectTopic>
+					<xsl:value-of select="normalize-space(substring-after(.,'h||'))" />
+					</subjectTopic>
+				</xsl:when>
+			<xsl:when test="contains(.,'¤')">
+				<subjectTopic>
+					<xsl:value-of select="normalize-space(substring-after(.,'¤'))" />
+					</subjectTopic>
+				</xsl:when>
 			<xsl:otherwise>
 				<subjectTopic>
 					<xsl:value-of select="normalize-space(.)" />
@@ -227,7 +255,29 @@
 		</xsl:template>
 		
 	<xsl:template match="UMF">
-		<xsl:choose>
+	<xsl:choose>
+		<xsl:when test="../ART='V'">
+			<physical><xsl:value-of select="normalize-space(.)" /></physical>	
+			</xsl:when>
+		<xsl:when test="../ART='A'">
+			<physical><xsl:value-of select="normalize-space(.)" /></physical>	
+			</xsl:when>
+		<xsl:otherwise>
+			<xsl:choose>
+				<xsl:when test="contains(.,';')">
+					<physical>
+						<xsl:value-of select="normalize-space(translate(substring-before(.,';'), translate(.,'0123456789', ''), ''))" />
+						</physical>
+					</xsl:when>
+				<xsl:otherwise>
+					<physical>
+						<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
+						</physical>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+		<!--<xsl:choose>
 			<xsl:when test="contains(.,';')">
 				<physical>
 					<xsl:value-of select="normalize-space(translate(substring-before(.,';'), translate(.,'0123456789', ''), ''))" />
@@ -238,22 +288,71 @@
 					<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
 					</physical>
 				</xsl:otherwise>
-			</xsl:choose>
+			</xsl:choose>-->
 		</xsl:template>
 	
-	<xsl:template match="HST[1]">
+	<xsl:template match="HST">
 		<title>
-			<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+			<xsl:choose>
+				<xsl:when test="contains(.,'[')">
+					<xsl:value-of select="normalize-space(replace(substring-before(.,'['),'¬',''))"/>
+					</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</title>
 		<title_short>
-			<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+			<xsl:choose>
+				<xsl:when test="contains(.,'[')">
+					<xsl:value-of select="normalize-space(replace(substring-before(.,'['),'¬',''))"/>
+					</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="normalize-space(replace(.,'¬',''))"/>
+					</xsl:otherwise>
+				</xsl:choose>
 			</title_short>	
-		<xsl:if test="contains(../HST[2],'U ')">
-			<xsl:if test="(not(contains(../HST[2],'Roman')))">
-			<title_sub>
+	<xsl:if test="contains(../HST[2],'U ')">
+
+		<xsl:variable name="titlesub" select="substring-after(../HST[2],'U ')" />	
+		<xsl:variable name="list">
+			Kriminalroman
+			Kriminalgeschichten 
+			Thriller 
+			[Kriminalroman]
+			Klassischer Krimi 
+			Kriminalromanze 
+			Kriminalerzählungen 
+			Kriminalromane
+			ein Kriminalroman
+			e. Kriminalroman
+			Kriminalroman.
+			Kriminalstories 
+			thriller 
+			historischer Kriminalroman
+			[Thriller]
+			Offensive Krimi
+			offensive Krimi
+			zwei Psychothriller
+			ein Krimi mit CD-Rom
+			ein historischer Kriminalroman
+			Crime Stories
+			Krimi 
+			Storys
+			Lesbenkrimi
+			ein Lesbenkrimi
+			ein Psychothriller
+			Zwei Kriminalromane
+			Roman
+			Kriminalroman; mit einem Glossar
+			</xsl:variable>
+
+			<xsl:if test="not(contains($list,$titlesub))">
+				<title_sub>
 				<xsl:value-of select="substring-after(../HST[2],'U ')"/>
 				</title_sub>	
 				</xsl:if>
+			
 			</xsl:if>
 		</xsl:template>
 	
@@ -264,9 +363,16 @@
 		</xsl:template>
 	
 	<xsl:template match="ISBN">
-		<isbn>
+		<xsl:choose>
+			<xsl:when test="../ART='V'"></xsl:when>
+			<xsl:when test="contains(.,'&#128;')"></xsl:when>
+			<xsl:otherwise>
+				<isbn><xsl:value-of select="."/></isbn>	
+				</xsl:otherwise>
+			</xsl:choose>
+		<!--<isbn>
 			<xsl:value-of select="."/>
-			</isbn>	
+			</isbn>-->	
 		</xsl:template>	
 
 	<xsl:template match="JAHR">
@@ -304,6 +410,12 @@
 		<shelfMark>
 			<xsl:value-of select="."/>
 			</shelfMark>
+		</xsl:template>
+		
+	<xsl:template match="UTIT">
+		<description>
+			<xsl:value-of select="."/>
+			</description>
 		</xsl:template>
 	
 	<!--<xsl:template match="übersetzt_von">
