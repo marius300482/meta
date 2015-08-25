@@ -23,15 +23,14 @@
 		<xsl:variable name="id">
 			
 			<xsl:value-of select="substring(translate(Titel[1],'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,8)" />
+			<xsl:value-of select="substring(translate(Aktentitel[1],'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,8)" />
 			<xsl:value-of select="substring(translate(AutorInnen[1],'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,8)" />
+			<xsl:value-of select="substring(translate(Signatur[1],'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,8)" />
 			<xsl:value-of select="translate(ISBN, translate(.,'0123456789', ''), '')" />
-			<!--<xsl:value-of select="translate(Titel[1],'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
-			<xsl:value-of select="translate(AutorInnen[1],'1234567890abcdefghijklmnopqrstuvwxyzäüöABCDEFGHIJKLMNOPQRSTUVWXYZ -_:.,!?/()', '1234567890abcdefghijklmnopqrstuvwxyzauoABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
-			<xsl:value-of select="translate(ISBN, translate(.,'0123456789', ''), '')" />-->
 			</xsl:variable>
 		
 		
-					<xsl:element name="record">
+			<xsl:element name="record">
 				<xsl:attribute name="id">
 					<xsl:value-of select="$id"/><xsl:text>baf</xsl:text>
 					</xsl:attribute>
@@ -69,9 +68,18 @@
 					</recordChangeDate>
 	
 	<!--recordType-->
-				<recordType>
-					<xsl:text>library</xsl:text>
-					</recordType>
+				<xsl:choose>
+					<xsl:when test="Aktentitel">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:otherwise>
+						<recordType>
+							<xsl:text>library</xsl:text>
+							</recordType>
+						</xsl:otherwise>
+					</xsl:choose>
 				
 	
 </xsl:element>
@@ -143,13 +151,22 @@
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Buch</xsl:text></format>	
+				<xsl:choose>
+					<xsl:when test="Aktentitel">
+						<format><xsl:text>Akte</xsl:text></format>	
+						</xsl:when>
+					<xsl:otherwise>
+						<format><xsl:text>Buch</xsl:text></format>	
+						</xsl:otherwise>
+					</xsl:choose>
+				
 
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
 				<xsl:apply-templates select="Titel[1][string-length() != 0]"/>	
 				<xsl:apply-templates select="Originaltitel[1][string-length() != 0]"/>	
+				<xsl:apply-templates select="Aktentitel[1][string-length() != 0]"/>	
 				<!--<xsl:apply-templates select="Untertitel[string-length() != 0]"/>	-->
 				
 <!--RESPONSIBLE-->
@@ -173,6 +190,7 @@
 	<!--displayDate-->
 	<!--publishDate Jahresangabe-->
 				<xsl:apply-templates select="Jahr[string-length() != 0]"/>
+				<xsl:apply-templates select="Laufzeit[string-length() != 0]"/>
 	
 	<!--placeOfPublication publisher Verlagsangabe-->
 				<xsl:apply-templates select="Verlag[string-length() != 0]"/>
@@ -182,6 +200,8 @@
 	
 	<!--physical-->
 				<xsl:apply-templates select="Umf_Ill_Beil[string-length() != 0]"/>
+				<xsl:apply-templates select="Umfang[string-length() != 0]"/>
+				
 	
 <!--CONTENTRELATED INFORMATION-->
 				
@@ -189,10 +209,15 @@
 				
 				<xsl:apply-templates select="Suchwoerter[string-length() != 0]"/>
 				<xsl:apply-templates select="Personenregister[string-length() != 0]"/>
+				<xsl:apply-templates select="BAWOrt_Landkreis_Land[string-length() != 0]"/>
 				
+	<!--description-->	
+				<xsl:apply-templates select="Enthaelt[1][string-length() != 0]"/>
+			
 <!--OTHER-->
 	<!--SHELFMARK-->
 				<xsl:apply-templates select="Standort[1][string-length() != 0]"/>
+				<xsl:apply-templates select="Signatur[1][string-length() != 0]"/>
 		
 		</xsl:element>	
 
@@ -219,6 +244,26 @@
 
 <!--Templates-->
 	
+	
+	<xsl:template match="Enthaelt">
+		<description>
+			<xsl:for-each select="../Enthaelt">
+				<xsl:value-of select="normalize-space(.)" />
+				<xsl:text> </xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="../Darin">
+				<xsl:value-of select="normalize-space(.)" />
+				<xsl:text> </xsl:text>
+				</xsl:for-each>
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="BAWOrt_Landkreis_Land">
+			<subjectGeographic>
+				<xsl:value-of select="normalize-space(.)" />
+				</subjectGeographic>
+		</xsl:template>
+	
 	<xsl:template match="Suchwoerter">
 		<xsl:for-each select="tokenize(.,';')">
 			<subjectTopic>
@@ -235,10 +280,25 @@
 			</xsl:for-each>
 		</xsl:template>
 	
+	<xsl:template match="Umfang">
+		<physical>
+			<xsl:value-of select="normalize-space(.)" />
+			</physical>
+		</xsl:template>
+	
 	<xsl:template match="Umf_Ill_Beil">
 		<physical>
 			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
 			</physical>
+		</xsl:template>
+	
+	<xsl:template match="Aktentitel[1]">
+		<title>
+			<xsl:value-of select="normalize-space(.)" />
+			</title>
+		<title_short>
+			<xsl:value-of select="normalize-space(.)" />
+			</title_short>
 		</xsl:template>
 	
 	<xsl:template match="Titel[1]">
@@ -299,6 +359,33 @@
 			</isbn>	
 		</xsl:template>	
 
+	<xsl:template match="Laufzeit">
+		<displayPublishDate>
+			<xsl:value-of select="."/>
+			</displayPublishDate>
+		<xsl:choose>
+			<xsl:when test="contains(.,'-')">
+				<xsl:for-each select="tokenize(.,'-')">
+					<publishDate>
+						<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
+						</publishDate>
+					</xsl:for-each>
+				</xsl:when>
+			<xsl:when test="contains(.,';')">
+				<xsl:for-each select="tokenize(.,';')">
+					<publishDate>
+						<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
+						</publishDate>
+					</xsl:for-each>
+				</xsl:when>
+			<xsl:otherwise>
+				<publishDate>
+					<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
+					</publishDate>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:template>	
+
 	<xsl:template match="Jahr">
 		<xsl:choose>
 			<xsl:when test=".!=''">
@@ -335,6 +422,12 @@
 			<xsl:value-of select="normalize-space(.)" />
 			</shelfMark>
 		</xsl:template>
+		
+	<xsl:template match="Signatur">
+		<shelfMark>
+			<xsl:value-of select="normalize-space(.)" />
+			</shelfMark>
+		</xsl:template>
 	
 	<xsl:template match="AutorInnen">
 	
@@ -355,20 +448,6 @@
 			</xsl:choose>
 					</xsl:for-each>
 	
-		<!--<xsl:choose>
-			<xsl:when test="contains(.,' u.a.')">
-				<xsl:for-each select="tokenize(.,'/')">
-				<author>
-					<xsl:value-of select="normalize-space(substring-before(.,'u.a.'))" />
-					</author>
-					</xsl:for-each>
-				</xsl:when>
-			<xsl:otherwise>
-				<author>
-					<xsl:value-of select="normalize-space(.)" />
-					</author>
-				</xsl:otherwise>
-			</xsl:choose>-->
 		</xsl:template>
 	
 	<xsl:template match="HerausgeberInnen">
