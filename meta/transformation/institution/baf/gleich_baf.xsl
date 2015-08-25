@@ -213,6 +213,7 @@
 				
 	<!--description-->	
 				<xsl:apply-templates select="Enthaelt[1][string-length() != 0]"/>
+				<xsl:apply-templates select="Darin[1][string-length() != 0]"/>
 			
 <!--OTHER-->
 	<!--SHELFMARK-->
@@ -246,7 +247,12 @@
 	
 	
 	<xsl:template match="Enthaelt">
+		<xsl:variable name="bestand" select="../Bestand[1]" />
+		<xsl:variable name="lfr"><xsl:text>Landesfrauenrat</xsl:text></xsl:variable>
 		<description>
+			<xsl:if test="contains($bestand,$lfr)">
+				<xsl:text>Landesfrauenrat Ba-Wü: </xsl:text>
+			</xsl:if>
 			<xsl:for-each select="../Enthaelt">
 				<xsl:value-of select="normalize-space(.)" />
 				<xsl:text> </xsl:text>
@@ -256,6 +262,22 @@
 				<xsl:text> </xsl:text>
 				</xsl:for-each>
 			</description>
+		</xsl:template>
+	
+	<xsl:template match="Darin">
+		<xsl:if test="not(../Enthaelt)">
+		<xsl:variable name="bestand" select="../Bestand[1]" />
+		<xsl:variable name="lfr"><xsl:text>Landesfrauenrat</xsl:text></xsl:variable>
+		<description>
+			<xsl:if test="contains($bestand,$lfr)">
+				<xsl:text>Landesfrauenrat Ba-Wü: </xsl:text>
+			</xsl:if>
+			<xsl:for-each select="../Darin">
+				<xsl:value-of select="normalize-space(.)" />
+				<xsl:text> </xsl:text>
+				</xsl:for-each>
+			</description>
+			</xsl:if>
 		</xsl:template>
 	
 	<xsl:template match="BAWOrt_Landkreis_Land">
@@ -293,12 +315,26 @@
 		</xsl:template>
 	
 	<xsl:template match="Aktentitel[1]">
-		<title>
-			<xsl:value-of select="normalize-space(.)" />
-			</title>
-		<title_short>
-			<xsl:value-of select="normalize-space(.)" />
-			</title_short>
+		<xsl:variable name="bestand" select="../Bestand[1]" />
+		<xsl:variable name="lfr"><xsl:text>Landesfrauenrat</xsl:text></xsl:variable>
+		<xsl:choose>
+			<xsl:when test="contains($bestand,$lfr)">
+				<title>
+					<xsl:value-of select="normalize-space(.)" />
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)" />
+					</title_short>
+				</xsl:when>
+			<xsl:otherwise>
+				<title>
+					<xsl:value-of select="normalize-space(.)" />
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)" />
+					</title_short>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:template>
 	
 	<xsl:template match="Titel[1]">
