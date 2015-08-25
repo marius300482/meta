@@ -218,6 +218,15 @@
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
         <property name="incrementalUpdateAllowed" value="true"/>
     </bean>
+    <bean id="monaliesa" class="de.idadachverband.institution.IdaInstitutionBean">
+     	<constructor-arg index="0" name="institutionId" value="monaliesa"/>
+        <constructor-arg index="1" name="institutionName" value="MONAliesA"/>
+        <constructor-arg index="2" name="transformationRecipeFile"
+                         value="${xslt.basePath}/institution/monaliesa/gleich_monaliesa.xsl"/>
+        <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
+        <property name="incrementalUpdateAllowed" value="true"/>
+    </bean>
+    
     
     <util:set id="institutionsSet" set-class="java.util.HashSet"
     		  value-type="de.idadachverband.institution.IdaInstitutionBean">
