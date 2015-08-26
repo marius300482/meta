@@ -97,7 +97,7 @@
 <xsl:element name="institution">
 	
 <!--institutionShortname-->			<institutionShortname>
-							<xsl:text>BAF e.V.</xsl:text>
+							<xsl:text>BAF</xsl:text>
 							</institutionShortname>
 	
 <!--institutionFullname-->			<institutionFull>
@@ -155,6 +155,9 @@
 					<xsl:when test="Aktentitel">
 						<format><xsl:text>Akte</xsl:text></format>	
 						</xsl:when>
+					<xsl:when test="Objektart[text()='Plakate']">
+						<format><xsl:text>Aufsatz</xsl:text></format>	
+						</xsl:when>
 					<xsl:otherwise>
 						<format><xsl:text>Buch</xsl:text></format>	
 						</xsl:otherwise>
@@ -184,6 +187,7 @@
 	
 	<!--isbn-->
 				<xsl:apply-templates select="ISBN[1][string-length() != 0]"/>
+				<xsl:apply-templates select="ISSN[1][string-length() != 0]"/>
 	
 <!--PUBLISHING-->
 
@@ -195,13 +199,16 @@
 	<!--placeOfPublication publisher Verlagsangabe-->
 				<xsl:apply-templates select="Verlag[string-length() != 0]"/>
 				<xsl:apply-templates select="Erscheinungsort[string-length() != 0]"/>
+				
+	<!--sourceInfo-->
+				<xsl:apply-templates select="Erscheinungsform[string-length() != 0]"/>
 	
 <!--PHYSICAL INFORMATION-->
 	
 	<!--physical-->
 				<xsl:apply-templates select="Umf_Ill_Beil[string-length() != 0]"/>
 				<xsl:apply-templates select="Umfang[string-length() != 0]"/>
-				
+				<xsl:apply-templates select="Seite_von_bis[string-length() != 0]"/>
 	
 <!--CONTENTRELATED INFORMATION-->
 				
@@ -214,7 +221,10 @@
 	<!--description-->	
 				<xsl:apply-templates select="Enthaelt[1][string-length() != 0]"/>
 				<xsl:apply-templates select="Darin[1][string-length() != 0]"/>
-			
+		
+	<!--issue-->
+				<xsl:apply-templates select="Heftnummer[1][string-length() != 0]"/>
+	
 <!--OTHER-->
 	<!--SHELFMARK-->
 				<xsl:apply-templates select="Standort[1][string-length() != 0]"/>
@@ -246,6 +256,32 @@
 
 <!--Templates-->
 	
+	
+	<xsl:template match="Heftnummer">
+		<issue>
+			<xsl:value-of select="substring-before(.,'.')"></xsl:value-of>
+			</issue>
+			
+			
+			
+		</xsl:template>
+	
+	<xsl:template match="Erscheinungsform">
+		<xsl:if test=".[text()='Aufsatz']">
+			<sourceInfo>
+				<xsl:value-of select="../Reihe_1"></xsl:value-of>
+				</sourceInfo>
+			<xsl:if test="../Heftnummer[string-length() != 0]">
+				<displayPublishDate>
+					<xsl:value-of select="normalize-space(substring-after(../Heftnummer,'.'))" />
+					</displayPublishDate>	
+				<publishDate>
+					<xsl:value-of select="normalize-space(substring-after(../Heftnummer,'.'))" />
+					</publishDate>
+				</xsl:if>
+			
+			</xsl:if>
+		</xsl:template>
 	
 	<xsl:template match="Enthaelt">
 		<xsl:variable name="bestand" select="../Bestand[1]" />
@@ -313,6 +349,12 @@
 			</physical>
 		</xsl:template>
 	
+	<xsl:template match="Seite_von_bis">
+		<physical>
+			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789-', ''), ''))" />
+			</physical>
+		</xsl:template>
+	
 	<xsl:template match="Aktentitel[1]">
 		<xsl:variable name="bestand" select="../Bestand[1]" />
 		<xsl:variable name="lfr"><xsl:text>Landesfrauenrat</xsl:text></xsl:variable>
@@ -338,6 +380,11 @@
 	
 	<xsl:template match="Titel[1]">
 		<title>
+			<xsl:if test="../Artikel_die_das[string-length() != 0]">
+				<xsl:value-of select="normalize-space(../Artikel_die_das)" />
+				<xsl:text> </xsl:text>
+				</xsl:if>
+			
 			<xsl:choose>
 				<xsl:when test="contains(.,'==')">
 					<xsl:value-of select="normalize-space(substring-after(.,'=='))" />		
@@ -355,6 +402,11 @@
 			</title>
 		
 		<title_short>
+			<xsl:if test="../Artikel_die_das[string-length() != 0]">
+				<xsl:value-of select="normalize-space(../Artikel_die_das)" />
+				<xsl:text> </xsl:text>
+				</xsl:if>
+			
 			<xsl:choose>
 				<xsl:when test="contains(.,'==')">
 					<xsl:value-of select="normalize-space(substring-after(.,'=='))" />		
@@ -371,7 +423,7 @@
 				</xsl:for-each>
 			</title_short>
 		
-		<xsl:if test="../Untertitel">
+		<xsl:if test="../Untertitel[string-length() != 0]">
 			<title_sub>
 				<xsl:for-each select="../Untertitel">
 					<xsl:value-of select="."></xsl:value-of>
@@ -387,6 +439,11 @@
 			</originalTitle>	
 		</xsl:template>	
 
+	<xsl:template match="ISSN">
+		<issn>
+			<xsl:value-of select="normalize-space(.)" />
+			</issn>	
+		</xsl:template>	
 	
 	<xsl:template match="ISBN">
 		<isbn>
@@ -499,7 +556,7 @@
 			</xsl:for-each>
 		</xsl:template>
 	
-
+	
 	
 	
 	
