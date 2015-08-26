@@ -155,14 +155,23 @@
 					<xsl:when test="Aktentitel">
 						<format><xsl:text>Akte</xsl:text></format>	
 						</xsl:when>
-					<xsl:when test="Objektart[text()='Plakate']">
-						<format><xsl:text>Aufsatz</xsl:text></format>	
+					<xsl:when test="Erscheinungsform[text()='Aufsatz']">
+						<format><xsl:text>Artikel</xsl:text></format>	
+						</xsl:when>
+					<xsl:when test="Erscheinungsform[text()='Zeitschrift']">
+						<format><xsl:text>Zeitschrift</xsl:text></format>	
 						</xsl:when>
 					<xsl:otherwise>
 						<format><xsl:text>Buch</xsl:text></format>	
 						</xsl:otherwise>
 					</xsl:choose>
-				
+	
+	<!--documentType-->		
+				<xsl:if test="Erscheinungsform[string-length() != 0]">
+					<documentType>
+						<xsl:value-of select="Erscheinungsform"></xsl:value-of>
+						</documentType>
+					</xsl:if>		
 
 <!--TITLE-->
 
@@ -258,11 +267,18 @@
 	
 	
 	<xsl:template match="Heftnummer">
-		<issue>
-			<xsl:value-of select="substring-before(.,'.')"></xsl:value-of>
-			</issue>
-			
-			
+		<xsl:choose>
+			<xsl:when test="../Erscheinungsform[text()='Aufsatz']">
+				<issue>
+					<xsl:value-of select="substring-before(.,'.')"></xsl:value-of>
+					</issue>
+				</xsl:when>
+			<xsl:otherwise>
+				<collectionHolding>
+					<xsl:value-of select="."></xsl:value-of>
+					</collectionHolding>
+				</xsl:otherwise>
+			</xsl:choose>
 			
 		</xsl:template>
 	
