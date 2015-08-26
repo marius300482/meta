@@ -429,6 +429,10 @@
 					<xsl:value-of select="."></xsl:value-of>
 					<xsl:text> </xsl:text>
 					</xsl:for-each>
+				<xsl:for-each select="../Titel_Veranst">
+					<xsl:value-of select="."></xsl:value-of>
+					<xsl:text> </xsl:text>
+					</xsl:for-each>
 				</title_sub>
 			</xsl:if>
 		</xsl:template>
