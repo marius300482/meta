@@ -822,7 +822,7 @@ ul.search-result-subrecords {
 #hierarchyTreeHolder {
   background-color: #F7F6F8;
   margin-top: -10px;
-  padding: 0 10px 10px 10px; }
+  padding: 9px 10px 10px 10px; }
   #hierarchyTreeHolder #treeSearch {
     border-bottom: 1px solid #D6D3DE;
     padding: 20px 10px;
@@ -856,8 +856,8 @@ ul.search-result-subrecords {
     line-height: inherit;
     min-height: inherit; }
   #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
-    background-color: #FFEFCC;
-    border: 1px solid #E6E5EB !important;
+    background-color: #F7F6F8;
+    border: 0px solid #E6E5EB !important;
     box-shadow: none; }
   #hierarchyTreeHolder .jstree-children {
     font-weight: 300; }
