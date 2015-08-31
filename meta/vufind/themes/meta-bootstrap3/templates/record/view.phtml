@@ -85,7 +85,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
       <span class="Z3988" title="<?=$this->escapeHtmlAttr($this->driver->getOpenURL())?>"></span>
     */ ?>
 
-    <div class="record row detail-view-detail-row">
+      <div class="record row detail-view-detail-row">
         <?php $tabCount = 0; ?>
         <?php foreach ($this->tabs as $tab => $obj): ?>
             <div class="col-sm-6">
@@ -114,7 +114,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
             <div class="col-sm-6 institution detail-view-detail-row">
                 <h4 data-section-toggle="true">
 		    <a name="link"></a>
-                    <?php echo $this->transEsc('Institution'); ?>
+                    <?php echo $this->transEsc('Location'); ?>
                 </h4>
                 <div class="collapsible">
                     <h5><?= strip_tags($institutionName, "<br>"); ?></h5>
@@ -159,7 +159,16 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
             </div>
         <?php endif; ?>
         <?php /* PHE - END of the institution details */ ?>
+        
+        
+      
+        
+        
     </div>
+    
+    
+    
+    
 </div>
 
 <div class="sidebar col-md-3 hidden-print detail-view-sidebar" data-sidebar-toggle="true">
