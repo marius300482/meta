@@ -63,5 +63,5 @@
 
             <? endif; ?>
 
-    <?=$openUrl?'<span class="Z3988" title="'.$this->escapeHtmlAttr($openUrl).'"></span>':''?>
+    <?=(isset($openUrl) && $openUrl)?'<span class="Z3988" title="'.$this->escapeHtmlAttr($openUrl).'"></span>':''?>
 </div>
