@@ -120,8 +120,10 @@ header {
         @media (max-width: $device-xs-max-width) {
           width: 58%;
         }
-        @media (max-width: $device-xxs-max-width) {
-          width: 46%;
+        @media (max-width: $device-xxs-max-width - 1px) {
+          width: 84%;
+          margin-right: 3%;
+//          width: 46%;
         }
       }
       .twitter-typeahead {
@@ -143,6 +145,37 @@ header {
           font-size: 18px;
         }
       }
+      .btn-wrap {
+        background-color: #0f0;
+        display: inline-block;
+        @media (max-width: $device-xxs-max-width - 1px) {
+          width: 12%;
+        }
+
+        // Suchen-Button kleine (Lupe)
+        :first-child {
+          padding: 2px 0 0 0;
+          width: 100%;
+
+          @media (min-width: $device-xxs-max-width) {
+            display: none;
+          }
+
+          &:before {
+            content: "\e60a";
+            font-family: 'icomoon';
+            font-size: 20px;
+          }
+        }
+
+        // Suchen-Button gross
+        :last-child {
+          display: none;
+          @media (min-width: $device-xxs-max-width) {
+            display: inline-block;
+          }
+        }
+      }
       .btn-primary {
         margin: 0;
         padding-top: 3px;
@@ -150,6 +183,18 @@ header {
         font-weight: 500;
         font-size: 19px;
         vertical-align: top;
+
+        /*@media (max-width: $device-xs-max-width) {
+          width: 30px;
+
+          &:before {
+            content: "\e60a";
+            color: $color-grey-border;
+            font-family: 'icomoon';
+            font-size: 20px;
+          }
+        }*/
+
         i {
           display: none;
         }

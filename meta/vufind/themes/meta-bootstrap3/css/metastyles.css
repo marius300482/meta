@@ -433,9 +433,10 @@ header {
         @media (max-width: 768px) {
           header #searchForm #simple-search-body .simple-search-input-wrapper {
             width: 58%; } }
-        @media (max-width: 400px) {
+        @media (max-width: 399px) {
           header #searchForm #simple-search-body .simple-search-input-wrapper {
-            width: 46%; } }
+            width: 84%;
+            margin-right: 3%; } }
       header #searchForm #simple-search-body .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
@@ -452,13 +453,44 @@ header {
           box-shadow: 0 0 4px rgba(64, 57, 91, 0.3) inset;
           width: 100%;
           font-size: 18px; }
+      header #searchForm #simple-search-body .btn-wrap {
+        background-color: #0f0;
+        display: inline-block; }
+        @media (max-width: 399px) {
+          header #searchForm #simple-search-body .btn-wrap {
+            width: 12%; } }
+        header #searchForm #simple-search-body .btn-wrap :first-child {
+          padding: 2px 0 0 0;
+          width: 100%; }
+          @media (min-width: 400px) {
+            header #searchForm #simple-search-body .btn-wrap :first-child {
+              display: none; } }
+          header #searchForm #simple-search-body .btn-wrap :first-child:before {
+            content: "\e60a";
+            font-family: 'icomoon';
+            font-size: 20px; }
+        header #searchForm #simple-search-body .btn-wrap :last-child {
+          display: none; }
+          @media (min-width: 400px) {
+            header #searchForm #simple-search-body .btn-wrap :last-child {
+              display: inline-block; } }
       header #searchForm #simple-search-body .btn-primary {
         margin: 0;
         padding-top: 3px;
         padding-bottom: 3px;
         font-weight: 500;
         font-size: 19px;
-        vertical-align: top; }
+        vertical-align: top;
+        /*@media (max-width: $device-xs-max-width) {
+          width: 30px;
+
+          &:before {
+            content: "\e60a";
+            color: $color-grey-border;
+            font-family: 'icomoon';
+            font-size: 20px;
+          }
+        }*/ }
         header #searchForm #simple-search-body .btn-primary i {
           display: none; }
   header #advSearchForm {

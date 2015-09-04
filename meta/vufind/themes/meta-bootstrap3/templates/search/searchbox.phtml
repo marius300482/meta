@@ -67,7 +67,10 @@
         <? elseif ($handlerCount == 1): ?>
           <input type="hidden" name="type" value="<?=$this->escapeHtmlAttr($handlers[0]['value'])?>" />
         <? endif; ?>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> <?=$this->transEsc("Find")?></button>
+        <div class="btn-wrap">
+            <button type="submit" class="btn btn-primary"></button>
+            <button type="submit" class="btn btn-primary"><?= $this->transEsc("Find") ?></button>
+        </div>
         <?php /* PHE moved to the top
           <? if ($advSearch): ?>
           <a href="<?=$this->url($advSearch)?>" class="btn btn-link"><?=$this->transEsc("Advanced")?></a>
