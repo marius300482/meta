@@ -436,7 +436,7 @@ header {
         @media (max-width: 399px) {
           header #searchForm #simple-search-body .simple-search-input-wrapper {
             width: 84%;
-            margin-right: 3%; } }
+            margin-right: 2%; } }
       header #searchForm #simple-search-body .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
@@ -480,17 +480,7 @@ header {
         padding-bottom: 3px;
         font-weight: 500;
         font-size: 19px;
-        vertical-align: top;
-        /*@media (max-width: $device-xs-max-width) {
-          width: 30px;
-
-          &:before {
-            content: "\e60a";
-            color: $color-grey-border;
-            font-family: 'icomoon';
-            font-size: 20px;
-          }
-        }*/ }
+        vertical-align: top; }
         header #searchForm #simple-search-body .btn-primary i {
           display: none; }
   header #advSearchForm {
@@ -854,7 +844,7 @@ ul.search-result-subrecords {
 #hierarchyTreeHolder {
   background-color: #F7F6F8;
   margin-top: -10px;
-  padding: 9px 10px 10px 10px; }
+  padding: 0 10px 10px 10px; }
   #hierarchyTreeHolder #treeSearch {
     border-bottom: 1px solid #D6D3DE;
     padding: 20px 10px;
@@ -888,8 +878,8 @@ ul.search-result-subrecords {
     line-height: inherit;
     min-height: inherit; }
   #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
-    background-color: #F7F6F8;
-    border: 0px solid #E6E5EB !important;
+    background-color: #FFEFCC;
+    border: 1px solid #E6E5EB !important;
     box-shadow: none; }
   #hierarchyTreeHolder .jstree-children {
     font-weight: 300; }
