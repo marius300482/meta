@@ -452,7 +452,7 @@ $cssClasses[] = 'col-xs-12';
     </div>
     */ ?>
 
-    <?=$openUrl?'<span class="Z3988" title="'.$this->escapeHtmlAttr($openUrl).'"></span>':''?>
+    <?=(isset($openUrl) && $openUrl)?'<span class="Z3988" title="'.$this->escapeHtmlAttr($openUrl).'"></span>':''?>
     <? // edit dku: https://github.com/marius300482/meta/issues/161 ?>
     <? if (false && true === $isSubRecord): ?></div><? endif; ?>
 </div>

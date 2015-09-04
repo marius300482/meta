@@ -206,7 +206,7 @@ XML;
 
         error_log("TreeDataSource\Solr: getChildren(): search hierarchy_parent_id:{$parentID}");
         $results = $this->searchService->search(
-            'Solr', $query, 0, 10000, new ParamBag(array('fq' => $this->filters))
+            'Solr', $query, 0, 100, new ParamBag(array('fq' => $this->filters))
         );
 
         if ($results->getTotal() < 1) {
@@ -276,6 +276,6 @@ XML;
         $params = new ParamBag(array('fq' => $this->filters));
 
         error_log("TreeDataSource\Solr: _recordHasChildren(): search hierarchy_parent_id:{$record}");
-        return 0 < $this->searchService->search('Solr', $query, 0, 10000, $params)->getTotal();
+        return 0 < $this->searchService->search('Solr', $query, 0, 1, $params)->getTotal();
     }
 }

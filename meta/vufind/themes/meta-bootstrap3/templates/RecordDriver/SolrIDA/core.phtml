@@ -67,7 +67,7 @@
                 <?=$this->transEsc('Editors')?>:
                 <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> </a>
                 <? if(!empty($editors)): ?>
-                    [<a href="<?php/* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+                    [<a href="<?php /* echo $this->recordLink()->getTabUrl($this->driver, "description")*/?>#tabnav"><?=$this->transEsc("weitere")?></a>]
                 <? endif; ?>
             <? endif; ?>
 
