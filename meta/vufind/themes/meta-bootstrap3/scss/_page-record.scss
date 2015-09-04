@@ -95,7 +95,9 @@
 #hierarchyTreeHolder {
   background-color: $color-blue-5;
   margin-top: -10px;
-  padding: 0 10px 10px 10px;
+  // https://github.com/marius300482/meta/commit/177e1cb3908cb32e5c54cef23d8f266808d9aee7
+  padding: 9px 10px 10px 10px;
+//  padding: 0 10px 10px 10px;
   #treeSearch {
     border-bottom: 1px solid $color-grey-border;
     padding: 20px 10px;
@@ -135,8 +137,11 @@
     min-height: inherit;
   }
   .jstree-clicked, .jstree-hovered {
-    background-color: $color-yellow-4;
-    border: 1px solid $color-blue-4 !important; // Overwrite super long selector
+    // https://github.com/marius300482/meta/commit/177e1cb3908cb32e5c54cef23d8f266808d9aee7
+    background-color: transparent;
+    border: none;
+//    background-color: $color-yellow-4;
+//    border: 1px solid $color-blue-4 !important; // Overwrite super long selector
     box-shadow: none;
   }
   .jstree-children {

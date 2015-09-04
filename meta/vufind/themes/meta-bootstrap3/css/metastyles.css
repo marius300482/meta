@@ -887,8 +887,8 @@ ul.search-result-subrecords {
     line-height: inherit;
     min-height: inherit; }
   #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
-    background-color: #FFEFCC;
-    border: 1px solid #E6E5EB !important;
+    background-color: transparent;
+    border: none;
     box-shadow: none; }
   #hierarchyTreeHolder .jstree-children {
     font-weight: 300; }
