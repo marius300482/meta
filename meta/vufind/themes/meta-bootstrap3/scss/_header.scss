@@ -25,8 +25,11 @@ header {
     float: none;
     margin: 20px 0 4px 15px;
     @media (max-width: $device-xs-max-width) {
-      height: 60px;
+      font-size: 21px;
+      height: auto;
       line-height: 30px;
+      padding-top: 10px;
+      padding-bottom: 0;
     }
   }
   .navbar-header {
@@ -46,13 +49,14 @@ header {
     right: 30px;
     top: 0;
     @media (max-width: $device-xs-max-width) {
+      background-image: url($theme-path-images + "/ida-logo_mobil_retina.png");
       display: block;
       position: relative;
       right: 15px;
       top: auto;
       margin: 0 0 0 auto;
-      width: 290px;
-      height: 80px;
+      width: 229px;
+      height: 53px;
     }
   }
   .searchbox.hidden-lg {
@@ -83,8 +87,14 @@ header {
       margin-left: -3px;
       .search-nav {
         border: 0;
+
         li {
           margin-right: 10px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
           span {
             background-color: $color-yellow-1;
             color: #664500; // Special color
@@ -94,10 +104,16 @@ header {
             display: inline-block;
             cursor: pointer;
             font-size: 17px;
+
             @media (max-width: $device-xs-max-width) {
               padding: 5px 30px;
             }
+
+            @media (max-width: $device-xxs-max-width) {
+              padding: 5px 20px;
+            }
           }
+
           &.active span {
             background-color: $color-yellow-4;
             cursor: inherit;
