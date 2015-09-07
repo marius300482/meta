@@ -25,8 +25,11 @@ header {
     float: none;
     margin: 20px 0 4px 15px;
     @media (max-width: $device-xs-max-width) {
-      height: 60px;
+      font-size: 21px;
+      height: auto;
       line-height: 30px;
+      padding-top: 10px;
+      padding-bottom: 0;
     }
   }
   .navbar-header {
@@ -46,13 +49,14 @@ header {
     right: 30px;
     top: 0;
     @media (max-width: $device-xs-max-width) {
+      background-image: url($theme-path-images + "/ida-logo_mobil_retina.png");
       display: block;
       position: relative;
       right: 15px;
       top: auto;
       margin: 0 0 0 auto;
-      width: 290px;
-      height: 80px;
+      width: 229px;
+      height: 53px;
     }
   }
   .searchbox.hidden-lg {
@@ -83,8 +87,14 @@ header {
       margin-left: -3px;
       .search-nav {
         border: 0;
+
         li {
           margin-right: 10px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
           span {
             background-color: $color-yellow-1;
             color: #664500; // Special color
@@ -94,10 +104,16 @@ header {
             display: inline-block;
             cursor: pointer;
             font-size: 17px;
+
             @media (max-width: $device-xs-max-width) {
               padding: 5px 30px;
             }
+
+            @media (max-width: $device-xxs-max-width) {
+              padding: 5px 20px;
+            }
           }
+
           &.active span {
             background-color: $color-yellow-4;
             cursor: inherit;
@@ -120,8 +136,9 @@ header {
         @media (max-width: $device-xs-max-width) {
           width: 58%;
         }
-        @media (max-width: $device-xxs-max-width) {
-          width: 46%;
+        @media (max-width: $device-xxs-max-width - 1px) {
+          width: 84%;
+          margin-right: 2%;
         }
       }
       .twitter-typeahead {
@@ -143,6 +160,37 @@ header {
           font-size: 18px;
         }
       }
+      .btn-wrap {
+        background-color: #0f0;
+        display: inline-block;
+        @media (max-width: $device-xxs-max-width - 1px) {
+          width: 12%;
+        }
+
+        // Suchen-Button kleine (Lupe)
+        :first-child {
+          padding: 2px 0 0 0;
+          width: 100%;
+
+          @media (min-width: $device-xxs-max-width) {
+            display: none;
+          }
+
+          &:before {
+            content: "\e60a";
+            font-family: 'icomoon';
+            font-size: 20px;
+          }
+        }
+
+        // Suchen-Button gross
+        :last-child {
+          display: none;
+          @media (min-width: $device-xxs-max-width) {
+            display: inline-block;
+          }
+        }
+      }
       .btn-primary {
         margin: 0;
         padding-top: 3px;
@@ -150,6 +198,7 @@ header {
         font-weight: 500;
         font-size: 19px;
         vertical-align: top;
+
         i {
           display: none;
         }

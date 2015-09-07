@@ -352,8 +352,11 @@ header {
     margin: 20px 0 4px 15px; }
     @media (max-width: 768px) {
       header .navbar-brand {
-        height: 60px;
-        line-height: 30px; } }
+        font-size: 21px;
+        height: auto;
+        line-height: 30px;
+        padding-top: 10px;
+        padding-bottom: 0; } }
   header .navbar-header {
     float: none; }
   header .navbar-toggle {
@@ -370,13 +373,14 @@ header {
     top: 0; }
     @media (max-width: 768px) {
       header .logo {
+        background-image: url("../images/ida-logo_mobil_retina.png");
         display: block;
         position: relative;
         right: 15px;
         top: auto;
         margin: 0 0 0 auto;
-        width: 290px;
-        height: 80px; } }
+        width: 229px;
+        height: 53px; } }
   header .searchbox.hidden-lg {
     display: none; }
   header .closer {
@@ -403,6 +407,8 @@ header {
         border: 0; }
         header #searchForm .search-nav-wrapper .search-nav li {
           margin-right: 10px; }
+          header #searchForm .search-nav-wrapper .search-nav li:last-child {
+            margin-right: 0; }
           header #searchForm .search-nav-wrapper .search-nav li span {
             background-color: #FFAD00;
             color: #664500;
@@ -415,6 +421,9 @@ header {
             @media (max-width: 768px) {
               header #searchForm .search-nav-wrapper .search-nav li span {
                 padding: 5px 30px; } }
+            @media (max-width: 400px) {
+              header #searchForm .search-nav-wrapper .search-nav li span {
+                padding: 5px 20px; } }
           header #searchForm .search-nav-wrapper .search-nav li.active span {
             background-color: #FFEFCC;
             cursor: inherit;
@@ -433,9 +442,10 @@ header {
         @media (max-width: 768px) {
           header #searchForm #simple-search-body .simple-search-input-wrapper {
             width: 58%; } }
-        @media (max-width: 400px) {
+        @media (max-width: 399px) {
           header #searchForm #simple-search-body .simple-search-input-wrapper {
-            width: 46%; } }
+            width: 84%;
+            margin-right: 2%; } }
       header #searchForm #simple-search-body .twitter-typeahead {
         border-radius: 0;
         background-color: transparent;
@@ -452,6 +462,27 @@ header {
           box-shadow: 0 0 4px rgba(64, 57, 91, 0.3) inset;
           width: 100%;
           font-size: 18px; }
+      header #searchForm #simple-search-body .btn-wrap {
+        background-color: #0f0;
+        display: inline-block; }
+        @media (max-width: 399px) {
+          header #searchForm #simple-search-body .btn-wrap {
+            width: 12%; } }
+        header #searchForm #simple-search-body .btn-wrap :first-child {
+          padding: 2px 0 0 0;
+          width: 100%; }
+          @media (min-width: 400px) {
+            header #searchForm #simple-search-body .btn-wrap :first-child {
+              display: none; } }
+          header #searchForm #simple-search-body .btn-wrap :first-child:before {
+            content: "\e60a";
+            font-family: 'icomoon';
+            font-size: 20px; }
+        header #searchForm #simple-search-body .btn-wrap :last-child {
+          display: none; }
+          @media (min-width: 400px) {
+            header #searchForm #simple-search-body .btn-wrap :last-child {
+              display: inline-block; } }
       header #searchForm #simple-search-body .btn-primary {
         margin: 0;
         padding-top: 3px;
@@ -856,8 +887,8 @@ ul.search-result-subrecords {
     line-height: inherit;
     min-height: inherit; }
   #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
-    background-color: #F7F6F8;
-    border: 0px solid #E6E5EB !important;
+    background-color: transparent;
+    border: none;
     box-shadow: none; }
   #hierarchyTreeHolder .jstree-children {
     font-weight: 300; }
