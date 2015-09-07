@@ -121,14 +121,14 @@
       <td><?= $this->transEsc($field) ?>:</td>
       <td>
 	<? foreach ($filters as $i => $filter): 
-          $index = isset($filter['field']) ? array_search($filter['field'], $collapsedFacets) : false;
+          /*$index = isset($filter['field']) ? array_search($filter['field'], $collapsedFacets) : false;
           if ($index !== false) {
               unset($collapsedFacets[$index]); // Open if we have a match
-          }
+          }*/
           if (isset($filter['specialType']) && $filter['specialType'] == 'keyword') {
-            $removeLink = $resultBasePath.$results->getUrlQuery()->replaceTerm($filter['value'], '');
+            $removeLink = /*$resultBasePath.*/$results->getUrlQuery()->replaceTerm($filter['value'], '');
           } else {
-            $removeLink = $resultBasePath.$results->getUrlQuery()->removeFacet($filter['field'], $filter['value'], true, $filter['operator']);
+            $removeLink = /*$resultBasePath.*/$results->getUrlQuery()->removeFacet($filter['field'], $filter['value'], true, $filter['operator']);
           }
           if ($filter['displayText'] == '[* TO *]') {
             $filter['displayText'] = $this->translate('filter_wildcard');

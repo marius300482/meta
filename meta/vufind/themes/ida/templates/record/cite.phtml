@@ -26,7 +26,7 @@
         <a href="mailto: ?subject=<?= $this->escapeHtml($this->driver->getDisplayTitle()); ?>&body=<?= $plainCitation ?>">Mail</a>
         <? // Clipboard ?>
         <button class="copy-button" data-clipboard-text="<?= $plainCitation ?>" title="Click to copy me.">Copy to Clipboard</button>
-        <? Twitter ?>
+        <? // Twitter ?>
         <a href="https://twitter.com/intent/tweet?button_hashtag=Genderbib&text=<?= $plainCitation ?>" target="_blank" class="twitter-hashtag-button">Tweet</a>
         <? // Facebook ?>
         <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $this->url('record') . $this->driver->getUniqueID() ?>" target="_blnak">Facebook</a>
