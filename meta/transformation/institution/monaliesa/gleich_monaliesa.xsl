@@ -409,6 +409,10 @@
 	<xsl:template match="SYST">
 		<shelfMark>
 			<xsl:value-of select="."/>
+			<xsl:text> </xsl:text>
+			<xsl:value-of select="../VERFK"/>
+			<xsl:text> </xsl:text>
+			<xsl:value-of select="../BARCO"/>
 			</shelfMark>
 		</xsl:template>
 		
