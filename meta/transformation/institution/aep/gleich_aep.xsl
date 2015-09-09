@@ -11,8 +11,10 @@
 	exclude-result-prefixes="xs xdt err fn">
 
 	<xsl:output method="xml" indent="yes"/>
+	<xsl:strip-space elements="*"/>
 	
 <!--root knoten-->
+	
 	<xsl:template match="externdata">
 		<xsl:element name="catalog">
 			<xsl:apply-templates/>
@@ -20,8 +22,7 @@
 	</xsl:template>
 	
 	<xsl:template match="put-product">
-			
-			<xsl:variable name="id" select="@id"/>
+		<xsl:variable name="id" select="@id"/>
 			<xsl:element name="record">
 				<xsl:attribute name="id">
 					<xsl:value-of select="$id"/>
@@ -40,7 +41,7 @@
 		
 	<!--Identifikator-->
 				<id>
-					<xsl:value-of select="id"/>
+					<xsl:value-of select="$id"/>
 					<xsl:text>aep</xsl:text>
 					</id>
 
