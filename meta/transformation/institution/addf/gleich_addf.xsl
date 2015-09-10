@@ -85,6 +85,10 @@
 									<xsl:text>ST</xsl:text>
 									<xsl:value-of select="substring-after(prefTerm,'ST')" />
 									</xsl:when>
+								<xsl:when test="contains(prefTerm,'SK')">
+									<xsl:text>SK</xsl:text>
+									<xsl:value-of select="substring-after(prefTerm,'SK')" />
+									</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
 									</xsl:otherwise>
@@ -105,6 +109,10 @@
 								<xsl:when test="contains(prefTerm,'ST')">
 									<xsl:text>ST</xsl:text>
 									<xsl:value-of select="normalize-space(substring-after(translate(prefTerm, '. /äüö,', ''),'ST'))" />
+									</xsl:when>
+								<xsl:when test="contains(prefTerm,'SK')">
+									<xsl:text>SK</xsl:text>
+									<xsl:value-of select="normalize-space(substring-after(translate(prefTerm, '. /äüö,', ''),'SK'))" />
 									</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
@@ -178,6 +186,20 @@
 							<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Themen')">
 								<xsl:text>SammlungenThemen</xsl:text>
 								</xsl:when>
+							<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Körperschaften')">
+								<xsl:text>SammlungenKrperschaften</xsl:text>
+								</xsl:when>
+							<xsl:when test="not(broader)">
+								<xsl:text>NL</xsl:text>
+								<xsl:value-of select="substring-after(prefTerm,'NL')" />	
+								</xsl:when>
+							<xsl:when test="broader">
+								<xsl:text>NL</xsl:text>
+								<xsl:value-of select="substring-after(//concept[notation=$top]/prefTerm,'NL')" />	
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
+								</xsl:otherwise>
 							</xsl:choose>
 						
 						<!--<xsl:choose>
@@ -225,6 +247,18 @@
 							<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Themen')">
 								<xsl:text>Sammlungen Themen</xsl:text>
 								</xsl:when>
+							<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Körperschaften')">
+								<xsl:text>Sammlungen Körperschaften</xsl:text>
+								</xsl:when>
+							<xsl:when test="not(broader)">
+								<xsl:value-of select="prefTerm"></xsl:value-of>
+								</xsl:when>
+							<xsl:when test="broader">
+								<xsl:value-of select="//concept[notation=$top]/prefTerm" />
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="prefTerm"></xsl:value-of>
+								</xsl:otherwise>
 							</xsl:choose>
 						
 						<!--<xsl:value-of select="//concept[notation=$top]/prefTerm" />-->
@@ -272,6 +306,11 @@
 										<xsl:value-of select="normalize-space(replace(//concept[notation=$broader]/prefTerm,' ',''))" />
 										</xsl:if>-->
 									</xsl:when>
+								<xsl:when test="contains(//concept[notation=$broader]/prefTerm,'SK')">
+									<xsl:text>SK</xsl:text>
+									<xsl:value-of select="substring-after(//concept[notation=$broader]/prefTerm,'SK')" />	
+									</xsl:when>
+								
 								<xsl:otherwise>
 									<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
 									<!--<xsl:if test="contains($broader,'.')">
@@ -314,6 +353,10 @@
 									<xsl:text>ST</xsl:text>
 									<xsl:value-of select="substring-after(prefTerm,'ST')" />
 									</xsl:when>
+								<xsl:when test="contains(prefTerm,'SK')">
+									<xsl:text>SK</xsl:text>
+									<xsl:value-of select="substring-after(prefTerm,'ST')" />
+									</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
 									</xsl:otherwise>
@@ -333,6 +376,10 @@
 								<xsl:when test="contains(prefTerm,'ST')">
 									<xsl:text>ST</xsl:text>
 									<xsl:value-of select="normalize-space(substring-after(translate(prefTerm, '. /äüö,', ''),'ST'))" />	
+									</xsl:when>
+								<xsl:when test="contains(prefTerm,'SK')">
+									<xsl:text>SK</xsl:text>
+									<xsl:value-of select="normalize-space(substring-after(translate(prefTerm, '. /äüö,', ''),'SK'))" />	
 									</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
@@ -529,7 +576,28 @@
 		
 					<hierarchy_top_id>
 						
-						<xsl:text>SammlungenPersonen</xsl:text>
+						<xsl:choose>
+							<xsl:when test="//id[1]='11181'">
+								<xsl:text>SammlungenPersonen</xsl:text>
+								</xsl:when>
+							<xsl:when test="//id[1]='11184'">
+								<xsl:text>SammlungenThemen</xsl:text>
+								</xsl:when>
+							<xsl:when test="//id[1]='11198'">
+								<xsl:text>SammlungenKrperschaften</xsl:text>
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Akten">
+								<xsl:value-of select="translate(Thesaurus_x032x_Akten, '. /äüö,', '')" />				
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Klassifikation">
+								<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation, '. /äüö,', '')" />				
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="normalize-space(Signatur)" />
+								</xsl:otherwise>
+							</xsl:choose>
+						
+						<!--<xsl:text>SammlungenPersonen</xsl:text>-->
 						
 						<!--<xsl:choose>
 							<xsl:when test="contains(Signatur,';')">
@@ -555,7 +623,29 @@
 				
 					<hierarchy_top_title>
 						
-						<xsl:text>Sammlungen Personen</xsl:text>
+						<xsl:choose>
+							<xsl:when test="//id[1]='11181'">
+								<xsl:text>Sammlungen Personen</xsl:text>
+								</xsl:when>
+							<xsl:when test="//id[1]='11184'">
+								<xsl:text>Sammlungen Themen</xsl:text>
+								</xsl:when>
+							<xsl:when test="//id[1]='11198'">
+								<xsl:text>Sammlungen Körperschaften</xsl:text>
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Akten">
+								<xsl:value-of select="Thesaurus_x032x_Akten" />				
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Klassifikation">
+								<xsl:value-of select="Thesaurus_x032x_Klassifikation" />				
+								</xsl:when>
+							<xsl:when test="contains(Signatur,';')">
+								<xsl:value-of select="normalize-space(substring-before(Signatur,';'))" />
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="normalize-space(Signatur)" />
+								</xsl:otherwise>
+							</xsl:choose>
 						
 						<!--<xsl:value-of select="Titel"/>-->
 						<!--<xsl:choose>
@@ -570,7 +660,33 @@
 					
 					<!--<xsl:if test="not(contains(.,'0 Einleitung'))">-->
 					<hierarchy_parent_id>
+						
 						<xsl:choose>
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Körperschaften">
+								<xsl:text>SK</xsl:text>
+								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Körperschaften,'SK')"/>
+								<!--<xsl:value-of select="translate(Thesaurus_x032x_SL_x032x_Körperschaften, '. /äüö,', '')" />	-->		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Personen">
+								<xsl:text>SP</xsl:text>
+								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Personen,'SP')"/>
+								<!--<xsl:value-of select="translate(Thesaurus_x032x_SL_x032x_Personen, '. /äüö,', '')" />	-->		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Themen">
+								<xsl:text>ST</xsl:text>
+								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Themen,'ST')"/>
+								<!--<xsl:value-of select="translate(Thesaurus_x032x_SL_x032x_Themen, '. /äüö,', '')" />-->			
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Akten">
+								<xsl:value-of select="translate(Thesaurus_x032x_Akten, '. /äüö,', '')" />			
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Klassifikation">
+								<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation, '. /äüö,', '')" />			
+								</xsl:when>
+							</xsl:choose>
+						
+						
+						<!--<xsl:choose>
 							<xsl:when test="contains(Signatur,';')">
 								<xsl:value-of select="normalize-space(substring-before(Signatur,';'))" />
 								</xsl:when>
@@ -578,8 +694,8 @@
 								<xsl:value-of select="normalize-space(Signatur)" />
 								</xsl:otherwise>
 							</xsl:choose>
-						<!--<xsl:text>_</xsl:text>-->
-						<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation, '. /äüö,', '')"></xsl:value-of>
+						
+						<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation, '. /äüö,', '')"></xsl:value-of>-->
 						<xsl:text>addf</xsl:text>
 						
 						<!--<xsl:choose>
@@ -593,9 +709,23 @@
 						
 						</hierarchy_parent_id>
 					<hierarchy_parent_title>
-						<xsl:value-of select="Thesaurus_x032x_Klassifikation"/>
-						<xsl:value-of select="Thesaurus_x032x_SL_x032x_Personen"/>
-						<xsl:value-of select="Thesaurus_x032x_SL_x032x_Themen"/>
+						<xsl:choose>
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Körperschaften">
+								<xsl:value-of select="Thesaurus_x032x_SL_x032x_Körperschaften" />			
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Personen">
+								<xsl:value-of select="Thesaurus_x032x_SL_x032x_Personen" />		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Themen">
+								<xsl:value-of select="Thesaurus_x032x_SL_x032x_Themen" />		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Akten">
+								<xsl:value-of select="Thesaurus_x032x_Akten" />		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Klassifikation">
+								<xsl:value-of select="Thesaurus_x032x_Klassifikation" />		
+								</xsl:when>
+							</xsl:choose>
 						
 						
 						<!--<xsl:choose>
@@ -618,14 +748,20 @@
 		
 					<hierarchy_sequence>
 						<xsl:choose>
-							<xsl:when test="Thesaurus_Klassifikation">
-								<xsl:value-of select="Thesaurus_Klassifikation" />
-								</xsl:when>
-							<xsl:when test="Thesaurus_Akten">
-								<xsl:value-of select="Thesaurus_Akten" />
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Körperschaften">
+								<xsl:value-of select="Thesaurus_x032x_SL_x032x_Körperschaften" />			
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_SL_x032x_Personen">
-								<xsl:value-of select="Thesaurus_x032x_SL_x032x_Personen" />
+								<xsl:value-of select="Thesaurus_x032x_SL_x032x_Personen" />		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_SL_x032x_Themen">
+								<xsl:value-of select="Thesaurus_x032x_SL_x032x_Themen" />		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Akten">
+								<xsl:value-of select="Thesaurus_x032x_Akten" />		
+								</xsl:when>
+							<xsl:when test="Thesaurus_x032x_Klassifikation">
+								<xsl:value-of select="Thesaurus_x032x_Klassifikation" />		
 								</xsl:when>
 							</xsl:choose>
 						</hierarchy_sequence>
