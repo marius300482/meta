@@ -13,6 +13,13 @@
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
+	
+<!--root knoten-->
+	<xsl:template match="konser">
+		<xsl:element name="catalog">
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
 
 <!--Der Objektknoten-->
 	<xsl:template match="LIDOS-Dokument">
@@ -131,7 +138,17 @@
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Buch</xsl:text></format>	
+				<xsl:variable name="root" select="../name()" />
+				<xsl:choose>
+					<xsl:when test="$root='konser'">
+						<format><xsl:text>Tonträger</xsl:text></format>	
+						</xsl:when>
+					<xsl:when test="$root='litarchiv'">
+						<format><xsl:text>Buch</xsl:text></format>	
+						</xsl:when>
+					</xsl:choose>
+				
+				
 						
 	
 	<!--documentType-->		
@@ -142,7 +159,7 @@
 	<!--title Titelinformationen-->
 				<xsl:apply-templates select="Titel[string-length() != 0]"/>	
 				<xsl:apply-templates select="Zusatz_zum_Titel[string-length() != 0]"/>	
-				
+				<xsl:apply-templates select="Originaltitel[string-length() != 0]"/>	
 				
 <!--RESPONSIBLE-->
 
@@ -222,7 +239,13 @@
 			<xsl:value-of select="normalize-space(.)" />
 			</subjectTopic>
 		</xsl:template>
-		
+	
+	<xsl:template match="Originaltitel">
+		<originalTitle>
+			<xsl:value-of select="normalize-space(.)" />
+			</originalTitle>
+		</xsl:template>
+	
 	<xsl:template match="Titel">
 		<title>
 			<xsl:value-of select="normalize-space(.)" />
@@ -256,9 +279,25 @@
 				<displayPublishDate>
 					<xsl:value-of select="."/>
 					</displayPublishDate>
-				<publishDate>
+				
+				<xsl:choose>
+					<xsl:when test="contains(.,'-')">
+						<xsl:for-each select="tokenize(.,'-')">
+							<publishDate>
+								<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
+								</publishDate>
+							</xsl:for-each>
+						</xsl:when>
+						<xsl:otherwise>
+							<publishDate>
+								<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
+								</publishDate>
+							</xsl:otherwise>
+					</xsl:choose>
+				
+				<!--<publishDate>
 					<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
-					</publishDate>
+					</publishDate>-->
 				</xsl:when>
 			<xsl:otherwise>
 				<displayPublishDate>
