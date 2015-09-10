@@ -104,7 +104,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(11, 10, 99));
                         <?php endif; ?>
                         <div class="institution">
                             <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=institution%3A<?= urlencode($institution["short"]); ?>">
-                                <?= $institution["name"]; ?>
+                               <?= $institution["name"]; ?>
                             </a>
                         </div>
                     <?php endforeach; ?>
