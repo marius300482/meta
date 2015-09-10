@@ -57,7 +57,19 @@
 	<!--Identifikator-->
 				<id>
 					<xsl:value-of select="Dok-Nummer"/>
-					<xsl:text>fraumusik</xsl:text>
+					<xsl:variable name="root" select="../name()" />
+					<xsl:choose>
+					<xsl:when test="$root='konser'">
+						<xsl:text>tonfraumusik</xsl:text>
+						</xsl:when>
+					<xsl:when test="$root='litarchiv'">
+						<xsl:text>buchfraumusik</xsl:text>
+						</xsl:when>
+					<xsl:when test="$root='archnoten'">
+						<xsl:text>notefraumusik</xsl:text>
+						</xsl:when>
+					</xsl:choose>
+					<!--<xsl:text>fraumusik</xsl:text>-->
 					</id>
 
 	<!--recordCreationDate-->
