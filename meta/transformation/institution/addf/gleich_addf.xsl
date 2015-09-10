@@ -587,10 +587,10 @@
 								<xsl:text>SammlungenKrperschaften</xsl:text>
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_Akten">
-								<xsl:value-of select="translate(Thesaurus_x032x_Akten, '. /äüö,', '')" />				
+								<xsl:value-of select="translate(Thesaurus_x032x_Akten[1], '. /äüö,', '')" />				
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_Klassifikation">
-								<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation, '. /äüö,', '')" />				
+								<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation[1], '. /äüö,', '')" />				
 								</xsl:when>
 							<xsl:otherwise>
 								<xsl:value-of select="normalize-space(Signatur)" />
