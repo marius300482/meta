@@ -21,6 +21,13 @@
 		</xsl:element>
 	</xsl:template>
 
+<!--root knoten-->
+	<xsl:template match="archnoten">
+		<xsl:element name="catalog">
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+
 <!--Der Objektknoten-->
 	<xsl:template match="LIDOS-Dokument">
 		
@@ -65,9 +72,19 @@
 					</recordChangeDate>
 	
 	<!--recordType-->
-				<recordType>
-					<xsl:text>library</xsl:text>
-					</recordType>			
+				<xsl:variable name="root" select="../name()" />
+				<xsl:choose>
+					<xsl:when test="$root='konser'">
+						<recordType><xsl:text>library</xsl:text></recordType>
+						</xsl:when>
+					<xsl:when test="$root='litarchiv'">
+						<recordType><xsl:text>library</xsl:text></recordType>
+						</xsl:when>
+					<xsl:when test="$root='archnoten'">
+						<recordType><xsl:text>archive</xsl:text></recordType>
+						</xsl:when>
+					</xsl:choose>
+						
 	
 </xsl:element>
 
@@ -146,6 +163,9 @@
 					<xsl:when test="$root='litarchiv'">
 						<format><xsl:text>Buch</xsl:text></format>	
 						</xsl:when>
+					<xsl:when test="$root='archnoten'">
+						<format><xsl:text>Noten</xsl:text></format>	
+						</xsl:when>
 					</xsl:choose>
 				
 				
@@ -168,6 +188,9 @@
 
 	<!--editor-->
 				<xsl:apply-templates select="Herausgeber[string-length() != 0]"/>
+				
+	<!--entity-->
+				<xsl:apply-templates select="Körperschaft[string-length() != 0]"/>
 	
 	<!--series-->
 				<xsl:apply-templates select="GT1[1][string-length() != 0]"/>
@@ -191,6 +214,7 @@
 <!--PHYSICAL INFORMATION-->
 	
 	<!--physical-->
+				<xsl:apply-templates select="Umfang_-_Format[string-length() != 0]"/>
 	
 <!--CONTENTRELATED INFORMATION-->
 				
@@ -233,6 +257,12 @@
 
 
 <!--Templates-->
+
+	<xsl:template match="Umfang_-_Format">
+		<physical>
+			<xsl:value-of select="normalize-space(.)" />
+			</physical>
+		</xsl:template>
 	
 	<xsl:template match="Deskriptoren">
 		<subjectTopic>
@@ -431,7 +461,11 @@
 			
 		</xsl:template>
 	
-	
+	<xsl:template match="Körperschaft">
+			<entity>
+				<xsl:value-of select="normalize-space(.)" />
+				</entity>
+		</xsl:template>
 	
 	
 	
