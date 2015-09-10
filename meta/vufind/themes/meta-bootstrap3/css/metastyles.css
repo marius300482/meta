@@ -1074,6 +1074,10 @@ ul.search-result-subrecords {
       padding-left: 0;
       width: 75%; } }
 
+.institution {
+    margin: 0 0 0.2em;
+}
+
 .tag_cloud {
   text-align: center;
   font-size: 12px; }
