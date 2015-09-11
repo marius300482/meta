@@ -475,40 +475,97 @@
 
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 				
+				<xsl:choose>
+					<xsl:when test="Quellenang_x046x__x032x_Hochschulschriften">
+						<format><xsl:text>Hochschulschrift</xsl:text></format>
+						</xsl:when>
+					<xsl:when test="Quellenang_x046x__x032x_Monographien">
+						<format><xsl:text>Buch</xsl:text></format>
+						</xsl:when>
+					<xsl:when test="Quellenangabe_x032x_Aufsätze">
+						<format><xsl:text>Artikel</xsl:text></format>
+						</xsl:when>
+					<xsl:when test="//id[1]='11630'">
+						<format><xsl:text>Buch</xsl:text></format>
+						</xsl:when>
+					<xsl:otherwise>
+						<format><xsl:text>Akte</xsl:text></format>
+						</xsl:otherwise>
+					</xsl:choose>
 				
-				
-				<format><xsl:text>Akte</xsl:text></format>
+	<!--documentType-->	
+				<xsl:apply-templates select="Thesaurus_x032x_Literaturart[string-length() != 0]" />
 
 <!--TITLE-->
 	
-			<!--title Titelinformationen-->	
+	<!--title Titelinformationen-->	
 		
 				<xsl:apply-templates select="Titel[string-length() != 0]" />
+				<xsl:apply-templates select="Hauptsachtitel[string-length() != 0]" />
+				<xsl:apply-templates select="Zusatz_x032x_zum_x032x_Hauptsachtitel[string-length() != 0]" />
+				
+
+<!--RESPONSIBLE-->
+
+			<!--author Autorinneninformation-->
+				<xsl:apply-templates select="VerfasserIn[string-length() != 0]" />
+	
+			<!--contributor-->
+				<xsl:apply-templates select="beteiligte_x032x_Personen[string-length() != 0]" />
+				
+			<!--entity-->
+				<xsl:apply-templates select="Text_x032x_Körperschaften[string-length() != 0]" />
 				
 <!--PUBLISHING-->
 			
 			<!--jahr-->
 				<xsl:apply-templates select="Jahr_x047x_Datierung[string-length() != 0]" />			
 
+			<!--ort-->
+				<xsl:apply-templates select="Erscheinungsort[string-length() != 0]" />	
+			
+			<!--verlag-->
+				<xsl:apply-templates select="Verlag[string-length() != 0]" />	
+
+			<!--edition Ausgabe-->
+				<xsl:apply-templates select="Ausgabebezeichnung[string-length() != 0]" />	
+
+			<!--Quellenangabe-->
+				<xsl:apply-templates select="Quellenang_x046x__x032x_Hochschulschriften[string-length() != 0]" />
+				<xsl:apply-templates select="Quellenang_x046x__x032x_Monographien[string-length() != 0]" />
+				<xsl:apply-templates select="Quellenangabe_x032x_Aufsätze[string-length() != 0]" />
+				
 <!--PHYSICAL INFORMATION-->
 			
 			<!--physical Seitenangabe-->
-				<xsl:apply-templates select="Umfang_x047x_Format" />	
+				<xsl:apply-templates select="Umfang_x047x_Format[string-length() != 0]" />	
 				
 				
 
 <!--CONTENTRELATED INFORMATION-->
-
+			
+			<!--topics-->
+				<xsl:apply-templates select="Thesaurus_x032x_Schlagworte[string-length() != 0]" />	
+				<xsl:apply-templates select="Text_x032x_Personen[string-length() != 0]" />	
+				<xsl:apply-templates select="Thesaurus_x032x_Region[string-length() != 0]" />	
+				
 			<!--description-->
 					
 				<xsl:apply-templates select="Bestandsbeschreibung[string-length() != 0]" />
 				<xsl:apply-templates select="Enthält[1][string-length() != 0]" />
 				
+			<!--weitere Anmerkungen-->
+			
+				<xsl:apply-templates select="Fu_x225x_noten[string-length() != 0]" />	
 				
-				<shelfMark><xsl:value-of select="Signatur" /></shelfMark>
+				
+				<xsl:if test="Signatur">
+					<shelfMark><xsl:value-of select="Signatur" /></shelfMark>
+					</xsl:if>
 				
 				</dataset>
-					
+	
+	<xsl:if test="not(Objektart[text()='Monografien/Aufsätze'])">
 		<functions>
 				
 				<hierarchyFields>
@@ -715,7 +772,7 @@
 					
 					</hierarchyFields>
 				</functions>
-		
+		</xsl:if>		
 			</xsl:element>
 			</xsl:if>
 		</xsl:template>
@@ -827,6 +884,106 @@
 			
 		</xsl:template>-->
 
+	<xsl:template match="Quellenangabe_x032x_Aufsätze">
+		<xsl:choose>
+			<xsl:when test="contains(.,'Aus')">
+				<sourceInfo>
+					<xsl:value-of select="normalize-space(substring-after(.,':'))"/>
+					</sourceInfo>
+				</xsl:when>
+			<xsl:when test="contains(.,'aus')">
+				<sourceInfo>
+					<xsl:value-of select="normalize-space(substring-after(.,':'))"/>
+					</sourceInfo>
+				</xsl:when>
+			<xsl:otherwise>
+				<sourceInfo>
+					<xsl:value-of select="normalize-space(.)" />
+					</sourceInfo>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:template>
+		
+	<xsl:template match="Quellenang_x046x__x032x_Monographien">
+		<sourceInfo>
+			<xsl:value-of select="normalize-space(.)" />
+			</sourceInfo>
+		</xsl:template>
+	
+	<xsl:template match="Quellenang_x046x__x032x_Hochschulschriften">
+		<sourceInfo>
+			<xsl:value-of select="normalize-space(.)" />
+			</sourceInfo>
+		</xsl:template>
+	
+	<xsl:template match="Fu_x225x_noten">
+		<annotation>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>
+		</xsl:template>
+	
+	<xsl:template match="Thesaurus_x032x_Literaturart">
+		<documentType>
+			<xsl:value-of select="normalize-space(.)" />
+			</documentType>
+		</xsl:template>
+	
+	<xsl:template match="Text_x032x_Körperschaften">
+		<entity>
+			<xsl:value-of select="normalize-space(.)" />
+			</entity>
+		</xsl:template>
+
+	<xsl:template match="Thesaurus_x032x_Region">
+		<subjectGeographic>
+			<xsl:value-of select="normalize-space(.)" />
+			</subjectGeographic>
+		</xsl:template>
+
+	<xsl:template match="Text_x032x_Personen">
+		<subjectPerson>
+			<xsl:value-of select="normalize-space(.)" />
+			</subjectPerson>
+		</xsl:template>
+
+	<xsl:template match="Thesaurus_x032x_Schlagworte">
+		<subjectTopic>
+			<xsl:value-of select="normalize-space(.)" />
+			</subjectTopic>
+		</xsl:template>
+
+	<xsl:template match="Ausgabebezeichnung">
+		<edition>
+			<xsl:value-of select="normalize-space(.)" />
+			</edition>
+		</xsl:template>
+
+	<xsl:template match="Verlag">
+		<publisher>
+			<xsl:value-of select="normalize-space(.)" />
+			</publisher>
+		</xsl:template>
+
+	<xsl:template match="Erscheinungsort">
+		<placeOfPublication>
+			<xsl:value-of select="normalize-space(.)" />
+			</placeOfPublication>
+		</xsl:template>
+	
+	<xsl:template match="beteiligte_x032x_Personen">
+		<contributor>
+			<xsl:value-of select="normalize-space(.)" />
+			</contributor>
+		</xsl:template>
+	
+	<xsl:template match="VerfasserIn">
+		<xsl:for-each select="tokenize(.,';')">
+		<author>
+			<xsl:value-of select="normalize-space(.)" />
+			</author>
+			</xsl:for-each>
+		</xsl:template>
+	
 	<xsl:template match="Bestandsbeschreibung">
 		<description>
 			<xsl:value-of select="." />
@@ -841,22 +998,32 @@
 		<xsl:if test="Bestandsbeschreibung[string-length() = 0]">
 		<description>
 			<xsl:for-each select="../Enthält">
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				</xsl:for-each>
 			</description>
 			</xsl:if>
 		</xsl:template>
 
 	<xsl:template match="Umfang_x047x_Format">
-		<physical>
-			<xsl:value-of select="." />
-			</physical>
+		<xsl:choose>
+			<xsl:when test="../Objektart[text()='Monografien/Aufsätze']">
+				<physical>
+					<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')"/>
+					</physical>
+				</xsl:when>
+			<xsl:otherwise>
+				<physical>
+					<xsl:value-of select="normalize-space(.)" />
+					</physical>
+				</xsl:otherwise>
+			</xsl:choose>
+		
 		</xsl:template>
 
 	<xsl:template match="Jahr_x047x_Datierung">
 		<displayPublishDate>
 			<xsl:for-each select=".">
-				<xsl:value-of select="." />
+				<xsl:value-of select="normalize-space(.)" />
 				<xsl:if test="not(position()=last())">
 					<xsl:text>, </xsl:text>
 					</xsl:if>
@@ -891,7 +1058,15 @@
 		<title><xsl:value-of select="normalize-space(.)" /></title>
 		<title_short><xsl:value-of select="normalize-space(.)" /></title_short>
 		</xsl:template>
+	
+	<xsl:template match="Hauptsachtitel">
+		<title><xsl:value-of select="normalize-space(.)" /></title>
+		<title_short><xsl:value-of select="normalize-space(.)" /></title_short>
+		</xsl:template>
 
+	<xsl:template match="Zusatz_x032x_zum_x032x_Hauptsachtitel">
+		<title_sub><xsl:value-of select="normalize-space(.)" /></title_sub>
+		</xsl:template>
 	
 
 	</xsl:stylesheet>
