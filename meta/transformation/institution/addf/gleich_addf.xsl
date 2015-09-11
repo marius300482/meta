@@ -678,7 +678,7 @@
 								<!--<xsl:value-of select="translate(Thesaurus_x032x_SL_x032x_Themen, '. /äüö,', '')" />-->			
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_Akten">
-								<xsl:value-of select="translate(Thesaurus_x032x_Akten, '. /äüö,', '')" />			
+								<xsl:value-of select="translate(Thesaurus_x032x_Akten[1], '. /äüö,', '')" />			
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_Klassifikation">
 								<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation, '. /äüö,', '')" />			
