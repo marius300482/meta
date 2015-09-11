@@ -474,16 +474,6 @@
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 				
 				<format><xsl:text>Akte</xsl:text></format>
-				
-				<!--<xsl:choose>
-					<xsl:when test="contains(.,'0 Einleitung')">
-						<format><xsl:text>Nachlass / Vorlass</xsl:text></format>
-						</xsl:when>
-					<xsl:otherwise>
-						<format><xsl:text>Akte</xsl:text></format>
-						</xsl:otherwise>
-					</xsl:choose>-->
-		
 
 <!--TITLE-->
 	
@@ -501,71 +491,16 @@
 			<!--physical Seitenangabe-->
 				<xsl:apply-templates select="Umfang_x047x_Format" />	
 				
-				<!--<xsl:if test="not(contains(.,'0 Einleitung'))">
-					<xsl:if test="Thesaurus_Klassifikation">
-						<sourceInfo><xsl:value-of select="//Datensatz[Thesaurus_Klassifikation='0 Einleitung']/Titel" /></sourceInfo>	
-						</xsl:if>
-					<xsl:if test="Thesaurus_Akten">
-						<sourceInfo><xsl:value-of select="//Datensatz[Thesaurus_Akten='0 Einleitung']/Titel" /></sourceInfo>	
-						</xsl:if>
-					</xsl:if>-->
+				
 
 <!--CONTENTRELATED INFORMATION-->
 
 			<!--description-->
-				
-
-				
-				<!--<physical><xsl:value-of select="Umfang-Format" /></physical>
-			
-				<displayPublishDate>
-				<xsl:for-each select="Jahr-Datierung">
-					<xsl:value-of select="." />
-					<xsl:if test="not(position()=last())">
-						<xsl:text>, </xsl:text>
-						</xsl:if>
-					</xsl:for-each>
-					</displayPublishDate>-->
 					
-					
-				<!--<xsl:for-each select="Jahr-Datierung">
-				<xsl:choose>
-					<xsl:when test="contains(.,'-')">
-						<xsl:for-each select="tokenize(.,'-')">
-							<publishDate>
-								<xsl:value-of select="normalize-space(.)" />
-								</publishDate>
-							</xsl:for-each>
-						</xsl:when>
-						<xsl:otherwise>
-							<publishDate>
-								<xsl:value-of select="normalize-space(.)" />
-								</publishDate>
-							</xsl:otherwise>
-					</xsl:choose>
-					</xsl:for-each>-->
-			
-				<!--<xsl:if test="Sperrjahr">
-					<blockingYear>
-						<xsl:value-of select="Sperrjahr"></xsl:value-of>
-						</blockingYear>
-					</xsl:if>-->
-				
 				<xsl:apply-templates select="Bestandsbeschreibung[string-length() != 0]" />
 				<xsl:apply-templates select="Enthält[1][string-length() != 0]" />
 				
-				<!--<xsl:if test="Bestandsbeschreibung">
-					<description><xsl:value-of select="Bestandsbeschreibung" /></description>
-					</xsl:if>	-->
 				
-				<!--<xsl:if test="Enthält">
-					<description><xsl:value-of select="Enthält" /></description>
-					</xsl:if>-->	
-				
-				<!--<xsl:for-each select="Thesaurus_Körperschaften"><entity><xsl:value-of select="."></xsl:value-of></entity></xsl:for-each>-->			
-				<!--<xsl:for-each select="Thesaurus_Schlagworte"><subjectTopic><xsl:value-of select="." /></subjectTopic></xsl:for-each>-->
-				<!--<xsl:for-each select="Thesaurursonen"><subjectPerson><xsl:value-of select="." /></subjectPerson></xsl:for-each>-->
-			
 				<shelfMark><xsl:value-of select="Signatur" /></shelfMark>
 				
 				</dataset>
@@ -774,7 +709,7 @@
 		</xsl:template>
 
 
-
+<!--
 
 	<xsl:template match="id">
 		
@@ -878,7 +813,7 @@
 		
 		
 			
-		</xsl:template>
+		</xsl:template>-->
 
 	<xsl:template match="Bestandsbeschreibung">
 		<description>
@@ -891,7 +826,7 @@
 		</xsl:template>
 
 	<xsl:template match="Enthält">
-		<xsl:if test="not(Bestandsbeschreibung)">
+		<xsl:if test="Bestandsbeschreibung[string-length() = 0]">
 		<description>
 			<xsl:for-each select="../Enthält">
 				<xsl:value-of select="." />
