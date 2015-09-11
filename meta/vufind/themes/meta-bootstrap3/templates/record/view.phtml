@@ -112,7 +112,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
         <?php if ($institutionDetails != NULL) : ?>
             <?php $institutionName = isset($institutionDetails["name"]) ? $institutionDetails["name"] : $institution; ?>
             <div class="col-sm-6 institution detail-view-detail-row">
-                <h4 data-section-toggle="true">
+                <h4 data-section-toggle="true" data-toggle-yyy="mapyyy">
 		    <a name="link"></a>
                     <?php echo $this->transEsc('Location'); ?>
                 </h4>
@@ -132,26 +132,46 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
                         <div id="map-canvas"></div>
                         <script src="https://maps.googleapis.com/maps/api/js?language=de"></script>
                         <script>
-                            (function(){
+                            (function($) {
+
+                                var map,
+                                    lat = <?= (float) $institutionDetails["latitude"]; ?>,
+                                    lng = <?= (float) $institutionDetails["longitude"]; ?>;
+
+                                $(function () {
+
+                                    // "Refresh" map after slide down (mobile devices)
+                                    $('#map-canvas')
+                                        .parents('.collapsible')
+                                        // Custom event
+                                        .on('afterSlideDown', function () {
+
+                                            // Repaint map
+                                            google.maps.event.trigger(map, 'resize');
+
+                                            // Re-center map
+                                            map.setCenter(new google.maps.LatLng(lat, lng));
+                                        });
+                                });
+
                                 google.maps.event.addDomListener(window, 'load', function () {
                                     var mapOptions = {zoom: 14, zoomControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM }};
-                                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                                    
+                                    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
                                     var address = <?= json_encode(strip_tags($institutionDetails["address"], "<br>")); ?>.replace("<br>", ", ");
-                                    map.setCenter(new google.maps.LatLng(<?= (float) $institutionDetails["latitude"]; ?>, <?= (float) $institutionDetails["longitude"]; ?>));
-                                    marker = new google.maps.Marker({
-                                        position: new google.maps.LatLng(<?= (float) $institutionDetails["latitude"]; ?>, <?= (float) $institutionDetails["longitude"]; ?>),
+                                    map.setCenter(new google.maps.LatLng(lat, lng));
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(lat, lng),
                                         map: map,
                                         icon: '<?= $this->url('home') . "themes/meta-bootstrap3/images/marker.png"; ?>'
                                     });
-                                    google.maps.event.addListener(marker, 'click', (function() {
-                                        return function() {
-                                            url = "https://www.google.de/maps?q=loc:<?= (float) $institutionDetails["latitude"]; ?>+<?= (float) $institutionDetails["longitude"]; ?>";
-                                            window.open(url);
-                                        }
-                                    })());
+
+                                    // Register click on marker
+                                    google.maps.event.addListener(marker, 'click', function() {
+                                        window.open('https://www.google.com/maps?q=' + lat + ',' + lng);
+                                    });
                                 });
-                            })();
+                            })(jQuery);
                         </script>
                     <?php endif; ?>
                     <!-- END google maps -->

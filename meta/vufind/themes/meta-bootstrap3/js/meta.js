@@ -62,9 +62,19 @@ $(document).ready(function () {
         headlines.click(function () {
             if (documentWidth <= maxMobileWidth) {
                 var $this = $(this);
-                $this.next().slideToggle("normal", function () {
-                    $this.toggleClass("open");
-                });
+                $this
+                    .next()
+                    .slideToggle("normal", function () {
+
+                        $this.toggleClass("open");
+
+                        // Trigger custom events
+                        if (true === $this.hasClass('open')) {
+
+                            $(this).trigger('afterSlideDown');
+                        }
+                        else {}
+                    });
             }
         });
     }
