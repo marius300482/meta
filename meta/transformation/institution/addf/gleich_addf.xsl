@@ -470,8 +470,12 @@
 				</institution>
 		
 		<dataset>
-			
+
+<!--Format-->
+
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+				
+				
 				
 				<format><xsl:text>Akte</xsl:text></format>
 
@@ -521,6 +525,10 @@
 							<xsl:when test="//id[1]='11198'">
 								<xsl:text>SammlungenKrperschaften</xsl:text>
 								</xsl:when>
+							<xsl:when test="//id[1]='18769'">
+								<xsl:variable name="sign" select="normalize-space(substring-before(Signatur,';'))"></xsl:variable>
+								<xsl:value-of select="normalize-space(substring-before(Signatur,';'))" />
+								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_Akten">
 								<xsl:value-of select="translate(Thesaurus_x032x_Akten[1], '. /äüö,', '')" />				
 								</xsl:when>
@@ -568,9 +576,13 @@
 							<xsl:when test="//id[1]='11198'">
 								<xsl:text>Sammlungen Körperschaften</xsl:text>
 								</xsl:when>
-							<xsl:when test="Thesaurus_x032x_Akten">
-								<xsl:value-of select="Thesaurus_x032x_Akten" />				
+							<xsl:when test="//id[1]='18769'">
+								<xsl:variable name="sign" select="normalize-space(substring-before(Signatur,';'))"></xsl:variable>
+								<xsl:value-of select="normalize-space(substring-before(Signatur,';'))" />
 								</xsl:when>
+							<!--<xsl:when test="Thesaurus_x032x_Akten">
+								<xsl:value-of select="Thesaurus_x032x_Akten" />				
+								</xsl:when>-->
 							<xsl:when test="Thesaurus_x032x_Klassifikation">
 								<xsl:value-of select="Thesaurus_x032x_Klassifikation" />				
 								</xsl:when>
