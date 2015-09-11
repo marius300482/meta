@@ -433,6 +433,8 @@ header {
       background-color: #FFEFCC;
       padding: 15px;
       box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6); }
+      header #searchForm #simple-search-body .checkbox {
+        display: block; }
       header #searchForm #simple-search-body .simple-search-input-wrapper {
         display: inline-block;
         margin-right: 10px;
@@ -1073,10 +1075,6 @@ ul.search-result-subrecords {
     #topicsPage #randomBooks .col-xs-11 {
       padding-left: 0;
       width: 75%; } }
-
-.institution {
-    margin: 0 0 0.2em;
-}
 
 .tag_cloud {
   text-align: center;

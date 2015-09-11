@@ -127,6 +127,10 @@ header {
       background-color: $color-yellow-4;
       padding: 15px;
       box-shadow: $shadow-outer;
+      // Keep checkbox below seach input field (acc. to https://github.com/marius300482/meta/issues/98)
+      .checkbox {
+        display: block;
+      }
       .simple-search-input-wrapper {
         display: inline-block;
         margin-right: 10px;

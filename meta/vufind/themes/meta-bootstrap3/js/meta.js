@@ -84,6 +84,25 @@ $(document).ready(function () {
 
     $(function () {
 
+        // Listen to changes on checkbox "Keep filters"
+        $('#searchFormKeepFilters')
+            .on('change', function () {
+
+                $(this)
+                    .parents('form')
+                    .find('.applied-filter')
+                    .trigger('click');
+
+                // Checkbox is being de-checked
+                if (false === $(this).is(':checked')) {
+
+                    // Perform search w/o filters
+                    $('#simple-search-body')
+                        .find('button[type=submit]')
+                        .trigger('click');
+                }
+            });
+
         // Sub records (grouped records) handling
         $('body')
             .on('click', '.result a[data-toggle], .subrecords-sep a[data-toggle]', function (e) {
