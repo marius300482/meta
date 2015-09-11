@@ -168,7 +168,7 @@ $institutionDetails = $this->driver->getInstitutionDetails($institution, $userLa
 
                                     // Register click on marker
                                     google.maps.event.addListener(marker, 'click', function() {
-                                        window.open('https://www.google.com/maps?q=' + lat + ',' + lng);
+                                        window.open('https://maps.google.com?q=' + lat + ',' + lng);
                                     });
                                 });
                             })(jQuery);
