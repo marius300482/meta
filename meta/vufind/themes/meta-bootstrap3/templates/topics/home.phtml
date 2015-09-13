@@ -74,7 +74,7 @@ $institutionsCols = $this->distributeToArrays($institutions, array(11, 11, 99));
         </div>
     </div>
     <div class="col-sm-4">
-        <h2 data-section-toggle="true"><?= $this->transEsc('Inventory by document types'); ?></h2>
+        <h2><?= $this->transEsc('Inventory by document types'); ?></h2>
         <?php foreach ($inventoryFacet as $entry) : ?>
             <div class="col-sm-6" style="padding-left: 5px; padding-right: 5px; padding-bottom: 5px;" >
                 <a href="<?= $this->url('search-results'); ?>?limit=20&filter[]=format%3A<?= urlencode($entry['value']); ?>">
