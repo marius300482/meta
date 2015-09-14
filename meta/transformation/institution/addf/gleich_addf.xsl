@@ -239,7 +239,7 @@
 						<hierarchy_parent_id>
 							
 							<xsl:value-of select="substring-before(//concept[notation=$top]/useFor[1],' ')" />
-							
+							<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
 							<!--<xsl:choose>
 								
 								<xsl:when test="contains(//concept[notation=$broader]/prefTerm,'NL')">
@@ -535,16 +535,15 @@
 					<hierarchy_top_id>
 						
 						<xsl:choose>
-							<xsl:when test="//id[1]='11181'">
+							<xsl:when test="$topId='11181'">
 								<xsl:text>SammlungenPersonen</xsl:text>
 								</xsl:when>
-							<xsl:when test="//id[1]='11184'">
+							<xsl:when test="$topId='11184'">
 								<xsl:text>SammlungenThemen</xsl:text>
 								</xsl:when>
-							<xsl:when test="//id[1]='11198'">
+							<xsl:when test="$topId='11198'">
 								<xsl:text>SammlungenKrperschaften</xsl:text>
 								</xsl:when>
-							<!--<xsl:when test="//id[1]='18769'">-->
 							<xsl:when test="$topId='18769'">
 								<xsl:choose>
 									<xsl:when test="contains(Signatur,';')">
@@ -574,16 +573,16 @@
 					<hierarchy_top_title>
 						
 						<xsl:choose>
-							<xsl:when test="//id[1]='11181'">
+							<xsl:when test="$topId='11181'">
 								<xsl:text>Sammlungen Personen</xsl:text>
 								</xsl:when>
-							<xsl:when test="//id[1]='11184'">
+							<xsl:when test="$topId='11184'">
 								<xsl:text>Sammlungen Themen</xsl:text>
 								</xsl:when>
-							<xsl:when test="//id[1]='11198'">
+							<xsl:when test="$topId='11198'">
 								<xsl:text>Sammlungen Körperschaften</xsl:text>
 								</xsl:when>
-							<xsl:when test="//id[1]='18769'">
+							<xsl:when test="$topId='18769'">
 								<xsl:value-of select="normalize-space(substring-before(Signatur,';'))" />
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_Klassifikation">
@@ -700,6 +699,15 @@
 			</xsl:element>
 			</xsl:if>
 		</xsl:template>
+
+
+
+
+
+
+
+
+
 
 
 
