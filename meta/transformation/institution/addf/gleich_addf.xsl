@@ -488,6 +488,9 @@
 					<xsl:when test="//id[1]='11630'">
 						<format><xsl:text>Buch</xsl:text></format>
 						</xsl:when>
+					<xsl:when test="Objektart[text()='Periodika']">
+						<format><xsl:text>Zeitschrift</xsl:text></format>
+						</xsl:when>
 					<xsl:otherwise>
 						<format><xsl:text>Akte</xsl:text></format>
 						</xsl:otherwise>
@@ -503,30 +506,47 @@
 				<xsl:apply-templates select="Titel[string-length() != 0]" />
 				<xsl:apply-templates select="Hauptsachtitel[string-length() != 0]" />
 				<xsl:apply-templates select="Zusatz_x032x_zum_x032x_Hauptsachtitel[string-length() != 0]" />
-				
+				<xsl:apply-templates select="Zeitschriftentitel[1][string-length() != 0]" />
+				<xsl:apply-templates select="Zeitschriftenuntertitel[string-length() != 0]" />
 
 <!--RESPONSIBLE-->
 
 			<!--author Autorinneninformation-->
 				<xsl:apply-templates select="VerfasserIn[string-length() != 0]" />
-	
+			
+			<!--editor-->
+				<xsl:apply-templates select="HerausgeberIn[string-length() != 0]" />
+			
 			<!--contributor-->
 				<xsl:apply-templates select="beteiligte_x032x_Personen[string-length() != 0]" />
 				
 			<!--entity-->
 				<xsl:apply-templates select="Text_x032x_Körperschaften[string-length() != 0]" />
+
+<!--IDENTIFIER-->
+			<!--isbn-->	
+				<xsl:apply-templates select="ISBN[string-length() != 0]" />
 				
+			<!--isbn-->	
+				<xsl:apply-templates select="ISSN[string-length() != 0]" />
+			
+			<!--zdbId-->	
+				<xsl:apply-templates select="ZDB-ID[string-length() != 0]" />
+		
 <!--PUBLISHING-->
 			
 			<!--jahr-->
-				<xsl:apply-templates select="Jahr_x047x_Datierung[string-length() != 0]" />			
+				<xsl:apply-templates select="Jahr_x047x_Datierung[1][string-length() != 0]" />			
 
 			<!--ort-->
 				<xsl:apply-templates select="Erscheinungsort[string-length() != 0]" />	
 			
 			<!--verlag-->
 				<xsl:apply-templates select="Verlag[string-length() != 0]" />	
-
+			
+			<!--ort/verlag-->
+				<xsl:apply-templates select="Ersch_Ort_Verlag[string-length() != 0]" />	
+			
 			<!--edition Ausgabe-->
 				<xsl:apply-templates select="Ausgabebezeichnung[string-length() != 0]" />	
 
@@ -557,7 +577,9 @@
 			<!--weitere Anmerkungen-->
 			
 				<xsl:apply-templates select="Fu_x225x_noten[string-length() != 0]" />	
-				
+			
+			<!--Bestandsangabe-->
+				<xsl:apply-templates select="Bestand[string-length() != 0]" />	
 				
 				<xsl:if test="Signatur">
 					<shelfMark><xsl:value-of select="Signatur" /></shelfMark>
@@ -565,7 +587,7 @@
 				
 				</dataset>
 	
-	<xsl:if test="not(Objektart[text()='Monografien/Aufsätze'])">
+	<xsl:if test="(not(Objektart[text()='Monografien/Aufsätze'])) and (not(Objektart[text()='Periodika']))">
 		<functions>
 				
 				<hierarchyFields>
@@ -884,6 +906,31 @@
 			
 		</xsl:template>-->
 
+
+	<xsl:template match="Bestand">
+		<collectionHolding>
+			<xsl:value-of select="normalize-space(.)" />
+			</collectionHolding>
+		</xsl:template>
+	
+	<xsl:template match="ZDB-ID">
+		<zdbid>
+			<xsl:value-of select="normalize-space(.)" />
+			</zdbid>
+		</xsl:template>
+	
+	<xsl:template match="ISSN">
+		<issn>
+			<xsl:value-of select="normalize-space(.)" />
+			</issn>
+		</xsl:template>
+	
+	<xsl:template match="ISBN">
+		<isbn>
+			<xsl:value-of select="normalize-space(.)" />
+			</isbn>
+		</xsl:template>
+	
 	<xsl:template match="Quellenangabe_x032x_Aufsätze">
 		<xsl:choose>
 			<xsl:when test="contains(.,'Aus')">
@@ -914,12 +961,6 @@
 		<sourceInfo>
 			<xsl:value-of select="normalize-space(.)" />
 			</sourceInfo>
-		</xsl:template>
-	
-	<xsl:template match="Fu_x225x_noten">
-		<annotation>
-			<xsl:value-of select="normalize-space(.)" />
-			</annotation>
 		</xsl:template>
 	
 	<xsl:template match="Thesaurus_x032x_Literaturart">
@@ -970,10 +1011,35 @@
 			</placeOfPublication>
 		</xsl:template>
 	
+	<xsl:template match="Fu_x225x_noten">
+		<xsl:if test="Ersch_Ort_Verlag[string-length() = 0]">
+		<annotation>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>
+			</xsl:if>
+		</xsl:template>
+	
+	<xsl:template match="Ersch_Ort_Verlag">
+		<annotation>
+			<xsl:text>Ort / Verlag: </xsl:text>
+			<xsl:value-of select="normalize-space(.)" />
+			<xsl:if test="../Fu_x225x_noten[string-length() != 0]">
+				<xsl:text> Fußnoten: </xsl:text>
+				<xsl:value-of select="../Fu_x225x_noten"/>
+				</xsl:if>
+			</annotation>
+		</xsl:template>
+	
 	<xsl:template match="beteiligte_x032x_Personen">
 		<contributor>
 			<xsl:value-of select="normalize-space(.)" />
 			</contributor>
+		</xsl:template>
+	
+	<xsl:template match="HerausgeberIn">
+		<editor>
+			<xsl:value-of select="normalize-space(.)" />
+			</editor>
 		</xsl:template>
 	
 	<xsl:template match="VerfasserIn">
@@ -1022,7 +1088,7 @@
 
 	<xsl:template match="Jahr_x047x_Datierung">
 		<displayPublishDate>
-			<xsl:for-each select=".">
+			<xsl:for-each select="../Jahr_x047x_Datierung">
 				<xsl:value-of select="normalize-space(.)" />
 				<xsl:if test="not(position()=last())">
 					<xsl:text>, </xsl:text>
@@ -1031,7 +1097,7 @@
 			</displayPublishDate>
 					
 					
-			<xsl:for-each select=".">
+			<xsl:for-each select="../Jahr_x047x_Datierung">
 				<xsl:choose>
 					<xsl:when test="contains(.,'-')">
 						<xsl:for-each select="tokenize(.,'-')">
@@ -1064,7 +1130,16 @@
 		<title_short><xsl:value-of select="normalize-space(.)" /></title_short>
 		</xsl:template>
 
+	<xsl:template match="Zeitschriftentitel">
+		<title><xsl:value-of select="normalize-space(.)" /></title>
+		<title_short><xsl:value-of select="normalize-space(.)" /></title_short>
+		</xsl:template>
+
 	<xsl:template match="Zusatz_x032x_zum_x032x_Hauptsachtitel">
+		<title_sub><xsl:value-of select="normalize-space(.)" /></title_sub>
+		</xsl:template>
+		
+	<xsl:template match="Zeitschriftenuntertitel">
 		<title_sub><xsl:value-of select="normalize-space(.)" /></title_sub>
 		</xsl:template>
 	
