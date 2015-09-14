@@ -508,6 +508,15 @@
         </tr>
     <? endif; ?>
    
+     <? $annotation = $this->driver->getAnnotation(); ?>
+    <? if (isset($annotation)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Annotation')?>:</th>
+            <td property="annotation" colspan="2"><?= $this->escapeHtmlAllowBr($annotation) ?></td>
+        </tr>
+    <? endif; ?>
+   
     <!--<? $creationdate = $this->driver->getRecordCreationDate(); ?>
     <? if (isset($creationdate)): ?>
         <? $contentDisplayed = true; ?>
