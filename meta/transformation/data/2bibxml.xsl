@@ -147,7 +147,9 @@
 			<xsl:apply-templates select="dataset/issn" />
 			
 			<xsl:apply-templates select="dataset/zdbId" />
-				
+			
+			<xsl:apply-templates select="dataset/annotation" />
+			
     			<xsl:apply-templates select="dataset/collectionHolding" />
     			
     			<xsl:apply-templates select="dataset/displayPublishDate[1]" />	
@@ -444,6 +446,9 @@
 </add>
 </xsl:template>
 	
+	<xsl:template match="annotation">
+		<field name="annotation"><xsl:value-of select="."/></field>
+		</xsl:template>
 	
 	<xsl:template match="collectionHolding">
 		<field name="collectionHolding"><xsl:value-of select="."/></field>
