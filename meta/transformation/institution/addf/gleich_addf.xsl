@@ -282,13 +282,14 @@
 						<hierarchy_parent_id>
 							
 							<xsl:choose>
-								<xsl:when test="contains(prefTerm,'NL')">
+								<!--<xsl:when test="contains(prefTerm,'NL')">-->
+								<xsl:when test="contains(//concept[notation=$broader]/prefTerm,'NL')">
 									<xsl:text>NL</xsl:text>
 									<xsl:value-of select="substring-after(//concept[notation=$top]/prefTerm,'NL')" />	
-									<xsl:if test="contains($broader,'.')">
+									<!--<xsl:if test="contains($broader,'.')">
 										<xsl:text>_</xsl:text>
 										<xsl:value-of select="normalize-space(replace(//concept[notation=$broader]/prefTerm,' ',''))" />
-										</xsl:if>
+										</xsl:if>-->
 									</xsl:when>
 								<xsl:when test="contains(//concept[notation=$broader]/prefTerm,'SP')">
 									<xsl:text>SP</xsl:text>
