@@ -272,6 +272,7 @@
    <field name="classification" type="text" indexed="true" stored="true" multiValued="true" />
     <field name="specificMaterialDesignation" type="text" indexed="true" stored="true" multiValued="true" />
     <field name="collectionHolding" type="string" indexed="true" stored="true" />
+    <field name="annotation" type="string" indexed="true" stored="true" />
     <field name="provenance" type="text" indexed="true" stored="true" multiValued="true" />
     <field name="groupID" type="string" indexed="true" stored="true" />
     <field name="latitude" type="string" indexed="true" stored="true"/>
