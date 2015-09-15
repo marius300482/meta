@@ -239,7 +239,9 @@
 						<hierarchy_parent_id>
 							
 							<xsl:value-of select="substring-before(//concept[notation=$top]/useFor[1],' ')" />
-							<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
+							<xsl:if test="contains($broader,'.')">
+								<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
+								</xsl:if>
 							<!--<xsl:choose>
 								
 								<xsl:when test="contains(//concept[notation=$broader]/prefTerm,'NL')">
