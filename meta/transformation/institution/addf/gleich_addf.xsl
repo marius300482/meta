@@ -238,10 +238,19 @@
 					
 						<hierarchy_parent_id>
 							
-							<xsl:value-of select="substring-before(//concept[notation=$top]/useFor[1],' ')" />
+							<xsl:choose>
+								<xsl:when test="//concept[notation=$broader]/prefTerm='Sammlungen Körperschaften'">
+									<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
+									</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="substring-before(//concept[notation=$top]/useFor[1],' ')" />
+									</xsl:otherwise>
+								</xsl:choose>
+							
 							<xsl:if test="contains($broader,'.')">
 								<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
 								</xsl:if>
+								
 							<!--<xsl:choose>
 								
 								<xsl:when test="contains(//concept[notation=$broader]/prefTerm,'NL')">
@@ -288,7 +297,12 @@
 					
 						<xsl:choose>
 							<xsl:when test="not(contains(notation,'.'))">
-								<xsl:value-of select="normalize-space(substring-before(useFor[1],' '))"/>
+								<xsl:if test="useFor">
+									<xsl:value-of select="normalize-space(substring-before(useFor[1],' '))"/>
+									</xsl:if>
+								<xsl:if test="not(useFor)">
+									<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
+									</xsl:if>
 							
 							<!--<xsl:choose>
 								<xsl:when test="contains(prefTerm,'NL')">
@@ -310,9 +324,9 @@
 								<xsl:otherwise>
 									<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
 									</xsl:otherwise>
-								</xsl:choose>-->
-								
+								</xsl:choose>-->		
 							</xsl:when>
+						
 						<xsl:otherwise>
 							
 							<xsl:value-of select="substring-before(//concept[notation=$top]/useFor[1],' ')" />
@@ -629,8 +643,9 @@
 								<xsl:value-of select="translate(Thesaurus_x032x_Klassifikation, '. /äüö,', '')" />			
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_SL_x032x_Körperschaften">
-								<xsl:text>SK</xsl:text>
-								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Körperschaften,'SK')"/>
+								<xsl:value-of select="translate(Thesaurus_x032x_SL_x032x_Körperschaften, '. /äüö,', '')" />	
+								<!--<xsl:text>SK</xsl:text>
+								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Körperschaften,'SK')"/>-->
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_SL_x032x_Personen">
 								<xsl:text>SP</xsl:text>
