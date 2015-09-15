@@ -72,7 +72,14 @@
 					
 					<!--wenn kein Punkt in der Notation-->
 						<xsl:when test="not(contains(notation,'.'))">
-							<xsl:value-of select="normalize-space(substring-before(useFor[1],' '))"/>
+							<xsl:if test="useFor">
+								<xsl:value-of select="normalize-space(substring-before(useFor[1],' '))"/>
+								</xsl:if>
+							<xsl:if test="not(useFor)">
+								<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"></xsl:value-of>
+								</xsl:if>
+							
+							
 							<!--<xsl:choose>
 								<xsl:when test="contains(prefTerm,'NL')">
 									<xsl:text>NL</xsl:text>
