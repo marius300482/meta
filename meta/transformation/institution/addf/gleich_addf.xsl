@@ -249,6 +249,12 @@
 								<xsl:when test="//concept[notation=$broader]/prefTerm='Sammlungen Körperschaften'">
 									<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
 									</xsl:when>
+								<xsl:when test="//concept[notation=$broader]/prefTerm='Sammlungen Personen'">
+									<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
+									</xsl:when>
+								<xsl:when test="//concept[notation=$broader]/prefTerm='Sammlungen Themen'">
+									<xsl:value-of select="translate(//concept[notation=$broader]/prefTerm, '. /äüö,', '')" />
+									</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="substring-before(//concept[notation=$top]/useFor[1],' ')" />
 									</xsl:otherwise>
@@ -655,12 +661,14 @@
 								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Körperschaften,'SK')"/>-->
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_SL_x032x_Personen">
-								<xsl:text>SP</xsl:text>
-								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Personen,'SP')"/>
+								<xsl:value-of select="translate(Thesaurus_x032x_SL_x032x_Personen, '. /äüö,', '')" />	
+								<!--<xsl:text>SP</xsl:text>
+								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Personen,'SP')"/>-->
 								</xsl:when>
 							<xsl:when test="Thesaurus_x032x_SL_x032x_Themen">
-								<xsl:text>ST</xsl:text>
-								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Themen,'ST')"/>
+								<xsl:value-of select="translate(Thesaurus_x032x_SL_x032x_Themen, '. /äüö,', '')" />	
+								<!--<xsl:text>ST</xsl:text>
+								<xsl:value-of select="substring-after(Thesaurus_x032x_SL_x032x_Themen,'ST')"/>-->
 								</xsl:when>
 							</xsl:choose>
 							
