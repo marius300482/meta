@@ -72,7 +72,7 @@
 					
 					<!--wenn kein Punkt in der Notation-->
 						<xsl:when test="not(contains(notation,'.'))">
-							<xsl:value-of select="normalize-space(substring-before(useFor,' '))"/>
+							<xsl:value-of select="normalize-space(substring-before(useFor[1],' '))"/>
 							<!--<xsl:choose>
 								<xsl:when test="contains(prefTerm,'NL')">
 									<xsl:text>NL</xsl:text>
@@ -192,7 +192,7 @@
 								<xsl:text>SammlungenKrperschaften</xsl:text>
 								</xsl:when>
 							<xsl:when test="not(broader)">
-								<xsl:value-of select="normalize-space(substring-before(useFor,' '))"/>
+								<xsl:value-of select="normalize-space(substring-before(useFor[1],' '))"/>
 								</xsl:when>
 							<xsl:when test="broader">
 								<xsl:value-of select="substring-before(//concept[notation=$top]/useFor[1],' ')" />
@@ -288,7 +288,7 @@
 					
 						<xsl:choose>
 							<xsl:when test="not(contains(notation,'.'))">
-								<xsl:value-of select="normalize-space(substring-before(useFor,' '))"/>
+								<xsl:value-of select="normalize-space(substring-before(useFor[1],' '))"/>
 							
 							<!--<xsl:choose>
 								<xsl:when test="contains(prefTerm,'NL')">
