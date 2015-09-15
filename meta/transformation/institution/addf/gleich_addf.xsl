@@ -870,7 +870,7 @@
 		</xsl:template>
 
 	<xsl:template match="Enthält">
-		<xsl:if test="not(Bestandsbeschreibung)">
+		<xsl:if test="../Bestandsbeschreibung[string-length() = 0]">
 		<description>
 			<xsl:for-each select="../Enthält">
 				<xsl:value-of select="normalize-space(.)" />
