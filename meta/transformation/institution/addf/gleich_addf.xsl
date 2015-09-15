@@ -354,7 +354,7 @@
 					
 					
 					<hierarchy_sequence>
-						<xsl:value-of select="normalize-space(prefTerm)" />
+						<xsl:value-of select="translate(prefTerm, '. /äüö,', '')"/>
 						</hierarchy_sequence>
 						
 					</hierarchyFields>
