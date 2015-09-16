@@ -33,7 +33,7 @@
 
 <!--Umwandlungen werden nur bei diesem Objektarten durchgeführt-->
 		<!--<xsl:if test="(Objektart[text()='Bücher u. Graue Literatur']) or (Objektart[text()='Beiträge in Sammelwerken'])">-->
-		<xsl:if test="Objektart[text()='Objekte']">
+		<!--<xsl:if test="Objektart[text()='Objekte']">-->
 
 		<xsl:variable name="id" select="Objektnummer" />
 		<xsl:element name="record">
@@ -785,6 +785,7 @@
 <xsl:element name="dataset">
 
 
+
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
@@ -794,7 +795,7 @@
 				<format><xsl:text>Objekte</xsl:text></format>
 	
 	<!--documentType-->
-				<xsl:if test="contains(Titel,'Button')">
+				<xsl:if test="contains(Titel[1],'Button')">
 					<documentType>
 						<xsl:text>Button</xsl:text>
 						</documentType>
@@ -864,7 +865,7 @@
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 
 		</xsl:element>
-		</xsl:if>
+		<!--</xsl:if>-->
 	</xsl:template>
 	
 	
