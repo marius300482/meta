@@ -441,7 +441,7 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->	
-			<xsl:apply-templates select="Titel" />
+			<xsl:apply-templates select="Titel[1]" />
 
 <!--RESPONSIBLE-->
 
@@ -723,7 +723,7 @@
 				<format><xsl:text>Objekte</xsl:text></format>			
 	<!--documentType-->
 				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
-				<!--<documentType><xsl:text>Buttons und Sticker</xsl:text></documentType>-->
+				<documentType><xsl:text>Buttons und Sticker</xsl:text></documentType>
 
 <!--TITLE-->
 
