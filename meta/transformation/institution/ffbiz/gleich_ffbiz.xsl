@@ -1329,6 +1329,10 @@
 	<xsl:template match="Vorwort">
 		<description>
 			<xsl:value-of select="." />
+			<xsl:if test="../Enth_x132x_lt">
+				<xsl:text> Enthält: </xsl:text>
+				<xsl:value-of select="../Enthält"></xsl:value-of>
+				</xsl:if>
 			</description>
 		</xsl:template>
 	
@@ -1343,9 +1347,11 @@
 					</title_short>
 				</xsl:when>
 			<xsl:otherwise>
+				<xsl:if test="not(../Vorwort)">
 				<description>
 					<xsl:value-of select="." />
 					</description>
+					</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:template>
