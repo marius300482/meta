@@ -720,7 +720,7 @@
 				<typeOfRessource><xsl:text>bild</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
 				<!--<format><xsl:text>Bildmaterial</xsl:text></format>	-->
-				<format><xsl:text>Buttons und Sticker</xsl:text></format>			
+				<format><xsl:text>Objekte</xsl:text></format>			
 	<!--documentType-->
 				<!--<documentType><xsl:value-of select="objektart" /></documentType>-->
 				<!--<documentType><xsl:text>Buttons und Sticker</xsl:text></documentType>-->
