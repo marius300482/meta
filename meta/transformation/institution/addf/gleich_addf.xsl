@@ -794,13 +794,13 @@
 	
 	<xsl:template match="ISSN">
 		<issn>
-			<xsl:value-of select="normalize-space(.)" />
+			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
 			</issn>
 		</xsl:template>
 	
 	<xsl:template match="ISBN">
 		<isbn>
-			<xsl:value-of select="normalize-space(.)" />
+			<xsl:value-of select="normalize-space(translate(., translate(.,'0123456789', ''), ''))" />
 			</isbn>
 		</xsl:template>
 	
