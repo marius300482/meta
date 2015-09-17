@@ -572,7 +572,7 @@
 <!--TITLE-->
 	
 	<!--title-->
-				<xsl:apply-templates select="Titel" />
+				<xsl:apply-templates select="Titel[1]" />
 
 <!--RESPONSIBLE-->
 	
@@ -646,7 +646,7 @@
 <!--TITLE-->
 	
 	<!--title-->
-				<xsl:apply-templates select="Titel" />
+				<xsl:apply-templates select="Titel[1]" />
 
 <!--RESPONSIBLE-->
 	
@@ -724,7 +724,7 @@
 <!--TITLE-->
 	
 	<!--title-->
-				<xsl:apply-templates select="Titel" />
+				<xsl:apply-templates select="Titel[1]" />
 
 <!--RESPONSIBLE-->
 	
@@ -1204,12 +1204,14 @@
 			</xsl:template>
 		
 		<xsl:template match="Titel">
-						<title>
-							<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
-							</title>
-						<title_short>
-							<xsl:value-of select="normalize-space(replace(.,'_',''))"/>	
-							</title_short>
+				<title>
+					<xsl:for-each select="../Titel">
+						<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
+						</xsl:for-each>
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(replace(.,'_',''))"/>	
+					</title_short>
 			
 			<!--<xsl:choose>
 				<xsl:when test="contains(., '.')">
