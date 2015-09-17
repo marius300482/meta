@@ -421,7 +421,20 @@
 				<id><xsl:value-of select="id" /><xsl:text>addf</xsl:text></id>
 				<recordCreationDate><xsl:value-of select="current-dateTime()"/></recordCreationDate>
 				<recordChangeDate><xsl:value-of select="current-dateTime()"/></recordChangeDate>
-				<recordType><xsl:text>archive</xsl:text></recordType>			
+				
+				<xsl:choose>
+					<xsl:when test="Objektart[text()='Periodika']">
+						<recordType><xsl:text>library</xsl:text></recordType>	
+						</xsl:when>
+					<xsl:when test="Objektart[text()='Monografien/Aufsätze']">
+						<recordType><xsl:text>library</xsl:text></recordType>	
+						</xsl:when>
+					<xsl:otherwise>
+						<recordType><xsl:text>archive</xsl:text></recordType>	
+						</xsl:otherwise>
+					</xsl:choose>
+				
+						
 				</vufind>
 			
 		<institution>
@@ -828,7 +841,7 @@
 
 	<xsl:template match="Thesaurus_x032x_Schlagworte">
 		<subjectTopic>
-			<xsl:value-of select="normalize-space(.)" />
+			<xsl:value-of select="normalize-space(replace(.,'_',''))" />
 			</subjectTopic>
 		</xsl:template>
 
@@ -970,8 +983,8 @@
 		</xsl:template>
 
 	<xsl:template match="Zeitschriftentitel">
-		<title><xsl:value-of select="normalize-space(.)" /></title>
-		<title_short><xsl:value-of select="normalize-space(.)" /></title_short>
+		<title><xsl:value-of select="normalize-space(replace(.,'_',''))" /></title>
+		<title_short><xsl:value-of select="normalize-space(replace(.,'_',''))" /></title_short>
 		</xsl:template>
 
 	<xsl:template match="Zusatz_x032x_zum_x032x_Hauptsachtitel">
