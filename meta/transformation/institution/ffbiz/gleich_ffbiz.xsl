@@ -338,7 +338,7 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->	
-			<xsl:apply-templates select="Hauptsachtitel" />			
+			<xsl:apply-templates select="Hauptsachtitel[1]" />			
 
 	<!--alternativeTitle-->
 			<xsl:apply-templates select="Titel_x132x_nderungen" />
