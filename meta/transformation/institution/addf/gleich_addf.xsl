@@ -164,9 +164,30 @@
 				
 				<xsl:choose>
 						<xsl:when test="not(contains(notation,'.'))">
-							<format>
-								<xsl:text>Nachlass / Vorlass</xsl:text>
-								</format>
+							<xsl:choose>
+								<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Themen')">
+									<format>
+										<xsl:text>Bestandsübersicht</xsl:text>
+										</format>
+									</xsl:when>
+								<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Personen')">
+									<format>
+										<xsl:text>Bestandsübersicht</xsl:text>
+										</format>
+									</xsl:when>
+								<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Personen')">
+									<format>
+										<xsl:text>Bestandsübersicht</xsl:text>
+										</format>
+									</xsl:when>
+								<xsl:otherwise>
+									<format>
+										<xsl:text>Nachlass / Vorlass</xsl:text>
+										</format>
+									</xsl:otherwise>
+								</xsl:choose>
+							
+							
 							</xsl:when>
 						<xsl:otherwise>
 							
