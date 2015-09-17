@@ -808,7 +808,7 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-				<xsl:apply-templates select="Filmtitel" />
+				<xsl:apply-templates select="Filmtitel[1]" />
 
 <!--RESPONSIBLE-->
 	
