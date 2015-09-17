@@ -840,7 +840,7 @@
 				<xsl:apply-templates select="Person" />
 				
 	<!--description-->
-				<xsl:apply-templates select="Bemerkung"/>	
+				<xsl:apply-templates select="Bemerkung[1]"/>	
 	
 <!--OTHER-->
 
@@ -1400,6 +1400,9 @@
 				</xsl:when>
 			<xsl:when test="../objektart[text()='Filme']">
 				<description>
+					<xsl:for-each select="../Bemerkung">
+						<xsl:value-of select="." />
+						</xsl:for-each>
 					<xsl:if test="../Erscheinungsform">
 						<xsl:value-of select="../Erscheinungsform" />
 						<xsl:text> - </xsl:text>
