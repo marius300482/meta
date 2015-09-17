@@ -175,7 +175,7 @@
 										<xsl:text>Bestandsübersicht</xsl:text>
 										</format>
 									</xsl:when>
-								<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Personen')">
+								<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Körperschaften')">
 									<format>
 										<xsl:text>Bestandsübersicht</xsl:text>
 										</format>
@@ -243,7 +243,7 @@
 							<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Themen')">
 								<xsl:text>Sammlungen Themen</xsl:text>
 								</xsl:when>
-							<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen Körperschaften')">
+							<xsl:when test="contains(//concept[1]/prefTerm,'Sammlungen c')">
 								<xsl:text>Sammlungen Körperschaften</xsl:text>
 								</xsl:when>
 							<xsl:when test="not(broader)">
