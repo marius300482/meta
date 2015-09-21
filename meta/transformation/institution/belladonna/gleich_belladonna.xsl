@@ -203,6 +203,9 @@
 	<!--Identifikator-->
 				<id>
 					<xsl:value-of select="id"/>
+					<xsl:if test="Institutionsangabe[text()='belladonna']">
+						<xsl:value-of select="translate(Titel_des_Nachlasses, '. /äüö,', '') "></xsl:value-of>
+						</xsl:if>
 					<xsl:text>belladonna</xsl:text>
 					</id>
 	<!--recordCreationDate-->
@@ -216,6 +219,11 @@
 	<!--recordType-->
 				<xsl:choose>
 					<xsl:when test="Objektart[text()='Plakate']">
+						<recordType>
+							<xsl:text>archive</xsl:text>
+							</recordType>
+						</xsl:when>
+					<xsl:when test="Institutionsangabe[text()='belladonna']">
 						<recordType>
 							<xsl:text>archive</xsl:text>
 							</recordType>
@@ -273,7 +281,36 @@
 <!--dataset_______________________________dataset_______________________________dataset-->
 
 
+<xsl:if test="Institutionsangabe[text()='belladonna']">
+	<xsl:element name="dataset">
+	
+<!--FORMAT-->
 
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+				<format>
+					<xsl:value-of select="format" />
+					</format>
+	<!--documentType-->
+				<xsl:if test="Um_was_handelt_es_sich[string-length() != 0]">
+					<documentType><xsl:value-of select="Um_was_handelt_es_sich" /></documentType>
+					</xsl:if>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Titel_des_Nachlasses" />			
+
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--description-->
+				<xsl:apply-templates select="Bestandsbeschreibung" />	
+	
+		</xsl:element>
+	</xsl:if>	
+		
 
 
 
@@ -2000,6 +2037,12 @@
 			</shelfMark>
 		</xsl:template>
 	
+	<xsl:template match="Bestandsbeschreibung">
+		<description>
+			<xsl:value-of select="." />
+			</description>
+		</xsl:template>
+	
 	<xsl:template match="Inhalt">
 		<description>
 			<xsl:value-of select="." />
@@ -2304,7 +2347,19 @@
 				</xsl:if>
 			
 		</xsl:template>
+	
+	<xsl:template match="Titel_des_Nachlasses">
 		
+		<title>
+			<xsl:value-of select="normalize-space(.)" />
+			</title>
+		
+		<title_short>
+			<xsl:value-of select="normalize-space(.)" />
+			</title_short>
+		
+		</xsl:template>
+	
 	<xsl:template match="Sachtitel[1]">
 	
 			<title>
