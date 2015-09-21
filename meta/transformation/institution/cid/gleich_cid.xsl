@@ -35,6 +35,8 @@
 	
 	<xsl:template match="datensatz">
 		
+		<xsl:element name="record">
+		
 		<vufind>
 			<id>
 				<xsl:value-of select="translate(Titel_des_Nachlasses, '. /äüö,=', '') "></xsl:value-of>
@@ -96,6 +98,8 @@
 	<!--description-->
 				<xsl:apply-templates select="Bestandsbeschreibung" />	
 		</dataset>
+		
+		</xsl:element>
 		
 		</xsl:template>
 	
