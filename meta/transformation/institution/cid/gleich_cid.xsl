@@ -18,11 +18,93 @@
 	<xsl:template match="/" >
 		<xsl:element name="catalog">
 			<xsl:apply-templates select="//marc:record" />
+			<xsl:apply-templates select="//datensatz" />
 			</xsl:element>
 	</xsl:template>
 	
 	  <xsl:template match="responseDate" mode="non-editor-note"/>
 	
+
+
+
+
+
+
+
+<!--Nachlässe_______________________________Nachlässe_______________________________Nachlässe-->
+	
+	<xsl:template match="datensatz">
+		
+		<vufind>
+			<id>
+				<xsl:value-of select="translate(Titel_des_Nachlasses, '. /äüö,=', '') "></xsl:value-of>
+				<xsl:text>cid</xsl:text>
+				</id>
+			
+			<recordCreationDate>
+				<xsl:value-of select="current-dateTime()"/>
+				</recordCreationDate>
+			
+			<recordChangeDate>
+				<xsl:value-of select="current-dateTime()"/>
+				</recordChangeDate>
+	
+			<recordType>
+				<xsl:text>library</xsl:text>
+				</recordType>			
+			
+			</vufind>
+		
+		<institution>
+			
+			<institutionShortname><xsl:text>Cid Fraen an Gender</xsl:text></institutionShortname>
+			<institutionFull><xsl:text>Frauen- und Genderbibliothek Cid</xsl:text></institutionFull>
+			<institutionID><xsl:text>cid</xsl:text></institutionID>
+			<collection><xsl:text>CID</xsl:text></collection>
+			<isil><xsl:text>ZDB-LU-100</xsl:text></isil>
+			<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/luxemburg/cid-fraen-an-gender/</xsl:text></link>
+			<geoLocation>
+				<latitude>49.6115690</latitude>
+				<longitude>6.1274660</longitude>
+				</geoLocation>
+			
+			</institution>
+		
+		<dataset>
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+				<format>
+					<xsl:value-of select="format" />
+					</format>
+	<!--documentType-->
+				<xsl:if test="Um_was_handelt_es_sich[string-length() != 0]">
+					<documentType><xsl:value-of select="Um_was_handelt_es_sich" /></documentType>
+					</xsl:if>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+				<xsl:apply-templates select="Titel_des_Nachlasses" />			
+
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--description-->
+				<xsl:apply-templates select="Bestandsbeschreibung" />	
+		</dataset>
+		
+		</xsl:template>
+	
+
+
+
+
+<!--datasets_______________________________datasets_______________________________datasets-->
+
 	<xsl:template match="marc:record">	
 
 		<xsl:variable name="id" select="substring-before(marc:controlfield[@tag='001'],':')" />
@@ -291,6 +373,21 @@
 	
 	
 <!--Templates-->
+	
+	<xsl:template match="Bestandsbeschreibung">
+		<description>
+			<xsl:value-of select="normalize-space(.)" />
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="Titel_des_Nachlasses">	
+		<title>
+			<xsl:value-of select="normalize-space(.)" />
+			</title>
+		<title_short>
+			<xsl:value-of select="normalize-space(.)" />
+			</title_short>
+		</xsl:template>
 	
 	<xsl:template match="marc:controlfield[@tag='008']">
 		<displayPublishDate>
