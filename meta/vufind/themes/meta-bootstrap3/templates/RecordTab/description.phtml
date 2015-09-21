@@ -504,7 +504,9 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Bestand')?>:</th>
-            <td property="collectionHolding" colspan="2"><?= $this->escapeHtmlAllowBr($collectionHolding) ?></td>
+            <td property="collectionHolding" colspan="2">
+               <?= $this->escapeHtml($collectionHolding) ?>
+           </td>
         </tr>
     <? endif; ?>
    
@@ -525,7 +527,20 @@
             <td property="creationdate"><?= $this->escapeHtml($creationdate) ?></td>
         </tr>
     <? endif; ?>-->
-
+  
+    <!--<? $titleShort = $this->driver->getShortTitle(); ?>
+    <? if (isset($titleShort)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Online')?>: </th>
+            <td property="shorttitle">
+             <a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $this->escapeHtml($titleShort); ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a>, 
+             <a href="http://www.booklooker.de/B%C3%BCcher/Angebote/infotext=<?= $this->escapeHtml($titleShort); ?>?lid=1" target=_blank>booklooker</a>, 
+	      <a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $this->escapeHtml($titleShort); ?>&author=&title=&check_sn=on" target=_blank>ZVAB</a>
+          </td>
+        </tr>
+    <? endif; ?>-->
+    
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>
         <? $contentDisplayed = true; ?>
@@ -534,6 +549,8 @@
             <td style="padding: 0px;"><img alt="<?= $this->transEsc('QR Code') ?>" class="qrcode" src="<?= $this->escapeHtml($QRCode); ?>"/></td>
         </tr>
     <? endif; ?>
+    
+    
 
     <? if (!isset($contentDisplayed) || !$contentDisplayed): // Avoid errors if there were no rows above ?>
         <tr><td><?=$this->transEsc('no_description')?></td></tr>
