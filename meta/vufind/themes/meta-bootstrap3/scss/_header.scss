@@ -127,6 +127,9 @@ header {
       background-color: $color-yellow-4;
       padding: 15px;
       box-shadow: $shadow-outer;
+      .filter-switch {
+      	display: block;
+      }
       // Keep checkbox below seach input field (acc. to https://github.com/marius300482/meta/issues/98)
       .checkbox {
         display: block;
