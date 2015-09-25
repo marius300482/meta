@@ -85,18 +85,22 @@ $(document).ready(function () {
     $(function () {
 
     	// Remove filters by de-selecting filter checkboxes
-    	$('#searchFormRemoveFilters')
-    		.on('click', function () {
-    			$('#searchFormKeepFilters').attr("checked", false);
-				$(this)
-	                .parents('form')
-	                .find('.applied-filter')
-	                .trigger('click');
-	
-	            $('#simple-search-body')
-	                .find('button[type=submit]')
-	                .trigger('click');
-		});
+        $('#searchFormKeepFilters')
+            .on('change', function () {
+
+                $(this)
+                    .parents('form')
+                    .find('.applied-filter')
+                    .trigger('click');
+
+                if (false === $(this).is(':checked')) {
+
+                    // Perform search w/o filters
+                    $('#simple-search-body')
+                        .find('button[type=submit]:visible')
+                        .trigger('click');
+                }
+            });
 
         // Sub records (grouped records) handling
         $('body')
