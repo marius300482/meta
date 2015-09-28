@@ -64,7 +64,7 @@
 		<dataset>
 			
 			 <typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
-			<format><xsl:text>Nachlass / Vorlass</xsl:text></format>
+			<format><xsl:text>Bestandsübersicht</xsl:text></format>
 			
 			<title><xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text></title>
 			<title_short><xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text></title_short>
@@ -386,7 +386,11 @@
 								</xsl:if>
 							</description>
 						</xsl:if>
-			
+					
+					<signatur>
+						<xsl:value-of select="//archdesc[1][@level='collection']/did/unitid"></xsl:value-of>
+						</signatur>
+					
 					</dataset>
 					
 				<functions>
