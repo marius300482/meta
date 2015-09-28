@@ -84,7 +84,7 @@ $(document).ready(function () {
 
     $(function () {
 
-        // Listen to changes on checkbox "Keep filters"
+    	// Remove filters by de-selecting filter checkboxes
         $('#searchFormKeepFilters')
             .on('change', function () {
 
@@ -93,12 +93,11 @@ $(document).ready(function () {
                     .find('.applied-filter')
                     .trigger('click');
 
-                // Checkbox is being de-checked
                 if (false === $(this).is(':checked')) {
 
                     // Perform search w/o filters
                     $('#simple-search-body')
-                        .find('button[type=submit]')
+                        .find('button[type=submit]:visible')
                         .trigger('click');
                 }
             });

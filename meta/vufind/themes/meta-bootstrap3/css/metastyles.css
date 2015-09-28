@@ -433,8 +433,19 @@ header {
       background-color: #FFEFCC;
       padding: 15px;
       box-shadow: 0 1px 2px rgba(64, 57, 91, 0.6); }
+      header #searchForm #simple-search-body.display-filters-rm {
+        padding-top: 30px;
+        padding-bottom: 0; }
       header #searchForm #simple-search-body .checkbox {
         display: block; }
+      header #searchForm #simple-search-body .filters-rm {
+        line-height: 30px;
+        margin: 0;
+        padding-left: 6px; }
+        header #searchForm #simple-search-body .filters-rm input[type=checkbox] {
+          display: none; }
+        header #searchForm #simple-search-body .filters-rm label:hover {
+          text-decoration: underline; }
       header #searchForm #simple-search-body .simple-search-input-wrapper {
         display: inline-block;
         margin-right: 10px;
