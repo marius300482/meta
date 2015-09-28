@@ -388,7 +388,7 @@
 						</xsl:if>
 					
 					<signatur>
-						<xsl:value-of select="//archdesc[1][@level='collection']/did/unitid"></xsl:value-of>
+						<xsl:text>B Rep. 235-01</xsl:text>
 						</signatur>
 					
 					</dataset>
@@ -528,7 +528,11 @@
 								</xsl:if>
 							</description>
 						</xsl:if>
-			
+					
+					<signatur>
+						<xsl:text>B Rep. 235-01</xsl:text>
+						</signatur>
+					
 					</dataset>
 					
 				<functions>
