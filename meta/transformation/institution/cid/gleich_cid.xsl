@@ -290,7 +290,7 @@
 			</xsl:for-each>
 				
 				<!--<xsl:apply-templates select="marc:datafield[@tag='650']" />-->
-				<xsl:apply-templates select="marc:datafield[@tag='690']" />
+				<xsl:apply-templates select="marc:datafield[@tag='690'][1]" />
 				<xsl:apply-templates select="marc:datafield[@tag='651'][@tag='6']" />
 				<!--<xsl:apply-templates select="marc:datafield[@tag='600']" />-->
 				
@@ -470,7 +470,7 @@
 	
 	<xsl:template match="marc:datafield[@tag='690']">
 			<annotation>
-			<xsl:for-each select="marc:subfield[@code='a']">
+			<xsl:for-each select="../marc:datafield[@tag='690']/marc:subfield[@code='a']">
 				<xsl:value-of select="." />
 				<xsl:text>; </xsl:text>		
 				</xsl:for-each>		
