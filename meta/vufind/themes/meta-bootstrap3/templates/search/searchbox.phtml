@@ -52,7 +52,15 @@
               </li>
           </ul>
       </div>
-     <div id="simple-search-body">
+      <?php ?>
+      <?php
+      $filterDetails = $this->searchbox()->getFilterDetails(
+          isset($this->filterList) && is_array($this->filterList) ? $this->filterList : array(),
+          isset($this->checkboxFilters) && is_array($this->checkboxFilters) ? $this->checkboxFilters : array()
+      );
+      $displayFiltersRemove = (isset($hasDefaultsApplied) && $hasDefaultsApplied) || !empty($filterDetails);
+        ?>
+     <div<?= true === $displayFiltersRemove ? ' class="display-filters-rm"' : ''; ?> id="simple-search-body">
         <div class="simple-search-input-wrapper">
             <input class="form-control search-query<? if($this->searchbox()->autocompleteEnabled($this->searchClassId)):?> autocomplete searcher:<?=$this->escapeHtmlAttr($this->searchClassId) ?><? endif ?>" id="searchForm_lookfor" type="text" name="lookfor" value="<?=$this->escapeHtmlAttr($this->lookfor)?>"/>
             <span class="closer"></span>
@@ -87,25 +95,15 @@
               <input type="checkbox" <?=$isSelected ? 'checked="checked" ' : ''?>name="shard[]" value='<?=$this->escapeHtmlAttr($shard)?>' /> <?=$this->transEsc($shard)?>
           <? endforeach; ?>
         <? endif; ?>
-        <?
-          $filterDetails = $this->searchbox()->getFilterDetails(
-              isset($this->filterList) && is_array($this->filterList) ? $this->filterList : array(),
-              isset($this->checkboxFilters) && is_array($this->checkboxFilters) ? $this->checkboxFilters : array()
-          );
-        ?>
-        <? if ((isset($hasDefaultsApplied) && $hasDefaultsApplied) || !empty($filterDetails)): ?>
+         <?php if (true === $displayFiltersRemove): ?>
           <? $defaultFilterState = $options->getRetainFilterSetting() ? ' checked="checked"' : ''; ?>
-          <div class="filter-switch">
-          	<a id="searchFormRemoveFilters" class="delete"><?=$this->transEsc("basic_search_remove_filters")?></a>
-          </div>
+            <div class="filters-rm checkbox">
+                <input type="checkbox"<?= $defaultFilterState ?> id="searchFormKeepFilters"/>
+                <label for="searchFormKeepFilters"><i class="fa fa-times"></i>
+                    <?= $this->transEsc("basic_search_remove_filters") ?>
+                </label>
+            </div>
           <div class="hidden">
-            <div class="checkbox">
-	            <label>
-	              <input type="checkbox"<?=$defaultFilterState?> id="searchFormKeepFilters"/>
-	              <?=$this->transEsc("basic_search_keep_filters")?>
-	            </label>
-	        </div>
-          	
             <? foreach ($filterDetails as $current): ?>
               <input class="applied-filter" id="<?=$this->escapeHtmlAttr($current['id'])?>" type="checkbox"<?=$defaultFilterState?> name="filter[]" value="<?=$this->escapeHtmlAttr($current['value'])?>" />
               <label for="<?=$this->escapeHtmlAttr($current['id'])?>"><?=$this->escapeHtml($current['value'])?></label>

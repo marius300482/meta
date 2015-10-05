@@ -283,18 +283,19 @@
 				
 	<!--CONTENTRELATED INFORMATION-->	
 				
-			<xsl:for-each select="distinct-values(marc:datafield[@tag='650']/marc:subfield[@code='a']/text())">
+			<xsl:for-each select="distinct-values(marc:datafield[@tag='650'][@tag='6']/marc:subfield[@code='a']/text())">
 				<xsl:element name="subjectTopic">
 					<xsl:value-of select="."></xsl:value-of>
 				</xsl:element>
 			</xsl:for-each>
 				
 				<!--<xsl:apply-templates select="marc:datafield[@tag='650']" />-->
-				<xsl:apply-templates select="marc:datafield[@tag='690']" />
+				<xsl:apply-templates select="marc:datafield[@tag='690'][1]" />
+				<xsl:apply-templates select="marc:datafield[@tag='651'][@tag='6']" />
 				<!--<xsl:apply-templates select="marc:datafield[@tag='600']" />-->
 				
-				<xsl:if test="marc:datafield[@tag='600']">
-					<xsl:for-each select="distinct-values(marc:datafield[@tag='600']/marc:subfield[@code='a']/text())">
+				<xsl:if test="marc:datafield[@tag='600'][@tag='6']">
+					<xsl:for-each select="distinct-values(marc:datafield[@tag='600'][@tag='6']/marc:subfield[@code='a']/text())">
 						<subjectPerson>
 							<xsl:value-of select="." />
 							</subjectPerson>		
@@ -468,8 +469,17 @@
 		</xsl:template>-->
 	
 	<xsl:template match="marc:datafield[@tag='690']">
-		<xsl:for-each select="marc:subfield[@code='a']">
-			<subjectTopic><xsl:value-of select="." /></subjectTopic>		
+			<annotation>
+			<xsl:for-each select="../marc:datafield[@tag='690']/marc:subfield[@code='a']">
+				<xsl:value-of select="." />
+				<xsl:text>; </xsl:text>		
+				</xsl:for-each>		
+			</annotation>
+		</xsl:template>
+	
+	<xsl:template match="marc:datafield[@tag='651']">
+		<xsl:for-each select="distinct-values(marc:subfield[@code='a']/text())">
+			<subjectGeographic><xsl:value-of select="." /></subjectGeographic>		
 			</xsl:for-each>		
 		</xsl:template>
 	

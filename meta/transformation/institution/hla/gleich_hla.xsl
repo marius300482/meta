@@ -64,7 +64,7 @@
 		<dataset>
 			
 			 <typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
-			<format><xsl:text>Nachlass / Vorlass</xsl:text></format>
+			<format><xsl:text>Bestandsübersicht</xsl:text></format>
 			
 			<title><xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text></title>
 			<title_short><xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text></title_short>
@@ -386,7 +386,11 @@
 								</xsl:if>
 							</description>
 						</xsl:if>
-			
+					
+					<signatur>
+						<xsl:text>B Rep. 235-01</xsl:text>
+						</signatur>
+					
 					</dataset>
 					
 				<functions>
@@ -524,7 +528,11 @@
 								</xsl:if>
 							</description>
 						</xsl:if>
-			
+					
+					<signatur>
+						<xsl:text>B Rep. 235-01</xsl:text>
+						</signatur>
+					
 					</dataset>
 					
 				<functions>

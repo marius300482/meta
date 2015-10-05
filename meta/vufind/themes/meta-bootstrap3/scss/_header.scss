@@ -127,13 +127,33 @@ header {
       background-color: $color-yellow-4;
       padding: 15px;
       box-shadow: $shadow-outer;
-      .filter-switch {
-      	display: block;
+
+      &.display-filters-rm {
+        padding-top: 30px;
+        padding-bottom: 0;
       }
-      // Keep checkbox below seach input field (acc. to https://github.com/marius300482/meta/issues/98)
+
+      // Keep checkbox below search input field (acc. to https://github.com/marius300482/meta/issues/98)
       .checkbox {
         display: block;
       }
+      .filters-rm {
+        line-height: 30px;
+        margin: 0; // Neutralise margin of ".checkbox"
+        padding-left: 6px; // Adopt left padding of search text field
+
+        input[type=checkbox] {
+          display: none;
+        }
+
+        label {
+
+          &:hover {
+            text-decoration: underline; // Mimic hyperlink
+          }
+        }
+      }
+
       .simple-search-input-wrapper {
         display: inline-block;
         margin-right: 10px;
