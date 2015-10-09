@@ -389,10 +389,10 @@
 							</description>
 						</xsl:if>
 					
-					<signatur>
+					<shelfMark>
 						<xsl:text>B Rep. 235-01 </xsl:text>
 						<xsl:value-of select="did/unitid[@type='Bestellnummer']" />
-						</signatur>
+						</shelfMark>
 					
 					</dataset>
 					
@@ -532,10 +532,10 @@
 							</description>
 						</xsl:if>
 					
-					<signatur>
+					<shelfMark>
 						<xsl:text>B Rep. 235-01 </xsl:text>
 						<xsl:value-of select="did/unitid[@type='Bestellnummer']" />
-						</signatur>
+						</shelfMark>
 					
 					</dataset>
 					
