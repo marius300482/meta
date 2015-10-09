@@ -72,7 +72,7 @@
 			<physical><xsl:value-of select="archdesc/bibliography/p" /></physical>
 			<language><xsl:value-of select="eadheader/profiledesc/langusage" /></language>
 			<description>
-				<xsl:value-of select="archdesc/scopecontent[@encodinganalog='Vorwort']"/>
+				<xsl:value-of select="archdesc/scopecontent[@encodinganalog='Vorwort']" />
 				</description>
 			
 			<shelfMark><xsl:value-of select="archdesc/did/unitid" /></shelfMark>
