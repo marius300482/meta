@@ -66,12 +66,15 @@
 			 <typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 			<format><xsl:text>Bestandsübersicht</xsl:text></format>
 			
-			<title><xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text></title>
-			<title_short><xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text></title_short>
+			<title><xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text></title>
+			<title_short><xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text></title_short>
 			
 			<physical><xsl:value-of select="archdesc/bibliography/p" /></physical>
 			<language><xsl:value-of select="eadheader/profiledesc/langusage" /></language>
-			<description><xsl:value-of select="archdesc/scopecontent/p"/></description>
+			<description>
+				<!--<xsl:value-of select="archdesc/scopecontent[@encodinganalog='Vorwort']"/>-->
+				<xsl:value-of select="normalize-space(replace(archdesc/scopecontent[@encodinganalog='Vorwort'],'\<lb/\>','&lt;p /gt;'))" disable-output-escaping="yes" />
+				</description>
 			
 			<shelfMark><xsl:value-of select="archdesc/did/unitid" /></shelfMark>
 			
@@ -149,7 +152,7 @@
 					<!--<shelfMark><xsl:value-of select="archdesc/did/unitid" /></shelfMark>-->
 					
 					<!--<sourceInfo>
-						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 						</sourceInfo>-->
 					
 					</dataset>
@@ -161,14 +164,14 @@
 							<xsl:text>BRep23501hla</xsl:text>
 							</hierarchy_top_id>
 						<hierarchy_top_title>
-							<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+							<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 							</hierarchy_top_title>
 						
 						<hierarchy_parent_id>
 							<xsl:text>BRep23501hla</xsl:text>
 							</hierarchy_parent_id>
 						<hierarchy_parent_title>
-							<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+							<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 							</hierarchy_parent_title>
 						
 						<is_hierarchy_id>
@@ -258,7 +261,7 @@
 							<xsl:text>BRep23501hla</xsl:text>
 							</hierarchy_top_id>
 						<hierarchy_top_title>
-							<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+							<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 							</hierarchy_top_title>
 						
 						<hierarchy_parent_id>
@@ -342,7 +345,7 @@
 					<title_short><xsl:value-of select="did/unittitle"/></title_short>
 					
 					<sourceInfo>
-						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 						</sourceInfo>
 					
 					<displayPublishDate>
@@ -388,7 +391,8 @@
 						</xsl:if>
 					
 					<signatur>
-						<xsl:text>B Rep. 235-01</xsl:text>
+						<xsl:text>B Rep. 235-01 </xsl:text>
+						<xsl:value-of select="did/unitid[@type='Bestellnummer']" />
 						</signatur>
 					
 					</dataset>
@@ -400,7 +404,7 @@
 							<xsl:text>BRep23501hla</xsl:text>
 							</hierarchy_top_id>
 						<hierarchy_top_title>
-							<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+							<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 							</hierarchy_top_title>
 						
 						<hierarchy_parent_id>
@@ -484,7 +488,7 @@
 					<title_short><xsl:value-of select="did/unittitle"/></title_short>
 					
 					<sourceInfo>
-						<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+						<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 						</sourceInfo>
 					
 					<displayPublishDate>
@@ -530,7 +534,8 @@
 						</xsl:if>
 					
 					<signatur>
-						<xsl:text>B Rep. 235-01</xsl:text>
+						<xsl:text>B Rep. 235-01 </xsl:text>
+						<xsl:value-of select="did/unitid[@type='Bestellnummer']" />
 						</signatur>
 					
 					</dataset>
@@ -542,7 +547,7 @@
 							<xsl:text>BRep23501hla</xsl:text>
 							</hierarchy_top_id>
 						<hierarchy_top_title>
-							<xsl:text>Bund Deutscher Frauenvereine (BDF) / Nachlass</xsl:text>
+							<xsl:text>Bund Deutscher Frauenvereine (BDF)</xsl:text>
 							</hierarchy_top_title>
 						
 						<hierarchy_parent_id>
