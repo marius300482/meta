@@ -209,7 +209,7 @@
     <? endif; ?>-->
     
     
-       <?php if ($this->driver->isArchive()): ?>
+<?php if ($this->driver->isArchive()): ?>
 	  <? $shelfMark = $this->driver->getShelfMark(); ?>
 	  <? if (isset($shelfMark)): ?>
 	  <? $contentDisplayed = true; ?>
@@ -217,18 +217,29 @@
             <th><?=$this->transEsc('Shelf Mark')?>: </th>
             <td property="shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
         </tr>
-    <? endif; ?>
+      <? endif; ?>
 	  <?php endif; ?>
-    
 
-    <? $shelfMark = $this->driver->getShelfMark(); ?>
+<?php if ($this->driver->isLibrary()): ?>
+	   <? $shelfMark = $this->driver->getShelfMark(); ?>
+	  <? if (isset($shelfMark)): ?>
+	  <? $contentDisplayed = true; ?>
+	  <tr valign="top">
+            <th><?=$this->transEsc('Signatory')?>: </th>
+            <td property="shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
+        </tr>
+      <? endif; ?>
+	  <?php endif; ?>
+
+	  
+   <!-- <? $shelfMark = $this->driver->getShelfMark(); ?>
     <? if (isset($shelfMark)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shelf Mark')?>: </th>
             <td property="shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 
     <!--<? $langs = $this->driver->getLanguages();
     if (!empty($langs)): ?>
