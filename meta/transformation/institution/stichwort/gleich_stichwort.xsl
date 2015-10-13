@@ -33,7 +33,7 @@
 
 <!--Umwandlungen werden nur bei diesem Objektarten durchgeführt-->
 		<!--<xsl:if test="(Objektart[text()='Bücher u. Graue Literatur']) or (Objektart[text()='Beiträge in Sammelwerken'])">-->
-		<!--<xsl:if test="Objektart[text()='Objekte']">-->
+		<xsl:if test="Objektart[text()='Transparente']">
 
 		<xsl:variable name="id" select="Objektnummer" />
 		<xsl:element name="record">
@@ -960,7 +960,7 @@
 <!--ENDE_____________________________ENDE___________________________________ENDE-->
 
 		</xsl:element>
-		<!--</xsl:if>-->
+		</xsl:if>
 	</xsl:template>
 	
 	
