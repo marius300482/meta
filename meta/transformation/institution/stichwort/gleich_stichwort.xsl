@@ -717,7 +717,17 @@
 	
 	<!--documentType-->
 				<documentType>
-					<xsl:value-of select="Objektart"></xsl:value-of>
+					<xsl:choose>
+						<xsl:when test="contains(Zusatzangabe[text()],'T-Shirt')">
+							<xsl:text>T-Shirt</xsl:text>
+							</xsl:when>
+						<xsl:when test="contains(Zusatzangabe[text()],'Tasche')">
+							<xsl:text>Tasche</xsl:text>
+							</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="Objektart" />
+							</xsl:otherwise>
+						</xsl:choose>
 					</documentType>
 				<!--<xsl:apply-templates select="Anlass[string-length() != 0]" />-->
 						
@@ -800,6 +810,91 @@
 						<xsl:text>Button</xsl:text>
 						</documentType>
 					</xsl:if>
+				
+				<!--<xsl:apply-templates select="Anlass[string-length() != 0]" />-->
+						
+<!--TITLE-->
+	
+	<!--title-->
+				<xsl:apply-templates select="Titel[1]" />
+
+<!--RESPONSIBLE-->
+	
+	<!--author-->
+				<xsl:apply-templates select="Autorin_x032x_1" />
+				<xsl:apply-templates select="Autorin_x032x_2" />
+				
+	<!--editor-->
+				<xsl:apply-templates select="Hg_x046x__x032x_von" />
+	<!--contributor-->
+				<xsl:apply-templates select="_x154x_bersetzung" />
+	<!--series-->
+				<xsl:apply-templates select="Reihe" />
+
+<!--IDENTIFIER-->
+
+<!--PUBLISHING-->		
+
+	<!--displayPublishDate-->
+				<xsl:apply-templates select="Jahr" />
+	<!--placeOfPublication-->
+				<xsl:apply-templates select="Ort" />
+	
+<!--PHYSICAL INFORMATION-->
+	
+	<!--dimension-->
+				<xsl:apply-templates select="Format[string-length() != 0]" />
+	
+<!--CONTENTRELATED INFORMATION-->
+	
+	<!--language-->
+				<xsl:apply-templates select="Sprache" />
+	<!--subjectTopic-->
+				<xsl:apply-templates select="Schlagw_x148x_rter_x032x__x040x_autom_x046x__x032x_aus_x032x_Deskr_x046x__x041x_"></xsl:apply-templates>
+	
+	<!--weitere Anmerkungen-->
+				<!--<xsl:apply-templates select="Zusatzangabe" />-->
+	
+<!--OTHER-->
+
+	<!--shelfMark-->		
+				<xsl:apply-templates select="Signatur" />
+
+	</xsl:element>
+	</xsl:if>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--ZS-Artel____________________________ZS-Artel__________________________________ZS-Artel-->
+
+
+<xsl:if test="Objektart[text()='Zeitschriftenartikel (Österr. 72 - 90)']">
+
+<xsl:element name="dataset">
+
+
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	
+	<!--format-->
+				<format><xsl:text>Artikel</xsl:text></format>
+	
+	<!--documentType-->
+					<documentType>
+						<xsl:value-of select="Objektart" />
+						</documentType>
 				
 				<!--<xsl:apply-templates select="Anlass[string-length() != 0]" />-->
 						
