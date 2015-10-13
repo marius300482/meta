@@ -315,7 +315,7 @@
 						</recordChangeDate>
 	
 					<recordType>
-						<xsl:text>systematics</xsl:text>
+						<xsl:text>archive</xsl:text>
 						</recordType>			
 			
 					</vufind>
