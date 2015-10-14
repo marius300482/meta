@@ -554,7 +554,7 @@
         </tr>
     <? endif; ?>-->
     
-    <? $titleShort = $this->driver->getShortTitle(); ?>
+   <!-- <? $titleShort = $this->driver->getShortTitle(); ?>
     <? if (isset($titleShort)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
@@ -566,7 +566,7 @@
 	      <a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $this->escapeHtml($titleShort); ?>&author=&title=&check_sn=on" target=_blank>ZVAB</a>
           </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?> -->
     
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>
