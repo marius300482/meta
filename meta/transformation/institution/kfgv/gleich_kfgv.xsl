@@ -145,6 +145,7 @@
 			<xsl:apply-templates select="titel[string-length() != 0]" />	
 			<xsl:apply-templates select="titel2[string-length() != 0]" />	
 			<xsl:apply-templates select="upcomingTitle[string-length() != 0]" />	
+			<xsl:apply-templates select="formerTitle[string-length() != 0]" />	
 				
 <!--RESPONSIBLE-->
 				
@@ -155,6 +156,7 @@
 			<xsl:apply-templates select="zdbid[string-length() != 0]" />
 				
 <!--PUBLISHING-->
+			<xsl:apply-templates select="veroeffentlicht" />
 	
 <!--PHYSICAL INFORMATION-->
 
@@ -165,11 +167,16 @@
 	
 	<!--description-->
 			<xsl:apply-templates select="bestandsangabe[string-length() != 0]" />
-			
+	
+	<!--annotation-->
+			<!--<xsl:apply-templates select="bestandsangabe[string-length() != 0]" />-->
+		
 <!--OTHER-->
+	
+
 	<!--SHELFMARK-->
 			
-			<xsl:apply-templates select="Sign_[string-length() != 0]" />
+			<xsl:apply-templates select="bestand[string-length() != 0]" />
 		
 		</xsl:element>	
 		
@@ -201,6 +208,31 @@
 
 
 <!--Templates-->
+	
+	<xsl:template match="veroeffentlicht">
+		<annotation>
+			<xsl:if test=".[string-length() != 0]">
+				<xsl:text>Hrsg / Verlag / Ort: </xsl:text>
+				<xsl:value-of select="normalize-space(.)" />
+				<xsl:text>, </xsl:text>
+				</xsl:if>
+			<xsl:if test="../erscheinungsweise[string-length() != 0]">
+				<xsl:text> Erscheinungsweise: </xsl:text>
+				<xsl:value-of select="normalize-space(../erscheinungsweise)" />
+				<xsl:text>, </xsl:text>
+				</xsl:if>
+			<xsl:if test="../vermerke[string-length() != 0]">
+				<xsl:text>Erscheinungsverlauf: </xsl:text>
+				<xsl:value-of select="normalize-space(../vermerke)" />
+				</xsl:if>
+			</annotation>
+		</xsl:template>
+	
+	<xsl:template match="bestand">
+		<shelfMark>
+			<xsl:value-of select="normalize-space(.)" />
+			</shelfMark>
+		</xsl:template>
 	
 	<xsl:template match="bestandsangabe">
 		<collectionHolding>
@@ -246,6 +278,12 @@
 		<upcomingTitle>
 			<xsl:value-of select="." />
 			</upcomingTitle>
+			</xsl:template>
+	
+	<xsl:template match="formerTitle">
+		<formerTitle>
+			<xsl:value-of select="." />
+			</formerTitle>
 			</xsl:template>
 	
 	<xsl:template match="titel2">
