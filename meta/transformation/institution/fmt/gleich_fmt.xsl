@@ -15,7 +15,7 @@
 	
 	<xsl:strip-space elements="*"/>
 	
-	<xsl:template match="FMT">
+	<xsl:template match="FrauenMediaTurm">
 		<xsl:element name="catalog">
 			<xsl:apply-templates/>
 		</xsl:element>
@@ -59,8 +59,16 @@
 					</recordChangeDate>
 	<!--recordType-->
 				<recordType>
-					<xsl:text>library</xsl:text>
+				<xsl:choose>
+					<xsl:when test="Objektart_x058x_[text()='Pressedokumentation']">
+						<xsl:text>archive</xsl:text>						
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:text>library</xsl:text>		
+						</xsl:otherwise>
+					</xsl:choose>
 					</recordType>
+					
 			</xsl:element>
 			
 <!--institution_______________________________institution_______________________________institution-->
@@ -1424,26 +1432,75 @@
 			</xsl:if>
 		</xsl:element>
 		</xsl:if>
-	</xsl:template>
+
 	
 
 
 
 
+<!--Pressedokumentation__________________________Pressedokumentation___________________________Pressedokumentation-->
+
+<xsl:if test="Objektart_x058x_[text()='Pressedokumentation']">
+	<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+					<format><xsl:text>Akte</xsl:text></format>
+	<!--documentType-->
+					<xsl:apply-templates select="Formen_x058x_"/>	
+					
 
 
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+					<xsl:apply-templates select="Titel_x058x_"/>				
+
+<!--RESPONSIBLE-->	
+
+	<!--entity Körperschaftsangaben-->	
+					<xsl:apply-templates select="Eigennamen_x058x_"/>	
+
+<!--PUBLISHING-->
+
+	<!--display publishDate Jahresangabe-->
+					<xsl:apply-templates select="Berichtszeitraum_x058x_"/>	
+
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--subjects-->
+					<xsl:apply-templates select="Hauptschlagworte_x058x_"/>
+	<!--listOfContents-->	
+					<xsl:apply-templates select="Inhalt_x058x_"/>
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+					<xsl:apply-templates select="Signatur_x058x_"/>
 
 
+		</xsl:element>
+	</xsl:if>
 
 
-
+</xsl:template>
 
 
 
 
 
 <!--Templates-->
-
+	
+	<xsl:template match="Inhalt_x058x_">
+		<listOfContents>
+			<xsl:value-of select="replace(.,'&lt;NZ&gt;','&lt;p&gt;')"/>
+			<!--<xsl:value-of select="."/>-->
+			</listOfContents>
+		</xsl:template>
+	
 	<!--<xsl:template match="Erstersch_x046x_-Jahr_x058x_">
 		<xsl:for-each select=".">
 			<timeSpan>
@@ -1545,6 +1602,27 @@
 			</xsl:when>
 		</xsl:choose>-->
 	</xsl:template>
+	
+	<xsl:template match="Berichtszeitraum_x058x_">
+		<displayPublishDate>
+			<xsl:value-of select="."/>
+			</displayPublishDate>
+		<xsl:choose>
+			<xsl:when test="contains(.,'-')">
+				<publishDate>
+					<xsl:value-of select="normalize-space(substring-before(.,'-'))"/>
+					</publishDate>
+				<publishDate>
+					<xsl:value-of select="normalize-space(substring-after(.,'-'))"/>
+					</publishDate>
+				</xsl:when>
+			<xsl:otherwise>
+				<publishDate>
+					<xsl:value-of select="."/>
+					</publishDate>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:template>
 	
 	<xsl:template match="Jahr_x058x_">
 		<displayPublishDate>
@@ -1700,13 +1778,17 @@
 			</subjectGeographic>
 		</xsl:for-each>
 	</xsl:template>
+	
 	<xsl:template match="Eigennamen_x058x_">
+		
 		<xsl:for-each select=".">
 			<subjectName>
 				<xsl:value-of select="."/>
-			</subjectName>
-		</xsl:for-each>
-	</xsl:template><!--Template Titel-->
+				</subjectName>
+			</xsl:for-each>
+		</xsl:template>
+
+<!--Template Titel-->
 	<xsl:template match="Titel_x058x_">
 		<xsl:choose>
 			<xsl:when test="contains(.[1], ' : ')">
@@ -1754,7 +1836,9 @@
 				</title_short>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template><!--Template Herausgeberinnen Mitarbeiterinnen-->
+	</xsl:template>
+	
+<!--Template Herausgeberinnen Mitarbeiterinnen-->
 	<xsl:template match="Hrsg_x046x__x047x_Mitarbeit_x058x_">
 		<xsl:for-each select=".">
 			<xsl:choose>
@@ -1770,7 +1854,9 @@
 				</xsl:when>
 			</xsl:choose>
 		</xsl:for-each>
-	</xsl:template><!--Template Körperschaften entity-->
+	</xsl:template>
+	
+<!--Template Körperschaften entity-->
 	<xsl:template match="K_x148x_rpersch_x046x_Hrsg_x046x__x058x_">
 		<xsl:for-each select=".">
 			<xsl:choose>
@@ -1789,7 +1875,15 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:for-each>
-	</xsl:template><!--Template Sprache_x058x_-->
+	</xsl:template>
+<!--
+	<xsl:template match="Eigennamen_x058x_">
+			<entity>
+				<xsl:value-of select="normalize-space(substring-before(.,'['))"/>
+				</entity>
+		</xsl:template>-->
+
+<!--Template Sprache_x058x_-->
 	<xsl:template match="Sprache_x058x_">
 		<xsl:if test="contains(.,'dt.')">
 			<language>deutsch</language>
