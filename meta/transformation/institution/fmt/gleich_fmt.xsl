@@ -1430,10 +1430,12 @@
 					</xsl:element><!--END OF HIERARCHYELEMENT-->
 				</xsl:if>
 			</xsl:if>
-		</xsl:element>
-		</xsl:if>
+		
 
 	
+
+
+
 
 
 
@@ -1485,9 +1487,10 @@
 		</xsl:element>
 	</xsl:if>
 
+</xsl:element>
+		</xsl:if>
 
 </xsl:template>
-
 
 
 
