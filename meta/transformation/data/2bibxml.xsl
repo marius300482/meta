@@ -58,6 +58,8 @@
 				<xsl:value-of select="dataset/listOfContents" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/sourceInfo" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/specificMaterialDesignation" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/collectionHolding" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/annotations" /><xsl:text> </xsl:text>
                     			</field>
 <!--vufind-->
 		
