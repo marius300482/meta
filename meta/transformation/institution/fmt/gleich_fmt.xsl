@@ -109,7 +109,12 @@
 			</xsl:element>
 
 
-<!--dataset_______________________________dataset_______________________________dataset-->
+
+
+
+
+
+
 
 
 
@@ -241,6 +246,11 @@
 			
 			
 			
+		
+		
+		
+		
+		
 			
 			
 			
@@ -716,6 +726,8 @@
 	</xsl:element>	-->
 			</xsl:if>
 			
+
+
 
 
 
@@ -1440,6 +1452,8 @@
 
 
 
+
+
 <!--Pressedokumentation__________________________Pressedokumentation___________________________Pressedokumentation-->
 
 <xsl:if test="Objektart_x058x_[text()='Pressedokumentation']">
@@ -1487,6 +1501,77 @@
 		</xsl:element>
 	</xsl:if>
 
+
+
+
+
+
+<!--Plakate__________________________Plakate___________________________Plakate-->
+
+<xsl:if test="Objektart_x058x_[text()='Plakat']">
+	<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+					<format><xsl:text>Plakate</xsl:text></format>
+	<!--documentType-->
+					<xsl:apply-templates select="Gestaltungsart_x058x_"/>	
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+					<xsl:apply-templates select="Titel_x058x_"/>	
+					<xsl:apply-templates select="Anlass_x058x_"/>				
+
+<!--RESPONSIBLE-->	
+	
+	<!--gestaltung-->
+					<xsl:apply-templates select="Gestaltung_x058x_"/>
+	
+	<!--entity Körperschaftsangaben-->	
+					<xsl:apply-templates select="K_x148x_rperschaften_x058x_"/>	
+
+<!--PUBLISHING-->
+
+	<!--display publishDate Jahresangabe-->
+					<xsl:apply-templates select="Jahr_x047x_Zeitangabe_x058x_"/>	
+					<xsl:apply-templates select="ohne_x032x_Jahr_x058x_"/>	
+				
+
+<!--PHYSICAL INFORMATION-->
+
+	<!--dimension-->
+					<xsl:apply-templates select="Gr_x148x__x225x_e_x058x_"/>
+
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--subjects-->
+					<xsl:apply-templates select="Schlagworte_x058x_"/>
+					<xsl:apply-templates select="Personen_x058x_"/>
+	<!--listOfContents-->	
+					<xsl:apply-templates select="Inhalt_x058x_"/>
+	
+	<!--subjectGeographic-->
+					<xsl:apply-templates select="Regionen_x058x_"/>
+	<!--annotations-->
+					<xsl:apply-templates select="Tagesdatum_x058x_"/>
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+					<xsl:apply-templates select="Signatur_x058x_"/>
+
+
+		</xsl:element>
+	</xsl:if>
+
+
+
+
+
 </xsl:element>
 		</xsl:if>
 
@@ -1496,6 +1581,59 @@
 
 
 <!--Templates-->
+	
+	<xsl:template match="Tagesdatum_x058x_">
+		<annotation>
+			<xsl:if test="../Farbigkeit_x058x_[string-length() != 0]">
+				<xsl:text>Farbigkeit: </xsl:text>
+				<xsl:value-of select="../Farbigkeit_x058x_" />
+				</xsl:if>
+			<xsl:if test="../Format_x058x_[string-length() != 0]">
+				<xsl:if test="../Farbigkeit_x058x_[string-length() != 0]">
+					<xsl:text>, </xsl:text>
+					</xsl:if>
+				<xsl:text>Format: </xsl:text>
+				<xsl:value-of select="../Format_x058x_" />
+				</xsl:if>
+			<xsl:if test="../Copyright_x058x_[string-length() != 0]">
+				<xsl:if test="../Format_x058x_[string-length() != 0]">
+					<xsl:text>, </xsl:text>
+					</xsl:if>
+				<xsl:text>Copyright: </xsl:text>
+				<xsl:value-of select="../Copyright_x058x_" />
+				</xsl:if>
+			</annotation>
+		</xsl:template>
+	
+	<xsl:template match="Gestaltungsart_x058x_">
+		<documentType>
+			<xsl:value-of select="normalize-space(.)"/>
+			</documentType>
+		</xsl:template>
+	
+	<xsl:template match="Anlass_x058x_">
+		<title_sub>
+			<xsl:value-of select="normalize-space(.)"/>
+			</title_sub>
+		</xsl:template>
+	
+	<xsl:template match="K_x148x_rperschaften_x058x_">
+		<entity>
+			<xsl:value-of select="normalize-space(.)"/>
+			</entity>
+		</xsl:template>
+	
+	<xsl:template match="Gr_x148x__x225x_e_x058x_">
+		<dimension>
+			<xsl:value-of select="normalize-space(.)"/>
+			</dimension>
+		</xsl:template>
+	
+	<xsl:template match="Gestaltung_x058x_">
+		<author>
+			<xsl:value-of select="normalize-space(.)"/>
+			</author>
+		</xsl:template>
 	
 	<xsl:template match="Inhalt_x058x_">
 		<listOfContents>
@@ -1512,6 +1650,7 @@
 				</timeSpan>
 			</xsl:for-each>
 		</xsl:template>-->
+	
 	<xsl:template match="Sp_x132x_terer_x032x_Titel_x058x_">
 		<xsl:for-each select=".">
 			<upcomingTitle>
@@ -1519,6 +1658,7 @@
 			</upcomingTitle>
 		</xsl:for-each>
 	</xsl:template>
+	
 	<xsl:template match="Fr_x129x_herer_x032x_Titel_x058x_">
 		<xsl:for-each select=".">
 			<formerTitle>
@@ -1526,16 +1666,19 @@
 			</formerTitle>
 		</xsl:for-each>
 	</xsl:template>
+	
 	<xsl:template match="Ausgabe_x058x_">
 		<edition>
 			<xsl:value-of select="."/>
 		</edition>
 	</xsl:template>
+	
 	<xsl:template match="Sonstiges_x058x_">
 		<description>
 			<xsl:value-of select="."/>
 		</description>
 	</xsl:template>
+	
 	<xsl:template match="ISBN_x058x_">
 		<xsl:for-each select=".">
 			<isbn>
@@ -1543,6 +1686,7 @@
 			</isbn>
 		</xsl:for-each>
 	</xsl:template>
+	
 	<xsl:template match="ISSN_x058x_">
 		<xsl:for-each select=".">
 			<issn>
@@ -1550,6 +1694,7 @@
 			</issn>
 		</xsl:for-each>
 	</xsl:template>
+	
 	<xsl:template match="ZDB-ID_x058x_">
 		<xsl:for-each select=".">
 			<zdbId>
@@ -1557,26 +1702,31 @@
 			</zdbId>
 		</xsl:for-each>
 	</xsl:template>
+	
 	<xsl:template match="Bandtitel_x058x_">
 		<series>
 			<xsl:value-of select="."/>
 		</series>
 	</xsl:template>
+	
 	<xsl:template match="Zeitschr_x046x__x047x_Reihentitel_x058x_">
 		<series>
 			<xsl:value-of select="."/>
 		</series>
 	</xsl:template>
+	
 	<xsl:template match="Verlag_x058x_">
 		<publisher>
 			<xsl:value-of select="."/>
 		</publisher>
 	</xsl:template>
+	
 	<xsl:template match="Ort_x058x_">
 		<placeOfPublication>
 			<xsl:value-of select="."/>
 		</placeOfPublication>
 	</xsl:template>
+	
 	<xsl:template match="Signatur_x058x_">
 			<shelfMark>
 					<xsl:value-of select="."/>
@@ -1606,6 +1756,12 @@
 		</xsl:choose>-->
 	</xsl:template>
 	
+	<xsl:template match="ohne_x032x_Jahr_x058x_">
+		<displayPublishDate>
+			<xsl:value-of select="."/>
+			</displayPublishDate>
+	</xsl:template>
+	
 	<xsl:template match="Berichtszeitraum_x058x_">
 		<displayPublishDate>
 			<xsl:value-of select="."/>
@@ -1626,6 +1782,15 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:template>
+	
+	<xsl:template match="Jahr_x047x_Zeitangabe_x058x_">
+		<displayPublishDate>
+			<xsl:value-of select="."/>
+			</displayPublishDate>
+		<publishDate>
+			<xsl:value-of select="translate(., translate(.,'0123456789', ''), '')" />
+			</publishDate>
+	</xsl:template>
 	
 	<xsl:template match="Jahr_x058x_">
 		<displayPublishDate>
@@ -1746,6 +1911,15 @@
 			</subjectTopic>
 		</xsl:for-each>
 	</xsl:template>
+	
+	<xsl:template match="Schlagworte_x058x_">
+		<xsl:for-each select=".">
+			<subjectTopic>
+				<xsl:value-of select="."/>
+			</subjectTopic>
+		</xsl:for-each>
+	</xsl:template>
+	
 	<xsl:template match="Nebenschlagworte_x058x_">
 		<xsl:for-each select=".">
 			<subjectTopic>
