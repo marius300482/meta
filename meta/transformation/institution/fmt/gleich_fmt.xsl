@@ -1524,7 +1524,7 @@
 
 	<!--title Titelinformationen-->
 					<xsl:apply-templates select="Titel_x058x_"/>	
-					<xsl:apply-templates select="Anlass_x058x_"/>				
+					<!--<xsl:apply-templates select="Anlass_x058x_"/>		-->		
 
 <!--RESPONSIBLE-->	
 	
