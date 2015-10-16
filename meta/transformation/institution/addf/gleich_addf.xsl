@@ -927,7 +927,7 @@
 				<xsl:text>:quelle_aufsatz</xsl:text>
 			<xsl:text>quelle_mono:</xsl:text>
 				<xsl:value-of select="../Quellenang_x046x__x032x_Monographien" />
-				<xsl:text>:quelle_aufsatz</xsl:text>
+				<xsl:text>:quelle_mono</xsl:text>
 			<xsl:text>quelle_uni:</xsl:text>
 				<xsl:value-of select="../Quellenang_x046x__x032x_Hochschulschriften" />
 				<xsl:text>:quelle_uni</xsl:text>
