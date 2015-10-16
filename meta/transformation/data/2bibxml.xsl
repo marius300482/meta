@@ -59,7 +59,7 @@
 				<xsl:value-of select="dataset/sourceInfo" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/specificMaterialDesignation" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/collectionHolding" /><xsl:text> </xsl:text>
-				<xsl:value-of select="dataset/annotations" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/annotation" /><xsl:text> </xsl:text>
                     			</field>
 <!--vufind-->
 		
@@ -150,7 +150,7 @@
 			
 			<xsl:apply-templates select="dataset/zdbId" />
 			
-			<xsl:apply-templates select="dataset/annotation" />
+			<xsl:apply-templates select="dataset/annotation[string-length() != 0]" />
 			
     			<xsl:apply-templates select="dataset/collectionHolding" />
     			
