@@ -557,9 +557,9 @@
 				<xsl:apply-templates select="Ausgabebezeichnung[string-length() != 0]" />	
 
 			<!--Quellenangabe-->
-				<!--<xsl:apply-templates select="Quellenang_x046x__x032x_Hochschulschriften[string-length() != 0]" />
+				<xsl:apply-templates select="Quellenang_x046x__x032x_Hochschulschriften[string-length() != 0]" />
 				<xsl:apply-templates select="Quellenang_x046x__x032x_Monographien[string-length() != 0]" />
-				<xsl:apply-templates select="Quellenangabe_x032x_Aufsätze[string-length() != 0]" />-->
+				<xsl:apply-templates select="Quellenangabe_x032x_Aufsätze[string-length() != 0]" />
 				
 <!--PHYSICAL INFORMATION-->
 			
@@ -981,7 +981,7 @@
 				<xsl:value-of select="substring-before(substring-after($annotation,'beigaben:'),':beigaben')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
 				</xsl:if>
-			<xsl:if test="substring(substring-after($annotation,'quelle_aufsatz:'),1,1)!=':'">
+			<!--<xsl:if test="substring(substring-after($annotation,'quelle_aufsatz:'),1,1)!=':'">
 				<xsl:text>Quellenangabe Aufsatz:&lt;br /&gt;</xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_aufsatz:'),':quelle_aufsatz')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
@@ -995,7 +995,7 @@
 				<xsl:text>Quellenangabe Monographie:&lt;br /&gt;</xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_uni:'),':quelle_uni')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
-				</xsl:if>
+				</xsl:if>-->
 			<xsl:if test="substring(substring-after($annotation,'erscheinungszeitraum:'),1,1)!=':'">
 				<xsl:text>Erscheinungszeitraum:&lt;br /&gt;</xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'erscheinungszeitraum:'),':erscheinungszeitraum')" />
