@@ -1516,7 +1516,7 @@
 	<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	<!--format Objektartinformationen-->
-					<format><xsl:text>Plakate</xsl:text></format>
+					<format><xsl:text>Plakat</xsl:text></format>
 	<!--documentType-->
 					<xsl:apply-templates select="Gestaltungsart_x058x_"/>	
 
