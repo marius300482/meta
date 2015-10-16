@@ -541,7 +541,10 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Annotation')?>:</th>
-            <td property="annotation" colspan="2"><?= $this->escapeHtmlAllowBr($annotation) ?></td>
+            <td property="annotation" colspan="2">
+            <!--<?= $this->escapeHtmlAllowBr($annotation) ?>-->
+              <?= $annotation ?>
+            </td>
         </tr>
     <? endif; ?>
    
