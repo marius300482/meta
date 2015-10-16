@@ -551,7 +551,7 @@
 				<xsl:apply-templates select="Verlag[string-length() != 0]" />	
 			
 			<!--ort/verlag-->
-				<xsl:apply-templates select="Ersch_Ort_Verlag[string-length() != 0]" />	
+				<!--<xsl:apply-templates select="Ersch_Ort_Verlag[string-length() != 0]" />	-->
 			
 			<!--edition Ausgabe-->
 				<xsl:apply-templates select="Ausgabebezeichnung[string-length() != 0]" />	
