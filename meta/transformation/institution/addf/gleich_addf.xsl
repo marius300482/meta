@@ -588,6 +588,8 @@
 			
 			<!--Bestandsangabe-->
 				<xsl:apply-templates select="Bestand[string-length() != 0]" />	
+				<xsl:apply-templates select="Bestand_x032x_-_x032x_Hefttitel[string-length() != 0]" />	
+				
 				
 				<xsl:if test="Signatur">
 					<shelfMark><xsl:value-of select="Signatur" /></shelfMark>
@@ -807,9 +809,9 @@
 		</xsl:template>
 	
 	<xsl:template match="ZDB-ID">
-		<zdbid>
+		<zdbId>
 			<xsl:value-of select="normalize-space(.)" />
-			</zdbid>
+			</zdbId>
 		</xsl:template>
 	
 	<xsl:template match="ISSN">
@@ -931,7 +933,12 @@
 			<xsl:text>quelle_uni:</xsl:text>
 				<xsl:value-of select="../Quellenang_x046x__x032x_Hochschulschriften" />
 				<xsl:text>:quelle_uni</xsl:text>
-			
+			<xsl:text>erscheinungszeitraum:</xsl:text>
+				<xsl:value-of select="../Quellenang_x046x__x032x_Hochschulschriften" />
+				<xsl:text>:erscheinungszeitraum</xsl:text>
+			<xsl:text>bestand_hefttitel:</xsl:text>
+				<xsl:value-of select="../Bestand_x032x_-_x032x_Hefttitel" />
+				<xsl:text>:bestand_hefttitel</xsl:text>
 			
 			</xsl:variable>
 		
@@ -945,6 +952,11 @@
 			<xsl:if test="substring(substring-after($annotation,'enthalten:'),1,1)!=':'">
 				<xsl:text>Enthaltene Werke: </xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'enthalten:'),':enthalten')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'bestand_hefttitel:'),1,1)!=':'">
+				<xsl:text>Bestand Hefttitel: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'bestand_hefttitel:'),':bestand_hefttitel')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
 				</xsl:if>
 			</listOfContents>
@@ -980,6 +992,11 @@
 			<xsl:if test="substring(substring-after($annotation,'quelle_uni:'),1,1)!=':'">
 				<xsl:text>Quellenangabe Monographie:&lt;br /&gt;</xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_uni:'),':quelle_uni')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'erscheinungszeitraum:'),1,1)!=':'">
+				<xsl:text>Erscheinungszeitraum:&lt;br /&gt;</xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'erscheinungszeitraum:'),':erscheinungszeitraum')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
 				</xsl:if>
 			</annotation>
