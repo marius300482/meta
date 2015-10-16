@@ -950,6 +950,7 @@
 			</listOfContents>
 			</xsl:if>
 		
+		
 		<annotation>
 			<xsl:if test="substring(substring-after($annotation,'vermerke:'),1,1)!=':'">
 				<xsl:text>Vermerke: </xsl:text>
@@ -967,17 +968,17 @@
 				<xsl:text>&lt;p/&gt;</xsl:text>
 				</xsl:if>
 			<xsl:if test="substring(substring-after($annotation,'quelle_aufsatz:'),1,1)!=':'">
-				<xsl:text>Quellenangabe Aufsatz: </xsl:text>
+				<xsl:text>Quellenangabe Aufsatz:&lt;br /&gt;</xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_aufsatz:'),':quelle_aufsatz')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
 				</xsl:if>
 			<xsl:if test="substring(substring-after($annotation,'quelle_mono:'),1,1)!=':'">
-				<xsl:text>Quellenangabe Monographie: </xsl:text>
+				<xsl:text>Quellenangabe Monographie:&lt;br /&gt;</xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_mono:'),':quelle_mono')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
 				</xsl:if>
 			<xsl:if test="substring(substring-after($annotation,'quelle_uni:'),1,1)!=':'">
-				<xsl:text>Quellenangabe Monographie: </xsl:text>
+				<xsl:text>Quellenangabe Monographie:&lt;br /&gt;</xsl:text>
 				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_uni:'),':quelle_uni')" />
 				<xsl:text>&lt;p/&gt;</xsl:text>
 				</xsl:if>
