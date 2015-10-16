@@ -525,6 +525,10 @@
 			<!--entity-->
 				<xsl:apply-templates select="Text_x032x_Körperschaften[string-length() != 0]" />
 
+			<!--series-->
+				<xsl:apply-templates select="Ges_x046x_Titel_x032x_mehrt_x046x_begrenz_x046x_Werk[string-length() != 0]" />
+				<xsl:apply-templates select="Ges_x046x_Titel_x032x_fortl_x046x__x032x_Werk_x032x_I[string-length() != 0]" />
+	
 <!--IDENTIFIER-->
 			<!--isbn-->	
 				<xsl:apply-templates select="ISBN[string-length() != 0]" />
@@ -553,9 +557,9 @@
 				<xsl:apply-templates select="Ausgabebezeichnung[string-length() != 0]" />	
 
 			<!--Quellenangabe-->
-				<xsl:apply-templates select="Quellenang_x046x__x032x_Hochschulschriften[string-length() != 0]" />
+				<!--<xsl:apply-templates select="Quellenang_x046x__x032x_Hochschulschriften[string-length() != 0]" />
 				<xsl:apply-templates select="Quellenang_x046x__x032x_Monographien[string-length() != 0]" />
-				<xsl:apply-templates select="Quellenangabe_x032x_Aufsätze[string-length() != 0]" />
+				<xsl:apply-templates select="Quellenangabe_x032x_Aufsätze[string-length() != 0]" />-->
 				
 <!--PHYSICAL INFORMATION-->
 			
@@ -578,7 +582,9 @@
 				
 			<!--weitere Anmerkungen-->
 			
-				<xsl:apply-templates select="Fu_x225x_noten[string-length() != 0]" />	
+				<xsl:apply-templates select="Tagesdatum" />	
+				<!--<xsl:apply-templates select="Fu_x225x_noten[string-length() != 0]" />	-->
+				<!--<xsl:apply-templates select="Beigefügte_x032x_Werke[string-length() != 0]" />	-->
 			
 			<!--Bestandsangabe-->
 				<xsl:apply-templates select="Bestand[string-length() != 0]" />	
@@ -779,6 +785,20 @@
 
 
 
+	
+	
+	
+	<xsl:template match="Ges_x046x_Titel_x032x_fortl_x046x__x032x_Werk_x032x_I">
+		<series>
+			<xsl:value-of select="normalize-space(.)" />
+			</series>
+		</xsl:template>
+
+	<xsl:template match="Ges_x046x_Titel_x032x_mehrt_x046x_begrenz_x046x_Werk">
+		<series>
+			<xsl:value-of select="normalize-space(.)" />
+			</series>
+		</xsl:template>
 
 	<xsl:template match="Bestand">
 		<collectionHolding>
@@ -882,6 +902,86 @@
 		<placeOfPublication>
 			<xsl:value-of select="normalize-space(.)" />
 			</placeOfPublication>
+		</xsl:template>
+	
+	<xsl:template match="Tagesdatum">
+		
+		<xsl:variable name="annotation">
+			<xsl:text>beigefuegt:</xsl:text>
+				<xsl:value-of select="../Beigefügte_x032x_Werke" />
+				<xsl:text>:beigefuegt</xsl:text>
+			<xsl:text>enthalten:</xsl:text>
+				<xsl:value-of select="../Enthaltene_x032x_Werke" />
+				<xsl:text>:enthalten</xsl:text>
+			<xsl:text>vermerke:</xsl:text>
+				<xsl:value-of select="../Fu_x225x_noten" />
+				<xsl:text>:vermerke</xsl:text>
+			<xsl:text>erschienen:</xsl:text>
+				<xsl:value-of select="../Ersch_Ort_Verlag" />
+				<xsl:text>:erschienen</xsl:text>
+			<xsl:text>beigaben:</xsl:text>
+				<xsl:value-of select="../Beigaben" />
+				<xsl:text>:beigaben</xsl:text>
+			<xsl:text>quelle_aufsatz:</xsl:text>
+				<xsl:value-of select="../Quellenangabe_x032x_Aufsätze" />
+				<xsl:text>:quelle_aufsatz</xsl:text>
+			<xsl:text>quelle_mono:</xsl:text>
+				<xsl:value-of select="../Quellenang_x046x__x032x_Monographien" />
+				<xsl:text>:quelle_aufsatz</xsl:text>
+			<xsl:text>quelle_uni:</xsl:text>
+				<xsl:value-of select="../Quellenang_x046x__x032x_Hochschulschriften" />
+				<xsl:text>:quelle_uni</xsl:text>
+			
+			
+			</xsl:variable>
+		
+		<xsl:if test="(substring(substring-after($annotation,'beigefuegt:'),1,1)!=':') or (substring(substring-after($annotation,'enthalten:'),1,1)!=':')">
+		<listOfContents>
+			<xsl:if test="substring(substring-after($annotation,'beigefuegt:'),1,1)!=':'">
+				<xsl:text>Beigefügte Werke: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'beigefuegt:'),':beigefuegt')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'enthalten:'),1,1)!=':'">
+				<xsl:text>Enthaltene Werke: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'enthalten:'),':enthalten')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			</listOfContents>
+			</xsl:if>
+		
+		<annotation>
+			<xsl:if test="substring(substring-after($annotation,'vermerke:'),1,1)!=':'">
+				<xsl:text>Vermerke: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'vermerke:'),':vermerke')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'erschienen:'),1,1)!=':'">
+				<xsl:text>Erscheinungsvermerk: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'erschienen:'),':erschienen')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'beigaben:'),1,1)!=':'">
+				<xsl:text>Beigaben: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'beigaben:'),':beigaben')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'quelle_aufsatz:'),1,1)!=':'">
+				<xsl:text>Quellenangabe Aufsatz: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_aufsatz:'),':quelle_aufsatz')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'quelle_mono:'),1,1)!=':'">
+				<xsl:text>Quellenangabe Monographie: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_mono:'),':quelle_mono')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			<xsl:if test="substring(substring-after($annotation,'quelle_uni:'),1,1)!=':'">
+				<xsl:text>Quellenangabe Monographie: </xsl:text>
+				<xsl:value-of select="substring-before(substring-after($annotation,'quelle_uni:'),':quelle_uni')" />
+				<xsl:text>&lt;p/&gt;</xsl:text>
+				</xsl:if>
+			</annotation>
 		</xsl:template>
 	
 	<xsl:template match="Fu_x225x_noten">
