@@ -942,7 +942,9 @@
 			
 			</xsl:variable>
 		
-		<xsl:if test="(substring(substring-after($annotation,'beigefuegt:'),1,1)!=':') or (substring(substring-after($annotation,'enthalten:'),1,1)!=':')">
+		<xsl:if test="(substring(substring-after($annotation,'beigefuegt:'),1,1)!=':') or 
+		(substring(substring-after($annotation,'enthalten:'),1,1)!=':') or 
+		(substring(substring-after($annotation,'bestand_hefttitel:'),1,1)!=':')">
 		<listOfContents>
 			<xsl:if test="substring(substring-after($annotation,'beigefuegt:'),1,1)!=':'">
 				<xsl:text>Beigefügte Werke: </xsl:text>
