@@ -493,33 +493,7 @@
         </tr>
     <? endif; ?>
 
-    <!--<? $descriptions = $this->driver->getDescriptions(); ?>
-    <? if (isset($descriptions)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Description')?>:</th>
-             <? foreach ($descriptions as $description): ?>
-            <td property="description" colspan="2">
-               <?= $description ?><?= $description !== end($descriptions) ? " " : "" ?
-            </td>
-             <? endforeach; ?>
-        </tr>
-    <? endif; ?>-->
-    
-    <!--<? $description = $this->driver->getDescription(); ?>
-    <? if (isset($description)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th colspan="2"><?=$this->transEsc('Content')?>:</th>
-        </tr>
-        <tr valign="top">
-          <td property="description" colspan="2">
-            <!--<?= $this->escapeHtmlAllowBr($description) ?>-->
-                <?= $description ?>
 
-            </td>
-        </tr>
-    <? endif; ?>-->
     
      <? $listOfContents = $this->driver->getListOfContents();
     if (!empty($listOfContents)): ?>
@@ -552,30 +526,7 @@
         </tr>
     <? endif; ?>
    
-    <!-- <? $annotations = $this->driver->getAnnotations(); ?>
-    <? if (isset($annotations)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Annotation')?>:</th>
-             <? foreach ($annotations as $annotation): ?>
-            <td property="annotation" colspan="2">
-               <?= $annotation ?><?= $annotation !== end($annotations) ? " " : "" ?
-            </td>
-             <? endforeach; ?>
-        </tr>
-    <? endif; ?>-->
    
-       <!-- <? $annotation = $this->driver->getAnnotation(); ?>
-    <? if (isset($annotation)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Annotation')?>:</th>
-            <td property="annotation" colspan="2">
-            <!--<?= $this->escapeHtmlAllowBr($annotation) ?>-->
-              <?= $annotation ?>
-            </td>
-        </tr>
-    <? endif; ?>-->
    
    
     <!--<? $creationdate = $this->driver->getRecordCreationDate(); ?>
