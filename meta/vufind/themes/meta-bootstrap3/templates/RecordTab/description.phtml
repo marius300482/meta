@@ -532,7 +532,9 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
              <th colspan="2"><?=$this->transEsc('Description')?>:</th>
-	      <td property="description" colspan="2">
+	     </tr>
+	     <tr valign="top">
+	     <td property="description" colspan="2">
 		<? foreach ($descriptions as $description): ?>
 		<?= $description ?>
 		<?= $description !== end($descriptions) ? " " : "" ?>
@@ -546,6 +548,8 @@
         <? $contentDisplayed = true; ?>
         <tr valign="top">
              <th colspan="2"><?=$this->transEsc('Annotation')?>:</th>
+             </tr>
+	     <tr valign="top">
 	      <td property="description" colspan="2">
 		<? foreach ($annotations as $annotation): ?>
 		<?= $annotation ?>
