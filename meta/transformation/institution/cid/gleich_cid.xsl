@@ -510,9 +510,11 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='490']">
+		<xsl:for-each select="marc:subfield[@code='a']">
 			<series>
-				<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
-				</series>		
+				<xsl:value-of select="normalize-space(.)" />
+				</series>	
+			</xsl:for-each>				
 		</xsl:template>
 	
 	<!--<xsl:template match="marc:datafield[@tag='600']">
