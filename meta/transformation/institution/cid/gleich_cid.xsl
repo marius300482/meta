@@ -196,6 +196,9 @@
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='BK'">
 				 			<xsl:text>Buch</xsl:text>
 				 			</xsl:when>
+				 		<xsl:when test="marc:controlfield[@tag='FMT']='BK'">
+				 			<xsl:text>Buch</xsl:text>
+				 			</xsl:when>
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='CF'">
 				 			<xsl:text>Datenträger</xsl:text>
 				 			</xsl:when>
@@ -224,12 +227,13 @@
 				 		</xsl:choose>
 				 	</format>
 					
-					<xsl:if test="marc:controlfield[@tag='FMT']='VM'">
+					<!--<xsl:if test="marc:controlfield[@tag='FMT']='VM'">
 					<documentType>
 						<xsl:text>Visuelles Material</xsl:text>
 						</documentType>
-						</xsl:if>
+						</xsl:if>-->
 					
+				<xsl:apply-templates select="marc:datafield[@tag='906']" />
 					
 				<xsl:apply-templates select="marc:controlfield[@tag='008']" />
 		
@@ -250,8 +254,15 @@
 				<xsl:apply-templates select="marc:datafield[@tag='710']" />
 				
 			<!--series-->
-				
 				<xsl:apply-templates select="marc:datafield[@tag='490']" />
+				
+				<xsl:if test="marc:datafield[@tag='906']/marc:subfield[@code='b'][text()='Schriftenreihe = Collection']">
+					<series>
+						<xsl:value-of select="translate(marc:datafield[@tag='245']/marc:subfield[@code='a'][1],'&gt;&gt;&lt;&lt;','')" />
+						<xsl:text> / </xsl:text>
+						<xsl:value-of select="marc:datafield[@tag='245']/marc:subfield[@code='c']"></xsl:value-of>
+						</series>
+					</xsl:if>
 		
 			<!--edition Ausgabe-->
 				<xsl:apply-templates select="marc:datafield[@tag='250']" />
@@ -289,7 +300,7 @@
 						</xsl:element>
 					</xsl:for-each>
 				
-				<xsl:apply-templates select="marc:datafield[@tag='690'][@ind1='K'][@ind2='C'][1]" />
+				<xsl:apply-templates select="marc:datafield[@tag='690'][@ind1='K'][@ind2='C']" />
 				<xsl:apply-templates select="marc:datafield[@tag='651'][@ind2='6']" />
 				
 				<xsl:if test="marc:datafield[@tag='600'][@ind2='6']">
@@ -299,10 +310,20 @@
 							</subjectPerson>		
 						</xsl:for-each>
 					</xsl:if>
+		
+		<!--listOfContents-->
+				<xsl:apply-templates select="marc:datafield[@tag='505']" />
+				<xsl:apply-templates select="marc:datafield[@tag='PLK'][1]" />
 				
 		<!--description Beschreibung-->
-				<xsl:apply-templates select="marc:datafield[@tag='500'][1]" />
+				<xsl:apply-templates select="marc:datafield[@tag='520']" />
+		
+		<!--collectionHolding-->
+				<xsl:apply-templates select="marc:datafield[@tag='866'][1]" />
 				
+		<!--annotation-->
+				<xsl:apply-templates select="marc:datafield[@tag='500']" />
+			
 	<!--OTHER-->
 				
 		<!--shelfMark Signatur-->	
@@ -310,6 +331,7 @@
 		
 		
 			</dataset>
+			
 			
 			<!--<xsl:if test="(marc:datafield[@tag='PLK']) and (not(marc:datafield[@tag='490']/marc:subfield[@code='w']))">
 			<functions>
@@ -377,6 +399,41 @@
 	
 <!--Templates-->
 	
+	<xsl:template match="marc:datafield[@tag='906']">
+		<documentType>
+			<xsl:value-of select="normalize-space(.)" />
+			</documentType>
+		
+		</xsl:template>
+	
+	<xsl:template match="marc:datafield[@tag='520']">
+		<description>
+			<xsl:value-of select="normalize-space(.)" />
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="marc:datafield[@tag='PLK']">
+		<xsl:if test="../marc:datafield[@tag='906']/marc:subfield[@code='b'][text()='Schriftenreihe = Collection']">
+		<xsl:for-each select="distinct-values(../marc:datafield[@tag='PLK']/marc:subfield[@code='n']/text())">
+			<listOfContents>
+				<xsl:value-of select="translate(.,'&gt;&gt;&lt;&lt;','')" />
+				</listOfContents>	
+			</xsl:for-each>
+			</xsl:if>
+		</xsl:template>
+	
+	<xsl:template match="marc:datafield[@tag='505']">
+		<listOfContents>
+			<xsl:value-of select="normalize-space(.)" />
+			</listOfContents>
+		</xsl:template>
+	
+	<xsl:template match="marc:datafield[@tag='866']">
+		<collectionHolding>
+			<xsl:value-of select="normalize-space(.)" />
+			</collectionHolding>
+		</xsl:template>
+	
 	<xsl:template match="Bestandsbeschreibung">
 		<description>
 			<xsl:value-of select="normalize-space(.)" />
@@ -434,11 +491,9 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='500']">
-		<description>
-			<xsl:for-each select="../marc:datafield[@tag='500']/marc:subfield">		
-				<xsl:value-of select="." /><xsl:text> </xsl:text>
-				</xsl:for-each>
-			</description>		
+		<annotation>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='710']">
@@ -455,9 +510,9 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='490']">
-		<xsl:for-each select="marc:subfield[@code='a']">
-			<series><xsl:value-of select="." /></series>		
-			</xsl:for-each>		
+			<series>
+				<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
+				</series>		
 		</xsl:template>
 	
 	<!--<xsl:template match="marc:datafield[@tag='600']">
@@ -467,12 +522,11 @@
 		</xsl:template>-->
 	
 	<xsl:template match="marc:datafield[@tag='690'][@ind1='K'][@ind2='C']">
+		<xsl:for-each select="marc:subfield[@code='a']">
 			<annotation>
-			<xsl:for-each select="../marc:datafield[@tag='690']/marc:subfield[@code='a']">
-				<xsl:value-of select="." />
-				<xsl:text>; </xsl:text>		
-				</xsl:for-each>		
-			</annotation>
+				<xsl:value-of select="normalize-space(.)" />
+				</annotation>
+			</xsl:for-each>
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='651'][@ind2='6']">
