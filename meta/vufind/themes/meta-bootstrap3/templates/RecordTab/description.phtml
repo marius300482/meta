@@ -531,11 +531,25 @@
     <? if (!empty($descriptions)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Description')?>:</th>
+             <th colspan="2"><?=$this->transEsc('Description')?>:</th>
 	      <td property="description" colspan="2">
 		<? foreach ($descriptions as $description): ?>
 		<?= $description ?>
 		<?= $description !== end($descriptions) ? " " : "" ?>
+	      <? endforeach; ?>
+	     </td>        
+	  </tr>
+	<? endif; ?>
+   
+   <? $annotations = $this->driver->getAnnotations(); ?>
+    <? if (!empty($annotations)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+             <th colspan="2"><?=$this->transEsc('Annotation')?>:</th>
+	      <td property="description" colspan="2">
+		<? foreach ($annotations as $annotation): ?>
+		<?= $annotation ?>
+		<?= $annotation !== end($annotations) ? " " : "" ?>
 	      <? endforeach; ?>
 	     </td>        
 	  </tr>
