@@ -493,7 +493,20 @@
         </tr>
     <? endif; ?>
 
-    <? $description = $this->driver->getDescription(); ?>
+    <? $descriptions = $this->driver->getDescriptions(); ?>
+    <? if (isset($descriptions)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Description')?>:</th>
+             <? foreach ($descriptions as $description): ?>
+            <td property="description" colspan="2">
+               <?= $description ?><?= $description !== end($descriptions) ? " " : "" ?
+            </td>
+             <? endforeach; ?>
+        </tr>
+    <? endif; ?>
+    
+    <!--<? $description = $this->driver->getDescription(); ?>
     <? if (isset($description)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
@@ -506,7 +519,7 @@
 
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
     
      <? $listOfContents = $this->driver->getListOfContents();
     if (!empty($listOfContents)): ?>
@@ -515,11 +528,13 @@
             <th colspan="2"><?= $this->transEsc('Inhaltsangabe') ?>:</th>
           </tr>
           <tr valign="top">
-            <td property="description" colspan="2"><? foreach ($listOfContents as $listOfContent): ?>
+            <td property="description" colspan="2">
+            <? foreach ($listOfContents as $listOfContent): ?>
             <li style="list-style-type: none; diplay:block; margin-bottom:.5em">
            <!-- <?= $this->escapeHtmlAllowBr($listOfContent) ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?>-->
             <?= $listOfContent ?><?= $listOfContent !== end($listOfContents) ? " " : "" ?>
-           </li><? endforeach; ?>
+           </li>
+           <? endforeach; ?>
                
             </td>
         </tr>
@@ -537,7 +552,20 @@
         </tr>
     <? endif; ?>
    
-     <? $annotation = $this->driver->getAnnotation(); ?>
+     <? $annotations = $this->driver->getAnnotations(); ?>
+    <? if (isset($annotations)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Annotation')?>:</th>
+             <? foreach ($annotations as $annotation): ?>
+            <td property="annotation" colspan="2">
+               <?= $annotation ?><?= $annotation !== end($annotations) ? " " : "" ?
+            </td>
+             <? endforeach; ?>
+        </tr>
+    <? endif; ?>
+   
+       <!-- <? $annotation = $this->driver->getAnnotation(); ?>
     <? if (isset($annotation)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
@@ -547,7 +575,8 @@
               <?= $annotation ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
+   
    
     <!--<? $creationdate = $this->driver->getRecordCreationDate(); ?>
     <? if (isset($creationdate)): ?>
