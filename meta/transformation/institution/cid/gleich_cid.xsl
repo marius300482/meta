@@ -192,7 +192,12 @@
 				 	</typeOfRessource>
 				 
 				 <format>
+				 	<xsl:variable name="ldr_7" select="substring(marc:controlfield[@tag='LDR'],8,1)" />
+				 		
 				 	<xsl:choose>
+				 		<xsl:when test="(marc:controlfield[@tag='FMT']='BK') and ($ldr_7='a')">
+				 			<xsl:text>Artikel</xsl:text>
+				 			</xsl:when>
 				 		<xsl:when test="marc:controlfield[@tag='FMT']='BK'">
 				 			<xsl:text>Buch</xsl:text>
 				 			</xsl:when>
@@ -259,8 +264,8 @@
 				<xsl:if test="marc:datafield[@tag='906']/marc:subfield[@code='b'][text()='Schriftenreihe = Collection']">
 					<series>
 						<xsl:value-of select="translate(marc:datafield[@tag='245']/marc:subfield[@code='a'][1],'&gt;&gt;&lt;&lt;','')" />
-						<xsl:text> / </xsl:text>
-						<xsl:value-of select="marc:datafield[@tag='245']/marc:subfield[@code='c']"></xsl:value-of>
+						<!--<xsl:text> / </xsl:text>
+						<xsl:value-of select="marc:datafield[@tag='245']/marc:subfield[@code='c']"></xsl:value-of>-->
 						</series>
 					</xsl:if>
 		
@@ -310,6 +315,8 @@
 							</subjectPerson>		
 						</xsl:for-each>
 					</xsl:if>
+				
+				<xsl:apply-templates select="marc:datafield[@tag='300']" />
 		
 		<!--listOfContents-->
 				<xsl:apply-templates select="marc:datafield[@tag='505']" />
@@ -398,6 +405,14 @@
 	
 	
 <!--Templates-->
+	
+	<xsl:template match="marc:datafield[@tag='907']">
+		<annotation>
+			<xsl:text>Begleitmaterial: </xsl:text>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>
+		</xsl:template>
+	
 	
 	<xsl:template match="marc:datafield[@tag='906']">
 		<documentType>
