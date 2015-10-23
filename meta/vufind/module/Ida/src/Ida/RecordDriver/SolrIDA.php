@@ -248,9 +248,9 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('signatur');
     }
     
-    public function getAnnotation()
+    public function getAnnotations()
     {
-        return $this->getSingleValuedField('annotation');
+        return $this->getMultiValuedField('annotation');
     }
     
     public function getCollectionHolding()
@@ -344,9 +344,9 @@ abstract class SolrIDA extends SolrDefault
         return $this->getSingleValuedField('timeSpanEnd');
     }
 
-    public function getDescription()
+    public function getDescriptions()
     {
-        return $this->getSingleValuedField('description');
+        return $this->getMultiValuedField('description');
     }
 
     public function getProjects()
