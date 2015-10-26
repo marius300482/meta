@@ -63,6 +63,9 @@
 					<xsl:when test="Objektart_x058x_[text()='Pressedokumentation']">
 						<xsl:text>archive</xsl:text>						
 						</xsl:when>
+					<xsl:when test="Objektart_x058x_[text()='Flugblatt']">
+						<xsl:text>archive</xsl:text>						
+						</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>library</xsl:text>		
 						</xsl:otherwise>
@@ -1572,6 +1575,88 @@
 
 
 
+
+
+
+<!--Flugblatt__________________________Flugblatt___________________________Flugblatt-->
+
+<xsl:if test="Objektart_x058x_[text()='Flugblatt']">
+	<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	<!--format Objektartinformationen-->
+					<format><xsl:text>Plakat</xsl:text></format>
+	<!--documentType-->
+					<documentType>
+						<xsl:text>Flugblatt</xsl:text>
+						</documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->
+					<xsl:apply-templates select="Titel_x058x_[1]"/>	
+					<xsl:apply-templates select="Anlass_x058x_"/>	
+
+<!--RESPONSIBLE-->	
+	
+	<!--gestaltung-->
+					<xsl:apply-templates select="Gestaltung_x058x_"/>
+	
+	<!--entity Körperschaftsangaben-->	
+					<xsl:apply-templates select="K_x148x_rperschaften_x058x_"/>	
+
+<!--PUBLISHING-->
+
+	<!--display publishDate Jahresangabe-->
+					<xsl:apply-templates select="Jahr_x047x_Zeitangabe_x058x_"/>	
+					<xsl:apply-templates select="ohne_x032x_Jahr_x058x_"/>	
+				
+
+<!--PHYSICAL INFORMATION-->
+
+	<!--dimension-->
+					<xsl:apply-templates select="Gr_x148x__x225x_e_x058x_"/>
+	<!--physical-->
+					<xsl:if test="Seiten_x058x_">
+						<physical>
+							<xsl:value-of select="Seiten_x058x_" />
+							</physical>
+						</xsl:if>
+	
+<!--CONTENTRELATED INFORMATION-->
+
+	<!--subjects-->
+					<xsl:apply-templates select="Schlagworte_x058x_"/>
+					<xsl:apply-templates select="Personen_x058x_"/>
+	<!--listOfContents-->	
+					<xsl:apply-templates select="Inhalt_x058x_"/>
+	
+	<!--subjectGeographic-->
+					<xsl:apply-templates select="Regionen_x058x_"/>
+	<!--annotations-->
+					<xsl:apply-templates select="Tagesdatum_x058x_"/>
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+					<xsl:apply-templates select="Signatur_x058x_"/>
+
+
+		</xsl:element>
+	</xsl:if>
+
+
+
+
+
+
+
+
+
+
 </xsl:element>
 		</xsl:if>
 
@@ -1612,9 +1697,10 @@
 		</xsl:template>
 	
 	<xsl:template match="Anlass_x058x_">
-		<title_sub>
+		<annotation>
+			<xsl:text>Anlass: </xsl:text>
 			<xsl:value-of select="normalize-space(.)"/>
-			</title_sub>
+			</annotation>
 		</xsl:template>
 	
 	<xsl:template match="K_x148x_rperschaften_x058x_">
