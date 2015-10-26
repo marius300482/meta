@@ -468,7 +468,7 @@
 	
 	<xsl:template match="marc:controlfield[@tag='008']">
 		<xsl:choose>
-			<xsl:when test="substring(.,8,4)='uuuu'">
+			<xsl:when test="contains(substring(.,8,4),'u')">
 				
 				</xsl:when>
 			<xsl:otherwise>
