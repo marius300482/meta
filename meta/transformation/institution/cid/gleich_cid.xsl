@@ -286,6 +286,7 @@
 						
 						</xsl:when>
 					</xsl:choose>
+					
 				<xsl:apply-templates select="marc:datafield[@tag='260']" />
 	
 		<!--sourceInfo Quelle-->
@@ -330,6 +331,7 @@
 				
 		<!--annotation-->
 				<xsl:apply-templates select="marc:datafield[@tag='500']" />
+				<xsl:apply-templates select="marc:datafield[@tag='907']" />
 			
 	<!--OTHER-->
 				
@@ -465,12 +467,20 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:controlfield[@tag='008']">
-		<displayPublishDate>
-			<xsl:value-of select="substring(.,8,4)" />
-			</displayPublishDate>
-		<publishDate>
-			<xsl:value-of select="substring(.,8,4)" />
-			</publishDate>
+		<xsl:choose>
+			<xsl:when test="substring(.,8,4)='uuuu'">
+				
+				</xsl:when>
+			<xsl:otherwise>
+				<displayPublishDate>
+					<xsl:value-of select="substring(.,8,4)" />
+					</displayPublishDate>
+				<publishDate>
+					<xsl:value-of select="substring(.,8,4)" />
+					</publishDate>
+				</xsl:otherwise>
+			</xsl:choose>
+		
 		<!--<field name="language_code">
 			<xsl:value-of select="substring(.,36,3)"></xsl:value-of>
 			</field>-->
