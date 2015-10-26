@@ -23,7 +23,7 @@
 		
 	<xsl:template match="Datensatz">
 		
-		<xsl:if test="not(Objektart_x058x_[text()='Zeitschrift'])">
+		<xsl:if test="not(Objektart_x058x_[text()='Zeitschrift_nope'])">
 		
 		<xsl:variable name="id" select="Objektnummer_x058x_"/>
 		<xsl:element name="record">
@@ -370,13 +370,15 @@
 					<xsl:apply-templates select="Themen_x058x_"/>
 					<xsl:apply-templates select="Eigennamen_x058x_"/>
 	<!--description-->
-					<xsl:if test="Bestand_x058x_">
+					<xsl:apply-templates select="Bestand_x058x_"/>
+					
+					<!--<xsl:if test="Bestand_x058x_">
 						<description>
 							<xsl:value-of select="Bestand_x058x_"/>
 							<xsl:text> - Bezug: </xsl:text>
 							<xsl:value-of select="Bezug_x058x_"/>
 							</description>
-					</xsl:if>
+					</xsl:if>-->
 
 <!--OTHER-->
 
@@ -1666,6 +1668,12 @@
 
 
 <!--Templates-->
+	
+	<xsl:template match="Bestand_x058x_">
+		<collectionHolding>
+			<xsl:value-of select="normalize-space(.)"/>
+			</collectionHolding>
+		</xsl:template>
 	
 	<xsl:template match="Tagesdatum_x058x_">
 		<annotation>
