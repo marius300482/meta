@@ -153,7 +153,7 @@
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-					<xsl:apply-templates select="Titel_x058x_"/>
+					<xsl:apply-templates select="Titel_x058x_[1]"/>
 
 <!--RESPONSIBLE-->
 	
@@ -806,7 +806,7 @@
 <!--TITLE-->
 	
 	<!--title Titelinformationen-->
-					<xsl:apply-templates select="Titel_x058x_"/>
+					<xsl:apply-templates select="Titel_x058x_[1]"/>
 					
 <!--RESPONSIBLE-->
 
