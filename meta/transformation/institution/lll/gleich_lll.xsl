@@ -187,7 +187,7 @@
 
 	<!--placeOfPublication-->
 		<xsl:apply-templates select="Ort[string-length() != 0]" />
-		<xsl:apply-templates select="Prod_x046x_Land[string-length() != 0]" />
+		
 		
 	<!--publisher-->
 		<xsl:apply-templates select="Verlag_x047x_Studio_x047x_Uni_x047x_Veranstaltungsstaette[string-length() != 0]" />
@@ -207,6 +207,7 @@
 		<xsl:apply-templates select="Filmrechte[string-length() != 0]" />
 		<xsl:apply-templates select="Genre[string-length() != 0]" />
 		<xsl:apply-templates select="DarstellerIn[string-length() != 0]" />
+		<xsl:apply-templates select="Prod_x046x_Land[string-length() != 0]" />
 	
 	<!--description-->
 		<xsl:apply-templates select="Inhalt_x047x_Einzeltitel[string-length() != 0]" />
@@ -234,6 +235,13 @@
 			<xsl:value-of select="normalize-space(.)" />
 			</documentType>
 		</xsl:template>	
+	
+	<xsl:template match="Prod_x046x_Land">
+		<annotation>
+			<xsl:text>Produktionsland: </xsl:text>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>
+		</xsl:template>
 	
 	<xsl:template match="DarstellerIn">
 		<annotation>
@@ -340,12 +348,6 @@
 		<publisher>
 			<xsl:value-of select="normalize-space(.)" />
 			</publisher>
-		</xsl:template>
-	
-	<xsl:template match="Prod_x046x_Land">
-		<placeOfPublication>
-			<xsl:value-of select="normalize-space(.)" />
-			</placeOfPublication>
 		</xsl:template>
 	
 	<xsl:template match="Ort">
