@@ -141,7 +141,6 @@
 <!--FORMAT-->
 
 		<format><xsl:text>Buch</xsl:text></format>
-		<xsl:apply-templates select="Titel[string-length() != 0]" />
 
 <!--TITLE-->	
 	
