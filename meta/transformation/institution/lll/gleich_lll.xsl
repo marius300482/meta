@@ -147,7 +147,7 @@
 	<!--title-->
 		<xsl:apply-templates select="Titel[string-length() != 0]" />
 		<xsl:apply-templates select="Untertitel[string-length() != 0]" />
-		<xsl:apply-templates select="Zusatz_x032x_zum_x032x_Titel[string-length() != 0]" />
+		<!--<xsl:apply-templates select="Zusatz_x032x_zum_x032x_Titel[string-length() != 0]" />-->
 		<xsl:apply-templates select="Originaltitel[string-length() != 0]" />
 		
 
