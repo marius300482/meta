@@ -140,7 +140,17 @@
 
 <!--FORMAT-->
 
-		<format><xsl:text>Buch</xsl:text></format>
+		<xsl:choose>
+			<xsl:when test="Dok-Nummer">
+				<format><xsl:text>Film</xsl:text></format>
+				</xsl:when>
+			<xsl:when test="DokumentenNr">
+				<format><xsl:text>Buch</xsl:text></format>
+				</xsl:when>
+			</xsl:choose>
+		
+		
+		<xsl:apply-templates select="Umfang_x032x__x047x__x032x_Format_x032x__x047x__x032x_Medium[string-length() != 0]" />
 
 <!--TITLE-->	
 	
@@ -155,9 +165,11 @@
 	<!--author Autorinneninformation-->
 		<xsl:apply-templates select="Autorin_x047x_Hrsg_x047x_Veranstalterin_x047x_Regie[string-length() != 0]" />
 		<xsl:apply-templates select="Co-Autorin_x047x_Hrsg_x047x_Regie[string-length() != 0]" />
+		<xsl:apply-templates select="Regie_x032x__x047x__x032x_AutorIn[string-length() != 0]" />
 	
 	<!--contributor-->
 		<xsl:apply-templates select="Uebersetzerin[string-length() != 0]" />
+		<xsl:apply-templates select="Drehbuch[string-length() != 0]" />
 		
 	<!--edition Ausgabe-->
 		<xsl:apply-templates select="Auflage[string-length() != 0]" />
@@ -171,13 +183,20 @@
 	
 	<!--display publishDate Jahresangabe-->	
 		<xsl:apply-templates select="Erscheinungs_x047x_Veroeffentl_x046x_Jahr[string-length() != 0]" />
+		<xsl:apply-templates select="Jahr[string-length() != 0]" />
 
 	<!--placeOfPublication-->
 		<xsl:apply-templates select="Ort[string-length() != 0]" />
-	
+		<xsl:apply-templates select="Prod_x046x_Land[string-length() != 0]" />
+		
 	<!--publisher-->
 		<xsl:apply-templates select="Verlag_x047x_Studio_x047x_Uni_x047x_Veranstaltungsstaette[string-length() != 0]" />
-	
+
+<!--PHYSICAL INFORMATION-->
+
+	<!--runTime-->
+		<xsl:apply-templates select="Filml_x132x_nge_x032x_in_x032x_Min_x046x_[string-length() != 0]" />
+
 <!--CONTENTRELATED INFORMATION-->
 	
 	<!--subjectTopic-->
@@ -185,9 +204,13 @@
 
 	<!--annotation-->
 		<xsl:apply-templates select="Bemerkungen[string-length() != 0]" />
+		<xsl:apply-templates select="Filmrechte[string-length() != 0]" />
+		<xsl:apply-templates select="Genre[string-length() != 0]" />
+		<xsl:apply-templates select="DarstellerIn[string-length() != 0]" />
 	
 	<!--description-->
 		<xsl:apply-templates select="Inhalt_x047x_Einzeltitel[string-length() != 0]" />
+		<xsl:apply-templates select="Inhalt[string-length() != 0]" />
 	
 	</xsl:element>	
 
@@ -205,6 +228,45 @@
 
 
 <!--Templates-->
+
+	<xsl:template match="Umfang_x032x__x047x__x032x_Format_x032x__x047x__x032x_Medium">
+		<documentType>
+			<xsl:value-of select="normalize-space(.)" />
+			</documentType>
+		</xsl:template>	
+	
+	<xsl:template match="DarstellerIn">
+		<annotation>
+			<xsl:text>Darstellerin: </xsl:text>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>
+		</xsl:template>
+	
+	<xsl:template match="Genre">
+		<annotation>
+			<xsl:text>Genre: </xsl:text>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>
+		</xsl:template>
+	
+	<xsl:template match="Filmrechte">
+		<annotation>
+			<xsl:text>Filmrechte: </xsl:text>
+			<xsl:value-of select="normalize-space(.)" />
+			</annotation>
+		</xsl:template>
+	
+	<xsl:template match="Filml_x132x_nge_x032x_in_x032x_Min_x046x_">
+		<runTime>
+			<xsl:value-of select="normalize-space(.)" />
+			</runTime>
+		</xsl:template>
+	
+	<xsl:template match="Inhalt">
+		<description>
+			<xsl:value-of select="normalize-space(.)" />
+			</description>
+		</xsl:template>
 	
 	<xsl:template match="Inhalt_x047x_Einzeltitel">
 		<description>
@@ -280,6 +342,12 @@
 			</publisher>
 		</xsl:template>
 	
+	<xsl:template match="Prod_x046x_Land">
+		<placeOfPublication>
+			<xsl:value-of select="normalize-space(.)" />
+			</placeOfPublication>
+		</xsl:template>
+	
 	<xsl:template match="Ort">
 		<placeOfPublication>
 			<xsl:value-of select="normalize-space(.)" />
@@ -290,6 +358,15 @@
 		<subjectTopic>
 			<xsl:value-of select="normalize-space(.)" />
 			</subjectTopic>
+		</xsl:template>
+	
+	<xsl:template match="Jahr">
+		<displayPublishDate>
+			<xsl:value-of select="normalize-space(.)" />
+			</displayPublishDate>
+		<publishDate>
+			<xsl:value-of select="normalize-space(.)" />
+			</publishDate>
 		</xsl:template>
 	
 	<xsl:template match="Erscheinungs_x047x_Veroeffentl_x046x_Jahr">
@@ -306,6 +383,20 @@
 			<xsl:value-of select="normalize-space(.)" />
 			<xsl:text> (Übers.)</xsl:text>
 			</contributor>
+		</xsl:template>
+	
+	<xsl:template match="Drehbuch">
+		<contributor>
+			<xsl:value-of select="normalize-space(.)" />
+			<xsl:text> (Drehbuch)</xsl:text>
+			</contributor>
+		</xsl:template>
+	
+	
+	<xsl:template match="Regie_x032x__x047x__x032x_AutorIn">
+		<author>
+			<xsl:value-of select="normalize-space(.)" />
+			</author>
 		</xsl:template>
 	
 	<xsl:template match="Autorin_x047x_Hrsg_x047x_Veranstalterin_x047x_Regie">
