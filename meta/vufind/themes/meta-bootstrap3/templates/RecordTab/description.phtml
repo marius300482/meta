@@ -461,7 +461,7 @@
             <th><?=$this->transEsc('ISBN')?>: </th>
             <td property="isbn">
             <? foreach ($isbns as $field): ?>
-                <?=$this->escapeHtml($field)?><?= $field !== end($isbns) ? ", " : "" ?>
+                <?=$this->escapeHtml($field)?><?= $field !== end($isbns) ? "<p/> " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -474,7 +474,7 @@
             <th><?=$this->transEsc('ISSN')?>: </th>
             <td property="issn">
             <? foreach ($issns as $field): ?>
-                <?=$this->escapeHtml($field)?><?= $field !== end($issns) ? ", " : "" ?>
+                <?=$this->escapeHtml($field)?><?= $field !== end($issns) ? "<p/> " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -487,7 +487,7 @@
             <th><?=$this->transEsc('ZDBID')?>: </th>
             <td property="zdbid">
             <? foreach ($zdbids as $field): ?>
-                <?=$this->escapeHtml($field)?><?= $field !== end($zdbids) ? ", " : "" ?>
+                <?=$this->escapeHtml($field)?><?= $field !== end($zdbids) ? "<p/> " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -550,10 +550,10 @@
              <th colspan="2"><?=$this->transEsc('Annotation')?>:</th>
              </tr>
 	     <tr valign="top">
-	      <td property="description" colspan="2">
+	      <td property="annotation" colspan="2">
 		<? foreach ($annotations as $annotation): ?>
 		<?= $annotation ?>
-		<?= $annotation !== end($annotations) ? " " : "" ?>
+		<?= $annotation !== end($annotations) ? "&lt;p/&gt;&lt;p/&gt; " : "" ?>
 	      <? endforeach; ?>
 	     </td>        
 	  </tr>
