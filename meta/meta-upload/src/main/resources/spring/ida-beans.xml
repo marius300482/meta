@@ -260,7 +260,7 @@
     </bean>
     <bean id="lll" class="de.idadachverband.institution.IdaInstitutionBean">
      	<constructor-arg index="0" name="institutionId" value="lll"/>
-        <constructor-arg index="1" name="institutionName" value="Frauenarchiv Frankfurt"/>
+        <constructor-arg index="1" name="institutionName" value="Lesbenarchiv Frankfurt"/>
         <constructor-arg index="2" name="transformationRecipeFile"
                          value="${xslt.basePath}/institution/lll/gleich_lll.xsl"/>
         <constructor-arg index="3" name="transformationStrategy" ref="xsltTransformer"/>
@@ -287,6 +287,7 @@
 	<ref bean="basel" />
 	<ref bean="hamburg" />
 	<ref bean="bozen" />
+	<ref bean="lll" />
     </util:set>
 
     <bean id="workingFormatTransformer" class="de.idadachverband.transform.xslt.WorkingFormatToSolrDocumentTransformer"
