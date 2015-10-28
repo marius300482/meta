@@ -145,11 +145,10 @@
 <!--TITLE-->	
 	
 	<!--title-->
-		<xsl:apply-templates select="Titel[string-length() != 0]" />
+		<xsl:apply-templates select="Titel[1][string-length() != 0]" />
 		<xsl:apply-templates select="Untertitel[string-length() != 0]" />
 		<!--<xsl:apply-templates select="Zusatz_x032x_zum_x032x_Titel[string-length() != 0]" />-->
 		<xsl:apply-templates select="Originaltitel[string-length() != 0]" />
-		
 
 <!--RESPONSIBLE-->	
 
@@ -244,12 +243,35 @@
 		</xsl:template>
 	
 	<xsl:template match="Titel">
-		<title>
-			<xsl:value-of select="normalize-space(.)" />
-			</title>
-		<title_short>
-			<xsl:value-of select="normalize-space(.)" />
-			</title_short>
+		<xsl:choose>
+			<xsl:when test="../Titel[2][string-length() != 0]">				
+				<title>
+					<xsl:for-each select="../Titel">
+						<xsl:value-of select="normalize-space(.)" />
+						<xsl:if test="position() != last()">
+						<xsl:text>; </xsl:text>
+						</xsl:if>
+						</xsl:for-each>
+						</title>
+					<title_short>
+						<xsl:for-each select="../Titel">
+						<xsl:value-of select="normalize-space(.)" />
+						<xsl:if test="position() != last()">
+						<xsl:text>; </xsl:text>
+						</xsl:if>
+						</xsl:for-each>
+						</title_short>
+					
+				</xsl:when>
+			<xsl:otherwise>
+				<title>
+					<xsl:value-of select="normalize-space(.)" />
+					</title>
+				<title_short>
+					<xsl:value-of select="normalize-space(.)" />
+					</title_short>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:template>
 	
 	<xsl:template match="Verlag_x047x_Studio_x047x_Uni_x047x_Veranstaltungsstaette">
