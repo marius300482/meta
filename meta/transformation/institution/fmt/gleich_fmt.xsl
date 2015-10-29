@@ -439,7 +439,7 @@
 
 		<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">
 			
-		<xsl:if test="contains(Signatur_x058x_,':')">
+		<!--<xsl:if test="contains(Signatur_x058x_,':')">-->
 			<xsl:variable name="connect">
 				<xsl:variable name="rel" select="normalize-space(substring-before(Signatur_x058x_[1],':'))"/>
 				
@@ -469,7 +469,7 @@
 						
 						</xsl:for-each>
 			</xsl:variable>
-			</xsl:if>
+			<!--</xsl:if>-->
 			
 			<xsl:element name="dataset">
 
