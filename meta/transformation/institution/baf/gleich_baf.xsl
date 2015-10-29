@@ -228,8 +228,11 @@
 				<xsl:apply-templates select="BAWOrt_Landkreis_Land[string-length() != 0]"/>
 				
 	<!--description-->	
-				<xsl:apply-templates select="Enthaelt[1][string-length() != 0]"/>
-				<xsl:apply-templates select="Darin[1][string-length() != 0]"/>
+				<xsl:apply-templates select="Enthaelt[string-length() != 0]"/>
+				<xsl:apply-templates select="Darin[string-length() != 0]"/>
+	
+	<!--collectionHolding-->
+				<xsl:apply-templates select="Bestand[string-length() != 0]"/>
 		
 	<!--issue-->
 				<xsl:apply-templates select="Heftnummer[1][string-length() != 0]"/>
@@ -300,6 +303,24 @@
 		</xsl:template>
 	
 	<xsl:template match="Enthaelt">
+		<description>
+			<xsl:value-of select="normalize-space(.)" />
+			</description>
+		</xsl:template>
+	
+	<xsl:template match="Darin">
+		<description>
+			<xsl:value-of select="normalize-space(.)" />
+			</description>
+		</xsl:template>
+		
+	<xsl:template match="Bestand">
+		<sourceInfo>
+			<xsl:value-of select="normalize-space(.)" />
+			</sourceInfo>
+		</xsl:template>
+	
+	<!--<xsl:template match="Enthaelt">
 		<xsl:variable name="bestand" select="../Bestand[1]" />
 		<xsl:variable name="lfr"><xsl:text>Landesfrauenrat</xsl:text></xsl:variable>
 		<description>
@@ -329,7 +350,7 @@
 				</xsl:for-each>
 			</description>
 			</xsl:if>
-		</xsl:template>
+		</xsl:template>-->
 	
 	<xsl:template match="BAWOrt_Landkreis_Land">
 			<subjectGeographic>
