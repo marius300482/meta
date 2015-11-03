@@ -487,7 +487,9 @@
             <th><?=$this->transEsc('ZDBID')?>: </th>
             <td property="zdbid">
             <? foreach ($zdbids as $field): ?>
-                <?=$this->escapeHtml($field)?><?= $field !== end($zdbids) ? "<p/> " : "" ?>
+               <a href="http://beta.zdb-opac.de/zdb/list.xhtml?t=
+               <?=$this->escapeHtml($field)?>"><?=$this->escapeHtml($field)?></a>
+               <?= $field !== end($zdbids) ? "<p/> " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
