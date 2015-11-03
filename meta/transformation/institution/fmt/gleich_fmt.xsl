@@ -23,7 +23,7 @@
 		
 	<xsl:template match="Datensatz">
 		
-		<xsl:if test="not(Objektart_x058x_[text()='Zeitschrift_nope'])">
+		<!--<xsl:if test="Objektart_x058x_[text()='Zeitschrift']">-->
 		
 		<xsl:variable name="id" select="Objektnummer_x058x_"/>
 		<xsl:element name="record">
@@ -272,6 +272,9 @@
 					<format><xsl:text>Zeitschrift</xsl:text></format>
 					
 	<!--documentType-->
+					<documentType>
+						<xsl:text>Zeitschriftenreihe</xsl:text>
+						</documentType>
 					<xsl:apply-templates select="Zeitschriftentyp_x058x_"/>
 					<xsl:apply-templates select="Formen_x058x_"/>
 					<xsl:apply-templates select="Materialart_x058x_"/>
@@ -1662,7 +1665,7 @@
 
 
 </xsl:element>
-		</xsl:if>
+		<!--</xsl:if>-->
 
 </xsl:template>
 
