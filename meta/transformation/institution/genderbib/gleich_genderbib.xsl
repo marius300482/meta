@@ -18,7 +18,8 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 
-			<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()!='Zeitschrift'])">
+			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()!='Zeitschrift'])">-->
+			<xsl:if test="objektart[text()='Zeitschrift']">
 			
 			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Zeitschrift/Heftitel'])">-->
 			<!--<xsl:if test="contains(objektart,'Einzeltitel')">-->
@@ -1207,7 +1208,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 				<format><xsl:text>Zeitschrift</xsl:text></format>
 
 	<!--documentType Objektartinformationen-->
-				<documentType><xsl:text>Zeitschrift</xsl:text></documentType>
+				<documentType><xsl:text>Zeitschriftenreihe</xsl:text></documentType>
 
 <!--TITLE-->
 
@@ -1279,6 +1280,9 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 <!--PHYSICAL INFORMATION-->
 
 <!--CONTENTRELATED INFORMATION-->
+
+	<!--collectionHolding-->
+		<xsl:apply-templates select="Bestandsangabe[string-length() != 0]"/>
 
 <!--DETAILS FOR JOURNAL RELATED CONTENT-->
 
@@ -1931,6 +1935,12 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 
 <!--Templates-->
+
+	<xsl:template match="Bestandsangabe">
+		<collectionHolding>
+			<xsl:value-of select="."/>
+			</collectionHolding>
+		</xsl:template>
 
 	<xsl:template match="Dok-art">
 		<xsl:for-each select=".">
