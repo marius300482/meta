@@ -138,6 +138,8 @@
 	
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Zeitschrift</xsl:text></format>	
+				<documentType><xsl:text>Zeitschriftenreihe</xsl:text>
+				</documentType>
 
 <!--TITLE-->
 
