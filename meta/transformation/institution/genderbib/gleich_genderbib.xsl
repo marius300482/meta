@@ -18,8 +18,8 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 
-			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()!='Zeitschrift'])">-->
-			<xsl:if test="objektart[text()='Zeitschrift']">
+			<xsl:if test="objektart[text()!='NutzerIn']">
+			<!--<xsl:if test="objektart[text()='Zeitschrift']">-->
 			
 			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Zeitschrift/Heftitel'])">-->
 			<!--<xsl:if test="contains(objektart,'Einzeltitel')">-->
@@ -1290,26 +1290,21 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 				
 </xsl:element>
 
-		<functions>
+		<!--<functions>
 			<hierarchyFields>
 				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
 				<hierarchy_top_title>
 					<xsl:value-of select="Zeitschr_-Titel" />
-					<!--<xsl:if test="Untertitel">
-						<xsl:text> : </xsl:text>
-						<xsl:value-of select="Untertitel" />
-							</xsl:if>-->
+					
 						</hierarchy_top_title>
 					
 				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
 				<is_hierarchy_title><xsl:value-of select="Zeitschr_-Titel" />
-					<!--<xsl:if test="Untertitel">
-						<xsl:text> : </xsl:text>
-						<xsl:value-of select="Untertitel" />
-							</xsl:if>--></is_hierarchy_title>
+					
+							</is_hierarchy_title>
 				</hierarchyFields>
 			</functions>
-
+-->
 </xsl:if>
 
 
