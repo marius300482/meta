@@ -188,7 +188,8 @@
 <xsl:template match="Objekt">	
 		<xsl:variable name="id" select="id" />
 		
-		<xsl:if test="not(objektart[text()='Zeitschriften'])">
+		<xsl:if test="objektart[text()='Zeitschriften']">
+		<!--<xsl:if test="not(objektart[text()='Zeitschriften'])">-->
 		<!--<xsl:if test="objektart[text()='Akten, Graue Materialien, ZD']">-->
 		
 		<xsl:element name="record">
@@ -414,6 +415,107 @@
 </xsl:if>
 
 
+
+
+
+<!--Zeitschriften________________Zeitschriften___________________________Zeitschriften-->
+
+<xsl:if test="objektart[text()='Zeitschriften']">
+
+<xsl:element name="dataset">
+
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+			<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+
+	<!--format Objektartinformationen-->
+			<format><xsl:text>Zeitschrift</xsl:text></format>
+			<documentType><xsl:text>Zeitschriftenreihe</xsl:text></documentType>
+			<documentType><xsl:text>Periodika</xsl:text></documentType>
+
+<!--TITLE-->
+
+	<!--title Titelinformationen-->	
+			<xsl:apply-templates select="Titel_x032x_" />			
+
+	<!--alternativeTitle-->
+			<!--<xsl:apply-templates select="Titel_x132x_nderungen" />
+			<xsl:apply-templates select="Einheitssachtitel" />-->
+	
+
+<!--RESPONSIBLE-->
+
+	<!--author Autorinneninformation-->
+			<!--<xsl:apply-templates select="Verf_x046x_" />-->
+
+	<!--editor Herausgeberinneninformationen-->
+			<!--<xsl:apply-templates select="Hrsg_x046x_" />-->
+
+	<!--entity Körperschaft-->
+			<!--<xsl:apply-templates select="bet_x046x_KS" />
+			<xsl:apply-templates select="Urheber" />-->
+
+	<!--series Reiheninformation-->
+			<!--<xsl:apply-templates select="Reihe" />-->
+			
+	<!--edition Auflage-->
+			<!--<xsl:apply-templates select="Auflage[1]" />-->
+			
+	<!--volume-->
+			<!--<xsl:apply-templates select="Band" />-->
+			
+	<!--Herkunft-->
+			<!--<xsl:apply-templates select="Provenienz" />-->
+
+<!--IDENTIFIER-->
+	<!--ISBN-->
+			<xsl:apply-templates select="ISSN" />
+			<xsl:apply-templates select="ZDB-ID" />
+
+<!--PUBLISHING-->
+
+	<!--display / publishDate Jahresangabe-->
+			<!--<xsl:apply-templates select="Jahr_x047x_Datierung" />-->
+
+	<!--placeOfPublication Ortsangabe-->
+			<!--<xsl:apply-templates select="Verlagsort" />	-->
+
+	<!--publisher Verlagsangabe-->
+			<!--<xsl:apply-templates select="Verlag" />-->
+
+<!--PHYSICAL INFORMATION-->
+
+	<!--physical Seitenangabe-->
+			<!--<xsl:apply-templates select="Umfang" />-->
+
+<!--CONTENTRELATED INFORMATION-->
+	
+	<!--language Sprachangaben-->
+			<!--<xsl:apply-templates select="Sprache" />-->
+
+	<!--subjectTopic Deskriptoren-->
+			<xsl:apply-templates select="Schlagworte_x032x_Archiv" />
+			<!--<xsl:apply-templates select="Person" />
+			<xsl:apply-templates select="Beitr_x132x_ge_x032x_von[1]" />-->
+			
+	<!--description-->
+			<xsl:apply-templates select="Vorwort[string-length() != 0]" />
+			<xsl:apply-templates select="Bemerkung[string-length() != 0]" />
+	
+	<!--collectionHolding-->
+		<xsl:apply-templates select="Periodikumbestand[string-length() != 0]" />
+
+<!--OTHER-->
+
+	<!--shelfMark Signatur-->
+			<xsl:apply-templates select="Signatur" />
+
+
+
+</xsl:element>
+		
+</xsl:if>
 
 
 
@@ -1226,6 +1328,12 @@
 	</xsl:template>
 	
 <!--Templates-->
+
+	<xsl:template match="Periodikumbestand">
+		<collectionHolding>
+			<xsl:value-of select="."/>
+			</collectionHolding>
+		</xsl:template>
 	
 	<xsl:template match="Beitr_x132x_ge_x032x_von">
 		<xsl:for-each select="../Beitr_x132x_ge_x032x_von">
@@ -1245,6 +1353,18 @@
 				</listOfContents>
 			</xsl:for-each>
 			
+		</xsl:template>
+	
+	<xsl:template match="ZDB-ID">
+		<zdbid>
+			<xsl:value-of select="." />
+			</zdbid>
+		</xsl:template>
+	
+	<xsl:template match="ISSN">
+		<issn>
+			<xsl:value-of select="." />
+			</issn>
 		</xsl:template>
 	
 	<xsl:template match="ISBN">
