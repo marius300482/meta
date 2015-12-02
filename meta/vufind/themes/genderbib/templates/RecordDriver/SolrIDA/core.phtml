@@ -135,10 +135,10 @@
                             <div>
                                 <a id="showAll<?= $type ?>Topics" title="More" class="add"
                                     onclick="$('.subject<?= $type ?>Line.more, #showAll<?= $type ?>Topics, #hideTooMany<?= $type ?>Topics').toggle(); return false;"
-                                    href="#">><?= $this->transEsc('more') ?></a>
+                                    href="#"><?= $this->transEsc('more') ?></a>
                                 <a id="hideTooMany<?= $type ?>Topics" title="Less" class="hide delete"
                                     onclick="$('.subject<?= $type ?>Line.more,  #showAll<?= $type ?>Topics, #hideTooMany<?= $type ?>Topics').toggle(); return false;"
-                                    href="#">Less</a>
+                                    href="#"><?= $this->transEsc('less') ?></a>
                             </div>
                         <? endif; ?>
                     </td>
