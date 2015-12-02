@@ -249,7 +249,7 @@
              alt="<?= $this->transEsc('No Cover Image') ?>"/>
     <? endif; ?>
 
-    <div>
+    <!--<div>
         <? $loanStatus = $this->driver->tryMethod("getLoanStatus") ?>
         <? if ($loanStatus !== null): ?>
             <? if ($loanStatus): ?>
@@ -262,7 +262,7 @@
         <? if (!$loanStatus && $loanReturn !== null): ?>
             <?= $this->transEsc('Due') ." " . $loanReturn ?>
         <? endif; ?>
-    </div>
+    </div>-->
 
     <a href="<?=$this->recordLink()->getActionUrl($this->driver, 'Save')?>" class="hide saveRecord fav controllerRecord" id="saveRecord" title="<?=$this->transEsc('Add to favorites')?>"><?=$this->transEsc('Add to favorites')?> [+]</a>
     <? $isbn = $this->driver->getCleanISBN() ?>
