@@ -120,7 +120,7 @@
             <tr valign="top">
                 <? if (isset($subjects[strtolower($type)])): ?>
                     <!--<th><?= $this->transEsc('Subjects ' . $type) ?>:</th>-->
-                    <th><?= $this->transEsc('Subjectsgenderbib') ?><?= $this-> $type ?>:</th>
+                    <th><?= $this->transEsc('Subjectsgenderbib') ?>:</th>
                     <td>
                         <? $line = 0;
                         $fields = $subjects[strtolower($type)]; ?>
@@ -135,7 +135,7 @@
                             <div>
                                 <a id="showAll<?= $type ?>Topics" title="More" class="add"
                                     onclick="$('.subject<?= $type ?>Line.more, #showAll<?= $type ?>Topics, #hideTooMany<?= $type ?>Topics').toggle(); return false;"
-                                    href="#">More</a>
+                                    href="#">><?= $this->transEsc('more') ?></a>
                                 <a id="hideTooMany<?= $type ?>Topics" title="Less" class="hide delete"
                                     onclick="$('.subject<?= $type ?>Line.more,  #showAll<?= $type ?>Topics, #hideTooMany<?= $type ?>Topics').toggle(); return false;"
                                     href="#">Less</a>
