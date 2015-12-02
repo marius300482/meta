@@ -306,7 +306,7 @@
         <? foreach(array("Topic", "Geo", "Person") as $type): ?>
             <tr valign="top">
                 <? if (isset($subjects[strtolower($type)])): ?>
-                    <th><?= $this->transEsc('Subjects Genderbib' . $type) ?>:</th>
+                    <th><?= $this->transEsc('Subjectsgenderbib ' . $type) ?>:</th>
                     <td property="keywords <?= strtolower($type) ?>">
                         <? $fields = $subjects[strtolower($type)]; ?>
                         <? foreach ($fields as $subject): ?>
