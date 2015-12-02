@@ -330,6 +330,11 @@
             <th><?=$this->transEsc('ISBN')?>: </th>
             <td property="isbn">
             <? foreach ($isbns as $field): ?>
+                <? $isbn = $this->driver->getCleanISBN() ?>
+                <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
+                <? if ($isbn && $amazonassociate): ?>
+                    <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
+                    <? endif; ?>
                 <?=$this->escapeHtml($field)?><?= $field !== end($isbns) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
