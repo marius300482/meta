@@ -362,7 +362,7 @@
             <td property="zdbid">
             <? foreach ($zdbids as $field): ?>
                 <a target=_blank href="http://beta.zdb-opac.de/zdb/list.xhtml?t=
-               <?=$this->escapeHtml($field)?>"><?=$this->escapeHtml($field)?></a>
+               <?=$this->escapeHtml($field)?>"><?=$this->escapeHtml($field)?></a><i class="fa fa-external-link"></i>
                <?= $field !== end($zdbids) ? "<p/> " : "" ?>
                <!-- <?=$this->escapeHtml($field)?><?= $field !== end($zdbids) ? ", " : "" ?>-->
             <? endforeach; ?>
