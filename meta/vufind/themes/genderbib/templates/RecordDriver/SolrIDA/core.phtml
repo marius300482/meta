@@ -263,8 +263,8 @@
             <?= $this->transEsc('Due') ." " . $loanReturn ?>
         <? endif; ?>
     </div>-->
-
-    <a href="<?=$this->recordLink()->getActionUrl($this->driver, 'Save')?>" class="hide saveRecord fav controllerRecord" id="saveRecord" title="<?=$this->transEsc('Add to favorites')?>"><?=$this->transEsc('Add to favorites')?> [+]</a>
+     <br>
+    <!--<a href="<?=$this->recordLink()->getActionUrl($this->driver, 'Save')?>" class="hide saveRecord fav controllerRecord" id="saveRecord" title="<?=$this->transEsc('Add to favorites')?>"><?=$this->transEsc('Add to favorites')?> [+]</a>-->
     <? $isbn = $this->driver->getCleanISBN() ?>
     <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
     <? if ($isbn && $amazonassociate): ?>
