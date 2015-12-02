@@ -268,7 +268,8 @@
     <? $isbn = $this->driver->getCleanISBN() ?>
     <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
     <? if ($isbn && $amazonassociate): ?>
-        <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><?=$this->transEsc('Amazon')?><img src="<?= $this->imageLink('icons/amazon_16.png') ?>"/></a>
+        <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
+        <!--<a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><?=$this->transEsc('Amazon')?><img src="<?= $this->imageLink('icons/amazon_16.png') ?>"/></a>-->
     <? endif; ?>
     <!--<? if (count($this->driver->getCitationFormats()) > 0): ?>
         <? $controllerClass = 'controller' . $this->record($this->driver)->getController(); ?>
