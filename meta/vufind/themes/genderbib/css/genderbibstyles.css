@@ -1101,6 +1101,14 @@ div.recordsubcontent table.citation {
     display: block;
 }
 
+
+.resultscroller {
+    border: 0 solid black;
+    margin: -1em auto 1em;
+    text-align: center;
+    width: 50%;
+}
+
 /** ***********************************
  * Page: Tag cloud
  ************************************ */
