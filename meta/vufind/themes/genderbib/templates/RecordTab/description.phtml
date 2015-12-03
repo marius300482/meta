@@ -341,7 +341,28 @@
         </tr>
     <? endif; ?>
     
-   
+     <? $isbns = $this->driver->getISBNs(); ?>
+    <? if (empty($isbns)): ?>
+     <? $displayTitle = $this->driver->getdisplayTitle(); ?>
+     <? $titleShort = $this->driver->getShortTitle(); ?>
+     <? $titleShortPregReplace = preg_replace ( '/[^a-z0-9 ]/i', '', $titleShort ) ?>
+     <? $titleSub = $this->driver->getTitleSub(); ?>
+     <? $editors = $this->driver->getEditors(); ?>
+     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
+     <? $belongsToTop = $this->driver->getBelongsToTop(); ?>
+     <? $belongsToTopPregReplace = preg_replace ( '/[^a-z0-9 ]/i', '', $belongsToTop[1] ) ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Shop')?>: </th>
+            <td property="shop">
+            <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
+           <a href="http://www.amazon.de/s/field-keywords=<? if (!empty($belongsToTop)): ?><?= $belongsToTopPregReplace ?><? else: ?><?= $titleShortPregReplace ?>
+         <?= $titleSub ?><? endif; ?>
+           <? foreach ($editors as $editor): ?><?= $this->escapeHtml($editor) ?><?= $editor !== end($editors) ? "; " : "" ?><? endforeach; ?><? if (empty($belongsToTop)): ?><?=$this->escapeHtml($authors['main'])?><? endif; ?>
+           ?tag=<?= $amazonassociate ?>&node=186606" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/><? if (!empty($belongsToTop)): ?><?= $belongsToTop[1] ?><? else: ?><?= $displayTitle ?><? endif; ?> <i class="fa fa-external-link"></i></a>
+            </td>
+        </tr>
+    <? endif; ?>
 
     
     <? $issns = $this->driver->getISSNs(); ?>
