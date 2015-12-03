@@ -334,7 +334,7 @@
                 <? $isbn = $this->driver->getCleanISBN() ?>
                 <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
                 <? if ($isbn && $amazonassociate): ?>
-                    <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
+                    <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
                     <? endif; ?>
             <? endforeach; ?>
             </td>
@@ -349,8 +349,9 @@
             <th><?=$this->transEsc('Shop')?>: </th>
             <td property="shop">
             <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
-	     <a href="http://www.amazon.de/s/field-keywords=<?= $displayTitle ?>?id=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Find on Amazon') ?>"><img style="margin-top:0.5em;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
-	    <?= $this->escapeHtml($displayTitle); ?>
+	     <a href="http://www.amazon.de/s/field-keywords=<?= $displayTitle ?>?id=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Find on Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/>
+	     <?= $this->escapeHtml($displayTitle); ?></a>
+	    
             </td>
         </tr>
     <? endif; ?>
