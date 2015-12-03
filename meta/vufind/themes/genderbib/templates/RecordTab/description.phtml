@@ -345,8 +345,6 @@
     <? $isbns = $this->driver->getISBNs(); ?>
     <? if (empty($isbns)): ?>
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
-     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
-     <? $editors = $this->driver->getEditors(); ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shop')?>: </th>
