@@ -306,7 +306,8 @@
         <? foreach(array("Topic", "Geo", "Person") as $type): ?>
             <tr valign="top">
                 <? if (isset($subjects[strtolower($type)])): ?>
-                    <th><?= $this->transEsc('Subjects ' . $type) ?>:</th>
+                    <!--<th><?= $this->transEsc('Subjectsgenderbib ' . $type) ?>:</th>-->
+                    <th><?= $this->transEsc('Subjectsgenderbib') ?>:</th>
                     <td property="keywords <?= strtolower($type) ?>">
                         <? $fields = $subjects[strtolower($type)]; ?>
                         <? foreach ($fields as $subject): ?>
@@ -330,6 +331,11 @@
             <td property="isbn">
             <? foreach ($isbns as $field): ?>
                 <?=$this->escapeHtml($field)?><?= $field !== end($isbns) ? ", " : "" ?>
+                <? $isbn = $this->driver->getCleanISBN() ?>
+                <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
+                <? if ($isbn && $amazonassociate): ?>
+                    <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
+                    <? endif; ?>
             <? endforeach; ?>
             </td>
         </tr>
@@ -355,7 +361,10 @@
             <th><?=$this->transEsc('ZDBID')?>: </th>
             <td property="zdbid">
             <? foreach ($zdbids as $field): ?>
-                <?=$this->escapeHtml($field)?><?= $field !== end($zdbids) ? ", " : "" ?>
+                <a target=_blank href="http://beta.zdb-opac.de/zdb/list.xhtml?t=
+               <?=$this->escapeHtml($field)?>"><?=$this->escapeHtml($field)?></a> <i class="fa fa-external-link"></i>
+               <?= $field !== end($zdbids) ? "<p/> " : "" ?>
+               <!-- <?=$this->escapeHtml($field)?><?= $field !== end($zdbids) ? ", " : "" ?>-->
             <? endforeach; ?>
             </td>
         </tr>
