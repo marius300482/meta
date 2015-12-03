@@ -352,13 +352,7 @@
             <th><?=$this->transEsc('Shop')?>: </th>
             <td property="shop">
             <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
-               <a href="http://www.amazon.de/s/field-keywords=
-               <? if (!empty($belongsToTop)): ?>
-		          <?= $belongsToTop[1] ?>
-		            <? else: ?>
-		            <?= $displayTitle ?>
-		            <? endif; ?>
-		            </a>
+               <a href="http://www.amazon.de/s/field-keywords=<? if (!empty($belongsToTop)): ?><?= $belongsToTop[1] ?><? else: ?><?= $displayTitle ?><? endif; ?></a>
                <? foreach ($editors as $editor): ?>
                     <?= $this->escapeHtml($editor) ?><?= $editor !== end($editors) ? "; " : "" ?>
                 <? endforeach; ?>
