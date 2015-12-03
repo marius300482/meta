@@ -949,8 +949,8 @@ ul.recordSet li.alt {
 }
 
 #record > .span-13 {
-    width: 100%;
     margin: 0;
+    width: 80%;
 }
 
 #record > .span-4 {
