@@ -358,8 +358,7 @@
 		            <? else: ?>
 		            <?= $displayTitle ?>
 		            <? endif; ?>
-               
-               <!--<?= $displayTitle ?>--></a>
+		            </a>
                <? foreach ($editors as $editor): ?>
                     <?= $this->escapeHtml($editor) ?><?= $editor !== end($editors) ? "; " : "" ?>
                 <? endforeach; ?>
