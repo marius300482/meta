@@ -346,6 +346,7 @@
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
      <? $editors = $this->driver->getEditors(); ?>
      <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
+     <? $belongsToTop = $this->driver->getBelongsToTop(); ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shop')?>: </th>
@@ -353,7 +354,7 @@
             <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
                <a href="http://www.amazon.de/s/field-keywords=
                <? if (!empty($belongsToTop)): ?>
-		            <?= $belongsToTop ?>
+		          <?= $belongsToTop[1] ?>
 		            <? else: ?>
 		            <?= $displayTitle ?>
 		            <? endif; ?>
