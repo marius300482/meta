@@ -354,7 +354,7 @@
             <th><?=$this->transEsc('Shop')?>: </th>
             <td property="shop">
             <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
-            <a href="http://www.amazon.de/s/field-keywords=<? if (!empty($belongsToTop)): ?> <?= $belongsToTop[1] ?> <? else: ?> <?= $titleShort ?> <?= $titleSub ?> <? endif; ?><? foreach ($editors as $editor): ?> <?= $this->escapeHtml($editor) ? ><?= $editor !== end($editors) ? "; " : "" ?> <? endforeach; ?> <?=$this->escapeHtml($authors['main'])?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/><? if (!empty($belongsToTop)): ?><?= $belongsToTop[1] ?><? else: ?><?= $displayTitle ?><? endif; ?> <i class="fa fa-external-link"></i></a>
+            <a href="http://www.amazon.de/s/field-keywords=<? if (!empty($belongsToTop)): ?><?= $belongsToTop[1] ?><? else: ?><?= $titleShort ?><?= $titleSub ?><? endif; ?><? foreach ($editors as $editor): ?><?= $this->escapeHtml($editor) ? ><?= $editor !== end($editors) ? "; " : "" ?> <? endforeach; ?> <?=$this->escapeHtml($authors['main'])?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/><? if (!empty($belongsToTop)): ?><?= $belongsToTop[1] ?><? else: ?><?= $displayTitle ?><? endif; ?> <i class="fa fa-external-link"></i></a>
             </td>
         </tr>
     <? endif; ?>
