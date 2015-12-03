@@ -349,7 +349,7 @@
             <th><?=$this->transEsc('Shop')?>: </th>
             <td property="shop">
             <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
-               <a href="http://www.amazon.de/s/field-keywords=<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/> <i class="fa fa-external-link"></i></a>
+               <a href="http://www.amazon.de/s/field-keywords=<?= $displayTitle ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/> <i class="fa fa-external-link"></i></a>
                    <?= $this->escapeHtml($displayTitle); ?> <i class="fa fa-external-link"></i>
             </td>
         </tr>
