@@ -345,6 +345,7 @@
     <? if (empty($isbns)): ?>
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
      <? $editors = $this->driver->getEditors(); ?>
+     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shop')?>: </th>
@@ -354,12 +355,9 @@
                <? foreach ($editors as $editor): ?>
                     <?= $this->escapeHtml($editor) ?><?= $editor !== end($editors) ? "; " : "" ?>
                 <? endforeach; ?>
-               
+               <?=$this->escapeHtml($authors['main'])?>
                ?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/> <i class="fa fa-external-link"></i></a>
                 <?= $this->escapeHtml($displayTitle); ?> <i class="fa fa-external-link"></i>
-                  <? foreach ($editors as $editor): ?>
-               <?= $this->escapeHtml($editor) ?><?= $editor !== end($editors) ? "; " : "" ?>
-            <? endforeach; ?>
             </td>
         </tr>
     <? endif; ?>
