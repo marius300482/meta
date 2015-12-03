@@ -356,8 +356,8 @@
                     <?= $this->escapeHtml($editor) ?><?= $editor !== end($editors) ? "; " : "" ?>
                 <? endforeach; ?>
                <?=$this->escapeHtml($authors['main'])?>
-               ?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
-                <?= $this->escapeHtml($displayTitle); ?> <i class="fa fa-external-link"></i>
+               ?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/>
+                <?= $this->escapeHtml($displayTitle); ?> <i class="fa fa-external-link"></i></a>
             </td>
         </tr>
     <? endif; ?>
