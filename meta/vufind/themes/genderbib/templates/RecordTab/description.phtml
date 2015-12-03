@@ -348,8 +348,8 @@
         <tr valign="top">
             <th><?=$this->transEsc('Shop')?>: </th>
             <td property="shop">
+            <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
 	     <a href="http://www.amazon.de/s/field-keywords=<?= $displayTitle ?>?id=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Find on Amazon') ?>"><img style="margin-top:0.5em;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
-                   
 	    <?= $this->escapeHtml($displayTitle); ?>
             </td>
         </tr>
