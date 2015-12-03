@@ -353,8 +353,10 @@
             <td property="shop">
             <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
 	     <a href="http://www.amazon.de/s/field-keywords=<?= $displayTitle ?>
-	   
-	     <?= $editors ?>?id=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Find on Amazon'"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/>
+	     <? foreach ($editors as $editor): ?>
+                <?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
+            	<? endforeach; ?>
+	   	?id=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Find on Amazon'"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/>
 	     <?= $this->escapeHtml($displayTitle); ?> <i class="fa fa-external-link"></i></a>
             </td>
         </tr>
