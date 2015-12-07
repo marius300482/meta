@@ -354,7 +354,7 @@
      <? $editors = $this->driver->getEditors(); ?>
      <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
      <? $belongsToTop = $this->driver->getBelongsToTop(); ?>
-     <? $belongsToTopPregReplace = preg_replace ( '/[^a-z0-9 ]/i', '', $belongsToTop[1] ) ?>
+     <? $belongsToTopPregReplace = preg_replace ( '/[^a-z0-9äüö ]/i', '', $belongsToTop[1] ) ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shop')?>: </th>
