@@ -365,7 +365,7 @@
        		$search_term = $belongsToTopPregReplace;
        		$search_term = $search_term . ' ' . $this->escapeHtml($editors[0]);
        		else:
-       			$search_term = $titleShortPregReplace . ' ' . $this->escapeHtml($authors['main']);
+       			$search_term = $titleShortPregReplace . ' ' . $this->escapeHtml($authors['main'] . ' ' . $this->escapeHtml($editors[0]));
        			endif;
        			echo $search_term;?>
   	bei 
