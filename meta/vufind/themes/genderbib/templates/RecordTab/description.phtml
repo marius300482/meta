@@ -371,7 +371,11 @@
        		?>
   	
   	<a href="http://www.amazon.de/s/field-keywords=<?= $search_term ?>?tag=<?= $amazonassociate ?>&node=186606" target=_blank>amazon <i class="fa fa-external-link"></i></a>,
-  	<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $titleShortPregReplace ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a>,
+  	<? if  ($formats[0]=="Artikel"): ?>
+  		<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $search_term ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a>,
+  		<? else: ?>
+  			<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $titleShortPregReplace ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a>,
+  			<? endif; ?>
   	<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= $titleShortPregReplace ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   	<a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $search_term ?>&author=&title=&check_sn=on" target=_blank>ZVAB <i class="fa fa-external-link"></i></a>
         
