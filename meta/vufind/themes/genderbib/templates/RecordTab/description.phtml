@@ -368,7 +368,7 @@
        <? if (!empty($belongsToTop)):
        		$search_term = $belongsToTopPregReplace;
        		foreach ($editors as $editor):
-       			$search_term = $search_term . ' ' . $this->escapeHtml($editor);
+       			$search_term = $search_term . ' ' . $this->escapeHtml($editor[1]);
        			endforeach;
        		else:
        			$search_term = $titleShortPregReplace . $titleSub . $this->escapeHtml($authors['main']);
