@@ -368,7 +368,7 @@
        
        <? if (!empty($belongsToTop)):
        		$search_term = $belongsToTopPregReplace;
-       		$search_term = $search_term . ' ' . $this->escapeHtml($editors[1]);
+       		$search_term = $search_term . ' ' . $this->escapeHtml($editors[0]);
        		else:
        			$search_term = $titleShortPregReplace . $titleSub . $this->escapeHtml($authors['main']);
        			endif;
