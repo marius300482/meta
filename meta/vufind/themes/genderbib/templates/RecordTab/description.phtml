@@ -377,7 +377,7 @@
   			<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $titleShortPregReplace ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a>,
   			<? endif; ?>
   	<? if  ($formats[0]=="Artikel"): ?>
-  		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= $search_term iconv ("UTF-8","ISO-8859-1//TRANSLIT", $search_term ) ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
+  		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= $input iconv ("UTF-8","ISO-8859-1//TRANSLIT", $search_term ) ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= utf8_decode($search_term) ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   		<? else: ?>
   			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= utf8_decode($titleShortPregReplace) ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
