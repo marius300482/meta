@@ -347,6 +347,9 @@
     
      <? $isbns = $this->driver->getISBNs(); ?>
      <? $formats = $this->driver->getFormats(); ?>
+     <? $issns = $this->driver->getISSNs(); ?>
+     <? $zdbids = $this->driver->getZDBIDs(); ?>
+     
      <? if (empty($isbns) && (($formats[0]=="Buch") || ($formats[0]=="Artikel"))): ?>
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
      <? $titleShort = $this->driver->getShortTitle(); ?>
