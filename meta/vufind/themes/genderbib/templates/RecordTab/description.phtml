@@ -350,7 +350,7 @@
     <? if (empty($isbns) && (($formats[0]=="Buch") || ($formats[0]=="Artikel"))): ?>
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
      <? $titleShort = $this->driver->getShortTitle(); ?>
-     <? $titleShortPregReplace = preg_replace ( '/[^a-z0-9 ]/i', '', $titleShort ) ?>
+     <? $titleShortPregReplace = preg_replace ( '/[^a-z0-9 äüö]/i', '', $titleShort ) ?>
      <? $titleSub = $this->driver->getTitleSub(); ?>
      <? $editors = $this->driver->getEditors(); ?>
      <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
