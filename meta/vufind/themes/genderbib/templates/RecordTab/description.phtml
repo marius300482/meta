@@ -347,7 +347,7 @@
     
      <? $isbns = $this->driver->getISBNs(); ?>
      <? $formats = $this->driver->getFormats(); ?>
-    <? if (empty($isbns)): ?>
+    <? if (empty($isbns) && ($formats[0]=='Buch')): ?>
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
      <? $titleShort = $this->driver->getShortTitle(); ?>
      <? $titleShortPregReplace = preg_replace ( '/[^a-z0-9 ]/i', '', $titleShort ) ?>
