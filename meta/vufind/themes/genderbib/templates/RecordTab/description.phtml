@@ -368,7 +368,7 @@
        	
        	<? if (!empty($belongsToTop)) {
 		$search_term = 		$belongsToTopPregReplace;
-		foreach ($editors as $editor):
+		foreach ($editors as $editor)
       			$this->escapeHtml($editor)
       			$editor !== end($editors) ? "; " : ""
 					$search_term = $search_term . $this      			
