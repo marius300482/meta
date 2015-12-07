@@ -359,13 +359,7 @@
      <?php function umlautepas($string){
      	$upas = Array("ä" => "ae", "ü" => "ue", "ö" => "oe", "Ä" => "Ae", "Ü" => "Ue", "Ö" => "Oe"); 
      	return strtr($string, $upas);
-     	
-     }
- 
-  // Beispiel:
-  $text = "Ö Ä Ü ö ä ü";
-  echo umlautepas($text);
-  ?>
+     } ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shop')?>: </th>
