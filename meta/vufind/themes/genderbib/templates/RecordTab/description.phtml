@@ -349,7 +349,7 @@
      <? $formats = $this->driver->getFormats(); ?>
      <? $issns = $this->driver->getISSNs(); ?>
      <? $zdbids = $this->driver->getZDBIDs(); ?>
-     <? if (empty($issns)) && (empty($zdbids)) && (empty($isbns)) && (($formats[0]=="Buch") || ($formats[0]=="Artikel"))): ?>
+     <? if (empty($isbns)) && (($formats[0]=="Buch") || ($formats[0]=="Artikel"))): ?>
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
      <? $titleShort = $this->driver->getShortTitle(); ?>
      <? $titleShortPregReplace = preg_replace ( '/[^a-z0-9 äüö]/i', '', $titleShort ) ?>
