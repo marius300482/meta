@@ -356,6 +356,16 @@
      <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
      <? $belongsToTop = $this->driver->getBelongsToTop(); ?>
      <? $belongsToTopPregReplace = preg_replace ( '/[^a-z0-9 äüö]/i', '', $belongsToTop[1] ) ?>
+     <?php function umlautepas($string){
+     	$upas = Array("ä" => "ae", "ü" => "ue", "ö" => "oe", "Ä" => "Ae", "Ü" => "Ue", "Ö" => "Oe"); 
+     	return strtr($string, $upas);
+     	
+     }
+ 
+  // Beispiel:
+  $text = "Ö Ä Ü ö ä ü";
+  echo umlautepas($text);
+  ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Shop')?>: </th>
@@ -377,7 +387,7 @@
   			<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $titleShortPregReplace ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a>,
   			<? endif; ?>
   	<? if  ($formats[0]=="Artikel"): ?>
-  		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= utf8_decode($search_term) ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
+  		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   		<? else: ?>
   			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= iconv ('UTF-8','ISO-8859-1//TRANSLIT', $search_term ) ?>" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= $titleShortPregReplace ?>" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
