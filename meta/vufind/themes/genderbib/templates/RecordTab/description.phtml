@@ -347,7 +347,7 @@
     
      <? $isbns = $this->driver->getISBNs(); ?>
      <? $formats = $this->driver->getFormats(); ?>
-    <? if (empty($isbns) && ($formats[0]=='Buch')): ?>
+    <? if (empty($isbns)): ?>
      <? $displayTitle = $this->driver->getdisplayTitle(); ?>
      <? $titleShort = $this->driver->getShortTitle(); ?>
      <? $titleShortPregReplace = preg_replace ( '/[^a-z0-9 ]/i', '', $titleShort ) ?>
@@ -375,7 +375,7 @@
   	<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= $titleShortPregReplace ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   	<a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $search_term ?>&author=&title=&check_sn=on" target=_blank>ZVAB <i class="fa fa-external-link"></i></a>
         
-  	<?= $formats ?>
+  	<?= $formats[0] ?>
   	
             </td>
         </tr>
