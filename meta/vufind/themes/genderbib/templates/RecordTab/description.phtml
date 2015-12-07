@@ -334,7 +334,7 @@
                 <? $isbn = $this->driver->getCleanISBN() ?>
                 <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
                 <? if ($isbn && $amazonassociate): ?>
-                <div style="margin: .7em 0 0 1em; line-height:1em;">
+                <div style="margin: .7em 0 1em .5em; line-height:1.5em;">
                    <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/> <i class="fa fa-external-link"></i></a><br />
                     <a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $isbn ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a> <i class="fa fa-external-link"></i><br />
                     <a href="http://www.booklooker.de/B%C3%BCcher/Angebote/isbn=<?= $isbn ?>?lid=1" target=_blank>booklooker</a> <i class="fa fa-external-link"></i><br />
