@@ -364,8 +364,24 @@
          <?= $titleSub ?><? endif; ?>
            <? foreach ($editors as $editor): ?><?= $this->escapeHtml($editor) ?><?= $editor !== end($editors) ? "; " : "" ?><? endforeach; ?><? if (empty($belongsToTop)): ?><?=$this->escapeHtml($authors['main'])?><? endif; ?>
            ?tag=<?= $amazonassociate ?>&node=186606" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;vertical-align:middle;" src="<?= $this->imageLink('icons/amazon.png') ?>"/><? if (!empty($belongsToTop)): ?><?= $belongsToTop[1] ?><? else: ?><?= $displayTitle ?><? endif; ?> <i class="fa fa-external-link"></i></a><br />
-           
-       
+       <br><br>    
+       	
+       	<? if (!empty($belongsToTop)) {
+		$search_term = 		$belongsToTopPregReplace;
+		foreach ($editors as $editor):
+      			$this->escapeHtml($editor)
+      			$editor !== end($editors) ? "; " : ""
+					$search_term = $search_term . $this      			
+      			endforeach;
+	}else {
+      	$search_term = $titleShortPregReplace . $titleSub . $this->escapeHtml($authors['main']);
+     }
+		
+		
+      			
+      echo $search_term;
+
+      ?>
             </td>
         </tr>
     <? endif; ?>
