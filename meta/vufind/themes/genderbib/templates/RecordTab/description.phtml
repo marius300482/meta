@@ -379,6 +379,7 @@
   	<? if  ($formats[0]=="Artikel"): ?>
   		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= utf8_decode($search_term) ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   		<? else: ?>
+  			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= $search_term_1 iconv ('UTF-8','ISO-8859-1//TRANSLIT', $search_term ) ?>" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= utf8_decode($titleShortPregReplace) ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a>,
   			<? endif; ?>
   	<a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $search_term ?>&author=&title=&check_sn=on" target=_blank>ZVAB <i class="fa fa-external-link"></i></a>
