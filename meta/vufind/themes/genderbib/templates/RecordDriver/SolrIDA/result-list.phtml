@@ -8,9 +8,10 @@
       <img src="<?=$this->url('cover-unavailable')?>" class="summcover" alt="<?=$this->transEsc('No Cover Image')?>"/>
     <? endif; ?>
   </a>
-  </div>
   <br class="hideIfDetailed"/>
       <?=$this->record($this->driver)->getFormatList()?>
+  </div>
+  
   <div class="span-9">
     <div class="resultItemLine1">
       <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title"><?
