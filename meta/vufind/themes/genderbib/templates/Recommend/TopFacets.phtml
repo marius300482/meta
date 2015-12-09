@@ -6,7 +6,7 @@
   <? foreach($topFacetSet as $title => $cluster): ?>
     <? $allowExclude = $this->recommend->excludeAllowed($title); ?>
     <div class="authorbox">
-      <?=$this->escapeHtml($lookfor)?>
+     
       <strong><?=$this->transEsc($cluster['label'])?></strong>
       <?= "" /* PHE 2014/07/09 $this->transEsc("top_facet_suffix") */ ?>
       <? $iter=1;$corner=$topFacetSettings['rows']*$topFacetSettings['cols']; ?>
