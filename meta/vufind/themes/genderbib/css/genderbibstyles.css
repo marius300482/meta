@@ -1114,7 +1114,7 @@ div.recordsubcontent table.citation {
 }
 
 .resultItemLine1 a {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 120%;
     line-height: 1.4em;
 }
