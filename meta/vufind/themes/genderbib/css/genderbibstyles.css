@@ -1109,6 +1109,10 @@ div.recordsubcontent table.citation {
     width: 50%;
 }
 
+.formatItemResult {
+    margin: 0 0 0.6em;
+}
+
 /** ***********************************
  * Page: Tag cloud
  ************************************ */
