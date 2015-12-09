@@ -66,9 +66,9 @@
       <? else: ?>
         <h3><?=$this->transEsc('nohit_heading')?></h3>
       <? endif; ?>
-      <br>
-      <a href="http://meta-katalog.eu/Search/Results?lookfor=<?=$this->escapeHtml($lookfor)?>"><?=$this->escapeHtml($lookfor)?></a>
-       
+      <div class="search_meta">
+      <a href="http://meta-katalog.eu/Search/Results?lookfor=<?=$this->escapeHtml($lookfor)?>"> <?=$this->transEsc('Search in META: ')?><?=$this->escapeHtml($lookfor)?></a>
+       </div>
     </div>
 
     <? if ($recordTotal > 0): ?>
