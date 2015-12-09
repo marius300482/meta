@@ -133,7 +133,7 @@
       <? endif; ?>
 
       <br class="hideIfDetailed"/>
-      <?=$this->record($this->driver)->getFormatList()?>
+      <!--<?=$this->record($this->driver)->getFormatList()?>-->
 
       <? if (!$openUrlActive && empty($urls) && $this->driver->supportsAjaxStatus()): ?>
       <div class="status ajax_availability hide"><?=$this->transEsc('Loading')?>...</div>
