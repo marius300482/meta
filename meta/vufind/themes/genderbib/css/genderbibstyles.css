@@ -1135,6 +1135,15 @@ div.recordsubcontent table.citation {
     width: 70%;
 }
 
+.search_meta {
+    border: 0pt solid;
+    margin: 1em;
+}
+
+.search_meta a{
+    color: orange;
+}
+
 /** ***********************************
  * Page: Tag cloud
  ************************************ */
