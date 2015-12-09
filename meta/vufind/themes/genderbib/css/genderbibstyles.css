@@ -1131,6 +1131,10 @@ div.recordsubcontent table.citation {
     margin: .2em 0 .6em 0;
 }
 
+.span-9 {
+    width: 70%;
+}
+
 /** ***********************************
  * Page: Tag cloud
  ************************************ */
