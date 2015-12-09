@@ -269,21 +269,11 @@
      <? $formats = $this->driver->getFormats(); ?>
      <? $issns = $this->driver->getISSNs(); ?>
      <? $zdbids = $this->driver->getZDBIDs(); ?>
-     <? if (empty($isbns) && empty($issns) && empty($zdbids) && (($formats[0]=="Buch") || ($formats[0]=="Artikel"))): ?>
+     <? if (empty($issns) && empty($zdbids) && (($formats[0]=="Buch") || ($formats[0]=="Artikel"))): ?>
      <a href="#bookstore"><?= $this->transEsc("Bookstore") ?></a>
      <? endif; ?>
      
-    <!--<a href="<?=$this->recordLink()->getActionUrl($this->driver, 'Save')?>" class="hide saveRecord fav controllerRecord" id="saveRecord" title="<?=$this->transEsc('Add to favorites')?>"><?=$this->transEsc('Add to favorites')?> [+]</a>-->
-    <!--<? $isbn = $this->driver->getCleanISBN() ?>
-    <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
-    <? if ($isbn && $amazonassociate): ?>
-        <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><img style="margin-top:0.5em;" src="<?= $this->imageLink('icons/amazon.png') ?>"/></a>
-        <!--<a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>"><?=$this->transEsc('Amazon')?><img src="<?= $this->imageLink('icons/amazon_16.png') ?>"/></a>-->
-    <? endif; ?>-->
-    <!--<? if (count($this->driver->getCitationFormats()) > 0): ?>
-        <? $controllerClass = 'controller' . $this->record($this->driver)->getController(); ?>
-        <br/><a href="<?=$this->recordLink()->getActionUrl($this->driver, 'Cite')?>" class="citeRecord cite <?=$controllerClass?>" id="share" title="<?=$this->transEsc('Share')?>"><?=$this->transEsc('Share this')?></a>
-    <? endif; ?>-->
+   
 
     <? /* Display the lists that this record is saved to */ ?>
     <div class="savedLists info hide" id="savedLists">
