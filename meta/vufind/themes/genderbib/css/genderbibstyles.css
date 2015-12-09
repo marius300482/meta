@@ -1113,6 +1113,24 @@ div.recordsubcontent table.citation {
     margin: 0 0 0.6em;
 }
 
+.resultItemLine1 a {
+    font-weight: bold;
+    font-size: 120%;
+    line-height: 1.4em;
+}
+
+.resultItemLine1 {
+    margin: .2em 0 .6em 0;
+}
+
+.resultItemLine2 a {
+    margin: .2em 0 .6em 0;
+}
+
+.resultItemLine2 {
+    margin: .2em 0 .6em 0;
+}
+
 /** ***********************************
  * Page: Tag cloud
  ************************************ */
