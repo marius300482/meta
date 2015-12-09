@@ -66,6 +66,7 @@
       <? else: ?>
         <h3><?=$this->transEsc('nohit_heading')?></h3>
       <? endif; ?>
+       <?=$this->escapeHtml($lookfor)?>
     </div>
 
     <? if ($recordTotal > 0): ?>
