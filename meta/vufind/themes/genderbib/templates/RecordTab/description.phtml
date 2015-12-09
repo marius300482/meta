@@ -331,6 +331,11 @@
             <td property="isbn">
             <? foreach ($isbns as $field): ?>
                 <?=$this->escapeHtml($field)?><?= $field !== end($isbns) ? ", " : "" ?>
+                 </td>
+        </tr>
+         <tr valign="top">
+            <th><a name=bookstores></a><?=$this->transEsc('Bookstores')?>: </th>
+            <td property="bookstore">
                 <? $isbn = $this->driver->getCleanISBN() ?>
                 <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
                 <? if ($isbn && $amazonassociate): ?>
@@ -364,7 +369,7 @@
      } ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Shop')?>: </th>
+            <th><a name=bookstores></a><?=$this->transEsc('Bookstores')?>: </th>
             <td property="shop">
             <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
        
