@@ -9,6 +9,8 @@
     <? endif; ?>
   </a>
   </div>
+  <br class="hideIfDetailed"/>
+      <?=$this->record($this->driver)->getFormatList()?>
   <div class="span-9">
     <div class="resultItemLine1">
       <a href="<?=$this->recordLink()->getUrl($this->driver)?>" class="title"><?
