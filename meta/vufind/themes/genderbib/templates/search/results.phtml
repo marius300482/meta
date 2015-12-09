@@ -106,7 +106,7 @@
       <?=$this->paginationControl($this->results->getPaginator(), 'Sliding', 'search/pagination.phtml', array('results' => $this->results))?>
     </form>
 
-    <div class="searchtools">
+    <!--<div class="searchtools">
       <strong><?=$this->transEsc('Search Tools')?>:</strong>
       <a href="<?=$this->results->getUrlQuery()->setViewParam('rss')?>" class="feed"><?=$this->transEsc('Get RSS Feed')?></a>
       <a href="<?=$this->url('search-email')?>" class="mailSearch mail" id="mailSearch<?=$this->escapeHtmlAttr($this->results->getSearchId())?>" title="<?=$this->transEsc('Email this Search')?>"><?=$this->transEsc('Email this Search')?></a>
@@ -116,7 +116,7 @@
         <? else: ?>
           <a href="<?=$this->url('myresearch-savesearch')?>?save=<?=urlencode($this->results->getSearchId())?>" class="add"><?=$this->transEsc('save_search')?></a>
         <? endif; ?>
-      <? endif; ?>
+      <? endif; ?>-->
     </div>
   <? endif; ?>
 </div>
