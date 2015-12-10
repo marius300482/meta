@@ -20,6 +20,7 @@
 
 			<xsl:if test="objektart[text()!='NutzerIn']">
 			<!--<xsl:if test="objektart[text()='Zeitschrift']">-->
+			<!--<xsl:if test="objektart[text()='Zeitschrift']">-->
 			
 			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Zeitschrift/Heftitel'])">-->
 			<!--<xsl:if test="contains(objektart,'Einzeltitel')">-->
@@ -171,9 +172,7 @@
 	
 		</xsl:variable>
 		
-		<!--<test>
-			<xsl:value-of select="$connect"></xsl:value-of>
-			</test>-->
+	
 				
 <!--vufind_______________________________vufind_______________________________vufind-->
 <!--vufind_______________________________vufind_______________________________vufind-->
@@ -196,25 +195,6 @@
 				<recordCreationDate>
 					<xsl:value-of select="current-dateTime()"/>
 					</recordCreationDate>
-			
-				<!--<xsl:choose>
-					<xsl:when test="erfasst_am- !=''">
-						<recordCreationDate>
-							<xsl:value-of select="substring(erfasst_am-[1],7,4)"/>
-							<xsl:text>-</xsl:text>
-							<xsl:value-of select="substring(erfasst_am-[1],4,2)"/>
-							<xsl:text>-</xsl:text>
-							<xsl:value-of select="substring(erfasst_am-[1],1,2)"/>
-							<xsl:text>T</xsl:text>
-							<xsl:text>00:00:00Z</xsl:text>
-							</recordCreationDate>
-						</xsl:when>
-					<xsl:otherwise>
-						<recordCreationDate>
-							<xsl:value-of select="current-dateTime()"/>
-							</recordCreationDate>
-						</xsl:otherwise>
-					</xsl:choose>-->
 					
 	<!--recordChangeDate-->
 				<recordChangeDate>
@@ -1153,30 +1133,6 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 
 </xsl:element>
 
-<!--<xsl:if test="Sign_[1]">
-	<xsl:element name="functions">
-		<xsl:element name="hierarchyFields">
-			<hierarchy_top_id>ZZeitschrifgenderbib</hierarchy_top_id>
-	           	<hierarchy_top_title>Zeitschriften</hierarchy_top_title>
-           		<hierarchy_parent_id>ZZeitschrifgenderbib</hierarchy_parent_id>
-			<hierarchy_parent_title>Zeitschriften</hierarchy_parent_title>
-			<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
-			<is_hierarchy_title>
-					<xsl:choose>
-						<xsl:when test="Sachtitel!=''"><xsl:value-of select="Sachtitel[1]"/></xsl:when>
-							<xsl:otherwise><xsl:value-of select="Zeitschr_-Titel[1]"/></xsl:otherwise>
-					</xsl:choose>
-			</is_hierarchy_title>
-			<hierarchy_sequence>
-				<xsl:choose>
-					<xsl:when test="Sachtitel!=''"><xsl:value-of select="normalize-space(substring(Sachtitel[1],1,10))"/></xsl:when>
-					<xsl:otherwise><xsl:value-of select="normalize-space(substring(Zeitschr_-Titel[1],1,10))"/></xsl:otherwise>
-				</xsl:choose>
-			</hierarchy_sequence>
-		</xsl:element>
-	</xsl:element>	
-</xsl:if>-->
-
 </xsl:if>
 
 
@@ -1202,19 +1158,19 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 <!--FORMAT-->
 
 	<!--typeOfRessource-->
-				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+		<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 
 	<!--format Objektartinformationen-->
-				<format><xsl:text>Zeitschrift</xsl:text></format>
+		<format><xsl:text>Zeitschrift</xsl:text></format>
 
 	<!--documentType Objektartinformationen-->
-				<documentType><xsl:text>Zeitschriftenreihe</xsl:text></documentType>
+		<documentType><xsl:text>Zeitschriftenreihe</xsl:text></documentType>
 
 <!--TITLE-->
 
 	<!--title Titelinformationen-->
-				<xsl:apply-templates select="Zeitschr_-Titel"/>
-				<xsl:apply-templates select="Titeländg_" />
+		<xsl:apply-templates select="Zeitschr_-Titel"/>
+		<xsl:apply-templates select="Titeländg_" />
 					
 <!--RESPONSIBLE-->
 				
@@ -1222,89 +1178,81 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 <!--IDENTIFIER-->
 				
 	<!--ISBN / ISSN-->
-				<xsl:apply-templates select="ISSN" />
+		<xsl:apply-templates select="ISSN" />
 
 	<!--ZDB-ID-->
-				<xsl:apply-templates select="ZDB-ID" />
+		<xsl:apply-templates select="ZDB-ID" />
 
 <!--PUBLISHING-->
 
-	<!--displayDate-->
-				<xsl:choose>
-					<xsl:when test="J_[2]">
-						<displayPublishDate>
-							<xsl:value-of select="J_[1]"/>
-							<xsl:text> - </xsl:text>
-							<xsl:value-of select="J_[last()]"/>
-							</displayPublishDate>
-						</xsl:when>
-					<xsl:otherwise>
-						<displayPublishDate>
-							<xsl:value-of select="J_[1]"/>
-							</displayPublishDate>	
-						</xsl:otherwise>
-					</xsl:choose>	
-
-	<!--timeSpan Laufzeit / Publishdate-->
+	<!--displayDate / Publishdate-->
+		<xsl:choose>
+			<xsl:when test="J_[2]">
+				<displayPublishDate>
+					<xsl:value-of select="J_[1]"/>
+					<xsl:text> - </xsl:text>
+					<xsl:value-of select="J_[last()]"/>
+					</displayPublishDate>
+				</xsl:when>
+			<xsl:otherwise>
+				<displayPublishDate>
+					<xsl:value-of select="J_[1]"/>
+					</displayPublishDate>	
+				</xsl:otherwise>
+			</xsl:choose>	
 				
-				<xsl:for-each select="J_">
-					<publishDate>
-						<xsl:value-of select="normalize-space(.)"/>
-						</publishDate>
-					</xsl:for-each>
-				
-				<!--<xsl:choose>
-					<xsl:when test="J_[2]">
-						<timeSpan>
-							<timeSpanStart>
-								<xsl:value-of select="J_[1]"/>
-							</timeSpanStart>
-							<timeSpanEnd>
-								<xsl:value-of select="J_[last()]"/>
-							</timeSpanEnd>
-							</timeSpan>
-						</xsl:when>
-					<xsl:otherwise>
-						<publishDate>
-							<xsl:value-of select="J_[1]"/>
-							</publishDate>
-						</xsl:otherwise>
-					</xsl:choose>	-->
+		<xsl:for-each select="J_">
+			<publishDate>
+				<xsl:value-of select="normalize-space(.)"/>
+				</publishDate>
+			</xsl:for-each>
 
 	<!--placeOfPublication Ortsangabe-->	
-					<xsl:apply-templates select="Ersch_-ort[1]"/>
+		<xsl:apply-templates select="Ersch_-ort[1]"/>
 
 	<!--publisher Verlagsangabe-->
-					<xsl:apply-templates select="Verlag[1]"/>
+		<xsl:apply-templates select="Verlag[1]"/>
 
 <!--PHYSICAL INFORMATION-->
 
 <!--CONTENTRELATED INFORMATION-->
 
-	<!--collectionHolding-->
-		<xsl:apply-templates select="Bestandsangabe[string-length() != 0]"/>
-
 <!--DETAILS FOR JOURNAL RELATED CONTENT-->
 
+	<!--specialIssue-->
+		<xsl:apply-templates select="Sonderhefte[string-length() != 0]"/>
+	
+	<!--volume-->
+		<xsl:choose>
+			<xsl:when test="Jg-[2]">
+				<volume>
+					<xsl:value-of select="Jg-[1]"/>
+					<xsl:text> - </xsl:text>
+					<xsl:value-of select="Jg-[last()]"/>
+					</volume>
+				</xsl:when>
+			<xsl:otherwise>
+				<volume>
+					<xsl:value-of select="Jg-[1]"/>
+					</volume>	
+				</xsl:otherwise>
+			</xsl:choose>	
+	
+	<!--publicationFrequency-->
+		<xsl:apply-templates select="Ersch_-weise[string-length() != 0]"/>
+	
+	<!--collectionHolding-->
+		<xsl:apply-templates select="Bestandsangabe[string-length() != 0]"/>
+		
+	<!--outOfStocks-->
+		<xsl:apply-templates select="Lückenangabe[string-length() != 0]"/>
+
 <!--OTHER-->
+
+	<!--shelfMark Signatur-->
+		<xsl:apply-templates select="Standort[1]"/>
 				
 </xsl:element>
-
-		<!--<functions>
-			<hierarchyFields>
-				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
-				<hierarchy_top_title>
-					<xsl:value-of select="Zeitschr_-Titel" />
-					
-						</hierarchy_top_title>
-					
-				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
-				<is_hierarchy_title><xsl:value-of select="Zeitschr_-Titel" />
-					
-							</is_hierarchy_title>
-				</hierarchyFields>
-			</functions>
--->
 </xsl:if>
 
 
@@ -1676,9 +1624,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 <xsl:element name="dataset">
 	
-	<connect>
+	<!--<connect>
 	<xsl:value-of select="$connect"/>
-		</connect>
+		</connect>-->
 		
 <!--FORMAT-->
 
@@ -1931,6 +1879,30 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 <!--Templates-->
 
+	<xsl:template match="Sonderhefte">
+		<specialIssue>
+			<xsl:value-of select="normalize-space(.)"/>
+			</specialIssue>
+		</xsl:template>
+	
+	<xsl:template match="Lückenangabe">
+		<outOfStocks>
+			<xsl:value-of select="normalize-space(.)"/>
+			</outOfStocks>
+		</xsl:template>
+	
+	<xsl:template match="Ersch_-weise">
+		<publicationFrequency>
+			<xsl:value-of select="normalize-space(.)"/>
+			</publicationFrequency>
+		</xsl:template>
+
+	<xsl:template match="Standort">
+		<shelfMark>
+			<xsl:value-of select="normalize-space(.)"/>
+			</shelfMark>
+		</xsl:template>
+	
 	<xsl:template match="Bestandsangabe">
 		<collectionHolding>
 			<xsl:value-of select="."/>
@@ -2215,10 +2187,74 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 <!--Template Deskriptoren-->
 	<xsl:template match="Deskriptoren1[1]">
+		
+		<!--<xsl:variable name="mapping">
+				<xsl:for-each select="document('GIB_VUFGAM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" />
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="normalize-space(../column_3)"></xsl:value-of>
+					<xsl:text>|</xsl:text>
+					</xsl:for-each>
+				</xsl:variable>-->
+		
+		<xsl:variable name="mapping">
+				<xsl:for-each select="document('translation/GIB_VUFGAM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFGAS_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFGBV_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFGCC_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFGFW_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFGIM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFGME_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFGRT_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFWDM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				<xsl:for-each select="document('translation/GIB_VUFWEE_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
+					</xsl:for-each>
+				</xsl:variable>
+		
+		<!--<mapping>
+			<xsl:value-of select="$mapping"></xsl:value-of>
+			</mapping>-->
+		
 		<xsl:for-each select="tokenize(.[1], ';')">
-			<subjectTopic>
-				<xsl:value-of select="normalize-space(.)"/>
-				</subjectTopic>
+		<xsl:if test=".!=''">
+		<xsl:variable name="deskriptor" select="normalize-space(.)" />
+			<xsl:choose>
+				<xsl:when test="contains($mapping,$deskriptor)">
+					<subjectTopic>
+						<xsl:value-of select="normalize-space(.)"/>
+						</subjectTopic>
+					<translatedTopic>
+						<xsl:value-of select="normalize-space(.)"/>
+						<xsl:text> - </xsl:text>
+						<xsl:value-of select="normalize-space(substring-before(substring-after($mapping, $deskriptor),'|'))" />
+						</translatedTopic>
+					</xsl:when>
+				<xsl:otherwise>
+					<subjectTopic>
+						<xsl:value-of select="normalize-space(.)"/>
+						</subjectTopic>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
 			</xsl:for-each>
 		</xsl:template>
 		
