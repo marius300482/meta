@@ -60,6 +60,9 @@
 				<xsl:value-of select="dataset/specificMaterialDesignation" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/collectionHolding" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/annotation" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/publisher" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/translatedTopic" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/specialIssue" /><xsl:text> </xsl:text>
                     			</field>
 <!--vufind-->
 		
@@ -193,6 +196,8 @@
 			
 			<xsl:apply-templates select="dataset/subjectTopic" />
 			
+			<xsl:apply-templates select="dataset/translatedTopic" />
+			
                 		
                 		<!--<xsl:variable name="topic" select="dataset/subjectTopic" />
                 		<xsl:if test="document('../anreicherung/thesaurus.xml')/root/term/usedTerm=$topic">
@@ -241,6 +246,11 @@
 			<xsl:apply-templates select="dataset/sourceInfo" />
 			
 			<xsl:apply-templates select="dataset/listOfContents" />
+			
+			<xsl:apply-templates select="dataset/specialIssue" />
+			<xsl:apply-templates select="dataset/publicationFrequency" />
+			<xsl:apply-templates select="dataset/outOfStocks" />
+			
 			
 			<field name="groupID">
 			<!-- 
@@ -447,6 +457,22 @@
 	
 </add>
 </xsl:template>
+	
+	<xsl:template match="translatedTopic">
+		<field name="translatedTopic"><xsl:value-of select="."/></field>
+		</xsl:template>
+	
+	<xsl:template match="outOfStocks">
+		<field name="outOfStocks"><xsl:value-of select="."/></field>
+		</xsl:template>
+	
+	<xsl:template match="publicationFrequency">
+		<field name="publicationFrequency"><xsl:value-of select="."/></field>
+		</xsl:template>
+	
+	<xsl:template match="specialIssue">
+		<field name="specialIssue"><xsl:value-of select="."/></field>
+		</xsl:template>
 	
 	<xsl:template match="annotation">
 		<field name="annotation"><xsl:value-of select="."/></field>
