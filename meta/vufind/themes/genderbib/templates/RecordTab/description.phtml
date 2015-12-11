@@ -98,14 +98,14 @@
         </tr>
     <? endif; ?>
     
-    <? $translatedTopics = $this->driver->getTranslatedTopics(); ?>
+	<? $translatedTopics = $this->driver->getTranslatedTopics(); ?>
     <? if (!empty($translatedTopics)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Translated Topics')?>: </th>
-            <td property="translated">
+            <th><?=$this->transEsc('Projects')?>: </th>
+            <td property="editor">
             <? foreach ($translatedTopics as $translatedTopic): ?>
-                <?=$this->escapeHtml($translatedTopic)?><?= $translatedTopic !== end($translatedTopics) ? ", " : "" ?>
+                 <?=$this->escapeHtml($translatedTopic)?><br/><?= $translatedTopic !== end($translatedTopics) ? " " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
