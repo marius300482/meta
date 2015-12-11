@@ -137,10 +137,6 @@ abstract class SolrIDA extends SolrDefault
         return $retval;
     }
 
-    public function getTranslatedTopics()
-    {
-        return $this->getMultiValuedField("translatedTopic");
-    }
     
      public function getOutOfStocks()
     {
@@ -162,14 +158,21 @@ abstract class SolrIDA extends SolrDefault
         return $this->getMultiValuedField("specificMaterialDesignation");
     }
 
+    public function getTranslations()
+    {
+        return $this->getMultiValuedField("translatedTopic");
+    }
+    
     public function getContributors()
     {
         return $this->getMultiValuedField("contributor");
     }
+    
     public function getContributorsNoFacet()
     {
         return $this->getMultiValuedField("contributorNoFacet");
     }
+    
     public function getProvenances()
     {
         return $this->getMultiValuedField("provenance");
