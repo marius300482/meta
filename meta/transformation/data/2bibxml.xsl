@@ -235,7 +235,7 @@
 			<xsl:apply-templates select="dataset/volume" />
 			
 			<xsl:if test="dataset/project">
-				<xsl:for-each select="distinct-values(tokenize(dataset/project, ' '))">
+				<xsl:for-each select="distinct-values(dataset/project)">
 					<xsl:if test=".!=''">
 						<field name="project"><xsl:value-of select="." /></field>
 						</xsl:if>
