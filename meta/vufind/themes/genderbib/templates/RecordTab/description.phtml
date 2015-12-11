@@ -92,7 +92,7 @@
             <th><?=$this->transEsc('Projects')?>: </th>
             <td property="editor">
             <? foreach ($projects as $project): ?>
-                 <?=$this->escapeHtml($project)?><?= $project !== end($projects) ? ", " : "" ?>
+                 <?=$this->escapeHtml($project)?><br/></bt><?= $project !== end($projects) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
