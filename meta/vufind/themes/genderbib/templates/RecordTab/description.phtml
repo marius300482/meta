@@ -85,6 +85,19 @@
         </tr>
     <? endif; ?>
 
+<? $projects = $this->driver->getProjects(); ?>
+    <? if (!empty($projects)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Editors')?>: </th>
+            <td property="editor">
+            <? foreach ($projects as $project): ?>
+                 <?=$this->escapeHtml($project)?><?= $project !== end($projects) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
     <? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
         <? $contentDisplayed = true; ?>
