@@ -286,18 +286,7 @@
         </tr>
     <? endif; ?>
     
-     <? $translatedTopics = $this->driver->getTranslatedTopics(); ?>
-    <? if (!empty($translatedTopics)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Translated Topics')?>: </th>
-            <td property="translated">
-            <? foreach ($translatedTopics as $translatedTopic): ?>
-                <?=$this->escapeHtml($translatedTopic)?><?= $translatedTopic !== end($translatedTopics) ? ", " : "" ?>
-            <? endforeach; ?>
-            </td>
-        </tr>
-    <? endif; ?>
+
     
     <? $runTimes = $this->driver->getRunTimes(); ?>
     <? if (!empty($runTimes)): ?>
