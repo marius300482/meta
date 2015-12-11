@@ -97,7 +97,20 @@
             </td>
         </tr>
     <? endif; ?>
-
+    
+    <? $translatedTopics = $this->driver->getTranslatedTopics(); ?>
+    <? if (!empty($translatedTopics)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Translated Topics')?>: </th>
+            <td property="translated">
+            <? foreach ($translatedTopics as $translatedTopic): ?>
+                <?=$this->escapeHtml($translatedTopic)?><?= $translatedTopic !== end($translatedTopics) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+    
     <? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
         <? $contentDisplayed = true; ?>
