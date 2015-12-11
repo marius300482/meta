@@ -17,8 +17,11 @@
 <!--Der Objektknoten-->
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
-
-			<xsl:if test="objektart[text()!='NutzerIn']">
+			
+			<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Buch'])">
+			
+			<!--<xsl:if test="objektart[text()!='NutzerIn']">
+			<xsl:if test="objektart[text()='Buch']">-->
 			<!--<xsl:if test="objektart[text()='Zeitschrift']">-->
 			<!--<xsl:if test="objektart[text()='Zeitschrift']">-->
 			
@@ -2189,64 +2192,111 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<xsl:template match="Deskriptoren1[1]">
 		
 		<!--<xsl:variable name="mapping">
-				<xsl:for-each select="document('GIB_VUFGAM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
-					<xsl:value-of select="normalize-space(.)" />
-					<xsl:text> </xsl:text>
-					<xsl:value-of select="normalize-space(../column_3)"></xsl:value-of>
-					<xsl:text>|</xsl:text>
-					</xsl:for-each>
-				</xsl:variable>-->
-		
-		<xsl:variable name="mapping">
 				<xsl:for-each select="document('translation/GIB_VUFGAM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Gender and media ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFGAS_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Gender and sports ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFGBV_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Genderbased violence ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFGCC_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Gender and climate change ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFGFW_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Reconciliation between work, family and private life ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFGIM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Institutional mechanisms for the advancement of women ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFGME_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Men and gender equality ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFGRT_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Gender and research ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFWDM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Women and Decision-Making: political and economic ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
 				<xsl:for-each select="document('translation/GIB_VUFWEE_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1]/column_2">
+					<xsl:text>Women and the Economy with particular focus on entrepreneurship ||</xsl:text>
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text><xsl:value-of select="normalize-space(../column_3)" /><xsl:text>|</xsl:text>
 					</xsl:for-each>
-				</xsl:variable>
+				</xsl:variable>-->
 		
-		<!--<mapping>
-			<xsl:value-of select="$mapping"></xsl:value-of>
-			</mapping>-->
+		
+		
+		
 		
 		<xsl:for-each select="tokenize(.[1], ';')">
+		
 		<xsl:if test=".!=''">
+		
 		<xsl:variable name="deskriptor" select="normalize-space(.)" />
+		
+		<xsl:variable name="mapping">
+			<xsl:for-each select="document('translation/GIB_VUFGAM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and media ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFGAS_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and sports ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFGBV_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Genderbased violence ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFGCC_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and climate change ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFGFW_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Reconciliation between work, family and private life ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFGIM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Institutional mechanisms for the advancement of women ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFGME_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Men and gender equality  ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFGRT_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and research ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFWDM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Women and Decision-Making: political and economic ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/GIB_VUFWEE_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Women and the Economy with particular focus on entrepreneurship ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+				</xsl:variable>
+			
 			<xsl:choose>
-				<xsl:when test="contains($mapping,$deskriptor)">
+				<!--<xsl:when test="contains($mapping,$deskriptor)">-->
+				<xsl:when test="contains($mapping,';;')">
+					
 					<subjectTopic>
 						<xsl:value-of select="normalize-space(.)"/>
 						</subjectTopic>
-					<translatedTopic>
-						<xsl:value-of select="normalize-space(.)"/>
-						<xsl:text> - </xsl:text>
-						<xsl:value-of select="normalize-space(substring-before(substring-after($mapping, $deskriptor),'|'))" />
-						</translatedTopic>
+						
+					<xsl:for-each select="tokenize($mapping,';')">
+					<xsl:if test=".!=''">
+						<translatedTopic>
+							<xsl:value-of select="normalize-space($deskriptor)" />
+							<xsl:text> - </xsl:text>
+							<xsl:value-of select="normalize-space(substring-after(.,'::'))" />
+							</translatedTopic>
+						<project>
+							<xsl:value-of select="normalize-space(substring-before(.,'::'))" />
+							</project>
+						</xsl:if>
+						</xsl:for-each>
 					</xsl:when>
 				<xsl:otherwise>
 					<subjectTopic>
