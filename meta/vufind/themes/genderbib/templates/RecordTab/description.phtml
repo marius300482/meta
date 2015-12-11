@@ -89,23 +89,10 @@
     <? if (!empty($projects)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Editors')?>: </th>
+            <th><?=$this->transEsc('Projects')?>: </th>
             <td property="editor">
             <? foreach ($projects as $project): ?>
                  <?=$this->escapeHtml($project)?><?= $project !== end($projects) ? ", " : "" ?>
-            <? endforeach; ?>
-            </td>
-        </tr>
-    <? endif; ?>
-    
-    <? $translatedTopics = $this->driver->getTranslatedTopics(); ?>
-    <? if (!empty($translatedTopics)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Editors')?>: </th>
-            <td property="editor">
-            <? foreach ($translatedTopics as $translatedTopic): ?>
-                 <?=$this->escapeHtml($translatedTopic)?><?= $translatedTopic !== end($translatedTopics) ? ", " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
