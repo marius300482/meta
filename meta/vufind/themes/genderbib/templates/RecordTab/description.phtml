@@ -97,19 +97,7 @@
             </td>
         </tr>
     <? endif; ?>
-    
-<? $translations = $this->driver->getTranslations(); ?>
-    <? if (!empty($translations)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Translations')?>: </th>
-            <td property="translations">
-            <? foreach ($translations as $translation): ?>
-                 <?=$this->escapeHtml($translation)?><br/><?= $translation !== end($translations) ? " " : "" ?>
-            <? endforeach; ?>
-            </td>
-        </tr>
-    <? endif; ?>
+
     
     <? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
