@@ -12,14 +12,14 @@
 ?>
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="<?=$this->transEsc('Description')?>">
 
-    <? $formats = $this->driver->getFormats(); ?>
+   <!-- <? $formats = $this->driver->getFormats(); ?>
     <? if (!empty($formats)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Format')?>: </th>
             <td property="format"><?=$this->record($this->driver)->getFormatList()?></td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
@@ -30,14 +30,14 @@
         </tr>
     <? endif; ?>
 
-    <? $displayTitle = $this->driver->getdisplayTitle(); ?>
+   <!-- <? $displayTitle = $this->driver->getdisplayTitle(); ?>
     <? if (isset($displayTitle)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Title')?>: </th>
             <td property="title"><?= $this->escapeHtml($displayTitle); ?></td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>-->
 
     <? $titleShort = $this->driver->getShortTitle(); ?>
     <? if (isset($titleShort)): ?>
@@ -331,7 +331,7 @@
     <? endif; ?>
 
     <!-- Schlagworte -->
-    <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
+   <!-- <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
     <? if (!empty($subjects)): ?>
         <? $contentDisplayed = true; ?>
         <? foreach(array("Topic", "Geo", "Person") as $type): ?>
@@ -351,7 +351,7 @@
                 <? endif; ?>
             </tr>
         <? endforeach; ?>
-    <? endif; ?>
+    <? endif; ?>-->
 
 
     <? $isbns = $this->driver->getISBNs(); ?>
