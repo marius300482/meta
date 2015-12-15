@@ -61,7 +61,7 @@
             <th><?=$this->transEsc('Editors')?>: </th>
             <td property="editor">
             <? foreach ($editors as $editor): ?>
-                <a href="<?= $this->record($this->driver)->getLink('editor', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
+                <a href="<?= $this->record($this->driver)->getLink('author', $editor) ?>"><?= $this->escapeHtml($editor) ?></a><?= $editor !== end($editors) ? "; " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
