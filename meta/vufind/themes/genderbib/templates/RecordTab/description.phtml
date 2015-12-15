@@ -188,40 +188,8 @@
         </tr>
     <? endif; ?>
 
-    <? $placesOfPublication = $this->driver->getPlacesOfPublication(); ?>
-    <? if (!empty($placesOfPublication)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Place of publication')?>: </th>
-            <td property=location">
-            <? foreach($placesOfPublication as $placeOfPublication): ?>
-                <?= $this->escapeHtml($placeOfPublication) ?><?= $placeOfPublication !== end($placesOfPublication) ? ", " : "" ?>
-            <? endforeach; ?>
-            </td>
-        </tr>
-    <? endif; ?>
 
-    <? $publishers = $this->driver->getPublishers(); ?>
-    <? if (!empty($publishers)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Publisher')?>: </th>
-            <td property=publisher">
-            <? foreach($publishers as $publisher): ?>
-                <?= $this->escapeHtml($publisher) ?><?= $publisher !== end($publishers) ? ", " : "" ?>
-            <? endforeach; ?>
-            </td>
-        </tr>
-    <? endif; ?>
 
-    <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
-    <? if (isset($publicationDate)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Date of publication')?>: </th>
-            <td property=publicationDate"><?= $this->escapeHtml($publicationDate) ?></td>
-        </tr>
-    <? endif; ?>
 
     <? $issues = $this->driver->getIssues(); ?>
     <? if (!empty($issues)): ?>
@@ -269,18 +237,7 @@
         </tr>
     <? endif; ?>
 
-    <? $physicals = $this->driver->getPhysicalDescriptions(); ?>
-    <? if (!empty($physicals)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Pages')?>: </th>
-            <td property="page">
-            <? foreach ($physicals as $physical): ?>
-                <?=$this->escapeHtml($physical)?><?= $physical !== end($physicals) ? ", " : "" ?>
-            <? endforeach; ?>
-            </td>
-        </tr>
-    <? endif; ?>
+
 
     <? $dimensions = $this->driver->getDimensions(); ?>
     <? if (!empty($dimensions)): ?>
