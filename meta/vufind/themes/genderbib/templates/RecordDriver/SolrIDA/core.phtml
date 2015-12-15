@@ -127,7 +127,7 @@
                         <? foreach ($fields as $subject): ?>
                             <div class="subject<?= $type ?>Line <?= ++$line > 5 ? 'hide more' : '' ?>" property="keywords">
                                 <a title="<?= $this->escapeHtml($subject) ?>"
-                                   href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>"><?= $this->escapeHtml($subject) ?></a>
+                                   href="<?= $this->record($this->driver)->getLink('author', $subject) ?>"><?= $this->escapeHtml($subject) ?></a>
                                <br/>
                           </div>
                         <? endforeach; ?>
