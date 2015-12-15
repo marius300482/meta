@@ -87,7 +87,7 @@
             <th><?=$this->transEsc('Projects')?>: </th>
             <td property="editor">
             <? foreach ($projects as $project): ?>
-              <a href="/Search/Results?lookfor=%22<?=$this->escapeHtml($project)?>%22&type=AllFields" target=_blank><?=$this->escapeHtml($project)?></a>
+              <a href="/Search/Results?lookfor=%22<?=$this->escapeHtml($project)?>%22&type=AllFields"><?=$this->escapeHtml($project)?></a>
               <br/><?= $project !== end($projects) ? " " : "" ?>
             <? endforeach; ?>
             </td>
