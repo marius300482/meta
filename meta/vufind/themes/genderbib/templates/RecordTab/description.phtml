@@ -85,6 +85,8 @@
         </tr>
     <? endif; ?>
 
+    <? $outofstocks = $this->driver->getOutOfStocks(); ?>
+
 <? $projects = $this->driver->getProjects(); ?>
     <? if (!empty($projects)): ?>
         <? $contentDisplayed = true; ?>
