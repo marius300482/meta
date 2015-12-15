@@ -52,6 +52,7 @@
 				<xsl:value-of select="dataset/zdbId" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/displayPublishDate" /><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/subjectTopic[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
+				<xsl:for-each select="dataset/translatedTopic[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/subjectGeographic[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:for-each select="dataset/subjectPerson[text()!='']"><xsl:value-of select="."/><xsl:text> </xsl:text></xsl:for-each><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/description" /><xsl:text> </xsl:text>
@@ -61,8 +62,8 @@
 				<xsl:value-of select="dataset/collectionHolding" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/annotation" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/publisher" /><xsl:text> </xsl:text>
-				<xsl:value-of select="dataset/translatedTopic" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/specialIssue" /><xsl:text> </xsl:text>
+				<xsl:for-each select="distinct-values(dataset/project)"><xsl:value-of select="." /><xsl:text> </xsl:text></xsl:for-each>
                     			</field>
 <!--vufind-->
 		
