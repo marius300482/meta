@@ -12,15 +12,6 @@
 ?>
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="<?=$this->transEsc('Description')?>">
 
-   <!-- <? $formats = $this->driver->getFormats(); ?>
-    <? if (!empty($formats)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Format')?>: </th>
-            <td property="format"><?=$this->record($this->driver)->getFormatList()?></td>
-        </tr>
-    <? endif; ?>-->
-
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
         <? $contentDisplayed = true; ?>
@@ -29,15 +20,6 @@
             <td property="type"><?= $this->escapeHtml($documentType); ?></td>
         </tr>
     <? endif; ?>
-
-   <!-- <? $displayTitle = $this->driver->getdisplayTitle(); ?>
-    <? if (isset($displayTitle)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('Title')?>: </th>
-            <td property="title"><?= $this->escapeHtml($displayTitle); ?></td>
-        </tr>
-    <? endif; ?>-->
 
     <? $titleShort = $this->driver->getShortTitle(); ?>
     <? if (isset($titleShort)): ?>
@@ -110,9 +92,6 @@
             </td>
         </tr>
     <? endif; ?>
-  
-  
-  
   
     <? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
@@ -330,28 +309,7 @@
         </tr>
     <? endif; ?>
 
-    <!-- Schlagworte -->
-   <!-- <? $subjects = $this->driver->getAllSubjectHeadings(); ?>
-    <? if (!empty($subjects)): ?>
-        <? $contentDisplayed = true; ?>
-        <? foreach(array("Topic", "Geo", "Person") as $type): ?>
-            <tr valign="top">
-                <? if (isset($subjects[strtolower($type)])): ?>
-                    <!--<th><?= $this->transEsc('Subjectsgenderbib ' . $type) ?>:</th>-->
-                    <th><?= $this->transEsc('Subjectsgenderbib') ?>:</th>
-                    <td property="keywords <?= strtolower($type) ?>">
-                        <? $fields = $subjects[strtolower($type)]; ?>
-                        <? foreach ($fields as $subject): ?>
-                            <a title="<?= $this->escapeHtml($subject) ?>"
-                               href="<?= $this->record($this->driver)->getLink('subject', $subject) ?>">
-                               <?= $this->escapeHtml($subject) ?></a><?= $subject !== end($fields) ? ", " : "" ?>
-                               <? // Keep above in one line to avoid unwanted whitespace ?>
-                        <? endforeach; ?>
-                    </td>
-                <? endif; ?>
-            </tr>
-        <? endforeach; ?>
-    <? endif; ?>-->
+   
 
 
     <? $isbns = $this->driver->getISBNs(); ?>
