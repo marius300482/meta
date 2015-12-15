@@ -87,7 +87,7 @@
             <th><?=$this->transEsc('Projects')?>: </th>
             <td property="editor">
             <? foreach ($projects as $project): ?>
-                 <a href="http://genderbibliothek.de/Search/Results?lookfor=%22"<?=$this->escapeHtml($project)?>"&type=AllFields" target=_blank><?=$this->escapeHtml($project)?></a>
+                 <a href="/Search/Results?lookfor=%22'<?=$this->escapeHtml($project)?>'&type=AllFields" target=_blank><?=$this->escapeHtml($project)?></a>
               
                  <?=$this->escapeHtml($project)?><br/><?= $project !== end($projects) ? " " : "" ?>
             <? endforeach; ?>
