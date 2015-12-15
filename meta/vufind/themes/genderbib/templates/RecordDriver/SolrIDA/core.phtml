@@ -120,7 +120,8 @@
             <tr valign="top">
                 <? if (isset($subjects[strtolower($type)])): ?>
                     <!--<th><?= $this->transEsc('Subjects ' . $type) ?>:</th>-->
-                    <th><?= $this->transEsc('Subjectsgenderbib' . $type) ?>:</th>
+                    <!--<th><?= $this->transEsc('Subjectsgenderbib' . $type) ?>:</th>-->
+                    <th><?= $this->transEsc($type) ?>:</th>
                     <td>
                         <? $line = 0;
                         $fields = $subjects[strtolower($type)]; ?>
