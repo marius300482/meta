@@ -74,6 +74,7 @@
             <th><?=$this->transEsc('Translation')?>: </th>
             <td property="translation">
             <? foreach ($translatedTopics as $translatedTopic): ?>
+               <a href="http://genderbibliothek.de/Search/Results?lookfor=%22"<?=$this->escapeHtml($translatedTopic)?>"&type=AllFields" target=_blank><?=$this->escapeHtml($translatedTopic)?></a>
                  <?=$this->escapeHtml($translatedTopic)?><br/><?= $translatedTopic !== end($translatedTopics) ? " " : "" ?>
             <? endforeach; ?>
             </td>
