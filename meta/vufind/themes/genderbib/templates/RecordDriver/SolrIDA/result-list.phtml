@@ -36,6 +36,19 @@
             : $this->escapeHtml($summAuthor);
       ?></a>
       <? endif; ?>
+      
+       <? $editors = $this->driver->getEditors();
+        if (!empty($editors)):
+            $mainEditor = array_shift($editors);
+            if ($firstLineNotEmpty): ?>
+                |
+            <? endif;
+            $firstLineNotEmpty = true; ?>
+            <a href="<?= $this->record($this->driver)->getLink('editor', $mainEditor) ?>"><?= $this->escapeHtml($mainEditor) ?> (<?= $this->transEsc('Ed.') ?>)</a>
+            <? if(!empty($editors)): ?>
+                [<a href="<?=$this->recordLink()->getTabUrl($this->driver, "description")?>#tabnav"><?=$this->transEsc("weitere")?></a>]
+            <? endif; ?>
+        <? endif; ?>
 
       <? $journalTitle = $this->driver->getContainerTitle(); $summDate = $this->driver->getPublicationDates(); ?>
       <? if (!empty($journalTitle)): ?>
