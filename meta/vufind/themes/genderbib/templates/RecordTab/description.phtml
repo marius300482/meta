@@ -220,6 +220,18 @@
         </tr>
     <? endif; ?>
 
+ <? $collectionHolding = $this->driver->getCollectionHolding(); ?>
+    <? if (isset($collectionHolding)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Bestand')?>:</th>
+            <td property="collectionHolding" colspan="2">
+              <!-- <?= $this->escapeHtml($collectionHolding) ?>-->
+                 <?= $collectionHolding ?>
+           </td>
+        </tr>
+    <? endif; ?>
+
 <? $outofstocks = $this->driver->getOutOfStocks(); ?>
     <? if (!empty($outofstocks)): ?>
         <? $contentDisplayed = true; ?>
