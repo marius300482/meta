@@ -24,12 +24,12 @@
 
 
     <? $titleShort = $this->driver->getShortTitle(); ?>
-    <? $displayTitle = $this->driver->getdisplayTitle(); ?>
     <? if (isset($titleShort)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?=$this->transEsc('Title Short')?>: </th>
-            <td property="shorttitle"><?= $this->escapeHtml($titleShort); ?> - <a href="http://meta-katalog.eu/Search/Results?lookfor=%22<?= $this->escapeHtml($titleShort); ?>%22&type=AllFields" target=_blank>Titel im meta-katalog suchen</a></td>
+            <td property="shorttitle"><?= $this->escapeHtml($titleShort); ?> <br /> <a style="color: #ffad00;
+    font-weight: bold;" href="http://meta-katalog.eu/Search/Results?lookfor=%22<?= $this->escapeHtml($titleShort); ?>%22&type=AllFields" target=_blank>Titel im meta-katalog suchen</a></td>
         </tr>
     <? endif; ?>
 
