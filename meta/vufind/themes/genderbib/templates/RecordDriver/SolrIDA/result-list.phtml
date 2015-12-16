@@ -50,6 +50,16 @@
             <? endif; ?>
         <? endif; ?>
 
+  <? $belongsToTop = $this->driver->getBelongsToTop();
+    if (!empty($belongsToTop)): ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Belongs to Top') ?>:</th>
+            <td>
+                <a href="<?= $this->url('record') . $belongsToTop[0] ?>"><?= $belongsToTop[1] ?></a>
+            </td>
+        </tr>
+    <? endif; ?>
+
       <? $journalTitle = $this->driver->getContainerTitle(); $summDate = $this->driver->getPublicationDates(); ?>
       <? if (!empty($journalTitle)): ?>
         <?=!empty($summAuthor) ? '<br />' : ''?>
