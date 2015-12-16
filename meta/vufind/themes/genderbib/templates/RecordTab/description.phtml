@@ -220,6 +220,45 @@
         </tr>
     <? endif; ?>
 
+<? $outofstocks = $this->driver->getOutOfStocks(); ?>
+    <? if (!empty($outofstocks)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Out of stock')?>: </th>
+            <td property=volume">
+            <? foreach($outofstocks as $outofstock): ?>
+                <?= $this->escapeHtml($outofstock) ?><?= $outofstock !== end($outofstocks) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+<? $publicationfrequencys = $this->driver->getPublicationFrequency(); ?>
+    <? if (!empty($publicationfrequencys)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Publication frequency')?>: </th>
+            <td property=volume">
+            <? foreach($publicationfrequencys as $publicationfrequency): ?>
+                <?= $this->escapeHtml($publicationfrequency) ?><?= $publicationfrequency !== end($publicationfrequencys) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+<? $specialissues = $this->driver->getSpecialIssue(); ?>
+    <? if (!empty($specialissues)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Special Issues')?>: </th>
+            <td property=volume">
+            <? foreach($specialissues as $specialissue): ?>
+                <?= $this->escapeHtml($specialissue) ?><?= $specialissue !== end($specialissues) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
     <? $timeSpanStart = $this->driver->getTimeSpanStart(); ?>
     <? $timeSpanEnd = $this->driver->getTimeSpanEnd(); ?>
     <? if (isset($timeSpanStart) || isset($timeSpanEnd)): ?>
