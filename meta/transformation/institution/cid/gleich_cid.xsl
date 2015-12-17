@@ -571,11 +571,11 @@
 				<xsl:value-of select="translate(marc:subfield[@code='1'], translate(.,'0123456789', ''), '')" />
 				</field>
 			</xsl:if>	-->
-		<xsl:if test="not(../marc:datafield[@tag='300'])">
+		<!--<xsl:if test="not(../marc:datafield[@tag='300'])">
 			<physical>
 				<xsl:value-of select="normalize-space(substring-after(marc:subfield[@code='g'],'p.'))"></xsl:value-of>
 				</physical>
-			</xsl:if>	
+			</xsl:if>	-->
 		<xsl:if test="marc:subfield[@code='4']">
 			<issue>
 				<xsl:value-of select="marc:subfield[@code='4']" />
