@@ -474,7 +474,9 @@
             <th><?=$this->transEsc('ISSN')?>: </th>
             <td property="issn">
             <? foreach ($issns as $field): ?>
-                <?=$this->escapeHtml($field)?><?= $field !== end($issns) ? "<p/> " : "" ?>
+                 <a target=_blank href="http://beta.zdb-opac.de/zdb/list.xhtml?t=
+                <?=$this->escapeHtml($field)?>"><?=$this->escapeHtml($field)?></a>
+                <?= $field !== end($issns) ? "<p/> " : "" ?>
             <? endforeach; ?>
             </td>
         </tr>
