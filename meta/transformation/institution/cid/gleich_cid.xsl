@@ -300,11 +300,86 @@
 				
 	<!--CONTENTRELATED INFORMATION-->	
 				
-				<xsl:for-each select="distinct-values(marc:datafield[@tag='650'][@ind2='6']/marc:subfield[@code='a']/text())">
+				<!--<xsl:for-each select="distinct-values(marc:datafield[@tag='650'][@ind2='6']/marc:subfield[@code='a']/text())">
 					<xsl:element name="subjectTopic">
 						<xsl:value-of select="."></xsl:value-of>
 						</xsl:element>
-					</xsl:for-each>
+					</xsl:for-each>-->
+				
+				<xsl:for-each select="distinct-values(marc:datafield[@tag='650'][@ind2='6']/marc:subfield[@code='a']/text())">
+					
+					<xsl:if test=".!=''">
+		
+					<xsl:variable name="deskriptor" select="normalize-space(.)" />
+		
+		<xsl:variable name="mapping">
+			<xsl:for-each select="document('translation/CID_ALEGAM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and media ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEGAS_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and sports ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEGBV_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Genderbased violence ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEGCC_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and climate change ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEGFW_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Reconciliation between work, family and private life ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEGIM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Institutional mechanisms for the advancement of women ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEGME_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Men and gender equality  ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEGRT_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Gender and research ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEWDM_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Women and Decision-Making: political and economic ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+			<xsl:for-each select="document('translation/CID_ALEWEE_keywords_translation.xml')/ooo_calc_export/ooo_sheet/ooo_row[position()>1][column_2=$deskriptor]">
+				<xsl:text>Women and the Economy with particular focus on entrepreneurship ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
+				</xsl:for-each>
+				</xsl:variable>
+			
+			
+			<xsl:choose>
+				<xsl:when test="contains($mapping,';;')">
+					
+					<!--<mapping>
+						<xsl:value-of select="$mapping"></xsl:value-of>
+						</mapping>-->
+					
+					<subjectTopic>
+						<xsl:value-of select="normalize-space(.)"/>
+						</subjectTopic>
+						
+					<xsl:for-each select="tokenize($mapping,';')">
+					<xsl:if test=".!=''">
+						<translatedTopic>
+							<xsl:value-of select="normalize-space($deskriptor)" />
+							<xsl:text> - </xsl:text>
+							<xsl:value-of select="normalize-space(substring-after(.,'::'))" />
+							</translatedTopic>
+						<project>
+							<xsl:value-of select="normalize-space(substring-before(.,'::'))" />
+							</project>
+						</xsl:if>
+						</xsl:for-each>
+					</xsl:when>
+				<xsl:otherwise>
+					<subjectTopic>
+						<xsl:value-of select="normalize-space(.)"/>
+						</subjectTopic>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+			</xsl:for-each>
+				
+				
 				
 				<xsl:apply-templates select="marc:datafield[@tag='690'][@ind1='K'][@ind2='C']" />
 				<xsl:apply-templates select="marc:datafield[@tag='651'][@ind2='6']" />
@@ -420,7 +495,6 @@
 		<documentType>
 			<xsl:value-of select="normalize-space(.)" />
 			</documentType>
-		
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='520']">
