@@ -454,18 +454,7 @@
     <? endif; ?>*/?>
 
 
-    <? $isbns = $this->driver->getISBNs(); ?>
-    <? if (!empty($isbns)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-            <th><?=$this->transEsc('ISBN')?>: </th>
-            <td property="isbn">
-            <? foreach ($isbns as $field): ?>
-                <?=$this->escapeHtml($field)?><?= $field !== end($isbns) ? "<p/> " : "" ?>
-            <? endforeach; ?>
-            </td>
-        </tr>
-    <? endif; ?>
+
 
     <? $issns = $this->driver->getISSNs(); ?>
     <? if (!empty($issns)): ?>
