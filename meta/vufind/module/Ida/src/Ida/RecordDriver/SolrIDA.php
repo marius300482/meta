@@ -158,7 +158,7 @@ abstract class SolrIDA extends SolrDefault
         return $this->getMultiValuedField("specificMaterialDesignation");
     }
 
-    public function getTranslations()
+    public function getTranslatedTopic()
     {
         return $this->getMultiValuedField("translatedTopic");
     }
