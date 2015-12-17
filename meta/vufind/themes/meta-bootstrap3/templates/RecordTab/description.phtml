@@ -527,7 +527,124 @@
            </td>
         </tr>
     <? endif; ?>
+    
+   <!--neu eingefügt-->
    
+   <? $outofstocks = $this->driver->getOutOfStocks(); ?>
+    <? if (!empty($outofstocks)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Out of stock')?>: </th>
+            <td property=volume">
+            <? foreach($outofstocks as $outofstock): ?>
+                <?= $this->escapeHtml($outofstock) ?><?= $outofstock !== end($outofstocks) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+<? $publicationfrequencys = $this->driver->getPublicationFrequency(); ?>
+    <? if (!empty($publicationfrequencys)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Publication frequency')?>: </th>
+            <td property=volume">
+            <? foreach($publicationfrequencys as $publicationfrequency): ?>
+                <?= $this->escapeHtml($publicationfrequency) ?><?= $publicationfrequency !== end($publicationfrequencys) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+<? $specialissues = $this->driver->getSpecialIssue(); ?>
+    <? if (!empty($specialissues)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Special Issues')?>: </th>
+            <td property=volume">
+            <? foreach($specialissues as $specialissue): ?>
+                <?= $this->escapeHtml($specialissue) ?><?= $specialissue !== end($specialissues) ? ", " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+   
+   
+    <? $isbns = $this->driver->getISBNs(); ?>
+    <? if (!empty($isbns)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('ISBN')?>: </th>
+            <td property="isbn">
+            <? foreach ($isbns as $field): ?>
+                <?=$this->escapeHtml($field)?><?= $field !== end($isbns) ? ", " : "" ?>
+                 </td>
+        </tr>
+         <tr valign="top">
+            <th><a name=bookstores></a><?=$this->transEsc('Bookstores')?>: </th>
+            <td property="bookstore">
+                <? $isbn = $this->driver->getCleanISBN() ?>
+                <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
+                <? if ($isbn && $amazonassociate): ?>
+                <div style="margin: .7em 0 1em .5em; line-height:1.5em;">
+                   <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>">amazon</a> <i class="fa fa-external-link"></i><br />
+                    <a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $isbn ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a> <i class="fa fa-external-link"></i><br />
+                    <a href="http://www.booklooker.de/B%C3%BCcher/Angebote/isbn=<?= $isbn ?>?lid=1" target=_blank>booklooker</a> <i class="fa fa-external-link"></i><br />
+	      <a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $isbn ?>&author=&title=&check_sn=on" target=_blank>ZVAB</a> <i class="fa fa-external-link"></i></div>
+                    <? endif; ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+    
+     <? $isbns = $this->driver->getISBNs(); ?>
+     <? $formats = $this->driver->getFormats(); ?>
+     <? $issns = $this->driver->getISSNs(); ?>
+     <? $zdbids = $this->driver->getZDBIDs(); ?>
+     <? if (empty($isbns) && empty($issns) && empty($zdbids) && (($formats[0]=="Buch") || ($formats[0]=="Artikel"))): ?>
+     <? $displayTitle = $this->driver->getdisplayTitle(); ?>
+     <? $titleShort = $this->driver->getShortTitle(); ?>
+     <? $titleShortPregReplace = preg_replace ( '/[^a-z0-9 äüö]/i', '', $titleShort ) ?>
+     <? $titleSub = $this->driver->getTitleSub(); ?>
+     <? $editors = $this->driver->getEditors(); ?>
+     <? $authors = $this->driver->getDeduplicatedAuthors(); ?>
+     <? $belongsToTop = $this->driver->getBelongsToTop(); ?>
+     <? $belongsToTopPregReplace = preg_replace ( '/[^a-z0-9 äüö]/i', '', $belongsToTop[1] ) ?>
+     <?php function umlautepas($string){
+     	$upas = Array("ä" => "ae", "ü" => "ue", "ö" => "oe", "Ä" => "Ae", "Ü" => "Ue", "Ö" => "Oe"); 
+     	return strtr($string, $upas);
+     } ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><a name=bookstores></a><?=$this->transEsc('Bookstores')?>: </th>
+            <td property="shop">
+            <? $amazonassociate = $this->driver->getAmazonAffiliateId() ?>
+       
+       <? if (!empty($belongsToTop)):
+       		$search_term = $belongsToTopPregReplace;
+       		$search_term = $search_term . ' ' . $this->escapeHtml($editors[0]);
+       		else:
+       			$search_term = $titleShortPregReplace . ' ' . $this->escapeHtml($authors['main'] . ' ' . $this->escapeHtml($editors[0]));
+       			endif;
+       		?>
+  	<div style="margin: .7em 0 1em .5em; line-height:1.5em;">
+  	<a href="http://www.amazon.de/s/field-keywords=<?= $search_term ?>?tag=<?= $amazonassociate ?>&node=186606" target=_blank>amazon</a> <i class="fa fa-external-link"></i><br />
+  	<? if  ($formats[0]=="Artikel"): ?>
+  		<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $search_term ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a> <i class="fa fa-external-link"></i><br />
+  		<? else: ?>
+  			<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $titleShortPregReplace ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a> <i class="fa fa-external-link"></i><br />
+  			<? endif; ?>
+  	<? if  ($formats[0]=="Artikel"): ?>
+  		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker</a> <i class="fa fa-external-link"></i><br />
+  		<? else: ?>
+  			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker</a> <i class="fa fa-external-link"></i><br />
+  			<? endif; ?>
+  	<a href="http://www.zvab.com/servlet/SearchResults?kn=<?= umlautepas($search_term) ?>" target=_blank>ZVAB</a> <i class="fa fa-external-link"></i>
+        	</div>
+        	</td>
+        </tr>
+    <? endif; ?>
+   
+   <!--ENDE-->
    
    <? $descriptions = $this->driver->getDescriptions(); ?>
     <? if (!empty($descriptions)): ?>
