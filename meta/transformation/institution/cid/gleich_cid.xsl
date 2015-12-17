@@ -643,12 +643,45 @@
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='300']">
-		<xsl:if test="(../marc:controlfield[@tag='FMT']='BK') and (marc:subfield[@code='a'])">
+		<xsl:choose>
+			<xsl:when test="(../marc:controlfield[@tag='FMT']='BK') and (marc:subfield[@code='a'])">
+				<physical>
+					<xsl:value-of select="normalize-space(substring-before(marc:subfield[@code='a'][1],'p.'))" />
+					</physical>
+				</xsl:when>
+			<xsl:when test="../marc:controlfield[@tag='FMT']='MU'">
+				<physical>
+				<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
+					<xsl:if test="marc:subfield[@code='e']">
+						<xsl:text> + </xsl:text>
+						<xsl:value-of select="marc:subfield[@code='e']" />
+						</xsl:if>
+				</physical>
+				</xsl:when>
+			<xsl:when test="../marc:controlfield[@tag='FMT']='CF'">
+				<physical>
+					<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
+					</physical>
+				</xsl:when>
+			<xsl:when test="../marc:controlfield[@tag='FMT']='MX'">
+				<physical>
+					<xsl:for-each select="marc:subfield">
+						<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text>
+						</xsl:for-each>
+					</physical>
+				</xsl:when>
+			<xsl:when test="marc:subfield[@code='c']">
+				<dimension>
+					<xsl:value-of select="marc:subfield[@code='c']" />
+					</dimension>
+				</xsl:when>
+			</xsl:choose>
+		<!--<xsl:if test="(../marc:controlfield[@tag='FMT']='BK') and (marc:subfield[@code='a'])">
 			<physical>
 				<xsl:value-of select="normalize-space(substring-before(marc:subfield[@code='a'][1],'p.'))" />
 					</physical>
-			</xsl:if>
-		<xsl:if test="../marc:controlfield[@tag='FMT']='MU'">
+			</xsl:if>-->
+		<!--<xsl:if test="../marc:controlfield[@tag='FMT']='MU'">
 			<physical>
 				<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
 					<xsl:if test="marc:subfield[@code='e']">
@@ -656,24 +689,24 @@
 						<xsl:value-of select="marc:subfield[@code='e']" />
 						</xsl:if>
 				</physical>
-			</xsl:if>
-		<xsl:if test="../marc:controlfield[@tag='FMT']='CF'">
+			</xsl:if>-->
+		<!--<xsl:if test="../marc:controlfield[@tag='FMT']='CF'">
 			<physical>
 				<xsl:value-of select="normalize-space(marc:subfield[@code='a'])" />
 				</physical>
-			</xsl:if>
-		<xsl:if test="../marc:controlfield[@tag='FMT']='MX'">
+			</xsl:if>-->
+		<!--<xsl:if test="../marc:controlfield[@tag='FMT']='MX'">
 			<physical>
 				<xsl:for-each select="marc:subfield">
 					<xsl:value-of select="normalize-space(.)" /><xsl:text> </xsl:text>
 					</xsl:for-each>
 				</physical>
-			</xsl:if>
-		<xsl:if test="marc:subfield[@code='c']">
+			</xsl:if>-->
+		<!--<xsl:if test="marc:subfield[@code='c']">
 			<dimension>
 				<xsl:value-of select="marc:subfield[@code='c']" />
 				</dimension>
-			</xsl:if>
+			</xsl:if>-->
 		</xsl:template>
 	
 	<xsl:template match="marc:datafield[@tag='260']">
