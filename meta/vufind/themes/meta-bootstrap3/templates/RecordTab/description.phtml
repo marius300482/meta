@@ -171,6 +171,33 @@
         </tr>
     <? endif; ?>
   
+  <? $translatedTopics = $this->driver->getTranslatedTopic(); ?>
+    <? if (!empty($translatedTopics)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Translation')?>: </th>
+            <td property="translation">
+            <? foreach ($translatedTopics as $translatedTopic): ?>
+                 <?=$this->escapeHtml($translatedTopic)?><br/><?= $translatedTopic !== end($translatedTopics) ? " " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+
+<? $projects = $this->driver->getProjects(); ?>
+    <? if (!empty($projects)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?=$this->transEsc('Projects')?>: </th>
+            <td property="editor">
+            <? foreach ($projects as $project): ?>
+              <a href="/Search/Results?lookfor=%22<?=$this->escapeHtml($project)?>%22&type=AllFields"><?=$this->escapeHtml($project)?></a>
+              <br/><?= $project !== end($projects) ? " " : "" ?>
+            <? endforeach; ?>
+            </td>
+        </tr>
+    <? endif; ?>
+  
     <!--ENTFERNT VON MARIUS<? $entities = $this->driver->getEntities(); ?>
     <? if (!empty($entities)): ?>
         <? $contentDisplayed = true; ?>
