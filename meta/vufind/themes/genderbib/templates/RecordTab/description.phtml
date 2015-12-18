@@ -87,7 +87,8 @@
     <? if (!empty($projects)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Projects')?>:<a href="#" data-toggle="tooltip" title="Hooray!">Hover over me</a> </th>
+            <th><?=$this->transEsc('Projects')?>:<a href="#" data-toggle="tooltip" title="Hooray!"><i class="fa fa-info"></i>
+</a> </th>
             <td property="editor">
             <? foreach ($projects as $project): ?>
               <a href="/Search/Results?lookfor=%22<?=$this->escapeHtml($project)?>%22&type=AllFields"><?=$this->escapeHtml($project)?></a>
