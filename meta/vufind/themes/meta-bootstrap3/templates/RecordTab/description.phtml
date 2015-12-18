@@ -177,7 +177,7 @@
     <? if (!empty($projects)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Projects')?>: <i class="fa fa-info-circle"></i> <a href="#"  class="tooltip"  title="Im Rahmen eines Pilotprojekts wurden in Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, 10 Themebereiche benannt. Die Zurordnung der Datensätze, zu den einzelnen Themenbereichen, erfolgt automatisch über Schlagworte."><span title="Themenbereiche"><i class="fa fa-info-circle"></i></span></a> </th>
+            <th><?=$this->transEsc('Projects')?>: <i class="fa fa-info-circle"></i> <a href="#"  class="tooltip"  title="Im Rahmen eines Pilotprojekts wurden in Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, 10 Themebereiche benannt. Die Zurordnung der Datensätze, zu den einzelnen Themenbereichen, erfolgt automatisch über Schlagworte."><i class="fa fa-info-circle"></i></a> </th>
             <td property="editor">
             <? foreach ($projects as $project): ?>
               <a href="/Search/Results?lookfor=%22<?=$this->escapeHtml($project)?>%22&type=AllFields"><?=$this->escapeHtml($project)?></a>
