@@ -74,7 +74,7 @@
     <? if (!empty($translatedTopics)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Translation')?>: <a href="#" class="tooltip" title="Im Rahmen der Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, wurden ausgewählte Schlagworte ins englische Übersetzt."><span title="More"><i class="fa fa-info-circle"></i></span></a></th>
+            <th><?=$this->transEsc('Translation')?>: <a href="#" class="tooltip" title="Im Rahmen der Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, wurden ausgewählte Schlagworte ins englische Übersetzt."><span title="Übersetzung"><i class="fa fa-info-circle"></i></span></a></th>
             <td property="translation">
             <? foreach ($translatedTopics as $translatedTopic): ?>
                  <?=$this->escapeHtml($translatedTopic)?><br/><?= $translatedTopic !== end($translatedTopics) ? " " : "" ?>
@@ -87,7 +87,7 @@
     <? if (!empty($projects)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Projects')?>: <a href="#"  class="tooltip"  title="Im Rahmen eines Pilotprojekts wurden in Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, 10 Themebereiche benannt. Die Zurordnung der Datensätze, zu den einzelnen Themenbereichen, erfolgt automatisch über Schlagworte."><i class="fa fa-info-circle"></i></a> </th>
+            <th><?=$this->transEsc('Projects')?>: <a href="#"  class="tooltip"  title="Im Rahmen eines Pilotprojekts wurden in Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, 10 Themebereiche benannt. Die Zurordnung der Datensätze, zu den einzelnen Themenbereichen, erfolgt automatisch über Schlagworte."><span title="Themenbereiche"><i class="fa fa-info-circle"></i></a> </th>
             <td property="editor">
             <? foreach ($projects as $project): ?>
               <a href="/Search/Results?lookfor=%22<?=$this->escapeHtml($project)?>%22&type=AllFields"><?=$this->escapeHtml($project)?></a>
