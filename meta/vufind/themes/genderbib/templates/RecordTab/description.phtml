@@ -74,7 +74,17 @@
     <? if (!empty($translatedTopics)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Translation')?>: <a href="#" data-tooltip="Im Rahmen der Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, wurden ausgewählte Schlagworte ins englische Übersetzt." title="Im Rahmen der Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, wurden ausgewählte Schlagworte ins englische Übersetzt."><i class="fa fa-info-circle"></i></a></th>
+            <th><?=$this->transEsc('Translation')?>: 
+           
+           <a href="#" class="tooltip" ><i class="fa fa-info-circle">
+	Soeslm Ojlsss — the content of the link that will trigger the tooltip box
+	<span> — start of the tooltip box
+		<b></b> — the callout triangle
+		Sojlsfoi soiolislie — the content of the tooltip
+	</span> — end of the tooltip
+</a>
+           
+            <a href="#" data-tooltip="Im Rahmen der Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, wurden ausgewählte Schlagworte ins englische Übersetzt." title="Im Rahmen der Zusammenarbeit mit EIGE, dem European Institute for Gender Equality, wurden ausgewählte Schlagworte ins englische Übersetzt."><i class="fa fa-info-circle"></i></a></th>
             <td property="translation">
             <? foreach ($translatedTopics as $translatedTopic): ?>
                  <?=$this->escapeHtml($translatedTopic)?><br/><?= $translatedTopic !== end($translatedTopics) ? " " : "" ?>
