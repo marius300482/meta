@@ -1537,6 +1537,16 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<xsl:if test="(s__ST) or (s__Aufsatz_Z) or (s__Aufsatz)">
 		<xsl:variable name="s_ST" select="translate(s__ST, translate(.,'0123456789', ''), '')"/>
 		<xsl:variable name="s_Aufsatz" select="translate(s__Aufsatz_Z, translate(.,'0123456789', ''), '')"/>
+		<xsl:variable name="title">
+					<xsl:choose>
+					<xsl:when test="Inhalt-Thema[string-length() != 0]">
+						<xsl:value-of select="replace(Inhalt-Thema[1],'_','')"/>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="Sachtitel"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					</xsl:variable>
 		<functions>
 			<hierarchyFields>
 				<!--<xsl:if test="s__ST">
@@ -1561,7 +1571,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				
 				<xsl:if test="s__Aufsatz">
 				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
-				<hierarchy_top_title><xsl:value-of select="Sachtitel" />
+				<hierarchy_top_title><xsl:value-of select="$title" />
 					<!--<xsl:if test="Ausgabe">
 						<xsl:text> : </xsl:text>
 						<xsl:value-of select="Ausgabe" />
@@ -1571,7 +1581,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					
 				
 				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
-				<is_hierarchy_title><xsl:value-of select="Sachtitel" />
+				<is_hierarchy_title><xsl:value-of select="$title" />
 					<!--<xsl:if test="Ausgabe">
 						<xsl:text> : </xsl:text>
 						<xsl:value-of select="Ausgabe" />
