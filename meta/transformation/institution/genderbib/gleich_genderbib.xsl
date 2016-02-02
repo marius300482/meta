@@ -19,7 +19,8 @@
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 			
 			<!--<xsl:if test="objektart[text()!='NutzerIn']">-->
-			<xsl:if test="objektart[text()='Zeitschrift/Heftitel']">
+			<!--<xsl:if test="objektart[text()='Einzeltitel']">-->
+			<xsl:if test="contains(objektart,'Einzeltitel')">
 			
 			
 			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Buch'])">
@@ -158,7 +159,15 @@
 				<xsl:text>:publisher</xsl:text>
 			
 			<xsl:text> sourceInfo:</xsl:text>
-				<xsl:value-of select="normalize-space(replace(Sachtitel,'_',''))"></xsl:value-of>
+				<xsl:choose>
+					<xsl:when test="Inhalt-Thema[string-length() != 0]">
+						<xsl:value-of select="replace(Inhalt-Thema[1],'_','')"/>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space(replace(Sachtitel,'_',''))"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				<!--<xsl:value-of select="normalize-space(replace(Sachtitel,'_',''))"></xsl:value-of>-->
 				<xsl:value-of select="Zeitschr_-Titel"></xsl:value-of>
 				<xsl:text>:sourceInfo</xsl:text>
 			
@@ -1666,7 +1675,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	
 	<!--documentType Objektartinformationen-->
 
-				<enrichYear><xsl:text>true</xsl:text></enrichYear>
+				<!--<enrichYear><xsl:text>true</xsl:text></enrichYear>-->
 
 <!--TITLE-->
 			
@@ -1842,15 +1851,14 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	           <hierarchy_top_title>
 	           	<xsl:value-of select="substring-before(substring-after($connect,'sourceInfo:'),':sourceInfo')" />
 	           	<!--<xsl:value-of select="$sachtitel"/>-->
-	           	<xsl:if test="substring(substring-after($connect,'topic:'),1,1)!=':'">
-	           	<!--<xsl:if test="$heftthema">-->
+	           	<!--<xsl:if test="substring(substring-after($connect,'topic:'),1,1)!=':'">
 	           		<xsl:text>: </xsl:text>
 				<xsl:value-of select="substring-before(substring-after($connect,'topic:'),':topic')" />
-				</xsl:if>
-			<xsl:if test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
+				</xsl:if>-->
+			<!--<xsl:if test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
 				<xsl:text> </xsl:text>
 				<xsl:value-of select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
-				</xsl:if>
+				</xsl:if>-->
 	           	</hierarchy_top_title>
 	            
 	           <hierarchy_parent_id>
@@ -1860,15 +1868,15 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		<hierarchy_parent_title>
 			<xsl:value-of select="substring-before(substring-after($connect,'sourceInfo:'),':sourceInfo')" />
 	           	<!--<xsl:value-of select="$sachtitel"/>-->
-	           	<xsl:if test="substring(substring-after($connect,'topic:'),1,1)!=':'">
-	           	<!--<xsl:if test="$heftthema">-->
+	           	<!--<xsl:if test="substring(substring-after($connect,'topic:'),1,1)!=':'">
+	           	
 	           		<xsl:text>: </xsl:text>
 				<xsl:value-of select="substring-before(substring-after($connect,'topic:'),':topic')" />
 				</xsl:if>
 			<xsl:if test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
 				<xsl:text> </xsl:text>
 				<xsl:value-of select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
-				</xsl:if>
+				</xsl:if>-->
 			</hierarchy_parent_title>
 	            
 	           <is_hierarchy_id>
