@@ -88,7 +88,7 @@
             <!-- Veroeffentlicht -->
             <? $sourceInfo = $this->driver->getSourceInfos(); ?>
             <? if (!empty($sourceInfo)): ?>
-                <? $top = $this->driver->getBelongsTo(); ?>
+                <? $top = $this->driver->getBelongsToTop(); ?>
                 In:
                 <? foreach($sourceInfo as $info): ?>
                     <? $inText = $this->escapeHtml($info) ?>
