@@ -18,8 +18,8 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 			
-			<xsl:if test="objektart[text()!='NutzerIn']">
-			
+			<!--<xsl:if test="objektart[text()!='NutzerIn']">-->
+			<xsl:if test="objektart[text()='Zeitschrift']">
 			
 			
 			<!--<xsl:if test="(objektart[text()!='NutzerIn']) and (objektart[text()='Buch'])">
@@ -289,6 +289,20 @@ den Datenbestand angezeigt-->
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Buch</xsl:text></format>	
 			
+	<!--searchfilter-->
+				<!--<xsl:choose>
+					<xsl:when test="not(s__Aufsatz)">
+						<searchfilter>
+							<xsl:text>BU - Monografie</xsl:text>
+							</searchfilter>
+						</xsl:when>
+					<xsl:otherwise>
+						<searchfilter>
+							<xsl:text>BU - Sammelband</xsl:text>
+							</searchfilter>
+						</xsl:otherwise>
+					</xsl:choose>-->
+	
 	<!--documentType Objektartinformationen-->
 				<xsl:choose>
 					<xsl:when test="not(s__Aufsatz)">
@@ -1004,7 +1018,10 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Zeitschrift</xsl:text></format>
-
+	
+	<!--searchfilter-->
+				<!--<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>-->
+	
 	<!--documentType Objektartinformationen-->
 				<documentType><xsl:text>Online-Zeitschrift</xsl:text></documentType>
 				<xsl:apply-templates select="Dok-art"/>
@@ -1168,6 +1185,9 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 	<!--format Objektartinformationen-->
 		<format><xsl:text>Zeitschrift</xsl:text></format>
 
+	<!--searchfilter-->
+		<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>
+
 	<!--documentType Objektartinformationen-->
 		<documentType><xsl:text>Zeitschriftenreihe</xsl:text></documentType>
 
@@ -1213,10 +1233,10 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 			</xsl:for-each>
 
 	<!--placeOfPublication Ortsangabe-->	
-		<xsl:apply-templates select="Ersch_-ort[1]"/>
+		<!--<xsl:apply-templates select="Ersch_-ort[1]"/>-->
 
 	<!--publisher Verlagsangabe-->
-		<xsl:apply-templates select="Verlag[1]"/>
+		<!--<xsl:apply-templates select="Verlag[1]"/>-->
 
 <!--PHYSICAL INFORMATION-->
 
@@ -1228,7 +1248,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 		<xsl:apply-templates select="Sonderhefte[string-length() != 0]"/>
 	
 	<!--volume-->
-		<xsl:choose>
+		<!--<xsl:choose>
 			<xsl:when test="Jg-[2]">
 				<volume>
 					<xsl:value-of select="Jg-[1]"/>
@@ -1241,7 +1261,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 					<xsl:value-of select="Jg-[1]"/>
 					</volume>	
 				</xsl:otherwise>
-			</xsl:choose>	
+			</xsl:choose>	-->
 	
 	<!--publicationFrequency-->
 		<xsl:apply-templates select="Ersch_-weise[string-length() != 0]"/>
@@ -1255,7 +1275,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 <!--OTHER-->
 
 	<!--shelfMark Signatur-->
-		<xsl:apply-templates select="Standort[1]"/>
+		<!--<xsl:apply-templates select="Standort[1]"/>-->
 				
 </xsl:element>
 </xsl:if>
@@ -1296,28 +1316,38 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 	<!--title Titelinformationen-->
 				
+				<xsl:variable name="title">
+					<xsl:choose>
+					<xsl:when test="Inhalt-Thema[string-length() != 0]">
+						<xsl:value-of select="replace(Inhalt-Thema[1],'_','')"/>
+						</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="Sachtitel"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					</xsl:variable>
+				
 				<title>
-					<xsl:value-of select="Sachtitel[1]"/>
-						<!--<xsl:if test="Inhalt-Thema">
-							<xsl:text> : </xsl:text>
-							<xsl:value-of select="Inhalt-Thema"/>
-							</xsl:if>-->
+					<xsl:value-of select="$title" />
 					</title>
 				
 				<title_short>
-						<xsl:value-of select="Sachtitel"/>
-						</title_short>
+					<xsl:value-of select="$title" />
+					</title_short>
 				
+				<!--<title>
+					<xsl:value-of select="Sachtitel[1]"/>
+					</title>
 				
-					<xsl:if test="Inhalt-Thema">
-						<title_sub>
-							<xsl:value-of select="replace(Inhalt-Thema[1],'_','')"/>
-							<!--<xsl:if test="Ausgabe">
-							<xsl:text> </xsl:text>
-							<xsl:value-of select="Ausgabe" />
-							</xsl:if>-->
-							</title_sub>
-						</xsl:if>
+				<title_short>
+					<xsl:value-of select="Sachtitel"/>
+					</title_short>
+				
+				<xsl:if test="Inhalt-Thema">
+					<title_sub>
+						<xsl:value-of select="replace(Inhalt-Thema[1],'_','')"/>
+						</title_sub>
+					</xsl:if>-->
 				
 				<xsl:apply-templates select="Titeländg_" />
 				
@@ -1450,29 +1480,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 		
 	<!--sourceInfo-->
 				<xsl:variable name="zdbid" select="ZDB-ID" />
+				
 				<sourceInfo>
 					<xsl:value-of select="Sachtitel" />
-					<!--<xsl:text> (</xsl:text>
-						<xsl:choose>
-							<xsl:when test="J_">
-								<xsl:value-of select="J_"/>
-								</xsl:when>
-							<xsl:when test="not(J_)">	
-								<xsl:variable name="z-jahr1" select="substring-after($z-ausgabe,'(')"/>
-								<xsl:value-of select="substring-before($z-jahr1,')')"/>
-								</xsl:when>	
-							</xsl:choose>
-					<xsl:text>)</xsl:text>
-						<xsl:choose>
-							<xsl:when test="H">
-								<xsl:value-of select="H[1]" />
-								</xsl:when>
-							<xsl:when test="not(H)">	
-								<xsl:value-of select="substring-after($z-ausgabe,')')"/>
-								</xsl:when>
-							</xsl:choose>-->
-					
-					
 					</sourceInfo>
 	
 <!--PHYSICAL INFORMATION-->		
@@ -1509,6 +1519,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 	<!--volume Jahrgang-->
 					<xsl:apply-templates select="Jg-[1]" />	
+					
+	<!--contentMatter Inhalt und Thema-->
+				<xsl:apply-templates select="Inhalt-Thema"/>
 
 <!--OTHER-->
 
@@ -1884,6 +1897,12 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 <!--Templates-->
 
+	<xsl:template match="Inhalt-Thema">
+		<contentMatter>
+			<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
+			</contentMatter>
+		</xsl:template>
+	
 	<xsl:template match="Sonderhefte">
 		<specialIssue>
 			<xsl:value-of select="normalize-space(.)"/>
@@ -2278,6 +2297,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				<xsl:text>Women and the Economy with particular focus on entrepreneurship ::</xsl:text><xsl:value-of select="column_3" /><xsl:text>;;</xsl:text>
 				</xsl:for-each>
 				</xsl:variable>
+			
 			
 			<xsl:choose>
 				<!--<xsl:when test="contains($mapping,$deskriptor)">-->
