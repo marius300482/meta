@@ -329,9 +329,9 @@
 					<xsl:when test="dataset/format = 'Zeitschrift'">
 						<xsl:variable name="title">
 							<xsl:choose>
-								<xsl:when test="dataset/title_short[1]">
+								<!--<xsl:when test="dataset/title_short[1]">
 									<xsl:value-of select="ida:normalize-title(dataset/title_short[1])"/>
-								</xsl:when>
+								</xsl:when>-->
 								<xsl:when test="dataset/title[1]">
 									<xsl:value-of select="ida:normalize-title(dataset/title[1])"/>
 								</xsl:when>
