@@ -1030,7 +1030,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 				<format><xsl:text>Zeitschrift</xsl:text></format>
 	
 	<!--searchfilter-->
-				<!--<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>-->
+				<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>
 	
 	<!--documentType Objektartinformationen-->
 				<documentType><xsl:text>Online-Zeitschrift</xsl:text></documentType>
@@ -1196,7 +1196,7 @@ Zeitschriften/Hefttiteln angereichert. Eine Zeitschrift kann nicht ausgeliehen w
 		<format><xsl:text>Zeitschrift</xsl:text></format>
 
 	<!--searchfilter-->
-		<!--<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>-->
+		<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>
 
 	<!--documentType Objektartinformationen-->
 		<documentType><xsl:text>Zeitschriftenreihe</xsl:text></documentType>
@@ -1320,7 +1320,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				<format><xsl:text>Zeitschrift</xsl:text></format>
 	
 	<!--searchfilter-->
-				<!--<searchfilter><xsl:text>ZP - Zeitschriftenheft</xsl:text></searchfilter>-->
+				<searchfilter><xsl:text>ZP - Zeitschriftenheft</xsl:text></searchfilter>
 	
 	<!--documentType Objektartinformationen-->
 				<documentType><xsl:text>Zeitschriftenheft</xsl:text></documentType>
