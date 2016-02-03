@@ -1892,22 +1892,13 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	
 	<xsl:element name="hierarchyFields">
 		
-		<hierarchy_top_id>
+		<!--<hierarchy_top_id>
 			<xsl:value-of select="$s_sachtitel"/>
 			<xsl:text>genderbib</xsl:text>
 			</hierarchy_top_id>
 	           <hierarchy_top_title>
 	           	<xsl:value-of select="substring-before(substring-after($connect,'sourceInfo:'),':sourceInfo')" />
-	           	<!--<xsl:value-of select="$sachtitel"/>-->
-	           	<!--<xsl:if test="substring(substring-after($connect,'topic:'),1,1)!=':'">
-	           		<xsl:text>: </xsl:text>
-				<xsl:value-of select="substring-before(substring-after($connect,'topic:'),':topic')" />
-				</xsl:if>-->
-			<!--<xsl:if test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
-				<xsl:text> </xsl:text>
-				<xsl:value-of select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
-				</xsl:if>-->
-	           	</hierarchy_top_title>
+	           	</hierarchy_top_title>-->
 	            
 	           <hierarchy_parent_id>
 	           	<xsl:value-of select="$s_sachtitel"/>
