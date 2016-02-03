@@ -2486,10 +2486,10 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<xsl:template match="Zeitschr_-Titel[1]">
 		<title>
 			<xsl:value-of select="." />
-			<!--<xsl:if test="../Untertitel">
+			<xsl:if test="../Untertitel">
 				<xsl:text> : </xsl:text>
 				<xsl:value-of select="../Untertitel" />
-				</xsl:if>-->
+				</xsl:if>
 			</title>
 		<title_short>
 			<xsl:value-of  select="." />
