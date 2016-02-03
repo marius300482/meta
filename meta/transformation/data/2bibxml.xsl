@@ -63,7 +63,9 @@
 				<xsl:value-of select="dataset/annotation" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/publisher" /><xsl:text> </xsl:text>
 				<xsl:value-of select="dataset/specialIssue" /><xsl:text> </xsl:text>
+				<xsl:value-of select="dataset/searchfilter" /><xsl:text> </xsl:text>
 				<xsl:for-each select="distinct-values(dataset/project)"><xsl:value-of select="." /><xsl:text> </xsl:text></xsl:for-each>
+                    			<xsl:for-each select="distinct-values(dataset/contentMatter)"><xsl:value-of select="." /><xsl:text> </xsl:text></xsl:for-each>
                     			</field>
 <!--vufind-->
 		
@@ -100,6 +102,8 @@
 			<xsl:apply-templates select="dataset/typeOfRessource" />
     			
     			<xsl:apply-templates select="dataset/format" />
+    			
+    			<xsl:apply-templates select="dataset/searchfilter" />
     			
     			<xsl:apply-templates select="dataset/documentType[1]" />
     	
@@ -234,6 +238,8 @@
                 		<xsl:apply-templates select="dataset/issue" />
 			
 			<xsl:apply-templates select="dataset/volume" />
+			
+			<xsl:apply-templates select="dataset/contentMatter" />
 			
 			<xsl:if test="dataset/project">
 				<xsl:for-each select="distinct-values(dataset/project)">
@@ -419,6 +425,8 @@
 		
 <!--functions-->
 		
+		
+		
 		<xsl:if test="functions/loan/loanStatus">
 			<field name="loanStatus"><xsl:text>true</xsl:text></field>
 		</xsl:if>
@@ -481,6 +489,14 @@
 	
 </add>
 </xsl:template>
+	
+	<xsl:template match="searchfilter">
+		<field name="searchfilter"><xsl:value-of select="."/></field>
+		</xsl:template>
+	
+	<xsl:template match="contentMatter">
+		<field name="contentMatter"><xsl:value-of select="."/></field>
+		</xsl:template>
 	
 	<xsl:template match="translatedTopic">
 		<field name="translatedTopic"><xsl:value-of select="."/></field>
