@@ -283,7 +283,7 @@
     <field name="longitude" type="string" indexed="true" stored="true"/>
     <field name="location" type="string" indexed="true" stored="true"/>
     <field name="contentMatter" type="text" indexed="true" stored="true" multiValued="true" />
-    <field name="searchfilter_facet" type="text" indexed="true" stored="true" />
+    <field name="searchfilter" type="text" indexed="true" stored="true" />
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
