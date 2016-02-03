@@ -283,7 +283,7 @@
     <field name="longitude" type="string" indexed="true" stored="true"/>
     <field name="location" type="string" indexed="true" stored="true"/>
     <field name="contentMatter" type="text" indexed="true" stored="true" multiValued="true" />
-    <field name="searchfilter" type="text" indexed="true" stored="true" />
+    <!--<field name="searchfilter" type="text" indexed="true" stored="true" />-->
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
@@ -326,7 +326,7 @@
  <copyField source="fulltext" dest="fulltext_unstemmed"/>
 <copyField source="topic"	dest="topic_facet"/>
 <copyField source="subjectGeographic" dest="topic_facet"/>
-<copyField source="searchfilter" dest="searchfilter_facet"/>
+<!--<copyField source="searchfilter" dest="searchfilter_facet"/>-->
 <!--<copyField source="subjectPerson" dest="topic_facet"/>-->
 <copyField source="typeOfRessource"	dest="typeOfRessource_facet"/>
 <copyField source="subjectPerson" dest="contributor_facet"/>
