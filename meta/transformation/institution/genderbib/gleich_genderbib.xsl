@@ -18,7 +18,8 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 			
-			<xsl:if test="objektart[text()!='NutzerIn']">
+			<!--<xsl:if test="objektart[text()!='NutzerIn']">-->
+			<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel']) or (objektart[text()='Zeitschrift/Heftitel'])">
 			<!--<xsl:if test="objektart[text()='Einzeltitel']">-->
 			<!--<xsl:if test="contains(objektart,'Einzeltitel')">-->
 			
@@ -1029,7 +1030,7 @@ URLs noch stimmen kann hier nicht geprüft werden.-->
 				<format><xsl:text>Zeitschrift</xsl:text></format>
 	
 	<!--searchfilter-->
-				<!--<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>-->
+				<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>
 	
 	<!--documentType Objektartinformationen-->
 				<documentType><xsl:text>Online-Zeitschrift</xsl:text></documentType>
@@ -1317,6 +1318,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				
 	<!--format Objektartinformationen-->
 				<format><xsl:text>Zeitschrift</xsl:text></format>
+	
+	<!--searchfilter-->
+				<searchfilter><xsl:text>ZP - Zeitschriftenheft</xsl:text></searchfilter>
 	
 	<!--documentType Objektartinformationen-->
 				<documentType><xsl:text>Zeitschriftenheft</xsl:text></documentType>
