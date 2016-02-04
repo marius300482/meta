@@ -900,7 +900,7 @@ ul.search-result-subrecords {
     line-height: inherit;
     min-height: inherit; }
   #hierarchyTreeHolder .jstree-clicked, #hierarchyTreeHolder .jstree-hovered {
-    background-color: transparent;
+    background-color: #FFCE67;
     border: none;
     box-shadow: none; }
   #hierarchyTreeHolder .jstree-children {
