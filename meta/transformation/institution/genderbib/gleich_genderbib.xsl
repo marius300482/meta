@@ -1595,6 +1595,10 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					
 					<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="$title" /></is_hierarchy_title>
+					
+					<hierarchy_sequence>
+						<xsl:value-of select="$title"/>
+						</hierarchy_sequence>
 				</hierarchyFields>
 			</functions>
 			</xsl:otherwise>
