@@ -18,7 +18,8 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 			
-			<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">
+			<xsl:if test="objektart[text()!='NutzerIn']">
+			<!--<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">-->
 			<!--<xsl:if test="objektart[text()='Zeitschrift/Heftitel']">-->
 			<!--<xsl:if test="objektart[text()!='NutzerIn']">-->
 			<!--<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">-->
@@ -1572,7 +1573,20 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<!--<variable><xsl:value-of select="$reference" /></variable>
 	<reference><xsl:value-of select="//datensatz[s__Ausgabe=$reference]/id"></xsl:value-of></reference>-->
 	
-	<xsl:choose>
+	<xsl:if test="(s__Aufsatz_Z) or (s__Aufsatz)">
+		<functions>
+			<hierarchyFields>
+				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+				<hierarchy_top_title><xsl:value-of select="$title" /></hierarchy_top_title>
+				
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title><xsl:value-of select="$title" /></is_hierarchy_title>
+				</hierarchyFields>
+			</functions>
+		</xsl:if>
+	
+	
+	<!--<xsl:choose>
 		<xsl:when test="((s__Aufsatz_Z) or (s__Aufsatz)) and ($id_parent[string-length() = 0])">
 			<functions>
 				<hierarchyFields>
@@ -1598,11 +1612,11 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				</hierarchyFields>
 			</functions>
 			</xsl:otherwise>
-		</xsl:choose>
+		</xsl:choose>-->
 		
 	
 	
-	<xsl:if test="$id_parent[string-length() = 0]">
+	<!--<xsl:if test="$id_parent[string-length() != 0]">
 		<functions>
 			<hierarchyFields>
 				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
@@ -1613,7 +1627,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					</is_hierarchy_title>
 				</hierarchyFields>
 			</functions>
-		</xsl:if>
+		</xsl:if>-->
 	
 	
 	<!--<xsl:if test="(s__ST) or (s__Aufsatz_Z) or (s__Aufsatz)">
