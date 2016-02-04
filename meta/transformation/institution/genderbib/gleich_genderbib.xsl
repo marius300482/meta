@@ -1569,11 +1569,38 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	<xsl:variable name="id_parent">
 		<xsl:value-of select="//datensatz[s__Ausgabe=$reference]/id" />
 		</xsl:variable>
-	
 	<!--<variable><xsl:value-of select="$reference" /></variable>
 	<reference><xsl:value-of select="//datensatz[s__Ausgabe=$reference]/id"></xsl:value-of></reference>-->
 	
-	<xsl:if test="(s__Aufsatz_Z) or (s__Aufsatz)">
+	<xsl:choose>
+		<xsl:when test="((s__Aufsatz_Z) or (s__Aufsatz)) and ($id_parent[string-length() = 0])">
+			<functions>
+				<hierarchyFields>
+					<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="$title" /></hierarchy_top_title>
+					
+					<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+					<is_hierarchy_title><xsl:value-of select="$title" /></is_hierarchy_title>
+				</hierarchyFields>
+			</functions>
+			</xsl:when>
+		<xsl:otherwise>
+			<functions>
+				<hierarchyFields>
+					<!--<hierarchy_top_id><xsl:value-of select="$id_parent"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="Sachtitel" /></hierarchy_top_title>
+					-->
+					<hierarchy_parent_id><xsl:value-of select="$id_parent"/><xsl:text>genderbib</xsl:text></hierarchy_parent_id>
+					<hierarchy_parent_title><xsl:value-of select="Sachtitel" /></hierarchy_parent_title>
+					
+					<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+					<is_hierarchy_title><xsl:value-of select="$title" /></is_hierarchy_title>
+				</hierarchyFields>
+			</functions>
+			</xsl:otherwise>
+		</xsl:choose>
+	
+	<!--<xsl:if test="(s__Aufsatz_Z) or (s__Aufsatz)">
 		<functions>
 			<hierarchyFields>
 				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
@@ -1584,6 +1611,18 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 				</hierarchyFields>
 			</functions>
 		</xsl:if>
+		
+	<xsl:if test="$id_parent[string-length() = 0]">
+		<functions>
+			<hierarchyFields>
+				<hierarchy_top_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
+				<hierarchy_top_title><xsl:value-of select="$title" /></hierarchy_top_title>
+				
+				<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
+				<is_hierarchy_title><xsl:value-of select="$title" /></is_hierarchy_title>
+				</hierarchyFields>
+			</functions>
+		</xsl:if>-->
 	
 	
 	<!--<xsl:choose>
