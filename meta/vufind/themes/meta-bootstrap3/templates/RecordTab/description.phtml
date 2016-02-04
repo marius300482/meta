@@ -140,19 +140,7 @@
             <td><? foreach ($contributors as $contributor): ?><?= $this->escapeHtml($contributor) ?><?= $contributor !== end($contributors) ? " <br /> " : "" ?><? endforeach; ?></td>
         </tr>
     <? endif; ?>
-    
-         <? $sourceInfos = $this->driver->getSourceInfos(); ?>
-      <? if (!empty($sourceInfos)): ?>
-            <? $contentDisplayed = true; ?>
-            <tr valign="top">
-            <th><?= $this->transEsc('Source') ?>:</th>
-            <td>
-            	  <? foreach ($sourceInfos as $sourceInfo): ?>
-		<?= $this->escapeHtml($sourceInfo) ?>
-		<?= $sourceInfo !== end($sourceInfos) ? ", " : "" ?>
-		<? endforeach; ?>
-	       </tr>
-    <? endif; ?>
+
     
       <? $sourceInfo = $this->driver->getSourceInfos(); ?>
             <? if (!empty($sourceInfo)): ?>
@@ -174,7 +162,6 @@
                </td>
         </tr>
             <? endif; ?>
-    
     
     <? $contributorsNoFacet = $this->driver->getContributorsNoFacet();
     if (!empty($contributorsNoFacet)): ?>
