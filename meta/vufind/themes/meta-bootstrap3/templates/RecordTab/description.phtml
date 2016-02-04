@@ -45,24 +45,6 @@
         </tr>
     <? endif; ?>
     
-    
- 
-    
-    
-      <? $sourceInfos = $this->driver->getSourceInfos(); ?>
-      <? if (!empty($sourceInfos)): ?>
-            <? $contentDisplayed = true; ?>
-            <tr valign="top">
-            <th><?= $this->transEsc('Contributor') ?>:</th>
-            <td>
-            	  <? foreach ($sourceInfos as $sourceInfo): ?>
-		<?= $this->escapeHtml($sourceInfo) ?>
-		<?= $sourceInfo !== end($sourceInfos) ? ", " : "" ?>
-		<? endforeach; ?>
-	       </tr>
-    <? endif; ?>
-    
-    
     <? $documentType = $this->driver->getDocumentType(); ?>
     <? if (isset($documentType) && "" != $documentType): ?>
         <? $contentDisplayed = true; ?>
@@ -159,7 +141,18 @@
         </tr>
     <? endif; ?>
     
-   
+         <? $sourceInfos = $this->driver->getSourceInfos(); ?>
+      <? if (!empty($sourceInfos)): ?>
+            <? $contentDisplayed = true; ?>
+            <tr valign="top">
+            <th><?= $this->transEsc('Contributor') ?>:</th>
+            <td>
+            	  <? foreach ($sourceInfos as $sourceInfo): ?>
+		<?= $this->escapeHtml($sourceInfo) ?>
+		<?= $sourceInfo !== end($sourceInfos) ? ", " : "" ?>
+		<? endforeach; ?>
+	       </tr>
+    <? endif; ?>
     
     <? $contributorsNoFacet = $this->driver->getContributorsNoFacet();
     if (!empty($contributorsNoFacet)): ?>
