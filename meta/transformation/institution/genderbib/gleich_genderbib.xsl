@@ -1590,9 +1590,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					<hierarchy_top_id><xsl:value-of select="$id_parent"/><xsl:text>genderbib</xsl:text></hierarchy_top_id>
 					<hierarchy_top_title><xsl:value-of select="Sachtitel" /></hierarchy_top_title>
 					
-					<hierarchy_parent_id><xsl:value-of select="$id_parent"/><xsl:text>genderbib</xsl:text></hierarchy_parent_id>
+					<!--<hierarchy_parent_id><xsl:value-of select="$id_parent"/><xsl:text>genderbib</xsl:text></hierarchy_parent_id>
 					<hierarchy_parent_title><xsl:value-of select="Sachtitel" /></hierarchy_parent_title>
-					
+					-->
 					<is_hierarchy_id><xsl:value-of select="id"/><xsl:text>genderbib</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="$title" /></is_hierarchy_title>
 				</hierarchyFields>
