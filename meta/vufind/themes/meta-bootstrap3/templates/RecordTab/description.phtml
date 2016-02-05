@@ -614,10 +614,10 @@
                 <? if ($isbn): ?>
               
                 <div style="margin: .7em 0 1em .5em; line-height:1.5em;">
-                   <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>">amazon</a> <i class="fa fa-external-link"></i><br />
-                    <a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $isbn ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a> <i class="fa fa-external-link"></i><br />
-                    <a href="http://www.booklooker.de/B%C3%BCcher/Angebote/isbn=<?= $isbn ?>?lid=1" target=_blank>booklooker</a> <i class="fa fa-external-link"></i><br />
-	      <a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $isbn ?>&author=&title=&check_sn=on" target=_blank>ZVAB</a> <i class="fa fa-external-link"></i></div>
+                   <a href="http://www.amazon.de/gp/product/<?= $isbn ?>?tag=<?= $amazonassociate ?>" target="_blank" title="<?= $this->transEsc('Buy from Amazon') ?>">amazon <i class="fa fa-external-link"></i></a><br />
+                    <a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $isbn ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a><br />
+                    <a href="http://www.booklooker.de/B%C3%BCcher/Angebote/isbn=<?= $isbn ?>?lid=1" target=_blank>booklooker <i class="fa fa-external-link"></i></a><br />
+	      <a href="http://www.zvab.com/basicSearch.do?anyWords=<?= $isbn ?>&author=&title=&check_sn=on" target=_blank>ZVAB <i class="fa fa-external-link"></i></a></div>
                     <? endif; ?>
             <? endforeach; ?>
             </td>
@@ -666,7 +666,7 @@
   		<? else: ?>
   			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker <i class="fa fa-external-link"></i></a><br />
   			<? endif; ?>
-  	<a href="http://www.zvab.com/servlet/SearchResults?kn=<?= umlautepas($search_term) ?>" target=_blank>ZVAB</a> <i class="fa fa-external-link"></i>
+  	<a href="http://www.zvab.com/servlet/SearchResults?kn=<?= umlautepas($search_term) ?>" target=_blank>ZVAB <i class="fa fa-external-link"></i></a>
         	</div>
         	</td>
         </tr>
