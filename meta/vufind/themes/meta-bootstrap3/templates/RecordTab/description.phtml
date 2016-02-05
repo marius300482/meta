@@ -500,7 +500,7 @@
             <td property="issn">
             <? foreach ($issns as $field): ?>
                  <a target=_blank href="http://beta.zdb-opac.de/zdb/list.xhtml?t=
-                <?=$this->escapeHtml($field)?>"><?=$this->escapeHtml($field)?></a> <i class="fa fa-external-link"></i>
+                <?=$this->escapeHtml($field)?>"><?=$this->escapeHtml($field)?> <i class="fa fa-external-link"></i></a>
                 <?= $field !== end($issns) ? "<p/> " : "" ?>
             <? endforeach; ?>
             </td>
