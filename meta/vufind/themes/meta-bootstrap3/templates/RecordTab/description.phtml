@@ -344,7 +344,7 @@
             <? endforeach; ?>
             </td>
         </tr>
-    <? endif; ?>
+    <? endif; ?>*/?>
 
     <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
     <? if (isset($publicationDate)): ?>
@@ -353,7 +353,7 @@
             <th><?=$this->transEsc('Date of publication')?>: </th>
             <td property=publicationDate"><?= $this->escapeHtml($publicationDate) ?></td>
         </tr>
-    <? endif; ?>*/?>
+    <? endif; ?>
 
     <? $issues = $this->driver->getIssues(); ?>
     <? if (!empty($issues)): ?>
