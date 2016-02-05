@@ -138,6 +138,11 @@ abstract class SolrIDA extends SolrDefault
     }
 
     
+     public function getEditions()
+    {
+        return $this->getMultiValuedField("edition");
+    }
+    
      public function getOutOfStocks()
     {
         return $this->getMultiValuedField("outOfStocks");
