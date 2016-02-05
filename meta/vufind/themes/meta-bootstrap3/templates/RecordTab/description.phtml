@@ -256,16 +256,7 @@
       <? endif; ?>
 	  <?php endif; ?>
 
-<?php if ($this->driver->isLibrary()): ?>
-	   <? $shelfMark = $this->driver->getShelfMark(); ?>
-	  <? if (isset($shelfMark)): ?>
-	  <? $contentDisplayed = true; ?>
-	  <tr valign="top">
-            <th><?=$this->transEsc('Signatory')?>: </th>
-            <td property="shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
-        </tr>
-      <? endif; ?>
-	  <?php endif; ?>
+
 
 	  
    <!-- <? $shelfMark = $this->driver->getShelfMark(); ?>
@@ -739,6 +730,18 @@
         </tr>
     <? endif; ?> -->
     
+    
+    <?php if ($this->driver->isLibrary()): ?>
+	   <? $shelfMark = $this->driver->getShelfMark(); ?>
+	  <? if (isset($shelfMark)): ?>
+	  <? $contentDisplayed = true; ?>
+	  <tr valign="top">
+            <th><?=$this->transEsc('Signatory')?>: </th>
+            <td property="shelfmark"><?= $this->escapeHtml($shelfMark) ?></td>
+        </tr>
+      <? endif; ?>
+	  <?php endif; ?>
+	  
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>
         <? $contentDisplayed = true; ?>
