@@ -339,7 +339,7 @@
 
 <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
 <? $editions = $this->driver->getEditions();  ?>
-     <?   if (empty($publicationDate)): ?>
+     <? if (empty($publicationDate) && (!empty($editions)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
             <th><?= $this->transEsc('Edition') ?>:</th>
