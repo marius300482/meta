@@ -19,13 +19,14 @@
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 			
 			
-			<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">
+			<xsl:if test="contains(objektart,'Einzeltitel')">
+			
 			<!--
 			
 			<xsl:if test="objektart[text()!='NutzerIn']">
 			<xsl:if test="(objektart[text()='Zeitschrift']) or (objektart[text()='Zeitschrift/Heftitel'])">
 			<xsl:if test="objektart[text()='Zeitschrift/Heftitel']">
-			
+			<xsl:if test="contains(objektart,'Einzeltitel')">
 			
 			-->
 			<!--<xsl:if test="objektart[text()!='NutzerIn']">-->
