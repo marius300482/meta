@@ -346,6 +346,15 @@
         </tr>
     <? endif; ?>*/?>
 
+<? $editions = $this->driver->getEditions();
+    if (!empty($editions)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+            <th><?= $this->transEsc('Edition') ?>:</th>
+            <td><? foreach ($editions as $edition): ?><?= $this->escapeHtml($edition) ?><?= $edition !== end($editions) ? " <br /> " : "" ?><? endforeach; ?></td>
+        </tr>
+    <? endif; ?>
+
     <? $publicationDate = $this->driver->getDisplayPublicationDate(); ?>
     <? if (isset($publicationDate)): ?>
         <? $contentDisplayed = true; ?>
