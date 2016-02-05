@@ -655,16 +655,16 @@
        			endif;
        		?>
   	<div style="margin: .7em 0 1em .5em; line-height:1.5em;">
-  	<a href="http://www.amazon.de/s/field-keywords=<?= $search_term ?>?tag=<?= $amazonassociate ?>&node=186606" target=_blank>amazon</a> <i class="fa fa-external-link"></i><br />
+  	<a href="http://www.amazon.de/s/field-keywords=<?= $search_term ?>?tag=<?= $amazonassociate ?>&node=186606" target=_blank>amazon <i class="fa fa-external-link"></i></a><br />
   	<? if  ($formats[0]=="Artikel"): ?>
-  		<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $search_term ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a> <i class="fa fa-external-link"></i><br />
+  		<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $search_term ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a><br />
   		<? else: ?>
-  			<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $titleShortPregReplace ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7</a> <i class="fa fa-external-link"></i><br />
+  			<a href="https://www.buch7.de/store/simple_search_results?utf8=✓&navkat=&search=<?= $titleShortPregReplace ?>&commit.x=0&commit.y=0&commit=Suchen" target=_blank>buch7 <i class="fa fa-external-link"></i></a><br />
   			<? endif; ?>
   	<? if  ($formats[0]=="Artikel"): ?>
-  		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker</a> <i class="fa fa-external-link"></i><br />
+  		<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker <i class="fa fa-external-link"></i></a><br />
   		<? else: ?>
-  			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker</a> <i class="fa fa-external-link"></i><br />
+  			<a href="http://www.booklooker.de/B%C3%BCcher/Angebote/titel=<?= umlautepas($search_term) ?>" target=_blank>booklooker <i class="fa fa-external-link"></i></a><br />
   			<? endif; ?>
   	<a href="http://www.zvab.com/servlet/SearchResults?kn=<?= umlautepas($search_term) ?>" target=_blank>ZVAB</a> <i class="fa fa-external-link"></i>
         	</div>
