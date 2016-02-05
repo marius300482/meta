@@ -18,8 +18,8 @@
 	<xsl:template match="datensatz">
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 			
-			<xsl:if test="objektart[text()='Zeitschrift/Heftitel']">
 			
+			<xsl:if test="objektart[text()!='NutzerIn']">
 			<!--
 			
 			<xsl:if test="objektart[text()!='NutzerIn']">
@@ -1377,6 +1377,9 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 	
 	<!--series Reiheninformation-->
 				<xsl:apply-templates select="Reihentitel"/>	
+				
+	<!--edition-->
+				<xsl:apply-templates select="Ausgabe[string-length() != 0]"/>	
 
 <!--IDENTIFIER-->
 
@@ -1604,7 +1607,17 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 					<is_hierarchy_title><xsl:value-of select="$title" /></is_hierarchy_title>
 					
 					<hierarchy_sequence>
-						<xsl:value-of select="$title"/>
+						<xsl:choose>
+							<xsl:when test="J_[string-length() != 0]">
+								<xsl:value-of select="J_" />
+								</xsl:when>
+							<xsl:when test="contains(Ausgabe,'(')">
+								<xsl:value-of select="substring-after(substring-before(Ausgabe,')'),'(')" />
+								</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="$title"/>
+								</xsl:otherwise>
+							</xsl:choose>
 						</hierarchy_sequence>
 				</hierarchyFields>
 			</functions>
@@ -1820,7 +1833,14 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 						</edition>
 						</xsl:for-each>
 					</xsl:if>
-					
+	
+	<!--edition Ausgabe-->
+				<xsl:if test="substring(substring-after($connect,'ausgabe:'),1,1)!=':'">
+					<edition>
+						<xsl:value-of select="substring-before(substring-after($connect,'ausgabe:'),':ausgabe')" />
+						</edition>
+					</xsl:if>
+			
 <!--IDENTIFIER-->
 
 	<!--ISBN / ISSN-->
@@ -2017,7 +2037,13 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 
 
 <!--Templates-->
-
+	
+	<xsl:template match="Ausgabe">
+		<edition>
+			<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
+			</edition>
+		</xsl:template>
+	
 	<xsl:template match="Inhalt-Thema">
 		<contentMatter>
 			<xsl:value-of select="normalize-space(replace(.,'_',''))"/>
