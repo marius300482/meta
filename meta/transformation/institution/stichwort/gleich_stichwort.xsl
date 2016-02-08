@@ -33,8 +33,17 @@
 
 <!--Umwandlungen werden nur bei diesem Objektarten durchgeführt-->
 		<!--<xsl:if test="(Objektart[text()='Bücher u. Graue Literatur']) or (Objektart[text()='Beiträge in Sammelwerken'])">-->
+		
+		
+		<xsl:if test="Objektart[text()='Zeitschriften']">
+		
+		<!--
+		
+		<xsl:if test="Objektart[text()='Zeitschriften']">
 		<xsl:if test="Objektart[text()='Transparente']">
-
+		
+		-->
+		
 		<xsl:variable name="id" select="Objektnummer" />
 		<xsl:element name="record">
 			<xsl:attribute name="id">
@@ -372,6 +381,10 @@
 				<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
 	<!--format-->
 				<format><xsl:text>Zeitschrift</xsl:text></format>
+	
+	<!--searchfilter-->
+				<searchfilter><xsl:text>ZP - Zeitschriftenheft</xsl:text></searchfilter>
+	
 	<!--documentType-->
 				<documentType><xsl:text>Zeitschriftenheft</xsl:text></documentType>
 
@@ -1270,9 +1283,18 @@
 			</xsl:template>
 		
 		<xsl:template match="Reihe">
-			<series>
-				<xsl:value-of select="." />
-				</series>
+			<xsl:choose>
+				<xsl:when test="Objektart[text()='Zeitschriften']">
+					<sourceInfo>
+						<xsl:value-of select="." />
+						</sourceInfo>
+					</xsl:when>
+				<xsl:otherwise>
+					<series>
+						<xsl:value-of select="." />
+						</series>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:template>
 		
 		<xsl:template match="Hg_x046x__x032x_von">
