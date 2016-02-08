@@ -741,27 +741,25 @@
         </tr>
       <? endif; ?>
 	  <?php endif; ?>
-	 
-	      <? $sourceInfo = $this->driver->getSourceInfos(); ?>
-            <? if (!empty($sourceInfo)): ?>
-                <? $top = $this->driver->getBelongsToTop(); ?>
-                <tr valign="top">
-            <th><?= $this->transEsc('Source') ?>:</th>
-            <td>
-                <? foreach($sourceInfo as $info): ?>
-                    <? $inText = $this->escapeHtml($info) ?>
-                    <? if (substr($top[1], 0, strlen($info)) === $info): ?>
-                        <a href="<?= $this->recordLink()->getUrl($top[0]) ?>">
-                            <?= $inText ?>
-                        </a>
-                    <? else: ?>
-                        <?= $inText ?>
-                    <? endif; ?>
-                    <?= $info !== end($sourceInfo) ? ", " : "" ?>
-                <? endforeach; ?>
-               </td>
-        </tr>
-            <? endif; ?> 
+
+
+   <? $sourceInfos = $this->driver->getSourceInfos(); ?>
+    <? if (!empty($sourceInfos)): ?>
+        <? $contentDisplayed = true; ?>
+        <tr valign="top">
+             <th colspan="2"><?=$this->transEsc('SourceInfo')?>:</th>
+             </tr>
+	     <tr valign="top">
+	      <td property="annotation" colspan="2">
+		<? foreach ($sourceInfos as $sourceInfo): ?>
+		<a href="http://meta-katalog.eu/Search/Results?lookfor=%22<?= $this->escapeHtml($sourceInfo); ?>&type=Sourceinfo"><?= $this->escapeHtml($sourceInfo); ?></a>
+		<?= $sourceInfo !== end($sourceInfos) ? "<br/> " : "" ?>
+	      <? endforeach; ?>
+	     </td>        
+	  </tr>
+	<? endif; ?>
+
+
 	 
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
     <? if ($QRCode): ?>
