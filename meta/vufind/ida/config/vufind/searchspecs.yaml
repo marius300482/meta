@@ -214,6 +214,28 @@ Subject:
     era:
       - [and, 100]
       - [or, ~]
+      
+      
+
+SourceInfo:
+  DismaxFields:
+   - sourceInfo^500
+  QueryFields:
+   - sourceInfo:
+   - [onephrase, 500]
+   - [and, 200]
+   - [or, 100]
+
+Publisher:
+  DismaxFields:
+   - publisher^500 
+  QueryFields:
+   - publisher: 
+   - [onephrase, 500]
+   - [and, 200]
+   - [or, 100]  
+
+
 #  ExactSettings:
 #    DismaxFields:
 #      - topic_unstemmed^150
