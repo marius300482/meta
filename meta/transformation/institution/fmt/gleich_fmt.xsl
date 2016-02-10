@@ -23,6 +23,9 @@
 		
 	<xsl:template match="Datensatz">
 		
+		
+		<xsl:if test="Objektart_x058x_[text()='Zeitschrift']">
+		
 		<!--<xsl:if test="Objektart_x058x_[text()='Zeitschrift']">-->
 		
 		<xsl:variable name="id" select="Objektnummer_x058x_"/>
@@ -1854,7 +1857,7 @@
 
 
 </xsl:element>
-		<!--</xsl:if>-->
+		</xsl:if>
 
 </xsl:template>
 
