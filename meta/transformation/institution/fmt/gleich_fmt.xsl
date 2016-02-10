@@ -522,8 +522,11 @@
 	<!--typeOfRessource-->
 					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>				
 	<!--format Objektartinformationen-->
-					<format><xsl:text>Zeitschrift</xsl:text>
-					</format>
+					<format><xsl:text>Zeitschrift</xsl:text></format>
+					
+	<!--searchfilter-->
+					<searchfilter><xsl:text>ZP - Zeitschriftenheft</xsl:text></searchfilter>
+		
 	<!--documentType-->
 					<documentType><xsl:text>Zeitschriftenheft</xsl:text></documentType>
 					<xsl:apply-templates select="Formen_x058x_"/>
