@@ -46,8 +46,11 @@
 
 
 <xsl:template match="datensatz">
+	
+	<xsl:if test="Objektart[text()='Buch']">
 
 	<xsl:element name="record">
+	
 
 <!--vufind_______________________________vufind_______________________________vufind-->
 <!--institution_______________________________institution_______________________________institution-->	
@@ -112,6 +115,7 @@
 
 			</xsl:element>
 		</xsl:element>
+	</xsl:if>
 	</xsl:template>
 	
 	
