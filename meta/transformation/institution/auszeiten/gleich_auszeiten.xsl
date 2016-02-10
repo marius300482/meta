@@ -445,21 +445,15 @@
 		<title>
 			<xsl:value-of select="." />
 			</title>
-		<xsl:choose>
-			<xsl:when test="../untertitel3">
-				<title_short>
-					<xsl:value-of select="normalize-space(substring-before(.,':'))" />
-					</title_short>
+		<title_short>
+			<xsl:value-of select="." />
+			</title_short>
+		
+			<xsl:if test="../untertitel3">
 				<title_sub>
 					<xsl:value-of select="../untertitel3" />
 					</title_sub>
-				</xsl:when>
-			<xsl:otherwise>
-				<title_short>
-					<xsl:value-of select="." />
-					</title_short>
-				</xsl:otherwise>
-			</xsl:choose>
+				</xsl:if>
 		</xsl:template>
 	
 <xsl:template match="objektnummer">
