@@ -19,7 +19,7 @@
 	<xsl:variable name="s_sachtitel" select="translate(s__Sachtitel[1], translate(.,'0123456789', ''), '')"/>
 			
 			
-			<xsl:if test="objektart[text()='Zeitschrift']">
+			<xsl:if test="contains(objektart,'Einzeltitel')">
 			
 			<!--
 			
@@ -2013,7 +2013,8 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 			</is_hierarchy_title>
 			
 		<hierarchy_sequence>
-			<xsl:value-of select="normalize-space(substring-before(Umfang, '-'))"/>
+			<xsl:value-of select="normalize-space(Einzeltitel)"/>
+			<!--<xsl:value-of select="normalize-space(substring-before(Umfang, '-'))"/>-->
 			</hierarchy_sequence>
 	
 
