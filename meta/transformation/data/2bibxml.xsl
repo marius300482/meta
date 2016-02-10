@@ -310,12 +310,9 @@
 						</xsl:variable>
 						<xsl:value-of select="ida:build-group-id(vufind/id, dataset/format, $author, $title)"/>		
 					</xsl:when>
-					<xsl:when test="dataset/documentType = 'Zeitschriftenreihe'">
+					<xsl:when test="dataset/searchfilter = 'ZP - Zeitschrift'">
 						<xsl:variable name="title">
 							<xsl:choose>
-								<!--<xsl:when test="dataset/title_short[1]">
-									<xsl:value-of select="ida:normalize-title(dataset/title_short[1])"/>
-								</xsl:when>-->
 								<xsl:when test="dataset/title[1]">
 									<xsl:value-of select="ida:normalize-title(dataset/title[1])"/>
 								</xsl:when>
