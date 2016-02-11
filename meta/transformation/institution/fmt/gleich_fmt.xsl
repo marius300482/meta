@@ -675,8 +675,7 @@
 										<xsl:value-of select="normalize-space(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_[1],'_',''))"/>
 										</xsl:otherwise>
 									</xsl:choose>
-								<!--<xsl:value-of select="normalize-space(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_,'_',''))"/>-->
-								<!--<xsl:value-of select="substring-before(substring-after($connect,'title:'),':title')" />-->
+								
 								</xsl:when>
 							</xsl:choose>
 						</sourceInfo>
@@ -718,7 +717,7 @@
 					<xsl:apply-templates select="Heft_x058x_"/>
 					
 	<!--volume-->
-					<xsl:if test="contains(Zeitschr_x046x__x047x_Reihentitel_x058x_,';')">
+					<xsl:if test="contains(Zeitschr_x046x__x047x_Reihentitel_x058x_[1],';')">
 					<volume>
 						<xsl:value-of select="normalize-space(substring-after(Zeitschr_x046x__x047x_Reihentitel_x058x_[1],';'))"/>
 						
