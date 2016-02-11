@@ -2013,7 +2013,7 @@ Im Gegensatz zur Zeitschrift ist ein Hefttitel ausleihbar.-->
 			</is_hierarchy_title>
 			
 		<hierarchy_sequence>
-			<xsl:value-of select="normalize-space(Einzeltitel[1])"/>
+			<xsl:value-of select="substring(normalize-space(Einzeltitel[1]),1,4)"/>
 			<!--<xsl:value-of select="normalize-space(substring-before(Umfang, '-'))"/>-->
 			</hierarchy_sequence>
 	
