@@ -137,6 +137,8 @@
 						<xsl:when test="(contains(Dokumentart,'Zeitschrift')) or
 									(contains(Dokumentart,'Zeitung')) ">
 							<format><xsl:text>Zeitschrift</xsl:text></format>
+							<!--searchfilter-->
+							<searchfilter><xsl:text>ZP - Zeitschriftenheft</xsl:text></searchfilter>
 							</xsl:when>
 						<xsl:when test="(contains(Dokumentart,'Aufsatz')) or
 									(contains(Dokumentart,'Interview')) or
