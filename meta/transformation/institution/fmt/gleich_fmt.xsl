@@ -24,9 +24,14 @@
 	<xsl:template match="Datensatz">
 		
 		
+		<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">
+		
+		<!--
+		<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">
 		<xsl:if test="Objektart_x058x_[text()='Zeitschrift']">
 		
-		<!--<xsl:if test="Objektart_x058x_[text()='Zeitschrift']">-->
+		
+		-->
 		
 		<xsl:variable name="id" select="Objektnummer_x058x_"/>
 		<xsl:element name="record">
@@ -625,38 +630,53 @@
 	<!--display publishDate Jahresangabe-->
 					<xsl:apply-templates select="Jahr_x058x_"/>
 	<!--placeOfPublication-->
-					<xsl:if test="substring(substring-after($connect,'placeOfPublication:'),1,1)!=':'">
-						<placeOfPublication>
-							<xsl:value-of select="substring-before(substring-after($connect,'placeOfPublication:'),':placeOfPublication')" />
-							</placeOfPublication>
-						</xsl:if>
-					
-					<!--<xsl:if test="//Datensatz[Signatur_x058x_=$rel]/Ort_x058x_">
-						<placeOfPublication>
-							<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Ort_x058x_"/>
-							</placeOfPublication>
-						</xsl:if>-->
+					<xsl:choose>
+						<xsl:when test="Ort_x058x_">
+							<placeOfPublication>
+								<xsl:value-of select="Ort_x058x_" />
+								</placeOfPublication>
+							</xsl:when>
+						<xsl:when test="substring(substring-after($connect,'placeOfPublication:'),1,1)!=':'">
+							<placeOfPublication>
+								<xsl:value-of select="substring-before(substring-after($connect,'placeOfPublication:'),':placeOfPublication')" />
+								</placeOfPublication>
+							</xsl:when>
+						<xsl:otherwise></xsl:otherwise>
+						</xsl:choose>
+						
 	<!--publisher-->
-					<xsl:if test="substring(substring-after($connect,'publisher:'),1,1)!=':'">
-						<publisher>
-							<xsl:value-of select="substring-before(substring-after($connect,'publisher:'),':publisher')" />
-							</publisher>
-						</xsl:if>
-					
-					<!--<xsl:if test="//Datensatz[Signatur_x058x_=$rel]/Verlag_x058x_">
-						<publisher>
-							<xsl:value-of select="//Datensatz[Signatur_x058x_=$rel]/Verlag_x058x_"/>
-							</publisher>
-						</xsl:if>-->
+					<xsl:choose>
+						<xsl:when test="Verlag_x058x_">
+							<publisher>
+								<xsl:value-of select="Verlag_x058x_" />
+								</publisher>
+							</xsl:when>
+						<xsl:when test="substring(substring-after($connect,'publisher:'),1,1)!=':'">
+							<publisher>
+								<xsl:value-of select="substring-before(substring-after($connect,'placeOfPublication:'),':placeOfPublication')" />
+								</publisher>
+							</xsl:when>
+						<xsl:otherwise></xsl:otherwise>
+						</xsl:choose>
+						
 	<!--sourceInfo-->
-					<xsl:if test="Zeitschrift_x032x__x040x_Link_x041x__x058x_">
+					<xsl:if test="(Zeitschrift_x032x__x040x_Link_x041x__x058x_) or (Zeitschr_x046x__x047x_Reihentitel_x058x_)">
 					<sourceInfo>
 						<xsl:choose>
 							<xsl:when test="Zeitschrift_x032x__x040x_Link_x041x__x058x_">
 								<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_"/>
 								</xsl:when>
-							<xsl:when test="//DatensatzZeitschrift_x032x__x040x_Link_x041x__x058x_">
-								<xsl:value-of select="substring-before(substring-after($connect,'title:'),':title')" />
+							<xsl:when test="Zeitschr_x046x__x047x_Reihentitel_x058x_">
+								<xsl:choose>
+									<xsl:when test="contains(Zeitschr_x046x__x047x_Reihentitel_x058x_,';')">
+										<xsl:value-of select="normalize-space(substring-before(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_,'_',''),';'))"/>
+										</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="normalize-space(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_,'_',''))"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								<!--<xsl:value-of select="normalize-space(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_,'_',''))"/>-->
+								<!--<xsl:value-of select="substring-before(substring-after($connect,'title:'),':title')" />-->
 								</xsl:when>
 							</xsl:choose>
 						</sourceInfo>
@@ -696,6 +716,14 @@
 
 	<!--issue Heft-->
 					<xsl:apply-templates select="Heft_x058x_"/>
+					
+	<!--volume-->
+					<xsl:if test="contains(Zeitschr_x046x__x047x_Reihentitel_x058x_,';')">
+					<volume>
+						<xsl:value-of select="normalize-space(substring-after(Zeitschr_x046x__x047x_Reihentitel_x058x_,';'))"/>
+						
+						</volume>
+						</xsl:if>
 
 <!--OTHER-->
 	
