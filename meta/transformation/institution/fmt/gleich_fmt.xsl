@@ -668,11 +668,11 @@
 								</xsl:when>
 							<xsl:when test="Zeitschr_x046x__x047x_Reihentitel_x058x_">
 								<xsl:choose>
-									<xsl:when test="contains(Zeitschr_x046x__x047x_Reihentitel_x058x_,';')">
-										<xsl:value-of select="normalize-space(substring-before(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_,'_',''),';'))"/>
+									<xsl:when test="contains(Zeitschr_x046x__x047x_Reihentitel_x058x_[1],';')">
+										<xsl:value-of select="normalize-space(substring-before(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_[1],'_',''),';'))"/>
 										</xsl:when>
 									<xsl:otherwise>
-										<xsl:value-of select="normalize-space(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_,'_',''))"/>
+										<xsl:value-of select="normalize-space(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_[1],'_',''))"/>
 										</xsl:otherwise>
 									</xsl:choose>
 								<!--<xsl:value-of select="normalize-space(replace(Zeitschr_x046x__x047x_Reihentitel_x058x_,'_',''))"/>-->
@@ -720,7 +720,7 @@
 	<!--volume-->
 					<xsl:if test="contains(Zeitschr_x046x__x047x_Reihentitel_x058x_,';')">
 					<volume>
-						<xsl:value-of select="normalize-space(substring-after(Zeitschr_x046x__x047x_Reihentitel_x058x_,';'))"/>
+						<xsl:value-of select="normalize-space(substring-after(Zeitschr_x046x__x047x_Reihentitel_x058x_[1],';'))"/>
 						
 						</volume>
 						</xsl:if>
