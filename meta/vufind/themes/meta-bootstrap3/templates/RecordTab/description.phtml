@@ -752,7 +752,7 @@
 	     <tr valign="top">
 	      <td property="annotation" colspan="2">
 		<? foreach ($sourceInfos as $sourceInfo): ?>
-		<a href="http://meta-katalog.eu/Search/Results?lookfor=%22<?= $this->escapeHtml($sourceInfo); ?>%22&type=Sourceinfo&filter=searchfilter%3A%22ZP+-+Zeitschriftenheft%22"><?= $this->escapeHtml($sourceInfo); ?></a>
+		<a href="http://meta-katalog.eu/Search/Results?lookfor=<?= $this->escapeHtml($sourceInfo); ?>&type=Sourceinfo&filter=searchfilter%3A%22ZP+-+Zeitschriftenheft%22"><?= $this->escapeHtml($sourceInfo); ?></a>
 		<?= $sourceInfo !== end($sourceInfos) ? "<br/> " : "" ?>
 	      <? endforeach; ?>
 	     </td>        
