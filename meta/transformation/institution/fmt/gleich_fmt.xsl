@@ -24,7 +24,7 @@
 	<xsl:template match="Datensatz">
 		
 		
-		<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">
+		<!--<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">-->
 		
 		<!--
 		<xsl:if test="Objektart_x058x_[text()='Zeitschriftenausgabe']">
@@ -1443,6 +1443,12 @@
 					
 	<!--sourceInfo-->
 					<xsl:choose>
+						<xsl:when test="Sammelwerk_x032x__x040x_Link_x041x__x058x_">
+							<xsl:variable name="sammel" select="Sammelwerk_x032x__x040x_Link_x041x__x058x_"></xsl:variable>
+							<sourceInfo>
+								<xsl:value-of select="normalize-space(replace(//Datensatz[Signatur_x058x_=$sammel]/Titel_x058x_,'_',''))"/>
+								</sourceInfo>
+							</xsl:when>
 						<xsl:when test="In_x032x_Zeitschrift_x058x_">
 							<sourceInfo>
 								<xsl:value-of select="In_x032x_Zeitschrift_x058x_"/>
@@ -1505,7 +1511,7 @@
 						
 						
 						
-						<xsl:when test="Sammelwerk_x032x__x040x_Link_x041x__x058x_">
+					<xsl:when test="Sammelwerk_x032x__x040x_Link_x041x__x058x_">
 							
 						
 						
@@ -1518,7 +1524,7 @@
 								<xsl:text>:id</xsl:text>
 						
 								<xsl:text> title:</xsl:text>
-								<xsl:value-of select="Titel_x058x_"></xsl:value-of>
+								<xsl:value-of select="normalize-space(replace(Titel_x058x_,'_',''))" />
 								<xsl:text>:title</xsl:text>
 						
 								</xsl:for-each>
@@ -1547,7 +1553,8 @@
 							</is_hierarchy_id>
 					
 						<is_hierarchy_title>
-							<xsl:value-of select="Titel_x058x_[1]"/>
+							<xsl:value-of select="normalize-space(replace(Titel_x058x_[1],'_',''))" />
+							<!--<xsl:value-of select="Titel_x058x_[1]"/>-->
 							</is_hierarchy_title>
 				
 						<hierarchy_sequence>
@@ -1559,7 +1566,7 @@
 						
 						
 						
-						<xsl:when test="Heft_x032x__x040x_Link_x041x__x058x_">
+					<xsl:when test="Heft_x032x__x040x_Link_x041x__x058x_">
 							
 						<xsl:variable name="connect">
 						<xsl:variable name="rel" select="Heft_x032x__x040x_Link_x041x__x058x_"/>
@@ -1570,8 +1577,9 @@
 								<xsl:text>:id</xsl:text>
 						
 								<xsl:text> title:</xsl:text>
-								<xsl:value-of select="Titel_x058x_"></xsl:value-of>
-								<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_"></xsl:value-of>
+								<xsl:value-of select="normalize-space(replace(Titel_x058x_,'_',''))" />
+								<xsl:value-of select="normalize-space(replace(Zeitschrift_x032x__x040x_Link_x041x__x058x_,'_',''))" />
+								<!--<xsl:value-of select="Zeitschrift_x032x__x040x_Link_x041x__x058x_"></xsl:value-of>-->
 								<xsl:text>:title</xsl:text>
 						
 								</xsl:for-each>
@@ -1600,7 +1608,8 @@
 							</is_hierarchy_id>
 					
 						<is_hierarchy_title>
-							<xsl:value-of select="Titel_x058x_[1]"/>
+							<xsl:value-of select="normalize-space(replace(Titel_x058x_[1],'_',''))" />
+							<!--<xsl:value-of select="Titel_x058x_[1]"/>-->
 							</is_hierarchy_title>
 				
 						<hierarchy_sequence>
@@ -1609,7 +1618,7 @@
 						
 							</xsl:when>
 						
-						<xsl:when test="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_">
+					<xsl:when test="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_">
 							
 						<xsl:variable name="connect">
 						<xsl:variable name="rel" select="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_"/>
@@ -1635,7 +1644,8 @@
 							</hierarchy_top_id>
 	
 						<hierarchy_top_title>
-							<xsl:value-of select="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_" />
+							<xsl:value-of select="normalize-space(replace(In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_,'_',''))" />
+							<!--<xsl:value-of select="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_" />-->
 							</hierarchy_top_title>
 							
 						<hierarchy_parent_id>
@@ -1644,7 +1654,8 @@
 							</hierarchy_parent_id>
 							
 						<hierarchy_parent_title>
-							<xsl:value-of select="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_" />
+							<xsl:value-of select="normalize-space(replace(In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_,'_',''))" />
+							<!--<xsl:value-of select="In_x032x_Zeitschrift_x032x__x040x_Link_x041x__x058x_" />-->
 							</hierarchy_parent_title>
 						
 						<is_hierarchy_id>
@@ -1653,7 +1664,8 @@
 							</is_hierarchy_id>
 					
 						<is_hierarchy_title>
-							<xsl:value-of select="Titel_x058x_[1]"/>
+							<xsl:value-of select="normalize-space(replace(Titel_x058x_[1],'_',''))" />
+							<!--<xsl:value-of select="Titel_x058x_[1]"/>-->
 							</is_hierarchy_title>
 				
 						<hierarchy_sequence>
@@ -1884,7 +1896,7 @@
 
 
 </xsl:element>
-		</xsl:if>
+		<!--</xsl:if>-->
 
 </xsl:template>
 
