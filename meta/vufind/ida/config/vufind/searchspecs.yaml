@@ -175,6 +175,15 @@ Author:
       - [and, 50]
       - [or, ~]
 
+Editor:
+  DismaxFields:
+    - editor^100
+  QueryFields:
+    editor:
+      - [onephrase, 350]
+      - [and, 200]
+      - [or, 100]
+
 ISN:
   DismaxFields:
     - isbn
