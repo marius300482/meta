@@ -230,7 +230,7 @@
    <field name="person" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="language_code" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="placeOfPublication" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="editor" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="editor" type="textProper" indexed="true" stored="true" multiValued="true"/>
    <field name="editorStr" type="textFacet" indexed="true" stored="false" multiValued="true"/>
    <field name="recordContentSource" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="recordCreationDate" type="string" indexed="true" stored="true" multiValued="false"/>
