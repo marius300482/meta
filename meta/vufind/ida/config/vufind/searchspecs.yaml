@@ -615,9 +615,10 @@ allContributors:
     - author_additional
     - editor
     - contributor
+
 editorStr:
   DismaxFields:
-    - editor
+    - editor^100
 
 zdbid:
   DismaxFields:
