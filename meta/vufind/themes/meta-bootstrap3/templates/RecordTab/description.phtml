@@ -743,22 +743,6 @@
 	  <?php endif; ?>
 
 
-   <? $sourceInfos = $this->driver->getSourceInfos(); ?>
-    <? if (!empty($sourceInfos)): ?>
-        <? $contentDisplayed = true; ?>
-        <tr valign="top">
-             <th colspan="2"><?=$this->transEsc('SourceInfo')?>:</th>
-             </tr>
-	     <tr valign="top">
-	      <td property="annotation" colspan="2">
-		<? foreach ($sourceInfos as $sourceInfo): ?>
-		<a href="http://meta-katalog.eu/Search/Results?lookfor=<?= $this->escapeHtml($sourceInfo); ?>&type=Sourceinfo"><?= $this->escapeHtml($sourceInfo); ?></a>
-		<?= $sourceInfo !== end($sourceInfos) ? "<br/> " : "" ?>
-	      <? endforeach; ?>
-	     </td>        
-	  </tr>
-	<? endif; ?>
-
 
 	 
     <? $QRCode = $this->record($this->driver)->getQRCode("core"); ?>
