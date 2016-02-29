@@ -24,9 +24,142 @@
 <!--Der Hauptknoten-->	
 	<xsl:template match="STICHWORT">
 		<xsl:element name="catalog">
-			<xsl:apply-templates/>
+			<xsl:apply-templates select="//Gruppe[1]" />
+			<xsl:apply-templates select="//Objekt" />
+			
+			<!--<xsl:apply-templates/>-->
 		</xsl:element>
 	</xsl:template>
+
+
+
+<!--Zeitschriftenstammdatensatz-->
+
+	<xsl:template match="//Gruppe[1]">
+
+	<xsl:for-each select="../Objektart[text()='Zeitschriften']">
+		<xsl:element name="record">
+		<xsl:if test="../Reihe[string-length() != 0]">
+		<xsl:element name="vufind">
+
+			<!--Identifikator-->
+				<id>
+					<xsl:value-of select="translate(../Reihe, '. /äüö,', '')" />
+					<xsl:text>stichwort</xsl:text>
+					</id>
+					
+			<!--recordCreationDate-->
+				<recordCreationDate>
+						<xsl:value-of select="current-dateTime()"/>
+						</recordCreationDate>
+					
+			<!--recordChangeDate-->
+				<recordChangeDate>
+					<xsl:value-of select="current-dateTime()"/>
+					</recordChangeDate>
+	
+			<!--recordType-->
+				<recordType>
+					<xsl:text>library</xsl:text>
+					</recordType>
+				
+			</xsl:element>
+
+		<xsl:element name="institution">
+
+			<!--institutionShortname-->			
+				<institutionShortname>
+					<xsl:text>Stichwort</xsl:text>
+					</institutionShortname>
+	
+			<!--institutionFullname-->			
+				<institutionFull>
+					<xsl:text>STICHWORT, Archiv der Frauen- und Lesbenbewegung, Bibliothek · Dokumentation · Multimedia</xsl:text>
+					</institutionFull>
+						
+				<institutionID>
+					<xsl:text>stichwort</xsl:text>
+					</institutionID>
+						
+			<!--collection-->				
+				<collection><xsl:text>Stichwort</xsl:text></collection>
+	
+			<!--isil-->					
+				<isil><xsl:text>AT-STICHWORT</xsl:text></isil>
+	
+			<!--linkToWebpage-->			
+				<link><xsl:text>http://www.ida-dachverband.de/einrichtungen/oesterreich/stichwort/</xsl:text></link>
+	
+			<!--geoLocation-->				
+				<geoLocation>
+					<latitude>48.197364</latitude>
+					<longitude>16.370382</longitude>
+					</geoLocation>
+
+			</xsl:element>
+
+		<xsl:element name="dataset">
+		
+<!--FORMAT-->
+
+	<!--typeOfRessource-->
+					<typeOfRessource><xsl:text>text</xsl:text></typeOfRessource>
+	
+	<!--format Objektartinformationen-->
+					<format><xsl:text>Zeitschrift</xsl:text></format>
+	
+	<!--searchfilter-->
+					<searchfilter><xsl:text>ZP - Zeitschrift</xsl:text></searchfilter>
+
+<!--TITLE-->
+	
+	<!--title Titelinformationen-->
+				<title>
+					<xsl:value-of select="../Reihe" />
+					</title>
+				<title_short>
+				<xsl:value-of select="../Reihe" />
+					</title_short>
+				
+
+<!--RESPONSIBLE-->
+
+	<!--editor-->
+				<xsl:apply-templates select="../Hg_x046x__x032x_von" />
+
+<!--IDENTIFIER-->
+
+	<!--isbn issn-->
+				<xsl:apply-templates select="../ISBN_x047x_ISSN" />
+
+<!--PUBLISHING-->
+			
+	<!--placeOfPublication-->
+				<xsl:apply-templates select="../Ort" />
+	<!--publisher-->
+				<xsl:apply-templates select="../Verlag" />
+
+			
+			</xsl:element>
+
+		<xsl:element name="functions">
+			
+			<hierarchyFields>
+					
+					<hierarchy_top_id><xsl:value-of select="translate(../Reihe, '. /äüö,', '')" /><xsl:text>stichwort</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="../Reihe" /></hierarchy_top_title>
+				
+					<is_hierarchy_id><xsl:value-of select="translate(../Reihe, '. /äüö,', '')" /><xsl:text>stichwort</xsl:text></is_hierarchy_id>
+					<is_hierarchy_title><xsl:value-of select="../Reihe" /></is_hierarchy_title>
+				
+					</hierarchyFields>
+			</xsl:element>
+		
+		</xsl:if>
+		</xsl:element>
+		</xsl:for-each>
+	</xsl:template>
+
 
 
 <xsl:template match="Objekt">	
@@ -1104,10 +1237,17 @@
 			<xsl:variable name="relatedID" select="translate(., translate(.,'0123456789', ''), '')" />
 			<functions>
 				<hierarchyFields>
-					<hierarchy_top_id><xsl:value-of select="../Objektnummer" /><xsl:text>stw</xsl:text></hierarchy_top_id>
-					<hierarchy_top_title><xsl:value-of select="../Titel" /></hierarchy_top_title>
+					
+					<hierarchy_top_id><xsl:value-of select="translate(../Reihe, '. /äüö,', '')" /><xsl:text>stichwort</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="../Reihe" /></hierarchy_top_title>
+					
+					<hierarchy_parent_id><xsl:value-of select="translate(../Reihe, '. /äüö,', '')" /><xsl:text>stichwort</xsl:text></hierarchy_parent_id>
+					<hierarchy_parent_title><xsl:value-of select="../Reihe" /></hierarchy_parent_title>
+					
+					<!--<hierarchy_top_id><xsl:value-of select="../Objektnummer" /><xsl:text>stichwort</xsl:text></hierarchy_top_id>
+					<hierarchy_top_title><xsl:value-of select="../Titel" /></hierarchy_top_title>-->
 				
-					<is_hierarchy_id><xsl:value-of select="../Objektnummer" /><xsl:text>stw</xsl:text></is_hierarchy_id>
+					<is_hierarchy_id><xsl:value-of select="../Objektnummer" /><xsl:text>stichwort</xsl:text></is_hierarchy_id>
 					<is_hierarchy_title><xsl:value-of select="../Titel" /></is_hierarchy_title>
 				
 					</hierarchyFields>
