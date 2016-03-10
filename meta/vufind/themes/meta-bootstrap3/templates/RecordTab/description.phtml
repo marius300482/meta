@@ -27,7 +27,7 @@
     <? if (!empty($institutions)): ?>
         <? $contentDisplayed = true; ?>
         <tr valign="top">
-            <th><?=$this->transEsc('Institution')?>: </th>
+            <th><?=$this->transEsc('Available')?>: </th>
             <td property="institution">
             <? foreach($institutions as $institution): ?>
              <a href="#link"><?= $this->transEsc($institution) ?><?= $institution !== end($institutions) ? ", " : "" ?> <i class="fa fa-map-marker"></i></a>
